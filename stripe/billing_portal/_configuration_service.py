@@ -11,7 +11,9 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class ConfigurationService(StripeService):
     class CreateParams(TypedDict):
-        business_profile: "ConfigurationService.CreateParamsBusinessProfile"
+        business_profile: NotRequired[
+            "ConfigurationService.CreateParamsBusinessProfile"
+        ]
         """
         The business information shown to customers in the portal.
         """
@@ -125,7 +127,7 @@ class ConfigurationService(StripeService):
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
+        Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. Passing `always_invoice` will result in an error. No prorations are generated when canceling a subscription at the end of its natural billing period.
         """
 
     class CreateParamsFeaturesSubscriptionCancelCancellationReason(TypedDict):
@@ -175,6 +177,12 @@ class ConfigurationService(StripeService):
         """
         Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
         """
+        schedule_at_period_end: NotRequired[
+            "ConfigurationService.CreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd"
+        ]
+        """
+        Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
+        """
 
     class CreateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
         prices: List[str]
@@ -184,6 +192,24 @@ class ConfigurationService(StripeService):
         product: str
         """
         The product id.
+        """
+
+    class CreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd(TypedDict):
+        conditions: NotRequired[
+            List[
+                "ConfigurationService.CreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition"
+            ]
+        ]
+        """
+        List of conditions. When any condition is true, the update will be scheduled at the end of the current period.
+        """
+
+    class CreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition(
+        TypedDict,
+    ):
+        type: Literal["decreasing_item_amount", "shortening_interval"]
+        """
+        The type of condition.
         """
 
     class CreateParamsLoginPage(TypedDict):
@@ -345,7 +371,7 @@ class ConfigurationService(StripeService):
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
+        Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. Passing `always_invoice` will result in an error. No prorations are generated when canceling a subscription at the end of its natural billing period.
         """
 
     class UpdateParamsFeaturesSubscriptionCancelCancellationReason(TypedDict):
@@ -383,6 +409,12 @@ class ConfigurationService(StripeService):
         """
         Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
         """
+        schedule_at_period_end: NotRequired[
+            "ConfigurationService.UpdateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd"
+        ]
+        """
+        Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
+        """
 
     class UpdateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
         prices: List[str]
@@ -392,6 +424,22 @@ class ConfigurationService(StripeService):
         product: str
         """
         The product id.
+        """
+
+    class UpdateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd(TypedDict):
+        conditions: NotRequired[
+            "Literal['']|List[ConfigurationService.UpdateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition]"
+        ]
+        """
+        List of conditions. When any condition is true, the update will be scheduled at the end of the current period.
+        """
+
+    class UpdateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition(
+        TypedDict,
+    ):
+        type: Literal["decreasing_item_amount", "shortening_interval"]
+        """
+        The type of condition.
         """
 
     class UpdateParamsLoginPage(TypedDict):

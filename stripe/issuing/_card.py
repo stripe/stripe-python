@@ -30,7 +30,7 @@ class Card(
     UpdateableAPIResource["Card"],
 ):
     """
-    You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
+    You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
     """
 
     OBJECT_NAME: ClassVar[Literal["issuing.card"]] = "issuing.card"
@@ -1211,7 +1211,7 @@ class Card(
         """
         second_line: NotRequired["Literal['']|str"]
         """
-        The second line to print on the card.
+        The second line to print on the card. Max length: 24 characters.
         """
         shipping: NotRequired["Card.CreateParamsShipping"]
         """
@@ -3428,7 +3428,7 @@ class Card(
     """
     An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
 
-    Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards#create-cardholder)
+    Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards/virtual/issue-cards#create-cardholder)
     """
     created: int
     """
@@ -4080,7 +4080,7 @@ class Card(
             cls, card: str, **params: Unpack["Card.SubmitCardParams"]
         ) -> "Card":
             """
-            Updates the shipping status of the specified Issuing Card object to submitted. This method is only available with Stripe Version ‘2024-09-30.acacia' or above.
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
             """
             return cast(
                 "Card",
@@ -4099,7 +4099,7 @@ class Card(
             card: str, **params: Unpack["Card.SubmitCardParams"]
         ) -> "Card":
             """
-            Updates the shipping status of the specified Issuing Card object to submitted. This method is only available with Stripe Version ‘2024-09-30.acacia' or above.
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
             """
             ...
 
@@ -4108,7 +4108,7 @@ class Card(
             self, **params: Unpack["Card.SubmitCardParams"]
         ) -> "Card":
             """
-            Updates the shipping status of the specified Issuing Card object to submitted. This method is only available with Stripe Version ‘2024-09-30.acacia' or above.
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
             """
             ...
 
@@ -4117,7 +4117,7 @@ class Card(
             self, **params: Unpack["Card.SubmitCardParams"]
         ) -> "Card":
             """
-            Updates the shipping status of the specified Issuing Card object to submitted. This method is only available with Stripe Version ‘2024-09-30.acacia' or above.
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
             """
             return cast(
                 "Card",
@@ -4135,7 +4135,7 @@ class Card(
             cls, card: str, **params: Unpack["Card.SubmitCardParams"]
         ) -> "Card":
             """
-            Updates the shipping status of the specified Issuing Card object to submitted. This method is only available with Stripe Version ‘2024-09-30.acacia' or above.
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
             """
             return cast(
                 "Card",
@@ -4154,7 +4154,7 @@ class Card(
             card: str, **params: Unpack["Card.SubmitCardParams"]
         ) -> "Card":
             """
-            Updates the shipping status of the specified Issuing Card object to submitted. This method is only available with Stripe Version ‘2024-09-30.acacia' or above.
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
             """
             ...
 
@@ -4163,7 +4163,7 @@ class Card(
             self, **params: Unpack["Card.SubmitCardParams"]
         ) -> "Card":
             """
-            Updates the shipping status of the specified Issuing Card object to submitted. This method is only available with Stripe Version ‘2024-09-30.acacia' or above.
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
             """
             ...
 
@@ -4172,7 +4172,7 @@ class Card(
             self, **params: Unpack["Card.SubmitCardParams"]
         ) -> "Card":
             """
-            Updates the shipping status of the specified Issuing Card object to submitted. This method is only available with Stripe Version ‘2024-09-30.acacia' or above.
+            Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
             """
             return cast(
                 "Card",

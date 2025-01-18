@@ -51,6 +51,9 @@ class Refund(
         class Alipay(StripeObject):
             pass
 
+        class Alma(StripeObject):
+            pass
+
         class AmazonPay(StripeObject):
             pass
 
@@ -58,6 +61,10 @@ class Refund(
             pass
 
         class Blik(StripeObject):
+            network_decline_code: Optional[str]
+            """
+            For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
+            """
             reference: Optional[str]
             """
             The reference assigned to the refund.
@@ -130,6 +137,16 @@ class Refund(
         class Grabpay(StripeObject):
             pass
 
+        class IdBankTransfer(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
         class JpBankTransfer(StripeObject):
             reference: Optional[str]
             """
@@ -189,6 +206,10 @@ class Refund(
             pass
 
         class Swish(StripeObject):
+            network_decline_code: Optional[str]
+            """
+            For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
+            """
             reference: Optional[str]
             """
             The reference assigned to the refund.
@@ -227,6 +248,7 @@ class Refund(
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
+        alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_bank_transfer: Optional[AuBankTransfer]
         blik: Optional[Blik]
@@ -239,6 +261,7 @@ class Refund(
         gb_bank_transfer: Optional[GbBankTransfer]
         giropay: Optional[Giropay]
         grabpay: Optional[Grabpay]
+        id_bank_transfer: Optional[IdBankTransfer]
         jp_bank_transfer: Optional[JpBankTransfer]
         klarna: Optional[Klarna]
         multibanco: Optional[Multibanco]
@@ -262,6 +285,7 @@ class Refund(
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
+            "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_bank_transfer": AuBankTransfer,
             "blik": Blik,
@@ -274,6 +298,7 @@ class Refund(
             "gb_bank_transfer": GbBankTransfer,
             "giropay": Giropay,
             "grabpay": Grabpay,
+            "id_bank_transfer": IdBankTransfer,
             "jp_bank_transfer": JpBankTransfer,
             "klarna": Klarna,
             "multibanco": Multibanco,
@@ -311,9 +336,6 @@ class Refund(
             _inner_class_types = {"email_sent": EmailSent}
 
         display_details: Optional[DisplayDetails]
-        """
-        Contains the refund details.
-        """
         type: str
         """
         Type of the next action to perform.

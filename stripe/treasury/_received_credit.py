@@ -20,6 +20,7 @@ if TYPE_CHECKING:
     from stripe._payout import Payout
     from stripe.treasury._credit_reversal import CreditReversal
     from stripe.treasury._outbound_payment import OutboundPayment
+    from stripe.treasury._outbound_transfer import OutboundTransfer
     from stripe.treasury._transaction import Transaction
 
 
@@ -136,6 +137,14 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
             Related guide: [Moving money with Treasury using OutboundPayment objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments)
             """
+            outbound_transfer: Optional["OutboundTransfer"]
+            """
+            Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://stripe.com/docs/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
+
+            Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
+
+            Related guide: [Moving money with Treasury using OutboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers)
+            """
             payout: Optional["Payout"]
             """
             A `Payout` object is created when you receive funds from Stripe, or when you
@@ -148,7 +157,11 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
             """
             type: Literal[
-                "credit_reversal", "other", "outbound_payment", "payout"
+                "credit_reversal",
+                "other",
+                "outbound_payment",
+                "outbound_transfer",
+                "payout",
             ]
             """
             The type of the source flow that originated the ReceivedCredit.
@@ -327,7 +340,11 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
     class ListParamsLinkedFlows(TypedDict):
         source_flow_type: Literal[
-            "credit_reversal", "other", "outbound_payment", "payout"
+            "credit_reversal",
+            "other",
+            "outbound_payment",
+            "outbound_transfer",
+            "payout",
         ]
         """
         The source flow type.

@@ -540,6 +540,7 @@ class PaymentLink(
                 "SA",
                 "SB",
                 "SC",
+                "SD",
                 "SE",
                 "SG",
                 "SH",
@@ -775,6 +776,7 @@ class PaymentLink(
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
+                    "alma",
                     "au_becs_debit",
                     "bacs_debit",
                     "bancontact",
@@ -785,6 +787,7 @@ class PaymentLink(
                     "eps",
                     "fpx",
                     "giropay",
+                    "gopay",
                     "grabpay",
                     "ideal",
                     "klarna",
@@ -795,13 +798,16 @@ class PaymentLink(
                     "multibanco",
                     "oxxo",
                     "p24",
+                    "pay_by_bank",
                     "paynow",
                     "paypal",
                     "payto",
                     "pix",
                     "promptpay",
+                    "qris",
                     "rechnung",
                     "sepa_debit",
+                    "shopeepay",
                     "sofort",
                     "swish",
                     "twint",
@@ -838,7 +844,9 @@ class PaymentLink(
         """
         The shipping rate options to apply to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
         """
-        submit_type: NotRequired[Literal["auto", "book", "donate", "pay"]]
+        submit_type: NotRequired[
+            Literal["auto", "book", "donate", "pay", "subscribe"]
+        ]
         """
         Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
         """
@@ -892,7 +900,9 @@ class PaymentLink(
     class CreateParamsAutomaticTax(TypedDict):
         enabled: bool
         """
-        If `true`, tax will be calculated automatically using the customer's location.
+        Set to `true` to [calculate tax automatically](https://docs.stripe.com/tax) using the customer's location.
+
+        Enabling this parameter causes the payment link to collect any billing address information necessary for tax calculation.
         """
         liability: NotRequired["PaymentLink.CreateParamsAutomaticTaxLiability"]
         """
@@ -1418,6 +1428,7 @@ class PaymentLink(
                 "SA",
                 "SB",
                 "SC",
+                "SD",
                 "SE",
                 "SG",
                 "SH",
@@ -1475,7 +1486,7 @@ class PaymentLink(
         ]
         """
         An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-        shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        shipping locations.
         """
 
     class CreateParamsShippingOption(TypedDict):
@@ -1681,10 +1692,18 @@ class PaymentLink(
         If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mb_way', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'rechnung', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mb_way', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'sepa_debit', 'shopeepay', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
         ]
         """
         The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
+        """
+        phone_number_collection: NotRequired[
+            "PaymentLink.ModifyParamsPhoneNumberCollection"
+        ]
+        """
+        Controls phone number collection settings during checkout.
+
+        We recommend that you review your privacy policy and check with your legal contacts.
         """
         restrictions: NotRequired[
             "Literal['']|PaymentLink.ModifyParamsRestrictions"
@@ -1697,6 +1716,12 @@ class PaymentLink(
         ]
         """
         Configuration for collecting the customer's shipping address.
+        """
+        submit_type: NotRequired[
+            Literal["auto", "book", "donate", "pay", "subscribe"]
+        ]
+        """
+        Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
         """
         subscription_data: NotRequired[
             "PaymentLink.ModifyParamsSubscriptionData"
@@ -1744,7 +1769,9 @@ class PaymentLink(
     class ModifyParamsAutomaticTax(TypedDict):
         enabled: bool
         """
-        If `true`, tax will be calculated automatically using the customer's location.
+        Set to `true` to [calculate tax automatically](https://docs.stripe.com/tax) using the customer's location.
+
+        Enabling this parameter causes the payment link to collect any billing address information necessary for tax calculation.
         """
         liability: NotRequired["PaymentLink.ModifyParamsAutomaticTaxLiability"]
         """
@@ -2017,6 +2044,12 @@ class PaymentLink(
         A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
         """
 
+    class ModifyParamsPhoneNumberCollection(TypedDict):
+        enabled: bool
+        """
+        Set to `true` to enable phone number collection.
+        """
+
     class ModifyParamsRestrictions(TypedDict):
         completed_sessions: (
             "PaymentLink.ModifyParamsRestrictionsCompletedSessions"
@@ -2218,6 +2251,7 @@ class PaymentLink(
                 "SA",
                 "SB",
                 "SC",
+                "SD",
                 "SE",
                 "SG",
                 "SH",
@@ -2275,7 +2309,7 @@ class PaymentLink(
         ]
         """
         An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-        shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        shipping locations.
         """
 
     class ModifyParamsSubscriptionData(TypedDict):
@@ -2288,6 +2322,10 @@ class PaymentLink(
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+        """
+        trial_period_days: NotRequired["Literal['']|int"]
+        """
+        Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         """
         trial_settings: NotRequired[
             "Literal['']|PaymentLink.ModifyParamsSubscriptionDataTrialSettings"
@@ -2433,6 +2471,7 @@ class PaymentLink(
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "alma",
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
@@ -2443,6 +2482,7 @@ class PaymentLink(
                 "eps",
                 "fpx",
                 "giropay",
+                "gopay",
                 "grabpay",
                 "ideal",
                 "klarna",
@@ -2453,13 +2493,16 @@ class PaymentLink(
                 "multibanco",
                 "oxxo",
                 "p24",
+                "pay_by_bank",
                 "paynow",
                 "paypal",
                 "payto",
                 "pix",
                 "promptpay",
+                "qris",
                 "rechnung",
                 "sepa_debit",
+                "shopeepay",
                 "sofort",
                 "swish",
                 "twint",
@@ -2485,7 +2528,7 @@ class PaymentLink(
     """
     The shipping rate options applied to the session.
     """
-    submit_type: Literal["auto", "book", "donate", "pay"]
+    submit_type: Literal["auto", "book", "donate", "pay", "subscribe"]
     """
     Indicates the type of transaction being performed which customizes relevant text on the page, such as the submit button.
     """

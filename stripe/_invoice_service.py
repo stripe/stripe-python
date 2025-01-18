@@ -256,8 +256,10 @@ class InvoiceService(StripeService):
                 "lease_tax",
                 "pst",
                 "qst",
+                "retail_delivery_fee",
                 "rst",
                 "sales_tax",
+                "service_tax",
                 "vat",
             ]
         ]
@@ -288,18 +290,22 @@ class InvoiceService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        out_of_band_payment: NotRequired[
-            "InvoiceService.AttachPaymentParamsOutOfBandPayment"
-        ]
-        """
-        The out of band payment to attach to the invoice.
-        """
         payment_intent: NotRequired[str]
         """
         The ID of the PaymentIntent to attach to the invoice.
         """
+        payment_record: NotRequired[str]
+        """
+        The ID of the PaymentRecord to detach from the invoice.
+        """
+        payment_record_data: NotRequired[
+            "InvoiceService.AttachPaymentParamsPaymentRecordData"
+        ]
+        """
+        The PaymentRecord data for attaching an out of band payment to the invoice.
+        """
 
-    class AttachPaymentParamsOutOfBandPayment(TypedDict):
+    class AttachPaymentParamsPaymentRecordData(TypedDict):
         amount: int
         """
         The amount that was paid out of band.
@@ -347,6 +353,10 @@ class InvoiceService(StripeService):
         automatic_tax: NotRequired["InvoiceService.CreateParamsAutomaticTax"]
         """
         Settings for automatic tax lookup for this invoice.
+        """
+        automatically_finalizes_at: NotRequired[int]
+        """
+        The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -601,10 +611,10 @@ class InvoiceService(StripeService):
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'konbini', 'link', 'multibanco', 'p24', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -631,6 +641,12 @@ class InvoiceService(StripeService):
         ]
         """
         If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice's PaymentIntent.
+        """
+        id_bank_transfer: NotRequired[
+            "Literal['']|InvoiceService.CreateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer"
+        ]
+        """
+        If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice's PaymentIntent.
         """
         konbini: NotRequired[
             "Literal['']|InvoiceService.CreateParamsPaymentSettingsPaymentMethodOptionsKonbini"
@@ -762,6 +778,11 @@ class InvoiceService(StripeService):
         """
         The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
         """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer(
+        TypedDict,
+    ):
+        pass
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
         pass
@@ -1235,14 +1256,20 @@ class InvoiceService(StripeService):
         type: Literal[
             "ad_nrt",
             "ae_trn",
+            "al_tin",
+            "am_tin",
+            "ao_tin",
             "ar_cuit",
             "au_abn",
             "au_arn",
+            "ba_tin",
+            "bb_tin",
             "bg_uic",
             "bh_vat",
             "bo_tin",
             "br_cnpj",
             "br_cpf",
+            "bs_tin",
             "by_tin",
             "ca_bn",
             "ca_gst_hst",
@@ -1250,6 +1277,7 @@ class InvoiceService(StripeService):
             "ca_pst_mb",
             "ca_pst_sk",
             "ca_qst",
+            "cd_nif",
             "ch_uid",
             "ch_vat",
             "cl_tin",
@@ -1265,6 +1293,7 @@ class InvoiceService(StripeService):
             "eu_vat",
             "gb_vat",
             "ge_vat",
+            "gn_nif",
             "hk_br",
             "hr_oib",
             "hu_tin",
@@ -1276,11 +1305,16 @@ class InvoiceService(StripeService):
             "jp_rn",
             "jp_trn",
             "ke_pin",
+            "kh_tin",
             "kr_brn",
             "kz_bin",
             "li_uid",
+            "li_vat",
             "ma_vat",
             "md_vat",
+            "me_pib",
+            "mk_vat",
+            "mr_nif",
             "mx_rfc",
             "my_frp",
             "my_itn",
@@ -1288,6 +1322,7 @@ class InvoiceService(StripeService):
             "ng_tin",
             "no_vat",
             "no_voec",
+            "np_pan",
             "nz_gst",
             "om_vat",
             "pe_ruc",
@@ -1300,12 +1335,16 @@ class InvoiceService(StripeService):
             "sg_gst",
             "sg_uen",
             "si_tin",
+            "sn_ninea",
+            "sr_fin",
             "sv_nit",
             "th_vat",
+            "tj_tin",
             "tr_tin",
             "tw_vat",
             "tz_vat",
             "ua_vat",
+            "ug_tin",
             "us_ein",
             "uy_ruc",
             "uz_tin",
@@ -1313,9 +1352,11 @@ class InvoiceService(StripeService):
             "ve_rif",
             "vn_tin",
             "za_vat",
+            "zm_tin",
+            "zw_tin",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         """
         value: str
         """
@@ -2194,7 +2235,7 @@ class InvoiceService(StripeService):
             "InvoiceService.CreatePreviewParamsScheduleDetailsPhasePauseCollection"
         ]
         """
-        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -2754,7 +2795,7 @@ class InvoiceService(StripeService):
         """
         clear_usage: NotRequired[bool]
         """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         """
         deleted: NotRequired[bool]
         """
@@ -3345,14 +3386,20 @@ class InvoiceService(StripeService):
         type: Literal[
             "ad_nrt",
             "ae_trn",
+            "al_tin",
+            "am_tin",
+            "ao_tin",
             "ar_cuit",
             "au_abn",
             "au_arn",
+            "ba_tin",
+            "bb_tin",
             "bg_uic",
             "bh_vat",
             "bo_tin",
             "br_cnpj",
             "br_cpf",
+            "bs_tin",
             "by_tin",
             "ca_bn",
             "ca_gst_hst",
@@ -3360,6 +3407,7 @@ class InvoiceService(StripeService):
             "ca_pst_mb",
             "ca_pst_sk",
             "ca_qst",
+            "cd_nif",
             "ch_uid",
             "ch_vat",
             "cl_tin",
@@ -3375,6 +3423,7 @@ class InvoiceService(StripeService):
             "eu_vat",
             "gb_vat",
             "ge_vat",
+            "gn_nif",
             "hk_br",
             "hr_oib",
             "hu_tin",
@@ -3386,11 +3435,16 @@ class InvoiceService(StripeService):
             "jp_rn",
             "jp_trn",
             "ke_pin",
+            "kh_tin",
             "kr_brn",
             "kz_bin",
             "li_uid",
+            "li_vat",
             "ma_vat",
             "md_vat",
+            "me_pib",
+            "mk_vat",
+            "mr_nif",
             "mx_rfc",
             "my_frp",
             "my_itn",
@@ -3398,6 +3452,7 @@ class InvoiceService(StripeService):
             "ng_tin",
             "no_vat",
             "no_voec",
+            "np_pan",
             "nz_gst",
             "om_vat",
             "pe_ruc",
@@ -3410,12 +3465,16 @@ class InvoiceService(StripeService):
             "sg_gst",
             "sg_uen",
             "si_tin",
+            "sn_ninea",
+            "sr_fin",
             "sv_nit",
             "th_vat",
+            "tj_tin",
             "tr_tin",
             "tw_vat",
             "tz_vat",
             "ua_vat",
+            "ug_tin",
             "us_ein",
             "uy_ruc",
             "uz_tin",
@@ -3423,9 +3482,11 @@ class InvoiceService(StripeService):
             "ve_rif",
             "vn_tin",
             "za_vat",
+            "zm_tin",
+            "zw_tin",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         """
         value: str
         """
@@ -4288,7 +4349,7 @@ class InvoiceService(StripeService):
             "InvoiceService.UpcomingParamsScheduleDetailsPhasePauseCollection"
         ]
         """
-        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -4830,7 +4891,7 @@ class InvoiceService(StripeService):
         """
         clear_usage: NotRequired[bool]
         """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         """
         deleted: NotRequired[bool]
         """
@@ -4980,7 +5041,7 @@ class InvoiceService(StripeService):
         """
         clear_usage: NotRequired[bool]
         """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         """
         deleted: NotRequired[bool]
         """
@@ -5361,8 +5422,10 @@ class InvoiceService(StripeService):
                 "lease_tax",
                 "pst",
                 "qst",
+                "retail_delivery_fee",
                 "rst",
                 "sales_tax",
+                "service_tax",
                 "vat",
             ]
         ]
@@ -5392,6 +5455,10 @@ class InvoiceService(StripeService):
         automatic_tax: NotRequired["InvoiceService.UpdateParamsAutomaticTax"]
         """
         Settings for automatic tax lookup for this invoice.
+        """
+        automatically_finalizes_at: NotRequired[int]
+        """
+        The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state. To turn off automatic finalization, set `auto_advance` to false.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -5618,10 +5685,10 @@ class InvoiceService(StripeService):
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'konbini', 'link', 'multibanco', 'p24', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -5648,6 +5715,12 @@ class InvoiceService(StripeService):
         ]
         """
         If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice's PaymentIntent.
+        """
+        id_bank_transfer: NotRequired[
+            "Literal['']|InvoiceService.UpdateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer"
+        ]
+        """
+        If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice's PaymentIntent.
         """
         konbini: NotRequired[
             "Literal['']|InvoiceService.UpdateParamsPaymentSettingsPaymentMethodOptionsKonbini"
@@ -5779,6 +5852,11 @@ class InvoiceService(StripeService):
         """
         The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
         """
+
+    class UpdateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer(
+        TypedDict,
+    ):
+        pass
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
         pass

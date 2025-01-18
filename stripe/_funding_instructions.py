@@ -21,10 +21,72 @@ class FundingInstructions(StripeObject):
     class BankTransfer(StripeObject):
         class FinancialAddress(StripeObject):
             class Aba(StripeObject):
+                class AccountHolderAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                class BankAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                account_holder_address: AccountHolderAddress
+                account_holder_name: str
+                """
+                The account holder name
+                """
                 account_number: str
                 """
                 The ABA account number
                 """
+                account_type: str
+                """
+                The account type
+                """
+                bank_address: BankAddress
                 bank_name: str
                 """
                 The bank name
@@ -33,12 +95,70 @@ class FundingInstructions(StripeObject):
                 """
                 The ABA routing number
                 """
+                _inner_class_types = {
+                    "account_holder_address": AccountHolderAddress,
+                    "bank_address": BankAddress,
+                }
 
             class Iban(StripeObject):
+                class AccountHolderAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                class BankAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                account_holder_address: AccountHolderAddress
                 account_holder_name: str
                 """
                 The name of the person or business that owns the bank account
                 """
+                bank_address: BankAddress
                 bic: str
                 """
                 The BIC/SWIFT code of the account.
@@ -51,8 +171,65 @@ class FundingInstructions(StripeObject):
                 """
                 The IBAN of the account.
                 """
+                _inner_class_types = {
+                    "account_holder_address": AccountHolderAddress,
+                    "bank_address": BankAddress,
+                }
 
             class SortCode(StripeObject):
+                class AccountHolderAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                class BankAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                account_holder_address: AccountHolderAddress
                 account_holder_name: str
                 """
                 The name of the person or business that owns the bank account
@@ -61,12 +238,75 @@ class FundingInstructions(StripeObject):
                 """
                 The account number
                 """
+                bank_address: BankAddress
                 sort_code: str
                 """
                 The six-digit sort code
                 """
+                _inner_class_types = {
+                    "account_holder_address": AccountHolderAddress,
+                    "bank_address": BankAddress,
+                }
 
             class Spei(StripeObject):
+                class AccountHolderAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                class BankAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                account_holder_address: AccountHolderAddress
+                account_holder_name: str
+                """
+                The account holder name
+                """
+                bank_address: BankAddress
                 bank_code: str
                 """
                 The three-digit bank code
@@ -79,12 +319,78 @@ class FundingInstructions(StripeObject):
                 """
                 The CLABE number
                 """
+                _inner_class_types = {
+                    "account_holder_address": AccountHolderAddress,
+                    "bank_address": BankAddress,
+                }
 
             class Swift(StripeObject):
+                class AccountHolderAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                class BankAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                account_holder_address: AccountHolderAddress
+                account_holder_name: str
+                """
+                The account holder name
+                """
                 account_number: str
                 """
                 The account number
                 """
+                account_type: str
+                """
+                The account type
+                """
+                bank_address: BankAddress
                 bank_name: str
                 """
                 The bank name
@@ -93,8 +399,65 @@ class FundingInstructions(StripeObject):
                 """
                 The SWIFT code
                 """
+                _inner_class_types = {
+                    "account_holder_address": AccountHolderAddress,
+                    "bank_address": BankAddress,
+                }
 
             class Zengin(StripeObject):
+                class AccountHolderAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                class BankAddress(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                account_holder_address: AccountHolderAddress
                 account_holder_name: Optional[str]
                 """
                 The account holder name
@@ -107,6 +470,7 @@ class FundingInstructions(StripeObject):
                 """
                 The bank account type. In Japan, this can only be `futsu` or `toza`.
                 """
+                bank_address: BankAddress
                 bank_code: Optional[str]
                 """
                 The bank code of the account
@@ -123,6 +487,10 @@ class FundingInstructions(StripeObject):
                 """
                 The branch name of the account
                 """
+                _inner_class_types = {
+                    "account_holder_address": AccountHolderAddress,
+                    "bank_address": BankAddress,
+                }
 
             aba: Optional[Aba]
             """

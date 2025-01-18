@@ -45,6 +45,10 @@ class PaymentMethodService(StripeService):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired["PaymentMethodService.CreateParamsAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired["PaymentMethodService.CreateParamsAmazonPay"]
         """
         If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
@@ -111,9 +115,19 @@ class PaymentMethodService(StripeService):
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         """
+        gopay: NotRequired["PaymentMethodService.CreateParamsGopay"]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        """
         grabpay: NotRequired["PaymentMethodService.CreateParamsGrabpay"]
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
+        """
+        id_bank_transfer: NotRequired[
+            "PaymentMethodService.CreateParamsIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
         """
         ideal: NotRequired["PaymentMethodService.CreateParamsIdeal"]
         """
@@ -173,6 +187,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired["PaymentMethodService.CreateParamsPayByBank"]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired["PaymentMethodService.CreateParamsPayco"]
         """
         If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
@@ -201,6 +219,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired["PaymentMethodService.CreateParamsQris"]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "PaymentMethodService.CreateParamsRadarOptions"
         ]
@@ -223,6 +245,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         """
+        shopeepay: NotRequired["PaymentMethodService.CreateParamsShopeepay"]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+        """
         sofort: NotRequired["PaymentMethodService.CreateParamsSofort"]
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -241,6 +267,7 @@ class PaymentMethodService(StripeService):
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "alma",
                 "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
@@ -253,7 +280,9 @@ class PaymentMethodService(StripeService):
                 "eps",
                 "fpx",
                 "giropay",
+                "gopay",
                 "grabpay",
+                "id_bank_transfer",
                 "ideal",
                 "kakao_pay",
                 "klarna",
@@ -266,16 +295,19 @@ class PaymentMethodService(StripeService):
                 "naver_pay",
                 "oxxo",
                 "p24",
+                "pay_by_bank",
                 "payco",
                 "paynow",
                 "paypal",
                 "payto",
                 "pix",
                 "promptpay",
+                "qris",
                 "rechnung",
                 "revolut_pay",
                 "samsung_pay",
                 "sepa_debit",
+                "shopeepay",
                 "sofort",
                 "swish",
                 "twint",
@@ -323,6 +355,9 @@ class PaymentMethodService(StripeService):
         pass
 
     class CreateParamsAlipay(TypedDict):
+        pass
+
+    class CreateParamsAlma(TypedDict):
         pass
 
     class CreateParamsAmazonPay(TypedDict):
@@ -519,8 +554,17 @@ class PaymentMethodService(StripeService):
     class CreateParamsGiropay(TypedDict):
         pass
 
+    class CreateParamsGopay(TypedDict):
+        pass
+
     class CreateParamsGrabpay(TypedDict):
         pass
+
+    class CreateParamsIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class CreateParamsIdeal(TypedDict):
         bank: NotRequired[
@@ -544,7 +588,7 @@ class PaymentMethodService(StripeService):
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class CreateParamsInteracPresent(TypedDict):
@@ -635,6 +679,9 @@ class PaymentMethodService(StripeService):
         The customer's bank.
         """
 
+    class CreateParamsPayByBank(TypedDict):
+        pass
+
     class CreateParamsPayco(TypedDict):
         pass
 
@@ -662,6 +709,9 @@ class PaymentMethodService(StripeService):
         pass
 
     class CreateParamsPromptpay(TypedDict):
+        pass
+
+    class CreateParamsQris(TypedDict):
         pass
 
     class CreateParamsRadarOptions(TypedDict):
@@ -701,6 +751,9 @@ class PaymentMethodService(StripeService):
         """
         IBAN of the bank account.
         """
+
+    class CreateParamsShopeepay(TypedDict):
+        pass
 
     class CreateParamsSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -775,6 +828,7 @@ class PaymentMethodService(StripeService):
                 "affirm",
                 "afterpay_clearpay",
                 "alipay",
+                "alma",
                 "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
@@ -787,7 +841,9 @@ class PaymentMethodService(StripeService):
                 "eps",
                 "fpx",
                 "giropay",
+                "gopay",
                 "grabpay",
+                "id_bank_transfer",
                 "ideal",
                 "kakao_pay",
                 "klarna",
@@ -800,16 +856,19 @@ class PaymentMethodService(StripeService):
                 "naver_pay",
                 "oxxo",
                 "p24",
+                "pay_by_bank",
                 "payco",
                 "paynow",
                 "paypal",
                 "payto",
                 "pix",
                 "promptpay",
+                "qris",
                 "rechnung",
                 "revolut_pay",
                 "samsung_pay",
                 "sepa_debit",
+                "shopeepay",
                 "sofort",
                 "swish",
                 "twint",
@@ -860,6 +919,10 @@ class PaymentMethodService(StripeService):
         naver_pay: NotRequired["PaymentMethodService.UpdateParamsNaverPay"]
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        """
+        pay_by_bank: NotRequired["PaymentMethodService.UpdateParamsPayByBank"]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
         """
         payto: NotRequired["PaymentMethodService.UpdateParamsPayto"]
         """
@@ -948,6 +1011,9 @@ class PaymentMethodService(StripeService):
         """
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
+
+    class UpdateParamsPayByBank(TypedDict):
+        pass
 
     class UpdateParamsPayto(TypedDict):
         account_number: NotRequired[str]

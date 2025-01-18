@@ -901,7 +901,7 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionScheduleService.CreateParamsPhasePauseCollection"
         ]
         """
-        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -1717,7 +1717,7 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionScheduleService.UpdateParamsPhasePauseCollection"
         ]
         """
-        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]

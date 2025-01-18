@@ -252,8 +252,10 @@ class InvoiceLineItemService(StripeService):
                 "lease_tax",
                 "pst",
                 "qst",
+                "retail_delivery_fee",
                 "rst",
                 "sales_tax",
+                "service_tax",
                 "vat",
             ]
         ]

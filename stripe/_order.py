@@ -485,7 +485,10 @@ class Order(
 
                 class SepaDebit(StripeObject):
                     class MandateOptions(StripeObject):
-                        pass
+                        reference_prefix: Optional[str]
+                        """
+                        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+                        """
 
                     mandate_options: Optional[MandateOptions]
                     setup_future_usage: Optional[
@@ -781,14 +784,20 @@ class Order(
             type: Literal[
                 "ad_nrt",
                 "ae_trn",
+                "al_tin",
+                "am_tin",
+                "ao_tin",
                 "ar_cuit",
                 "au_abn",
                 "au_arn",
+                "ba_tin",
+                "bb_tin",
                 "bg_uic",
                 "bh_vat",
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
+                "bs_tin",
                 "by_tin",
                 "ca_bn",
                 "ca_gst_hst",
@@ -796,6 +805,7 @@ class Order(
                 "ca_pst_mb",
                 "ca_pst_sk",
                 "ca_qst",
+                "cd_nif",
                 "ch_uid",
                 "ch_vat",
                 "cl_tin",
@@ -811,6 +821,7 @@ class Order(
                 "eu_vat",
                 "gb_vat",
                 "ge_vat",
+                "gn_nif",
                 "hk_br",
                 "hr_oib",
                 "hu_tin",
@@ -822,11 +833,16 @@ class Order(
                 "jp_rn",
                 "jp_trn",
                 "ke_pin",
+                "kh_tin",
                 "kr_brn",
                 "kz_bin",
                 "li_uid",
+                "li_vat",
                 "ma_vat",
                 "md_vat",
+                "me_pib",
+                "mk_vat",
+                "mr_nif",
                 "mx_rfc",
                 "my_frp",
                 "my_itn",
@@ -834,6 +850,7 @@ class Order(
                 "ng_tin",
                 "no_vat",
                 "no_voec",
+                "np_pan",
                 "nz_gst",
                 "om_vat",
                 "pe_ruc",
@@ -846,12 +863,16 @@ class Order(
                 "sg_gst",
                 "sg_uen",
                 "si_tin",
+                "sn_ninea",
+                "sr_fin",
                 "sv_nit",
                 "th_vat",
+                "tj_tin",
                 "tr_tin",
                 "tw_vat",
                 "tz_vat",
                 "ua_vat",
+                "ug_tin",
                 "unknown",
                 "us_ein",
                 "uy_ruc",
@@ -860,9 +881,11 @@ class Order(
                 "ve_rif",
                 "vn_tin",
                 "za_vat",
+                "zm_tin",
+                "zw_tin",
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, or `unknown`
             """
             value: Optional[str]
             """
@@ -1920,7 +1943,10 @@ class Order(
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
         TypedDict,
     ):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -2151,14 +2177,20 @@ class Order(
         type: Literal[
             "ad_nrt",
             "ae_trn",
+            "al_tin",
+            "am_tin",
+            "ao_tin",
             "ar_cuit",
             "au_abn",
             "au_arn",
+            "ba_tin",
+            "bb_tin",
             "bg_uic",
             "bh_vat",
             "bo_tin",
             "br_cnpj",
             "br_cpf",
+            "bs_tin",
             "by_tin",
             "ca_bn",
             "ca_gst_hst",
@@ -2166,6 +2198,7 @@ class Order(
             "ca_pst_mb",
             "ca_pst_sk",
             "ca_qst",
+            "cd_nif",
             "ch_uid",
             "ch_vat",
             "cl_tin",
@@ -2181,6 +2214,7 @@ class Order(
             "eu_vat",
             "gb_vat",
             "ge_vat",
+            "gn_nif",
             "hk_br",
             "hr_oib",
             "hu_tin",
@@ -2192,11 +2226,16 @@ class Order(
             "jp_rn",
             "jp_trn",
             "ke_pin",
+            "kh_tin",
             "kr_brn",
             "kz_bin",
             "li_uid",
+            "li_vat",
             "ma_vat",
             "md_vat",
+            "me_pib",
+            "mk_vat",
+            "mr_nif",
             "mx_rfc",
             "my_frp",
             "my_itn",
@@ -2204,6 +2243,7 @@ class Order(
             "ng_tin",
             "no_vat",
             "no_voec",
+            "np_pan",
             "nz_gst",
             "om_vat",
             "pe_ruc",
@@ -2216,12 +2256,16 @@ class Order(
             "sg_gst",
             "sg_uen",
             "si_tin",
+            "sn_ninea",
+            "sr_fin",
             "sv_nit",
             "th_vat",
+            "tj_tin",
             "tr_tin",
             "tw_vat",
             "tz_vat",
             "ua_vat",
+            "ug_tin",
             "us_ein",
             "uy_ruc",
             "uz_tin",
@@ -2229,9 +2273,11 @@ class Order(
             "ve_rif",
             "vn_tin",
             "za_vat",
+            "zm_tin",
+            "zw_tin",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         """
         value: str
         """
@@ -3238,7 +3284,10 @@ class Order(
     class ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
         TypedDict,
     ):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -3469,14 +3518,20 @@ class Order(
         type: Literal[
             "ad_nrt",
             "ae_trn",
+            "al_tin",
+            "am_tin",
+            "ao_tin",
             "ar_cuit",
             "au_abn",
             "au_arn",
+            "ba_tin",
+            "bb_tin",
             "bg_uic",
             "bh_vat",
             "bo_tin",
             "br_cnpj",
             "br_cpf",
+            "bs_tin",
             "by_tin",
             "ca_bn",
             "ca_gst_hst",
@@ -3484,6 +3539,7 @@ class Order(
             "ca_pst_mb",
             "ca_pst_sk",
             "ca_qst",
+            "cd_nif",
             "ch_uid",
             "ch_vat",
             "cl_tin",
@@ -3499,6 +3555,7 @@ class Order(
             "eu_vat",
             "gb_vat",
             "ge_vat",
+            "gn_nif",
             "hk_br",
             "hr_oib",
             "hu_tin",
@@ -3510,11 +3567,16 @@ class Order(
             "jp_rn",
             "jp_trn",
             "ke_pin",
+            "kh_tin",
             "kr_brn",
             "kz_bin",
             "li_uid",
+            "li_vat",
             "ma_vat",
             "md_vat",
+            "me_pib",
+            "mk_vat",
+            "mr_nif",
             "mx_rfc",
             "my_frp",
             "my_itn",
@@ -3522,6 +3584,7 @@ class Order(
             "ng_tin",
             "no_vat",
             "no_voec",
+            "np_pan",
             "nz_gst",
             "om_vat",
             "pe_ruc",
@@ -3534,12 +3597,16 @@ class Order(
             "sg_gst",
             "sg_uen",
             "si_tin",
+            "sn_ninea",
+            "sr_fin",
             "sv_nit",
             "th_vat",
+            "tj_tin",
             "tr_tin",
             "tw_vat",
             "tz_vat",
             "ua_vat",
+            "ug_tin",
             "us_ein",
             "uy_ruc",
             "uz_tin",
@@ -3547,9 +3614,11 @@ class Order(
             "ve_rif",
             "vn_tin",
             "za_vat",
+            "zm_tin",
+            "zw_tin",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         """
         value: str
         """
@@ -3841,12 +3910,12 @@ class Order(
     @classmethod
     def _cls_list_line_items(
         cls, id: str, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
-            ListObject["LineItem"],
+            ListObject["LineItemResource"],
             cls._static_request(
                 "get",
                 "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
@@ -3858,7 +3927,7 @@ class Order(
     @staticmethod
     def list_line_items(
         id: str, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
@@ -3867,7 +3936,7 @@ class Order(
     @overload
     def list_line_items(
         self, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
@@ -3876,12 +3945,12 @@ class Order(
     @class_method_variant("_cls_list_line_items")
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
-            ListObject["LineItem"],
+            ListObject["LineItemResource"],
             self._request(
                 "get",
                 "/v1/orders/{id}/line_items".format(
@@ -3894,12 +3963,12 @@ class Order(
     @classmethod
     async def _cls_list_line_items_async(
         cls, id: str, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
-            ListObject["LineItem"],
+            ListObject["LineItemResource"],
             await cls._static_request_async(
                 "get",
                 "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
@@ -3911,7 +3980,7 @@ class Order(
     @staticmethod
     async def list_line_items_async(
         id: str, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
@@ -3920,7 +3989,7 @@ class Order(
     @overload
     async def list_line_items_async(
         self, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
@@ -3929,12 +3998,12 @@ class Order(
     @class_method_variant("_cls_list_line_items_async")
     async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Order.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
+    ) -> ListObject["LineItemResource"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
         return cast(
-            ListObject["LineItem"],
+            ListObject["LineItemResource"],
             await self._request_async(
                 "get",
                 "/v1/orders/{id}/line_items".format(

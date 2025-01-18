@@ -72,6 +72,10 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.
     """
+    allow_redisplay: Optional[Literal["always", "limited", "unspecified"]]
+    """
+    This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
+    """
     available_payout_methods: Optional[List[Literal["instant", "standard"]]]
     """
     A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
@@ -79,6 +83,10 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     brand: str
     """
     Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
+    """
+    brand_product: Optional[str]
+    """
+    The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
     """
     country: Optional[str]
     """
@@ -154,6 +162,10 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     object: Literal["card"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    regulated_status: Optional[Literal["regulated", "unregulated"]]
+    """
+    Status of a card based on the card issuer.
     """
     status: Optional[str]
     """

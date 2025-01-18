@@ -8,8 +8,7 @@ from typing_extensions import Literal, NotRequired, Unpack
 
 class MeterEvent(CreateableAPIResource["MeterEvent"]):
     """
-    A billing meter event represents a customer's usage of a product. Meter events are used to bill a customer based on their usage.
-    Meter events are associated with billing meters, which define the shape of the event's payload and how those events are aggregated for billing.
+    Meter events represent actions that customers take in your system. You can use meter events to bill a customer based on their usage. Meter events are associated with billing meters, which define both the contents of the event's payload and how to aggregate those events.
     """
 
     OBJECT_NAME: ClassVar[Literal["billing.meter_event"]] = (
@@ -27,7 +26,7 @@ class MeterEvent(CreateableAPIResource["MeterEvent"]):
         """
         identifier: NotRequired[str]
         """
-        A unique identifier for the event. If not provided, one will be generated. We recommend using a globally unique identifier for this. We'll enforce uniqueness within a rolling 24 hour period.
+        A unique identifier for the event. If not provided, one is generated. We recommend using UUID-like identifiers. We will enforce uniqueness within a rolling period of at least 24 hours. The enforcement of uniqueness primarily addresses issues arising from accidental retries or other problems occurring within extremely brief time intervals. This approach helps prevent duplicate entries and ensures data integrity in high-frequency operations.
         """
         payload: Dict[str, str]
         """
@@ -72,7 +71,7 @@ class MeterEvent(CreateableAPIResource["MeterEvent"]):
         cls, **params: Unpack["MeterEvent.CreateParams"]
     ) -> "MeterEvent":
         """
-        Creates a billing meter event
+        Creates a billing meter event.
         """
         return cast(
             "MeterEvent",
@@ -88,7 +87,7 @@ class MeterEvent(CreateableAPIResource["MeterEvent"]):
         cls, **params: Unpack["MeterEvent.CreateParams"]
     ) -> "MeterEvent":
         """
-        Creates a billing meter event
+        Creates a billing meter event.
         """
         return cast(
             "MeterEvent",

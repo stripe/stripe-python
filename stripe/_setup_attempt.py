@@ -177,7 +177,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
             brand: Optional[str]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             checks: Optional[Checks]
             """
@@ -223,7 +223,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             """
             network: Optional[str]
             """
-            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
             three_d_secure: Optional[ThreeDSecure]
             """
@@ -262,6 +262,24 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
         class Cashapp(StripeObject):
             pass
+
+        class IdBankTransfer(StripeObject):
+            bank: Optional[Literal["bca", "bni", "bri", "cimb", "permata"]]
+            """
+            Bank where the account is located.
+            """
+            bank_code: Optional[str]
+            """
+            Local bank code of the bank.
+            """
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            display_name: Optional[str]
+            """
+            Merchant name and billing details name, for the customer to check for the correct merchant when performing the bank transfer.
+            """
 
         class Ideal(StripeObject):
             bank: Optional[
@@ -328,6 +346,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             Owner's verified full name. Values are verified or provided by iDEAL directly
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
+
+        class KakaoPay(StripeObject):
+            pass
 
         class Klarna(StripeObject):
             pass
@@ -398,7 +419,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         card: Optional[Card]
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
+        id_bank_transfer: Optional[IdBankTransfer]
         ideal: Optional[Ideal]
+        kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
         kr_card: Optional[KrCard]
         link: Optional[Link]
@@ -422,7 +445,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "card": Card,
             "card_present": CardPresent,
             "cashapp": Cashapp,
+            "id_bank_transfer": IdBankTransfer,
             "ideal": Ideal,
+            "kakao_pay": KakaoPay,
             "klarna": Klarna,
             "kr_card": KrCard,
             "link": Link,
@@ -435,6 +460,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         }
 
     class SetupError(StripeObject):
+        advice_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
+        """
         charge: Optional[str]
         """
         For card errors, the ID of the failed charge.
@@ -571,7 +600,6 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "payment_method_unexpected_state",
                 "payment_method_unsupported_type",
                 "payout_reconciliation_not_ready",
-                "payout_statement_descriptor_profanity",
                 "payouts_limit_exceeded",
                 "payouts_not_allowed",
                 "platform_account_required",
@@ -636,6 +664,14 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         message: Optional[str]
         """
         A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
+        """
+        network_advice_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
+        """
+        network_decline_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
         """
         param: Optional[str]
         """

@@ -28,11 +28,41 @@ class Form(ListableAPIResource["Form"]):
 
     OBJECT_NAME: ClassVar[Literal["tax.form"]] = "tax.form"
 
+    class AuSerr(StripeObject):
+        reporting_period_end_date: str
+        """
+        End date of the period represented by the information reported on the tax form.
+        """
+        reporting_period_start_date: str
+        """
+        Start date of the period represented by the information reported on the tax form.
+        """
+
+    class CaMrdp(StripeObject):
+        reporting_period_end_date: str
+        """
+        End date of the period represented by the information reported on the tax form.
+        """
+        reporting_period_start_date: str
+        """
+        Start date of the period represented by the information reported on the tax form.
+        """
+
+    class EuDac7(StripeObject):
+        reporting_period_end_date: str
+        """
+        End date of the period represented by the information reported on the tax form.
+        """
+        reporting_period_start_date: str
+        """
+        Start date of the period represented by the information reported on the tax form.
+        """
+
     class FilingStatus(StripeObject):
         class Jurisdiction(StripeObject):
             country: str
             """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)). Always `US`.
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
             level: Literal["country", "state"]
             """
@@ -40,7 +70,7 @@ class Form(ListableAPIResource["Form"]):
             """
             state: Optional[str]
             """
-            [ISO 3166-2 U.S. state code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix, if any. For example, "NY" for New York, United States.
+            [ISO 3166-2 U.S. state code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix, if any. For example, "NY" for New York, United States. Null for non-U.S. forms.
             """
 
         effective_at: int
@@ -54,14 +84,38 @@ class Form(ListableAPIResource["Form"]):
         """
         _inner_class_types = {"jurisdiction": Jurisdiction}
 
+    class GbMrdp(StripeObject):
+        reporting_period_end_date: str
+        """
+        End date of the period represented by the information reported on the tax form.
+        """
+        reporting_period_start_date: str
+        """
+        Start date of the period represented by the information reported on the tax form.
+        """
+
+    class NzMrdp(StripeObject):
+        reporting_period_end_date: str
+        """
+        End date of the period represented by the information reported on the tax form.
+        """
+        reporting_period_start_date: str
+        """
+        Start date of the period represented by the information reported on the tax form.
+        """
+
     class Payee(StripeObject):
         account: Optional[ExpandableField["Account"]]
         """
         The ID of the payee's Stripe account.
         """
-        type: Literal["account"]
+        external_reference: Optional[str]
         """
-        Always `account`.
+        The external reference to this payee.
+        """
+        type: Literal["account", "external_reference"]
+        """
+        Either `account` or `external_reference`.
         """
 
     class Us1099K(StripeObject):
@@ -103,7 +157,18 @@ class Form(ListableAPIResource["Form"]):
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
-        type: NotRequired[Literal["us_1099_k", "us_1099_misc", "us_1099_nec"]]
+        type: NotRequired[
+            Literal[
+                "au_serr",
+                "ca_mrdp",
+                "eu_dac7",
+                "gb_mrdp",
+                "nz_mrdp",
+                "us_1099_k",
+                "us_1099_misc",
+                "us_1099_nec",
+            ]
+        ]
         """
         An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future tax form types. If your integration expects only one type of tax form in the response, make sure to provide a type value in the request.
         """
@@ -113,9 +178,13 @@ class Form(ListableAPIResource["Form"]):
         """
         The ID of the Stripe account whose forms will be retrieved.
         """
-        type: NotRequired[Literal["account"]]
+        external_reference: NotRequired[str]
         """
-        Specifies the payee type. Always `account`.
+        The external reference to the payee whose forms will be retrieved.
+        """
+        type: NotRequired[Literal["account", "external_reference"]]
+        """
+        Specifies the payee type. Either `account` or `external_reference`.
         """
 
     class PdfParams(RequestOptions):
@@ -130,6 +199,8 @@ class Form(ListableAPIResource["Form"]):
         Specifies which fields in the response should be expanded.
         """
 
+    au_serr: Optional[AuSerr]
+    ca_mrdp: Optional[CaMrdp]
     corrected_by: Optional[ExpandableField["Form"]]
     """
     The form that corrects this form, if any.
@@ -138,10 +209,12 @@ class Form(ListableAPIResource["Form"]):
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    eu_dac7: Optional[EuDac7]
     filing_statuses: List[FilingStatus]
     """
     A list of tax filing statuses. Note that a filing status will only be included if the form has been filed directly with the jurisdiction's tax authority.
     """
+    gb_mrdp: Optional[GbMrdp]
     id: str
     """
     Unique identifier for the object.
@@ -150,12 +223,22 @@ class Form(ListableAPIResource["Form"]):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    nz_mrdp: Optional[NzMrdp]
     object: Literal["tax.form"]
     """
     String representing the object's type. Objects of the same type share the same value.
     """
     payee: Payee
-    type: Literal["us_1099_k", "us_1099_misc", "us_1099_nec"]
+    type: Literal[
+        "au_serr",
+        "ca_mrdp",
+        "eu_dac7",
+        "gb_mrdp",
+        "nz_mrdp",
+        "us_1099_k",
+        "us_1099_misc",
+        "us_1099_nec",
+    ]
     """
     The type of the tax form. An additional hash is included on the tax form with a name matching this value. It contains additional information specific to the tax form type.
     """
@@ -324,7 +407,12 @@ class Form(ListableAPIResource["Form"]):
         return instance
 
     _inner_class_types = {
+        "au_serr": AuSerr,
+        "ca_mrdp": CaMrdp,
+        "eu_dac7": EuDac7,
         "filing_statuses": FilingStatus,
+        "gb_mrdp": GbMrdp,
+        "nz_mrdp": NzMrdp,
         "payee": Payee,
         "us_1099_k": Us1099K,
         "us_1099_misc": Us1099Misc,

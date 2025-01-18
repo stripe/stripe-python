@@ -475,6 +475,12 @@ from stripe._order_line_item_service import (
     OrderLineItemService as OrderLineItemService,
 )
 from stripe._order_service import OrderService as OrderService
+from stripe._payment_attempt_record import (
+    PaymentAttemptRecord as PaymentAttemptRecord,
+)
+from stripe._payment_attempt_record_service import (
+    PaymentAttemptRecordService as PaymentAttemptRecordService,
+)
 from stripe._payment_intent import PaymentIntent as PaymentIntent
 from stripe._payment_intent_service import (
     PaymentIntentService as PaymentIntentService,
@@ -501,6 +507,10 @@ from stripe._payment_method_domain_service import (
 )
 from stripe._payment_method_service import (
     PaymentMethodService as PaymentMethodService,
+)
+from stripe._payment_record import PaymentRecord as PaymentRecord
+from stripe._payment_record_service import (
+    PaymentRecordService as PaymentRecordService,
 )
 from stripe._payout import Payout as Payout
 from stripe._payout_service import PayoutService as PayoutService

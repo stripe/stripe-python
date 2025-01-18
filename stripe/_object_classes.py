@@ -86,6 +86,7 @@ OBJECT_CLASSES = {
     stripe.issuing.CreditUnderwritingRecord.OBJECT_NAME: stripe.issuing.CreditUnderwritingRecord,
     stripe.issuing.Dispute.OBJECT_NAME: stripe.issuing.Dispute,
     stripe.issuing.DisputeSettlementDetail.OBJECT_NAME: stripe.issuing.DisputeSettlementDetail,
+    stripe.issuing.FraudLiabilityDebit.OBJECT_NAME: stripe.issuing.FraudLiabilityDebit,
     stripe.issuing.PersonalizationDesign.OBJECT_NAME: stripe.issuing.PersonalizationDesign,
     stripe.issuing.PhysicalBundle.OBJECT_NAME: stripe.issuing.PhysicalBundle,
     stripe.issuing.Settlement.OBJECT_NAME: stripe.issuing.Settlement,
@@ -96,11 +97,13 @@ OBJECT_CLASSES = {
     stripe.Mandate.OBJECT_NAME: stripe.Mandate,
     stripe.Margin.OBJECT_NAME: stripe.Margin,
     stripe.Order.OBJECT_NAME: stripe.Order,
+    stripe.PaymentAttemptRecord.OBJECT_NAME: stripe.PaymentAttemptRecord,
     stripe.PaymentIntent.OBJECT_NAME: stripe.PaymentIntent,
     stripe.PaymentLink.OBJECT_NAME: stripe.PaymentLink,
     stripe.PaymentMethod.OBJECT_NAME: stripe.PaymentMethod,
     stripe.PaymentMethodConfiguration.OBJECT_NAME: stripe.PaymentMethodConfiguration,
     stripe.PaymentMethodDomain.OBJECT_NAME: stripe.PaymentMethodDomain,
+    stripe.PaymentRecord.OBJECT_NAME: stripe.PaymentRecord,
     stripe.Payout.OBJECT_NAME: stripe.Payout,
     stripe.Person.OBJECT_NAME: stripe.Person,
     stripe.Plan.OBJECT_NAME: stripe.Plan,
@@ -175,5 +178,6 @@ V2_OBJECT_CLASSES = {
     stripe.v2.billing.MeterEventAdjustment.OBJECT_NAME: stripe.v2.billing.MeterEventAdjustment,
     stripe.v2.billing.MeterEventSession.OBJECT_NAME: stripe.v2.billing.MeterEventSession,
     stripe.v2.Event.OBJECT_NAME: stripe.v2.Event,
+    stripe.v2.EventDestination.OBJECT_NAME: stripe.v2.EventDestination,
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }

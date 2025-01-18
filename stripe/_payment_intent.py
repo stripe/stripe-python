@@ -103,6 +103,10 @@ class PaymentIntent(
         """
 
     class LastPaymentError(StripeObject):
+        advice_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
+        """
         charge: Optional[str]
         """
         For card errors, the ID of the failed charge.
@@ -239,7 +243,6 @@ class PaymentIntent(
                 "payment_method_unexpected_state",
                 "payment_method_unsupported_type",
                 "payout_reconciliation_not_ready",
-                "payout_statement_descriptor_profanity",
                 "payouts_limit_exceeded",
                 "payouts_not_allowed",
                 "platform_account_required",
@@ -304,6 +307,14 @@ class PaymentIntent(
         message: Optional[str]
         """
         A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
+        """
+        network_advice_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
+        """
+        network_decline_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
         """
         param: Optional[str]
         """
@@ -452,10 +463,72 @@ class PaymentIntent(
         class DisplayBankTransferInstructions(StripeObject):
             class FinancialAddress(StripeObject):
                 class Aba(StripeObject):
+                    class AccountHolderAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class BankAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    account_holder_address: AccountHolderAddress
+                    account_holder_name: str
+                    """
+                    The account holder name
+                    """
                     account_number: str
                     """
                     The ABA account number
                     """
+                    account_type: str
+                    """
+                    The account type
+                    """
+                    bank_address: BankAddress
                     bank_name: str
                     """
                     The bank name
@@ -464,12 +537,70 @@ class PaymentIntent(
                     """
                     The ABA routing number
                     """
+                    _inner_class_types = {
+                        "account_holder_address": AccountHolderAddress,
+                        "bank_address": BankAddress,
+                    }
 
                 class Iban(StripeObject):
+                    class AccountHolderAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class BankAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    account_holder_address: AccountHolderAddress
                     account_holder_name: str
                     """
                     The name of the person or business that owns the bank account
                     """
+                    bank_address: BankAddress
                     bic: str
                     """
                     The BIC/SWIFT code of the account.
@@ -482,8 +613,65 @@ class PaymentIntent(
                     """
                     The IBAN of the account.
                     """
+                    _inner_class_types = {
+                        "account_holder_address": AccountHolderAddress,
+                        "bank_address": BankAddress,
+                    }
 
                 class SortCode(StripeObject):
+                    class AccountHolderAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class BankAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    account_holder_address: AccountHolderAddress
                     account_holder_name: str
                     """
                     The name of the person or business that owns the bank account
@@ -492,12 +680,75 @@ class PaymentIntent(
                     """
                     The account number
                     """
+                    bank_address: BankAddress
                     sort_code: str
                     """
                     The six-digit sort code
                     """
+                    _inner_class_types = {
+                        "account_holder_address": AccountHolderAddress,
+                        "bank_address": BankAddress,
+                    }
 
                 class Spei(StripeObject):
+                    class AccountHolderAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class BankAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    account_holder_address: AccountHolderAddress
+                    account_holder_name: str
+                    """
+                    The account holder name
+                    """
+                    bank_address: BankAddress
                     bank_code: str
                     """
                     The three-digit bank code
@@ -510,12 +761,78 @@ class PaymentIntent(
                     """
                     The CLABE number
                     """
+                    _inner_class_types = {
+                        "account_holder_address": AccountHolderAddress,
+                        "bank_address": BankAddress,
+                    }
 
                 class Swift(StripeObject):
+                    class AccountHolderAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class BankAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    account_holder_address: AccountHolderAddress
+                    account_holder_name: str
+                    """
+                    The account holder name
+                    """
                     account_number: str
                     """
                     The account number
                     """
+                    account_type: str
+                    """
+                    The account type
+                    """
+                    bank_address: BankAddress
                     bank_name: str
                     """
                     The bank name
@@ -524,8 +841,65 @@ class PaymentIntent(
                     """
                     The SWIFT code
                     """
+                    _inner_class_types = {
+                        "account_holder_address": AccountHolderAddress,
+                        "bank_address": BankAddress,
+                    }
 
                 class Zengin(StripeObject):
+                    class AccountHolderAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class BankAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    account_holder_address: AccountHolderAddress
                     account_holder_name: Optional[str]
                     """
                     The account holder name
@@ -538,6 +912,7 @@ class PaymentIntent(
                     """
                     The bank account type. In Japan, this can only be `futsu` or `toza`.
                     """
+                    bank_address: BankAddress
                     bank_code: Optional[str]
                     """
                     The bank code of the account
@@ -554,6 +929,10 @@ class PaymentIntent(
                     """
                     The branch name of the account
                     """
+                    _inner_class_types = {
+                        "account_holder_address": AccountHolderAddress,
+                        "bank_address": BankAddress,
+                    }
 
                 aba: Optional[Aba]
                 """
@@ -1387,6 +1766,12 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class Alma(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+
         class AmazonPay(StripeObject):
             capture_method: Optional[Literal["manual"]]
             """
@@ -1419,7 +1804,10 @@ class PaymentIntent(
 
         class BacsDebit(StripeObject):
             class MandateOptions(StripeObject):
-                pass
+                reference_prefix: Optional[str]
+                """
+                Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+                """
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
@@ -1627,6 +2015,7 @@ class PaymentIntent(
                     "girocard",
                     "interac",
                     "jcb",
+                    "link",
                     "mastercard",
                     "unionpay",
                     "unknown",
@@ -1661,6 +2050,12 @@ class PaymentIntent(
             request_overcapture: Optional[Literal["if_available", "never"]]
             """
             Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+            """
+            request_partial_authorization: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Request partial authorization on this PaymentIntent.
             """
             request_three_d_secure: Optional[
                 Literal["any", "automatic", "challenge"]
@@ -1831,7 +2226,39 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class Gopay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
         class Grabpay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
+        class IdBankTransfer(StripeObject):
+            expires_after: Optional[int]
+            """
+            The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now till 2678400 seconds (31 days) from now.
+            """
+            expires_at: Optional[int]
+            """
+            The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now until 30 days from now. If unset, it defaults to 1 days from now.
+            """
             setup_future_usage: Optional[Literal["none"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1862,6 +2289,16 @@ class PaymentIntent(
             capture_method: Optional[Literal["manual"]]
             """
             Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
         class Klarna(StripeObject):
@@ -2021,6 +2458,9 @@ class PaymentIntent(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
+
+        class PayByBank(StripeObject):
+            pass
 
         class Payco(StripeObject):
             capture_method: Optional[Literal["manual"]]
@@ -2218,6 +2658,18 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class Qris(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+
         class Rechnung(StripeObject):
             pass
 
@@ -2245,7 +2697,10 @@ class PaymentIntent(
 
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
-                pass
+                reference_prefix: Optional[str]
+                """
+                Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+                """
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
@@ -2261,6 +2716,18 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
             _inner_class_types = {"mandate_options": MandateOptions}
+
+        class Shopeepay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
 
         class Sofort(StripeObject):
             preferred_language: Optional[
@@ -2283,7 +2750,7 @@ class PaymentIntent(
         class Swish(StripeObject):
             reference: Optional[str]
             """
-            The order ID displayed in the Swish app after the payment is authorized.
+            A reference for this payment to be displayed in the Swish app.
             """
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -2438,6 +2905,7 @@ class PaymentIntent(
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
+        alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
@@ -2451,7 +2919,9 @@ class PaymentIntent(
         eps: Optional[Eps]
         fpx: Optional[Fpx]
         giropay: Optional[Giropay]
+        gopay: Optional[Gopay]
         grabpay: Optional[Grabpay]
+        id_bank_transfer: Optional[IdBankTransfer]
         ideal: Optional[Ideal]
         interac_present: Optional[InteracPresent]
         kakao_pay: Optional[KakaoPay]
@@ -2465,16 +2935,19 @@ class PaymentIntent(
         naver_pay: Optional[NaverPay]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
+        pay_by_bank: Optional[PayByBank]
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
+        qris: Optional[Qris]
         rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
         sepa_debit: Optional[SepaDebit]
+        shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
         twint: Optional[Twint]
@@ -2486,6 +2959,7 @@ class PaymentIntent(
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
+            "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
@@ -2499,7 +2973,9 @@ class PaymentIntent(
             "eps": Eps,
             "fpx": Fpx,
             "giropay": Giropay,
+            "gopay": Gopay,
             "grabpay": Grabpay,
+            "id_bank_transfer": IdBankTransfer,
             "ideal": Ideal,
             "interac_present": InteracPresent,
             "kakao_pay": KakaoPay,
@@ -2513,16 +2989,19 @@ class PaymentIntent(
             "naver_pay": NaverPay,
             "oxxo": Oxxo,
             "p24": P24,
+            "pay_by_bank": PayByBank,
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
             "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
+            "qris": Qris,
             "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
             "sepa_debit": SepaDebit,
+            "shopeepay": Shopeepay,
             "sofort": Sofort,
             "swish": Swish,
             "twint": Twint,
@@ -4229,6 +4708,10 @@ class PaymentIntent(
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataAmazonPay"
         ]
@@ -4295,11 +4778,21 @@ class PaymentIntent(
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         """
+        gopay: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataGopay"]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        """
         grabpay: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataGrabpay"
         ]
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
+        """
+        id_bank_transfer: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
         """
         ideal: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataIdeal"]
         """
@@ -4375,6 +4868,12 @@ class PaymentIntent(
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataPayco"]
         """
         If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
@@ -4404,6 +4903,10 @@ class PaymentIntent(
         ]
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
+        """
+        qris: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataQris"]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
         """
         radar_options: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataRadarOptions"
@@ -4435,6 +4938,12 @@ class PaymentIntent(
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         """
+        shopeepay: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+        """
         sofort: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataSofort"
         ]
@@ -4454,6 +4963,7 @@ class PaymentIntent(
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -4465,7 +4975,9 @@ class PaymentIntent(
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -4478,16 +4990,19 @@ class PaymentIntent(
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -4536,6 +5051,9 @@ class PaymentIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -4698,8 +5216,17 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class ConfirmParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class ConfirmParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
@@ -4723,7 +5250,7 @@ class PaymentIntent(
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class ConfirmParamsPaymentMethodDataInteracPresent(TypedDict):
@@ -4816,6 +5343,9 @@ class PaymentIntent(
         The customer's bank.
         """
 
+    class ConfirmParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataPayco(TypedDict):
         pass
 
@@ -4843,6 +5373,9 @@ class PaymentIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataPromptpay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataQris(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
@@ -4882,6 +5415,9 @@ class PaymentIntent(
         """
         IBAN of the bank account.
         """
+
+    class ConfirmParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -4947,6 +5483,12 @@ class PaymentIntent(
         ]
         """
         If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
+        """
+        alma: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAlma"
+        ]
+        """
+        If this is a `alma` PaymentMethod, this sub-hash contains details about the Alma payment method options.
         """
         amazon_pay: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAmazonPay"
@@ -5026,11 +5568,23 @@ class PaymentIntent(
         """
         If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
         """
+        gopay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsGopay"
+        ]
+        """
+        If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        """
         grabpay: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsGrabpay"
         ]
         """
         If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
+        """
+        id_bank_transfer: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsIdBankTransfer"
+        ]
+        """
+        If this is a `id_bank_transfer` PaymentMethod, this sub-hash contains details about the Indonesia Bank Transfer payment method options.
         """
         ideal: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsIdeal"
@@ -5110,6 +5664,12 @@ class PaymentIntent(
         """
         If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
         """
+        pay_by_bank: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this sub-hash contains details about the PayByBank payment method options.
+        """
         payco: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPayco"
         ]
@@ -5146,6 +5706,12 @@ class PaymentIntent(
         """
         If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
         """
+        qris: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsQris"
+        ]
+        """
+        If this is a `qris` PaymentMethod, this sub-hash contains details about the QRIS payment method options.
+        """
         rechnung: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsRechnung"
         ]
@@ -5169,6 +5735,12 @@ class PaymentIntent(
         ]
         """
         If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
+        """
+        shopeepay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsShopeepay"
+        ]
+        """
+        If this is a `shopeepay` PaymentMethod, this sub-hash contains details about the ShopeePay payment method options.
         """
         sofort: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSofort"
@@ -5326,6 +5898,16 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsAlma(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class ConfirmParamsPaymentMethodOptionsAmazonPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -5387,7 +5969,10 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class ConfirmParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -5490,6 +6075,7 @@ class PaymentIntent(
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -5524,6 +6110,12 @@ class PaymentIntent(
         request_overcapture: NotRequired[Literal["if_available", "never"]]
         """
         Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+        """
+        request_partial_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request partial authorization on this PaymentIntent.
         """
         request_three_d_secure: NotRequired[
             Literal["any", "automatic", "challenge"]
@@ -5917,7 +6509,43 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsGopay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class ConfirmParamsPaymentMethodOptionsGrabpay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsIdBankTransfer(TypedDict):
+        expires_after: NotRequired[int]
+        """
+        The UNIX timestamp until which the virtual bank account is valid. Permitted range is from 5 minutes from now until 31 days from now. If unset, it defaults to 3 days from now.
+        """
+        expires_at: NotRequired[int]
+        """
+        The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now until 30 days from now. If unset, it defaults to 1 days from now.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -5958,6 +6586,18 @@ class PaymentIntent(
         If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
 
     class ConfirmParamsPaymentMethodOptionsKlarna(TypedDict):
@@ -6210,6 +6850,9 @@ class PaymentIntent(
         """
         Confirm that the payer has accepted the P24 terms and conditions.
         """
+
+    class ConfirmParamsPaymentMethodOptionsPayByBank(TypedDict):
+        pass
 
     class ConfirmParamsPaymentMethodOptionsPayco(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
@@ -6464,6 +7107,20 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsQris(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class ConfirmParamsPaymentMethodOptionsRechnung(TypedDict):
         pass
 
@@ -6522,7 +7179,24 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsShopeepay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
 
     class ConfirmParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -6549,7 +7223,7 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
-        The order ID displayed in the Swish app after the payment is authorized.
+        A reference for this payment to be displayed in the Swish app.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -6894,7 +7568,7 @@ class PaymentIntent(
         """
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this PaymentIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent.
         """
         payment_method_data: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodData"
@@ -6912,7 +7586,7 @@ class PaymentIntent(
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, it defaults to ["card"]. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
         """
         radar_options: NotRequired["PaymentIntent.CreateParamsRadarOptions"]
         """
@@ -7723,6 +8397,10 @@ class PaymentIntent(
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataAmazonPay"
         ]
@@ -7789,11 +8467,21 @@ class PaymentIntent(
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         """
+        gopay: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataGopay"]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        """
         grabpay: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataGrabpay"
         ]
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
+        """
+        id_bank_transfer: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
         """
         ideal: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataIdeal"]
         """
@@ -7867,6 +8555,12 @@ class PaymentIntent(
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataPayco"]
         """
         If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
@@ -7896,6 +8590,10 @@ class PaymentIntent(
         ]
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
+        """
+        qris: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataQris"]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
         """
         radar_options: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataRadarOptions"
@@ -7927,6 +8625,12 @@ class PaymentIntent(
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         """
+        shopeepay: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+        """
         sofort: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataSofort"
         ]
@@ -7946,6 +8650,7 @@ class PaymentIntent(
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -7957,7 +8662,9 @@ class PaymentIntent(
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -7970,16 +8677,19 @@ class PaymentIntent(
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -8028,6 +8738,9 @@ class PaymentIntent(
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -8190,8 +8903,17 @@ class PaymentIntent(
     class CreateParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class CreateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
@@ -8215,7 +8937,7 @@ class PaymentIntent(
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
@@ -8308,6 +9030,9 @@ class PaymentIntent(
         The customer's bank.
         """
 
+    class CreateParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataPayco(TypedDict):
         pass
 
@@ -8335,6 +9060,9 @@ class PaymentIntent(
         pass
 
     class CreateParamsPaymentMethodDataPromptpay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataQris(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
@@ -8374,6 +9102,9 @@ class PaymentIntent(
         """
         IBAN of the bank account.
         """
+
+    class CreateParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -8439,6 +9170,12 @@ class PaymentIntent(
         ]
         """
         If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
+        """
+        alma: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAlma"
+        ]
+        """
+        If this is a `alma` PaymentMethod, this sub-hash contains details about the Alma payment method options.
         """
         amazon_pay: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAmazonPay"
@@ -8518,11 +9255,23 @@ class PaymentIntent(
         """
         If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
         """
+        gopay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsGopay"
+        ]
+        """
+        If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        """
         grabpay: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsGrabpay"
         ]
         """
         If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
+        """
+        id_bank_transfer: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsIdBankTransfer"
+        ]
+        """
+        If this is a `id_bank_transfer` PaymentMethod, this sub-hash contains details about the Indonesia Bank Transfer payment method options.
         """
         ideal: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsIdeal"
@@ -8602,6 +9351,12 @@ class PaymentIntent(
         """
         If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
         """
+        pay_by_bank: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this sub-hash contains details about the PayByBank payment method options.
+        """
         payco: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPayco"
         ]
@@ -8638,6 +9393,12 @@ class PaymentIntent(
         """
         If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
         """
+        qris: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsQris"
+        ]
+        """
+        If this is a `qris` PaymentMethod, this sub-hash contains details about the QRIS payment method options.
+        """
         rechnung: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsRechnung"
         ]
@@ -8661,6 +9422,12 @@ class PaymentIntent(
         ]
         """
         If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
+        """
+        shopeepay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsShopeepay"
+        ]
+        """
+        If this is a `shopeepay` PaymentMethod, this sub-hash contains details about the ShopeePay payment method options.
         """
         sofort: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSofort"
@@ -8818,6 +9585,16 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsAlma(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -8879,7 +9656,10 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -8982,6 +9762,7 @@ class PaymentIntent(
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -9016,6 +9797,12 @@ class PaymentIntent(
         request_overcapture: NotRequired[Literal["if_available", "never"]]
         """
         Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+        """
+        request_partial_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request partial authorization on this PaymentIntent.
         """
         request_three_d_secure: NotRequired[
             Literal["any", "automatic", "challenge"]
@@ -9409,7 +10196,43 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsGopay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class CreateParamsPaymentMethodOptionsGrabpay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsIdBankTransfer(TypedDict):
+        expires_after: NotRequired[int]
+        """
+        The UNIX timestamp until which the virtual bank account is valid. Permitted range is from 5 minutes from now until 31 days from now. If unset, it defaults to 3 days from now.
+        """
+        expires_at: NotRequired[int]
+        """
+        The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now until 30 days from now. If unset, it defaults to 1 days from now.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -9450,6 +10273,18 @@ class PaymentIntent(
         If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
@@ -9702,6 +10537,9 @@ class PaymentIntent(
         """
         Confirm that the payer has accepted the P24 terms and conditions.
         """
+
+    class CreateParamsPaymentMethodOptionsPayByBank(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodOptionsPayco(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
@@ -9956,6 +10794,20 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsQris(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class CreateParamsPaymentMethodOptionsRechnung(TypedDict):
         pass
 
@@ -10014,7 +10866,24 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
+
+    class CreateParamsPaymentMethodOptionsShopeepay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -10041,7 +10910,7 @@ class PaymentIntent(
     class CreateParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
-        The order ID displayed in the Swish app after the payment is authorized.
+        A reference for this payment to be displayed in the Swish app.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -10394,6 +11263,12 @@ class PaymentIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        payment_method_options: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsPaymentMethodOptions"
+        ]
+        """
+        Payment method-specific configuration for this PaymentIntent.
+        """
         statement_descriptor: NotRequired[str]
         """
         Text that appears on the customer's statement as the statement descriptor for a non-card or card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -10426,6 +11301,22 @@ class PaymentIntent(
         calculation: Union[Literal[""], str]
         """
         The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+        """
+
+    class IncrementAuthorizationParamsPaymentMethodOptions(TypedDict):
+        card: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsPaymentMethodOptionsCard"
+        ]
+        """
+        Configuration for any card payments attempted on this PaymentIntent.
+        """
+
+    class IncrementAuthorizationParamsPaymentMethodOptionsCard(TypedDict):
+        request_partial_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request partial authorization on this PaymentIntent.
         """
 
     class IncrementAuthorizationParamsTransferData(TypedDict):
@@ -10536,7 +11427,7 @@ class PaymentIntent(
         payment_method: NotRequired[str]
         payment_method_configuration: NotRequired[str]
         """
-        The ID of the payment method configuration to use with this PaymentIntent.
+        The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent.
         """
         payment_method_data: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodData"
@@ -11325,6 +12216,10 @@ class PaymentIntent(
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataAlma"]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataAmazonPay"
         ]
@@ -11391,11 +12286,21 @@ class PaymentIntent(
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         """
+        gopay: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataGopay"]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        """
         grabpay: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataGrabpay"
         ]
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
+        """
+        id_bank_transfer: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
         """
         ideal: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataIdeal"]
         """
@@ -11469,6 +12374,12 @@ class PaymentIntent(
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataPayco"]
         """
         If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
@@ -11498,6 +12409,10 @@ class PaymentIntent(
         ]
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
+        """
+        qris: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataQris"]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
         """
         radar_options: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataRadarOptions"
@@ -11529,6 +12444,12 @@ class PaymentIntent(
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         """
+        shopeepay: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+        """
         sofort: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataSofort"
         ]
@@ -11548,6 +12469,7 @@ class PaymentIntent(
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -11559,7 +12481,9 @@ class PaymentIntent(
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -11572,16 +12496,19 @@ class PaymentIntent(
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -11630,6 +12557,9 @@ class PaymentIntent(
         pass
 
     class ModifyParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -11792,8 +12722,17 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class ModifyParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class ModifyParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
@@ -11817,7 +12756,7 @@ class PaymentIntent(
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class ModifyParamsPaymentMethodDataInteracPresent(TypedDict):
@@ -11910,6 +12849,9 @@ class PaymentIntent(
         The customer's bank.
         """
 
+    class ModifyParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataPayco(TypedDict):
         pass
 
@@ -11937,6 +12879,9 @@ class PaymentIntent(
         pass
 
     class ModifyParamsPaymentMethodDataPromptpay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataQris(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataRadarOptions(TypedDict):
@@ -11976,6 +12921,9 @@ class PaymentIntent(
         """
         IBAN of the bank account.
         """
+
+    class ModifyParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class ModifyParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -12041,6 +12989,12 @@ class PaymentIntent(
         ]
         """
         If this is a `alipay` PaymentMethod, this sub-hash contains details about the Alipay payment method options.
+        """
+        alma: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAlma"
+        ]
+        """
+        If this is a `alma` PaymentMethod, this sub-hash contains details about the Alma payment method options.
         """
         amazon_pay: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAmazonPay"
@@ -12120,11 +13074,23 @@ class PaymentIntent(
         """
         If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
         """
+        gopay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsGopay"
+        ]
+        """
+        If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        """
         grabpay: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsGrabpay"
         ]
         """
         If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
+        """
+        id_bank_transfer: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsIdBankTransfer"
+        ]
+        """
+        If this is a `id_bank_transfer` PaymentMethod, this sub-hash contains details about the Indonesia Bank Transfer payment method options.
         """
         ideal: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsIdeal"
@@ -12204,6 +13170,12 @@ class PaymentIntent(
         """
         If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
         """
+        pay_by_bank: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this sub-hash contains details about the PayByBank payment method options.
+        """
         payco: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPayco"
         ]
@@ -12240,6 +13212,12 @@ class PaymentIntent(
         """
         If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
         """
+        qris: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsQris"
+        ]
+        """
+        If this is a `qris` PaymentMethod, this sub-hash contains details about the QRIS payment method options.
+        """
         rechnung: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsRechnung"
         ]
@@ -12263,6 +13241,12 @@ class PaymentIntent(
         ]
         """
         If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
+        """
+        shopeepay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsShopeepay"
+        ]
+        """
+        If this is a `shopeepay` PaymentMethod, this sub-hash contains details about the ShopeePay payment method options.
         """
         sofort: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSofort"
@@ -12420,6 +13404,16 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ModifyParamsPaymentMethodOptionsAlma(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class ModifyParamsPaymentMethodOptionsAmazonPay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -12481,7 +13475,10 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
+        """
 
     class ModifyParamsPaymentMethodOptionsBancontact(TypedDict):
         preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
@@ -12584,6 +13581,7 @@ class PaymentIntent(
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -12618,6 +13616,12 @@ class PaymentIntent(
         request_overcapture: NotRequired[Literal["if_available", "never"]]
         """
         Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+        """
+        request_partial_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request partial authorization on this PaymentIntent.
         """
         request_three_d_secure: NotRequired[
             Literal["any", "automatic", "challenge"]
@@ -13011,7 +14015,43 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ModifyParamsPaymentMethodOptionsGopay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class ModifyParamsPaymentMethodOptionsGrabpay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsIdBankTransfer(TypedDict):
+        expires_after: NotRequired[int]
+        """
+        The UNIX timestamp until which the virtual bank account is valid. Permitted range is from 5 minutes from now until 31 days from now. If unset, it defaults to 3 days from now.
+        """
+        expires_at: NotRequired[int]
+        """
+        The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now until 30 days from now. If unset, it defaults to 1 days from now.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -13052,6 +14092,18 @@ class PaymentIntent(
         If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
 
     class ModifyParamsPaymentMethodOptionsKlarna(TypedDict):
@@ -13304,6 +14356,9 @@ class PaymentIntent(
         """
         Confirm that the payer has accepted the P24 terms and conditions.
         """
+
+    class ModifyParamsPaymentMethodOptionsPayByBank(TypedDict):
+        pass
 
     class ModifyParamsPaymentMethodOptionsPayco(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
@@ -13558,6 +14613,20 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ModifyParamsPaymentMethodOptionsQris(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class ModifyParamsPaymentMethodOptionsRechnung(TypedDict):
         pass
 
@@ -13616,7 +14685,24 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
-        pass
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
+        """
+
+    class ModifyParamsPaymentMethodOptionsShopeepay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
 
     class ModifyParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
@@ -13643,7 +14729,7 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
-        The order ID displayed in the Swish app after the payment is authorized.
+        A reference for this payment to be displayed in the Swish app.
         """
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -13915,6 +15001,28 @@ class PaymentIntent(
         The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for payment intents](https://stripe.com/docs/search#query-fields-for-payment-intents).
         """
 
+    class TriggerActionParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        scan_qr_code: NotRequired[
+            "PaymentIntent.TriggerActionParamsScanQrCode"
+        ]
+        """
+        True to simulate success, false to simulate failure.
+        """
+        type: Literal["expire", "fund"]
+        """
+        The type of action to be simulated.
+        """
+
+    class TriggerActionParamsScanQrCode(TypedDict):
+        result: NotRequired[Literal["failure", "success"]]
+        """
+        Whether the QR Code scan's payment should succeed or fail.
+        """
+
     class VerifyMicrodepositsParams(RequestOptions):
         amounts: NotRequired[List[int]]
         """
@@ -14054,7 +15162,7 @@ class PaymentIntent(
         PaymentMethodConfigurationDetails
     ]
     """
-    Information about the payment method configuration used for this PaymentIntent.
+    Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this PaymentIntent.
     """
     payment_method_options: Optional[PaymentMethodOptions]
     """
@@ -15536,6 +16644,116 @@ class PaymentIntent(
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    @classmethod
+    def _cls_trigger_action(
+        cls, intent: str, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def trigger_action(
+        intent: str, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        ...
+
+    @overload
+    def trigger_action(
+        self, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        ...
+
+    @class_method_variant("_cls_trigger_action")
+    def trigger_action(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_trigger_action_async(
+        cls, intent: str, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            await cls._static_request_async(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def trigger_action_async(
+        intent: str, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        ...
+
+    @overload
+    async def trigger_action_async(
+        self, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        ...
+
+    @class_method_variant("_cls_trigger_action_async")
+    async def trigger_action_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntent.TriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            await self._request_async(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def _cls_verify_microdeposits(

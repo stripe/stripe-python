@@ -63,6 +63,10 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 Type of the account referenced.
                 """
 
+            disabled_reason: Optional[Literal["requires_location_inputs"]]
+            """
+            If Stripe disabled automatic tax, this enum describes why.
+            """
             enabled: bool
             """
             Whether Stripe automatically computes tax on invoices created during this phase.
@@ -243,6 +247,10 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 Type of the account referenced.
                 """
 
+            disabled_reason: Optional[Literal["requires_location_inputs"]]
+            """
+            If Stripe disabled automatic tax, this enum describes why.
+            """
             enabled: bool
             """
             Whether Stripe automatically computes tax on invoices created during this phase.
@@ -499,7 +507,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         """
         pause_collection: Optional[PauseCollection]
         """
-        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         """
         proration_behavior: Literal[
             "always_invoice", "create_prorations", "none"

@@ -16,6 +16,12 @@ class SessionService(StripeService):
         self.line_items = SessionLineItemService(self._requestor)
 
     class CreateParams(TypedDict):
+        adaptive_pricing: NotRequired[
+            "SessionService.CreateParamsAdaptivePricing"
+        ]
+        """
+        Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
+        """
         after_expiration: NotRequired[
             "SessionService.CreateParamsAfterExpiration"
         ]
@@ -226,6 +232,7 @@ class SessionService(StripeService):
                     "affirm",
                     "afterpay_clearpay",
                     "alipay",
+                    "alma",
                     "amazon_pay",
                     "au_becs_debit",
                     "bacs_debit",
@@ -238,24 +245,33 @@ class SessionService(StripeService):
                     "eps",
                     "fpx",
                     "giropay",
+                    "gopay",
                     "grabpay",
                     "ideal",
+                    "kakao_pay",
                     "klarna",
                     "konbini",
+                    "kr_card",
                     "link",
                     "mb_way",
                     "mobilepay",
                     "multibanco",
+                    "naver_pay",
                     "oxxo",
                     "p24",
+                    "pay_by_bank",
+                    "payco",
                     "paynow",
                     "paypal",
                     "payto",
                     "pix",
                     "promptpay",
+                    "qris",
                     "rechnung",
                     "revolut_pay",
+                    "samsung_pay",
                     "sepa_debit",
+                    "shopeepay",
                     "sofort",
                     "swish",
                     "twint",
@@ -329,7 +345,9 @@ class SessionService(StripeService):
         """
         The shipping rate options to apply to this Session. Up to a maximum of 5.
         """
-        submit_type: NotRequired[Literal["auto", "book", "donate", "pay"]]
+        submit_type: NotRequired[
+            Literal["auto", "book", "donate", "pay", "subscribe"]
+        ]
         """
         Describes the type of transaction being performed by Checkout in order to customize
         relevant text on the page, such as the submit button. `submit_type` can only be
@@ -360,6 +378,12 @@ class SessionService(StripeService):
         The UI mode of the Session. Defaults to `hosted`.
         """
 
+    class CreateParamsAdaptivePricing(TypedDict):
+        enabled: NotRequired[bool]
+        """
+        Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
+        """
+
     class CreateParamsAfterExpiration(TypedDict):
         recovery: NotRequired[
             "SessionService.CreateParamsAfterExpirationRecovery"
@@ -383,7 +407,9 @@ class SessionService(StripeService):
     class CreateParamsAutomaticTax(TypedDict):
         enabled: bool
         """
-        Set to true to enable automatic taxes.
+        Set to `true` to [calculate tax automatically](https://docs.stripe.com/tax) using the customer's location.
+
+        Enabling this parameter causes Checkout to collect any billing address information necessary for tax calculation.
         """
         liability: NotRequired[
             "SessionService.CreateParamsAutomaticTaxLiability"
@@ -678,6 +704,10 @@ class SessionService(StripeService):
         dynamic_tax_rates: NotRequired[List[str]]
         """
         The [tax rates](https://stripe.com/docs/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
         price: NotRequired[str]
         """
@@ -1026,6 +1056,12 @@ class SessionService(StripeService):
         """
         contains details about the Ideal payment method options.
         """
+        kakao_pay: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsKakaoPay"
+        ]
+        """
+        contains details about the Kakao Pay payment method options.
+        """
         klarna: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsKlarna"
         ]
@@ -1037,6 +1073,12 @@ class SessionService(StripeService):
         ]
         """
         contains details about the Konbini payment method options.
+        """
+        kr_card: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsKrCard"
+        ]
+        """
+        contains details about the Korean card payment method options.
         """
         link: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsLink"
@@ -1056,6 +1098,12 @@ class SessionService(StripeService):
         """
         contains details about the Multibanco payment method options.
         """
+        naver_pay: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsNaverPay"
+        ]
+        """
+        contains details about the Naver Pay payment method options.
+        """
         oxxo: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsOxxo"
         ]
@@ -1065,6 +1113,18 @@ class SessionService(StripeService):
         p24: NotRequired["SessionService.CreateParamsPaymentMethodOptionsP24"]
         """
         contains details about the P24 payment method options.
+        """
+        pay_by_bank: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsPayByBank"
+        ]
+        """
+        contains details about the Pay By Bank payment method options.
+        """
+        payco: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsPayco"
+        ]
+        """
+        contains details about the PAYCO payment method options.
         """
         paynow: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsPaynow"
@@ -1093,6 +1153,12 @@ class SessionService(StripeService):
         ]
         """
         contains details about the RevolutPay payment method options.
+        """
+        samsung_pay: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsSamsungPay"
+        ]
+        """
+        contains details about the Samsung Pay payment method options.
         """
         sepa_debit: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsSepaDebit"
@@ -1242,6 +1308,12 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsBacsDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             Literal["none", "off_session", "on_session"]
         ]
@@ -1253,6 +1325,12 @@ class SessionService(StripeService):
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
         """
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
@@ -1291,6 +1369,32 @@ class SessionService(StripeService):
         ]
         """
         Installment options for card payments
+        """
+        request_decremental_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/payments/extended-authorization) for this CheckoutSession.
+        """
+        request_extended_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/payments/extended-authorization) for this CheckoutSession.
+        """
+        request_incremental_authorization: NotRequired[
+            Literal["if_available", "never"]
+        ]
+        """
+        Request ability to [increment the authorization](https://stripe.com/payments/incremental-authorization) for this CheckoutSession.
+        """
+        request_multicapture: NotRequired[Literal["if_available", "never"]]
+        """
+        Request ability to make [multiple captures](https://stripe.com/payments/multicapture) for this CheckoutSession.
+        """
+        request_overcapture: NotRequired[Literal["if_available", "never"]]
+        """
+        Request ability to [overcapture](https://stripe.com/payments/overcapture) for this CheckoutSession.
         """
         request_three_d_secure: NotRequired[
             Literal["any", "automatic", "challenge"]
@@ -1466,6 +1570,22 @@ class SessionService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
 
+    class CreateParamsPaymentMethodOptionsKakaoPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
     class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -1484,6 +1604,22 @@ class SessionService(StripeService):
         The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST. Defaults to 3 days.
         """
         setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsKrCard(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1530,6 +1666,22 @@ class SessionService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
 
+    class CreateParamsPaymentMethodOptionsNaverPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
     class CreateParamsPaymentMethodOptionsOxxo(TypedDict):
         expires_after_days: NotRequired[int]
         """
@@ -1560,6 +1712,15 @@ class SessionService(StripeService):
         tos_shown_and_accepted: NotRequired[bool]
         """
         Confirm that the payer has accepted the P24 terms and conditions.
+        """
+
+    class CreateParamsPaymentMethodOptionsPayByBank(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodOptionsPayco(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
         """
 
     class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
@@ -1729,7 +1890,19 @@ class SessionService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
 
+    class CreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+
     class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
+        mandate_options: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsSepaDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
         setup_future_usage: NotRequired[
             Literal["none", "off_session", "on_session"]
         ]
@@ -1741,6 +1914,12 @@ class SessionService(StripeService):
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
+        reference_prefix: NotRequired["Literal['']|str"]
+        """
+        Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
         """
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
@@ -1839,6 +2018,14 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPermissionsUpdate(TypedDict):
+        line_items: NotRequired[Literal["client_only", "server_only"]]
+        """
+        Determines which entity is allowed to update the line items.
+
+        Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+
+        When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+        """
         shipping_details: NotRequired[Literal["client_only", "server_only"]]
         """
         Determines which entity is allowed to update the shipping details.
@@ -1852,6 +2039,8 @@ class SessionService(StripeService):
         enabled: bool
         """
         Set to `true` to enable phone number collection.
+
+        Can only be set in `payment` and `subscription` mode.
         """
 
     class CreateParamsSavedPaymentMethodOptions(TypedDict):
@@ -2067,6 +2256,7 @@ class SessionService(StripeService):
                 "SA",
                 "SB",
                 "SC",
+                "SD",
                 "SE",
                 "SG",
                 "SH",
@@ -2124,7 +2314,7 @@ class SessionService(StripeService):
         ]
         """
         An array of two-letter ISO country codes representing which countries Checkout should provide as options for
-        shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        shipping locations.
         """
 
     class CreateParamsShippingOption(TypedDict):
@@ -2456,6 +2646,22 @@ class SessionService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
+        line_items: NotRequired[List["SessionService.UpdateParamsLineItem"]]
+        """
+        A list of items the customer is purchasing.
+
+        When updating line items, you must retransmit the entire array of line items.
+
+        To retain an existing line item, specify its `id`.
+
+        To update an existing line item, specify its `id` along with the new values of the fields to update.
+
+        To add a new line item, specify a `price` and `quantity`. We don't currently support recurring prices.
+
+        To remove an existing line item, omit the line item's ID from the retransmitted array.
+
+        To reorder a line item, specify it at the desired position in the retransmitted array.
+        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -2509,6 +2715,48 @@ class SessionService(StripeService):
         state: NotRequired[str]
         """
         State, county, province, or region.
+        """
+
+    class UpdateParamsLineItem(TypedDict):
+        adjustable_quantity: NotRequired[
+            "SessionService.UpdateParamsLineItemAdjustableQuantity"
+        ]
+        """
+        When set, provides configuration for this item's quantity to be adjusted by the customer during Checkout.
+        """
+        id: NotRequired[str]
+        """
+        ID of an existing line item.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        price: NotRequired[str]
+        """
+        The ID of the [Price](https://stripe.com/docs/api/prices).
+        """
+        quantity: NotRequired[int]
+        """
+        The quantity of the line item being purchased.
+        """
+        tax_rates: NotRequired["Literal['']|List[str]"]
+        """
+        The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
+        """
+
+    class UpdateParamsLineItemAdjustableQuantity(TypedDict):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any positive integer. Setting to false will remove any previously specified constraints on quantity.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity the customer can purchase for the Checkout Session. By default this value is 99. You can specify a value up to 999999.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity the customer must purchase for the Checkout Session. By default this value is 0.
         """
 
     class UpdateParamsShippingOption(TypedDict):

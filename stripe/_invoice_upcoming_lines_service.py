@@ -285,14 +285,20 @@ class InvoiceUpcomingLinesService(StripeService):
         type: Literal[
             "ad_nrt",
             "ae_trn",
+            "al_tin",
+            "am_tin",
+            "ao_tin",
             "ar_cuit",
             "au_abn",
             "au_arn",
+            "ba_tin",
+            "bb_tin",
             "bg_uic",
             "bh_vat",
             "bo_tin",
             "br_cnpj",
             "br_cpf",
+            "bs_tin",
             "by_tin",
             "ca_bn",
             "ca_gst_hst",
@@ -300,6 +306,7 @@ class InvoiceUpcomingLinesService(StripeService):
             "ca_pst_mb",
             "ca_pst_sk",
             "ca_qst",
+            "cd_nif",
             "ch_uid",
             "ch_vat",
             "cl_tin",
@@ -315,6 +322,7 @@ class InvoiceUpcomingLinesService(StripeService):
             "eu_vat",
             "gb_vat",
             "ge_vat",
+            "gn_nif",
             "hk_br",
             "hr_oib",
             "hu_tin",
@@ -326,11 +334,16 @@ class InvoiceUpcomingLinesService(StripeService):
             "jp_rn",
             "jp_trn",
             "ke_pin",
+            "kh_tin",
             "kr_brn",
             "kz_bin",
             "li_uid",
+            "li_vat",
             "ma_vat",
             "md_vat",
+            "me_pib",
+            "mk_vat",
+            "mr_nif",
             "mx_rfc",
             "my_frp",
             "my_itn",
@@ -338,6 +351,7 @@ class InvoiceUpcomingLinesService(StripeService):
             "ng_tin",
             "no_vat",
             "no_voec",
+            "np_pan",
             "nz_gst",
             "om_vat",
             "pe_ruc",
@@ -350,12 +364,16 @@ class InvoiceUpcomingLinesService(StripeService):
             "sg_gst",
             "sg_uen",
             "si_tin",
+            "sn_ninea",
+            "sr_fin",
             "sv_nit",
             "th_vat",
+            "tj_tin",
             "tr_tin",
             "tw_vat",
             "tz_vat",
             "ua_vat",
+            "ug_tin",
             "us_ein",
             "uy_ruc",
             "uz_tin",
@@ -363,9 +381,11 @@ class InvoiceUpcomingLinesService(StripeService):
             "ve_rif",
             "vn_tin",
             "za_vat",
+            "zm_tin",
+            "zw_tin",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         """
         value: str
         """
@@ -1222,7 +1242,7 @@ class InvoiceUpcomingLinesService(StripeService):
             "InvoiceUpcomingLinesService.ListParamsScheduleDetailsPhasePauseCollection"
         ]
         """
-        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -1760,7 +1780,7 @@ class InvoiceUpcomingLinesService(StripeService):
         """
         clear_usage: NotRequired[bool]
         """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         """
         deleted: NotRequired[bool]
         """
@@ -1910,7 +1930,7 @@ class InvoiceUpcomingLinesService(StripeService):
         """
         clear_usage: NotRequired[bool]
         """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         """
         deleted: NotRequired[bool]
         """

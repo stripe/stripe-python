@@ -26,6 +26,9 @@ if not TYPE_CHECKING:
     from stripe.api_resources.issuing.dispute_settlement_detail import (
         DisputeSettlementDetail,
     )
+    from stripe.api_resources.issuing.fraud_liability_debit import (
+        FraudLiabilityDebit,
+    )
     from stripe.api_resources.issuing.personalization_design import (
         PersonalizationDesign,
     )

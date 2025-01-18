@@ -259,7 +259,7 @@ class CreditNote(
     class CreateParamsLine(TypedDict):
         amount: NotRequired[int]
         """
-        The line item amount to credit. Only valid when `type` is `invoice_line_item`.
+        The line item amount to credit. Only valid when `type` is `invoice_line_item`. If invoice is set up with `automatic_tax[enabled]=true`, this amount is tax exclusive
         """
         description: NotRequired[str]
         """
@@ -490,7 +490,7 @@ class CreditNote(
     class PreviewLinesParamsLine(TypedDict):
         amount: NotRequired[int]
         """
-        The line item amount to credit. Only valid when `type` is `invoice_line_item`.
+        The line item amount to credit. Only valid when `type` is `invoice_line_item`. If invoice is set up with `automatic_tax[enabled]=true`, this amount is tax exclusive
         """
         description: NotRequired[str]
         """
@@ -629,7 +629,7 @@ class CreditNote(
     class PreviewParamsLine(TypedDict):
         amount: NotRequired[int]
         """
-        The line item amount to credit. Only valid when `type` is `invoice_line_item`.
+        The line item amount to credit. Only valid when `type` is `invoice_line_item`. If invoice is set up with `automatic_tax[enabled]=true`, this amount is tax exclusive
         """
         description: NotRequired[str]
         """
@@ -788,7 +788,10 @@ class CreditNote(
     """
     post_payment_amount: Optional[int]
     pre_payment_amount: Optional[int]
-    pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
+    pretax_credit_amounts: List[PretaxCreditAmount]
+    """
+    The pretax credit amounts (ex: discount, credit grants, etc) for all line items.
+    """
     reason: Optional[
         Literal[
             "duplicate", "fraudulent", "order_change", "product_unsatisfactory"

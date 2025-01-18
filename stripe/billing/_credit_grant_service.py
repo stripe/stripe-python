@@ -27,11 +27,11 @@ class CreditGrantService(StripeService):
         """
         customer: str
         """
-        ID of the customer to whom the credit should be granted.
+        ID of the customer to receive the billing credits.
         """
         effective_at: NotRequired[int]
         """
-        The time when the credit becomes effective i.e when it is eligible to be used. Defaults to the current timestamp if not specified.
+        The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
         """
         expand: NotRequired[List[str]]
         """
@@ -39,15 +39,15 @@ class CreditGrantService(StripeService):
         """
         expires_at: NotRequired[int]
         """
-        The time when the credit will expire. If not specified, the credit will never expire.
+        The time when the billing credits expire. If not specified, the billing credits don't expire.
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object (ex: cost basis) in a structured format.
+        Set of key-value pairs that you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
         """
         name: NotRequired[str]
         """
-        A descriptive name shown in dashboard.
+        A descriptive name shown in the Dashboard.
         """
 
     class CreateParamsAmount(TypedDict):
@@ -57,7 +57,7 @@ class CreditGrantService(StripeService):
         """
         type: Literal["monetary"]
         """
-        Specify the type of this amount. We currently only support `monetary` credits.
+        Specify the type of this amount. We currently only support `monetary` billing credits.
         """
 
     class CreateParamsAmountMonetary(TypedDict):
@@ -79,7 +79,7 @@ class CreditGrantService(StripeService):
     class CreateParamsApplicabilityConfigScope(TypedDict):
         price_type: Literal["metered"]
         """
-        The price type to which credit grants can apply to. We currently only support `metered` price type.
+        The price type that credit grants can apply to. We currently only support the `metered` price type.
         """
 
     class ExpireParams(TypedDict):
@@ -123,11 +123,11 @@ class CreditGrantService(StripeService):
         """
         expires_at: NotRequired["Literal['']|int"]
         """
-        The time when the credit created by this credit grant will expire. If set to empty, the credit will never expire.
+        The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire.
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object (ex: cost basis) in a structured format.
+        Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
         """
 
     class VoidGrantParams(TypedDict):
@@ -142,7 +142,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[CreditGrant]:
         """
-        Retrieve a list of credit grants
+        Retrieve a list of credit grants.
         """
         return cast(
             ListObject[CreditGrant],
@@ -161,7 +161,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[CreditGrant]:
         """
-        Retrieve a list of credit grants
+        Retrieve a list of credit grants.
         """
         return cast(
             ListObject[CreditGrant],
@@ -180,7 +180,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Creates a credit grant
+        Creates a credit grant.
         """
         return cast(
             CreditGrant,
@@ -199,7 +199,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Creates a credit grant
+        Creates a credit grant.
         """
         return cast(
             CreditGrant,
@@ -219,7 +219,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Retrieves a credit grant
+        Retrieves a credit grant.
         """
         return cast(
             CreditGrant,
@@ -239,7 +239,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Retrieves a credit grant
+        Retrieves a credit grant.
         """
         return cast(
             CreditGrant,
@@ -259,7 +259,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Updates a credit grant
+        Updates a credit grant.
         """
         return cast(
             CreditGrant,
@@ -279,7 +279,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Updates a credit grant
+        Updates a credit grant.
         """
         return cast(
             CreditGrant,
@@ -299,7 +299,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Expires a credit grant
+        Expires a credit grant.
         """
         return cast(
             CreditGrant,
@@ -321,7 +321,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Expires a credit grant
+        Expires a credit grant.
         """
         return cast(
             CreditGrant,
@@ -343,7 +343,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Voids a credit grant
+        Voids a credit grant.
         """
         return cast(
             CreditGrant,
@@ -365,7 +365,7 @@ class CreditGrantService(StripeService):
         options: RequestOptions = {},
     ) -> CreditGrant:
         """
-        Voids a credit grant
+        Voids a credit grant.
         """
         return cast(
             CreditGrant,

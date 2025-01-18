@@ -89,6 +89,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         address_line1_check: Optional[str]
         address_zip_check: Optional[str]
         brand: Optional[str]
+        brand_product: Optional[str]
         country: Optional[str]
         cvc_check: Optional[str]
         description: Optional[str]
@@ -110,6 +111,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         authorization_code: Optional[str]
         authorization_response_code: Optional[str]
         brand: Optional[str]
+        brand_product: Optional[str]
         country: Optional[str]
         cvm_type: Optional[str]
         data_type: Optional[str]
@@ -474,6 +476,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         address_zip_check: Optional[str]
         authenticated: Optional[bool]
         brand: Optional[str]
+        brand_product: Optional[str]
         card: Optional[str]
         country: Optional[str]
         customer: Optional[str]
@@ -1024,6 +1027,10 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     ach_debit: Optional[AchDebit]
     acss_debit: Optional[AcssDebit]
     alipay: Optional[Alipay]
+    allow_redisplay: Optional[Literal["always", "limited", "unspecified"]]
+    """
+    This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
+    """
     amount: Optional[int]
     """
     A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources.

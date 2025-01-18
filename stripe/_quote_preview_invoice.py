@@ -130,6 +130,15 @@ class QuotePreviewInvoice(StripeObject):
             Type of the account referenced.
             """
 
+        disabled_reason: Optional[
+            Literal[
+                "finalization_requires_location_inputs",
+                "finalization_system_error",
+            ]
+        ]
+        """
+        If Stripe disabled automatic tax, this enum describes why.
+        """
         enabled: bool
         """
         Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
@@ -232,14 +241,20 @@ class QuotePreviewInvoice(StripeObject):
         type: Literal[
             "ad_nrt",
             "ae_trn",
+            "al_tin",
+            "am_tin",
+            "ao_tin",
             "ar_cuit",
             "au_abn",
             "au_arn",
+            "ba_tin",
+            "bb_tin",
             "bg_uic",
             "bh_vat",
             "bo_tin",
             "br_cnpj",
             "br_cpf",
+            "bs_tin",
             "by_tin",
             "ca_bn",
             "ca_gst_hst",
@@ -247,6 +262,7 @@ class QuotePreviewInvoice(StripeObject):
             "ca_pst_mb",
             "ca_pst_sk",
             "ca_qst",
+            "cd_nif",
             "ch_uid",
             "ch_vat",
             "cl_tin",
@@ -262,6 +278,7 @@ class QuotePreviewInvoice(StripeObject):
             "eu_vat",
             "gb_vat",
             "ge_vat",
+            "gn_nif",
             "hk_br",
             "hr_oib",
             "hu_tin",
@@ -273,11 +290,16 @@ class QuotePreviewInvoice(StripeObject):
             "jp_rn",
             "jp_trn",
             "ke_pin",
+            "kh_tin",
             "kr_brn",
             "kz_bin",
             "li_uid",
+            "li_vat",
             "ma_vat",
             "md_vat",
+            "me_pib",
+            "mk_vat",
+            "mr_nif",
             "mx_rfc",
             "my_frp",
             "my_itn",
@@ -285,6 +307,7 @@ class QuotePreviewInvoice(StripeObject):
             "ng_tin",
             "no_vat",
             "no_voec",
+            "np_pan",
             "nz_gst",
             "om_vat",
             "pe_ruc",
@@ -297,12 +320,16 @@ class QuotePreviewInvoice(StripeObject):
             "sg_gst",
             "sg_uen",
             "si_tin",
+            "sn_ninea",
+            "sr_fin",
             "sv_nit",
             "th_vat",
+            "tj_tin",
             "tr_tin",
             "tw_vat",
             "tz_vat",
             "ua_vat",
+            "ug_tin",
             "unknown",
             "us_ein",
             "uy_ruc",
@@ -311,9 +338,11 @@ class QuotePreviewInvoice(StripeObject):
             "ve_rif",
             "vn_tin",
             "za_vat",
+            "zm_tin",
+            "zw_tin",
         ]
         """
-        The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, or `unknown`
+        The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, or `unknown`
         """
         value: Optional[str]
         """
@@ -341,6 +370,10 @@ class QuotePreviewInvoice(StripeObject):
         """
 
     class LastFinalizationError(StripeObject):
+        advice_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
+        """
         charge: Optional[str]
         """
         For card errors, the ID of the failed charge.
@@ -477,7 +510,6 @@ class QuotePreviewInvoice(StripeObject):
                 "payment_method_unexpected_state",
                 "payment_method_unsupported_type",
                 "payout_reconciliation_not_ready",
-                "payout_statement_descriptor_profanity",
                 "payouts_limit_exceeded",
                 "payouts_not_allowed",
                 "platform_account_required",
@@ -542,6 +574,14 @@ class QuotePreviewInvoice(StripeObject):
         message: Optional[str]
         """
         A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
+        """
+        network_advice_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
+        """
+        network_decline_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
         """
         param: Optional[str]
         """
@@ -676,6 +716,9 @@ class QuotePreviewInvoice(StripeObject):
                 """
                 _inner_class_types = {"bank_transfer": BankTransfer}
 
+            class IdBankTransfer(StripeObject):
+                pass
+
             class Konbini(StripeObject):
                 pass
 
@@ -752,6 +795,10 @@ class QuotePreviewInvoice(StripeObject):
             """
             If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice's PaymentIntent.
             """
+            id_bank_transfer: Optional[IdBankTransfer]
+            """
+            If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice's PaymentIntent.
+            """
             konbini: Optional[Konbini]
             """
             If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
@@ -769,6 +816,7 @@ class QuotePreviewInvoice(StripeObject):
                 "bancontact": Bancontact,
                 "card": Card,
                 "customer_balance": CustomerBalance,
+                "id_bank_transfer": IdBankTransfer,
                 "konbini": Konbini,
                 "sepa_debit": SepaDebit,
                 "us_bank_account": UsBankAccount,
@@ -795,16 +843,23 @@ class QuotePreviewInvoice(StripeObject):
                     "boleto",
                     "card",
                     "cashapp",
+                    "custom",
                     "customer_balance",
                     "eps",
                     "fpx",
                     "giropay",
                     "grabpay",
+                    "id_bank_transfer",
                     "ideal",
+                    "jp_credit_transfer",
+                    "kakao_pay",
                     "konbini",
+                    "kr_card",
                     "link",
                     "multibanco",
+                    "naver_pay",
                     "p24",
+                    "payco",
                     "paynow",
                     "paypal",
                     "promptpay",
@@ -991,7 +1046,7 @@ class QuotePreviewInvoice(StripeObject):
         """
         pause_collection: Optional[PauseCollection]
         """
-        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         """
         _inner_class_types = {"pause_collection": PauseCollection}
 
@@ -1125,6 +1180,10 @@ class QuotePreviewInvoice(StripeObject):
     amount_due: int
     """
     Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the `amount_due` may be 0. If there is a positive `starting_balance` for the invoice (the customer owes money), the `amount_due` will also take that into account. The charge that gets generated for the invoice will be for the amount specified in `amount_due`.
+    """
+    amount_overpaid: Optional[int]
+    """
+    Amount that was overpaid on the invoice. Overpayments are debited to the customer's credit balance.
     """
     amount_paid: int
     """

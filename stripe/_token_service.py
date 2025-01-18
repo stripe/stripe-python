@@ -84,6 +84,12 @@ class TokenService(StripeService):
         """
         Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
+        directorship_declaration: NotRequired[
+            "TokenService.CreateParamsAccountCompanyDirectorshipDeclaration"
+        ]
+        """
+        This hash is used to attest that the directors information provided to Stripe is both current and correct.
+        """
         executives_provided: NotRequired[bool]
         """
         Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
@@ -122,6 +128,9 @@ class TokenService(StripeService):
         """
         Whether the user described by the data in the token has been shown the Ownership Declaration and indicated that it is correct.
         """
+        ownership_exemption_reason: NotRequired[
+            "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
+        ]
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).
@@ -239,6 +248,20 @@ class TokenService(StripeService):
         town: NotRequired[str]
         """
         Town or cho-me.
+        """
+
+    class CreateParamsAccountCompanyDirectorshipDeclaration(TypedDict):
+        date: NotRequired[int]
+        """
+        The Unix timestamp marking when the directorship declaration attestation was made.
+        """
+        ip: NotRequired[str]
+        """
+        The IP address from which the directorship declaration attestation was made.
+        """
+        user_agent: NotRequired[str]
+        """
+        The user agent of the browser from which the directorship declaration attestation was made.
         """
 
     class CreateParamsAccountCompanyOwnershipDeclaration(TypedDict):
@@ -970,6 +993,10 @@ class TokenService(StripeService):
         """
 
     class CreateParamsPersonRelationship(TypedDict):
+        authorizer: NotRequired[bool]
+        """
+        Whether the person is the authorizer of the account's representative.
+        """
         director: NotRequired[bool]
         """
         Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
@@ -1092,7 +1119,7 @@ class TokenService(StripeService):
     ) -> Token:
         """
         Creates a single-use token that represents a bank account's details.
-        You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
+        You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
         """
         return cast(
             Token,
@@ -1112,7 +1139,7 @@ class TokenService(StripeService):
     ) -> Token:
         """
         Creates a single-use token that represents a bank account's details.
-        You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
+        You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
         """
         return cast(
             Token,

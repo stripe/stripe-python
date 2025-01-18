@@ -43,16 +43,35 @@ class CreditBalanceTransaction(
             """
             type: Literal["monetary"]
             """
-            The type of this amount. We currently only support `monetary` credits.
+            The type of this amount. We currently only support `monetary` billing credits.
             """
             _inner_class_types = {"monetary": Monetary}
 
+        class CreditsApplicationInvoiceVoided(StripeObject):
+            invoice: ExpandableField["Invoice"]
+            """
+            The invoice to which the reinstated billing credits were originally applied.
+            """
+            invoice_line_item: str
+            """
+            The invoice line item to which the reinstated billing credits were originally applied.
+            """
+
         amount: Amount
-        type: Literal["credits_granted"]
+        credits_application_invoice_voided: Optional[
+            CreditsApplicationInvoiceVoided
+        ]
+        """
+        Details of the invoice to which the reinstated credits were originally applied. Only present if `type` is `credits_application_invoice_voided`.
+        """
+        type: Literal["credits_application_invoice_voided", "credits_granted"]
         """
         The type of credit transaction.
         """
-        _inner_class_types = {"amount": Amount}
+        _inner_class_types = {
+            "amount": Amount,
+            "credits_application_invoice_voided": CreditsApplicationInvoiceVoided,
+        }
 
     class Debit(StripeObject):
         class Amount(StripeObject):
@@ -72,24 +91,24 @@ class CreditBalanceTransaction(
             """
             type: Literal["monetary"]
             """
-            The type of this amount. We currently only support `monetary` credits.
+            The type of this amount. We currently only support `monetary` billing credits.
             """
             _inner_class_types = {"monetary": Monetary}
 
         class CreditsApplied(StripeObject):
             invoice: ExpandableField["Invoice"]
             """
-            The invoice to which the credits were applied.
+            The invoice to which the billing credits were applied.
             """
             invoice_line_item: str
             """
-            The invoice line item to which the credits were applied.
+            The invoice line item to which the billing credits were applied.
             """
 
         amount: Amount
         credits_applied: Optional[CreditsApplied]
         """
-        Details of how the credits were applied to an invoice. Only present if `type` is `credits_applied`.
+        Details of how the billing credits were applied to an invoice. Only present if `type` is `credits_applied`.
         """
         type: Literal["credits_applied", "credits_expired", "credits_voided"]
         """
@@ -138,19 +157,19 @@ class CreditBalanceTransaction(
     """
     credit: Optional[Credit]
     """
-    Credit details for this balance transaction. Only present if type is `credit`.
+    Credit details for this credit balance transaction. Only present if type is `credit`.
     """
     credit_grant: ExpandableField["CreditGrant"]
     """
-    The credit grant associated with this balance transaction.
+    The credit grant associated with this credit balance transaction.
     """
     debit: Optional[Debit]
     """
-    Debit details for this balance transaction. Only present if type is `debit`.
+    Debit details for this credit balance transaction. Only present if type is `debit`.
     """
     effective_at: int
     """
-    The effective time of this balance transaction.
+    The effective time of this credit balance transaction.
     """
     id: str
     """
@@ -170,7 +189,7 @@ class CreditBalanceTransaction(
     """
     type: Optional[Literal["credit", "debit"]]
     """
-    The type of balance transaction (credit or debit).
+    The type of credit balance transaction (credit or debit).
     """
 
     @classmethod
@@ -178,7 +197,7 @@ class CreditBalanceTransaction(
         cls, **params: Unpack["CreditBalanceTransaction.ListParams"]
     ) -> ListObject["CreditBalanceTransaction"]:
         """
-        Retrieve a list of credit balance transactions
+        Retrieve a list of credit balance transactions.
         """
         result = cls._static_request(
             "get",
@@ -198,7 +217,7 @@ class CreditBalanceTransaction(
         cls, **params: Unpack["CreditBalanceTransaction.ListParams"]
     ) -> ListObject["CreditBalanceTransaction"]:
         """
-        Retrieve a list of credit balance transactions
+        Retrieve a list of credit balance transactions.
         """
         result = await cls._static_request_async(
             "get",
@@ -220,7 +239,7 @@ class CreditBalanceTransaction(
         **params: Unpack["CreditBalanceTransaction.RetrieveParams"],
     ) -> "CreditBalanceTransaction":
         """
-        Retrieves a credit balance transaction
+        Retrieves a credit balance transaction.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -233,7 +252,7 @@ class CreditBalanceTransaction(
         **params: Unpack["CreditBalanceTransaction.RetrieveParams"],
     ) -> "CreditBalanceTransaction":
         """
-        Retrieves a credit balance transaction
+        Retrieves a credit balance transaction.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

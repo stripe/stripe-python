@@ -11,6 +11,9 @@ from stripe.issuing._dispute_service import DisputeService
 from stripe.issuing._dispute_settlement_detail_service import (
     DisputeSettlementDetailService,
 )
+from stripe.issuing._fraud_liability_debit_service import (
+    FraudLiabilityDebitService,
+)
 from stripe.issuing._personalization_design_service import (
     PersonalizationDesignService,
 )
@@ -30,6 +33,9 @@ class IssuingService(StripeService):
         )
         self.disputes = DisputeService(self._requestor)
         self.dispute_settlement_details = DisputeSettlementDetailService(
+            self._requestor,
+        )
+        self.fraud_liability_debits = FraudLiabilityDebitService(
             self._requestor,
         )
         self.personalization_designs = PersonalizationDesignService(

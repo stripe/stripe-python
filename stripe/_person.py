@@ -274,7 +274,7 @@ class Person(UpdateableAPIResource["Person"]):
         """
         eventually_due: List[str]
         """
-        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `future_requirements[current_deadline]` becomes set.
+        Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `future_requirements[current_deadline]` becomes set.
         """
         past_due: List[str]
         """
@@ -313,6 +313,10 @@ class Person(UpdateableAPIResource["Person"]):
         """
 
     class Relationship(StripeObject):
+        authorizer: Optional[bool]
+        """
+        Whether the person is the authorizer of the account's representative.
+        """
         director: Optional[bool]
         """
         Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
@@ -472,7 +476,7 @@ class Person(UpdateableAPIResource["Person"]):
         """
         eventually_due: List[str]
         """
-        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `current_deadline` becomes set.
+        Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `current_deadline` becomes set.
         """
         past_due: List[str]
         """

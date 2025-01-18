@@ -69,6 +69,12 @@ class ConfirmationTokenService(StripeService):
         """
         This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
         """
+        alma: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataAlma"
+        ]
+        """
+        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        """
         amazon_pay: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataAmazonPay"
         ]
@@ -141,11 +147,23 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         """
+        gopay: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataGopay"
+        ]
+        """
+        If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        """
         grabpay: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataGrabpay"
         ]
         """
         If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
+        """
+        id_bank_transfer: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataIdBankTransfer"
+        ]
+        """
+        If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
         """
         ideal: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataIdeal"
@@ -229,6 +247,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataPayco"
         ]
@@ -265,6 +289,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         """
+        qris: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataQris"
+        ]
+        """
+        If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        """
         radar_options: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataRadarOptions"
         ]
@@ -295,6 +325,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         """
+        shopeepay: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataShopeepay"
+        ]
+        """
+        If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+        """
         sofort: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataSofort"
         ]
@@ -318,6 +354,7 @@ class ConfirmationTokenService(StripeService):
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "amazon_pay",
             "au_becs_debit",
             "bacs_debit",
@@ -329,7 +366,9 @@ class ConfirmationTokenService(StripeService):
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -342,16 +381,19 @@ class ConfirmationTokenService(StripeService):
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
             "payto",
             "pix",
             "promptpay",
+            "qris",
             "rechnung",
             "revolut_pay",
             "samsung_pay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
             "swish",
             "twint",
@@ -402,6 +444,9 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataAlipay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataAlma(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataAmazonPay(TypedDict):
@@ -564,8 +609,17 @@ class ConfirmationTokenService(StripeService):
     class CreateParamsPaymentMethodDataGiropay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataGopay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataGrabpay(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
+        bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+        """
+        Bank where the account is held.
+        """
 
     class CreateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
@@ -589,7 +643,7 @@ class ConfirmationTokenService(StripeService):
             ]
         ]
         """
-        The customer's bank.
+        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
         """
 
     class CreateParamsPaymentMethodDataInteracPresent(TypedDict):
@@ -682,6 +736,9 @@ class ConfirmationTokenService(StripeService):
         The customer's bank.
         """
 
+    class CreateParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataPayco(TypedDict):
         pass
 
@@ -709,6 +766,9 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataPromptpay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataQris(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
@@ -750,6 +810,9 @@ class ConfirmationTokenService(StripeService):
         """
         IBAN of the bank account.
         """
+
+    class CreateParamsPaymentMethodDataShopeepay(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]

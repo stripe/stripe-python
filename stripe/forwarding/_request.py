@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
@@ -98,13 +98,21 @@ class Request(
         """
         Specifies which fields in the response should be expanded.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
         payment_method: str
         """
         The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed.
         """
         replacements: List[
             Literal[
-                "card_cvc", "card_expiry", "card_number", "cardholder_name"
+                "card_cvc",
+                "card_expiry",
+                "card_number",
+                "cardholder_name",
+                "request_signature",
             ]
         ]
         """
@@ -197,6 +205,10 @@ class Request(
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    metadata: Optional[Dict[str, str]]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     object: Literal["forwarding.request"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -206,7 +218,13 @@ class Request(
     The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed.
     """
     replacements: List[
-        Literal["card_cvc", "card_expiry", "card_number", "cardholder_name"]
+        Literal[
+            "card_cvc",
+            "card_expiry",
+            "card_number",
+            "cardholder_name",
+            "request_signature",
+        ]
     ]
     """
     The field kinds to be replaced in the forwarded request.

@@ -87,6 +87,10 @@ class AccountService(StripeService):
 
         By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/api#account_create_bank_account) or [card creation](https://stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
+        groups: NotRequired["AccountService.CreateParamsGroups"]
+        """
+        A hash of account group type to tokens. These are account groups this account should be added to.
+        """
         individual: NotRequired["AccountService.CreateParamsIndividual"]
         """
         Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
@@ -260,6 +264,12 @@ class AccountService(StripeService):
         """
         The afterpay_clearpay_payments capability.
         """
+        alma_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesAlmaPayments"
+        ]
+        """
+        The alma_payments capability.
+        """
         amazon_pay_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesAmazonPayPayments"
         ]
@@ -271,6 +281,12 @@ class AccountService(StripeService):
         ]
         """
         The au_becs_debit_payments capability.
+        """
+        automatic_indirect_tax: NotRequired[
+            "AccountService.CreateParamsCapabilitiesAutomaticIndirectTax"
+        ]
+        """
+        The automatic_indirect_tax capability.
         """
         bacs_debit_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesBacsDebitPayments"
@@ -350,11 +366,29 @@ class AccountService(StripeService):
         """
         The giropay_payments capability.
         """
+        gopay_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesGopayPayments"
+        ]
+        """
+        The gopay_payments capability.
+        """
         grabpay_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesGrabpayPayments"
         ]
         """
         The grabpay_payments capability.
+        """
+        id_bank_transfer_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesIdBankTransferPayments"
+        ]
+        """
+        The id_bank_transfer_payments capability.
+        """
+        id_bank_transfer_payments_bca: NotRequired[
+            "AccountService.CreateParamsCapabilitiesIdBankTransferPaymentsBca"
+        ]
+        """
+        The id_bank_transfer_payments_bca capability.
         """
         ideal_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesIdealPayments"
@@ -380,6 +414,12 @@ class AccountService(StripeService):
         """
         The jp_bank_transfer_payments capability.
         """
+        kakao_pay_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesKakaoPayPayments"
+        ]
+        """
+        The kakao_pay_payments capability.
+        """
         klarna_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesKlarnaPayments"
         ]
@@ -391,6 +431,12 @@ class AccountService(StripeService):
         ]
         """
         The konbini_payments capability.
+        """
+        kr_card_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesKrCardPayments"
+        ]
+        """
+        The kr_card_payments capability.
         """
         legacy_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesLegacyPayments"
@@ -428,6 +474,12 @@ class AccountService(StripeService):
         """
         The mx_bank_transfer_payments capability.
         """
+        naver_pay_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesNaverPayPayments"
+        ]
+        """
+        The naver_pay_payments capability.
+        """
         oxxo_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesOxxoPayments"
         ]
@@ -439,6 +491,18 @@ class AccountService(StripeService):
         ]
         """
         The p24_payments capability.
+        """
+        pay_by_bank_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesPayByBankPayments"
+        ]
+        """
+        The pay_by_bank_payments capability.
+        """
+        payco_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesPaycoPayments"
+        ]
+        """
+        The payco_payments capability.
         """
         paynow_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesPaynowPayments"
@@ -464,6 +528,12 @@ class AccountService(StripeService):
         """
         The promptpay_payments capability.
         """
+        qris_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesQrisPayments"
+        ]
+        """
+        The qris_payments capability.
+        """
         rechnung_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesRechnungPayments"
         ]
@@ -476,6 +546,12 @@ class AccountService(StripeService):
         """
         The revolut_pay_payments capability.
         """
+        samsung_pay_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesSamsungPayPayments"
+        ]
+        """
+        The samsung_pay_payments capability.
+        """
         sepa_bank_transfer_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesSepaBankTransferPayments"
         ]
@@ -487,6 +563,12 @@ class AccountService(StripeService):
         ]
         """
         The sepa_debit_payments capability.
+        """
+        shopeepay_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesShopeepayPayments"
+        ]
+        """
+        The shopeepay_payments capability.
         """
         sofort_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesSofortPayments"
@@ -523,6 +605,24 @@ class AccountService(StripeService):
         ]
         """
         The treasury capability.
+        """
+        treasury_evolve: NotRequired[
+            "AccountService.CreateParamsCapabilitiesTreasuryEvolve"
+        ]
+        """
+        The treasury_evolve capability.
+        """
+        treasury_fifth_third: NotRequired[
+            "AccountService.CreateParamsCapabilitiesTreasuryFifthThird"
+        ]
+        """
+        The treasury_fifth_third capability.
+        """
+        treasury_goldman_sachs: NotRequired[
+            "AccountService.CreateParamsCapabilitiesTreasuryGoldmanSachs"
+        ]
+        """
+        The treasury_goldman_sachs capability.
         """
         twint_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesTwintPayments"
@@ -567,6 +667,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesAlmaPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesAmazonPayPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -574,6 +680,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesAuBecsDebitPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesAutomaticIndirectTax(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -657,7 +769,25 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesGopayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesGrabpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesIdBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesIdBankTransferPaymentsBca(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -687,6 +817,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesKakaoPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesKlarnaPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -694,6 +830,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesKonbiniPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesKrCardPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -735,6 +877,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesNaverPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesOxxoPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -742,6 +890,18 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesP24Payments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPayByBankPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPaycoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -771,6 +931,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesQrisPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesRechnungPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -783,6 +949,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesSamsungPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesSepaBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -790,6 +962,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesSepaDebitPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesShopeepayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -826,6 +1004,24 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesTreasury(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesTreasuryEvolve(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesTreasuryFifthThird(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesTreasuryGoldmanSachs(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -901,6 +1097,12 @@ class AccountService(StripeService):
         """
         Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
+        directorship_declaration: NotRequired[
+            "AccountService.CreateParamsCompanyDirectorshipDeclaration"
+        ]
+        """
+        This hash is used to attest that the directors information provided to Stripe is both current and correct.
+        """
         executives_provided: NotRequired[bool]
         """
         Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
@@ -935,6 +1137,9 @@ class AccountService(StripeService):
         """
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         """
+        ownership_exemption_reason: NotRequired[
+            "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
+        ]
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).
@@ -1052,6 +1257,20 @@ class AccountService(StripeService):
         town: NotRequired[str]
         """
         Town or cho-me.
+        """
+
+    class CreateParamsCompanyDirectorshipDeclaration(TypedDict):
+        date: NotRequired[int]
+        """
+        The Unix timestamp marking when the directorship declaration attestation was made.
+        """
+        ip: NotRequired[str]
+        """
+        The IP address from which the directorship declaration attestation was made.
+        """
+        user_agent: NotRequired[str]
+        """
+        The user agent of the browser from which the directorship declaration attestation was made.
         """
 
     class CreateParamsCompanyOwnershipDeclaration(TypedDict):
@@ -1199,6 +1418,12 @@ class AccountService(StripeService):
         """
         One or more documents showing the company's proof of registration with the national business registry.
         """
+        proof_of_ultimate_beneficial_ownership: NotRequired[
+            "AccountService.CreateParamsDocumentsProofOfUltimateBeneficialOwnership"
+        ]
+        """
+        One or more documents that demonstrate proof of ultimate beneficial ownership.
+        """
 
     class CreateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
         files: NotRequired[List[str]]
@@ -1240,6 +1465,18 @@ class AccountService(StripeService):
         files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class CreateParamsDocumentsProofOfUltimateBeneficialOwnership(TypedDict):
+        files: NotRequired[List[str]]
+        """
+        One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class CreateParamsGroups(TypedDict):
+        payments_pricing: NotRequired["Literal['']|str"]
+        """
+        The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
         """
 
     class CreateParamsIndividual(TypedDict):
@@ -1561,6 +1798,12 @@ class AccountService(StripeService):
         """
         Settings specific to Bacs Direct Debit.
         """
+        bank_bca_onboarding: NotRequired[
+            "AccountService.CreateParamsSettingsBankBcaOnboarding"
+        ]
+        """
+        Settings specific to bank BCA onboarding for Indonesia bank transfers payments method.
+        """
         branding: NotRequired["AccountService.CreateParamsSettingsBranding"]
         """
         Settings used to apply the account's branding to email receipts, invoices, Checkout, and other products.
@@ -1602,6 +1845,16 @@ class AccountService(StripeService):
         display_name: NotRequired[str]
         """
         The Bacs Direct Debit Display Name for this account. For payments made with Bacs Direct Debit, this name appears on the mandate as the statement descriptor. Mobile banking apps display it as the name of the business. To use custom branding, set the Bacs Direct Debit Display Name during or right after creation. Custom branding incurs an additional monthly fee for the platform. If you don't set the display name before requesting Bacs capability, it's automatically set as "Stripe" and the account is onboarded to Stripe branding, which is free.
+        """
+
+    class CreateParamsSettingsBankBcaOnboarding(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        Bank BCA business account holder name
+        """
+        business_account_number: NotRequired[str]
+        """
+        Bank BCA business account number
         """
 
     class CreateParamsSettingsBranding(TypedDict):
@@ -1909,6 +2162,10 @@ class AccountService(StripeService):
 
         By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/api#account_create_bank_account) or [card creation](https://stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
+        groups: NotRequired["AccountService.UpdateParamsGroups"]
+        """
+        A hash of account group type to tokens. These are account groups this account should be added to.
+        """
         individual: NotRequired["AccountService.UpdateParamsIndividual"]
         """
         Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
@@ -2078,6 +2335,12 @@ class AccountService(StripeService):
         """
         The afterpay_clearpay_payments capability.
         """
+        alma_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesAlmaPayments"
+        ]
+        """
+        The alma_payments capability.
+        """
         amazon_pay_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesAmazonPayPayments"
         ]
@@ -2089,6 +2352,12 @@ class AccountService(StripeService):
         ]
         """
         The au_becs_debit_payments capability.
+        """
+        automatic_indirect_tax: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesAutomaticIndirectTax"
+        ]
+        """
+        The automatic_indirect_tax capability.
         """
         bacs_debit_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesBacsDebitPayments"
@@ -2168,11 +2437,29 @@ class AccountService(StripeService):
         """
         The giropay_payments capability.
         """
+        gopay_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesGopayPayments"
+        ]
+        """
+        The gopay_payments capability.
+        """
         grabpay_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesGrabpayPayments"
         ]
         """
         The grabpay_payments capability.
+        """
+        id_bank_transfer_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesIdBankTransferPayments"
+        ]
+        """
+        The id_bank_transfer_payments capability.
+        """
+        id_bank_transfer_payments_bca: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesIdBankTransferPaymentsBca"
+        ]
+        """
+        The id_bank_transfer_payments_bca capability.
         """
         ideal_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesIdealPayments"
@@ -2198,6 +2485,12 @@ class AccountService(StripeService):
         """
         The jp_bank_transfer_payments capability.
         """
+        kakao_pay_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesKakaoPayPayments"
+        ]
+        """
+        The kakao_pay_payments capability.
+        """
         klarna_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesKlarnaPayments"
         ]
@@ -2209,6 +2502,12 @@ class AccountService(StripeService):
         ]
         """
         The konbini_payments capability.
+        """
+        kr_card_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesKrCardPayments"
+        ]
+        """
+        The kr_card_payments capability.
         """
         legacy_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesLegacyPayments"
@@ -2246,6 +2545,12 @@ class AccountService(StripeService):
         """
         The mx_bank_transfer_payments capability.
         """
+        naver_pay_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesNaverPayPayments"
+        ]
+        """
+        The naver_pay_payments capability.
+        """
         oxxo_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesOxxoPayments"
         ]
@@ -2257,6 +2562,18 @@ class AccountService(StripeService):
         ]
         """
         The p24_payments capability.
+        """
+        pay_by_bank_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesPayByBankPayments"
+        ]
+        """
+        The pay_by_bank_payments capability.
+        """
+        payco_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesPaycoPayments"
+        ]
+        """
+        The payco_payments capability.
         """
         paynow_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesPaynowPayments"
@@ -2282,6 +2599,12 @@ class AccountService(StripeService):
         """
         The promptpay_payments capability.
         """
+        qris_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesQrisPayments"
+        ]
+        """
+        The qris_payments capability.
+        """
         rechnung_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesRechnungPayments"
         ]
@@ -2294,6 +2617,12 @@ class AccountService(StripeService):
         """
         The revolut_pay_payments capability.
         """
+        samsung_pay_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesSamsungPayPayments"
+        ]
+        """
+        The samsung_pay_payments capability.
+        """
         sepa_bank_transfer_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesSepaBankTransferPayments"
         ]
@@ -2305,6 +2634,12 @@ class AccountService(StripeService):
         ]
         """
         The sepa_debit_payments capability.
+        """
+        shopeepay_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesShopeepayPayments"
+        ]
+        """
+        The shopeepay_payments capability.
         """
         sofort_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesSofortPayments"
@@ -2341,6 +2676,24 @@ class AccountService(StripeService):
         ]
         """
         The treasury capability.
+        """
+        treasury_evolve: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesTreasuryEvolve"
+        ]
+        """
+        The treasury_evolve capability.
+        """
+        treasury_fifth_third: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesTreasuryFifthThird"
+        ]
+        """
+        The treasury_fifth_third capability.
+        """
+        treasury_goldman_sachs: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesTreasuryGoldmanSachs"
+        ]
+        """
+        The treasury_goldman_sachs capability.
         """
         twint_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesTwintPayments"
@@ -2385,6 +2738,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesAlmaPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesAmazonPayPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2392,6 +2751,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesAuBecsDebitPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesAutomaticIndirectTax(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2475,7 +2840,25 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesGopayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesGrabpayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesIdBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesIdBankTransferPaymentsBca(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2505,6 +2888,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesKakaoPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesKlarnaPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2512,6 +2901,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesKonbiniPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesKrCardPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2553,6 +2948,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesNaverPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesOxxoPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2560,6 +2961,18 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesP24Payments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesPayByBankPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesPaycoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2589,6 +3002,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesQrisPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesRechnungPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2601,6 +3020,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesSamsungPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesSepaBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2608,6 +3033,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesSepaDebitPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesShopeepayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2644,6 +3075,24 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesTreasury(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesTreasuryEvolve(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesTreasuryFifthThird(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesTreasuryGoldmanSachs(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2719,6 +3168,12 @@ class AccountService(StripeService):
         """
         Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
+        directorship_declaration: NotRequired[
+            "AccountService.UpdateParamsCompanyDirectorshipDeclaration"
+        ]
+        """
+        This hash is used to attest that the directors information provided to Stripe is both current and correct.
+        """
         executives_provided: NotRequired[bool]
         """
         Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
@@ -2753,6 +3208,9 @@ class AccountService(StripeService):
         """
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         """
+        ownership_exemption_reason: NotRequired[
+            "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
+        ]
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).
@@ -2872,6 +3330,20 @@ class AccountService(StripeService):
         Town or cho-me.
         """
 
+    class UpdateParamsCompanyDirectorshipDeclaration(TypedDict):
+        date: NotRequired[int]
+        """
+        The Unix timestamp marking when the directorship declaration attestation was made.
+        """
+        ip: NotRequired[str]
+        """
+        The IP address from which the directorship declaration attestation was made.
+        """
+        user_agent: NotRequired[str]
+        """
+        The user agent of the browser from which the directorship declaration attestation was made.
+        """
+
     class UpdateParamsCompanyOwnershipDeclaration(TypedDict):
         date: NotRequired[int]
         """
@@ -2947,6 +3419,12 @@ class AccountService(StripeService):
         """
         One or more documents showing the company's proof of registration with the national business registry.
         """
+        proof_of_ultimate_beneficial_ownership: NotRequired[
+            "AccountService.UpdateParamsDocumentsProofOfUltimateBeneficialOwnership"
+        ]
+        """
+        One or more documents that demonstrate proof of ultimate beneficial ownership.
+        """
 
     class UpdateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
         files: NotRequired[List[str]]
@@ -2988,6 +3466,18 @@ class AccountService(StripeService):
         files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class UpdateParamsDocumentsProofOfUltimateBeneficialOwnership(TypedDict):
+        files: NotRequired[List[str]]
+        """
+        One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class UpdateParamsGroups(TypedDict):
+        payments_pricing: NotRequired["Literal['']|str"]
+        """
+        The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
         """
 
     class UpdateParamsIndividual(TypedDict):
@@ -3309,6 +3799,12 @@ class AccountService(StripeService):
         """
         Settings specific to Bacs Direct Debit payments.
         """
+        bank_bca_onboarding: NotRequired[
+            "AccountService.UpdateParamsSettingsBankBcaOnboarding"
+        ]
+        """
+        Settings specific to bank BCA onboarding for Indonesia bank transfers payments method.
+        """
         branding: NotRequired["AccountService.UpdateParamsSettingsBranding"]
         """
         Settings used to apply the account's branding to email receipts, invoices, Checkout, and other products.
@@ -3354,6 +3850,16 @@ class AccountService(StripeService):
         display_name: NotRequired[str]
         """
         The Bacs Direct Debit Display Name for this account. For payments made with Bacs Direct Debit, this name appears on the mandate as the statement descriptor. Mobile banking apps display it as the name of the business. To use custom branding, set the Bacs Direct Debit Display Name during or right after creation. Custom branding incurs an additional monthly fee for the platform. If you don't set the display name before requesting Bacs capability, it's automatically set as "Stripe" and the account is onboarded to Stripe branding, which is free.
+        """
+
+    class UpdateParamsSettingsBankBcaOnboarding(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        Bank BCA business account holder name
+        """
+        business_account_number: NotRequired[str]
+        """
+        Bank BCA business account number
         """
 
     class UpdateParamsSettingsBranding(TypedDict):

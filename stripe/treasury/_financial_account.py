@@ -112,6 +112,32 @@ class FinancialAccount(
         """
         _inner_class_types = {"closed": Closed}
 
+    class CloseParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        forwarding_settings: NotRequired[
+            "FinancialAccount.CloseParamsForwardingSettings"
+        ]
+        """
+        A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
+        """
+
+    class CloseParamsForwardingSettings(TypedDict):
+        financial_account: NotRequired[str]
+        """
+        The financial_account id
+        """
+        payment_method: NotRequired[str]
+        """
+        The payment_method or bank account id. This needs to be a verified bank account.
+        """
+        type: Literal["financial_account", "payment_method"]
+        """
+        The type of the bank account provided. This can be either "financial_account" or "payment_method"
+        """
+
     class CreateParams(RequestOptions):
         display_name: NotRequired["Literal['']|str"]
         """
@@ -128,6 +154,10 @@ class FinancialAccount(
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        nickname: NotRequired["Literal['']|str"]
+        """
+        The nickname for the FinancialAccount.
         """
         platform_restrictions: NotRequired[
             "FinancialAccount.CreateParamsPlatformRestrictions"
@@ -205,6 +235,10 @@ class FinancialAccount(
         """
 
     class CreateParamsFeaturesFinancialAddressesAba(TypedDict):
+        bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+        """
+        Requested bank partner
+        """
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
@@ -345,9 +379,19 @@ class FinancialAccount(
         """
         Encodes whether a FinancialAccount has access to a particular feature, with a status enum and associated `status_details`. Stripe or the platform may control features via the requested field.
         """
+        forwarding_settings: NotRequired[
+            "FinancialAccount.ModifyParamsForwardingSettings"
+        ]
+        """
+        A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        nickname: NotRequired["Literal['']|str"]
+        """
+        The nickname for the FinancialAccount.
         """
         platform_restrictions: NotRequired[
             "FinancialAccount.ModifyParamsPlatformRestrictions"
@@ -421,6 +465,10 @@ class FinancialAccount(
         """
 
     class ModifyParamsFeaturesFinancialAddressesAba(TypedDict):
+        bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+        """
+        Requested bank partner
+        """
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
@@ -496,6 +544,20 @@ class FinancialAccount(
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
+        """
+
+    class ModifyParamsForwardingSettings(TypedDict):
+        financial_account: NotRequired[str]
+        """
+        The financial_account id
+        """
+        payment_method: NotRequired[str]
+        """
+        The payment_method or bank account id. This needs to be a verified bank account.
+        """
+        type: Literal["financial_account", "payment_method"]
+        """
+        The type of the bank account provided. This can be either "financial_account" or "payment_method"
         """
 
     class ModifyParamsPlatformRestrictions(TypedDict):
@@ -589,6 +651,10 @@ class FinancialAccount(
         """
 
     class UpdateFeaturesParamsFinancialAddressesAba(TypedDict):
+        bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+        """
+        Requested bank partner
+        """
         requested: bool
         """
         Whether the FinancialAccount should have the Feature.
@@ -715,6 +781,7 @@ class FinancialAccount(
     """
     Unique identifier for the object.
     """
+    is_default: Optional[bool]
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -722,6 +789,10 @@ class FinancialAccount(
     metadata: Optional[Dict[str, str]]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
+    nickname: Optional[str]
+    """
+    The nickname for the FinancialAccount.
     """
     object: Literal["treasury.financial_account"]
     """
@@ -780,6 +851,122 @@ class FinancialAccount(
     """
     The currencies the FinancialAccount can hold a balance in. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
     """
+
+    @classmethod
+    def _cls_close(
+        cls,
+        financial_account: str,
+        **params: Unpack["FinancialAccount.CloseParams"],
+    ) -> "FinancialAccount":
+        """
+        Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+        """
+        return cast(
+            "FinancialAccount",
+            cls._static_request(
+                "post",
+                "/v1/treasury/financial_accounts/{financial_account}/close".format(
+                    financial_account=sanitize_id(financial_account)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def close(
+        financial_account: str,
+        **params: Unpack["FinancialAccount.CloseParams"],
+    ) -> "FinancialAccount":
+        """
+        Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+        """
+        ...
+
+    @overload
+    def close(
+        self, **params: Unpack["FinancialAccount.CloseParams"]
+    ) -> "FinancialAccount":
+        """
+        Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+        """
+        ...
+
+    @class_method_variant("_cls_close")
+    def close(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["FinancialAccount.CloseParams"]
+    ) -> "FinancialAccount":
+        """
+        Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+        """
+        return cast(
+            "FinancialAccount",
+            self._request(
+                "post",
+                "/v1/treasury/financial_accounts/{financial_account}/close".format(
+                    financial_account=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_close_async(
+        cls,
+        financial_account: str,
+        **params: Unpack["FinancialAccount.CloseParams"],
+    ) -> "FinancialAccount":
+        """
+        Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+        """
+        return cast(
+            "FinancialAccount",
+            await cls._static_request_async(
+                "post",
+                "/v1/treasury/financial_accounts/{financial_account}/close".format(
+                    financial_account=sanitize_id(financial_account)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def close_async(
+        financial_account: str,
+        **params: Unpack["FinancialAccount.CloseParams"],
+    ) -> "FinancialAccount":
+        """
+        Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+        """
+        ...
+
+    @overload
+    async def close_async(
+        self, **params: Unpack["FinancialAccount.CloseParams"]
+    ) -> "FinancialAccount":
+        """
+        Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+        """
+        ...
+
+    @class_method_variant("_cls_close_async")
+    async def close_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["FinancialAccount.CloseParams"]
+    ) -> "FinancialAccount":
+        """
+        Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+        """
+        return cast(
+            "FinancialAccount",
+            await self._request_async(
+                "post",
+                "/v1/treasury/financial_accounts/{financial_account}/close".format(
+                    financial_account=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def create(

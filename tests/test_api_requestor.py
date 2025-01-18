@@ -245,16 +245,17 @@ class TestAPIRequestor(object):
 
     def test_url_construction(self, requestor, http_client_mock):
         CASES = (
-            ("%s?foo=bar" % stripe.api_base, "", {"foo": "bar"}),
-            ("%s?foo=bar" % stripe.api_base, "?", {"foo": "bar"}),
+            (f"{stripe.api_base}?foo=bar", "", {"foo": "bar"}),
+            (f"{stripe.api_base}?foo=bar", "?", {"foo": "bar"}),
             (stripe.api_base, "", {}),
             (
-                "%s/%%20spaced?foo=bar%%24&baz=5" % stripe.api_base,
+                f"{stripe.api_base}/%20spaced?baz=5&foo=bar%24",
                 "/%20spaced?foo=bar%24",
                 {"baz": "5"},
             ),
+            # duplicate query params keys should be deduped
             (
-                "%s?foo=bar&foo=bar" % stripe.api_base,
+                f"{stripe.api_base}?foo=bar",
                 "?foo=bar",
                 {"foo": "bar"},
             ),

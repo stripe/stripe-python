@@ -27,11 +27,11 @@ class CreditBalanceSummaryService(StripeService):
             "CreditBalanceSummaryService.RetrieveParamsFilterApplicabilityScope"
         ]
         """
-        The credit applicability scope for which to fetch balance summary.
+        The billing credit applicability scope for which to fetch credit balance summary.
         """
         credit_grant: NotRequired[str]
         """
-        The credit grant for which to fetch balance summary.
+        The credit grant for which to fetch credit balance summary.
         """
         type: Literal["applicability_scope", "credit_grant"]
         """
@@ -41,7 +41,7 @@ class CreditBalanceSummaryService(StripeService):
     class RetrieveParamsFilterApplicabilityScope(TypedDict):
         price_type: Literal["metered"]
         """
-        The price type to which credit grants can apply to. We currently only support `metered` price type.
+        The price type that credit grants can apply to. We currently only support the `metered` price type.
         """
 
     def retrieve(
@@ -50,7 +50,7 @@ class CreditBalanceSummaryService(StripeService):
         options: RequestOptions = {},
     ) -> CreditBalanceSummary:
         """
-        Retrieves the credit balance summary for a customer
+        Retrieves the credit balance summary for a customer.
         """
         return cast(
             CreditBalanceSummary,
@@ -69,7 +69,7 @@ class CreditBalanceSummaryService(StripeService):
         options: RequestOptions = {},
     ) -> CreditBalanceSummary:
         """
-        Retrieves the credit balance summary for a customer
+        Retrieves the credit balance summary for a customer.
         """
         return cast(
             CreditBalanceSummary,

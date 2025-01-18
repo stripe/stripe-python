@@ -601,10 +601,10 @@ class SubscriptionService(StripeService):
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'konbini', 'link', 'multibanco', 'p24', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
         """
         save_default_payment_method: NotRequired[
             Literal["off", "on_subscription"]
@@ -637,6 +637,12 @@ class SubscriptionService(StripeService):
         ]
         """
         This sub-hash contains details about the Bank transfer payment method options to pass to the invoice's PaymentIntent.
+        """
+        id_bank_transfer: NotRequired[
+            "Literal['']|SubscriptionService.CreateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer"
+        ]
+        """
+        This sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice's PaymentIntent.
         """
         konbini: NotRequired[
             "Literal['']|SubscriptionService.CreateParamsPaymentSettingsPaymentMethodOptionsKonbini"
@@ -702,6 +708,7 @@ class SubscriptionService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -769,6 +776,11 @@ class SubscriptionService(StripeService):
         """
         The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
         """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer(
+        TypedDict,
+    ):
+        pass
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
         pass
@@ -1028,7 +1040,7 @@ class SubscriptionService(StripeService):
     class ResumeParams(TypedDict):
         billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
         """
-        Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). Setting the value to `unchanged` advances the subscription's billing cycle anchor to the period that surrounds the current time. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+        The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
         expand: NotRequired[List[str]]
         """
@@ -1176,7 +1188,7 @@ class SubscriptionService(StripeService):
             "Literal['']|SubscriptionService.UpdateParamsPauseCollection"
         ]
         """
-        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/billing/subscriptions/pause-payment).
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
         """
         payment_behavior: NotRequired[
             Literal[
@@ -1463,7 +1475,7 @@ class SubscriptionService(StripeService):
         """
         clear_usage: NotRequired[bool]
         """
-        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         """
         deleted: NotRequired[bool]
         """
@@ -1614,10 +1626,10 @@ class SubscriptionService(StripeService):
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'konbini', 'link', 'multibanco', 'p24', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
         """
         save_default_payment_method: NotRequired[
             Literal["off", "on_subscription"]
@@ -1650,6 +1662,12 @@ class SubscriptionService(StripeService):
         ]
         """
         This sub-hash contains details about the Bank transfer payment method options to pass to the invoice's PaymentIntent.
+        """
+        id_bank_transfer: NotRequired[
+            "Literal['']|SubscriptionService.UpdateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer"
+        ]
+        """
+        This sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice's PaymentIntent.
         """
         konbini: NotRequired[
             "Literal['']|SubscriptionService.UpdateParamsPaymentSettingsPaymentMethodOptionsKonbini"
@@ -1715,6 +1733,7 @@ class SubscriptionService(StripeService):
                 "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -1782,6 +1801,11 @@ class SubscriptionService(StripeService):
         """
         The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
         """
+
+    class UpdateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer(
+        TypedDict,
+    ):
+        pass
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
         pass
@@ -2021,7 +2045,7 @@ class SubscriptionService(StripeService):
         A trial starts or ends.
 
 
-        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how [Stripe immediately attempts payment for subscription changes](https://stripe.com/billing/subscriptions/upgrade-downgrade#immediate-payment).
+        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how [Stripe immediately attempts payment for subscription changes](https://stripe.com/docs/billing/subscriptions/upgrade-downgrade#immediate-payment).
 
         If you want to charge for an upgrade immediately, pass proration_behavior as always_invoice to create prorations, automatically invoice the customer for those proration adjustments, and attempt to collect payment. If you pass create_prorations, the prorations are created but not automatically invoiced. If you want to bill the customer for the prorations before the subscription's renewal date, you need to manually [invoice the customer](https://stripe.com/docs/api/invoices/create).
 
@@ -2065,7 +2089,7 @@ class SubscriptionService(StripeService):
         A trial starts or ends.
 
 
-        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how [Stripe immediately attempts payment for subscription changes](https://stripe.com/billing/subscriptions/upgrade-downgrade#immediate-payment).
+        In these cases, we apply a credit for the unused time on the previous price, immediately charge the customer using the new price, and reset the billing date. Learn about how [Stripe immediately attempts payment for subscription changes](https://stripe.com/docs/billing/subscriptions/upgrade-downgrade#immediate-payment).
 
         If you want to charge for an upgrade immediately, pass proration_behavior as always_invoice to create prorations, automatically invoice the customer for those proration adjustments, and attempt to collect payment. If you pass create_prorations, the prorations are created but not automatically invoiced. If you want to bill the customer for the prorations before the subscription's renewal date, you need to manually [invoice the customer](https://stripe.com/docs/api/invoices/create).
 
