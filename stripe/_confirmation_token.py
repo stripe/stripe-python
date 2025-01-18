@@ -1167,6 +1167,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             The customer's bank, if provided.
             """
 
+        class PayByBank(StripeObject):
+            pass
+
         class Payco(StripeObject):
             pass
 
@@ -1439,6 +1442,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         naver_pay: Optional[NaverPay]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
+        pay_by_bank: Optional[PayByBank]
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
@@ -1489,6 +1493,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
@@ -1550,6 +1555,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "naver_pay": NaverPay,
             "oxxo": Oxxo,
             "p24": P24,
+            "pay_by_bank": PayByBank,
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
@@ -1841,6 +1847,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataPayco"
         ]
@@ -1967,6 +1979,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
@@ -2318,6 +2331,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         The customer's bank.
         """
+
+    class CreateParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
 
     class CreateParamsPaymentMethodDataPayco(TypedDict):
         pass

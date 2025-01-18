@@ -67,6 +67,7 @@ class CustomerPaymentMethodService(StripeService):
                 "naver_pay",
                 "oxxo",
                 "p24",
+                "pay_by_bank",
                 "payco",
                 "paynow",
                 "paypal",

@@ -1122,6 +1122,9 @@ class PaymentMethod(
         The customer's bank, if provided.
         """
 
+    class PayByBank(StripeObject):
+        pass
+
     class Payco(StripeObject):
         pass
 
@@ -1532,6 +1535,10 @@ class PaymentMethod(
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired["PaymentMethod.CreateParamsPayByBank"]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired["PaymentMethod.CreateParamsPayco"]
         """
         If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
@@ -1634,6 +1641,7 @@ class PaymentMethod(
                 "naver_pay",
                 "oxxo",
                 "p24",
+                "pay_by_bank",
                 "payco",
                 "paynow",
                 "paypal",
@@ -2015,6 +2023,9 @@ class PaymentMethod(
         The customer's bank.
         """
 
+    class CreateParamsPayByBank(TypedDict):
+        pass
+
     class CreateParamsPayco(TypedDict):
         pass
 
@@ -2189,6 +2200,7 @@ class PaymentMethod(
                 "naver_pay",
                 "oxxo",
                 "p24",
+                "pay_by_bank",
                 "payco",
                 "paynow",
                 "paypal",
@@ -2245,6 +2257,10 @@ class PaymentMethod(
         naver_pay: NotRequired["PaymentMethod.ModifyParamsNaverPay"]
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        """
+        pay_by_bank: NotRequired["PaymentMethod.ModifyParamsPayByBank"]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
         """
         payto: NotRequired["PaymentMethod.ModifyParamsPayto"]
         """
@@ -2331,6 +2347,9 @@ class PaymentMethod(
         """
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
+
+    class ModifyParamsPayByBank(TypedDict):
+        pass
 
     class ModifyParamsPayto(TypedDict):
         account_number: NotRequired[str]
@@ -2425,6 +2444,7 @@ class PaymentMethod(
     """
     oxxo: Optional[Oxxo]
     p24: Optional[P24]
+    pay_by_bank: Optional[PayByBank]
     payco: Optional[Payco]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
@@ -2479,6 +2499,7 @@ class PaymentMethod(
         "naver_pay",
         "oxxo",
         "p24",
+        "pay_by_bank",
         "payco",
         "paynow",
         "paypal",
@@ -2997,6 +3018,7 @@ class PaymentMethod(
         "naver_pay": NaverPay,
         "oxxo": Oxxo,
         "p24": P24,
+        "pay_by_bank": PayByBank,
         "payco": Payco,
         "paynow": Paynow,
         "paypal": Paypal,

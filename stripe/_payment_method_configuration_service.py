@@ -203,6 +203,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Configuration's parent configuration. Specify to create a child configuration.
         """
+        pay_by_bank: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsPayByBank"
+        ]
+        """
+        Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
+        """
         paynow: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsPaynow"
         ]
@@ -746,6 +752,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsPayByBank(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsPayByBankDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPayByBankDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsPaynow(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsPaynowDisplayPreference"
@@ -1162,6 +1182,12 @@ class PaymentMethodConfigurationService(StripeService):
         p24: NotRequired["PaymentMethodConfigurationService.UpdateParamsP24"]
         """
         Przelewy24 is a Poland-based payment method aggregator that allows customers to complete transactions online using bank transfers and other methods. Bank transfers account for 30% of online payments in Poland and Przelewy24 provides a way for customers to pay with over 165 banks. Check this [page](https://stripe.com/docs/payments/p24) for more details.
+        """
+        pay_by_bank: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsPayByBank"
+        ]
+        """
+        Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
         """
         paynow: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsPaynow"
@@ -1701,6 +1727,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsP24DisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsPayByBank(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsPayByBankDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsPayByBankDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.

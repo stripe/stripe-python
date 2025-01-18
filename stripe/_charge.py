@@ -1591,6 +1591,9 @@ class Charge(
             Przelewy24 rarely provides this information so the attribute is usually empty.
             """
 
+        class PayByBank(StripeObject):
+            pass
+
         class Payco(StripeObject):
             buyer_id: Optional[str]
             """
@@ -1995,6 +1998,7 @@ class Charge(
         naver_pay: Optional[NaverPay]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
+        pay_by_bank: Optional[PayByBank]
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
@@ -2059,6 +2063,7 @@ class Charge(
             "naver_pay": NaverPay,
             "oxxo": Oxxo,
             "p24": P24,
+            "pay_by_bank": PayByBank,
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,

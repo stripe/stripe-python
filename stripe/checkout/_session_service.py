@@ -259,6 +259,7 @@ class SessionService(StripeService):
                     "naver_pay",
                     "oxxo",
                     "p24",
+                    "pay_by_bank",
                     "payco",
                     "paynow",
                     "paypal",
@@ -1113,6 +1114,12 @@ class SessionService(StripeService):
         """
         contains details about the P24 payment method options.
         """
+        pay_by_bank: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsPayByBank"
+        ]
+        """
+        contains details about the Pay By Bank payment method options.
+        """
         payco: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsPayco"
         ]
@@ -1707,6 +1714,9 @@ class SessionService(StripeService):
         Confirm that the payer has accepted the P24 terms and conditions.
         """
 
+    class CreateParamsPaymentMethodOptionsPayByBank(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodOptionsPayco(TypedDict):
         capture_method: NotRequired[Literal["manual"]]
         """
@@ -2246,6 +2256,7 @@ class SessionService(StripeService):
                 "SA",
                 "SB",
                 "SC",
+                "SD",
                 "SE",
                 "SG",
                 "SH",

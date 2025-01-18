@@ -342,6 +342,12 @@ class Account(
         """
         The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
         """
+        pay_by_bank_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the pay_by_bank payments capability of the account, or whether the account can directly process pay_by_bank charges.
+        """
         payco_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Payco capability of the account, or whether the account can directly process Payco payments.
@@ -1926,6 +1932,12 @@ class Account(
         """
         The p24_payments capability.
         """
+        pay_by_bank_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesPayByBankPayments"
+        ]
+        """
+        The pay_by_bank_payments capability.
+        """
         payco_payments: NotRequired[
             "Account.CreateParamsCapabilitiesPaycoPayments"
         ]
@@ -2319,6 +2331,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesPayByBankPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesPaycoPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2511,6 +2529,12 @@ class Account(
         """
         Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
+        directorship_declaration: NotRequired[
+            "Account.CreateParamsCompanyDirectorshipDeclaration"
+        ]
+        """
+        This hash is used to attest that the directors information provided to Stripe is both current and correct.
+        """
         executives_provided: NotRequired[bool]
         """
         Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
@@ -2665,6 +2689,20 @@ class Account(
         Town or cho-me.
         """
 
+    class CreateParamsCompanyDirectorshipDeclaration(TypedDict):
+        date: NotRequired[int]
+        """
+        The Unix timestamp marking when the directorship declaration attestation was made.
+        """
+        ip: NotRequired[str]
+        """
+        The IP address from which the directorship declaration attestation was made.
+        """
+        user_agent: NotRequired[str]
+        """
+        The user agent of the browser from which the directorship declaration attestation was made.
+        """
+
     class CreateParamsCompanyOwnershipDeclaration(TypedDict):
         date: NotRequired[int]
         """
@@ -2806,6 +2844,12 @@ class Account(
         """
         One or more documents showing the company's proof of registration with the national business registry.
         """
+        proof_of_ultimate_beneficial_ownership: NotRequired[
+            "Account.CreateParamsDocumentsProofOfUltimateBeneficialOwnership"
+        ]
+        """
+        One or more documents that demonstrate proof of ultimate beneficial ownership.
+        """
 
     class CreateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
         files: NotRequired[List[str]]
@@ -2844,6 +2888,12 @@ class Account(
         """
 
     class CreateParamsDocumentsProofOfRegistration(TypedDict):
+        files: NotRequired[List[str]]
+        """
+        One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class CreateParamsDocumentsProofOfUltimateBeneficialOwnership(TypedDict):
         files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
