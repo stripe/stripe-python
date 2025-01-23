@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.5.0b3 - 2025-01-23
+* [#1447](https://github.com/stripe/stripe-python/pull/1447) Update generated code for beta
+  * Remove support for `stripe_account` on resource classes `stripe.terminal.Reader.Action.CollectPaymentMethod`, `stripe.terminal.Reader.Action.ConfirmPaymentIntent`, `stripe.terminal.Reader.Action.ProcessPaymentIntent`, and `stripe.terminal.Reader.Action.RefundPayment`
+
 ## 11.5.0b2 - 2025-01-17
 * [#1439](https://github.com/stripe/stripe-python/pull/1439) Update generated code for beta
   * Add support for `pay_by_bank_payments` on resource class `stripe.Account.Capabilities` and parameter class `stripe.Account.CreateParamsCapabilities`
