@@ -418,7 +418,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             class Networks(StripeObject):
                 available: List[str]
                 """
-                All available networks for the card.
+                All networks available for selection via [payment_method_options.card.network](https://stripe.com/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
                 """
                 preferred: Optional[str]
                 """
@@ -710,7 +710,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             class Networks(StripeObject):
                 available: List[str]
                 """
-                All available networks for the card.
+                All networks available for selection via [payment_method_options.card.network](https://stripe.com/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
                 """
                 preferred: Optional[str]
                 """
@@ -967,7 +967,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             class Networks(StripeObject):
                 available: List[str]
                 """
-                All available networks for the card.
+                All networks available for selection via [payment_method_options.card.network](https://stripe.com/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
                 """
                 preferred: Optional[str]
                 """
