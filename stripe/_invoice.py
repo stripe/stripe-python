@@ -1459,7 +1459,7 @@ class Invoice(
         """
         payment_record: NotRequired[str]
         """
-        The ID of the PaymentRecord to detach from the invoice.
+        The ID of the PaymentRecord to attach to the invoice.
         """
         payment_record_data: NotRequired[
             "Invoice.AttachPaymentParamsPaymentRecordData"
