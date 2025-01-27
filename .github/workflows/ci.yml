@@ -20,7 +20,7 @@ on:
 jobs:
   lint:
     name: Static Checks
-    runs-on: ubuntu-latest
+    runs-on: "ubuntu-24.04"
     steps:
       - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
@@ -47,7 +47,7 @@ jobs:
 
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: "ubuntu-24.04"
     steps:
       - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
@@ -62,7 +62,7 @@ jobs:
           just build
 
       - name: "Upload Artifact"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist/
@@ -107,8 +107,9 @@ jobs:
       startsWith(github.ref, 'refs/tags/v') &&
       endsWith(github.actor, '-stripe')
     needs: [build, test, lint]
-    runs-on: ubuntu-latest
+    runs-on: "ubuntu-24.04"
     steps:
+      - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v3
