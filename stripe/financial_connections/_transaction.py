@@ -30,7 +30,7 @@ class Transaction(ListableAPIResource["Transaction"]):
     class ListParams(RequestOptions):
         account: str
         """
-        The ID of the Stripe account whose transactions will be retrieved.
+        The ID of the Financial Connections Account whose transactions will be retrieved.
         """
         ending_before: NotRequired[str]
         """

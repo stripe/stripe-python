@@ -89,6 +89,10 @@ class PaymentIntent(
         """
 
     class LastPaymentError(StripeObject):
+        advice_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
+        """
         charge: Optional[str]
         """
         For card errors, the ID of the failed charge.
@@ -2032,6 +2036,9 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class PayByBank(StripeObject):
+            pass
+
         class Payco(StripeObject):
             capture_method: Optional[Literal["manual"]]
             """
@@ -2332,6 +2339,7 @@ class PaymentIntent(
         naver_pay: Optional[NaverPay]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
+        pay_by_bank: Optional[PayByBank]
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
@@ -2378,6 +2386,7 @@ class PaymentIntent(
             "naver_pay": NaverPay,
             "oxxo": Oxxo,
             "p24": P24,
+            "pay_by_bank": PayByBank,
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
@@ -2862,6 +2871,12 @@ class PaymentIntent(
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataPayco"]
         """
         If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
@@ -2955,6 +2970,7 @@ class PaymentIntent(
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
@@ -3291,6 +3307,9 @@ class PaymentIntent(
         The customer's bank.
         """
 
+    class ConfirmParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataPayco(TypedDict):
         pass
 
@@ -3550,6 +3569,12 @@ class PaymentIntent(
         ]
         """
         If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
+        """
+        pay_by_bank: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this sub-hash contains details about the PayByBank payment method options.
         """
         payco: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPayco"
@@ -4600,6 +4625,9 @@ class PaymentIntent(
         Confirm that the payer has accepted the P24 terms and conditions.
         """
 
+    class ConfirmParamsPaymentMethodOptionsPayByBank(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodOptionsPayco(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -5409,6 +5437,12 @@ class PaymentIntent(
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataPayco"]
         """
         If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
@@ -5502,6 +5536,7 @@ class PaymentIntent(
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
@@ -5838,6 +5873,9 @@ class PaymentIntent(
         The customer's bank.
         """
 
+    class CreateParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataPayco(TypedDict):
         pass
 
@@ -6097,6 +6135,12 @@ class PaymentIntent(
         ]
         """
         If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
+        """
+        pay_by_bank: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this sub-hash contains details about the PayByBank payment method options.
         """
         payco: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPayco"
@@ -7147,6 +7191,9 @@ class PaymentIntent(
         Confirm that the payer has accepted the P24 terms and conditions.
         """
 
+    class CreateParamsPaymentMethodOptionsPayByBank(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodOptionsPayco(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -7950,6 +7997,12 @@ class PaymentIntent(
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
         """
+        pay_by_bank: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodDataPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
+        """
         payco: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataPayco"]
         """
         If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
@@ -8043,6 +8096,7 @@ class PaymentIntent(
             "naver_pay",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "payco",
             "paynow",
             "paypal",
@@ -8379,6 +8433,9 @@ class PaymentIntent(
         The customer's bank.
         """
 
+    class ModifyParamsPaymentMethodDataPayByBank(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataPayco(TypedDict):
         pass
 
@@ -8638,6 +8695,12 @@ class PaymentIntent(
         ]
         """
         If this is a `p24` PaymentMethod, this sub-hash contains details about the Przelewy24 payment method options.
+        """
+        pay_by_bank: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPayByBank"
+        ]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this sub-hash contains details about the PayByBank payment method options.
         """
         payco: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPayco"
@@ -9687,6 +9750,9 @@ class PaymentIntent(
         """
         Confirm that the payer has accepted the P24 terms and conditions.
         """
+
+    class ModifyParamsPaymentMethodOptionsPayByBank(TypedDict):
+        pass
 
     class ModifyParamsPaymentMethodOptionsPayco(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]

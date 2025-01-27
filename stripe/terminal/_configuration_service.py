@@ -115,6 +115,10 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for HKD
         """
+        jpy: NotRequired["ConfigurationService.CreateParamsTippingJpy"]
+        """
+        Tipping configuration for JPY
+        """
         myr: NotRequired["ConfigurationService.CreateParamsTippingMyr"]
         """
         Tipping configuration for MYR
@@ -243,6 +247,20 @@ class ConfigurationService(StripeService):
         """
 
     class CreateParamsTippingHkd(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingJpy(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -498,6 +516,10 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for HKD
         """
+        jpy: NotRequired["ConfigurationService.UpdateParamsTippingJpy"]
+        """
+        Tipping configuration for JPY
+        """
         myr: NotRequired["ConfigurationService.UpdateParamsTippingMyr"]
         """
         Tipping configuration for MYR
@@ -626,6 +648,20 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParamsTippingHkd(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class UpdateParamsTippingJpy(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip

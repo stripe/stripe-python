@@ -119,6 +119,7 @@ class WebhookEndpointService(StripeService):
                 "2024-10-28.acacia",
                 "2024-11-20.acacia",
                 "2024-12-18.acacia",
+                "2025-01-27.acacia",
             ]
         ]
         """

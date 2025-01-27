@@ -33,6 +33,12 @@ class OutboundTransferService(StripeService):
         """
         The PaymentMethod to use as the payment instrument for the OutboundTransfer.
         """
+        destination_payment_method_data: NotRequired[
+            "OutboundTransferService.CreateParamsDestinationPaymentMethodData"
+        ]
+        """
+        Hash used to generate the PaymentMethod to be used for this OutboundTransfer. Exclusive with `destination_payment_method`.
+        """
         destination_payment_method_options: NotRequired[
             "OutboundTransferService.CreateParamsDestinationPaymentMethodOptions"
         ]
@@ -54,6 +60,16 @@ class OutboundTransferService(StripeService):
         statement_descriptor: NotRequired[str]
         """
         Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer".
+        """
+
+    class CreateParamsDestinationPaymentMethodData(TypedDict):
+        financial_account: NotRequired[str]
+        """
+        Required if type is set to `financial_account`. The FinancialAccount ID to send funds to.
+        """
+        type: Literal["financial_account"]
+        """
+        The type of the destination.
         """
 
     class CreateParamsDestinationPaymentMethodOptions(TypedDict):
