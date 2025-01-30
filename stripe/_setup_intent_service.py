@@ -1339,7 +1339,7 @@ class SetupIntentService(StripeService):
             "SetupIntentService.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
         ]
         """
-        Provide filters for the linked accounts that the customer can select for the payment method
+        Provide filters for the linked accounts that the customer can select for the payment method.
         """
         manual_entry: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
@@ -2787,7 +2787,7 @@ class SetupIntentService(StripeService):
             "SetupIntentService.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
         ]
         """
-        Provide filters for the linked accounts that the customer can select for the payment method
+        Provide filters for the linked accounts that the customer can select for the payment method.
         """
         manual_entry: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
@@ -4212,7 +4212,7 @@ class SetupIntentService(StripeService):
             "SetupIntentService.UpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
         ]
         """
-        Provide filters for the linked accounts that the customer can select for the payment method
+        Provide filters for the linked accounts that the customer can select for the payment method.
         """
         manual_entry: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
