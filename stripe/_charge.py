@@ -306,6 +306,10 @@ class Charge(
                     """
                     Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
                     """
+                    brand_product: Optional[str]
+                    """
+                    The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
+                    """
                     country: Optional[str]
                     """
                     Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
@@ -1769,6 +1773,10 @@ class Charge(
                     brand: Optional[str]
                     """
                     Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    """
+                    brand_product: Optional[str]
+                    """
+                    The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
                     """
                     country: Optional[str]
                     """
