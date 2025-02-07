@@ -43,6 +43,20 @@ class CreditBalanceSummaryService(StripeService):
         """
         The price type that credit grants can apply to. We currently only support the `metered` price type.
         """
+        prices: NotRequired[
+            List[
+                "CreditBalanceSummaryService.RetrieveParamsFilterApplicabilityScopePrice"
+            ]
+        ]
+        """
+        A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+        """
+
+    class RetrieveParamsFilterApplicabilityScopePrice(TypedDict):
+        id: str
+        """
+        The price ID this credit grant should apply to.
+        """
 
     def retrieve(
         self,

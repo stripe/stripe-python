@@ -60,10 +60,21 @@ class CreditGrant(
 
     class ApplicabilityConfig(StripeObject):
         class Scope(StripeObject):
-            price_type: Literal["metered"]
+            class Price(StripeObject):
+                id: Optional[str]
+                """
+                Unique identifier for the object.
+                """
+
+            price_type: Optional[Literal["metered"]]
             """
             The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
             """
+            prices: Optional[List[Price]]
+            """
+            The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+            """
+            _inner_class_types = {"prices": Price}
 
         scope: Scope
         _inner_class_types = {"scope": Scope}
@@ -136,6 +147,18 @@ class CreditGrant(
         price_type: Literal["metered"]
         """
         The price type that credit grants can apply to. We currently only support the `metered` price type.
+        """
+        prices: NotRequired[
+            List["CreditGrant.CreateParamsApplicabilityConfigScopePrice"]
+        ]
+        """
+        A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+        """
+
+    class CreateParamsApplicabilityConfigScopePrice(TypedDict):
+        id: str
+        """
+        The price ID this credit grant should apply to.
         """
 
     class ExpireParams(RequestOptions):

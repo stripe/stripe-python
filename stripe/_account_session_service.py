@@ -143,6 +143,12 @@ class AccountSessionService(StripeService):
         """
         Configuration for the payouts list embedded component.
         """
+        product_tax_code_selector: NotRequired[
+            "AccountSessionService.CreateParamsComponentsProductTaxCodeSelector"
+        ]
+        """
+        Configuration for the product tax code selector embedded component.
+        """
         recipients: NotRequired[
             "AccountSessionService.CreateParamsComponentsRecipients"
         ]
@@ -621,6 +627,21 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsPayoutsListFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsProductTaxCodeSelector(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsProductTaxCodeSelectorFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsProductTaxCodeSelectorFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsRecipients(TypedDict):

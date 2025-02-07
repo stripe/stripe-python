@@ -528,6 +528,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the payouts list embedded component.
         """
+        product_tax_code_selector: NotRequired[
+            "AccountSession.CreateParamsComponentsProductTaxCodeSelector"
+        ]
+        """
+        Configuration for the product tax code selector embedded component.
+        """
         recipients: NotRequired[
             "AccountSession.CreateParamsComponentsRecipients"
         ]
@@ -1006,6 +1012,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsPayoutsListFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsProductTaxCodeSelector(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsProductTaxCodeSelectorFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsProductTaxCodeSelectorFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsRecipients(TypedDict):

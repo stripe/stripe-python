@@ -1402,6 +1402,12 @@ class SessionService(StripeService):
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
+        restrictions: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsCardRestrictions"
+        ]
+        """
+        Restrictions to apply to the card payment method. For example, you can block specific card brands.
+        """
         setup_future_usage: NotRequired[Literal["off_session", "on_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1426,6 +1432,21 @@ class SessionService(StripeService):
         """
         Setting to true enables installments for this Checkout Session.
         Setting to false will prevent any installment plan from applying to a payment.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardRestrictions(TypedDict):
+        brands_blocked: NotRequired[
+            List[
+                Literal[
+                    "american_express",
+                    "discover_global_network",
+                    "mastercard",
+                    "visa",
+                ]
+            ]
+        ]
+        """
+        Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
         """
 
     class CreateParamsPaymentMethodOptionsCashapp(TypedDict):
