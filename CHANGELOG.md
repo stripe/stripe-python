@@ -1,5 +1,15 @@
 # Changelog
 
+## 11.6.0b1 - 2025-02-07
+* [#1449](https://github.com/stripe/stripe-python/pull/1449) Update generated code for beta
+  * Add support for `rejected_reason` on resource class `stripe.Account.RiskControls`
+  * Add support for `product_tax_code_selector` on parameter class `stripe.AccountSession.CreateParamsComponents`
+  * Add support for `brand_product` on resource classes `stripe.Charge.PaymentMethodDetails.AmazonPay.Funding.Card` and `stripe.Charge.PaymentMethodDetails.RevolutPay.Funding.Card`
+  * Add support for `prices` on parameter classes `stripe.billing.CreditBalanceSummary.RetrieveParamsFilterApplicabilityScope` and `stripe.billing.CreditGrant.CreateParamsApplicabilityConfigScope` and resource class `stripe.billing.CreditGrant.ApplicabilityConfig.Scope`
+  * Add support for `restrictions` on parameter class `stripe.checkout.Session.CreateParamsPaymentMethodOptionsCard` and resource class `stripe.checkout.Session.PaymentMethodOptions.Card`
+  * Change type of `political_exposure` on  `stripe.Account.CreatePersonParams`, `stripe.Account.ModifyPersonParams`, and `stripe.Token.CreateParamsPerson` from `str` to `Literal['existing', 'none']`
+  * Change type of `price_type` on  `stripe.billing.CreditGrant.ApplicabilityConfig.Scope` from `Literal['metered']` to `Optional[Literal['metered']]`
+
 ## 11.5.0 - 2025-01-27
 * [#1443](https://github.com/stripe/stripe-python/pull/1443) Update generated code
   * Add support for `pay_by_bank_payments` on resource class `stripe.Account.Capabilities` and parameter class `stripe.Account.CreateParamsCapabilities`
