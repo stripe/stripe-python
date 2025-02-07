@@ -49,7 +49,7 @@ class TaxRateService(StripeService):
         """
         state: NotRequired[str]
         """
-        [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+        [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
         """
         tax_type: NotRequired[
             Literal[
@@ -158,7 +158,7 @@ class TaxRateService(StripeService):
         """
         state: NotRequired[str]
         """
-        [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+        [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2), without country prefix. For example, "NY" for New York, United States.
         """
         tax_type: NotRequired[
             Literal[

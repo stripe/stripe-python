@@ -1145,6 +1145,21 @@ class Account(
 
         charges: Charges
         payouts: Payouts
+        rejected_reason: Optional[
+            Literal[
+                "credit",
+                "fraud",
+                "fraud_no_intent_to_fulfill",
+                "fraud_other",
+                "fraud_payment_method_casher",
+                "fraud_payment_method_tester",
+                "other",
+                "terms_of_service",
+            ]
+        ]
+        """
+        Represents the rejected reason of the account. Empty if account is not rejected, or rejected by Stripe. Please see [this page for more details](https://stripe.com/docs/connect/)
+        """
         _inner_class_types = {"charges": Charges, "payouts": Payouts}
 
     class Settings(StripeObject):
@@ -3548,7 +3563,7 @@ class Account(
         """
         The person's phone number.
         """
-        political_exposure: NotRequired[str]
+        political_exposure: NotRequired[Literal["existing", "none"]]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """
@@ -4137,7 +4152,7 @@ class Account(
         """
         The person's phone number.
         """
-        political_exposure: NotRequired[str]
+        political_exposure: NotRequired[Literal["existing", "none"]]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """

@@ -7305,7 +7305,7 @@ class PaymentIntent(
             "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
         ]
         """
-        Provide filters for the linked accounts that the customer can select for the payment method
+        Provide filters for the linked accounts that the customer can select for the payment method.
         """
         manual_entry: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
@@ -10992,7 +10992,7 @@ class PaymentIntent(
             "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
         ]
         """
-        Provide filters for the linked accounts that the customer can select for the payment method
+        Provide filters for the linked accounts that the customer can select for the payment method.
         """
         manual_entry: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
@@ -14811,7 +14811,7 @@ class PaymentIntent(
             "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
         ]
         """
-        Provide filters for the linked accounts that the customer can select for the payment method
+        Provide filters for the linked accounts that the customer can select for the payment method.
         """
         manual_entry: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"

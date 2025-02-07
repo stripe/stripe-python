@@ -929,9 +929,9 @@ class Invoice(
             """
             rate: "TaxRate"
             """
-            Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+            Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-            Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+            Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
             """
             taxability_reason: Optional[
                 Literal[
@@ -1459,7 +1459,7 @@ class Invoice(
         """
         payment_record: NotRequired[str]
         """
-        The ID of the PaymentRecord to detach from the invoice.
+        The ID of the PaymentRecord to attach to the invoice.
         """
         payment_record_data: NotRequired[
             "Invoice.AttachPaymentParamsPaymentRecordData"

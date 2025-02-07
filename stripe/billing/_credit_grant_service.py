@@ -81,6 +81,20 @@ class CreditGrantService(StripeService):
         """
         The price type that credit grants can apply to. We currently only support the `metered` price type.
         """
+        prices: NotRequired[
+            List[
+                "CreditGrantService.CreateParamsApplicabilityConfigScopePrice"
+            ]
+        ]
+        """
+        A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+        """
+
+    class CreateParamsApplicabilityConfigScopePrice(TypedDict):
+        id: str
+        """
+        The price ID this credit grant should apply to.
+        """
 
     class ExpireParams(TypedDict):
         expand: NotRequired[List[str]]

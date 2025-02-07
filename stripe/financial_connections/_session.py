@@ -107,7 +107,7 @@ class Session(CreateableAPIResource["Session"]):
         """
         manual_entry: NotRequired["Session.CreateParamsManualEntry"]
         """
-        Settings for configuring manual entry of account details for this Session.
+        Customize manual entry behavior
         """
         permissions: List[
             Literal["balances", "ownership", "payment_method", "transactions"]
