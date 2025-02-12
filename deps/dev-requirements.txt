@@ -6,7 +6,6 @@ pyright == 1.1.336
 # general typechecking
 mypy == 1.7.0
 # formatting
-# pinned to last version before 2025 formatting
 ruff == 0.9.6
 # linting
 flake8
