@@ -2,6 +2,9 @@
 # version requirements: any modern python version (currently 3.10)
 
 # typechecking for all versions
+# can't use `>=1.1.339` since it flags override issues, e.g.:
+# > Method "_cls_delete" overrides class "DeletableAPIResource" in an incompatible manner Parameter "**params" has no corresponding parameter Pylance(reportIncompatibleMethodOverride)
+# can probably fix/ignore these issues and move forward, but we're stuck until then
 pyright == 1.1.336
 # general typechecking
 mypy == 1.7.0
