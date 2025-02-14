@@ -60,10 +60,21 @@ class CreditGrant(
 
     class ApplicabilityConfig(StripeObject):
         class Scope(StripeObject):
-            price_type: Literal["metered"]
+            class Price(StripeObject):
+                id: Optional[str]
+                """
+                Unique identifier for the object.
+                """
+
+            price_type: Optional[Literal["metered"]]
             """
             The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
             """
+            prices: Optional[List[Price]]
+            """
+            The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+            """
+            _inner_class_types = {"prices": Price}
 
         scope: Scope
         _inner_class_types = {"scope": Scope}
@@ -75,7 +86,7 @@ class CreditGrant(
         """
         applicability_config: "CreditGrant.CreateParamsApplicabilityConfig"
         """
-        Configuration specifying what this credit grant applies to.
+        Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
         """
         category: Literal["paid", "promotional"]
         """
@@ -105,6 +116,10 @@ class CreditGrant(
         """
         A descriptive name shown in the Dashboard.
         """
+        priority: NotRequired[int]
+        """
+        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+        """
 
     class CreateParamsAmount(TypedDict):
         monetary: NotRequired["CreditGrant.CreateParamsAmountMonetary"]
@@ -133,9 +148,21 @@ class CreditGrant(
         """
 
     class CreateParamsApplicabilityConfigScope(TypedDict):
-        price_type: Literal["metered"]
+        price_type: NotRequired[Literal["metered"]]
         """
         The price type that credit grants can apply to. We currently only support the `metered` price type.
+        """
+        prices: NotRequired[
+            List["CreditGrant.CreateParamsApplicabilityConfigScopePrice"]
+        ]
+        """
+        A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+        """
+
+    class CreateParamsApplicabilityConfigScopePrice(TypedDict):
+        id: str
+        """
+        The price ID this credit grant should apply to.
         """
 
     class ExpireParams(RequestOptions):
@@ -233,6 +260,10 @@ class CreditGrant(
     object: Literal["billing.credit_grant"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    priority: Optional[int]
+    """
+    The priority for applying this credit grant. The highest priority is 0 and the lowest is 100.
     """
     test_clock: Optional[ExpandableField["TestClock"]]
     """
