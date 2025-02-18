@@ -192,7 +192,6 @@
   * Adjusted default values for HTTP requests. You can use the old defaults by setting them explicitly. New values are:
     - max retries: `0` -> `2`
     - max timeout (seconds): `2` -> `5`
-  * Add method `parse_thin_event()` on the `StripeClient` class to parse [thin events](https://docs.corp.stripe.com/event-destinations#events-overview).  Rename `construct_event()` method on the same class to `parse_snapshot_event()` to clearly distinguish between the two kinds of events.
 
   ### Additions
 
@@ -203,6 +202,7 @@
   * Add support for `2024-09-30.acacia` on enum `stripe.WebhookEndpoint.CreateParams.api_version`
   * Add support for new Usage Billing APIs `stripe.v2.billing.MeterEvent`, `stripe.v2.billing.MeterEventAdjustments`, `stripe.v2.billing.MeterEventSession`, `stripe.v2.billing.MeterEventStream` and the new Events API `stripe.v2.core.Events` under the [v2 namespace ](https://docs.corp.stripe.com/api-v2-overview)
   * Add method [rawRequest()](https://github.com/stripe/stripe-python/tree/master?tab=readme-ov-file#custom-requests) on the `StripeClient` class that takes a HTTP method type, url and relevant parameters to make requests to the Stripe API that are not yet supported in the SDK.
+  * Add method `parse_thin_event()` on the `StripeClient` class to parse [thin events](https://docs.corp.stripe.com/event-destinations#events-overview)
 
   ### Other changes
   * Change type of `default_allowed_updates` on  `stripe.billing_portal.Configuration.CreateParamsFeaturesSubscriptionUpdate` from `Union[Literal[''], List[Literal['price', 'promotion_code', 'quantity']]]` to `NotRequired[Literal['']|List[Literal['price', 'promotion_code', 'quantity']]]`
