@@ -47,6 +47,22 @@ class ReaderService(StripeService):
         Card Number
         """
 
+    class SucceedInputCollectionParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        skip_non_required_inputs: NotRequired[Literal["all", "none"]]
+        """
+        This parameter defines the skip behavior for input collection.
+        """
+
+    class TimeoutInputCollectionParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     def present_payment_method(
         self,
         reader: str,
@@ -83,6 +99,94 @@ class ReaderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def succeed_input_collection(
+        self,
+        reader: str,
+        params: "ReaderService.SucceedInputCollectionParams" = {},
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Use this endpoint to trigger a successful input collection on a simulated reader.
+        """
+        return cast(
+            Reader,
+            self._request(
+                "post",
+                "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def succeed_input_collection_async(
+        self,
+        reader: str,
+        params: "ReaderService.SucceedInputCollectionParams" = {},
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Use this endpoint to trigger a successful input collection on a simulated reader.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def timeout_input_collection(
+        self,
+        reader: str,
+        params: "ReaderService.TimeoutInputCollectionParams" = {},
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+        """
+        return cast(
+            Reader,
+            self._request(
+                "post",
+                "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def timeout_input_collection_async(
+        self,
+        reader: str,
+        params: "ReaderService.TimeoutInputCollectionParams" = {},
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
                     reader=sanitize_id(reader),
                 ),
                 base_address="api",

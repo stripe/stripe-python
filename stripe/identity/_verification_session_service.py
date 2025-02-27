@@ -41,7 +41,7 @@ class VerificationSessionService(StripeService):
         """
         related_customer: NotRequired[str]
         """
-        Token referencing a Customer resource.
+        Customer ID
         """
         return_url: NotRequired[str]
         """

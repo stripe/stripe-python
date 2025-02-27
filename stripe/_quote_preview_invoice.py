@@ -1183,7 +1183,7 @@ class QuotePreviewInvoice(StripeObject):
     """
     amount_overpaid: Optional[int]
     """
-    Amount that was overpaid on the invoice. Overpayments are debited to the customer's credit balance.
+    Amount that was overpaid on the invoice. The amount overpaid is credited to the customer's credit balance.
     """
     amount_paid: int
     """
