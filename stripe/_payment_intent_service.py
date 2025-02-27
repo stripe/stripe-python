@@ -4381,7 +4381,7 @@ class PaymentIntentService(StripeService):
         """
         The app ID registered with WeChat Pay. Only required when client is ios or android.
         """
-        client: Literal["android", "ios", "web"]
+        client: NotRequired[Literal["android", "ios", "web"]]
         """
         The client type that the end customer will pay from
         """
@@ -8142,7 +8142,7 @@ class PaymentIntentService(StripeService):
         """
         The app ID registered with WeChat Pay. Only required when client is ios or android.
         """
-        client: Literal["android", "ios", "web"]
+        client: NotRequired[Literal["android", "ios", "web"]]
         """
         The client type that the end customer will pay from
         """
@@ -12087,7 +12087,7 @@ class PaymentIntentService(StripeService):
         """
         The app ID registered with WeChat Pay. Only required when client is ios or android.
         """
-        client: Literal["android", "ios", "web"]
+        client: NotRequired[Literal["android", "ios", "web"]]
         """
         The client type that the end customer will pay from
         """
