@@ -54,7 +54,7 @@ class ReaderService(StripeService):
         """
         skip_non_required_inputs: NotRequired[Literal["all", "none"]]
         """
-        Skip behavior for input collection.
+        This parameter defines the skip behavior for input collection.
         """
 
     class TimeoutInputCollectionParams(TypedDict):
@@ -114,7 +114,7 @@ class ReaderService(StripeService):
         options: RequestOptions = {},
     ) -> Reader:
         """
-        Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+        Use this endpoint to trigger a successful input collection on a simulated reader.
         """
         return cast(
             Reader,
@@ -136,7 +136,7 @@ class ReaderService(StripeService):
         options: RequestOptions = {},
     ) -> Reader:
         """
-        Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+        Use this endpoint to trigger a successful input collection on a simulated reader.
         """
         return cast(
             Reader,
@@ -158,7 +158,7 @@ class ReaderService(StripeService):
         options: RequestOptions = {},
     ) -> Reader:
         """
-        Completes an input collection with a timeout error on a simulated reader.
+        Use this endpoint to complete an input collection with a timeout error on a simulated reader.
         """
         return cast(
             Reader,
@@ -180,7 +180,7 @@ class ReaderService(StripeService):
         options: RequestOptions = {},
     ) -> Reader:
         """
-        Completes an input collection with a timeout error on a simulated reader.
+        Use this endpoint to complete an input collection with a timeout error on a simulated reader.
         """
         return cast(
             Reader,

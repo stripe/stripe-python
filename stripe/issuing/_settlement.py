@@ -63,6 +63,14 @@ class Settlement(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    other_fees_amount: int
+    """
+    The total amount of any additional ad-hoc fees accessed by the card network.
+    """
+    other_fees_count: int
+    """
+    The total number of additional ad-hoc fees accessed by the card network.
+    """
     settlement_service: str
     """
     One of `international` or `uk_national_net`.
