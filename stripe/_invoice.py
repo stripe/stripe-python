@@ -550,6 +550,7 @@ class Invoice(
                 "setup_intent_authentication_failure",
                 "setup_intent_invalid_parameter",
                 "setup_intent_mandate_invalid",
+                "setup_intent_mobile_wallet_unsupported",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
                 "shipping_address_invalid",
