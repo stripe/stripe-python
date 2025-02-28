@@ -492,6 +492,10 @@ class OrderService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
         ]
@@ -979,6 +983,10 @@ class OrderService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
         TypedDict,
@@ -1015,7 +1023,7 @@ class OrderService(StripeService):
         """
         The app ID registered with WeChat Pay. Only required when client is ios or android.
         """
-        client: Literal["android", "ios", "web"]
+        client: NotRequired[Literal["android", "ios", "web"]]
         """
         The client type that the end customer will pay from
         """
@@ -1843,6 +1851,10 @@ class OrderService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
         ]
@@ -2330,6 +2342,10 @@ class OrderService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
         TypedDict,
@@ -2366,7 +2382,7 @@ class OrderService(StripeService):
         """
         The app ID registered with WeChat Pay. Only required when client is ios or android.
         """
-        client: Literal["android", "ios", "web"]
+        client: NotRequired[Literal["android", "ios", "web"]]
         """
         The client type that the end customer will pay from
         """
