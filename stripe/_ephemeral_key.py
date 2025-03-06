@@ -147,8 +147,7 @@ class EphemeralKey(
     def create(cls, **params):
         if params.get("stripe_version") is None:
             raise ValueError(
-                "stripe_version must be specified to create an ephemeral "
-                "key"
+                "stripe_version must be specified to create an ephemeral key"
             )
 
         url = cls.class_url()

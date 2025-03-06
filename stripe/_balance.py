@@ -28,15 +28,15 @@ class Balance(SingletonAPIResource["Balance"]):
         class SourceTypes(StripeObject):
             bank_account: Optional[int]
             """
-            Amount for bank account.
+            Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
             """
             card: Optional[int]
             """
-            Amount for card.
+            Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
             """
             fpx: Optional[int]
             """
-            Amount for FPX.
+            Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
             """
 
         amount: int
@@ -54,15 +54,15 @@ class Balance(SingletonAPIResource["Balance"]):
         class SourceTypes(StripeObject):
             bank_account: Optional[int]
             """
-            Amount for bank account.
+            Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
             """
             card: Optional[int]
             """
-            Amount for card.
+            Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
             """
             fpx: Optional[int]
             """
-            Amount for FPX.
+            Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
             """
 
         amount: int
@@ -81,15 +81,15 @@ class Balance(SingletonAPIResource["Balance"]):
             class SourceTypes(StripeObject):
                 bank_account: Optional[int]
                 """
-                Amount for bank account.
+                Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
                 """
                 card: Optional[int]
                 """
-                Amount for card.
+                Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
                 """
                 fpx: Optional[int]
                 """
-                Amount for FPX.
+                Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
                 """
 
             amount: int
@@ -106,15 +106,15 @@ class Balance(SingletonAPIResource["Balance"]):
         class SourceTypes(StripeObject):
             bank_account: Optional[int]
             """
-            Amount for bank account.
+            Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
             """
             card: Optional[int]
             """
-            Amount for card.
+            Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
             """
             fpx: Optional[int]
             """
-            Amount for FPX.
+            Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
             """
 
         amount: int
@@ -140,15 +140,15 @@ class Balance(SingletonAPIResource["Balance"]):
             class SourceTypes(StripeObject):
                 bank_account: Optional[int]
                 """
-                Amount for bank account.
+                Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
                 """
                 card: Optional[int]
                 """
-                Amount for card.
+                Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
                 """
                 fpx: Optional[int]
                 """
-                Amount for FPX.
+                Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
                 """
 
             amount: int
@@ -172,15 +172,15 @@ class Balance(SingletonAPIResource["Balance"]):
         class SourceTypes(StripeObject):
             bank_account: Optional[int]
             """
-            Amount for bank account.
+            Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
             """
             card: Optional[int]
             """
-            Amount for card.
+            Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
             """
             fpx: Optional[int]
             """
-            Amount for FPX.
+            Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
             """
 
         amount: int

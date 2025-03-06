@@ -118,6 +118,59 @@ class Session(
         """
         _inner_class_types = {"liability": Liability}
 
+    class CollectedInformation(StripeObject):
+        class ShippingDetails(StripeObject):
+            class Address(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1 (e.g., street, PO Box, or company name).
+                """
+                line2: Optional[str]
+                """
+                Address line 2 (e.g., apartment, suite, unit, or building).
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+
+            address: Optional[Address]
+            carrier: Optional[str]
+            """
+            The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+            """
+            name: Optional[str]
+            """
+            Recipient name.
+            """
+            phone: Optional[str]
+            """
+            Recipient phone (including extension).
+            """
+            tracking_number: Optional[str]
+            """
+            The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+            """
+            _inner_class_types = {"address": Address}
+
+        shipping_details: Optional[ShippingDetails]
+        """
+        Shipping information for this Checkout Session.
+        """
+        _inner_class_types = {"shipping_details": ShippingDetails}
+
     class Consent(StripeObject):
         promotions: Optional[Literal["opt_in", "opt_out"]]
         """
@@ -615,6 +668,10 @@ class Session(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
+            target_date: Optional[str]
+            """
+            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            """
             verification_method: Optional[
                 Literal["automatic", "instant", "microdeposits"]
             ]
@@ -682,6 +739,10 @@ class Session(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
+            target_date: Optional[str]
+            """
+            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            """
 
         class BacsDebit(StripeObject):
             class MandateOptions(StripeObject):
@@ -702,6 +763,10 @@ class Session(
             If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+            target_date: Optional[str]
+            """
+            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -742,6 +807,21 @@ class Session(
                 Indicates if installments are enabled
                 """
 
+            class Restrictions(StripeObject):
+                brands_blocked: Optional[
+                    List[
+                        Literal[
+                            "american_express",
+                            "discover_global_network",
+                            "mastercard",
+                            "visa",
+                        ]
+                    ]
+                ]
+                """
+                Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
+                """
+
             installments: Optional[Installments]
             request_extended_authorization: Optional[
                 Literal["if_available", "never"]
@@ -767,6 +847,7 @@ class Session(
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             """
+            restrictions: Optional[Restrictions]
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
             ]
@@ -787,7 +868,10 @@ class Session(
             """
             Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
             """
-            _inner_class_types = {"installments": Installments}
+            _inner_class_types = {
+                "installments": Installments,
+                "restrictions": Restrictions,
+            }
 
         class Cashapp(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
@@ -1137,6 +1221,10 @@ class Session(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
+            target_date: Optional[str]
+            """
+            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            """
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Sofort(StripeObject):
@@ -1205,6 +1293,10 @@ class Session(
             If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+            target_date: Optional[str]
+            """
+            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             verification_method: Optional[Literal["automatic", "instant"]]
             """
@@ -1569,9 +1661,9 @@ class Session(
             """
             rate: "TaxRate"
             """
-            Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+            Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-            Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+            Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
             """
             taxability_reason: Optional[
                 Literal[
@@ -1710,9 +1802,9 @@ class Session(
                 """
                 rate: "TaxRate"
                 """
-                Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+                Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-                Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+                Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
                 """
                 taxability_reason: Optional[
                     Literal[
@@ -2883,6 +2975,10 @@ class Session(
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
         ]
@@ -2975,6 +3071,10 @@ class Session(
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        """
 
     class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
         mandate_options: NotRequired[
@@ -2994,6 +3094,10 @@ class Session(
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
@@ -3065,6 +3169,12 @@ class Session(
         """
         We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         """
+        restrictions: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsCardRestrictions"
+        ]
+        """
+        Restrictions to apply to the card payment method. For example, you can block specific card brands.
+        """
         setup_future_usage: NotRequired[Literal["off_session", "on_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3089,6 +3199,21 @@ class Session(
         """
         Setting to true enables installments for this Checkout Session.
         Setting to false will prevent any installment plan from applying to a payment.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardRestrictions(TypedDict):
+        brands_blocked: NotRequired[
+            List[
+                Literal[
+                    "american_express",
+                    "discover_global_network",
+                    "mastercard",
+                    "visa",
+                ]
+            ]
+        ]
+        """
+        Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
         """
 
     class CreateParamsPaymentMethodOptionsCashapp(TypedDict):
@@ -3497,6 +3622,10 @@ class Session(
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        """
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         reference_prefix: NotRequired["Literal['']|str"]
@@ -3540,6 +3669,10 @@ class Session(
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
         verification_method: NotRequired[Literal["automatic", "instant"]]
         """
@@ -4199,6 +4332,12 @@ class Session(
         """
 
     class ModifyParams(RequestOptions):
+        collected_information: NotRequired[
+            "Session.ModifyParamsCollectedInformation"
+        ]
+        """
+        Information about the customer collected within the Checkout Session.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -4206,6 +4345,52 @@ class Session(
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+
+    class ModifyParamsCollectedInformation(TypedDict):
+        shipping_details: NotRequired[
+            "Session.ModifyParamsCollectedInformationShippingDetails"
+        ]
+        """
+        The shipping details to apply to this Session.
+        """
+
+    class ModifyParamsCollectedInformationShippingDetails(TypedDict):
+        address: (
+            "Session.ModifyParamsCollectedInformationShippingDetailsAddress"
+        )
+        """
+        The address of the customer
+        """
+        name: str
+        """
+        The name of customer
+        """
+
+    class ModifyParamsCollectedInformationShippingDetailsAddress(TypedDict):
+        city: NotRequired[str]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: str
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: str
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired[str]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired[str]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired[str]
+        """
+        State, county, province, or region.
         """
 
     class RetrieveParams(RequestOptions):
@@ -4252,6 +4437,10 @@ class Session(
     client_secret: Optional[str]
     """
     Client secret to be used when initializing Stripe.js embedded checkout.
+    """
+    collected_information: Optional[CollectedInformation]
+    """
+    Information about the customer collected within the Checkout Session.
     """
     consent: Optional[Consent]
     """
@@ -4859,6 +5048,7 @@ class Session(
         "adaptive_pricing": AdaptivePricing,
         "after_expiration": AfterExpiration,
         "automatic_tax": AutomaticTax,
+        "collected_information": CollectedInformation,
         "consent": Consent,
         "consent_collection": ConsentCollection,
         "currency_conversion": CurrencyConversion,
