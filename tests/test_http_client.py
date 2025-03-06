@@ -1992,7 +1992,7 @@ class TestLiveHTTPClients:
 
         client = _http_client.HTTPXClient(verify_ssl_certs=True)
         # the public test secret key, as found on https://docs.stripe.com/keys#obtain-api-keys
-        test_api_key = "sk_test_4eC39HqLyjWDarjtT1zdp7dc"
+        test_api_key = "sk_test_BQokikJOvBiI2HlWgH4olfQ2"
         basic_auth = base64.b64encode(
             (test_api_key + ":").encode("utf-8")
         ).decode("utf-8")
