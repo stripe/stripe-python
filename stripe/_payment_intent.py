@@ -1705,10 +1705,6 @@ class PaymentIntent(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
-            target_date: Optional[str]
-            """
-            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-            """
             verification_method: Optional[
                 Literal["automatic", "instant", "microdeposits"]
             ]
@@ -1805,10 +1801,6 @@ class PaymentIntent(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
-            target_date: Optional[str]
-            """
-            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-            """
 
         class BacsDebit(StripeObject):
             class MandateOptions(StripeObject):
@@ -1829,10 +1821,6 @@ class PaymentIntent(
             If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
-            """
-            target_date: Optional[str]
-            """
-            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -2727,10 +2715,6 @@ class PaymentIntent(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
-            target_date: Optional[str]
-            """
-            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-            """
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Shopeepay(StripeObject):
@@ -2873,10 +2857,6 @@ class PaymentIntent(
             If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
-            """
-            target_date: Optional[str]
-            """
-            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             verification_method: Optional[
                 Literal["automatic", "instant", "microdeposits"]
@@ -3103,13 +3083,13 @@ class PaymentIntent(
     class TransferData(StripeObject):
         amount: Optional[int]
         """
-        The amount transferred to the destination account. This transfer will occur automatically after the payment succeeds. If no amount is specified, by default the entire payment amount is transferred to the destination account.
-         The amount must be less than or equal to the [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount), and must be a positive integer
-         representing how much to transfer in the smallest currency unit (e.g., 100 cents to charge $1.00).
+        Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
         """
         destination: ExpandableField["Account"]
         """
-        The account (if any) that the payment is attributed to for tax reporting, and where funds from the payment are transferred to after payment success.
+        The account (if any) that the payment is attributed to for tax
+        reporting, and where funds from the payment are transferred to after
+        payment success.
         """
 
     class ApplyCustomerBalanceParams(RequestOptions):
@@ -5820,10 +5800,6 @@ class PaymentIntent(
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-        """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
         ]
@@ -5969,10 +5945,6 @@ class PaymentIntent(
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-        """
 
     class ConfirmParamsPaymentMethodOptionsBacsDebit(TypedDict):
         mandate_options: NotRequired[
@@ -5994,10 +5966,6 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
 
     class ConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
@@ -7209,10 +7177,6 @@ class PaymentIntent(
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-        """
 
     class ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         reference_prefix: NotRequired["Literal['']|str"]
@@ -7326,10 +7290,6 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
@@ -9527,10 +9487,6 @@ class PaymentIntent(
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-        """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
         ]
@@ -9676,10 +9632,6 @@ class PaymentIntent(
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-        """
 
     class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
         mandate_options: NotRequired[
@@ -9701,10 +9653,6 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
@@ -10916,10 +10864,6 @@ class PaymentIntent(
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-        """
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         reference_prefix: NotRequired["Literal['']|str"]
@@ -11033,10 +10977,6 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
@@ -13366,10 +13306,6 @@ class PaymentIntent(
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-        """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
         ]
@@ -13515,10 +13451,6 @@ class PaymentIntent(
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-        """
 
     class ModifyParamsPaymentMethodOptionsBacsDebit(TypedDict):
         mandate_options: NotRequired[
@@ -13540,10 +13472,6 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
 
     class ModifyParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
@@ -14755,10 +14683,6 @@ class PaymentIntent(
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
-        """
 
     class ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         reference_prefix: NotRequired["Literal['']|str"]
@@ -14872,10 +14796,6 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        """
-        target_date: NotRequired[str]
-        """
-        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
