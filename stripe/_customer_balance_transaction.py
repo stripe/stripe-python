@@ -76,6 +76,8 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     type: Literal[
         "adjustment",
         "applied_to_invoice",
+        "checkout_session_subscription_payment",
+        "checkout_session_subscription_payment_canceled",
         "credit_note",
         "initial",
         "invoice_overpaid",
@@ -86,7 +88,7 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
         "unspent_receiver_credit",
     ]
     """
-    Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_overpaid`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types.
+    Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_overpaid`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, `unapplied_from_invoice`, `checkout_session_subscription_payment`, or `checkout_session_subscription_payment_canceled`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types.
     """
 
     def instance_url(self):

@@ -606,10 +606,6 @@ class Subscription(
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
-        cancel_at_period_end: NotRequired[bool]
-        """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
-        """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
         ]
@@ -1575,10 +1571,6 @@ class Subscription(
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
-        cancel_at_period_end: NotRequired[bool]
-        """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
-        """
         cancellation_details: NotRequired[
             "Subscription.ModifyParamsCancellationDetails"
         ]
@@ -2446,7 +2438,7 @@ class Subscription(
     """
     cancel_at_period_end: bool
     """
-    Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period.
+    Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period. This field is deprecated in a new version, please use `cancel_at` instead.
     """
     canceled_at: Optional[int]
     """
@@ -2551,7 +2543,7 @@ class Subscription(
     """
     on_behalf_of: Optional[ExpandableField["Account"]]
     """
-    The account (if any) the charge was made on behalf of for charges associated with this subscription. See the Connect documentation for details.
+    The account (if any) the charge was made on behalf of for charges associated with this subscription. See the [Connect documentation](https://stripe.com/docs/connect/subscriptions#on-behalf-of) for details.
     """
     pause_collection: Optional[PauseCollection]
     """
