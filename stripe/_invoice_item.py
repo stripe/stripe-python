@@ -23,8 +23,6 @@ if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._invoice import Invoice
     from stripe._margin import Margin
-    from stripe._plan import Plan
-    from stripe._price import Price
     from stripe._subscription import Subscription
     from stripe._tax_rate import TaxRate
     from stripe.test_helpers._test_clock import TestClock
@@ -492,14 +490,6 @@ class InvoiceItem(
     String representing the object's type. Objects of the same type share the same value.
     """
     period: Period
-    plan: Optional["Plan"]
-    """
-    If the invoice item is a proration, the plan of the subscription that the proration was computed for.
-    """
-    price: Optional["Price"]
-    """
-    The price of the invoice item.
-    """
     proration: bool
     """
     Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.

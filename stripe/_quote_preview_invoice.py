@@ -532,6 +532,7 @@ class QuotePreviewInvoice(StripeObject):
                 "setup_intent_authentication_failure",
                 "setup_intent_invalid_parameter",
                 "setup_intent_mandate_invalid",
+                "setup_intent_mobile_wallet_unsupported",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
                 "shipping_address_invalid",
@@ -1183,7 +1184,7 @@ class QuotePreviewInvoice(StripeObject):
     """
     amount_overpaid: Optional[int]
     """
-    Amount that was overpaid on the invoice. Overpayments are debited to the customer's credit balance.
+    Amount that was overpaid on the invoice. The amount overpaid is credited to the customer's credit balance.
     """
     amount_paid: int
     """
@@ -1451,6 +1452,9 @@ class QuotePreviewInvoice(StripeObject):
     """
     status_transitions: StatusTransitions
     subscription: Optional[ExpandableField["Subscription"]]
+    """
+    The subscription that this invoice was prepared for, if any.
+    """
     subscription_details: Optional[SubscriptionDetails]
     """
     Details about the subscription that created this invoice.

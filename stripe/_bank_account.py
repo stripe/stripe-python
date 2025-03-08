@@ -287,7 +287,7 @@ class BankAccount(
 
     account: Optional[ExpandableField["Account"]]
     """
-    The ID of the account that the bank account is associated with.
+    The account this bank account belongs to. Only applicable on Accounts (not customers or recipients) This property is only available when returned as an [External Account](https://stripe.com/api/external_account_bank_accounts/object) where [controller.is_controller](https://stripe.com/api/accounts/object#account_object-controller-is_controller) is `true`.
     """
     account_holder_name: Optional[str]
     """

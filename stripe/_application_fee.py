@@ -39,7 +39,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         """
         type: Literal["charge", "payout"]
         """
-        Type of object that created the application fee, either `charge` or `payout`.
+        Type of object that created the application fee.
         """
 
     class CreateRefundParams(RequestOptions):
