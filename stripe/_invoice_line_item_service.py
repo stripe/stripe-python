@@ -149,13 +149,13 @@ class InvoiceLineItemService(StripeService):
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         """
         product_data: NotRequired[
             "InvoiceLineItemService.UpdateParamsPriceDataProductData"
         ]
         """
-        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
