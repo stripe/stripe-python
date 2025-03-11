@@ -514,14 +514,6 @@ class InvoiceItem(
     """
     ID of the test clock this invoice item belongs to.
     """
-    unit_amount: Optional[int]
-    """
-    Unit amount (in the `currency` specified) of the invoice item.
-    """
-    unit_amount_decimal: Optional[str]
-    """
-    Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
-    """
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
