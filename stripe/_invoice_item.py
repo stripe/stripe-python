@@ -109,11 +109,11 @@ class InvoiceItem(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. One of `price` or `price_data` is required.
+        The ID of the price object.
         """
         price_data: NotRequired["InvoiceItem.CreateParamsPriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
         quantity: NotRequired[int]
         """
@@ -143,7 +143,7 @@ class InvoiceItem(
         """
         unit_amount_decimal: NotRequired[str]
         """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        The decimal unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount_decimal` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount_decimal` will reduce the `amount_due` on the invoice. Accepts at most 12 decimal places.
         """
 
     class CreateParamsDiscount(TypedDict):
@@ -318,11 +318,11 @@ class InvoiceItem(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. One of `price` or `price_data` is required.
+        The ID of the price object.
         """
         price_data: NotRequired["InvoiceItem.ModifyParamsPriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
         quantity: NotRequired[int]
         """
@@ -348,7 +348,7 @@ class InvoiceItem(
         """
         unit_amount_decimal: NotRequired[str]
         """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        The decimal unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount_decimal` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount_decimal` will reduce the `amount_due` on the invoice. Accepts at most 12 decimal places.
         """
 
     class ModifyParamsDiscount(TypedDict):

@@ -185,11 +185,11 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         price: NotRequired[str]
         """
-        The ID of the price object. One of `price` or `price_data` is required.
+        The ID of the price object.
         """
         price_data: NotRequired["InvoiceLineItem.ModifyParamsPriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
         quantity: NotRequired[int]
         """
