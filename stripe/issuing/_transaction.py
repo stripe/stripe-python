@@ -1723,6 +1723,9 @@ class Transaction(
     Additional purchase information that is optionally provided by the merchant.
     """
     settlement: Optional[ExpandableField["Settlement"]]
+    """
+    The ID of the [settlement](https://stripe.com/docs/api/issuing/settlements) to which this transaction belongs.
+    """
     token: Optional[ExpandableField["Token"]]
     """
     [Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null.
