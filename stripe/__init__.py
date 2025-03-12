@@ -436,9 +436,6 @@ from stripe._invoice_rendering_template_service import (
     InvoiceRenderingTemplateService as InvoiceRenderingTemplateService,
 )
 from stripe._invoice_service import InvoiceService as InvoiceService
-from stripe._invoice_upcoming_lines_service import (
-    InvoiceUpcomingLinesService as InvoiceUpcomingLinesService,
-)
 from stripe._issuing_service import IssuingService as IssuingService
 from stripe._line_item import LineItem as LineItem
 from stripe._login_link import LoginLink as LoginLink
