@@ -385,10 +385,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     The amount, in cents (or local equivalent).
     """
-    amount_excluding_tax: Optional[int]
-    """
-    The integer amount in cents (or local equivalent) representing the amount for this line item, excluding all tax and discounts.
-    """
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -485,10 +481,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     type: Literal["invoiceitem", "subscription"]
     """
     A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
-    """
-    unit_amount_excluding_tax: Optional[str]
-    """
-    The amount in cents (or local equivalent) representing the unit amount for this line item, excluding all tax and discounts.
     """
 
     @classmethod
