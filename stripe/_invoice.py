@@ -11149,7 +11149,7 @@ class Invoice(
         )
 
     @classmethod
-    def upcoming_lines(
+    def upcomingLines(
         cls, **params: Unpack["Invoice.UpcomingLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
         """
@@ -11165,7 +11165,7 @@ class Invoice(
         )
 
     @classmethod
-    async def upcoming_lines_async(
+    async def upcomingLines_async(
         cls, **params: Unpack["Invoice.UpcomingLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
         """
