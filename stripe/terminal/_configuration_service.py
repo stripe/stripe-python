@@ -61,7 +61,7 @@ class ConfigurationService(StripeService):
     class CreateParamsBbposWiseposE(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class CreateParamsOffline(TypedDict):
@@ -542,7 +542,7 @@ class ConfigurationService(StripeService):
     class UpdateParamsBbposWiseposE(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class UpdateParamsOffline(TypedDict):

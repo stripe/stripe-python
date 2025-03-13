@@ -39,7 +39,7 @@ class Configuration(
     class BbposWiseposE(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class Offline(StripeObject):
@@ -61,7 +61,7 @@ class Configuration(
     class StripeS700(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class Tipping(StripeObject):
@@ -327,7 +327,7 @@ class Configuration(
     class VerifoneP400(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class Wifi(StripeObject):
@@ -437,7 +437,7 @@ class Configuration(
     class CreateParamsBbposWiseposE(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class CreateParamsOffline(TypedDict):
@@ -906,7 +906,7 @@ class Configuration(
     class ModifyParamsBbposWiseposE(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class ModifyParamsOffline(TypedDict):
