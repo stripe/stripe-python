@@ -2458,11 +2458,11 @@ class Subscription(
     """
     current_period_end: int
     """
-    End of the current period that the subscription has been invoiced for. At the end of this period, a new invoice will be created.
+    End of the current period that the subscription has been invoiced for. At the end of this period, a new invoice will be created. This field is deprecated starting on the `2025-03-31.basil` version, please use `current_period_end` on the items[] field instead
     """
     current_period_start: int
     """
-    Start of the current period that the subscription has been invoiced for.
+    Start of the current period that the subscription has been invoiced for. This field is deprecated starting on the `2025-03-31.basil` version, please use `current_period_start` on the items[] field instead
     """
     customer: ExpandableField["Customer"]
     """
