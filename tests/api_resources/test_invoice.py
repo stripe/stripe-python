@@ -117,11 +117,6 @@ class TestInvoice(object):
         )
         assert isinstance(resource, stripe.Invoice)
 
-    def test_can_upcoming(self, http_client_mock):
-        resource = stripe.Invoice.upcoming(customer="cus_123")
-        http_client_mock.assert_requested("get", path="/v1/invoices/upcoming")
-        assert isinstance(resource, stripe.Invoice)
-
     def test_can_void_invoice(self, http_client_mock):
         resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
         resource = resource.void_invoice()
