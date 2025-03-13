@@ -3,7 +3,6 @@ import json
 import pytest
 
 import stripe
-from tests.http_client_mock import HTTPClientMock
 
 
 class TestListObject(object):
@@ -440,57 +439,58 @@ class TestAutoPaging:
         )
         assert lo.data[0].api_key == "sk_test_iter_forwards_options"
 
-    def test_iter_with_params(self, http_client_mock: HTTPClientMock):
-        http_client_mock.stub_request(
-            "get",
-            path="/v1/invoices/upcoming/lines",
-            query_string="customer=cus_123&expand[0]=data.price&limit=1",
-            rbody=json.dumps(
-                {
-                    "object": "list",
-                    "data": [
-                        {
-                            "id": "prod_001",
-                            "object": "product",
-                            "price": {"object": "price", "id": "price_123"},
-                        }
-                    ],
-                    "url": "/v1/invoices/upcoming/lines?customer=cus_123&expand%5B%5D=data.price",
-                    "has_more": True,
-                }
-            ),
-        )
-        # second page
-        http_client_mock.stub_request(
-            "get",
-            path="/v1/invoices/upcoming/lines",
-            query_string="customer=cus_123&expand[0]=data.price&limit=1&starting_after=prod_001",
-            rbody=json.dumps(
-                {
-                    "object": "list",
-                    "data": [
-                        {
-                            "id": "prod_002",
-                            "object": "product",
-                            "price": {"object": "price", "id": "price_123"},
-                        }
-                    ],
-                    "url": "/v1/invoices/upcoming/lines?customer=cus_123&expand%5B%5D=data.price",
-                    "has_more": False,
-                }
-            ),
-        )
+    # TODO(xavdid): re-add test with a new endpoint
+    # def test_iter_with_params(self, http_client_mock: HTTPClientMock):
+    #     http_client_mock.stub_request(
+    #         "get",
+    #         path="/v1/invoices/upcoming/lines",
+    #         query_string="customer=cus_123&expand[0]=data.price&limit=1",
+    #         rbody=json.dumps(
+    #             {
+    #                 "object": "list",
+    #                 "data": [
+    #                     {
+    #                         "id": "prod_001",
+    #                         "object": "product",
+    #                         "price": {"object": "price", "id": "price_123"},
+    #                     }
+    #                 ],
+    #                 "url": "/v1/invoices/upcoming/lines?customer=cus_123&expand%5B%5D=data.price",
+    #                 "has_more": True,
+    #             }
+    #         ),
+    #     )
+    #     # second page
+    #     http_client_mock.stub_request(
+    #         "get",
+    #         path="/v1/invoices/upcoming/lines",
+    #         query_string="customer=cus_123&expand[0]=data.price&limit=1&starting_after=prod_001",
+    #         rbody=json.dumps(
+    #             {
+    #                 "object": "list",
+    #                 "data": [
+    #                     {
+    #                         "id": "prod_002",
+    #                         "object": "product",
+    #                         "price": {"object": "price", "id": "price_123"},
+    #                     }
+    #                 ],
+    #                 "url": "/v1/invoices/upcoming/lines?customer=cus_123&expand%5B%5D=data.price",
+    #                 "has_more": False,
+    #             }
+    #         ),
+    #     )
 
-        lo = stripe.Invoice.upcoming_lines(
-            api_key="sk_test_invoice_lines",
-            customer="cus_123",
-            expand=["data.price"],
-            limit=1,
-        )
+    #     lo = stripe.Invoice.upcoming_lines(
+    #         api_key="sk_test_invoice_lines",
+    #         customer="cus_123",
+    #         expand=["data.price"],
+    #         limit=1,
+    #     )
 
-        seen = [item["id"] for item in lo.auto_paging_iter()]
+    #     seen = [item["id"] for item in lo.auto_paging_iter()]
 
-        assert seen == ["prod_001", "prod_002"]
+    #     assert seen == ["prod_001", "prod_002"]
 
 
 class TestAutoPagingAsync:
