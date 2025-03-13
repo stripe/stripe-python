@@ -59,6 +59,9 @@ class CustomerService(StripeService):
         Balance information and default balance settings for this customer.
         """
         coupon: NotRequired[str]
+        """
+        If you provide a coupon code, the customer will have a discount applied on all recurring charges. Charges you create through the API will not have the discount.
+        """
         description: NotRequired[str]
         """
         An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
@@ -475,6 +478,9 @@ class CustomerService(StripeService):
         Balance information and default balance settings for this customer.
         """
         coupon: NotRequired[str]
+        """
+        If you provide a coupon code, the customer will have a discount applied on all recurring charges. Charges you create through the API will not have the discount.
+        """
         default_source: NotRequired[str]
         """
         If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.

@@ -1316,10 +1316,6 @@ class QuotePreviewInvoice(StripeObject):
     """
     An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
     """
-    discount: Optional["Discount"]
-    """
-    Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts.
-    """
     discounts: List[ExpandableField["Discount"]]
     """
     The discounts applied to the invoice. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.

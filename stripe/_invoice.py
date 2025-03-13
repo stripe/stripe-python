@@ -2211,10 +2211,6 @@ class Invoice(
         """
         Settings for automatic tax lookup for this invoice preview.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         The currency to preview this invoice in. Defaults to that of `customer` if not specified.
@@ -3326,10 +3322,6 @@ class Invoice(
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -5006,10 +4998,6 @@ class Invoice(
         """
         Settings for automatic tax lookup for this invoice preview.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         The currency to preview this invoice in. Defaults to that of `customer` if not specified.
@@ -6194,10 +6182,6 @@ class Invoice(
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -7113,10 +7097,6 @@ class Invoice(
         automatic_tax: NotRequired["Invoice.UpcomingParamsAutomaticTax"]
         """
         Settings for automatic tax lookup for this invoice preview.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -8259,10 +8239,6 @@ class Invoice(
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -9564,10 +9540,6 @@ class Invoice(
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
-    """
-    discount: Optional["Discount"]
-    """
-    Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts.
     """
     discounts: List[ExpandableField["Discount"]]
     """

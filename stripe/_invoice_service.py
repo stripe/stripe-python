@@ -1056,10 +1056,6 @@ class InvoiceService(StripeService):
         """
         Settings for automatic tax lookup for this invoice preview.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         The currency to preview this invoice in. Defaults to that of `customer` if not specified.
@@ -2176,10 +2172,6 @@ class InvoiceService(StripeService):
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -3131,10 +3123,6 @@ class InvoiceService(StripeService):
         ]
         """
         Settings for automatic tax lookup for this invoice preview.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -4324,10 +4312,6 @@ class InvoiceService(StripeService):
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -5243,10 +5227,6 @@ class InvoiceService(StripeService):
         automatic_tax: NotRequired["InvoiceService.UpcomingParamsAutomaticTax"]
         """
         Settings for automatic tax lookup for this invoice preview.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -6405,10 +6385,6 @@ class InvoiceService(StripeService):
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
