@@ -3,7 +3,6 @@ import json
 import pytest
 
 import stripe
-from tests.http_client_mock import HTTPClientMock
 
 
 class TestListObject(object):
