@@ -18,11 +18,8 @@ if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._invoice_item import InvoiceItem
     from stripe._margin import Margin
-    from stripe._plan import Plan
-    from stripe._price import Price
     from stripe._subscription import Subscription
     from stripe._subscription_item import SubscriptionItem
-    from stripe._tax_rate import TaxRate
     from stripe.billing._credit_balance_transaction import (
         CreditBalanceTransaction,
     )
@@ -107,46 +104,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
         """
         _inner_class_types = {"credited_items": CreditedItems}
-
-    class TaxAmount(StripeObject):
-        amount: int
-        """
-        The amount, in cents (or local equivalent), of the tax.
-        """
-        inclusive: bool
-        """
-        Whether this tax amount is inclusive or exclusive.
-        """
-        tax_rate: ExpandableField["TaxRate"]
-        """
-        The tax rate that was applied to get this tax amount.
-        """
-        taxability_reason: Optional[
-            Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
-            ]
-        ]
-        """
-        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
-        """
-        taxable_amount: Optional[int]
-        """
-        The amount on which tax is calculated, in cents (or local equivalent).
-        """
 
     class ModifyParams(RequestOptions):
         amount: NotRequired[int]
@@ -438,17 +395,9 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     String representing the object's type. Objects of the same type share the same value.
     """
     period: Period
-    plan: Optional["Plan"]
-    """
-    The plan of the subscription, if the line item is a subscription or a proration.
-    """
     pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
     """
     Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this line item.
-    """
-    price: Optional["Price"]
-    """
-    The price of the line item.
     """
     proration: bool
     """
@@ -469,14 +418,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     subscription_item: Optional[ExpandableField["SubscriptionItem"]]
     """
     The subscription item that generated this line item. Left empty if the line item is not an explicit result of a subscription.
-    """
-    tax_amounts: List[TaxAmount]
-    """
-    The amount of tax calculated per tax rate for this line item
-    """
-    tax_rates: List["TaxRate"]
-    """
-    The tax rates which apply to the line item.
     """
     type: Literal["invoiceitem", "subscription"]
     """
@@ -529,5 +470,4 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         "period": Period,
         "pretax_credit_amounts": PretaxCreditAmount,
         "proration_details": ProrationDetails,
-        "tax_amounts": TaxAmount,
     }
