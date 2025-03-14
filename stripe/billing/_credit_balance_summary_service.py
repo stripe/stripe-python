@@ -39,7 +39,7 @@ class CreditBalanceSummaryService(StripeService):
         """
 
     class RetrieveParamsFilterApplicabilityScope(TypedDict):
-        price_type: Literal["metered"]
+        price_type: NotRequired[Literal["metered"]]
         """
         The price type that credit grants can apply to. We currently only support the `metered` price type.
         """
