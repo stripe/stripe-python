@@ -905,6 +905,22 @@ class Reader(
         The quantity of the line item being purchased.
         """
 
+    class SucceedInputCollectionParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        skip_non_required_inputs: NotRequired[Literal["all", "none"]]
+        """
+        Skip behavior for input collection.
+        """
+
+    class TimeoutInputCollectionParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     action: Optional[Action]
     """
     The most recent action performed by the reader.
@@ -2178,6 +2194,238 @@ class Reader(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
+                        reader=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        def _cls_succeed_input_collection(
+            cls,
+            reader: str,
+            **params: Unpack["Reader.SucceedInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+            """
+            return cast(
+                "Reader",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
+                        reader=sanitize_id(reader)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def succeed_input_collection(
+            reader: str,
+            **params: Unpack["Reader.SucceedInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+            """
+            ...
+
+        @overload
+        def succeed_input_collection(
+            self, **params: Unpack["Reader.SucceedInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+            """
+            ...
+
+        @class_method_variant("_cls_succeed_input_collection")
+        def succeed_input_collection(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Reader.SucceedInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+            """
+            return cast(
+                "Reader",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
+                        reader=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_succeed_input_collection_async(
+            cls,
+            reader: str,
+            **params: Unpack["Reader.SucceedInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+            """
+            return cast(
+                "Reader",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
+                        reader=sanitize_id(reader)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def succeed_input_collection_async(
+            reader: str,
+            **params: Unpack["Reader.SucceedInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+            """
+            ...
+
+        @overload
+        async def succeed_input_collection_async(
+            self, **params: Unpack["Reader.SucceedInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+            """
+            ...
+
+        @class_method_variant("_cls_succeed_input_collection_async")
+        async def succeed_input_collection_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Reader.SucceedInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Succeeds an input collection on a simulated reader. Can be used to simulate collecting inputs.
+            """
+            return cast(
+                "Reader",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
+                        reader=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        def _cls_timeout_input_collection(
+            cls,
+            reader: str,
+            **params: Unpack["Reader.TimeoutInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Completes an input collection with a timeout error on a simulated reader.
+            """
+            return cast(
+                "Reader",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
+                        reader=sanitize_id(reader)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def timeout_input_collection(
+            reader: str,
+            **params: Unpack["Reader.TimeoutInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Completes an input collection with a timeout error on a simulated reader.
+            """
+            ...
+
+        @overload
+        def timeout_input_collection(
+            self, **params: Unpack["Reader.TimeoutInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Completes an input collection with a timeout error on a simulated reader.
+            """
+            ...
+
+        @class_method_variant("_cls_timeout_input_collection")
+        def timeout_input_collection(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Reader.TimeoutInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Completes an input collection with a timeout error on a simulated reader.
+            """
+            return cast(
+                "Reader",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
+                        reader=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_timeout_input_collection_async(
+            cls,
+            reader: str,
+            **params: Unpack["Reader.TimeoutInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Completes an input collection with a timeout error on a simulated reader.
+            """
+            return cast(
+                "Reader",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
+                        reader=sanitize_id(reader)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def timeout_input_collection_async(
+            reader: str,
+            **params: Unpack["Reader.TimeoutInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Completes an input collection with a timeout error on a simulated reader.
+            """
+            ...
+
+        @overload
+        async def timeout_input_collection_async(
+            self, **params: Unpack["Reader.TimeoutInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Completes an input collection with a timeout error on a simulated reader.
+            """
+            ...
+
+        @class_method_variant("_cls_timeout_input_collection_async")
+        async def timeout_input_collection_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Reader.TimeoutInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Completes an input collection with a timeout error on a simulated reader.
+            """
+            return cast(
+                "Reader",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
                         reader=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,
