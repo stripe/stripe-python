@@ -122,6 +122,10 @@ class PaymentLink(
                 The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
                 """
 
+            default_value: Optional[str]
+            """
+            The value that will pre-fill on the payment page.
+            """
             options: List[Option]
             """
             The options available for the customer to select. Up to 200 options allowed.
@@ -139,6 +143,10 @@ class PaymentLink(
             """
 
         class Numeric(StripeObject):
+            default_value: Optional[str]
+            """
+            The value that will pre-fill the field on the payment page.
+            """
             maximum_length: Optional[int]
             """
             The maximum character length constraint for the customer's input.
@@ -149,6 +157,10 @@ class PaymentLink(
             """
 
         class Text(StripeObject):
+            default_value: Optional[str]
+            """
+            The value that will pre-fill the field on the payment page.
+            """
             maximum_length: Optional[int]
             """
             The maximum character length constraint for the customer's input.
@@ -976,6 +988,10 @@ class PaymentLink(
         """
 
     class CreateParamsCustomFieldDropdown(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+        """
         options: List["PaymentLink.CreateParamsCustomFieldDropdownOption"]
         """
         The options available for the customer to select. Up to 200 options allowed.
@@ -1002,6 +1018,10 @@ class PaymentLink(
         """
 
     class CreateParamsCustomFieldNumeric(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -1012,6 +1032,10 @@ class PaymentLink(
         """
 
     class CreateParamsCustomFieldText(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -1819,6 +1843,10 @@ class PaymentLink(
         """
 
     class ModifyParamsCustomFieldDropdown(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+        """
         options: List["PaymentLink.ModifyParamsCustomFieldDropdownOption"]
         """
         The options available for the customer to select. Up to 200 options allowed.
@@ -1845,6 +1873,10 @@ class PaymentLink(
         """
 
     class ModifyParamsCustomFieldNumeric(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -1855,6 +1887,10 @@ class PaymentLink(
         """
 
     class ModifyParamsCustomFieldText(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.

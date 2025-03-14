@@ -18,11 +18,8 @@ if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._invoice_item import InvoiceItem
     from stripe._margin import Margin
-    from stripe._plan import Plan
-    from stripe._price import Price
     from stripe._subscription import Subscription
     from stripe._subscription_item import SubscriptionItem
-    from stripe._tax_rate import TaxRate
     from stripe.billing._credit_balance_transaction import (
         CreditBalanceTransaction,
     )
@@ -108,46 +105,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         _inner_class_types = {"credited_items": CreditedItems}
 
-    class TaxAmount(StripeObject):
-        amount: int
-        """
-        The amount, in cents (or local equivalent), of the tax.
-        """
-        inclusive: bool
-        """
-        Whether this tax amount is inclusive or exclusive.
-        """
-        tax_rate: ExpandableField["TaxRate"]
-        """
-        The tax rate that was applied to get this tax amount.
-        """
-        taxability_reason: Optional[
-            Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
-            ]
-        ]
-        """
-        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
-        """
-        taxable_amount: Optional[int]
-        """
-        The amount on which tax is calculated, in cents (or local equivalent).
-        """
-
     class ModifyParams(RequestOptions):
         amount: NotRequired[int]
         """
@@ -185,11 +142,11 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         price: NotRequired[str]
         """
-        The ID of the price object. One of `price` or `price_data` is required.
+        The ID of the price object.
         """
         price_data: NotRequired["InvoiceLineItem.ModifyParamsPriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
         quantity: NotRequired[int]
         """
@@ -269,13 +226,13 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         """
         product_data: NotRequired[
             "InvoiceLineItem.ModifyParamsPriceDataProductData"
         ]
         """
-        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -385,10 +342,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     The amount, in cents (or local equivalent).
     """
-    amount_excluding_tax: Optional[int]
-    """
-    The integer amount in cents (or local equivalent) representing the amount for this line item, excluding all tax and discounts.
-    """
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -442,17 +395,9 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     String representing the object's type. Objects of the same type share the same value.
     """
     period: Period
-    plan: Optional["Plan"]
-    """
-    The plan of the subscription, if the line item is a subscription or a proration.
-    """
     pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
     """
     Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this line item.
-    """
-    price: Optional["Price"]
-    """
-    The price of the line item.
     """
     proration: bool
     """
@@ -474,21 +419,9 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     The subscription item that generated this line item. Left empty if the line item is not an explicit result of a subscription.
     """
-    tax_amounts: List[TaxAmount]
-    """
-    The amount of tax calculated per tax rate for this line item
-    """
-    tax_rates: List["TaxRate"]
-    """
-    The tax rates which apply to the line item.
-    """
     type: Literal["invoiceitem", "subscription"]
     """
     A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
-    """
-    unit_amount_excluding_tax: Optional[str]
-    """
-    The amount in cents (or local equivalent) representing the unit amount for this line item, excluding all tax and discounts.
     """
 
     @classmethod
@@ -537,5 +470,4 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         "period": Period,
         "pretax_credit_amounts": PretaxCreditAmount,
         "proration_details": ProrationDetails,
-        "tax_amounts": TaxAmount,
     }

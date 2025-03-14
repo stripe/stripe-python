@@ -146,22 +146,10 @@ class Session(
                 State, county, province, or region.
                 """
 
-            address: Optional[Address]
-            carrier: Optional[str]
+            address: Address
+            name: str
             """
-            The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-            """
-            name: Optional[str]
-            """
-            Recipient name.
-            """
-            phone: Optional[str]
-            """
-            Recipient phone (including extension).
-            """
-            tracking_number: Optional[str]
-            """
-            The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+            Customer name.
             """
             _inner_class_types = {"address": Address}
 
@@ -799,6 +787,10 @@ class Session(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
+            target_date: Optional[str]
+            """
+            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            """
             verification_method: Optional[
                 Literal["automatic", "instant", "microdeposits"]
             ]
@@ -866,6 +858,10 @@ class Session(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
+            target_date: Optional[str]
+            """
+            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            """
 
         class BacsDebit(StripeObject):
             class MandateOptions(StripeObject):
@@ -886,6 +882,10 @@ class Session(
             If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+            target_date: Optional[str]
+            """
+            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -1419,6 +1419,10 @@ class Session(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
+            target_date: Optional[str]
+            """
+            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            """
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Sofort(StripeObject):
@@ -1508,6 +1512,10 @@ class Session(
             If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+            """
+            target_date: Optional[str]
+            """
+            Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             verification_method: Optional[Literal["automatic", "instant"]]
             """
@@ -1952,52 +1960,6 @@ class Session(
         """
         _inner_class_types = {"taxes": Tax}
 
-    class ShippingDetails(StripeObject):
-        class Address(StripeObject):
-            city: Optional[str]
-            """
-            City, district, suburb, town, or village.
-            """
-            country: Optional[str]
-            """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            """
-            line1: Optional[str]
-            """
-            Address line 1 (e.g., street, PO Box, or company name).
-            """
-            line2: Optional[str]
-            """
-            Address line 2 (e.g., apartment, suite, unit, or building).
-            """
-            postal_code: Optional[str]
-            """
-            ZIP or postal code.
-            """
-            state: Optional[str]
-            """
-            State, county, province, or region.
-            """
-
-        address: Optional[Address]
-        carrier: Optional[str]
-        """
-        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-        """
-        name: Optional[str]
-        """
-        Recipient name.
-        """
-        phone: Optional[str]
-        """
-        Recipient phone (including extension).
-        """
-        tracking_number: Optional[str]
-        """
-        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-        """
-        _inner_class_types = {"address": Address}
-
     class ShippingOption(StripeObject):
         shipping_amount: int
         """
@@ -2418,9 +2380,10 @@ class Session(
             Literal["auto", "book", "donate", "pay", "subscribe"]
         ]
         """
-        Describes the type of transaction being performed by Checkout in order to customize
-        relevant text on the page, such as the submit button. `submit_type` can only be
-        specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
+        Describes the type of transaction being performed by Checkout in order
+        to customize relevant text on the page, such as the submit button.
+         `submit_type` can only be specified on Checkout Sessions in
+        `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
         """
         subscription_data: NotRequired["Session.CreateParamsSubscriptionData"]
         """
@@ -2806,13 +2769,13 @@ class Session(
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         """
         product_data: NotRequired[
             "Session.CreateParamsLineItemPriceDataProductData"
         ]
         """
-        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         """
         recurring: NotRequired[
             "Session.CreateParamsLineItemPriceDataRecurring"
@@ -2870,7 +2833,7 @@ class Session(
     class CreateParamsPaymentIntentData(TypedDict):
         application_fee_amount: NotRequired[int]
         """
-        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
         capture_method: NotRequired[
             Literal["automatic", "automatic_async", "manual"]
@@ -3233,6 +3196,10 @@ class Session(
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
         ]
@@ -3325,6 +3292,10 @@ class Session(
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        """
 
     class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
         mandate_options: NotRequired[
@@ -3344,6 +3315,10 @@ class Session(
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
 
     class CreateParamsPaymentMethodOptionsBacsDebitMandateOptions(TypedDict):
@@ -3955,6 +3930,10 @@ class Session(
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
         """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        """
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         reference_prefix: NotRequired["Literal['']|str"]
@@ -3998,6 +3977,10 @@ class Session(
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
         verification_method: NotRequired[Literal["automatic", "instant"]]
         """
@@ -4708,7 +4691,7 @@ class Session(
 
         To update an existing line item, specify its `id` along with the new values of the fields to update.
 
-        To add a new line item, specify a `price` and `quantity`. We don't currently support recurring prices.
+        To add a new line item, specify a `price` and `quantity`.
 
         To remove an existing line item, omit the line item's ID from the retransmitted array.
 
@@ -4977,7 +4960,8 @@ class Session(
     """
     client_secret: Optional[str]
     """
-    The client secret of the Session. Use this with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
+    The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. For `ui_mode: embedded`, the client secret is to be used when initializing Stripe.js embedded checkout.
+     For `ui_mode: custom`, use the client secret with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
     """
     collected_information: Optional[CollectedInformation]
     """
@@ -5187,10 +5171,6 @@ class Session(
     """
     The details of the customer cost of shipping, including the customer chosen ShippingRate.
     """
-    shipping_details: Optional[ShippingDetails]
-    """
-    Shipping information for this Checkout Session.
-    """
     shipping_options: List[ShippingOption]
     """
     The shipping rate options applied to this Session.
@@ -5227,14 +5207,14 @@ class Session(
     """
     url: Optional[str]
     """
-    The URL to the Checkout Session. Redirect customers to this URL to take them to Checkout. If you're using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it'll use `checkout.stripe.com.`
+    The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you're using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it'll use `checkout.stripe.com.`
     This value is only present when the session is active.
     """
 
     @classmethod
     def create(cls, **params: Unpack["Session.CreateParams"]) -> "Session":
         """
-        Creates a Session object.
+        Creates a Checkout Session object.
         """
         return cast(
             "Session",
@@ -5250,7 +5230,7 @@ class Session(
         cls, **params: Unpack["Session.CreateParams"]
     ) -> "Session":
         """
-        Creates a Session object.
+        Creates a Checkout Session object.
         """
         return cast(
             "Session",
@@ -5266,9 +5246,9 @@ class Session(
         cls, session: str, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
             "Session",
@@ -5287,18 +5267,18 @@ class Session(
         session: str, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         ...
 
     @overload
     def expire(self, **params: Unpack["Session.ExpireParams"]) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         ...
 
@@ -5307,9 +5287,9 @@ class Session(
         self, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
             "Session",
@@ -5327,9 +5307,9 @@ class Session(
         cls, session: str, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
             "Session",
@@ -5348,9 +5328,9 @@ class Session(
         session: str, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         ...
 
@@ -5359,9 +5339,9 @@ class Session(
         self, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         ...
 
@@ -5370,9 +5350,9 @@ class Session(
         self, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
             "Session",
@@ -5540,7 +5520,7 @@ class Session(
         cls, id: str, **params: Unpack["Session.ModifyParams"]
     ) -> "Session":
         """
-        Updates a Session object.
+        Updates a Checkout Session object.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -5557,7 +5537,7 @@ class Session(
         cls, id: str, **params: Unpack["Session.ModifyParams"]
     ) -> "Session":
         """
-        Updates a Session object.
+        Updates a Checkout Session object.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -5574,7 +5554,7 @@ class Session(
         cls, id: str, **params: Unpack["Session.RetrieveParams"]
     ) -> "Session":
         """
-        Retrieves a Session object.
+        Retrieves a Checkout Session object.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -5585,7 +5565,7 @@ class Session(
         cls, id: str, **params: Unpack["Session.RetrieveParams"]
     ) -> "Session":
         """
-        Retrieves a Session object.
+        Retrieves a Checkout Session object.
         """
         instance = cls(id, **params)
         await instance.refresh_async()
@@ -5611,7 +5591,6 @@ class Session(
         "saved_payment_method_options": SavedPaymentMethodOptions,
         "shipping_address_collection": ShippingAddressCollection,
         "shipping_cost": ShippingCost,
-        "shipping_details": ShippingDetails,
         "shipping_options": ShippingOption,
         "tax_id_collection": TaxIdCollection,
         "total_details": TotalDetails,

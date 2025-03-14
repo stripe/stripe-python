@@ -85,19 +85,11 @@ class SubscriptionService(StripeService):
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
-        cancel_at_period_end: NotRequired[bool]
-        """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
-        """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -195,10 +187,6 @@ class SubscriptionService(StripeService):
         prebilling: NotRequired["SubscriptionService.CreateParamsPrebilling"]
         """
         If specified, the invoicing for the given billing cycle iterations will be processed now.
-        """
-        promotion_code: NotRequired[str]
-        """
-        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -1112,10 +1100,6 @@ class SubscriptionService(StripeService):
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
-        cancel_at_period_end: NotRequired[bool]
-        """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
-        """
         cancellation_details: NotRequired[
             "SubscriptionService.UpdateParamsCancellationDetails"
         ]
@@ -1127,10 +1111,6 @@ class SubscriptionService(StripeService):
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         days_until_due: NotRequired[int]
         """
@@ -1222,10 +1202,6 @@ class SubscriptionService(StripeService):
         prebilling: NotRequired["SubscriptionService.UpdateParamsPrebilling"]
         """
         If specified, the invoicing for the given billing cycle iterations will be processed now.
-        """
-        promotion_code: NotRequired[str]
-        """
-        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]

@@ -180,7 +180,7 @@ class OrderService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of a [Price](https://stripe.com/docs/api/prices) to add to the Order.
+        The ID of a [Price](https://docs.stripe.com/api/prices) to add to the Order.
 
         The `price` parameter is an alternative to using the `product` parameter. If each of your products are sold at a single price, you can set `Product.default_price` and then pass the `product` parameter when creating a line item. If your products are sold at several possible prices, use the `price` parameter to explicitly specify which one to use.
         """
@@ -188,21 +188,21 @@ class OrderService(StripeService):
         """
         Data used to generate a new Price object inline.
 
-        The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create products upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
+        The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create a Product upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define Products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
 
-        Each time you pass `price_data` we create a Price for the product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
+        Each time you pass `price_data` we create a Price for the Product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
         """
         product: NotRequired[str]
         """
-        The ID of a [Product](https://stripe.com/docs/api/products) to add to the Order.
+        The ID of a [Product](https://docs.stripe.com/api/products) to add to the Order.
 
-        The product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
+        The Product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
         """
         product_data: NotRequired[
             "OrderService.CreateParamsLineItemProductData"
         ]
         """
-        Defines a Product inline and adds it to the Order.
+        Defines a [Product](https://docs.stripe.com/api/products) inline and adds it to the Order.
 
         `product_data` is an alternative to the `product` parameter. If you created a Product upfront, use the `product` parameter to refer to the existing Product. But if you prefer not to create Products upfront, pass the `product_data` parameter to define a Product inline as part of configuring the Order.
 
@@ -234,7 +234,7 @@ class OrderService(StripeService):
         """
         product: NotRequired[str]
         """
-        ID of the product this price belongs to.
+        ID of the [Product](https://docs.stripe.com/api/products) this [Price](https://docs.stripe.com/api/prices) belongs to.
 
         Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specified.
         """
@@ -491,6 +491,10 @@ class OrderService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
@@ -979,6 +983,10 @@ class OrderService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
         TypedDict,
@@ -1015,7 +1023,7 @@ class OrderService(StripeService):
         """
         The app ID registered with WeChat Pay. Only required when client is ios or android.
         """
-        client: Literal["android", "ios", "web"]
+        client: NotRequired[Literal["android", "ios", "web"]]
         """
         The client type that the end customer will pay from
         """
@@ -1531,7 +1539,7 @@ class OrderService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of a [Price](https://stripe.com/docs/api/prices) to add to the Order.
+        The ID of a [Price](https://docs.stripe.com/api/prices) to add to the Order.
 
         The `price` parameter is an alternative to using the `product` parameter. If each of your products are sold at a single price, you can set `Product.default_price` and then pass the `product` parameter when creating a line item. If your products are sold at several possible prices, use the `price` parameter to explicitly specify which one to use.
         """
@@ -1539,21 +1547,21 @@ class OrderService(StripeService):
         """
         Data used to generate a new Price object inline.
 
-        The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create products upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
+        The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create a Product upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define Products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
 
-        Each time you pass `price_data` we create a Price for the product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
+        Each time you pass `price_data` we create a Price for the Product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
         """
         product: NotRequired[str]
         """
-        The ID of a [Product](https://stripe.com/docs/api/products) to add to the Order.
+        The ID of a [Product](https://docs.stripe.com/api/products) to add to the Order.
 
-        The product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
+        The Product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
         """
         product_data: NotRequired[
             "OrderService.UpdateParamsLineItemProductData"
         ]
         """
-        Defines a Product inline and adds it to the Order.
+        Defines a [Product](https://docs.stripe.com/api/products) inline and adds it to the Order.
 
         `product_data` is an alternative to the `product` parameter. If you created a Product upfront, use the `product` parameter to refer to the existing Product. But if you prefer not to create Products upfront, pass the `product_data` parameter to define a Product inline as part of configuring the Order.
 
@@ -1585,7 +1593,7 @@ class OrderService(StripeService):
         """
         product: NotRequired[str]
         """
-        ID of the product this price belongs to.
+        ID of the [Product](https://docs.stripe.com/api/products) this [Price](https://docs.stripe.com/api/prices) belongs to.
 
         Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specified.
         """
@@ -1842,6 +1850,10 @@ class OrderService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
         verification_method: NotRequired[
             Literal["automatic", "instant", "microdeposits"]
@@ -2330,6 +2342,10 @@ class OrderService(StripeService):
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+        """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
         TypedDict,
@@ -2366,7 +2382,7 @@ class OrderService(StripeService):
         """
         The app ID registered with WeChat Pay. Only required when client is ios or android.
         """
-        client: Literal["android", "ios", "web"]
+        client: NotRequired[Literal["android", "ios", "web"]]
         """
         The client type that the end customer will pay from
         """

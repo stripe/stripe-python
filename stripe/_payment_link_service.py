@@ -326,6 +326,10 @@ class PaymentLinkService(StripeService):
         """
 
     class CreateParamsCustomFieldDropdown(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+        """
         options: List[
             "PaymentLinkService.CreateParamsCustomFieldDropdownOption"
         ]
@@ -354,6 +358,10 @@ class PaymentLinkService(StripeService):
         """
 
     class CreateParamsCustomFieldNumeric(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -364,6 +372,10 @@ class PaymentLinkService(StripeService):
         """
 
     class CreateParamsCustomFieldText(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -1167,6 +1179,10 @@ class PaymentLinkService(StripeService):
         """
 
     class UpdateParamsCustomFieldDropdown(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+        """
         options: List[
             "PaymentLinkService.UpdateParamsCustomFieldDropdownOption"
         ]
@@ -1195,6 +1211,10 @@ class PaymentLinkService(StripeService):
         """
 
     class UpdateParamsCustomFieldNumeric(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -1205,6 +1225,10 @@ class PaymentLinkService(StripeService):
         """
 
     class UpdateParamsCustomFieldText(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.

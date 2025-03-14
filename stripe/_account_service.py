@@ -1824,6 +1824,10 @@ class AccountService(StripeService):
         """
         Settings specific to card charging on the account.
         """
+        invoices: NotRequired["AccountService.CreateParamsSettingsInvoices"]
+        """
+        Settings specific to the account's use of Invoices.
+        """
         payments: NotRequired["AccountService.CreateParamsSettingsPayments"]
         """
         Settings that apply across payment methods for charging on the account.
@@ -1935,6 +1939,14 @@ class AccountService(StripeService):
         cvc_failure: NotRequired[bool]
         """
         Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
+        """
+
+    class CreateParamsSettingsInvoices(TypedDict):
+        hosted_payment_method_save: NotRequired[
+            Literal["always", "never", "offer"]
+        ]
+        """
+        Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
         """
 
     class CreateParamsSettingsPayments(TypedDict):
@@ -3946,6 +3958,12 @@ class AccountService(StripeService):
         default_account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
         The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
+        """
+        hosted_payment_method_save: NotRequired[
+            Literal["always", "never", "offer"]
+        ]
+        """
+        Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
         """
 
     class UpdateParamsSettingsPayments(TypedDict):

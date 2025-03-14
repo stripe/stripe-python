@@ -1270,6 +1270,12 @@ class Account(
             """
             The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
             """
+            hosted_payment_method_save: Optional[
+                Literal["always", "never", "offer"]
+            ]
+            """
+            Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+            """
 
         class Payments(StripeObject):
             statement_descriptor: Optional[str]
@@ -1416,7 +1422,7 @@ class Account(
             "Account.CreateExternalAccountParamsCardToken",
         ]
         """
-        Please refer to full [documentation](https://stripe.com/docs/api) instead.
+        A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js) or a dictionary containing a user's external account details (with the options shown below). Please refer to full [documentation](https://stripe.com/docs/api/external_accounts) instead.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -3253,6 +3259,10 @@ class Account(
         """
         Settings specific to card charging on the account.
         """
+        invoices: NotRequired["Account.CreateParamsSettingsInvoices"]
+        """
+        Settings specific to the account's use of Invoices.
+        """
         payments: NotRequired["Account.CreateParamsSettingsPayments"]
         """
         Settings that apply across payment methods for charging on the account.
@@ -3364,6 +3374,14 @@ class Account(
         cvc_failure: NotRequired[bool]
         """
         Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
+        """
+
+    class CreateParamsSettingsInvoices(TypedDict):
+        hosted_payment_method_save: NotRequired[
+            Literal["always", "never", "offer"]
+        ]
+        """
+        Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
         """
 
     class CreateParamsSettingsPayments(TypedDict):
@@ -3563,7 +3581,7 @@ class Account(
         """
         The person's phone number.
         """
-        political_exposure: NotRequired[str]
+        political_exposure: NotRequired[Literal["existing", "none"]]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """
@@ -4152,7 +4170,7 @@ class Account(
         """
         The person's phone number.
         """
-        political_exposure: NotRequired[str]
+        political_exposure: NotRequired[Literal["existing", "none"]]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """
