@@ -349,9 +349,10 @@ class SessionService(StripeService):
             Literal["auto", "book", "donate", "pay", "subscribe"]
         ]
         """
-        Describes the type of transaction being performed by Checkout in order to customize
-        relevant text on the page, such as the submit button. `submit_type` can only be
-        specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
+        Describes the type of transaction being performed by Checkout in order
+        to customize relevant text on the page, such as the submit button.
+         `submit_type` can only be specified on Checkout Sessions in
+        `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
         """
         subscription_data: NotRequired[
             "SessionService.CreateParamsSubscriptionData"
@@ -747,13 +748,13 @@ class SessionService(StripeService):
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         """
         product_data: NotRequired[
             "SessionService.CreateParamsLineItemPriceDataProductData"
         ]
         """
-        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         """
         recurring: NotRequired[
             "SessionService.CreateParamsLineItemPriceDataRecurring"
@@ -811,7 +812,7 @@ class SessionService(StripeService):
     class CreateParamsPaymentIntentData(TypedDict):
         application_fee_amount: NotRequired[int]
         """
-        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
         capture_method: NotRequired[
             Literal["automatic", "automatic_async", "manual"]
@@ -2697,7 +2698,7 @@ class SessionService(StripeService):
 
         To update an existing line item, specify its `id` along with the new values of the fields to update.
 
-        To add a new line item, specify a `price` and `quantity`. We don't currently support recurring prices.
+        To add a new line item, specify a `price` and `quantity`.
 
         To remove an existing line item, omit the line item's ID from the retransmitted array.
 
@@ -2965,7 +2966,7 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        Creates a Session object.
+        Creates a Checkout Session object.
         """
         return cast(
             Session,
@@ -2984,7 +2985,7 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        Creates a Session object.
+        Creates a Checkout Session object.
         """
         return cast(
             Session,
@@ -3004,7 +3005,7 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        Retrieves a Session object.
+        Retrieves a Checkout Session object.
         """
         return cast(
             Session,
@@ -3026,7 +3027,7 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        Retrieves a Session object.
+        Retrieves a Checkout Session object.
         """
         return cast(
             Session,
@@ -3048,7 +3049,7 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        Updates a Session object.
+        Updates a Checkout Session object.
         """
         return cast(
             Session,
@@ -3070,7 +3071,7 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        Updates a Session object.
+        Updates a Checkout Session object.
         """
         return cast(
             Session,
@@ -3092,9 +3093,9 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
             Session,
@@ -3116,9 +3117,9 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
             Session,

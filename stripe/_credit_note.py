@@ -147,46 +147,6 @@ class CreditNote(
         """
         _inner_class_types = {"taxes": Tax}
 
-    class TaxAmount(StripeObject):
-        amount: int
-        """
-        The amount, in cents (or local equivalent), of the tax.
-        """
-        inclusive: bool
-        """
-        Whether this tax amount is inclusive or exclusive.
-        """
-        tax_rate: ExpandableField["TaxRate"]
-        """
-        The tax rate that was applied to get this tax amount.
-        """
-        taxability_reason: Optional[
-            Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
-            ]
-        ]
-        """
-        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
-        """
-        taxable_amount: Optional[int]
-        """
-        The amount on which tax is calculated, in cents (or local equivalent).
-        """
-
     class CreateParams(RequestOptions):
         amount: NotRequired[int]
         """
@@ -824,10 +784,6 @@ class CreditNote(
     """
     The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding all tax and invoice level discounts.
     """
-    tax_amounts: List[TaxAmount]
-    """
-    The aggregate amounts calculated per tax rate for all line items.
-    """
     total: int
     """
     The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax and all discount.
@@ -1210,5 +1166,4 @@ class CreditNote(
         "pretax_credit_amounts": PretaxCreditAmount,
         "refunds": Refund,
         "shipping_cost": ShippingCost,
-        "tax_amounts": TaxAmount,
     }

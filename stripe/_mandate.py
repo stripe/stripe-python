@@ -118,6 +118,9 @@ class Mandate(APIResource["Mandate"]):
         class Link(StripeObject):
             pass
 
+        class NaverPay(StripeObject):
+            pass
+
         class Paypal(StripeObject):
             billing_agreement_id: Optional[str]
             """
@@ -218,6 +221,7 @@ class Mandate(APIResource["Mandate"]):
         kakao_pay: Optional[KakaoPay]
         kr_card: Optional[KrCard]
         link: Optional[Link]
+        naver_pay: Optional[NaverPay]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
         revolut_pay: Optional[RevolutPay]
@@ -237,6 +241,7 @@ class Mandate(APIResource["Mandate"]):
             "kakao_pay": KakaoPay,
             "kr_card": KrCard,
             "link": Link,
+            "naver_pay": NaverPay,
             "paypal": Paypal,
             "payto": Payto,
             "revolut_pay": RevolutPay,

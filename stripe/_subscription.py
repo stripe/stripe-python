@@ -606,19 +606,11 @@ class Subscription(
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
-        cancel_at_period_end: NotRequired[bool]
-        """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
-        """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -716,10 +708,6 @@ class Subscription(
         prebilling: NotRequired["Subscription.CreateParamsPrebilling"]
         """
         If specified, the invoicing for the given billing cycle iterations will be processed now.
-        """
-        promotion_code: NotRequired[str]
-        """
-        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -1575,10 +1563,6 @@ class Subscription(
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
-        cancel_at_period_end: NotRequired[bool]
-        """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
-        """
         cancellation_details: NotRequired[
             "Subscription.ModifyParamsCancellationDetails"
         ]
@@ -1590,10 +1574,6 @@ class Subscription(
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this subscription at the end of the cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this subscription. A coupon applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         days_until_due: NotRequired[int]
         """
@@ -1685,10 +1665,6 @@ class Subscription(
         prebilling: NotRequired["Subscription.ModifyParamsPrebilling"]
         """
         If specified, the invoicing for the given billing cycle iterations will be processed now.
-        """
-        promotion_code: NotRequired[str]
-        """
-        The promotion code to apply to this subscription. A promotion code applied to a subscription will only affect invoices created for that particular subscription. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         proration_behavior: NotRequired[
             Literal["always_invoice", "create_prorations", "none"]
@@ -2444,10 +2420,6 @@ class Subscription(
     """
     A date in the future at which the subscription will automatically get canceled
     """
-    cancel_at_period_end: bool
-    """
-    Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period.
-    """
     canceled_at: Optional[int]
     """
     If the subscription has been canceled, the date of that cancellation. If the subscription was canceled with `cancel_at_period_end`, `canceled_at` will reflect the time of the most recent update request, not the end of the subscription period when the subscription is automatically moved to a canceled state.
@@ -2470,11 +2442,11 @@ class Subscription(
     """
     current_period_end: int
     """
-    End of the current period that the subscription has been invoiced for. At the end of this period, a new invoice will be created.
+    End of the current period that the subscription has been invoiced for. At the end of this period, a new invoice will be created. This field is deprecated starting on the `2025-03-31.basil` version, please use `current_period_end` on the items[] field instead
     """
     current_period_start: int
     """
-    Start of the current period that the subscription has been invoiced for.
+    Start of the current period that the subscription has been invoiced for. This field is deprecated starting on the `2025-03-31.basil` version, please use `current_period_start` on the items[] field instead
     """
     customer: ExpandableField["Customer"]
     """
@@ -2503,10 +2475,6 @@ class Subscription(
     description: Optional[str]
     """
     The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
-    """
-    discount: Optional["Discount"]
-    """
-    Describes the current discount applied to this subscription, if there is one. When billing, a discount applied to a subscription overrides a discount applied on a customer-wide basis. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
     """
     discounts: List[ExpandableField["Discount"]]
     """
@@ -2551,7 +2519,7 @@ class Subscription(
     """
     on_behalf_of: Optional[ExpandableField["Account"]]
     """
-    The account (if any) the charge was made on behalf of for charges associated with this subscription. See the Connect documentation for details.
+    The account (if any) the charge was made on behalf of for charges associated with this subscription. See the [Connect documentation](https://stripe.com/docs/connect/subscriptions#on-behalf-of) for details.
     """
     pause_collection: Optional[PauseCollection]
     """

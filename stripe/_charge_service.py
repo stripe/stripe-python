@@ -14,7 +14,7 @@ class ChargeService(StripeService):
     class CaptureParams(TypedDict):
         amount: NotRequired[int]
         """
-        The amount to capture, which must be less than or equal to the original amount. Any additional amount will be automatically refunded.
+        The amount to capture, which must be less than or equal to the original amount.
         """
         application_fee: NotRequired[int]
         """

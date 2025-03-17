@@ -550,6 +550,7 @@ class Invoice(
                 "setup_intent_authentication_failure",
                 "setup_intent_invalid_parameter",
                 "setup_intent_mandate_invalid",
+                "setup_intent_mobile_wallet_unsupported",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
                 "shipping_address_invalid",
@@ -1234,11 +1235,11 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. One of `price` or `price_data` is required.
+        The ID of the price object.
         """
         price_data: NotRequired["Invoice.AddLinesParamsLinePriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
         quantity: NotRequired[int]
         """
@@ -1318,13 +1319,13 @@ class Invoice(
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         """
         product_data: NotRequired[
             "Invoice.AddLinesParamsLinePriceDataProductData"
         ]
         """
-        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -2209,10 +2210,6 @@ class Invoice(
         automatic_tax: NotRequired["Invoice.CreatePreviewParamsAutomaticTax"]
         """
         Settings for automatic tax lookup for this invoice preview.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -3326,10 +3323,6 @@ class Invoice(
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -3888,7 +3881,7 @@ class Invoice(
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead.
         """
         cancel_now: NotRequired[bool]
         """
@@ -5005,10 +4998,6 @@ class Invoice(
         """
         Settings for automatic tax lookup for this invoice preview.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         The currency to preview this invoice in. Defaults to that of `customer` if not specified.
@@ -5089,7 +5078,7 @@ class Invoice(
         """
         subscription_cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
         """
         subscription_cancel_now: NotRequired[bool]
         """
@@ -6193,10 +6182,6 @@ class Invoice(
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -6755,7 +6740,7 @@ class Invoice(
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead.
         """
         cancel_now: NotRequired[bool]
         """
@@ -7113,10 +7098,6 @@ class Invoice(
         """
         Settings for automatic tax lookup for this invoice preview.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         The currency to preview this invoice in. Defaults to that of `customer` if not specified.
@@ -7179,7 +7160,7 @@ class Invoice(
         """
         subscription_cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
         """
         subscription_cancel_now: NotRequired[bool]
         """
@@ -8259,10 +8240,6 @@ class Invoice(
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -8805,7 +8782,7 @@ class Invoice(
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param is deprecated starting the `2025-03-31.basil` version, please use `cancel_at` instead.
         """
         cancel_now: NotRequired[bool]
         """
@@ -9201,11 +9178,11 @@ class Invoice(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. One of `price` or `price_data` is required.
+        The ID of the price object.
         """
         price_data: NotRequired["Invoice.UpdateLinesParamsLinePriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
         quantity: NotRequired[int]
         """
@@ -9285,13 +9262,13 @@ class Invoice(
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         """
         product_data: NotRequired[
             "Invoice.UpdateLinesParamsLinePriceDataProductData"
         ]
         """
-        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -9421,7 +9398,7 @@ class Invoice(
     """
     amount_overpaid: Optional[int]
     """
-    Amount that was overpaid on the invoice. Overpayments are debited to the customer's credit balance.
+    Amount that was overpaid on the invoice. The amount overpaid is credited to the customer's credit balance.
     """
     amount_paid: int
     """
@@ -9563,10 +9540,6 @@ class Invoice(
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
-    """
-    discount: Optional["Discount"]
-    """
-    Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts.
     """
     discounts: List[ExpandableField["Discount"]]
     """
@@ -11148,7 +11121,7 @@ class Invoice(
         )
 
     @classmethod
-    def upcoming_lines(
+    def upcomingLines(
         cls, **params: Unpack["Invoice.UpcomingLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
         """
@@ -11164,7 +11137,7 @@ class Invoice(
         )
 
     @classmethod
-    async def upcoming_lines_async(
+    async def upcomingLines_async(
         cls, **params: Unpack["Invoice.UpcomingLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
         """

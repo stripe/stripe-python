@@ -277,7 +277,7 @@ class PaymentRecordService(StripeService):
         """
         Information about the Payment Method debited for this payment.
         """
-        payment_reference: str
+        payment_reference: NotRequired[str]
         """
         An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
         """

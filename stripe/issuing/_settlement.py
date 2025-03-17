@@ -31,7 +31,7 @@ class Settlement(StripeObject):
     """
     Unique identifier for the object.
     """
-    interchange_fees: int
+    interchange_fees_amount: int
     """
     The total interchange received as reimbursement for the transactions.
     """
@@ -43,7 +43,7 @@ class Settlement(StripeObject):
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    net_total: int
+    net_total_amount: int
     """
     The total net amount required to settle with the network.
     """
@@ -51,7 +51,7 @@ class Settlement(StripeObject):
     """
     The card network for this settlement report. One of ["visa", "maestro"]
     """
-    network_fees: int
+    network_fees_amount: int
     """
     The total amount of fees owed to the network.
     """
@@ -63,6 +63,14 @@ class Settlement(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    other_fees_amount: int
+    """
+    The total amount of any additional ad-hoc fees accessed by the card network.
+    """
+    other_fees_count: int
+    """
+    The total number of additional ad-hoc fees accessed by the card network.
+    """
     settlement_service: str
     """
     One of `international` or `uk_national_net`.
@@ -71,11 +79,11 @@ class Settlement(StripeObject):
     """
     The current processing status of this settlement.
     """
+    transaction_amount: int
+    """
+    The total transaction amount reflected in this settlement.
+    """
     transaction_count: int
     """
     The total number of transactions reflected in this settlement.
-    """
-    transaction_volume: int
-    """
-    The total transaction amount reflected in this settlement.
     """

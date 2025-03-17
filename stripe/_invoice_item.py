@@ -23,8 +23,6 @@ if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._invoice import Invoice
     from stripe._margin import Margin
-    from stripe._plan import Plan
-    from stripe._price import Price
     from stripe._subscription import Subscription
     from stripe._tax_rate import TaxRate
     from stripe.test_helpers._test_clock import TestClock
@@ -111,11 +109,11 @@ class InvoiceItem(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. One of `price` or `price_data` is required.
+        The ID of the price object.
         """
         price_data: NotRequired["InvoiceItem.CreateParamsPriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
         quantity: NotRequired[int]
         """
@@ -145,7 +143,7 @@ class InvoiceItem(
         """
         unit_amount_decimal: NotRequired[str]
         """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        The decimal unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount_decimal` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount_decimal` will reduce the `amount_due` on the invoice. Accepts at most 12 decimal places.
         """
 
     class CreateParamsDiscount(TypedDict):
@@ -320,11 +318,11 @@ class InvoiceItem(
         """
         price: NotRequired[str]
         """
-        The ID of the price object. One of `price` or `price_data` is required.
+        The ID of the price object.
         """
         price_data: NotRequired["InvoiceItem.ModifyParamsPriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
         """
         quantity: NotRequired[int]
         """
@@ -350,7 +348,7 @@ class InvoiceItem(
         """
         unit_amount_decimal: NotRequired[str]
         """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        The decimal unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount_decimal` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount_decimal` will reduce the `amount_due` on the invoice. Accepts at most 12 decimal places.
         """
 
     class ModifyParamsDiscount(TypedDict):
@@ -492,14 +490,6 @@ class InvoiceItem(
     String representing the object's type. Objects of the same type share the same value.
     """
     period: Period
-    plan: Optional["Plan"]
-    """
-    If the invoice item is a proration, the plan of the subscription that the proration was computed for.
-    """
-    price: Optional["Price"]
-    """
-    The price of the invoice item.
-    """
     proration: bool
     """
     Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.
@@ -523,14 +513,6 @@ class InvoiceItem(
     test_clock: Optional[ExpandableField["TestClock"]]
     """
     ID of the test clock this invoice item belongs to.
-    """
-    unit_amount: Optional[int]
-    """
-    Unit amount (in the `currency` specified) of the invoice item.
-    """
-    unit_amount_decimal: Optional[str]
-    """
-    Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
     """
     deleted: Optional[Literal[True]]
     """
