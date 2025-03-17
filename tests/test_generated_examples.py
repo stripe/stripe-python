@@ -4789,14 +4789,13 @@ class TestGeneratedExamples(object):
     def test_coupons_post(self, http_client_mock: HTTPClientMock) -> None:
         stripe.Coupon.create(
             percent_off=25.5,
-            duration="repeating",
-            duration_in_months=3,
+            duration="once",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/coupons",
             query_string="",
-            post_data="percent_off=25.5&duration=repeating&duration_in_months=3",
+            post_data="percent_off=25.5&duration=once",
         )
 
     def test_coupons_post_service(
@@ -4811,19 +4810,13 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.coupons.create(
-            {
-                "percent_off": 25.5,
-                "duration": "repeating",
-                "duration_in_months": 3,
-            }
-        )
+        client.coupons.create({"percent_off": 25.5, "duration": "once"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/coupons",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="percent_off=25.5&duration=repeating&duration_in_months=3",
+            post_data="percent_off=25.5&duration=once",
         )
 
     @pytest.mark.anyio
@@ -4832,14 +4825,13 @@ class TestGeneratedExamples(object):
     ) -> None:
         await stripe.Coupon.create_async(
             percent_off=25.5,
-            duration="repeating",
-            duration_in_months=3,
+            duration="once",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/coupons",
             query_string="",
-            post_data="percent_off=25.5&duration=repeating&duration_in_months=3",
+            post_data="percent_off=25.5&duration=once",
         )
 
     @pytest.mark.anyio
@@ -4858,8 +4850,7 @@ class TestGeneratedExamples(object):
         await client.coupons.create_async(
             {
                 "percent_off": 25.5,
-                "duration": "repeating",
-                "duration_in_months": 3,
+                "duration": "once",
             }
         )
         http_client_mock.assert_requested(
@@ -4867,7 +4858,7 @@ class TestGeneratedExamples(object):
             path="/v1/coupons",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="percent_off=25.5&duration=repeating&duration_in_months=3",
+            post_data="percent_off=25.5&duration=once",
         )
 
     def test_coupons_post_2(self, http_client_mock: HTTPClientMock) -> None:
