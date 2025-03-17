@@ -245,7 +245,7 @@ class VerificationSession(
         """
         related_customer: NotRequired[str]
         """
-        Token referencing a Customer resource.
+        Customer ID
         """
         return_url: NotRequired[str]
         """
@@ -473,7 +473,7 @@ class VerificationSession(
     """
     related_customer: Optional[str]
     """
-    Token referencing a Customer resource.
+    Customer ID
     """
     status: Literal["canceled", "processing", "requires_input", "verified"]
     """
