@@ -5023,6 +5023,10 @@ class Session(
     """
     Information about the customer collected within the Checkout Session.
     """
+    collected_information: Optional[CollectedInformation]
+    """
+    Information about the customer collected within the Checkout Session.
+    """
     consent: Optional[Consent]
     """
     Results of `consent_collection` for this session.
