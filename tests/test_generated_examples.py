@@ -10788,15 +10788,12 @@ class TestGeneratedExamples(object):
         )
 
     def test_invoiceitems_post(self, http_client_mock: HTTPClientMock) -> None:
-        stripe.InvoiceItem.create(
-            customer="cus_xxxxxxxxxxxxx",
-            price="price_xxxxxxxxxxxxx",
-        )
+        stripe.InvoiceItem.create(customer="cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoiceitems",
             query_string="",
-            post_data="customer=cus_xxxxxxxxxxxxx&price=price_xxxxxxxxxxxxx",
+            post_data="customer=cus_xxxxxxxxxxxxx",
         )
 
     def test_invoiceitems_post_service(
@@ -10811,33 +10808,25 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoice_items.create(
-            {
-                "customer": "cus_xxxxxxxxxxxxx",
-                "price": "price_xxxxxxxxxxxxx",
-            }
-        )
+        client.invoice_items.create({"customer": "cus_xxxxxxxxxxxxx"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoiceitems",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&price=price_xxxxxxxxxxxxx",
+            post_data="customer=cus_xxxxxxxxxxxxx",
         )
 
     @pytest.mark.anyio
     async def test_invoiceitems_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        await stripe.InvoiceItem.create_async(
-            customer="cus_xxxxxxxxxxxxx",
-            price="price_xxxxxxxxxxxxx",
-        )
+        await stripe.InvoiceItem.create_async(customer="cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoiceitems",
             query_string="",
-            post_data="customer=cus_xxxxxxxxxxxxx&price=price_xxxxxxxxxxxxx",
+            post_data="customer=cus_xxxxxxxxxxxxx",
         )
 
     @pytest.mark.anyio
@@ -10856,7 +10845,6 @@ class TestGeneratedExamples(object):
         await client.invoice_items.create_async(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
-                "price": "price_xxxxxxxxxxxxx",
             }
         )
         http_client_mock.assert_requested(
@@ -10864,7 +10852,7 @@ class TestGeneratedExamples(object):
             path="/v1/invoiceitems",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&price=price_xxxxxxxxxxxxx",
+            post_data="customer=cus_xxxxxxxxxxxxx",
         )
 
     def test_invoiceitems_post_2(
