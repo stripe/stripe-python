@@ -187,7 +187,7 @@ class Customer(
         class Location(StripeObject):
             country: str
             """
-            The customer's country as identified by Stripe Tax.
+            The identified tax country of the customer.
             """
             source: Literal[
                 "billing_address",
@@ -200,7 +200,7 @@ class Customer(
             """
             state: Optional[str]
             """
-            The customer's state, county, province, or region as identified by Stripe Tax.
+            The identified tax state, county, province, or region of the customer.
             """
 
         automatic_tax: Literal[
@@ -215,7 +215,7 @@ class Customer(
         """
         location: Optional[Location]
         """
-        The customer's location as identified by Stripe Tax.
+        The identified tax location of the customer.
         """
         _inner_class_types = {"location": Location}
 

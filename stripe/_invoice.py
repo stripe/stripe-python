@@ -5304,7 +5304,7 @@ class Invoice(
     """
     Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the `amount_due` may be 0. If there is a positive `starting_balance` for the invoice (the customer owes money), the `amount_due` will also take that into account. The charge that gets generated for the invoice will be for the amount specified in `amount_due`.
     """
-    amount_overpaid: Optional[int]
+    amount_overpaid: int
     """
     Amount that was overpaid on the invoice. The amount overpaid is credited to the customer's credit balance.
     """

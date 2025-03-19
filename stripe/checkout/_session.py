@@ -1627,6 +1627,16 @@ class Session(
         """
         Permissions for updating the Checkout Session.
         """
+        update_shipping_details: Optional[
+            Literal["client_only", "server_only"]
+        ]
+        """
+        Determines which entity is allowed to update the shipping details.
+
+        Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+
+        When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        """
         _inner_class_types = {"update": Update}
 
     class PhoneNumberCollection(StripeObject):
@@ -4050,6 +4060,16 @@ class Session(
         update: NotRequired["Session.CreateParamsPermissionsUpdate"]
         """
         Permissions for updating the Checkout Session.
+        """
+        update_shipping_details: NotRequired[
+            Literal["client_only", "server_only"]
+        ]
+        """
+        Determines which entity is allowed to update the shipping details.
+
+        Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+
+        When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
         """
 
     class CreateParamsPermissionsUpdate(TypedDict):
