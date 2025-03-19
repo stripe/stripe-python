@@ -4,29 +4,12 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._subscription_item import SubscriptionItem
-from stripe._subscription_item_usage_record_service import (
-    SubscriptionItemUsageRecordService,
-)
-from stripe._subscription_item_usage_record_summary_service import (
-    SubscriptionItemUsageRecordSummaryService,
-)
 from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class SubscriptionItemService(StripeService):
-    def __init__(self, requestor):
-        super().__init__(requestor)
-        self.usage_records = SubscriptionItemUsageRecordService(
-            self._requestor
-        )
-        self.usage_record_summaries = (
-            SubscriptionItemUsageRecordSummaryService(
-                self._requestor,
-            )
-        )
-
     class CreateParams(TypedDict):
         billing_thresholds: NotRequired[
             "Literal['']|SubscriptionItemService.CreateParamsBillingThresholds"
@@ -165,7 +148,7 @@ class SubscriptionItemService(StripeService):
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: "SubscriptionItemService.CreateParamsPriceDataRecurring"
         """
@@ -384,7 +367,7 @@ class SubscriptionItemService(StripeService):
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: "SubscriptionItemService.UpdateParamsPriceDataRecurring"
         """

@@ -54,7 +54,7 @@ class PriceService(StripeService):
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         product_data: NotRequired["PriceService.CreateParamsProductData"]
         """
@@ -545,7 +545,7 @@ class PriceService(StripeService):
         self, params: "PriceService.CreateParams", options: RequestOptions = {}
     ) -> Price:
         """
-        Creates a new price for an existing product. The price can be recurring or one-time.
+        Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
         """
         return cast(
             Price,
@@ -562,7 +562,7 @@ class PriceService(StripeService):
         self, params: "PriceService.CreateParams", options: RequestOptions = {}
     ) -> Price:
         """
-        Creates a new price for an existing product. The price can be recurring or one-time.
+        Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
         """
         return cast(
             Price,

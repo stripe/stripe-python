@@ -585,12 +585,6 @@ from stripe._subscription_item import SubscriptionItem as SubscriptionItem
 from stripe._subscription_item_service import (
     SubscriptionItemService as SubscriptionItemService,
 )
-from stripe._subscription_item_usage_record_service import (
-    SubscriptionItemUsageRecordService as SubscriptionItemUsageRecordService,
-)
-from stripe._subscription_item_usage_record_summary_service import (
-    SubscriptionItemUsageRecordSummaryService as SubscriptionItemUsageRecordSummaryService,
-)
 from stripe._subscription_schedule import (
     SubscriptionSchedule as SubscriptionSchedule,
 )
@@ -624,10 +618,6 @@ from stripe._transfer_reversal_service import (
 )
 from stripe._transfer_service import TransferService as TransferService
 from stripe._treasury_service import TreasuryService as TreasuryService
-from stripe._usage_record import UsageRecord as UsageRecord
-from stripe._usage_record_summary import (
-    UsageRecordSummary as UsageRecordSummary,
-)
 from stripe._v2_services import V2Services as V2Services
 from stripe._webhook_endpoint import WebhookEndpoint as WebhookEndpoint
 from stripe._webhook_endpoint_service import (

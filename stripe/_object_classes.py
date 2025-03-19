@@ -166,8 +166,6 @@ OBJECT_CLASSES = {
     stripe.treasury.ReceivedDebit.OBJECT_NAME: stripe.treasury.ReceivedDebit,
     stripe.treasury.Transaction.OBJECT_NAME: stripe.treasury.Transaction,
     stripe.treasury.TransactionEntry.OBJECT_NAME: stripe.treasury.TransactionEntry,
-    stripe.UsageRecord.OBJECT_NAME: stripe.UsageRecord,
-    stripe.UsageRecordSummary.OBJECT_NAME: stripe.UsageRecordSummary,
     stripe.WebhookEndpoint.OBJECT_NAME: stripe.WebhookEndpoint,
     # Object classes: The end of the section generated from our OpenAPI spec
 }

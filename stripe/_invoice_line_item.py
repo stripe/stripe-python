@@ -86,6 +86,53 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         Type of the pretax credit amount referenced.
         """
 
+    class Tax(StripeObject):
+        class TaxRateDetails(StripeObject):
+            tax_rate: str
+
+        amount: int
+        """
+        The amount of the tax, in cents (or local equivalent).
+        """
+        tax_behavior: Literal["exclusive", "inclusive"]
+        """
+        Whether this tax is inclusive or exclusive.
+        """
+        tax_rate_details: Optional[TaxRateDetails]
+        """
+        Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
+        """
+        taxability_reason: Literal[
+            "customer_exempt",
+            "not_available",
+            "not_collecting",
+            "not_subject_to_tax",
+            "not_supported",
+            "portion_product_exempt",
+            "portion_reduced_rated",
+            "portion_standard_rated",
+            "product_exempt",
+            "product_exempt_holiday",
+            "proportionally_rated",
+            "reduced_rated",
+            "reverse_charge",
+            "standard_rated",
+            "taxable_basis_reduced",
+            "zero_rated",
+        ]
+        """
+        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+        """
+        taxable_amount: Optional[int]
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
+        """
+        type: Literal["tax_rate_details"]
+        """
+        The type of tax information.
+        """
+        _inner_class_types = {"tax_rate_details": TaxRateDetails}
+
     class ModifyParams(RequestOptions):
         amount: NotRequired[int]
         """
@@ -417,6 +464,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     The quantity of the subscription, if the line item is a subscription or a proration.
     """
     subscription: Optional[ExpandableField["Subscription"]]
+    taxes: Optional[List[Tax]]
+    """
+    The tax information of the line item.
+    """
 
     @classmethod
     def modify(
@@ -463,4 +514,5 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         "margin_amounts": MarginAmount,
         "period": Period,
         "pretax_credit_amounts": PretaxCreditAmount,
+        "taxes": Tax,
     }

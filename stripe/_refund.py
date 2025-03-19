@@ -342,6 +342,16 @@ class Refund(
         """
         _inner_class_types = {"display_details": DisplayDetails}
 
+    class PresentmentDetails(StripeObject):
+        presentment_amount: int
+        """
+        Amount intended to be collected by this payment, denominated in presentment_currency.
+        """
+        presentment_currency: str
+        """
+        Currency presented to the customer during payment.
+        """
+
     class CancelParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -525,6 +535,7 @@ class Refund(
     """
     ID of the PaymentIntent that's refunded.
     """
+    presentment_details: Optional[PresentmentDetails]
     reason: Optional[
         Literal[
             "duplicate",
@@ -945,6 +956,7 @@ class Refund(
     _inner_class_types = {
         "destination_details": DestinationDetails,
         "next_action": NextAction,
+        "presentment_details": PresentmentDetails,
     }
 
 

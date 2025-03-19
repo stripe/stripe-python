@@ -1564,7 +1564,7 @@ class SubscriptionSchedule(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -1788,7 +1788,7 @@ class SubscriptionSchedule(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: (
             "SubscriptionSchedule.CreateParamsPhaseItemPriceDataRecurring"
@@ -2358,7 +2358,7 @@ class SubscriptionSchedule(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -2582,7 +2582,7 @@ class SubscriptionSchedule(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: (
             "SubscriptionSchedule.ModifyParamsPhaseItemPriceDataRecurring"

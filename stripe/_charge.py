@@ -2105,6 +2105,16 @@ class Charge(
             "zip": Zip,
         }
 
+    class PresentmentDetails(StripeObject):
+        presentment_amount: int
+        """
+        Amount intended to be collected by this payment, denominated in presentment_currency.
+        """
+        presentment_currency: str
+        """
+        Currency presented to the customer during payment.
+        """
+
     class RadarOptions(StripeObject):
         session: Optional[str]
         """
@@ -3977,6 +3987,7 @@ class Charge(
     """
     Details about the payment method at the time of the transaction.
     """
+    presentment_details: Optional[PresentmentDetails]
     radar_options: Optional[RadarOptions]
     """
     Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
@@ -4454,6 +4465,7 @@ class Charge(
         "level3": Level3,
         "outcome": Outcome,
         "payment_method_details": PaymentMethodDetails,
+        "presentment_details": PresentmentDetails,
         "radar_options": RadarOptions,
         "shipping": Shipping,
         "transfer_data": TransferData,

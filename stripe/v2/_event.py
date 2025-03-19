@@ -93,11 +93,11 @@ class RelatedObject:
 
     def __init__(self, d) -> None:
         self.id = d["id"]
-        self.type_ = d["type"]
+        self.type = d["type"]
         self.url = d["url"]
 
     def __repr__(self) -> str:
-        return f"<RelatedObject id={self.id} type={self.type_} url={self.url}>"
+        return f"<RelatedObject id={self.id} type={self.type} url={self.url}>"
 
 
 class ThinEvent:

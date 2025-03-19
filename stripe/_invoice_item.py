@@ -49,6 +49,22 @@ class InvoiceItem(
 
     OBJECT_NAME: ClassVar[Literal["invoiceitem"]] = "invoiceitem"
 
+    class Parent(StripeObject):
+        class RateCardSubscriptionDetails(StripeObject):
+            rate_card_subscription: str
+
+        class SubscriptionDetails(StripeObject):
+            subscription: str
+            subscription_item: Optional[str]
+
+        rate_card_subscription_details: Optional[RateCardSubscriptionDetails]
+        subscription_details: Optional[SubscriptionDetails]
+        type: Literal["rate_card_subscription_details", "subscription_details"]
+        _inner_class_types = {
+            "rate_card_subscription_details": RateCardSubscriptionDetails,
+            "subscription_details": SubscriptionDetails,
+        }
+
     class Period(StripeObject):
         end: int
         """
@@ -204,7 +220,7 @@ class InvoiceItem(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -411,7 +427,7 @@ class InvoiceItem(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -492,6 +508,7 @@ class InvoiceItem(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    parent: Optional[Parent]
     period: Period
     proration: bool
     """
@@ -740,4 +757,4 @@ class InvoiceItem(
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {"period": Period}
+    _inner_class_types = {"parent": Parent, "period": Period}

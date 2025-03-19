@@ -1635,6 +1635,16 @@ class Session(
         Indicates whether phone number collection is enabled for the session
         """
 
+    class PresentmentDetails(StripeObject):
+        presentment_amount: int
+        """
+        Amount intended to be collected by this payment, denominated in presentment_currency.
+        """
+        presentment_currency: str
+        """
+        Currency presented to the customer during payment.
+        """
+
     class SavedPaymentMethodOptions(StripeObject):
         allow_redisplay_filters: Optional[
             List[Literal["always", "limited", "unspecified"]]
@@ -2081,7 +2091,7 @@ class Session(
         """
         cancel_url: NotRequired[str]
         """
-        If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
+        If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if `ui_mode` is `embedded` or `custom`.
         """
         client_reference_id: NotRequired[str]
         """
@@ -2354,7 +2364,7 @@ class Session(
         """
         The URL to redirect your customer back to after they authenticate or cancel their payment on the
         payment method's app or site. This parameter is required if `ui_mode` is `embedded` or `custom`
-        and redirect-based payment methods are enabled on the session.
+        and redirect-based payment methods are enabled on the Checkout Session.
         """
         saved_payment_method_options: NotRequired[
             "Session.CreateParamsSavedPaymentMethodOptions"
@@ -2395,7 +2405,7 @@ class Session(
         """
         The URL to which Stripe should send customers when payment or setup
         is complete.
-        This parameter is not allowed if ui_mode is `embedded` or `custom`. If you'd like to use
+        This parameter is not allowed if `ui_mode` is `embedded` or `custom`. If you'd like to use
         information from the successful Checkout Session on your page, read the
         guide on [customizing your success page](https://stripe.com/docs/payments/checkout/custom-success-page).
         """
@@ -5145,6 +5155,7 @@ class Session(
     For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
     """
     phone_number_collection: Optional[PhoneNumberCollection]
+    presentment_details: Optional[PresentmentDetails]
     recovered_from: Optional[str]
     """
     The ID of the original expired Checkout Session that triggered the recovery flow.
@@ -5590,6 +5601,7 @@ class Session(
         "payment_method_options": PaymentMethodOptions,
         "permissions": Permissions,
         "phone_number_collection": PhoneNumberCollection,
+        "presentment_details": PresentmentDetails,
         "saved_payment_method_options": SavedPaymentMethodOptions,
         "shipping_address_collection": ShippingAddressCollection,
         "shipping_cost": ShippingCost,

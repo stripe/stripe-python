@@ -870,6 +870,7 @@ class Invoice(
                     "ideal",
                     "jp_credit_transfer",
                     "kakao_pay",
+                    "klarna",
                     "konbini",
                     "kr_card",
                     "link",
@@ -1110,15 +1111,52 @@ class Invoice(
         Type of the pretax credit amount referenced.
         """
 
-    class TransferData(StripeObject):
-        amount: Optional[int]
+    class TotalTax(StripeObject):
+        class TaxRateDetails(StripeObject):
+            tax_rate: str
+
+        amount: int
         """
-        The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
+        The amount of the tax, in cents (or local equivalent).
         """
-        destination: ExpandableField["Account"]
+        tax_behavior: Literal["exclusive", "inclusive"]
         """
-        The account where funds from the payment will be transferred to upon payment success.
+        Whether this tax is inclusive or exclusive.
         """
+        tax_rate_details: Optional[TaxRateDetails]
+        """
+        Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
+        """
+        taxability_reason: Literal[
+            "customer_exempt",
+            "not_available",
+            "not_collecting",
+            "not_subject_to_tax",
+            "not_supported",
+            "portion_product_exempt",
+            "portion_reduced_rated",
+            "portion_standard_rated",
+            "product_exempt",
+            "product_exempt_holiday",
+            "proportionally_rated",
+            "reduced_rated",
+            "reverse_charge",
+            "standard_rated",
+            "taxable_basis_reduced",
+            "zero_rated",
+        ]
+        """
+        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+        """
+        taxable_amount: Optional[int]
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
+        """
+        type: Literal["tax_rate_details"]
+        """
+        The type of tax information.
+        """
+        _inner_class_types = {"tax_rate_details": TaxRateDetails}
 
     class AddLinesParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -1739,7 +1777,7 @@ class Invoice(
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -2662,7 +2700,7 @@ class Invoice(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -3473,7 +3511,7 @@ class Invoice(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -3713,7 +3751,7 @@ class Invoice(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: "Invoice.CreatePreviewParamsScheduleDetailsPhaseItemPriceDataRecurring"
         """
@@ -4011,7 +4049,7 @@ class Invoice(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: "Invoice.CreatePreviewParamsSubscriptionDetailsItemPriceDataRecurring"
         """
@@ -4430,7 +4468,7 @@ class Invoice(
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -5572,9 +5610,9 @@ class Invoice(
     """
     Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this invoice. This is a combined list of total_pretax_credit_amounts across all invoice line items.
     """
-    transfer_data: Optional[TransferData]
+    total_taxes: Optional[List[TotalTax]]
     """
-    The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to for the invoice.
+    The aggregate tax information of all line items.
     """
     webhooks_delivered_at: Optional[int]
     """
@@ -7326,5 +7364,5 @@ class Invoice(
         "total_discount_amounts": TotalDiscountAmount,
         "total_margin_amounts": TotalMarginAmount,
         "total_pretax_credit_amounts": TotalPretaxCreditAmount,
-        "transfer_data": TransferData,
+        "total_taxes": TotalTax,
     }

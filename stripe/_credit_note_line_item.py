@@ -52,6 +52,53 @@ class CreditNoteLineItem(StripeObject):
         Type of the pretax credit amount referenced.
         """
 
+    class Tax(StripeObject):
+        class TaxRateDetails(StripeObject):
+            tax_rate: str
+
+        amount: int
+        """
+        The amount of the tax, in cents (or local equivalent).
+        """
+        tax_behavior: Literal["exclusive", "inclusive"]
+        """
+        Whether this tax is inclusive or exclusive.
+        """
+        tax_rate_details: Optional[TaxRateDetails]
+        """
+        Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
+        """
+        taxability_reason: Literal[
+            "customer_exempt",
+            "not_available",
+            "not_collecting",
+            "not_subject_to_tax",
+            "not_supported",
+            "portion_product_exempt",
+            "portion_reduced_rated",
+            "portion_standard_rated",
+            "product_exempt",
+            "product_exempt_holiday",
+            "proportionally_rated",
+            "reduced_rated",
+            "reverse_charge",
+            "standard_rated",
+            "taxable_basis_reduced",
+            "zero_rated",
+        ]
+        """
+        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+        """
+        taxable_amount: Optional[int]
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
+        """
+        type: Literal["tax_rate_details"]
+        """
+        The type of tax information.
+        """
+        _inner_class_types = {"tax_rate_details": TaxRateDetails}
+
     amount: int
     """
     The integer amount in cents (or local equivalent) representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts.
@@ -96,6 +143,10 @@ class CreditNoteLineItem(StripeObject):
     """
     The tax rates which apply to the line item.
     """
+    taxes: Optional[List[Tax]]
+    """
+    The tax information of the line item.
+    """
     type: Literal["custom_line_item", "invoice_line_item"]
     """
     The type of the credit note line item, one of `invoice_line_item` or `custom_line_item`. When the type is `invoice_line_item` there is an additional `invoice_line_item` property on the resource the value of which is the id of the credited line item on the invoice.
@@ -111,4 +162,5 @@ class CreditNoteLineItem(StripeObject):
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
         "pretax_credit_amounts": PretaxCreditAmount,
+        "taxes": Tax,
     }

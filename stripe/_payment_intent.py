@@ -3041,6 +3041,16 @@ class PaymentIntent(
             "zip": Zip,
         }
 
+    class PresentmentDetails(StripeObject):
+        presentment_amount: int
+        """
+        Amount intended to be collected by this payment, denominated in presentment_currency.
+        """
+        presentment_currency: str
+        """
+        Currency presented to the customer during payment.
+        """
+
     class Processing(StripeObject):
         class Card(StripeObject):
             class CustomerNotification(StripeObject):
@@ -15360,6 +15370,7 @@ class PaymentIntent(
     """
     The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. A comprehensive list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     """
+    presentment_details: Optional[PresentmentDetails]
     processing: Optional[Processing]
     """
     If present, this property tells you about the processing state of the payment.
@@ -17108,6 +17119,7 @@ class PaymentIntent(
         "payment_details": PaymentDetails,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,
+        "presentment_details": PresentmentDetails,
         "processing": Processing,
         "shipping": Shipping,
         "transfer_data": TransferData,
