@@ -305,6 +305,9 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class Billie(StripeObject):
+            pass
+
         class BillingDetails(StripeObject):
             class Address(StripeObject):
                 city: Optional[str]
@@ -1429,6 +1432,9 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             A unique identifier for the buyer as determined by the local payment processor.
             """
 
+        class Satispay(StripeObject):
+            pass
+
         class SepaCreditTransfer(StripeObject):
             bank_name: Optional[str]
             """
@@ -1595,6 +1601,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
+        billie: Optional[Billie]
         billing_details: Optional[BillingDetails]
         """
         The billing details associated with the method of payment.
@@ -1648,6 +1655,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
+        satispay: Optional[Satispay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
         shopeepay: Optional[Shopeepay]
@@ -1677,6 +1685,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
+            "billie": Billie,
             "billing_details": BillingDetails,
             "blik": Blik,
             "boleto": Boleto,
@@ -1715,6 +1724,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
+            "satispay": Satispay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
             "shopeepay": Shopeepay,

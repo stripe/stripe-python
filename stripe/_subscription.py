@@ -602,7 +602,7 @@ class Subscription(
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
-        cancel_at: NotRequired[int]
+        cancel_at: NotRequired["int|Literal['min_period_end']"]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -1559,7 +1559,7 @@ class Subscription(
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
-        cancel_at: NotRequired["Literal['']|int"]
+        cancel_at: NotRequired["Literal['']|int|Literal['min_period_end']"]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -2439,14 +2439,6 @@ class Subscription(
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-    """
-    current_period_end: int
-    """
-    End of the current period that the subscription has been invoiced for. At the end of this period, a new invoice will be created. This field is deprecated starting on the `2025-03-31.basil` version, please use `current_period_end` on the items[] field instead
-    """
-    current_period_start: int
-    """
-    Start of the current period that the subscription has been invoiced for. This field is deprecated starting on the `2025-03-31.basil` version, please use `current_period_start` on the items[] field instead
     """
     customer: ExpandableField["Customer"]
     """

@@ -23,7 +23,6 @@ if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._invoice import Invoice
     from stripe._margin import Margin
-    from stripe._subscription import Subscription
     from stripe._tax_rate import TaxRate
     from stripe.test_helpers._test_clock import TestClock
 
@@ -107,13 +106,13 @@ class InvoiceItem(
         """
         The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         """
-        price: NotRequired[str]
-        """
-        The ID of the price object.
-        """
         price_data: NotRequired["InvoiceItem.CreateParamsPriceData"]
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        """
+        pricing: NotRequired["InvoiceItem.CreateParamsPricing"]
+        """
+        The pricing information for the invoice item.
         """
         quantity: NotRequired[int]
         """
@@ -136,10 +135,6 @@ class InvoiceItem(
         tax_rates: NotRequired[List[str]]
         """
         The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
-        """
-        unit_amount: NotRequired[int]
-        """
-        The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount` will reduce the `amount_due` on the invoice.
         """
         unit_amount_decimal: NotRequired[str]
         """
@@ -224,6 +219,12 @@ class InvoiceItem(
         unit_amount_decimal: NotRequired[str]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class CreateParamsPricing(TypedDict):
+        price: NotRequired[str]
+        """
+        The ID of the price object.
         """
 
     class DeleteParams(RequestOptions):
@@ -316,13 +317,13 @@ class InvoiceItem(
         """
         The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         """
-        price: NotRequired[str]
-        """
-        The ID of the price object.
-        """
         price_data: NotRequired["InvoiceItem.ModifyParamsPriceData"]
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        """
+        pricing: NotRequired["InvoiceItem.ModifyParamsPricing"]
+        """
+        The pricing information for the invoice item.
         """
         quantity: NotRequired[int]
         """
@@ -341,10 +342,6 @@ class InvoiceItem(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates.
-        """
-        unit_amount: NotRequired[int]
-        """
-        The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount.
         """
         unit_amount_decimal: NotRequired[str]
         """
@@ -431,6 +428,12 @@ class InvoiceItem(
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
         """
 
+    class ModifyParamsPricing(TypedDict):
+        price: NotRequired[str]
+        """
+        The ID of the price object.
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -497,14 +500,6 @@ class InvoiceItem(
     quantity: int
     """
     Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
-    """
-    subscription: Optional[ExpandableField["Subscription"]]
-    """
-    The subscription that this invoice item has been created for, if any.
-    """
-    subscription_item: Optional[str]
-    """
-    The subscription item that this invoice item has been created for, if any.
     """
     tax_rates: Optional[List["TaxRate"]]
     """

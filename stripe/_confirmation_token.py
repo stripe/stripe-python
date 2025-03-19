@@ -144,6 +144,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Bancontact(StripeObject):
             pass
 
+        class Billie(StripeObject):
+            pass
+
         class BillingDetails(StripeObject):
             class Address(StripeObject):
                 city: Optional[str]
@@ -1251,6 +1254,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class SamsungPay(StripeObject):
             pass
 
+        class Satispay(StripeObject):
+            pass
+
         class SepaDebit(StripeObject):
             class GeneratedFrom(StripeObject):
                 charge: Optional[ExpandableField["Charge"]]
@@ -1416,6 +1422,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
+        billie: Optional[Billie]
         billing_details: BillingDetails
         blik: Optional[Blik]
         boleto: Optional[Boleto]
@@ -1457,6 +1464,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
+        satispay: Optional[Satispay]
         sepa_debit: Optional[SepaDebit]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
@@ -1472,6 +1480,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "card",
@@ -1508,6 +1517,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -1533,6 +1543,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
+            "billie": Billie,
             "billing_details": BillingDetails,
             "blik": Blik,
             "boleto": Boleto,
@@ -1570,6 +1581,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
+            "satispay": Satispay,
             "sepa_debit": SepaDebit,
             "shopeepay": Shopeepay,
             "sofort": Sofort,
@@ -1708,6 +1720,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         ]
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
+        """
+        billie: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
         """
         billing_details: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataBillingDetails"
@@ -1921,6 +1939,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataSepaDebit"
         ]
@@ -1961,6 +1985,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -1994,6 +2019,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -2073,6 +2099,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
 
     class CreateParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -2401,6 +2430,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         pass
 
     class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):

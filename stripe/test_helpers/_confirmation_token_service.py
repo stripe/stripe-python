@@ -99,6 +99,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataBillingDetails"
         ]
@@ -319,6 +325,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataSepaDebit"
         ]
@@ -359,6 +371,7 @@ class ConfirmationTokenService(StripeService):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -392,6 +405,7 @@ class ConfirmationTokenService(StripeService):
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -473,6 +487,9 @@ class ConfirmationTokenService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -803,6 +820,9 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):

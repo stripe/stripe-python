@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict
+from typing import ClassVar, Dict, Optional
 from typing_extensions import Literal
 
 
@@ -63,13 +63,13 @@ class Settlement(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    other_fees_amount: int
+    other_fees_amount: Optional[int]
     """
-    The total amount of any additional ad-hoc fees accessed by the card network.
+    The total amount of any additional fees assessed by the card network.
     """
-    other_fees_count: int
+    other_fees_count: Optional[int]
     """
-    The total number of additional ad-hoc fees accessed by the card network.
+    The total number of additional fees assessed by the card network.
     """
     settlement_service: str
     """

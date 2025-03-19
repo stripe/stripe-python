@@ -67,6 +67,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired["PaymentMethodService.CreateParamsBillie"]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "PaymentMethodService.CreateParamsBillingDetails"
         ]
@@ -241,6 +245,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired["PaymentMethodService.CreateParamsSatispay"]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired["PaymentMethodService.CreateParamsSepaDebit"]
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
@@ -272,6 +280,7 @@ class PaymentMethodService(StripeService):
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
+                "billie",
                 "blik",
                 "boleto",
                 "card",
@@ -306,6 +315,7 @@ class PaymentMethodService(StripeService):
                 "rechnung",
                 "revolut_pay",
                 "samsung_pay",
+                "satispay",
                 "sepa_debit",
                 "shopeepay",
                 "sofort",
@@ -384,6 +394,9 @@ class PaymentMethodService(StripeService):
         """
 
     class CreateParamsBancontact(TypedDict):
+        pass
+
+    class CreateParamsBillie(TypedDict):
         pass
 
     class CreateParamsBillingDetails(TypedDict):
@@ -746,6 +759,9 @@ class PaymentMethodService(StripeService):
     class CreateParamsSamsungPay(TypedDict):
         pass
 
+    class CreateParamsSatispay(TypedDict):
+        pass
+
     class CreateParamsSepaDebit(TypedDict):
         iban: str
         """
@@ -833,6 +849,7 @@ class PaymentMethodService(StripeService):
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
+                "billie",
                 "blik",
                 "boleto",
                 "card",
@@ -867,6 +884,7 @@ class PaymentMethodService(StripeService):
                 "rechnung",
                 "revolut_pay",
                 "samsung_pay",
+                "satispay",
                 "sepa_debit",
                 "shopeepay",
                 "sofort",
@@ -915,10 +933,6 @@ class PaymentMethodService(StripeService):
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        naver_pay: NotRequired["PaymentMethodService.UpdateParamsNaverPay"]
-        """
-        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
         pay_by_bank: NotRequired["PaymentMethodService.UpdateParamsPayByBank"]
         """
@@ -1005,12 +1019,6 @@ class PaymentMethodService(StripeService):
 
     class UpdateParamsLink(TypedDict):
         pass
-
-    class UpdateParamsNaverPay(TypedDict):
-        funding: NotRequired[Literal["card", "points"]]
-        """
-        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
-        """
 
     class UpdateParamsPayByBank(TypedDict):
         pass

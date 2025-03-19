@@ -413,6 +413,9 @@ class Charge(
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class Billie(StripeObject):
+            pass
+
         class Blik(StripeObject):
             buyer_id: Optional[str]
             """
@@ -1815,6 +1818,9 @@ class Charge(
             A unique identifier for the buyer as determined by the local payment processor.
             """
 
+        class Satispay(StripeObject):
+            pass
+
         class SepaCreditTransfer(StripeObject):
             bank_name: Optional[str]
             """
@@ -1981,6 +1987,7 @@ class Charge(
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
+        billie: Optional[Billie]
         blik: Optional[Blik]
         boleto: Optional[Boleto]
         card: Optional[Card]
@@ -2017,6 +2024,7 @@ class Charge(
         rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
+        satispay: Optional[Satispay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
         shopeepay: Optional[Shopeepay]
@@ -2046,6 +2054,7 @@ class Charge(
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
+            "billie": Billie,
             "blik": Blik,
             "boleto": Boleto,
             "card": Card,
@@ -2082,6 +2091,7 @@ class Charge(
             "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
+            "satispay": Satispay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
             "shopeepay": Shopeepay,

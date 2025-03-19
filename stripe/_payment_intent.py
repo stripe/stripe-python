@@ -4767,6 +4767,12 @@ class PaymentIntent(
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataBillingDetails"
         ]
@@ -4963,6 +4969,12 @@ class PaymentIntent(
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataSepaDebit"
         ]
@@ -4999,6 +5011,7 @@ class PaymentIntent(
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -5032,6 +5045,7 @@ class PaymentIntent(
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -5111,6 +5125,9 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -5439,6 +5456,9 @@ class PaymentIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -8488,6 +8508,12 @@ class PaymentIntent(
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataBillingDetails"
         ]
@@ -8682,6 +8708,12 @@ class PaymentIntent(
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataSepaDebit"
         ]
@@ -8718,6 +8750,7 @@ class PaymentIntent(
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -8751,6 +8784,7 @@ class PaymentIntent(
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -8830,6 +8864,9 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -9158,6 +9195,9 @@ class PaymentIntent(
         pass
 
     class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -12339,6 +12379,12 @@ class PaymentIntent(
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataBillingDetails"
         ]
@@ -12533,6 +12579,12 @@ class PaymentIntent(
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataSepaDebit"
         ]
@@ -12569,6 +12621,7 @@ class PaymentIntent(
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -12602,6 +12655,7 @@ class PaymentIntent(
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -12681,6 +12735,9 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -13009,6 +13066,9 @@ class PaymentIntent(
         pass
 
     class ModifyParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -15297,7 +15357,7 @@ class PaymentIntent(
     """
     payment_method_types: List[str]
     """
-    The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
+    The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. A comprehensive list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     """
     processing: Optional[Processing]
     """

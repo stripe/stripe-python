@@ -168,6 +168,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataBillingDetails"
         ]
@@ -388,6 +394,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataSepaDebit"
         ]
@@ -428,6 +440,7 @@ class SetupIntentService(StripeService):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -461,6 +474,7 @@ class SetupIntentService(StripeService):
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -542,6 +556,9 @@ class SetupIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -870,6 +887,9 @@ class SetupIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -1628,6 +1648,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataBillingDetails"
         ]
@@ -1840,6 +1866,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataSepaDebit"
         ]
@@ -1880,6 +1912,7 @@ class SetupIntentService(StripeService):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -1913,6 +1946,7 @@ class SetupIntentService(StripeService):
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -1992,6 +2026,9 @@ class SetupIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -2320,6 +2357,9 @@ class SetupIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -3053,6 +3093,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataBillingDetails"
         ]
@@ -3265,6 +3311,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataSepaDebit"
         ]
@@ -3305,6 +3357,7 @@ class SetupIntentService(StripeService):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -3338,6 +3391,7 @@ class SetupIntentService(StripeService):
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -3417,6 +3471,9 @@ class SetupIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -3745,6 +3802,9 @@ class SetupIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataSepaDebit(TypedDict):

@@ -257,6 +257,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Billie(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Blik(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -895,6 +917,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Satispay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class SepaDebit(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1132,6 +1176,10 @@ class PaymentMethodConfiguration(
         """
         Bancontact is the most popular online payment method in Belgium, with over 15 million cards in circulation. [Customers](https://stripe.com/docs/api/customers) use a Bancontact card or mobile app linked to a Belgian bank account to make online payments that are secure, guaranteed, and confirmed immediately. Check this [page](https://stripe.com/docs/payments/bancontact) for more details.
         """
+        billie: NotRequired["PaymentMethodConfiguration.CreateParamsBillie"]
+        """
+        Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+        """
         blik: NotRequired["PaymentMethodConfiguration.CreateParamsBlik"]
         """
         BLIK is a [single use](https://stripe.com/docs/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://stripe.com/docs/payments/blik) for more details.
@@ -1277,6 +1325,12 @@ class PaymentMethodConfiguration(
         ]
         """
         Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer's stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
+        """
+        satispay: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsSatispay"
+        ]
+        """
+        Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
         """
         sepa_debit: NotRequired[
             "PaymentMethodConfiguration.CreateParamsSepaDebit"
@@ -1468,6 +1522,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsBancontactDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsBillie(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsBillieDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsBillieDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1879,6 +1947,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsSatispay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsSatispayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsSatispayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsSepaDebit(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsSepaDebitDisplayPreference"
@@ -2078,6 +2160,10 @@ class PaymentMethodConfiguration(
         """
         Bancontact is the most popular online payment method in Belgium, with over 15 million cards in circulation. [Customers](https://stripe.com/docs/api/customers) use a Bancontact card or mobile app linked to a Belgian bank account to make online payments that are secure, guaranteed, and confirmed immediately. Check this [page](https://stripe.com/docs/payments/bancontact) for more details.
         """
+        billie: NotRequired["PaymentMethodConfiguration.ModifyParamsBillie"]
+        """
+        Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+        """
         blik: NotRequired["PaymentMethodConfiguration.ModifyParamsBlik"]
         """
         BLIK is a [single use](https://stripe.com/docs/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://stripe.com/docs/payments/blik) for more details.
@@ -2219,6 +2305,12 @@ class PaymentMethodConfiguration(
         ]
         """
         Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer's stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
+        """
+        satispay: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsSatispay"
+        ]
+        """
+        Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
         """
         sepa_debit: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsSepaDebit"
@@ -2410,6 +2502,20 @@ class PaymentMethodConfiguration(
         """
 
     class ModifyParamsBancontactDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsBillie(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsBillieDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsBillieDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -2821,6 +2927,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsSatispay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsSatispayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsSatispayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsSepaDebit(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsSepaDebitDisplayPreference"
@@ -2957,6 +3077,7 @@ class PaymentMethodConfiguration(
     au_becs_debit: Optional[AuBecsDebit]
     bacs_debit: Optional[BacsDebit]
     bancontact: Optional[Bancontact]
+    billie: Optional[Billie]
     blik: Optional[Blik]
     boleto: Optional[Boleto]
     card: Optional[Card]
@@ -3010,6 +3131,7 @@ class PaymentMethodConfiguration(
     promptpay: Optional[Promptpay]
     qris: Optional[Qris]
     revolut_pay: Optional[RevolutPay]
+    satispay: Optional[Satispay]
     sepa_debit: Optional[SepaDebit]
     shopeepay: Optional[Shopeepay]
     sofort: Optional[Sofort]
@@ -3166,6 +3288,7 @@ class PaymentMethodConfiguration(
         "au_becs_debit": AuBecsDebit,
         "bacs_debit": BacsDebit,
         "bancontact": Bancontact,
+        "billie": Billie,
         "blik": Blik,
         "boleto": Boleto,
         "card": Card,
@@ -3195,6 +3318,7 @@ class PaymentMethodConfiguration(
         "promptpay": Promptpay,
         "qris": Qris,
         "revolut_pay": RevolutPay,
+        "satispay": Satispay,
         "sepa_debit": SepaDebit,
         "shopeepay": Shopeepay,
         "sofort": Sofort,

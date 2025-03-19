@@ -204,6 +204,10 @@ class Account(
         """
         The status of the customer_balance payments capability of the account, or whether the account can directly process customer_balance charges.
         """
+        billie_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Billie capability of the account, or whether the account can directly process Billie payments.
+        """
         blik_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the blik payments capability of the account, or whether the account can directly process blik charges.
@@ -387,6 +391,10 @@ class Account(
         ]
         """
         The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
+        """
+        satispay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Satispay capability of the account, or whether the account can directly process Satispay payments.
         """
         sepa_bank_transfer_payments: Optional[
             Literal["active", "inactive", "pending"]
@@ -659,6 +667,9 @@ class Account(
                 "qualifies_as_financial_institution",
             ]
         ]
+        """
+        This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
+        """
         phone: Optional[str]
         """
         The company's phone number (used for verification).
@@ -1767,6 +1778,12 @@ class Account(
         """
         The bank_transfer_payments capability.
         """
+        billie_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesBilliePayments"
+        ]
+        """
+        The billie_payments capability.
+        """
         blik_payments: NotRequired[
             "Account.CreateParamsCapabilitiesBlikPayments"
         ]
@@ -2013,6 +2030,12 @@ class Account(
         """
         The samsung_pay_payments capability.
         """
+        satispay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesSatispayPayments"
+        ]
+        """
+        The satispay_payments capability.
+        """
         sepa_bank_transfer_payments: NotRequired[
             "Account.CreateParamsCapabilitiesSepaBankTransferPayments"
         ]
@@ -2161,6 +2184,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesBilliePayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2412,6 +2441,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesSatispayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesSepaBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2593,6 +2628,9 @@ class Account(
         ownership_exemption_reason: NotRequired[
             "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
         ]
+        """
+        This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
+        """
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).

@@ -18,7 +18,6 @@ if TYPE_CHECKING:
     from stripe._margin import Margin
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
-    from stripe._quote import Quote
     from stripe._setup_intent import SetupIntent
     from stripe._shipping_rate import ShippingRate
     from stripe._source import Source
@@ -1029,28 +1028,6 @@ class QuotePreviewInvoice(StripeObject):
         The time that the invoice was voided.
         """
 
-    class SubscriptionDetails(StripeObject):
-        class PauseCollection(StripeObject):
-            behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
-            """
-            The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
-            """
-            resumes_at: Optional[int]
-            """
-            The time after which the subscription will resume collecting payments.
-            """
-
-        metadata: Optional[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
-         *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
-        """
-        pause_collection: Optional[PauseCollection]
-        """
-        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
-        """
-        _inner_class_types = {"pause_collection": PauseCollection}
-
     class ThresholdReason(StripeObject):
         class ItemReason(StripeObject):
             line_item_ids: List[str]
@@ -1114,46 +1091,6 @@ class QuotePreviewInvoice(StripeObject):
         type: Literal["credit_balance_transaction", "discount", "margin"]
         """
         Type of the pretax credit amount referenced.
-        """
-
-    class TotalTaxAmount(StripeObject):
-        amount: int
-        """
-        The amount, in cents (or local equivalent), of the tax.
-        """
-        inclusive: bool
-        """
-        Whether this tax amount is inclusive or exclusive.
-        """
-        tax_rate: ExpandableField["TaxRate"]
-        """
-        The tax rate that was applied to get this tax amount.
-        """
-        taxability_reason: Optional[
-            Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
-            ]
-        ]
-        """
-        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
-        """
-        taxable_amount: Optional[int]
-        """
-        The amount on which tax is calculated, in cents (or local equivalent).
         """
 
     class TransferData(StripeObject):
@@ -1389,10 +1326,6 @@ class QuotePreviewInvoice(StripeObject):
     """
     Returns true if the invoice was manually marked paid, returns false if the invoice hasn't been paid yet or was paid on Stripe.
     """
-    payment_intent: Optional[ExpandableField["PaymentIntent"]]
-    """
-    The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized, and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent.
-    """
     payment_settings: PaymentSettings
     payments: Optional[ListObject["InvoicePayment"]]
     """
@@ -1413,10 +1346,6 @@ class QuotePreviewInvoice(StripeObject):
     pre_payment_credit_notes_amount: int
     """
     Total amount of all pre-payment credit notes issued for this invoice.
-    """
-    quote: Optional[ExpandableField["Quote"]]
-    """
-    The quote this invoice was generated from.
     """
     receipt_number: Optional[str]
     """
@@ -1448,17 +1377,6 @@ class QuotePreviewInvoice(StripeObject):
     """
     status_transitions: StatusTransitions
     subscription: Optional[ExpandableField["Subscription"]]
-    """
-    The subscription that this invoice was prepared for, if any.
-    """
-    subscription_details: Optional[SubscriptionDetails]
-    """
-    Details about the subscription that created this invoice.
-    """
-    subscription_proration_date: Optional[int]
-    """
-    Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
-    """
     subtotal: int
     """
     Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or exclusive tax is applied. Item discounts are already incorporated
@@ -1466,10 +1384,6 @@ class QuotePreviewInvoice(StripeObject):
     subtotal_excluding_tax: Optional[int]
     """
     The integer amount in cents (or local equivalent) representing the subtotal of the invoice before any invoice level discount or tax is applied. Item discounts are already incorporated
-    """
-    tax: Optional[int]
-    """
-    The amount of tax on this invoice. This is the sum of all the tax amounts on this invoice.
     """
     test_clock: Optional[ExpandableField["TestClock"]]
     """
@@ -1496,10 +1410,6 @@ class QuotePreviewInvoice(StripeObject):
     """
     Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this invoice. This is a combined list of total_pretax_credit_amounts across all invoice line items.
     """
-    total_tax_amounts: List[TotalTaxAmount]
-    """
-    The aggregate amounts calculated per tax rate for all line items.
-    """
     transfer_data: Optional[TransferData]
     """
     The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to for the invoice.
@@ -1524,11 +1434,9 @@ class QuotePreviewInvoice(StripeObject):
         "shipping_cost": ShippingCost,
         "shipping_details": ShippingDetails,
         "status_transitions": StatusTransitions,
-        "subscription_details": SubscriptionDetails,
         "threshold_reason": ThresholdReason,
         "total_discount_amounts": TotalDiscountAmount,
         "total_margin_amounts": TotalMarginAmount,
         "total_pretax_credit_amounts": TotalPretaxCreditAmount,
-        "total_tax_amounts": TotalTaxAmount,
         "transfer_data": TransferData,
     }

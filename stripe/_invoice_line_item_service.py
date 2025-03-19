@@ -63,13 +63,13 @@ class InvoiceLineItemService(StripeService):
         """
         The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         """
-        price: NotRequired[str]
-        """
-        The ID of the price object.
-        """
         price_data: NotRequired["InvoiceLineItemService.UpdateParamsPriceData"]
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        """
+        pricing: NotRequired["InvoiceLineItemService.UpdateParamsPricing"]
+        """
+        The pricing information for the invoice item.
         """
         quantity: NotRequired[int]
         """
@@ -194,6 +194,12 @@ class InvoiceLineItemService(StripeService):
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
 
+    class UpdateParamsPricing(TypedDict):
+        price: NotRequired[str]
+        """
+        The ID of the price object.
+        """
+
     class UpdateParamsTaxAmount(TypedDict):
         amount: int
         """
@@ -206,6 +212,28 @@ class InvoiceLineItemService(StripeService):
         Data to find or create a TaxRate object.
 
         Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item's `tax_rates`, and cannot be directly added to invoices, payments, or line items.
+        """
+        taxability_reason: NotRequired[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ]
+        ]
+        """
+        The reasoning behind this tax, for example, if the product is tax exempt.
         """
         taxable_amount: int
         """
@@ -232,6 +260,14 @@ class InvoiceLineItemService(StripeService):
         jurisdiction: NotRequired[str]
         """
         The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
+        """
+        jurisdiction_level: NotRequired[
+            Literal[
+                "city", "country", "county", "district", "multiple", "state"
+            ]
+        ]
+        """
+        The level of the jurisdiction that imposes this tax rate.
         """
         percentage: float
         """
