@@ -19,7 +19,7 @@ class CreditGrantService(StripeService):
             "CreditGrantService.CreateParamsApplicabilityConfig"
         )
         """
-        Configuration specifying what this credit grant applies to.
+        Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
         """
         category: Literal["paid", "promotional"]
         """
@@ -49,6 +49,10 @@ class CreditGrantService(StripeService):
         """
         A descriptive name shown in the Dashboard.
         """
+        priority: NotRequired[int]
+        """
+        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+        """
 
     class CreateParamsAmount(TypedDict):
         monetary: NotRequired["CreditGrantService.CreateParamsAmountMonetary"]
@@ -77,9 +81,23 @@ class CreditGrantService(StripeService):
         """
 
     class CreateParamsApplicabilityConfigScope(TypedDict):
-        price_type: Literal["metered"]
+        price_type: NotRequired[Literal["metered"]]
         """
         The price type that credit grants can apply to. We currently only support the `metered` price type.
+        """
+        prices: NotRequired[
+            List[
+                "CreditGrantService.CreateParamsApplicabilityConfigScopePrice"
+            ]
+        ]
+        """
+        A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+        """
+
+    class CreateParamsApplicabilityConfigScopePrice(TypedDict):
+        id: str
+        """
+        The price ID this credit grant should apply to.
         """
 
     class ExpireParams(TypedDict):

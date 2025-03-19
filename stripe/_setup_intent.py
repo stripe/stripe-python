@@ -1768,7 +1768,7 @@ class SetupIntent(
             "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
         ]
         """
-        Provide filters for the linked accounts that the customer can select for the payment method
+        Provide filters for the linked accounts that the customer can select for the payment method.
         """
         permissions: NotRequired[
             List[
@@ -2978,7 +2978,7 @@ class SetupIntent(
             "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
         ]
         """
-        Provide filters for the linked accounts that the customer can select for the payment method
+        Provide filters for the linked accounts that the customer can select for the payment method.
         """
         permissions: NotRequired[
             List[
@@ -4155,7 +4155,7 @@ class SetupIntent(
             "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters"
         ]
         """
-        Provide filters for the linked accounts that the customer can select for the payment method
+        Provide filters for the linked accounts that the customer can select for the payment method.
         """
         permissions: NotRequired[
             List[
