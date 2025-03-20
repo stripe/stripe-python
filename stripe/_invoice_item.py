@@ -50,20 +50,13 @@ class InvoiceItem(
     OBJECT_NAME: ClassVar[Literal["invoiceitem"]] = "invoiceitem"
 
     class Parent(StripeObject):
-        class RateCardSubscriptionDetails(StripeObject):
-            rate_card_subscription: str
-
         class SubscriptionDetails(StripeObject):
             subscription: str
             subscription_item: Optional[str]
 
-        rate_card_subscription_details: Optional[RateCardSubscriptionDetails]
         subscription_details: Optional[SubscriptionDetails]
-        type: Literal["rate_card_subscription_details", "subscription_details"]
-        _inner_class_types = {
-            "rate_card_subscription_details": RateCardSubscriptionDetails,
-            "subscription_details": SubscriptionDetails,
-        }
+        type: Literal["subscription_details"]
+        _inner_class_types = {"subscription_details": SubscriptionDetails}
 
     class Period(StripeObject):
         end: int
