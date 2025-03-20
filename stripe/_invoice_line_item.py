@@ -52,6 +52,49 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         The margin that was applied to get this margin amount.
         """
 
+    class Parent(StripeObject):
+        class InvoiceItemDetails(StripeObject):
+            invoice_item: str
+
+        class SubscriptionItemDetails(StripeObject):
+            class ProrationDetails(StripeObject):
+                class CreditedItems(StripeObject):
+                    invoice: str
+                    """
+                    Invoice containing the credited invoice line items
+                    """
+                    invoice_line_items: List[str]
+                    """
+                    Credited invoice line items
+                    """
+
+                credited_items: Optional[CreditedItems]
+                """
+                For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+                """
+                _inner_class_types = {"credited_items": CreditedItems}
+
+            invoice_item: Optional[str]
+            proration: bool
+            """
+            Whether this is a proration.
+            """
+            proration_details: Optional[ProrationDetails]
+            """
+            Additional details for proration line items
+            """
+            subscription: str
+            subscription_item: str
+            _inner_class_types = {"proration_details": ProrationDetails}
+
+        invoice_item_details: Optional[InvoiceItemDetails]
+        subscription_item_details: Optional[SubscriptionItemDetails]
+        type: Literal["invoice_item_details", "subscription_item_details"]
+        _inner_class_types = {
+            "invoice_item_details": InvoiceItemDetails,
+            "subscription_item_details": SubscriptionItemDetails,
+        }
+
     class Period(StripeObject):
         end: int
         """
@@ -454,6 +497,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    parent: Optional[Parent]
     period: Period
     pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
     """
@@ -512,6 +556,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
         "margin_amounts": MarginAmount,
+        "parent": Parent,
         "period": Period,
         "pretax_credit_amounts": PretaxCreditAmount,
         "taxes": Tax,
