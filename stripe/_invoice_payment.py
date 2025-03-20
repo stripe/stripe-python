@@ -32,9 +32,7 @@ class InvoicePayment(StripeObject):
         """
         ID of the PaymentRecord associated with this payment when `type` is `payment_record`.
         """
-        type: Literal[
-            "charge", "out_of_band_payment", "payment_intent", "payment_record"
-        ]
+        type: Literal["charge", "payment_intent"]
         """
         Type of payment object associated with this invoice payment.
         """
@@ -73,7 +71,7 @@ class InvoicePayment(StripeObject):
     """
     The invoice that was paid.
     """
-    is_default: Optional[bool]
+    is_default: bool
     """
     Stripe automatically creates a default InvoicePayment when the invoice is finalized, and keeps it synchronized with the invoice's `amount_remaining`. The PaymentIntent associated with the default payment can't be edited or canceled directly.
     """
