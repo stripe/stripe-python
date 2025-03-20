@@ -94,6 +94,14 @@ class PaymentLinkService(StripeService):
         """
         The account on behalf of which to charge.
         """
+        optional_items: NotRequired[
+            List["PaymentLinkService.CreateParamsOptionalItem"]
+        ]
+        """
+        A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+        There is a maximum of 10 optional items allowed on a payment link, and the existing limits on the number of line items allowed on a payment link apply to the combined number of line items and optional items.
+        There is a maximum of 20 combined line items and optional items.
+        """
         payment_intent_data: NotRequired[
             "PaymentLinkService.CreateParamsPaymentIntentData"
         ]
@@ -541,6 +549,36 @@ class PaymentLinkService(StripeService):
         minimum: NotRequired[int]
         """
         The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
+        """
+
+    class CreateParamsOptionalItem(TypedDict):
+        adjustable_quantity: NotRequired[
+            "PaymentLinkService.CreateParamsOptionalItemAdjustableQuantity"
+        ]
+        """
+        When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
+        """
+        price: str
+        """
+        The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+        """
+        quantity: int
+        """
+        The initial quantity of the line item created when a customer chooses to add this optional item to their order.
+        """
+
+    class CreateParamsOptionalItemAdjustableQuantity(TypedDict):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative integer.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity of this item the customer can purchase. By default this value is 99.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
         """
 
     class CreateParamsPaymentIntentData(TypedDict):

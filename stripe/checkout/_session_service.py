@@ -192,6 +192,18 @@ class SessionService(StripeService):
         """
         The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
         """
+        optional_items: NotRequired[
+            List["SessionService.CreateParamsOptionalItem"]
+        ]
+        """
+        A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+
+        There is a maximum of 10 optional items allowed on a Checkout Session, and the existing limits on the number of line items allowed on a Checkout Session apply to the combined number of line items and optional items.
+
+        For `payment` mode, there is a maximum of 100 combined line items and optional items, however it is recommended to consolidate items if there are more than a few dozen.
+
+        For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
+        """
         payment_intent_data: NotRequired[
             "SessionService.CreateParamsPaymentIntentData"
         ]
@@ -809,6 +821,36 @@ class SessionService(StripeService):
         interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+        """
+
+    class CreateParamsOptionalItem(TypedDict):
+        adjustable_quantity: NotRequired[
+            "SessionService.CreateParamsOptionalItemAdjustableQuantity"
+        ]
+        """
+        When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
+        """
+        price: str
+        """
+        The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+        """
+        quantity: int
+        """
+        The initial quantity of the line item created when a customer chooses to add this optional item to their order.
+        """
+
+    class CreateParamsOptionalItemAdjustableQuantity(TypedDict):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative integer.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity of this item the customer can purchase. By default this value is 99. You can specify a value up to 999999.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
         """
 
     class CreateParamsPaymentIntentData(TypedDict):
