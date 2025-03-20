@@ -37,7 +37,6 @@ if TYPE_CHECKING:
     from stripe._card import Card as CardResource
     from stripe._charge import Charge
     from stripe._customer import Customer
-    from stripe._invoice import Invoice
     from stripe._payment_method import PaymentMethod
     from stripe._review import Review
     from stripe._setup_intent import SetupIntent
@@ -15319,10 +15318,6 @@ class PaymentIntent(
     id: str
     """
     Unique identifier for the object.
-    """
-    invoice: Optional[ExpandableField["Invoice"]]
-    """
-    ID of the invoice that created this PaymentIntent, if it exists.
     """
     last_payment_error: Optional[LastPaymentError]
     """
