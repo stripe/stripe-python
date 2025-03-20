@@ -1204,10 +1204,6 @@ class QuotePreviewInvoice(StripeObject):
     """
     ID of the Connect Application that created the invoice.
     """
-    application_fee_amount: Optional[int]
-    """
-    The fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account when the invoice is paid.
-    """
     applies_to: AppliesTo
     attempt_count: int
     """
