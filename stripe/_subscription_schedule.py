@@ -85,16 +85,6 @@ class SubscriptionSchedule(
             """
             _inner_class_types = {"liability": Liability}
 
-        class BillingThresholds(StripeObject):
-            amount_gte: Optional[int]
-            """
-            Monetary threshold that triggers the subscription to create an invoice
-            """
-            reset_billing_cycle_anchor: Optional[bool]
-            """
-            Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
-            """
-
         class InvoiceSettings(StripeObject):
             class Issuer(StripeObject):
                 account: Optional[ExpandableField["Account"]]
@@ -136,10 +126,6 @@ class SubscriptionSchedule(
         """
         Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
-        billing_thresholds: Optional[BillingThresholds]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
-        """
         collection_method: Optional[
             Literal["charge_automatically", "send_invoice"]
         ]
@@ -165,7 +151,6 @@ class SubscriptionSchedule(
         """
         _inner_class_types = {
             "automatic_tax": AutomaticTax,
-            "billing_thresholds": BillingThresholds,
             "invoice_settings": InvoiceSettings,
             "transfer_data": TransferData,
         }
@@ -269,16 +254,6 @@ class SubscriptionSchedule(
             """
             _inner_class_types = {"liability": Liability}
 
-        class BillingThresholds(StripeObject):
-            amount_gte: Optional[int]
-            """
-            Monetary threshold that triggers the subscription to create an invoice
-            """
-            reset_billing_cycle_anchor: Optional[bool]
-            """
-            Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
-            """
-
         class Discount(StripeObject):
             class DiscountEnd(StripeObject):
                 timestamp: Optional[int]
@@ -334,12 +309,6 @@ class SubscriptionSchedule(
             _inner_class_types = {"issuer": Issuer}
 
         class Item(StripeObject):
-            class BillingThresholds(StripeObject):
-                usage_gte: Optional[int]
-                """
-                Usage threshold that triggers the subscription to create an invoice
-                """
-
             class Discount(StripeObject):
                 class DiscountEnd(StripeObject):
                     timestamp: Optional[int]
@@ -379,10 +348,6 @@ class SubscriptionSchedule(
                 Determines the type of trial for this item.
                 """
 
-            billing_thresholds: Optional[BillingThresholds]
-            """
-            Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
-            """
             discounts: List[Discount]
             """
             The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
@@ -411,11 +376,7 @@ class SubscriptionSchedule(
             """
             Options that configure the trial on the subscription item.
             """
-            _inner_class_types = {
-                "billing_thresholds": BillingThresholds,
-                "discounts": Discount,
-                "trial": Trial,
-            }
+            _inner_class_types = {"discounts": Discount, "trial": Trial}
 
         class PauseCollection(StripeObject):
             behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
@@ -458,10 +419,6 @@ class SubscriptionSchedule(
         billing_cycle_anchor: Optional[Literal["automatic", "phase_start"]]
         """
         Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
-        """
-        billing_thresholds: Optional[BillingThresholds]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
         """
         collection_method: Optional[
             Literal["charge_automatically", "send_invoice"]
@@ -542,7 +499,6 @@ class SubscriptionSchedule(
         _inner_class_types = {
             "add_invoice_items": AddInvoiceItem,
             "automatic_tax": AutomaticTax,
-            "billing_thresholds": BillingThresholds,
             "discounts": Discount,
             "invoice_settings": InvoiceSettings,
             "items": Item,
@@ -1258,12 +1214,6 @@ class SubscriptionSchedule(
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
-        billing_thresholds: NotRequired[
-            "Literal['']|SubscriptionSchedule.CreateParamsDefaultSettingsBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-        """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
         ]
@@ -1315,16 +1265,6 @@ class SubscriptionSchedule(
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
-        """
-
-    class CreateParamsDefaultSettingsBillingThresholds(TypedDict):
-        amount_gte: NotRequired[int]
-        """
-        Monetary threshold that triggers the subscription to advance to a new billing period
-        """
-        reset_billing_cycle_anchor: NotRequired[bool]
-        """
-        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
 
     class CreateParamsDefaultSettingsInvoiceSettings(TypedDict):
@@ -1383,12 +1323,6 @@ class SubscriptionSchedule(
         billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
-        """
-        billing_thresholds: NotRequired[
-            "Literal['']|SubscriptionSchedule.CreateParamsPhaseBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -1603,16 +1537,6 @@ class SubscriptionSchedule(
         Type of the account referenced in the request.
         """
 
-    class CreateParamsPhaseBillingThresholds(TypedDict):
-        amount_gte: NotRequired[int]
-        """
-        Monetary threshold that triggers the subscription to advance to a new billing period
-        """
-        reset_billing_cycle_anchor: NotRequired[bool]
-        """
-        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
-        """
-
     class CreateParamsPhaseDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -1686,12 +1610,6 @@ class SubscriptionSchedule(
         """
 
     class CreateParamsPhaseItem(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|SubscriptionSchedule.CreateParamsPhaseItemBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionSchedule.CreateParamsPhaseItemDiscount]"
         ]
@@ -1727,12 +1645,6 @@ class SubscriptionSchedule(
         trial: NotRequired["SubscriptionSchedule.CreateParamsPhaseItemTrial"]
         """
         Options that configure the trial on the subscription item.
-        """
-
-    class CreateParamsPhaseItemBillingThresholds(TypedDict):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class CreateParamsPhaseItemDiscount(TypedDict):
@@ -2048,12 +1960,6 @@ class SubscriptionSchedule(
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
-        billing_thresholds: NotRequired[
-            "Literal['']|SubscriptionSchedule.ModifyParamsDefaultSettingsBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-        """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
         ]
@@ -2105,16 +2011,6 @@ class SubscriptionSchedule(
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
-        """
-
-    class ModifyParamsDefaultSettingsBillingThresholds(TypedDict):
-        amount_gte: NotRequired[int]
-        """
-        Monetary threshold that triggers the subscription to advance to a new billing period
-        """
-        reset_billing_cycle_anchor: NotRequired[bool]
-        """
-        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
 
     class ModifyParamsDefaultSettingsInvoiceSettings(TypedDict):
@@ -2173,12 +2069,6 @@ class SubscriptionSchedule(
         billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
-        """
-        billing_thresholds: NotRequired[
-            "Literal['']|SubscriptionSchedule.ModifyParamsPhaseBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -2397,16 +2287,6 @@ class SubscriptionSchedule(
         Type of the account referenced in the request.
         """
 
-    class ModifyParamsPhaseBillingThresholds(TypedDict):
-        amount_gte: NotRequired[int]
-        """
-        Monetary threshold that triggers the subscription to advance to a new billing period
-        """
-        reset_billing_cycle_anchor: NotRequired[bool]
-        """
-        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
-        """
-
     class ModifyParamsPhaseDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -2480,12 +2360,6 @@ class SubscriptionSchedule(
         """
 
     class ModifyParamsPhaseItem(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|SubscriptionSchedule.ModifyParamsPhaseItemBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionSchedule.ModifyParamsPhaseItemDiscount]"
         ]
@@ -2521,12 +2395,6 @@ class SubscriptionSchedule(
         trial: NotRequired["SubscriptionSchedule.ModifyParamsPhaseItemTrial"]
         """
         Options that configure the trial on the subscription item.
-        """
-
-    class ModifyParamsPhaseItemBillingThresholds(TypedDict):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class ModifyParamsPhaseItemDiscount(TypedDict):

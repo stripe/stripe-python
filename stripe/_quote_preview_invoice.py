@@ -654,6 +654,29 @@ class QuotePreviewInvoice(StripeObject):
         The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
         """
 
+    class Parent(StripeObject):
+        class QuoteDetails(StripeObject):
+            quote: str
+
+        class SubscriptionDetails(StripeObject):
+            class PauseCollection(StripeObject):
+                behavior: Optional[str]
+                resumes_at: Optional[int]
+
+            metadata: Optional[Dict[str, str]]
+            pause_collection: Optional[PauseCollection]
+            subscription: str
+            subscription_proration_date: Optional[int]
+            _inner_class_types = {"pause_collection": PauseCollection}
+
+        quote_details: Optional[QuoteDetails]
+        subscription_details: Optional[SubscriptionDetails]
+        type: Literal["quote_details", "subscription_details"]
+        _inner_class_types = {
+            "quote_details": QuoteDetails,
+            "subscription_details": SubscriptionDetails,
+        }
+
     class PaymentSettings(StripeObject):
         class PaymentMethodOptions(StripeObject):
             class AcssDebit(StripeObject):
@@ -1364,6 +1387,7 @@ class QuotePreviewInvoice(StripeObject):
     """
     Returns true if the invoice was manually marked paid, returns false if the invoice hasn't been paid yet or was paid on Stripe.
     """
+    parent: Optional[Parent]
     payment_settings: PaymentSettings
     payments: Optional[ListObject["InvoicePayment"]]
     """
@@ -1467,6 +1491,7 @@ class QuotePreviewInvoice(StripeObject):
         "from_invoice": FromInvoice,
         "issuer": Issuer,
         "last_finalization_error": LastFinalizationError,
+        "parent": Parent,
         "payment_settings": PaymentSettings,
         "rendering": Rendering,
         "shipping_cost": ShippingCost,

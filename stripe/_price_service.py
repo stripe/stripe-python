@@ -216,12 +216,6 @@ class PriceService(StripeService):
         """
 
     class CreateParamsRecurring(TypedDict):
-        aggregate_usage: NotRequired[
-            Literal["last_during_period", "last_ever", "max", "sum"]
-        ]
-        """
-        Specifies a usage aggregation strategy for prices of `usage_type=metered`. Defaults to `sum`.
-        """
         interval: Literal["day", "month", "week", "year"]
         """
         Specifies billing frequency. Either `day`, `week`, `month` or `year`.
