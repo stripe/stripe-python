@@ -157,6 +157,7 @@ class Person(UpdateableAPIResource["Person"]):
 
         class Error(StripeObject):
             code: Literal[
+                "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
@@ -169,6 +170,7 @@ class Person(UpdateableAPIResource["Person"]):
                 "invalid_product_description_length",
                 "invalid_product_description_url_match",
                 "invalid_representative_country",
+                "invalid_signator",
                 "invalid_statement_descriptor_business_mismatch",
                 "invalid_statement_descriptor_denylisted",
                 "invalid_statement_descriptor_length",
@@ -230,6 +232,7 @@ class Person(UpdateableAPIResource["Person"]):
                 "verification_document_type_not_supported",
                 "verification_extraneous_directors",
                 "verification_failed_address_match",
+                "verification_failed_authorizer_authority",
                 "verification_failed_business_iec_number",
                 "verification_failed_document_match",
                 "verification_failed_id_number_match",
@@ -244,6 +247,7 @@ class Person(UpdateableAPIResource["Person"]):
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
+                "verification_rejected_ownership_exemption_reason",
                 "verification_requires_additional_memorandum_of_associations",
                 "verification_requires_additional_proof_of_registration",
                 "verification_supportability",
@@ -359,6 +363,7 @@ class Person(UpdateableAPIResource["Person"]):
 
         class Error(StripeObject):
             code: Literal[
+                "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
@@ -371,6 +376,7 @@ class Person(UpdateableAPIResource["Person"]):
                 "invalid_product_description_length",
                 "invalid_product_description_url_match",
                 "invalid_representative_country",
+                "invalid_signator",
                 "invalid_statement_descriptor_business_mismatch",
                 "invalid_statement_descriptor_denylisted",
                 "invalid_statement_descriptor_length",
@@ -432,6 +438,7 @@ class Person(UpdateableAPIResource["Person"]):
                 "verification_document_type_not_supported",
                 "verification_extraneous_directors",
                 "verification_failed_address_match",
+                "verification_failed_authorizer_authority",
                 "verification_failed_business_iec_number",
                 "verification_failed_document_match",
                 "verification_failed_id_number_match",
@@ -446,6 +453,7 @@ class Person(UpdateableAPIResource["Person"]):
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
+                "verification_rejected_ownership_exemption_reason",
                 "verification_requires_additional_memorandum_of_associations",
                 "verification_requires_additional_proof_of_registration",
                 "verification_supportability",
