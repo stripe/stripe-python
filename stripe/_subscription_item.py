@@ -412,6 +412,14 @@ class SubscriptionItem(
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    current_period_end: int
+    """
+    The end time of this subscription item's current billing period.
+    """
+    current_period_start: int
+    """
+    The start time of this subscription item's current billing period.
+    """
     discounts: List[ExpandableField["Discount"]]
     """
     The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
