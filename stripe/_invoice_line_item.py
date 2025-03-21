@@ -55,6 +55,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     class Parent(StripeObject):
         class InvoiceItemDetails(StripeObject):
             invoice_item: str
+            subscription: Optional[str]
 
         class SubscriptionItemDetails(StripeObject):
             class ProrationDetails(StripeObject):
