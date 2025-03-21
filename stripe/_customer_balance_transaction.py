@@ -10,6 +10,7 @@ from typing_extensions import Literal, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._credit_note import CreditNote
     from stripe._invoice import Invoice
+    from stripe.checkout._session import Session
 
 
 class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
@@ -28,6 +29,10 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     amount: int
     """
     The amount of the transaction. A negative value is a credit for the customer's balance, and a positive value is a debit to the customer's `balance`.
+    """
+    checkout_session: Optional[ExpandableField["Session"]]
+    """
+    The ID of the checkout session (if any) that created the transaction.
     """
     created: int
     """

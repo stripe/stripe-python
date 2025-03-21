@@ -38,7 +38,6 @@ if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
     from stripe._card import Card as CardResource
     from stripe._customer import Customer
-    from stripe._invoice import Invoice
     from stripe._mandate import Mandate
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
@@ -3973,10 +3972,6 @@ class Charge(
     id: str
     """
     Unique identifier for the object.
-    """
-    invoice: Optional[ExpandableField["Invoice"]]
-    """
-    ID of the invoice this charge is for if one exists.
     """
     level3: Optional[Level3]
     livemode: bool
