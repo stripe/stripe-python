@@ -643,15 +643,15 @@ class Account(
         """
         name: Optional[str]
         """
-        The company's legal name.
+        The company's legal name. Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
         """
         name_kana: Optional[str]
         """
-        The Kana variation of the company's legal name (Japan only).
+        The Kana variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
         """
         name_kanji: Optional[str]
         """
-        The Kanji variation of the company's legal name (Japan only).
+        The Kanji variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
         """
         owners_provided: Optional[bool]
         """
@@ -702,7 +702,7 @@ class Account(
             ]
         ]
         """
-        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
+        The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
         """
         tax_id_provided: Optional[bool]
         """
@@ -4571,7 +4571,7 @@ class Account(
         Literal["company", "government_entity", "individual", "non_profit"]
     ]
     """
-    The business type. After you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property is only returned for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+    The business type.
     """
     capabilities: Optional[Capabilities]
     charges_enabled: Optional[bool]
@@ -4617,7 +4617,7 @@ class Account(
     """
     This is an object representing a person associated with a Stripe account.
 
-    A platform cannot access a person for an account where [account.controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
+    A platform can only access a subset of data in a person for an account where [account.controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
 
     See the [Standard onboarding](https://stripe.com/connect/standard-accounts) or [Express onboarding](https://stripe.com/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](https://stripe.com/connect/handling-api-verification#person-information).
     """
