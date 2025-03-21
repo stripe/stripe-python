@@ -1376,10 +1376,6 @@ class QuotePreviewInvoice(StripeObject):
     """
     The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
     """
-    paid_out_of_band: bool
-    """
-    Returns true if the invoice was manually marked paid, returns false if the invoice hasn't been paid yet or was paid on Stripe.
-    """
     parent: Optional[Parent]
     payment_settings: PaymentSettings
     payments: Optional[ListObject["InvoicePayment"]]
