@@ -2121,7 +2121,7 @@ class Session(
         """
         cancel_url: NotRequired[str]
         """
-        If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if `ui_mode` is `embedded` or `custom`.
+        If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
         """
         client_reference_id: NotRequired[str]
         """
@@ -2404,7 +2404,7 @@ class Session(
         """
         The URL to redirect your customer back to after they authenticate or cancel their payment on the
         payment method's app or site. This parameter is required if `ui_mode` is `embedded` or `custom`
-        and redirect-based payment methods are enabled on the Checkout Session.
+        and redirect-based payment methods are enabled on the session.
         """
         saved_payment_method_options: NotRequired[
             "Session.CreateParamsSavedPaymentMethodOptions"
@@ -2445,7 +2445,7 @@ class Session(
         """
         The URL to which Stripe should send customers when payment or setup
         is complete.
-        This parameter is not allowed if `ui_mode` is `embedded` or `custom`. If you'd like to use
+        This parameter is not allowed if ui_mode is `embedded` or `custom`. If you'd like to use
         information from the successful Checkout Session on your page, read the
         guide on [customizing your success page](https://stripe.com/docs/payments/checkout/custom-success-page).
         """
