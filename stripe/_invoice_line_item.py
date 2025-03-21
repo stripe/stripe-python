@@ -156,6 +156,28 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         Type of the pretax credit amount referenced.
         """
 
+    class Pricing(StripeObject):
+        class PriceDetails(StripeObject):
+            price: str
+            """
+            The ID of the price this item is associated with.
+            """
+            product: str
+            """
+            The ID of the product this item is associated with.
+            """
+
+        price_details: Optional[PriceDetails]
+        type: Literal["price_details"]
+        """
+        The type of the pricing details.
+        """
+        unit_amount_decimal: Optional[str]
+        """
+        The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
+        """
+        _inner_class_types = {"price_details": PriceDetails}
+
     class Tax(StripeObject):
         class TaxRateDetails(StripeObject):
             tax_rate: str
@@ -530,6 +552,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this line item.
     """
+    pricing: Optional[Pricing]
+    """
+    The pricing information of the line item.
+    """
     quantity: Optional[int]
     """
     The quantity of the subscription, if the line item is a subscription or a proration.
@@ -586,5 +612,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         "parent": Parent,
         "period": Period,
         "pretax_credit_amounts": PretaxCreditAmount,
+        "pricing": Pricing,
         "taxes": Tax,
     }

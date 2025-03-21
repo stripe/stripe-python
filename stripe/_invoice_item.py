@@ -68,6 +68,28 @@ class InvoiceItem(
         The start of the period. This value is inclusive.
         """
 
+    class Pricing(StripeObject):
+        class PriceDetails(StripeObject):
+            price: str
+            """
+            The ID of the price this item is associated with.
+            """
+            product: str
+            """
+            The ID of the product this item is associated with.
+            """
+
+        price_details: Optional[PriceDetails]
+        type: Literal["price_details"]
+        """
+        The type of the pricing details.
+        """
+        unit_amount_decimal: Optional[str]
+        """
+        The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
+        """
+        _inner_class_types = {"price_details": PriceDetails}
+
     class CreateParams(RequestOptions):
         amount: NotRequired[int]
         """
@@ -503,6 +525,10 @@ class InvoiceItem(
     """
     parent: Optional[Parent]
     period: Period
+    pricing: Optional[Pricing]
+    """
+    The pricing information of the invoice item.
+    """
     proration: bool
     """
     Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.
@@ -750,4 +776,8 @@ class InvoiceItem(
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {"parent": Parent, "period": Period}
+    _inner_class_types = {
+        "parent": Parent,
+        "period": Period,
+        "pricing": Pricing,
+    }
