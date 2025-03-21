@@ -136,6 +136,7 @@ class SetupIntent(
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
+                "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
                 "gift_card_balance_insufficient",
@@ -236,6 +237,7 @@ class SetupIntent(
                 "setup_intent_authentication_failure",
                 "setup_intent_invalid_parameter",
                 "setup_intent_mandate_invalid",
+                "setup_intent_mobile_wallet_unsupported",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
                 "shipping_address_invalid",
@@ -908,6 +910,10 @@ class SetupIntent(
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataBillie"]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataBillingDetails"
         ]
@@ -1026,6 +1032,12 @@ class SetupIntent(
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -1094,6 +1106,12 @@ class SetupIntent(
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataSepaDebit"
         ]
@@ -1128,6 +1146,7 @@ class SetupIntent(
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -1148,6 +1167,7 @@ class SetupIntent(
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -1161,6 +1181,7 @@ class SetupIntent(
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -1240,6 +1261,9 @@ class SetupIntent(
         """
 
     class ConfirmParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -1463,6 +1487,29 @@ class SetupIntent(
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
 
+    class ConfirmParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
+        """
+
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -1566,6 +1613,9 @@ class SetupIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -2192,6 +2242,8 @@ class SetupIntent(
         single_use: NotRequired["SetupIntent.CreateParamsSingleUse"]
         """
         If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
+
+        Single-use mandates are only valid for the following payment methods: `acss_debit`, `alipay`, `au_becs_debit`, `bacs_debit`, `bancontact`, `boleto`, `ideal`, `link`, `sepa_debit`, and `us_bank_account`.
         """
         usage: NotRequired[Literal["off_session", "on_session"]]
         """
@@ -2312,6 +2364,10 @@ class SetupIntent(
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired["SetupIntent.CreateParamsPaymentMethodDataBillie"]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataBillingDetails"
         ]
@@ -2428,6 +2484,12 @@ class SetupIntent(
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired["SetupIntent.CreateParamsPaymentMethodDataOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -2496,6 +2558,12 @@ class SetupIntent(
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataSepaDebit"
         ]
@@ -2530,6 +2598,7 @@ class SetupIntent(
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -2550,6 +2619,7 @@ class SetupIntent(
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -2563,6 +2633,7 @@ class SetupIntent(
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -2642,6 +2713,9 @@ class SetupIntent(
         """
 
     class CreateParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -2865,6 +2939,29 @@ class SetupIntent(
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
 
+    class CreateParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
+        """
+
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -2968,6 +3065,9 @@ class SetupIntent(
         pass
 
     class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):
@@ -3679,6 +3779,10 @@ class SetupIntent(
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataBillie"]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataBillingDetails"
         ]
@@ -3795,6 +3899,12 @@ class SetupIntent(
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -3863,6 +3973,12 @@ class SetupIntent(
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataSepaDebit"
         ]
@@ -3897,6 +4013,7 @@ class SetupIntent(
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -3917,6 +4034,7 @@ class SetupIntent(
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -3930,6 +4048,7 @@ class SetupIntent(
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -4009,6 +4128,9 @@ class SetupIntent(
         """
 
     class ModifyParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -4232,6 +4354,29 @@ class SetupIntent(
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
 
+    class ModifyParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
+        """
+
     class ModifyParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -4335,6 +4480,9 @@ class SetupIntent(
         pass
 
     class ModifyParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataSepaDebit(TypedDict):

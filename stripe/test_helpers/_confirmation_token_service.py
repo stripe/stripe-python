@@ -99,6 +99,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataBillingDetails"
         ]
@@ -235,6 +241,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -319,6 +331,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        """
         sepa_debit: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataSepaDebit"
         ]
@@ -359,6 +377,7 @@ class ConfirmationTokenService(StripeService):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -379,6 +398,7 @@ class ConfirmationTokenService(StripeService):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -392,6 +412,7 @@ class ConfirmationTokenService(StripeService):
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -473,6 +494,9 @@ class ConfirmationTokenService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -698,6 +722,29 @@ class ConfirmationTokenService(StripeService):
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
 
+    class CreateParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
+        """
+
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -803,6 +850,9 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):

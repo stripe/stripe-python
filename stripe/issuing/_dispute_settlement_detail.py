@@ -3,6 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack
 
@@ -15,6 +16,12 @@ class DisputeSettlementDetail(ListableAPIResource["DisputeSettlementDetail"]):
     OBJECT_NAME: ClassVar[Literal["issuing.dispute_settlement_detail"]] = (
         "issuing.dispute_settlement_detail"
     )
+
+    class NetworkData(StripeObject):
+        processing_date: Optional[str]
+        """
+        The date the transaction was processed by the card network. This can be different from the date the seller recorded the transaction depending on when the acquirer submits the transaction to the network.
+        """
 
     class ListParams(RequestOptions):
         ending_before: NotRequired[str]
@@ -79,6 +86,10 @@ class DisputeSettlementDetail(ListableAPIResource["DisputeSettlementDetail"]):
     network: Literal["maestro", "mastercard", "visa"]
     """
     The card network for this dispute settlement detail. One of ["visa", "mastercard", "maestro"]
+    """
+    network_data: Optional[NetworkData]
+    """
+    Details about the transaction, such as processing dates, set by the card network.
     """
     object: Literal["issuing.dispute_settlement_detail"]
     """
@@ -154,3 +165,5 @@ class DisputeSettlementDetail(ListableAPIResource["DisputeSettlementDetail"]):
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    _inner_class_types = {"network_data": NetworkData}

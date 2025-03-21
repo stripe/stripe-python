@@ -32,9 +32,7 @@ class InvoicePayment(StripeObject):
         """
         ID of the PaymentRecord associated with this payment when `type` is `payment_record`.
         """
-        type: Literal[
-            "charge", "out_of_band_payment", "payment_intent", "payment_record"
-        ]
+        type: Literal["charge", "payment_intent"]
         """
         Type of payment object associated with this invoice payment.
         """
@@ -49,10 +47,6 @@ class InvoicePayment(StripeObject):
         The time that the payment succeeded.
         """
 
-    amount_overpaid: Optional[int]
-    """
-    Excess payment that was received for this invoice and credited to the customer's `invoice_credit_balance`. This field is null until the payment is `paid`. Overpayment can happen when you attach more than one PaymentIntent to the invoice, and each of them succeeds. To avoid overpayment, cancel any PaymentIntents that you do not need before attaching more.
-    """
     amount_paid: Optional[int]
     """
     Amount that was actually paid for this invoice, in cents (or local equivalent). This field is null until the payment is `paid`. This amount can be less than the `amount_requested` if the PaymentIntent's `amount_received` is not sufficient to pay all of the invoices that it is attached to.
@@ -77,7 +71,7 @@ class InvoicePayment(StripeObject):
     """
     The invoice that was paid.
     """
-    is_default: Optional[bool]
+    is_default: bool
     """
     Stripe automatically creates a default InvoicePayment when the invoice is finalized, and keeps it synchronized with the invoice's `amount_remaining`. The PaymentIntent associated with the default payment can't be edited or canceled directly.
     """

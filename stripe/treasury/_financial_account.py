@@ -973,7 +973,7 @@ class FinancialAccount(
         cls, **params: Unpack["FinancialAccount.CreateParams"]
     ) -> "FinancialAccount":
         """
-        Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
+        Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
         """
         return cast(
             "FinancialAccount",
@@ -989,7 +989,7 @@ class FinancialAccount(
         cls, **params: Unpack["FinancialAccount.CreateParams"]
     ) -> "FinancialAccount":
         """
-        Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
+        Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
         """
         return cast(
             "FinancialAccount",

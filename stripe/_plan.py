@@ -78,12 +78,6 @@ class Plan(
         """
         Whether the plan is currently available for new subscriptions. Defaults to `true`.
         """
-        aggregate_usage: NotRequired[
-            Literal["last_during_period", "last_ever", "max", "sum"]
-        ]
-        """
-        Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
-        """
         amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free plan) representing how much to charge on a recurring basis.
@@ -300,12 +294,6 @@ class Plan(
     active: bool
     """
     Whether the plan can be used for new purchases.
-    """
-    aggregate_usage: Optional[
-        Literal["last_during_period", "last_ever", "max", "sum"]
-    ]
-    """
-    Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
     """
     amount: Optional[int]
     """

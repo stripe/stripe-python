@@ -359,6 +359,15 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Link(StripeObject):
             pass
 
+        class NaverPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
+            """
+
+        class NzBankAccount(StripeObject):
+            pass
+
         class Paypal(StripeObject):
             pass
 
@@ -425,6 +434,8 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         klarna: Optional[Klarna]
         kr_card: Optional[KrCard]
         link: Optional[Link]
+        naver_pay: Optional[NaverPay]
+        nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
         revolut_pay: Optional[RevolutPay]
@@ -451,6 +462,8 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "klarna": Klarna,
             "kr_card": KrCard,
             "link": Link,
+            "naver_pay": NaverPay,
+            "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
             "payto": Payto,
             "revolut_pay": RevolutPay,
@@ -522,6 +535,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
+                "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
                 "gift_card_balance_insufficient",
@@ -622,6 +636,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "setup_intent_authentication_failure",
                 "setup_intent_invalid_parameter",
                 "setup_intent_mandate_invalid",
+                "setup_intent_mobile_wallet_unsupported",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
                 "shipping_address_invalid",

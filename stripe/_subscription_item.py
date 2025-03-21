@@ -5,7 +5,6 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
@@ -24,12 +23,8 @@ if TYPE_CHECKING:
     from stripe._plan import Plan
     from stripe._price import Price
     from stripe._tax_rate import TaxRate
-    from stripe._usage_record import UsageRecord
-    from stripe._usage_record_summary import UsageRecordSummary
 
 
-@nested_resource_class_methods("usage_record")
-@nested_resource_class_methods("usage_record_summary")
 class SubscriptionItem(
     CreateableAPIResource["SubscriptionItem"],
     DeletableAPIResource["SubscriptionItem"],
@@ -43,12 +38,6 @@ class SubscriptionItem(
 
     OBJECT_NAME: ClassVar[Literal["subscription_item"]] = "subscription_item"
 
-    class BillingThresholds(StripeObject):
-        usage_gte: Optional[int]
-        """
-        Usage threshold that triggers the subscription to create an invoice
-        """
-
     class Trial(StripeObject):
         converts_to: Optional[List[str]]
         """
@@ -60,12 +49,6 @@ class SubscriptionItem(
         """
 
     class CreateParams(RequestOptions):
-        billing_thresholds: NotRequired[
-            "Literal['']|SubscriptionItem.CreateParamsBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionItem.CreateParamsDiscount]"
         ]
@@ -136,12 +119,6 @@ class SubscriptionItem(
         Options that configure the trial on the subscription item.
         """
 
-    class CreateParamsBillingThresholds(TypedDict):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
     class CreateParamsDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -195,7 +172,7 @@ class SubscriptionItem(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: "SubscriptionItem.CreateParamsPriceDataRecurring"
         """
@@ -236,24 +213,6 @@ class SubscriptionItem(
         Determines the type of trial for this item.
         """
 
-    class CreateUsageRecordParams(RequestOptions):
-        action: NotRequired[Literal["increment", "set"]]
-        """
-        Valid values are `increment` (default) or `set`. When using `increment` the specified `quantity` will be added to the usage at the specified timestamp. The `set` action will overwrite the usage quantity at that timestamp. If the subscription has [billing thresholds](https://stripe.com/docs/api/subscriptions/object#subscription_object-billing_thresholds), `increment` is the only allowed value.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        quantity: int
-        """
-        The usage quantity for the specified timestamp.
-        """
-        timestamp: NotRequired["Literal['now']|int"]
-        """
-        The timestamp for the usage event. This timestamp must be within the current billing period of the subscription of the provided `subscription_item`, and must not be in the future. When passing `"now"`, Stripe records usage for the current time. Default is `"now"` if a value is not provided.
-        """
-
     class DeleteParams(RequestOptions):
         clear_usage: NotRequired[bool]
         """
@@ -292,31 +251,7 @@ class SubscriptionItem(
         The ID of the subscription whose items will be retrieved.
         """
 
-    class ListUsageRecordSummariesParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
     class ModifyParams(RequestOptions):
-        billing_thresholds: NotRequired[
-            "Literal['']|SubscriptionItem.ModifyParamsBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionItem.ModifyParamsDiscount]"
         ]
@@ -383,12 +318,6 @@ class SubscriptionItem(
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
 
-    class ModifyParamsBillingThresholds(TypedDict):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
     class ModifyParamsDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -442,7 +371,7 @@ class SubscriptionItem(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: "SubscriptionItem.ModifyParamsPriceDataRecurring"
         """
@@ -479,13 +408,17 @@ class SubscriptionItem(
         Specifies which fields in the response should be expanded.
         """
 
-    billing_thresholds: Optional[BillingThresholds]
-    """
-    Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
-    """
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
+    current_period_end: int
+    """
+    The end time of this subscription item's current billing period.
+    """
+    current_period_start: int
+    """
+    The start time of this subscription item's current billing period.
     """
     discounts: List[ExpandableField["Discount"]]
     """
@@ -770,103 +703,4 @@ class SubscriptionItem(
         await instance.refresh_async()
         return instance
 
-    @classmethod
-    def create_usage_record(
-        cls,
-        subscription_item: str,
-        **params: Unpack["SubscriptionItem.CreateUsageRecordParams"],
-    ) -> "UsageRecord":
-        """
-        Creates a usage record for a specified subscription item and date, and fills it with a quantity.
-
-        Usage records provide quantity information that Stripe uses to track how much a customer is using your service. With usage information and the pricing model set up by the [metered billing](https://stripe.com/docs/billing/subscriptions/metered-billing) plan, Stripe helps you send accurate invoices to your customers.
-
-        The default calculation for usage is to add up all the quantity values of the usage records within a billing period. You can change this default behavior with the billing plan's aggregate_usage [parameter](https://stripe.com/docs/api/plans/create#create_plan-aggregate_usage). When there is more than one usage record with the same timestamp, Stripe adds the quantity values together. In most cases, this is the desired resolution, however, you can change this behavior with the action parameter.
-
-        The default pricing model for metered billing is [per-unit pricing. For finer granularity, you can configure metered billing to have a <a href="https://stripe.com/docs/billing/subscriptions/tiers">tiered pricing](https://stripe.com/docs/api/plans/object#plan_object-billing_scheme) model.
-        """
-        return cast(
-            "UsageRecord",
-            cls._static_request(
-                "post",
-                "/v1/subscription_items/{subscription_item}/usage_records".format(
-                    subscription_item=sanitize_id(subscription_item)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def create_usage_record_async(
-        cls,
-        subscription_item: str,
-        **params: Unpack["SubscriptionItem.CreateUsageRecordParams"],
-    ) -> "UsageRecord":
-        """
-        Creates a usage record for a specified subscription item and date, and fills it with a quantity.
-
-        Usage records provide quantity information that Stripe uses to track how much a customer is using your service. With usage information and the pricing model set up by the [metered billing](https://stripe.com/docs/billing/subscriptions/metered-billing) plan, Stripe helps you send accurate invoices to your customers.
-
-        The default calculation for usage is to add up all the quantity values of the usage records within a billing period. You can change this default behavior with the billing plan's aggregate_usage [parameter](https://stripe.com/docs/api/plans/create#create_plan-aggregate_usage). When there is more than one usage record with the same timestamp, Stripe adds the quantity values together. In most cases, this is the desired resolution, however, you can change this behavior with the action parameter.
-
-        The default pricing model for metered billing is [per-unit pricing. For finer granularity, you can configure metered billing to have a <a href="https://stripe.com/docs/billing/subscriptions/tiers">tiered pricing](https://stripe.com/docs/api/plans/object#plan_object-billing_scheme) model.
-        """
-        return cast(
-            "UsageRecord",
-            await cls._static_request_async(
-                "post",
-                "/v1/subscription_items/{subscription_item}/usage_records".format(
-                    subscription_item=sanitize_id(subscription_item)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def list_usage_record_summaries(
-        cls,
-        subscription_item: str,
-        **params: Unpack["SubscriptionItem.ListUsageRecordSummariesParams"],
-    ) -> ListObject["UsageRecordSummary"]:
-        """
-        For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that's been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).
-
-        The list is sorted in reverse-chronological order (newest first). The first list item represents the most current usage period that hasn't ended yet. Since new usage records can still be added, the returned summary information for the subscription item's ID should be seen as unstable until the subscription billing period ends.
-        """
-        return cast(
-            ListObject["UsageRecordSummary"],
-            cls._static_request(
-                "get",
-                "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
-                    subscription_item=sanitize_id(subscription_item)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_usage_record_summaries_async(
-        cls,
-        subscription_item: str,
-        **params: Unpack["SubscriptionItem.ListUsageRecordSummariesParams"],
-    ) -> ListObject["UsageRecordSummary"]:
-        """
-        For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that's been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).
-
-        The list is sorted in reverse-chronological order (newest first). The first list item represents the most current usage period that hasn't ended yet. Since new usage records can still be added, the returned summary information for the subscription item's ID should be seen as unstable until the subscription billing period ends.
-        """
-        return cast(
-            ListObject["UsageRecordSummary"],
-            await cls._static_request_async(
-                "get",
-                "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
-                    subscription_item=sanitize_id(subscription_item)
-                ),
-                params=params,
-            ),
-        )
-
-    _inner_class_types = {
-        "billing_thresholds": BillingThresholds,
-        "trial": Trial,
-    }
+    _inner_class_types = {"trial": Trial}
