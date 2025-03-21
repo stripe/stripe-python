@@ -1827,6 +1827,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataOxxo"
         ]
@@ -1978,6 +1984,7 @@ class PaymentIntentService(StripeService):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -2299,6 +2306,29 @@ class PaymentIntentService(StripeService):
         funding: NotRequired[Literal["card", "points"]]
         """
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
+
+    class ConfirmParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
         """
 
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
@@ -2650,6 +2680,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `naver_pay` PaymentMethod, this sub-hash contains details about the Naver Pay payment method options.
+        """
+        nz_bank_account: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsNzBankAccount"
+        ]
+        """
+        If this is a `nz_bank_account` PaymentMethod, this sub-hash contains details about the NZ BECS Direct Debit payment method options.
         """
         oxxo: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsOxxo"
@@ -3836,6 +3872,26 @@ class PaymentIntentService(StripeService):
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
+    class ConfirmParamsPaymentMethodOptionsNzBankAccount(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
 
     class ConfirmParamsPaymentMethodOptionsOxxo(TypedDict):
@@ -5620,6 +5676,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -5771,6 +5833,7 @@ class PaymentIntentService(StripeService):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -6092,6 +6155,29 @@ class PaymentIntentService(StripeService):
         funding: NotRequired[Literal["card", "points"]]
         """
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
+
+    class CreateParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
         """
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
@@ -6443,6 +6529,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `naver_pay` PaymentMethod, this sub-hash contains details about the Naver Pay payment method options.
+        """
+        nz_bank_account: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsNzBankAccount"
+        ]
+        """
+        If this is a `nz_bank_account` PaymentMethod, this sub-hash contains details about the NZ BECS Direct Debit payment method options.
         """
         oxxo: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsOxxo"
@@ -7629,6 +7721,26 @@ class PaymentIntentService(StripeService):
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsNzBankAccount(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
 
     class CreateParamsPaymentMethodOptionsOxxo(TypedDict):
@@ -9597,6 +9709,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataOxxo"
         ]
@@ -9748,6 +9866,7 @@ class PaymentIntentService(StripeService):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -10069,6 +10188,29 @@ class PaymentIntentService(StripeService):
         funding: NotRequired[Literal["card", "points"]]
         """
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
+
+    class UpdateParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
         """
 
     class UpdateParamsPaymentMethodDataOxxo(TypedDict):
@@ -10420,6 +10562,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `naver_pay` PaymentMethod, this sub-hash contains details about the Naver Pay payment method options.
+        """
+        nz_bank_account: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsNzBankAccount"
+        ]
+        """
+        If this is a `nz_bank_account` PaymentMethod, this sub-hash contains details about the NZ BECS Direct Debit payment method options.
         """
         oxxo: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsOxxo"
@@ -11606,6 +11754,26 @@ class PaymentIntentService(StripeService):
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        """
+
+    class UpdateParamsPaymentMethodOptionsNzBankAccount(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+        target_date: NotRequired[str]
+        """
+        Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         """
 
     class UpdateParamsPaymentMethodOptionsOxxo(TypedDict):

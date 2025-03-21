@@ -180,6 +180,9 @@ class Refund(
             Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
             """
 
+        class NzBankTransfer(StripeObject):
+            pass
+
         class P24(StripeObject):
             reference: Optional[str]
             """
@@ -266,6 +269,7 @@ class Refund(
         klarna: Optional[Klarna]
         multibanco: Optional[Multibanco]
         mx_bank_transfer: Optional[MxBankTransfer]
+        nz_bank_transfer: Optional[NzBankTransfer]
         p24: Optional[P24]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
@@ -303,6 +307,7 @@ class Refund(
             "klarna": Klarna,
             "multibanco": Multibanco,
             "mx_bank_transfer": MxBankTransfer,
+            "nz_bank_transfer": NzBankTransfer,
             "p24": P24,
             "paynow": Paynow,
             "paypal": Paypal,

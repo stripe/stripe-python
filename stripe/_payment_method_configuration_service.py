@@ -197,6 +197,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Configuration name.
         """
+        nz_bank_account: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsNzBankAccount"
+        ]
+        """
+        Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
+        """
         oxxo: NotRequired["PaymentMethodConfigurationService.CreateParamsOxxo"]
         """
         OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
@@ -750,6 +756,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsNzBankAccount(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsNzBankAccountDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsNzBankAccountDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsOxxoDisplayPreference"
@@ -1220,6 +1240,12 @@ class PaymentMethodConfigurationService(StripeService):
         name: NotRequired[str]
         """
         Configuration name.
+        """
+        nz_bank_account: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsNzBankAccount"
+        ]
+        """
+        Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
         """
         oxxo: NotRequired["PaymentMethodConfigurationService.UpdateParamsOxxo"]
         """
@@ -1765,6 +1791,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsMultibancoDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsNzBankAccount(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsNzBankAccountDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsNzBankAccountDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.

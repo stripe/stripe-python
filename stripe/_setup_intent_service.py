@@ -310,6 +310,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataOxxo"
         ]
@@ -461,6 +467,7 @@ class SetupIntentService(StripeService):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -782,6 +789,29 @@ class SetupIntentService(StripeService):
         funding: NotRequired[Literal["card", "points"]]
         """
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
+
+    class ConfirmParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
         """
 
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
@@ -1786,6 +1816,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -1933,6 +1969,7 @@ class SetupIntentService(StripeService):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -2252,6 +2289,29 @@ class SetupIntentService(StripeService):
         funding: NotRequired[Literal["card", "points"]]
         """
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
+
+    class CreateParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
         """
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
@@ -3231,6 +3291,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataOxxo"
         ]
@@ -3378,6 +3444,7 @@ class SetupIntentService(StripeService):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -3697,6 +3764,29 @@ class SetupIntentService(StripeService):
         funding: NotRequired[Literal["card", "points"]]
         """
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
+
+    class UpdateParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
         """
 
     class UpdateParamsPaymentMethodDataOxxo(TypedDict):

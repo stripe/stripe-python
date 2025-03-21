@@ -183,6 +183,12 @@ class PaymentMethodService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "PaymentMethodService.CreateParamsNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired["PaymentMethodService.CreateParamsOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -302,6 +308,7 @@ class PaymentMethodService(StripeService):
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
+                "nz_bank_account",
                 "oxxo",
                 "p24",
                 "pay_by_bank",
@@ -654,6 +661,29 @@ class PaymentMethodService(StripeService):
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
 
+    class CreateParamsNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
+        """
+
     class CreateParamsOxxo(TypedDict):
         pass
 
@@ -871,6 +901,7 @@ class PaymentMethodService(StripeService):
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
+                "nz_bank_account",
                 "oxxo",
                 "p24",
                 "pay_by_bank",

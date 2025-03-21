@@ -121,6 +121,9 @@ class Mandate(APIResource["Mandate"]):
         class NaverPay(StripeObject):
             pass
 
+        class NzBankAccount(StripeObject):
+            pass
+
         class Paypal(StripeObject):
             billing_agreement_id: Optional[str]
             """
@@ -222,6 +225,7 @@ class Mandate(APIResource["Mandate"]):
         kr_card: Optional[KrCard]
         link: Optional[Link]
         naver_pay: Optional[NaverPay]
+        nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
         revolut_pay: Optional[RevolutPay]
@@ -242,6 +246,7 @@ class Mandate(APIResource["Mandate"]):
             "kr_card": KrCard,
             "link": Link,
             "naver_pay": NaverPay,
+            "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
             "payto": Payto,
             "revolut_pay": RevolutPay,

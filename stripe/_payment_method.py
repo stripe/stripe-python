@@ -1091,6 +1091,32 @@ class PaymentMethod(
         Whether to fund this transaction with Naver Pay points or a card.
         """
 
+    class NzBankAccount(StripeObject):
+        account_holder_name: Optional[str]
+        """
+        The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        bank_name: str
+        """
+        The name of the bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        last4: str
+        """
+        Last four digits of the bank account number.
+        """
+        suffix: Optional[str]
+        """
+        The suffix of the bank account number.
+        """
+
     class Oxxo(StripeObject):
         pass
 
@@ -1541,6 +1567,10 @@ class PaymentMethod(
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired["PaymentMethod.CreateParamsNzBankAccount"]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired["PaymentMethod.CreateParamsOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -1658,6 +1688,7 @@ class PaymentMethod(
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
+                "nz_bank_account",
                 "oxxo",
                 "p24",
                 "pay_by_bank",
@@ -2008,6 +2039,29 @@ class PaymentMethod(
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
 
+    class CreateParamsNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
+        """
+
     class CreateParamsOxxo(TypedDict):
         pass
 
@@ -2225,6 +2279,7 @@ class PaymentMethod(
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
+                "nz_bank_account",
                 "oxxo",
                 "p24",
                 "pay_by_bank",
@@ -2457,6 +2512,7 @@ class PaymentMethod(
     mobilepay: Optional[Mobilepay]
     multibanco: Optional[Multibanco]
     naver_pay: Optional[NaverPay]
+    nz_bank_account: Optional[NzBankAccount]
     object: Literal["payment_method"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -2518,6 +2574,7 @@ class PaymentMethod(
         "mobilepay",
         "multibanco",
         "naver_pay",
+        "nz_bank_account",
         "oxxo",
         "p24",
         "pay_by_bank",
@@ -3039,6 +3096,7 @@ class PaymentMethod(
         "mobilepay": Mobilepay,
         "multibanco": Multibanco,
         "naver_pay": NaverPay,
+        "nz_bank_account": NzBankAccount,
         "oxxo": Oxxo,
         "p24": P24,
         "pay_by_bank": PayByBank,

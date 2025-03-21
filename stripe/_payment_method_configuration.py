@@ -719,6 +719,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class NzBankAccount(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Oxxo(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1280,6 +1302,12 @@ class PaymentMethodConfiguration(
         """
         Configuration name.
         """
+        nz_bank_account: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsNzBankAccount"
+        ]
+        """
+        Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
+        """
         oxxo: NotRequired["PaymentMethodConfiguration.CreateParamsOxxo"]
         """
         OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
@@ -1821,6 +1849,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsNzBankAccount(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsNzBankAccountDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsNzBankAccountDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsOxxoDisplayPreference"
@@ -2263,6 +2305,12 @@ class PaymentMethodConfiguration(
         name: NotRequired[str]
         """
         Configuration name.
+        """
+        nz_bank_account: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsNzBankAccount"
+        ]
+        """
+        Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
         """
         oxxo: NotRequired["PaymentMethodConfiguration.ModifyParamsOxxo"]
         """
@@ -2801,6 +2849,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsNzBankAccount(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsNzBankAccountDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsNzBankAccountDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsOxxoDisplayPreference"
@@ -3114,6 +3176,7 @@ class PaymentMethodConfiguration(
     """
     The configuration's name.
     """
+    nz_bank_account: Optional[NzBankAccount]
     object: Literal["payment_method_configuration"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -3309,6 +3372,7 @@ class PaymentMethodConfiguration(
         "link": Link,
         "mobilepay": Mobilepay,
         "multibanco": Multibanco,
+        "nz_bank_account": NzBankAccount,
         "oxxo": Oxxo,
         "p24": P24,
         "pay_by_bank": PayByBank,

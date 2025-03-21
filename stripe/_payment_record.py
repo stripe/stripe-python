@@ -1161,6 +1161,32 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             A unique identifier for the buyer as determined by the local payment processor.
             """
 
+        class NzBankAccount(StripeObject):
+            account_holder_name: Optional[str]
+            """
+            The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+            """
+            bank_code: str
+            """
+            The numeric code for the bank account's bank.
+            """
+            bank_name: str
+            """
+            The name of the bank.
+            """
+            branch_code: str
+            """
+            The numeric code for the bank account's bank branch.
+            """
+            last4: str
+            """
+            Last four digits of the bank account number.
+            """
+            suffix: Optional[str]
+            """
+            The suffix of the bank account number.
+            """
+
         class Oxxo(StripeObject):
             number: Optional[str]
             """
@@ -1638,6 +1664,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
         naver_pay: Optional[NaverPay]
+        nz_bank_account: Optional[NzBankAccount]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
         pay_by_bank: Optional[PayByBank]
@@ -1711,6 +1738,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
             "naver_pay": NaverPay,
+            "nz_bank_account": NzBankAccount,
             "oxxo": Oxxo,
             "p24": P24,
             "pay_by_bank": PayByBank,
