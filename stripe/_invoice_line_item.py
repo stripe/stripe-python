@@ -54,8 +54,34 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
 
     class Parent(StripeObject):
         class InvoiceItemDetails(StripeObject):
+            class ProrationDetails(StripeObject):
+                class CreditedItems(StripeObject):
+                    invoice: str
+                    """
+                    Invoice containing the credited invoice line items
+                    """
+                    invoice_line_items: List[str]
+                    """
+                    Credited invoice line items
+                    """
+
+                credited_items: Optional[CreditedItems]
+                """
+                For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+                """
+                _inner_class_types = {"credited_items": CreditedItems}
+
             invoice_item: str
+            proration: bool
+            """
+            Whether this is a proration.
+            """
+            proration_details: Optional[ProrationDetails]
+            """
+            Additional details for proration line items
+            """
             subscription: Optional[str]
+            _inner_class_types = {"proration_details": ProrationDetails}
 
         class SubscriptionItemDetails(StripeObject):
             class ProrationDetails(StripeObject):
