@@ -2735,6 +2735,10 @@ class InvoiceService(StripeService):
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
+        cancel_at_period_end: NotRequired[bool]
+        """
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        """
         cancel_now: NotRequired[bool]
         """
         This simulates the subscription being canceled or expired immediately.

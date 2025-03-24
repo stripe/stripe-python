@@ -79,6 +79,10 @@ class SubscriptionService(StripeService):
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
+        cancel_at_period_end: NotRequired[bool]
+        """
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
         ]
@@ -1065,6 +1069,10 @@ class SubscriptionService(StripeService):
         cancel_at: NotRequired["Literal['']|int|Literal['min_period_end']"]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
+        """
+        cancel_at_period_end: NotRequired[bool]
+        """
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         """
         cancellation_details: NotRequired[
             "SubscriptionService.UpdateParamsCancellationDetails"
