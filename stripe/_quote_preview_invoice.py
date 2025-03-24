@@ -154,6 +154,16 @@ class QuotePreviewInvoice(StripeObject):
         """
         _inner_class_types = {"liability": Liability}
 
+    class ConfirmationSecret(StripeObject):
+        client_secret: str
+        """
+        The client_secret of the payment that Stripe creates for the invoice after finalization.
+        """
+        type: str
+        """
+        The type of client_secret. Currently this is always payment_intent, referencing the default payment_intent that Stripe creates during invoice finalization
+        """
+
     class CustomField(StripeObject):
         name: str
         """
@@ -1248,6 +1258,10 @@ class QuotePreviewInvoice(StripeObject):
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
     """
+    confirmation_secret: Optional[ConfirmationSecret]
+    """
+    The confirmation secret associated with this invoice. Currently, this contains the client_secret of the PaymentIntent that Stripe creates during invoice finalization.
+    """
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -1474,6 +1488,7 @@ class QuotePreviewInvoice(StripeObject):
         "amounts_due": AmountsDue,
         "applies_to": AppliesTo,
         "automatic_tax": AutomaticTax,
+        "confirmation_secret": ConfirmationSecret,
         "custom_fields": CustomField,
         "customer_address": CustomerAddress,
         "customer_shipping": CustomerShipping,
