@@ -3,37 +3,35 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._event import Event
 from stripe.v2._list_object import ListObject
+from stripe.v2._received_debit import ReceivedDebit
 from typing import cast
 from typing_extensions import NotRequired, TypedDict
 
 
-class EventService(StripeService):
+class ReceivedDebitService(StripeService):
     class ListParams(TypedDict):
         limit: NotRequired[int]
         """
-        The page size.
-        """
-        object_id: str
-        """
-        Primary object ID used to retrieve related events.
+        The page limit.
         """
 
     class RetrieveParams(TypedDict):
         pass
 
     def list(
-        self, params: "EventService.ListParams", options: RequestOptions = {}
-    ) -> ListObject[Event]:
+        self,
+        params: "ReceivedDebitService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[ReceivedDebit]:
         """
-        List events, going back up to 30 days.
+        Retrieves a list of ReceivedDebits, given the selected filters.
         """
         return cast(
-            ListObject[Event],
+            ListObject[ReceivedDebit],
             self._request(
                 "get",
-                "/v2/core/events",
+                "/v2/money_management/received_debits",
                 base_address="api",
                 params=params,
                 options=options,
@@ -41,16 +39,18 @@ class EventService(StripeService):
         )
 
     async def list_async(
-        self, params: "EventService.ListParams", options: RequestOptions = {}
-    ) -> ListObject[Event]:
+        self,
+        params: "ReceivedDebitService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[ReceivedDebit]:
         """
-        List events, going back up to 30 days.
+        Retrieves a list of ReceivedDebits, given the selected filters.
         """
         return cast(
-            ListObject[Event],
+            ListObject[ReceivedDebit],
             await self._request_async(
                 "get",
-                "/v2/core/events",
+                "/v2/money_management/received_debits",
                 base_address="api",
                 params=params,
                 options=options,
@@ -60,17 +60,19 @@ class EventService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "EventService.RetrieveParams" = {},
+        params: "ReceivedDebitService.RetrieveParams" = {},
         options: RequestOptions = {},
-    ) -> Event:
+    ) -> ReceivedDebit:
         """
-        Retrieves the details of an event.
+        Retrieves a single ReceivedDebit by ID.
         """
         return cast(
-            Event,
+            ReceivedDebit,
             self._request(
                 "get",
-                "/v2/core/events/{id}".format(id=sanitize_id(id)),
+                "/v2/money_management/received_debits/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,
@@ -80,17 +82,19 @@ class EventService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "EventService.RetrieveParams" = {},
+        params: "ReceivedDebitService.RetrieveParams" = {},
         options: RequestOptions = {},
-    ) -> Event:
+    ) -> ReceivedDebit:
         """
-        Retrieves the details of an event.
+        Retrieves a single ReceivedDebit by ID.
         """
         return cast(
-            Event,
+            ReceivedDebit,
             await self._request_async(
                 "get",
-                "/v2/core/events/{id}".format(id=sanitize_id(id)),
+                "/v2/money_management/received_debits/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,

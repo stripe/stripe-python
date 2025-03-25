@@ -192,15 +192,39 @@ class TemporarySessionExpiredError(StripeError):
     pass
 
 
+class FinancialAccountNotOpenError(StripeError):
+    pass
+
+
 class BlockedByStripeError(StripeError):
     pass
 
 
-class InvalidPayoutMethodError(StripeError):
+class AlreadyCanceledError(StripeError):
+    pass
+
+
+class NotCancelableError(StripeError):
+    pass
+
+
+class InsufficientFundsError(StripeError):
     pass
 
 
 class QuotaExceededError(StripeError):
+    pass
+
+
+class RecipientNotNotifiableError(StripeError):
+    pass
+
+
+class FeatureNotEnabledError(StripeError):
+    pass
+
+
+class InvalidPayoutMethodError(StripeError):
     pass
 
 

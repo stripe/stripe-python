@@ -3,37 +3,35 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._event import Event
+from stripe.v2._financial_account import FinancialAccount
 from stripe.v2._list_object import ListObject
 from typing import cast
 from typing_extensions import NotRequired, TypedDict
 
 
-class EventService(StripeService):
+class FinancialAccountService(StripeService):
     class ListParams(TypedDict):
         limit: NotRequired[int]
         """
-        The page size.
-        """
-        object_id: str
-        """
-        Primary object ID used to retrieve related events.
+        The page limit.
         """
 
     class RetrieveParams(TypedDict):
         pass
 
     def list(
-        self, params: "EventService.ListParams", options: RequestOptions = {}
-    ) -> ListObject[Event]:
+        self,
+        params: "FinancialAccountService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[FinancialAccount]:
         """
-        List events, going back up to 30 days.
+        Lists FinancialAccounts in this compartment.
         """
         return cast(
-            ListObject[Event],
+            ListObject[FinancialAccount],
             self._request(
                 "get",
-                "/v2/core/events",
+                "/v2/money_management/financial_accounts",
                 base_address="api",
                 params=params,
                 options=options,
@@ -41,16 +39,18 @@ class EventService(StripeService):
         )
 
     async def list_async(
-        self, params: "EventService.ListParams", options: RequestOptions = {}
-    ) -> ListObject[Event]:
+        self,
+        params: "FinancialAccountService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[FinancialAccount]:
         """
-        List events, going back up to 30 days.
+        Lists FinancialAccounts in this compartment.
         """
         return cast(
-            ListObject[Event],
+            ListObject[FinancialAccount],
             await self._request_async(
                 "get",
-                "/v2/core/events",
+                "/v2/money_management/financial_accounts",
                 base_address="api",
                 params=params,
                 options=options,
@@ -60,17 +60,19 @@ class EventService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "EventService.RetrieveParams" = {},
+        params: "FinancialAccountService.RetrieveParams" = {},
         options: RequestOptions = {},
-    ) -> Event:
+    ) -> FinancialAccount:
         """
-        Retrieves the details of an event.
+        Retrieves the details of an existing FinancialAccount.
         """
         return cast(
-            Event,
+            FinancialAccount,
             self._request(
                 "get",
-                "/v2/core/events/{id}".format(id=sanitize_id(id)),
+                "/v2/money_management/financial_accounts/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,
@@ -80,17 +82,19 @@ class EventService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "EventService.RetrieveParams" = {},
+        params: "FinancialAccountService.RetrieveParams" = {},
         options: RequestOptions = {},
-    ) -> Event:
+    ) -> FinancialAccount:
         """
-        Retrieves the details of an event.
+        Retrieves the details of an existing FinancialAccount.
         """
         return cast(
-            Event,
+            FinancialAccount,
             await self._request_async(
                 "get",
-                "/v2/core/events/{id}".format(id=sanitize_id(id)),
+                "/v2/money_management/financial_accounts/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,
