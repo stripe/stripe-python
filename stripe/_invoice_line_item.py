@@ -178,6 +178,16 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         _inner_class_types = {"price_details": PriceDetails}
 
+    class TaxCalculationReference(StripeObject):
+        calculation_id: Optional[str]
+        """
+        The calculation identifier for tax calculation response.
+        """
+        calculation_item_id: Optional[str]
+        """
+        The calculation identifier for tax calculation response line item.
+        """
+
     class Tax(StripeObject):
         class TaxRateDetails(StripeObject):
             tax_rate: str
@@ -561,6 +571,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     The quantity of the subscription, if the line item is a subscription or a proration.
     """
     subscription: Optional[ExpandableField["Subscription"]]
+    tax_calculation_reference: Optional[TaxCalculationReference]
+    """
+    The tax calculation identifiers of the line item.
+    """
     taxes: Optional[List[Tax]]
     """
     The tax information of the line item.
@@ -613,5 +627,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         "period": Period,
         "pretax_credit_amounts": PretaxCreditAmount,
         "pricing": Pricing,
+        "tax_calculation_reference": TaxCalculationReference,
         "taxes": Tax,
     }
