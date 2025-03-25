@@ -1921,7 +1921,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntentService.ConfirmParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
         """
         sepa_debit: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataSepaDebit"
@@ -5770,7 +5770,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntentService.CreateParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
         """
         sepa_debit: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataSepaDebit"
@@ -9803,7 +9803,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntentService.UpdateParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
         """
         sepa_debit: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataSepaDebit"
