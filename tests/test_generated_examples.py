@@ -33123,3 +33123,366 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
             post_data="url=https%3A%2F%2Fexample.com%2Fnew_endpoint",
         )
+
+    def test_v2_billing_meter_event_session_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/meter_event_session",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.meter_event_session.create()
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/meter_event_session",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_billing_meter_event_adjustment_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/meter_event_adjustments",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.meter_event_adjustments.create(
+            {
+                "cancel": {"identifier": "identifier"},
+                "event_name": "event_name",
+                "type": "cancel",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/meter_event_adjustments",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"cancel":{"identifier":"identifier"},"event_name":"event_name","type":"cancel"}',
+            is_json=True,
+        )
+
+    def test_v2_billing_meter_event_stream_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/meter_event_stream",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.meter_event_stream.create(
+            {
+                "events": [
+                    {
+                        "event_name": "event_name",
+                        "identifier": "identifier",
+                        "payload": {"undefined": "payload"},
+                        "timestamp": "1970-01-01T15:18:46.294Z",
+                    },
+                ],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/meter_event_stream",
+            query_string="",
+            api_base="https://meter-events.stripe.com",
+            post_data='{"events":[{"event_name":"event_name","identifier":"identifier","payload":{"undefined":"payload"},"timestamp":"1970-01-01T15:18:46.294Z"}]}',
+            is_json=True,
+        )
+
+    def test_v2_billing_meter_event_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/meter_events",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.meter_events.create(
+            {
+                "event_name": "event_name",
+                "payload": {"undefined": "payload"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/meter_events",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"event_name":"event_name","payload":{"undefined":"payload"}}',
+            is_json=True,
+        )
+
+    def test_v2_core_event_destination_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/event_destinations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.create(
+            {
+                "enabled_events": ["enabled_events"],
+                "event_payload": "thin",
+                "name": "name",
+                "type": "amazon_eventbridge",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/event_destinations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"enabled_events":["enabled_events"],"event_payload":"thin","name":"name","type":"amazon_eventbridge"}',
+            is_json=True,
+        )
+
+    def test_v2_core_event_destination_delete_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v2/core/event_destinations/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.delete("id_123")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v2/core/event_destinations/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_event_destination_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/event_destinations/id_123/disable",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.disable("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/event_destinations/id_123/disable",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_event_destination_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/event_destinations/id_123/enable",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.enable("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/event_destinations/id_123/enable",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_event_destination_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/event_destinations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/event_destinations",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_event_destination_post_4_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/event_destinations/id_123/ping",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.ping("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/event_destinations/id_123/ping",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_event_destination_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/event_destinations/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/event_destinations/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_event_destination_post_5_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/event_destinations/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.update("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/event_destinations/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_event_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/events",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.events.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/events",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_event_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/events/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.events.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/events/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_temporary_session_expired_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/meter_event_stream",
+            rbody='{"error":{"type":"temporary_session_expired","code":"billing_meter_event_session_expired"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.billing.meter_event_stream.create(
+                {
+                    "events": [
+                        {
+                            "event_name": "event_name",
+                            "payload": {"undefined": "payload"},
+                        },
+                    ],
+                }
+            )
+        except stripe._error.TemporarySessionExpiredError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/meter_event_stream",
+            query_string="",
+            api_base="https://meter-events.stripe.com",
+            post_data='{"events":[{"event_name":"event_name","payload":{"undefined":"payload"}}]}',
+            is_json=True,
+        )
