@@ -3,6 +3,7 @@
 from stripe._stripe_service import StripeService
 from stripe.v2.core._event_destination_service import EventDestinationService
 from stripe.v2.core._event_service import EventService
+from stripe.v2.core._vault_service import VaultService
 
 
 class CoreService(StripeService):
@@ -10,3 +11,4 @@ class CoreService(StripeService):
         super().__init__(requestor)
         self.event_destinations = EventDestinationService(self._requestor)
         self.events = EventService(self._requestor)
+        self.vault = VaultService(self._requestor)

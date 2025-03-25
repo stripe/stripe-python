@@ -175,7 +175,12 @@ V2_OBJECT_CLASSES = {
     stripe.v2.billing.MeterEvent.OBJECT_NAME: stripe.v2.billing.MeterEvent,
     stripe.v2.billing.MeterEventAdjustment.OBJECT_NAME: stripe.v2.billing.MeterEventAdjustment,
     stripe.v2.billing.MeterEventSession.OBJECT_NAME: stripe.v2.billing.MeterEventSession,
+    stripe.v2.core.vault.GbBankAccount.OBJECT_NAME: stripe.v2.core.vault.GbBankAccount,
+    stripe.v2.core.vault.UsBankAccount.OBJECT_NAME: stripe.v2.core.vault.UsBankAccount,
     stripe.v2.Event.OBJECT_NAME: stripe.v2.Event,
     stripe.v2.EventDestination.OBJECT_NAME: stripe.v2.EventDestination,
+    stripe.v2.money_management.OutboundSetupIntent.OBJECT_NAME: stripe.v2.money_management.OutboundSetupIntent,
+    stripe.v2.money_management.PayoutMethod.OBJECT_NAME: stripe.v2.money_management.PayoutMethod,
+    stripe.v2.money_management.PayoutMethodsBankAccountSpec.OBJECT_NAME: stripe.v2.money_management.PayoutMethodsBankAccountSpec,
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }
