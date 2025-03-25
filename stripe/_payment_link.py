@@ -122,6 +122,10 @@ class PaymentLink(
                 The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
                 """
 
+            default_value: Optional[str]
+            """
+            The value that will pre-fill on the payment page.
+            """
             options: List[Option]
             """
             The options available for the customer to select. Up to 200 options allowed.
@@ -139,6 +143,10 @@ class PaymentLink(
             """
 
         class Numeric(StripeObject):
+            default_value: Optional[str]
+            """
+            The value that will pre-fill the field on the payment page.
+            """
             maximum_length: Optional[int]
             """
             The maximum character length constraint for the customer's input.
@@ -149,6 +157,10 @@ class PaymentLink(
             """
 
         class Text(StripeObject):
+            default_value: Optional[str]
+            """
+            The value that will pre-fill the field on the payment page.
+            """
             maximum_length: Optional[int]
             """
             The maximum character length constraint for the customer's input.
@@ -300,6 +312,26 @@ class PaymentLink(
         Configuration for the invoice. Default invoice values will be used if unspecified.
         """
         _inner_class_types = {"invoice_data": InvoiceData}
+
+    class OptionalItem(StripeObject):
+        class AdjustableQuantity(StripeObject):
+            enabled: bool
+            """
+            Set to true if the quantity can be adjusted to any non-negative integer.
+            """
+            maximum: Optional[int]
+            """
+            The maximum quantity of this item the customer can purchase. By default this value is 99.
+            """
+            minimum: Optional[int]
+            """
+            The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
+            """
+
+        adjustable_quantity: Optional[AdjustableQuantity]
+        price: str
+        quantity: int
+        _inner_class_types = {"adjustable_quantity": AdjustableQuantity}
 
     class PaymentIntentData(StripeObject):
         capture_method: Optional[
@@ -754,6 +786,14 @@ class PaymentLink(
         """
         The account on behalf of which to charge.
         """
+        optional_items: NotRequired[
+            List["PaymentLink.CreateParamsOptionalItem"]
+        ]
+        """
+        A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+        There is a maximum of 10 optional items allowed on a payment link, and the existing limits on the number of line items allowed on a payment link apply to the combined number of line items and optional items.
+        There is a maximum of 20 combined line items and optional items.
+        """
         payment_intent_data: NotRequired[
             "PaymentLink.CreateParamsPaymentIntentData"
         ]
@@ -780,6 +820,7 @@ class PaymentLink(
                     "au_becs_debit",
                     "bacs_debit",
                     "bancontact",
+                    "billie",
                     "blik",
                     "boleto",
                     "card",
@@ -801,6 +842,7 @@ class PaymentLink(
                     "paypal",
                     "pix",
                     "promptpay",
+                    "satispay",
                     "sepa_debit",
                     "sofort",
                     "swish",
@@ -970,6 +1012,10 @@ class PaymentLink(
         """
 
     class CreateParamsCustomFieldDropdown(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+        """
         options: List["PaymentLink.CreateParamsCustomFieldDropdownOption"]
         """
         The options available for the customer to select. Up to 200 options allowed.
@@ -996,6 +1042,10 @@ class PaymentLink(
         """
 
     class CreateParamsCustomFieldNumeric(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -1006,6 +1056,10 @@ class PaymentLink(
         """
 
     class CreateParamsCustomFieldText(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -1169,6 +1223,36 @@ class PaymentLink(
         minimum: NotRequired[int]
         """
         The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
+        """
+
+    class CreateParamsOptionalItem(TypedDict):
+        adjustable_quantity: NotRequired[
+            "PaymentLink.CreateParamsOptionalItemAdjustableQuantity"
+        ]
+        """
+        When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
+        """
+        price: str
+        """
+        The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+        """
+        quantity: int
+        """
+        The initial quantity of the line item created when a customer chooses to add this optional item to their order.
+        """
+
+    class CreateParamsOptionalItemAdjustableQuantity(TypedDict):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative integer.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity of this item the customer can purchase. By default this value is 99.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
         """
 
     class CreateParamsPaymentIntentData(TypedDict):
@@ -1686,7 +1770,7 @@ class PaymentLink(
         If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'pix', 'promptpay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
         ]
         """
         The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
@@ -1813,6 +1897,10 @@ class PaymentLink(
         """
 
     class ModifyParamsCustomFieldDropdown(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+        """
         options: List["PaymentLink.ModifyParamsCustomFieldDropdownOption"]
         """
         The options available for the customer to select. Up to 200 options allowed.
@@ -1839,6 +1927,10 @@ class PaymentLink(
         """
 
     class ModifyParamsCustomFieldNumeric(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -1849,6 +1941,10 @@ class PaymentLink(
         """
 
     class ModifyParamsCustomFieldText(TypedDict):
+        default_value: NotRequired[str]
+        """
+        The value that will pre-fill the field on the payment page.
+        """
         maximum_length: NotRequired[int]
         """
         The maximum character length constraint for the customer's input.
@@ -2451,6 +2547,10 @@ class PaymentLink(
     """
     The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
     """
+    optional_items: Optional[List[OptionalItem]]
+    """
+    The optional items presented to the customer at checkout.
+    """
     payment_intent_data: Optional[PaymentIntentData]
     """
     Indicates the parameters to be passed to PaymentIntent creation during checkout.
@@ -2469,6 +2569,7 @@ class PaymentLink(
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
+                "billie",
                 "blik",
                 "boleto",
                 "card",
@@ -2490,6 +2591,7 @@ class PaymentLink(
                 "paypal",
                 "pix",
                 "promptpay",
+                "satispay",
                 "sepa_debit",
                 "sofort",
                 "swish",
@@ -2783,6 +2885,7 @@ class PaymentLink(
         "custom_fields": CustomField,
         "custom_text": CustomText,
         "invoice_creation": InvoiceCreation,
+        "optional_items": OptionalItem,
         "payment_intent_data": PaymentIntentData,
         "phone_number_collection": PhoneNumberCollection,
         "restrictions": Restrictions,

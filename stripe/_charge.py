@@ -38,7 +38,6 @@ if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
     from stripe._card import Card as CardResource
     from stripe._customer import Customer
-    from stripe._invoice import Invoice
     from stripe._mandate import Mandate
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
@@ -408,6 +407,9 @@ class Charge(
             Owner's verified full name. Values are verified or provided by Bancontact directly
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
+
+        class Billie(StripeObject):
+            pass
 
         class Blik(StripeObject):
             buyer_id: Optional[str]
@@ -1487,6 +1489,32 @@ class Charge(
             A unique identifier for the buyer as determined by the local payment processor.
             """
 
+        class NzBankAccount(StripeObject):
+            account_holder_name: Optional[str]
+            """
+            The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+            """
+            bank_code: str
+            """
+            The numeric code for the bank account's bank.
+            """
+            bank_name: str
+            """
+            The name of the bank.
+            """
+            branch_code: str
+            """
+            The numeric code for the bank account's bank branch.
+            """
+            last4: str
+            """
+            Last four digits of the bank account number.
+            """
+            suffix: Optional[str]
+            """
+            The suffix of the bank account number.
+            """
+
         class Oxxo(StripeObject):
             number: Optional[str]
             """
@@ -1652,6 +1680,9 @@ class Charge(
             A unique identifier for the buyer as determined by the local payment processor.
             """
 
+        class Satispay(StripeObject):
+            pass
+
         class SepaCreditTransfer(StripeObject):
             bank_name: Optional[str]
             """
@@ -1815,6 +1846,7 @@ class Charge(
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
+        billie: Optional[Billie]
         blik: Optional[Blik]
         boleto: Optional[Boleto]
         card: Optional[Card]
@@ -1835,6 +1867,7 @@ class Charge(
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
         naver_pay: Optional[NaverPay]
+        nz_bank_account: Optional[NzBankAccount]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
         pay_by_bank: Optional[PayByBank]
@@ -1845,6 +1878,7 @@ class Charge(
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
+        satispay: Optional[Satispay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
@@ -1873,6 +1907,7 @@ class Charge(
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
+            "billie": Billie,
             "blik": Blik,
             "boleto": Boleto,
             "card": Card,
@@ -1893,6 +1928,7 @@ class Charge(
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
             "naver_pay": NaverPay,
+            "nz_bank_account": NzBankAccount,
             "oxxo": Oxxo,
             "p24": P24,
             "pay_by_bank": PayByBank,
@@ -1903,6 +1939,7 @@ class Charge(
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
+            "satispay": Satispay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
@@ -1914,6 +1951,16 @@ class Charge(
             "wechat_pay": WechatPay,
             "zip": Zip,
         }
+
+    class PresentmentDetails(StripeObject):
+        presentment_amount: int
+        """
+        Amount intended to be collected by this payment, denominated in presentment_currency.
+        """
+        presentment_currency: str
+        """
+        Currency presented to the customer during payment.
+        """
 
     class RadarOptions(StripeObject):
         session: Optional[str]
@@ -1980,7 +2027,7 @@ class Charge(
     class CaptureParams(RequestOptions):
         amount: NotRequired[int]
         """
-        The amount to capture, which must be less than or equal to the original amount. Any additional amount will be automatically refunded.
+        The amount to capture, which must be less than or equal to the original amount.
         """
         application_fee: NotRequired[int]
         """
@@ -2442,10 +2489,6 @@ class Charge(
     """
     Unique identifier for the object.
     """
-    invoice: Optional[ExpandableField["Invoice"]]
-    """
-    ID of the invoice this charge is for if one exists.
-    """
     level3: Optional[Level3]
     livemode: bool
     """
@@ -2483,6 +2526,7 @@ class Charge(
     """
     Details about the payment method at the time of the transaction.
     """
+    presentment_details: Optional[PresentmentDetails]
     radar_options: Optional[RadarOptions]
     """
     Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
@@ -2960,6 +3004,7 @@ class Charge(
         "level3": Level3,
         "outcome": Outcome,
         "payment_method_details": PaymentMethodDetails,
+        "presentment_details": PresentmentDetails,
         "radar_options": RadarOptions,
         "shipping": Shipping,
         "transfer_data": TransferData,

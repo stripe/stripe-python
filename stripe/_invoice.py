@@ -36,13 +36,12 @@ if TYPE_CHECKING:
     from stripe._application import Application
     from stripe._bank_account import BankAccount
     from stripe._card import Card as CardResource
-    from stripe._charge import Charge
     from stripe._customer import Customer
     from stripe._discount import Discount
     from stripe._invoice_line_item import InvoiceLineItem
+    from stripe._invoice_payment import InvoicePayment
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
-    from stripe._quote import Quote
     from stripe._setup_intent import SetupIntent
     from stripe._shipping_rate import ShippingRate
     from stripe._source import Source
@@ -135,6 +134,16 @@ class Invoice(
         The status of the most recent automated tax calculation for this invoice.
         """
         _inner_class_types = {"liability": Liability}
+
+    class ConfirmationSecret(StripeObject):
+        client_secret: str
+        """
+        The client_secret of the payment that Stripe creates for the invoice after finalization.
+        """
+        type: str
+        """
+        The type of client_secret. Currently this is always payment_intent, referencing the default payment_intent that Stripe creates during invoice finalization
+        """
 
     class CustomField(StripeObject):
         name: str
@@ -412,6 +421,7 @@ class Invoice(
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
+                "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
                 "idempotency_key_in_use",
@@ -508,6 +518,7 @@ class Invoice(
                 "setup_intent_authentication_failure",
                 "setup_intent_invalid_parameter",
                 "setup_intent_mandate_invalid",
+                "setup_intent_mobile_wallet_unsupported",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
                 "shipping_address_invalid",
@@ -628,6 +639,29 @@ class Invoice(
         """
         The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
         """
+
+    class Parent(StripeObject):
+        class QuoteDetails(StripeObject):
+            quote: str
+
+        class SubscriptionDetails(StripeObject):
+            class PauseCollection(StripeObject):
+                behavior: Optional[str]
+                resumes_at: Optional[int]
+
+            metadata: Optional[Dict[str, str]]
+            pause_collection: Optional[PauseCollection]
+            subscription: str
+            subscription_proration_date: Optional[int]
+            _inner_class_types = {"pause_collection": PauseCollection}
+
+        quote_details: Optional[QuoteDetails]
+        subscription_details: Optional[SubscriptionDetails]
+        type: Literal["quote_details", "subscription_details"]
+        _inner_class_types = {
+            "quote_details": QuoteDetails,
+            "subscription_details": SubscriptionDetails,
+        }
 
     class PaymentSettings(StripeObject):
         class PaymentMethodOptions(StripeObject):
@@ -807,11 +841,13 @@ class Invoice(
                     "ideal",
                     "jp_credit_transfer",
                     "kakao_pay",
+                    "klarna",
                     "konbini",
                     "kr_card",
                     "link",
                     "multibanco",
                     "naver_pay",
+                    "nz_bank_account",
                     "p24",
                     "payco",
                     "paynow",
@@ -982,13 +1018,6 @@ class Invoice(
         The time that the invoice was voided.
         """
 
-    class SubscriptionDetails(StripeObject):
-        metadata: Optional[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
-         *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
-        """
-
     class ThresholdReason(StripeObject):
         class ItemReason(StripeObject):
             line_item_ids: List[str]
@@ -1040,37 +1069,39 @@ class Invoice(
         Type of the pretax credit amount referenced.
         """
 
-    class TotalTaxAmount(StripeObject):
+    class TotalTax(StripeObject):
+        class TaxRateDetails(StripeObject):
+            tax_rate: str
+
         amount: int
         """
-        The amount, in cents (or local equivalent), of the tax.
+        The amount of the tax, in cents (or local equivalent).
         """
-        inclusive: bool
+        tax_behavior: Literal["exclusive", "inclusive"]
         """
-        Whether this tax amount is inclusive or exclusive.
+        Whether this tax is inclusive or exclusive.
         """
-        tax_rate: ExpandableField["TaxRate"]
+        tax_rate_details: Optional[TaxRateDetails]
         """
-        The tax rate that was applied to get this tax amount.
+        Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
         """
-        taxability_reason: Optional[
-            Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
-            ]
+        taxability_reason: Literal[
+            "customer_exempt",
+            "not_available",
+            "not_collecting",
+            "not_subject_to_tax",
+            "not_supported",
+            "portion_product_exempt",
+            "portion_reduced_rated",
+            "portion_standard_rated",
+            "product_exempt",
+            "product_exempt_holiday",
+            "proportionally_rated",
+            "reduced_rated",
+            "reverse_charge",
+            "standard_rated",
+            "taxable_basis_reduced",
+            "zero_rated",
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -1079,16 +1110,11 @@ class Invoice(
         """
         The amount on which tax is calculated, in cents (or local equivalent).
         """
-
-    class TransferData(StripeObject):
-        amount: Optional[int]
+        type: Literal["tax_rate_details"]
         """
-        The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
+        The type of tax information.
         """
-        destination: ExpandableField["Account"]
-        """
-        The account where funds from the payment will be transferred to upon payment success.
-        """
+        _inner_class_types = {"tax_rate_details": TaxRateDetails}
 
     class AddLinesParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -1135,13 +1161,13 @@ class Invoice(
         """
         The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required.
-        """
         price_data: NotRequired["Invoice.AddLinesParamsLinePriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        """
+        pricing: NotRequired["Invoice.AddLinesParamsLinePricing"]
+        """
+        The pricing information for the invoice item.
         """
         quantity: NotRequired[int]
         """
@@ -1189,13 +1215,13 @@ class Invoice(
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         """
         product_data: NotRequired[
             "Invoice.AddLinesParamsLinePriceDataProductData"
         ]
         """
-        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -1234,6 +1260,12 @@ class Invoice(
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
 
+    class AddLinesParamsLinePricing(TypedDict):
+        price: NotRequired[str]
+        """
+        The ID of the price object.
+        """
+
     class AddLinesParamsLineTaxAmount(TypedDict):
         amount: int
         """
@@ -1244,6 +1276,28 @@ class Invoice(
         Data to find or create a TaxRate object.
 
         Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item's `tax_rates`, and cannot be directly added to invoices, payments, or line items.
+        """
+        taxability_reason: NotRequired[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ]
+        ]
+        """
+        The reasoning behind this tax, for example, if the product is tax exempt.
         """
         taxable_amount: int
         """
@@ -1270,6 +1324,14 @@ class Invoice(
         jurisdiction: NotRequired[str]
         """
         The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
+        """
+        jurisdiction_level: NotRequired[
+            Literal[
+                "city", "country", "county", "district", "multiple", "state"
+            ]
+        ]
+        """
+        The level of the jurisdiction that imposes this tax rate.
         """
         percentage: float
         """
@@ -1515,7 +1577,7 @@ class Invoice(
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -1937,10 +1999,6 @@ class Invoice(
         """
         Settings for automatic tax lookup for this invoice preview.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         The currency to preview this invoice in. Defaults to that of `customer` if not specified.
@@ -2356,7 +2414,7 @@ class Invoice(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -2424,21 +2482,11 @@ class Invoice(
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
-        billing_thresholds: NotRequired[
-            "Literal['']|Invoice.CreatePreviewParamsScheduleDetailsPhaseBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-        """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
         """
         currency: NotRequired[str]
         """
@@ -2566,7 +2614,7 @@ class Invoice(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -2605,16 +2653,6 @@ class Invoice(
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
-        """
-
-    class CreatePreviewParamsScheduleDetailsPhaseBillingThresholds(TypedDict):
-        amount_gte: NotRequired[int]
-        """
-        Monetary threshold that triggers the subscription to advance to a new billing period
-        """
-        reset_billing_cycle_anchor: NotRequired[bool]
-        """
-        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseDiscount(TypedDict):
@@ -2660,12 +2698,6 @@ class Invoice(
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseItem(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|Invoice.CreatePreviewParamsScheduleDetailsPhaseItemBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
         discounts: NotRequired[
             "Literal['']|List[Invoice.CreatePreviewParamsScheduleDetailsPhaseItemDiscount]"
         ]
@@ -2699,14 +2731,6 @@ class Invoice(
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
 
-    class CreatePreviewParamsScheduleDetailsPhaseItemBillingThresholds(
-        TypedDict,
-    ):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
     class CreatePreviewParamsScheduleDetailsPhaseItemDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -2728,7 +2752,7 @@ class Invoice(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: "Invoice.CreatePreviewParamsScheduleDetailsPhaseItemPriceDataRecurring"
         """
@@ -2776,7 +2800,7 @@ class Invoice(
         """
         For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
         """
-        cancel_at: NotRequired["Literal['']|int"]
+        cancel_at: NotRequired["Literal['']|int|Literal['min_period_end']"]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -2822,12 +2846,6 @@ class Invoice(
         """
 
     class CreatePreviewParamsSubscriptionDetailsItem(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|Invoice.CreatePreviewParamsSubscriptionDetailsItemBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
         clear_usage: NotRequired[bool]
         """
         Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
@@ -2873,14 +2891,6 @@ class Invoice(
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
 
-    class CreatePreviewParamsSubscriptionDetailsItemBillingThresholds(
-        TypedDict,
-    ):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
     class CreatePreviewParamsSubscriptionDetailsItemDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -2902,7 +2912,7 @@ class Invoice(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: "Invoice.CreatePreviewParamsSubscriptionDetailsItemPriceDataRecurring"
         """
@@ -3239,7 +3249,7 @@ class Invoice(
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -3742,2328 +3752,6 @@ class Invoice(
         Specifies which fields in the response should be expanded.
         """
 
-    class UpcomingLinesParams(RequestOptions):
-        automatic_tax: NotRequired["Invoice.UpcomingLinesParamsAutomaticTax"]
-        """
-        Settings for automatic tax lookup for this invoice preview.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
-        currency: NotRequired[str]
-        """
-        The currency to preview this invoice in. Defaults to that of `customer` if not specified.
-        """
-        customer: NotRequired[str]
-        """
-        The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
-        """
-        customer_details: NotRequired[
-            "Invoice.UpcomingLinesParamsCustomerDetails"
-        ]
-        """
-        Details about the customer you want to invoice or overrides for an existing customer. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.UpcomingLinesParamsDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the subscription or customer. This works for both coupons directly applied to an invoice and coupons applied to a subscription. Pass an empty string to avoid inheriting any discounts.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        invoice_items: NotRequired[
-            List["Invoice.UpcomingLinesParamsInvoiceItem"]
-        ]
-        """
-        List of invoice items to add or update in the upcoming invoice preview (up to 250).
-        """
-        issuer: NotRequired["Invoice.UpcomingLinesParamsIssuer"]
-        """
-        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        on_behalf_of: NotRequired["Literal['']|str"]
-        """
-        The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
-        """
-        preview_mode: NotRequired[Literal["next", "recurring"]]
-        """
-        Customizes the types of values to include when calculating the invoice. Defaults to `next` if unspecified.
-        """
-        schedule: NotRequired[str]
-        """
-        The identifier of the schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields.
-        """
-        schedule_details: NotRequired[
-            "Invoice.UpcomingLinesParamsScheduleDetails"
-        ]
-        """
-        The schedule creation or modification params to apply as a preview. Cannot be used with `subscription` or `subscription_` prefixed fields.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        subscription: NotRequired[str]
-        """
-        The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_details.items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_details.items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions.
-        """
-        subscription_billing_cycle_anchor: NotRequired[
-            "Literal['now', 'unchanged']|int"
-        ]
-        """
-        For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.billing_cycle_anchor` instead.
-        """
-        subscription_cancel_at: NotRequired["Literal['']|int"]
-        """
-        A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at` instead.
-        """
-        subscription_cancel_at_period_end: NotRequired[bool]
-        """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
-        """
-        subscription_cancel_now: NotRequired[bool]
-        """
-        This simulates the subscription being canceled or expired immediately. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_now` instead.
-        """
-        subscription_default_tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. This field has been deprecated and will be removed in a future API version. Use `subscription_details.default_tax_rates` instead.
-        """
-        subscription_details: NotRequired[
-            "Invoice.UpcomingLinesParamsSubscriptionDetails"
-        ]
-        """
-        The subscription creation or modification params to apply as a preview. Cannot be used with `schedule` or `schedule_details` fields.
-        """
-        subscription_items: NotRequired[
-            List["Invoice.UpcomingLinesParamsSubscriptionItem"]
-        ]
-        """
-        A list of up to 20 subscription items, each with an attached price. This field has been deprecated and will be removed in a future API version. Use `subscription_details.items` instead.
-        """
-        subscription_proration_behavior: NotRequired[
-            Literal["always_invoice", "create_prorations", "none"]
-        ]
-        """
-        Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.proration_behavior` instead.
-        """
-        subscription_proration_date: NotRequired[int]
-        """
-        If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration_behavior` cannot be set to 'none'. This field has been deprecated and will be removed in a future API version. Use `subscription_details.proration_date` instead.
-        """
-        subscription_resume_at: NotRequired[Literal["now"]]
-        """
-        For paused subscriptions, setting `subscription_resume_at` to `now` will preview the invoice that will be generated if the subscription is resumed. This field has been deprecated and will be removed in a future API version. Use `subscription_details.resume_at` instead.
-        """
-        subscription_start_date: NotRequired[int]
-        """
-        Date a subscription is intended to start (can be future or past). This field has been deprecated and will be removed in a future API version. Use `subscription_details.start_date` instead.
-        """
-        subscription_trial_end: NotRequired["Literal['now']|int"]
-        """
-        If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version. Use `subscription_details.trial_end` instead.
-        """
-        subscription_trial_from_plan: NotRequired[bool]
-        """
-        Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
-        """
-
-    class UpcomingLinesParamsAutomaticTax(TypedDict):
-        enabled: bool
-        """
-        Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
-        """
-        liability: NotRequired[
-            "Invoice.UpcomingLinesParamsAutomaticTaxLiability"
-        ]
-        """
-        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-        """
-
-    class UpcomingLinesParamsAutomaticTaxLiability(TypedDict):
-        account: NotRequired[str]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class UpcomingLinesParamsCustomerDetails(TypedDict):
-        address: NotRequired[
-            "Literal['']|Invoice.UpcomingLinesParamsCustomerDetailsAddress"
-        ]
-        """
-        The customer's address.
-        """
-        shipping: NotRequired[
-            "Literal['']|Invoice.UpcomingLinesParamsCustomerDetailsShipping"
-        ]
-        """
-        The customer's shipping information. Appears on invoices emailed to this customer.
-        """
-        tax: NotRequired["Invoice.UpcomingLinesParamsCustomerDetailsTax"]
-        """
-        Tax details about the customer.
-        """
-        tax_exempt: NotRequired[
-            "Literal['']|Literal['exempt', 'none', 'reverse']"
-        ]
-        """
-        The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
-        """
-        tax_ids: NotRequired[
-            List["Invoice.UpcomingLinesParamsCustomerDetailsTaxId"]
-        ]
-        """
-        The customer's tax IDs.
-        """
-
-    class UpcomingLinesParamsCustomerDetailsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class UpcomingLinesParamsCustomerDetailsShipping(TypedDict):
-        address: "Invoice.UpcomingLinesParamsCustomerDetailsShippingAddress"
-        """
-        Customer shipping address.
-        """
-        name: str
-        """
-        Customer name.
-        """
-        phone: NotRequired[str]
-        """
-        Customer phone (including extension).
-        """
-
-    class UpcomingLinesParamsCustomerDetailsShippingAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class UpcomingLinesParamsCustomerDetailsTax(TypedDict):
-        ip_address: NotRequired["Literal['']|str"]
-        """
-        A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
-        """
-
-    class UpcomingLinesParamsCustomerDetailsTaxId(TypedDict):
-        type: Literal[
-            "ad_nrt",
-            "ae_trn",
-            "al_tin",
-            "am_tin",
-            "ao_tin",
-            "ar_cuit",
-            "au_abn",
-            "au_arn",
-            "ba_tin",
-            "bb_tin",
-            "bg_uic",
-            "bh_vat",
-            "bo_tin",
-            "br_cnpj",
-            "br_cpf",
-            "bs_tin",
-            "by_tin",
-            "ca_bn",
-            "ca_gst_hst",
-            "ca_pst_bc",
-            "ca_pst_mb",
-            "ca_pst_sk",
-            "ca_qst",
-            "cd_nif",
-            "ch_uid",
-            "ch_vat",
-            "cl_tin",
-            "cn_tin",
-            "co_nit",
-            "cr_tin",
-            "de_stn",
-            "do_rcn",
-            "ec_ruc",
-            "eg_tin",
-            "es_cif",
-            "eu_oss_vat",
-            "eu_vat",
-            "gb_vat",
-            "ge_vat",
-            "gn_nif",
-            "hk_br",
-            "hr_oib",
-            "hu_tin",
-            "id_npwp",
-            "il_vat",
-            "in_gst",
-            "is_vat",
-            "jp_cn",
-            "jp_rn",
-            "jp_trn",
-            "ke_pin",
-            "kh_tin",
-            "kr_brn",
-            "kz_bin",
-            "li_uid",
-            "li_vat",
-            "ma_vat",
-            "md_vat",
-            "me_pib",
-            "mk_vat",
-            "mr_nif",
-            "mx_rfc",
-            "my_frp",
-            "my_itn",
-            "my_sst",
-            "ng_tin",
-            "no_vat",
-            "no_voec",
-            "np_pan",
-            "nz_gst",
-            "om_vat",
-            "pe_ruc",
-            "ph_tin",
-            "ro_tin",
-            "rs_pib",
-            "ru_inn",
-            "ru_kpp",
-            "sa_vat",
-            "sg_gst",
-            "sg_uen",
-            "si_tin",
-            "sn_ninea",
-            "sr_fin",
-            "sv_nit",
-            "th_vat",
-            "tj_tin",
-            "tr_tin",
-            "tw_vat",
-            "tz_vat",
-            "ua_vat",
-            "ug_tin",
-            "us_ein",
-            "uy_ruc",
-            "uz_tin",
-            "uz_vat",
-            "ve_rif",
-            "vn_tin",
-            "za_vat",
-            "zm_tin",
-            "zw_tin",
-        ]
-        """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
-        """
-        value: str
-        """
-        Value of the tax ID.
-        """
-
-    class UpcomingLinesParamsDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingLinesParamsInvoiceItem(TypedDict):
-        amount: NotRequired[int]
-        """
-        The integer amount in cents (or local equivalent) of previewed invoice item.
-        """
-        currency: NotRequired[str]
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Only applicable to new invoice items.
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
-        """
-        discountable: NotRequired[bool]
-        """
-        Explicitly controls whether discounts apply to this invoice item. Defaults to true, except for negative invoice items.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.UpcomingLinesParamsInvoiceItemDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the invoice item in the preview.
-        """
-        invoiceitem: NotRequired[str]
-        """
-        The ID of the invoice item to update in preview. If not specified, a new invoice item will be added to the preview of the upcoming invoice.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        period: NotRequired["Invoice.UpcomingLinesParamsInvoiceItemPeriod"]
-        """
-        The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required.
-        """
-        price_data: NotRequired[
-            "Invoice.UpcomingLinesParamsInvoiceItemPriceData"
-        ]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
-        """
-        quantity: NotRequired[int]
-        """
-        Non-negative integer. The quantity of units for the invoice item.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        tax_code: NotRequired["Literal['']|str"]
-        """
-        A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        The tax rates that apply to the item. When set, any `default_tax_rates` do not apply to this item.
-        """
-        unit_amount: NotRequired[int]
-        """
-        The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class UpcomingLinesParamsInvoiceItemDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingLinesParamsInvoiceItemPeriod(TypedDict):
-        end: int
-        """
-        The end of the period, which must be greater than or equal to the start. This value is inclusive.
-        """
-        start: int
-        """
-        The start of the period. This value is inclusive.
-        """
-
-    class UpcomingLinesParamsInvoiceItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class UpcomingLinesParamsIssuer(TypedDict):
-        account: NotRequired[str]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class UpcomingLinesParamsScheduleDetails(TypedDict):
-        end_behavior: NotRequired[Literal["cancel", "release"]]
-        """
-        Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
-        """
-        phases: NotRequired[
-            List["Invoice.UpcomingLinesParamsScheduleDetailsPhase"]
-        ]
-        """
-        List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
-        """
-        proration_behavior: NotRequired[
-            Literal["always_invoice", "create_prorations", "none"]
-        ]
-        """
-        In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhase(TypedDict):
-        add_invoice_items: NotRequired[
-            List[
-                "Invoice.UpcomingLinesParamsScheduleDetailsPhaseAddInvoiceItem"
-            ]
-        ]
-        """
-        A list of prices and quantities that will generate invoice items appended to the next invoice for this phase. You may pass up to 20 items.
-        """
-        application_fee_percent: NotRequired[float]
-        """
-        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
-        """
-        automatic_tax: NotRequired[
-            "Invoice.UpcomingLinesParamsScheduleDetailsPhaseAutomaticTax"
-        ]
-        """
-        Automatic tax settings for this phase.
-        """
-        billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
-        """
-        Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
-        """
-        billing_thresholds: NotRequired[
-            "Literal['']|Invoice.UpcomingLinesParamsScheduleDetailsPhaseBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-        """
-        collection_method: NotRequired[
-            Literal["charge_automatically", "send_invoice"]
-        ]
-        """
-        Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
-        currency: NotRequired[str]
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        default_payment_method: NotRequired[str]
-        """
-        ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
-        """
-        default_tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will set the Subscription's [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates), which means they will be the Invoice's [`default_tax_rates`](https://stripe.com/docs/api/invoices/create#create_invoice-default_tax_rates) for any Invoices issued by the Subscription during this Phase.
-        """
-        description: NotRequired["Literal['']|str"]
-        """
-        Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.UpcomingLinesParamsScheduleDetailsPhaseDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
-        """
-        end_date: NotRequired["int|Literal['now']"]
-        """
-        The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
-        """
-        invoice_settings: NotRequired[
-            "Invoice.UpcomingLinesParamsScheduleDetailsPhaseInvoiceSettings"
-        ]
-        """
-        All invoices will be billed using the specified settings.
-        """
-        items: List["Invoice.UpcomingLinesParamsScheduleDetailsPhaseItem"]
-        """
-        List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
-        """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
-        """
-        on_behalf_of: NotRequired[str]
-        """
-        The account on behalf of which to charge, for each of the associated subscription's invoices.
-        """
-        proration_behavior: NotRequired[
-            Literal["always_invoice", "create_prorations", "none"]
-        ]
-        """
-        Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
-        """
-        start_date: NotRequired["int|Literal['now']"]
-        """
-        The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
-        """
-        transfer_data: NotRequired[
-            "Invoice.UpcomingLinesParamsScheduleDetailsPhaseTransferData"
-        ]
-        """
-        The data with which to automatically create a Transfer for each of the associated subscription's invoices.
-        """
-        trial: NotRequired[bool]
-        """
-        If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
-        """
-        trial_end: NotRequired["int|Literal['now']"]
-        """
-        Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseAddInvoiceItem(TypedDict):
-        discounts: NotRequired[
-            List[
-                "Invoice.UpcomingLinesParamsScheduleDetailsPhaseAddInvoiceItemDiscount"
-            ]
-        ]
-        """
-        The coupons to redeem into discounts for the item.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required.
-        """
-        price_data: NotRequired[
-            "Invoice.UpcomingLinesParamsScheduleDetailsPhaseAddInvoiceItemPriceData"
-        ]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
-        """
-        quantity: NotRequired[int]
-        """
-        Quantity for this item. Defaults to 1.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseAddInvoiceItemDiscount(
-        TypedDict,
-    ):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseAddInvoiceItemPriceData(
-        TypedDict,
-    ):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge or a negative integer representing the amount to credit to the customer.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseAutomaticTax(TypedDict):
-        enabled: bool
-        """
-        Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
-        """
-        liability: NotRequired[
-            "Invoice.UpcomingLinesParamsScheduleDetailsPhaseAutomaticTaxLiability"
-        ]
-        """
-        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseAutomaticTaxLiability(
-        TypedDict,
-    ):
-        account: NotRequired[str]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseBillingThresholds(TypedDict):
-        amount_gte: NotRequired[int]
-        """
-        Monetary threshold that triggers the subscription to advance to a new billing period
-        """
-        reset_billing_cycle_anchor: NotRequired[bool]
-        """
-        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseInvoiceSettings(TypedDict):
-        account_tax_ids: NotRequired["Literal['']|List[str]"]
-        """
-        The account tax IDs associated with this phase of the subscription schedule. Will be set on invoices generated by this phase of the subscription schedule.
-        """
-        days_until_due: NotRequired[int]
-        """
-        Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
-        """
-        issuer: NotRequired[
-            "Invoice.UpcomingLinesParamsScheduleDetailsPhaseInvoiceSettingsIssuer"
-        ]
-        """
-        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseInvoiceSettingsIssuer(
-        TypedDict,
-    ):
-        account: NotRequired[str]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseItem(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|Invoice.UpcomingLinesParamsScheduleDetailsPhaseItemBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.UpcomingLinesParamsScheduleDetailsPhaseItemDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the subscription item.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
-        """
-        plan: NotRequired[str]
-        """
-        The plan ID to subscribe to. You may specify the same ID in `plan` and `price`.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object.
-        """
-        price_data: NotRequired[
-            "Invoice.UpcomingLinesParamsScheduleDetailsPhaseItemPriceData"
-        ]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
-        """
-        quantity: NotRequired[int]
-        """
-        Quantity for the given price. Can be set only if the price's `usage_type` is `licensed` and not `metered`.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseItemBillingThresholds(
-        TypedDict,
-    ):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseItemDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        recurring: "Invoice.UpcomingLinesParamsScheduleDetailsPhaseItemPriceDataRecurring"
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseItemPriceDataRecurring(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired[int]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
-        """
-
-    class UpcomingLinesParamsScheduleDetailsPhaseTransferData(TypedDict):
-        amount_percent: NotRequired[float]
-        """
-        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
-        """
-        destination: str
-        """
-        ID of an existing, connected Stripe account.
-        """
-
-    class UpcomingLinesParamsSubscriptionDetails(TypedDict):
-        billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|int"]
-        """
-        For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
-        """
-        cancel_at: NotRequired["Literal['']|int"]
-        """
-        A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
-        """
-        cancel_at_period_end: NotRequired[bool]
-        """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
-        """
-        cancel_now: NotRequired[bool]
-        """
-        This simulates the subscription being canceled or expired immediately.
-        """
-        default_tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set.
-        """
-        items: NotRequired[
-            List["Invoice.UpcomingLinesParamsSubscriptionDetailsItem"]
-        ]
-        """
-        A list of up to 20 subscription items, each with an attached price.
-        """
-        proration_behavior: NotRequired[
-            Literal["always_invoice", "create_prorations", "none"]
-        ]
-        """
-        Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
-        """
-        proration_date: NotRequired[int]
-        """
-        If previewing an update to a subscription, and doing proration, `subscription_details.proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_details.items`, or `subscription_details.trial_end` are required. Also, `subscription_details.proration_behavior` cannot be set to 'none'.
-        """
-        resume_at: NotRequired[Literal["now"]]
-        """
-        For paused subscriptions, setting `subscription_details.resume_at` to `now` will preview the invoice that will be generated if the subscription is resumed.
-        """
-        start_date: NotRequired[int]
-        """
-        Date a subscription is intended to start (can be future or past).
-        """
-        trial_end: NotRequired["Literal['now']|int"]
-        """
-        If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_details.items` or `subscription` is required.
-        """
-
-    class UpcomingLinesParamsSubscriptionDetailsItem(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|Invoice.UpcomingLinesParamsSubscriptionDetailsItemBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
-        clear_usage: NotRequired[bool]
-        """
-        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
-        """
-        deleted: NotRequired[bool]
-        """
-        A flag that, if set to `true`, will delete the specified item.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.UpcomingLinesParamsSubscriptionDetailsItemDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the subscription item.
-        """
-        id: NotRequired[str]
-        """
-        Subscription item to update.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        plan: NotRequired[str]
-        """
-        Plan ID for this item, as a string.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
-        """
-        price_data: NotRequired[
-            "Invoice.UpcomingLinesParamsSubscriptionDetailsItemPriceData"
-        ]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
-        """
-        quantity: NotRequired[int]
-        """
-        Quantity for this item.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
-        """
-
-    class UpcomingLinesParamsSubscriptionDetailsItemBillingThresholds(
-        TypedDict,
-    ):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
-    class UpcomingLinesParamsSubscriptionDetailsItemDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingLinesParamsSubscriptionDetailsItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        recurring: "Invoice.UpcomingLinesParamsSubscriptionDetailsItemPriceDataRecurring"
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class UpcomingLinesParamsSubscriptionDetailsItemPriceDataRecurring(
-        TypedDict,
-    ):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired[int]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
-        """
-
-    class UpcomingLinesParamsSubscriptionItem(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|Invoice.UpcomingLinesParamsSubscriptionItemBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
-        clear_usage: NotRequired[bool]
-        """
-        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
-        """
-        deleted: NotRequired[bool]
-        """
-        A flag that, if set to `true`, will delete the specified item.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.UpcomingLinesParamsSubscriptionItemDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the subscription item.
-        """
-        id: NotRequired[str]
-        """
-        Subscription item to update.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        plan: NotRequired[str]
-        """
-        Plan ID for this item, as a string.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
-        """
-        price_data: NotRequired[
-            "Invoice.UpcomingLinesParamsSubscriptionItemPriceData"
-        ]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
-        """
-        quantity: NotRequired[int]
-        """
-        Quantity for this item.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
-        """
-
-    class UpcomingLinesParamsSubscriptionItemBillingThresholds(TypedDict):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
-    class UpcomingLinesParamsSubscriptionItemDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingLinesParamsSubscriptionItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        recurring: (
-            "Invoice.UpcomingLinesParamsSubscriptionItemPriceDataRecurring"
-        )
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class UpcomingLinesParamsSubscriptionItemPriceDataRecurring(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired[int]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
-        """
-
-    class UpcomingParams(RequestOptions):
-        automatic_tax: NotRequired["Invoice.UpcomingParamsAutomaticTax"]
-        """
-        Settings for automatic tax lookup for this invoice preview.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
-        currency: NotRequired[str]
-        """
-        The currency to preview this invoice in. Defaults to that of `customer` if not specified.
-        """
-        customer: NotRequired[str]
-        """
-        The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
-        """
-        customer_details: NotRequired["Invoice.UpcomingParamsCustomerDetails"]
-        """
-        Details about the customer you want to invoice or overrides for an existing customer. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.UpcomingParamsDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the invoice preview. If not specified, inherits the discount from the subscription or customer. This works for both coupons directly applied to an invoice and coupons applied to a subscription. Pass an empty string to avoid inheriting any discounts.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        invoice_items: NotRequired[List["Invoice.UpcomingParamsInvoiceItem"]]
-        """
-        List of invoice items to add or update in the upcoming invoice preview (up to 250).
-        """
-        issuer: NotRequired["Invoice.UpcomingParamsIssuer"]
-        """
-        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-        """
-        on_behalf_of: NotRequired["Literal['']|str"]
-        """
-        The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
-        """
-        preview_mode: NotRequired[Literal["next", "recurring"]]
-        """
-        Customizes the types of values to include when calculating the invoice. Defaults to `next` if unspecified.
-        """
-        schedule: NotRequired[str]
-        """
-        The identifier of the schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields.
-        """
-        schedule_details: NotRequired["Invoice.UpcomingParamsScheduleDetails"]
-        """
-        The schedule creation or modification params to apply as a preview. Cannot be used with `subscription` or `subscription_` prefixed fields.
-        """
-        subscription: NotRequired[str]
-        """
-        The identifier of the subscription for which you'd like to retrieve the upcoming invoice. If not provided, but a `subscription_details.items` is provided, you will preview creating a subscription with those items. If neither `subscription` nor `subscription_details.items` is provided, you will retrieve the next upcoming invoice from among the customer's subscriptions.
-        """
-        subscription_billing_cycle_anchor: NotRequired[
-            "Literal['now', 'unchanged']|int"
-        ]
-        """
-        For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.billing_cycle_anchor` instead.
-        """
-        subscription_cancel_at: NotRequired["Literal['']|int"]
-        """
-        A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at` instead.
-        """
-        subscription_cancel_at_period_end: NotRequired[bool]
-        """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
-        """
-        subscription_cancel_now: NotRequired[bool]
-        """
-        This simulates the subscription being canceled or expired immediately. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_now` instead.
-        """
-        subscription_default_tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. This field has been deprecated and will be removed in a future API version. Use `subscription_details.default_tax_rates` instead.
-        """
-        subscription_details: NotRequired[
-            "Invoice.UpcomingParamsSubscriptionDetails"
-        ]
-        """
-        The subscription creation or modification params to apply as a preview. Cannot be used with `schedule` or `schedule_details` fields.
-        """
-        subscription_items: NotRequired[
-            List["Invoice.UpcomingParamsSubscriptionItem"]
-        ]
-        """
-        A list of up to 20 subscription items, each with an attached price. This field has been deprecated and will be removed in a future API version. Use `subscription_details.items` instead.
-        """
-        subscription_proration_behavior: NotRequired[
-            Literal["always_invoice", "create_prorations", "none"]
-        ]
-        """
-        Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.proration_behavior` instead.
-        """
-        subscription_proration_date: NotRequired[int]
-        """
-        If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration_behavior` cannot be set to 'none'. This field has been deprecated and will be removed in a future API version. Use `subscription_details.proration_date` instead.
-        """
-        subscription_resume_at: NotRequired[Literal["now"]]
-        """
-        For paused subscriptions, setting `subscription_resume_at` to `now` will preview the invoice that will be generated if the subscription is resumed. This field has been deprecated and will be removed in a future API version. Use `subscription_details.resume_at` instead.
-        """
-        subscription_start_date: NotRequired[int]
-        """
-        Date a subscription is intended to start (can be future or past). This field has been deprecated and will be removed in a future API version. Use `subscription_details.start_date` instead.
-        """
-        subscription_trial_end: NotRequired["Literal['now']|int"]
-        """
-        If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version. Use `subscription_details.trial_end` instead.
-        """
-        subscription_trial_from_plan: NotRequired[bool]
-        """
-        Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
-        """
-
-    class UpcomingParamsAutomaticTax(TypedDict):
-        enabled: bool
-        """
-        Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
-        """
-        liability: NotRequired["Invoice.UpcomingParamsAutomaticTaxLiability"]
-        """
-        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-        """
-
-    class UpcomingParamsAutomaticTaxLiability(TypedDict):
-        account: NotRequired[str]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class UpcomingParamsCustomerDetails(TypedDict):
-        address: NotRequired[
-            "Literal['']|Invoice.UpcomingParamsCustomerDetailsAddress"
-        ]
-        """
-        The customer's address.
-        """
-        shipping: NotRequired[
-            "Literal['']|Invoice.UpcomingParamsCustomerDetailsShipping"
-        ]
-        """
-        The customer's shipping information. Appears on invoices emailed to this customer.
-        """
-        tax: NotRequired["Invoice.UpcomingParamsCustomerDetailsTax"]
-        """
-        Tax details about the customer.
-        """
-        tax_exempt: NotRequired[
-            "Literal['']|Literal['exempt', 'none', 'reverse']"
-        ]
-        """
-        The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
-        """
-        tax_ids: NotRequired[
-            List["Invoice.UpcomingParamsCustomerDetailsTaxId"]
-        ]
-        """
-        The customer's tax IDs.
-        """
-
-    class UpcomingParamsCustomerDetailsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class UpcomingParamsCustomerDetailsShipping(TypedDict):
-        address: "Invoice.UpcomingParamsCustomerDetailsShippingAddress"
-        """
-        Customer shipping address.
-        """
-        name: str
-        """
-        Customer name.
-        """
-        phone: NotRequired[str]
-        """
-        Customer phone (including extension).
-        """
-
-    class UpcomingParamsCustomerDetailsShippingAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1 (e.g., street, PO Box, or company name).
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2 (e.g., apartment, suite, unit, or building).
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class UpcomingParamsCustomerDetailsTax(TypedDict):
-        ip_address: NotRequired["Literal['']|str"]
-        """
-        A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
-        """
-
-    class UpcomingParamsCustomerDetailsTaxId(TypedDict):
-        type: Literal[
-            "ad_nrt",
-            "ae_trn",
-            "al_tin",
-            "am_tin",
-            "ao_tin",
-            "ar_cuit",
-            "au_abn",
-            "au_arn",
-            "ba_tin",
-            "bb_tin",
-            "bg_uic",
-            "bh_vat",
-            "bo_tin",
-            "br_cnpj",
-            "br_cpf",
-            "bs_tin",
-            "by_tin",
-            "ca_bn",
-            "ca_gst_hst",
-            "ca_pst_bc",
-            "ca_pst_mb",
-            "ca_pst_sk",
-            "ca_qst",
-            "cd_nif",
-            "ch_uid",
-            "ch_vat",
-            "cl_tin",
-            "cn_tin",
-            "co_nit",
-            "cr_tin",
-            "de_stn",
-            "do_rcn",
-            "ec_ruc",
-            "eg_tin",
-            "es_cif",
-            "eu_oss_vat",
-            "eu_vat",
-            "gb_vat",
-            "ge_vat",
-            "gn_nif",
-            "hk_br",
-            "hr_oib",
-            "hu_tin",
-            "id_npwp",
-            "il_vat",
-            "in_gst",
-            "is_vat",
-            "jp_cn",
-            "jp_rn",
-            "jp_trn",
-            "ke_pin",
-            "kh_tin",
-            "kr_brn",
-            "kz_bin",
-            "li_uid",
-            "li_vat",
-            "ma_vat",
-            "md_vat",
-            "me_pib",
-            "mk_vat",
-            "mr_nif",
-            "mx_rfc",
-            "my_frp",
-            "my_itn",
-            "my_sst",
-            "ng_tin",
-            "no_vat",
-            "no_voec",
-            "np_pan",
-            "nz_gst",
-            "om_vat",
-            "pe_ruc",
-            "ph_tin",
-            "ro_tin",
-            "rs_pib",
-            "ru_inn",
-            "ru_kpp",
-            "sa_vat",
-            "sg_gst",
-            "sg_uen",
-            "si_tin",
-            "sn_ninea",
-            "sr_fin",
-            "sv_nit",
-            "th_vat",
-            "tj_tin",
-            "tr_tin",
-            "tw_vat",
-            "tz_vat",
-            "ua_vat",
-            "ug_tin",
-            "us_ein",
-            "uy_ruc",
-            "uz_tin",
-            "uz_vat",
-            "ve_rif",
-            "vn_tin",
-            "za_vat",
-            "zm_tin",
-            "zw_tin",
-        ]
-        """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
-        """
-        value: str
-        """
-        Value of the tax ID.
-        """
-
-    class UpcomingParamsDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsInvoiceItem(TypedDict):
-        amount: NotRequired[int]
-        """
-        The integer amount in cents (or local equivalent) of previewed invoice item.
-        """
-        currency: NotRequired[str]
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Only applicable to new invoice items.
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
-        """
-        discountable: NotRequired[bool]
-        """
-        Explicitly controls whether discounts apply to this invoice item. Defaults to true, except for negative invoice items.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.UpcomingParamsInvoiceItemDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the invoice item in the preview.
-        """
-        invoiceitem: NotRequired[str]
-        """
-        The ID of the invoice item to update in preview. If not specified, a new invoice item will be added to the preview of the upcoming invoice.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        period: NotRequired["Invoice.UpcomingParamsInvoiceItemPeriod"]
-        """
-        The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required.
-        """
-        price_data: NotRequired["Invoice.UpcomingParamsInvoiceItemPriceData"]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
-        """
-        quantity: NotRequired[int]
-        """
-        Non-negative integer. The quantity of units for the invoice item.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        tax_code: NotRequired["Literal['']|str"]
-        """
-        A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        The tax rates that apply to the item. When set, any `default_tax_rates` do not apply to this item.
-        """
-        unit_amount: NotRequired[int]
-        """
-        The integer unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This unit_amount will be multiplied by the quantity to get the full amount. If you want to apply a credit to the customer's account, pass a negative unit_amount.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class UpcomingParamsInvoiceItemDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsInvoiceItemPeriod(TypedDict):
-        end: int
-        """
-        The end of the period, which must be greater than or equal to the start. This value is inclusive.
-        """
-        start: int
-        """
-        The start of the period. This value is inclusive.
-        """
-
-    class UpcomingParamsInvoiceItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class UpcomingParamsIssuer(TypedDict):
-        account: NotRequired[str]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class UpcomingParamsScheduleDetails(TypedDict):
-        end_behavior: NotRequired[Literal["cancel", "release"]]
-        """
-        Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
-        """
-        phases: NotRequired[List["Invoice.UpcomingParamsScheduleDetailsPhase"]]
-        """
-        List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
-        """
-        proration_behavior: NotRequired[
-            Literal["always_invoice", "create_prorations", "none"]
-        ]
-        """
-        In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
-        """
-
-    class UpcomingParamsScheduleDetailsPhase(TypedDict):
-        add_invoice_items: NotRequired[
-            List["Invoice.UpcomingParamsScheduleDetailsPhaseAddInvoiceItem"]
-        ]
-        """
-        A list of prices and quantities that will generate invoice items appended to the next invoice for this phase. You may pass up to 20 items.
-        """
-        application_fee_percent: NotRequired[float]
-        """
-        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. The request must be made by a platform account on a connected account in order to set an application fee percentage. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
-        """
-        automatic_tax: NotRequired[
-            "Invoice.UpcomingParamsScheduleDetailsPhaseAutomaticTax"
-        ]
-        """
-        Automatic tax settings for this phase.
-        """
-        billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
-        """
-        Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
-        """
-        billing_thresholds: NotRequired[
-            "Literal['']|Invoice.UpcomingParamsScheduleDetailsPhaseBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
-        """
-        collection_method: NotRequired[
-            Literal["charge_automatically", "send_invoice"]
-        ]
-        """
-        Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
-        """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
-        currency: NotRequired[str]
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        default_payment_method: NotRequired[str]
-        """
-        ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
-        """
-        default_tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will set the Subscription's [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates), which means they will be the Invoice's [`default_tax_rates`](https://stripe.com/docs/api/invoices/create#create_invoice-default_tax_rates) for any Invoices issued by the Subscription during this Phase.
-        """
-        description: NotRequired["Literal['']|str"]
-        """
-        Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.UpcomingParamsScheduleDetailsPhaseDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
-        """
-        end_date: NotRequired["int|Literal['now']"]
-        """
-        The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
-        """
-        invoice_settings: NotRequired[
-            "Invoice.UpcomingParamsScheduleDetailsPhaseInvoiceSettings"
-        ]
-        """
-        All invoices will be billed using the specified settings.
-        """
-        items: List["Invoice.UpcomingParamsScheduleDetailsPhaseItem"]
-        """
-        List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
-        """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
-        """
-        on_behalf_of: NotRequired[str]
-        """
-        The account on behalf of which to charge, for each of the associated subscription's invoices.
-        """
-        proration_behavior: NotRequired[
-            Literal["always_invoice", "create_prorations", "none"]
-        ]
-        """
-        Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
-        """
-        start_date: NotRequired["int|Literal['now']"]
-        """
-        The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
-        """
-        transfer_data: NotRequired[
-            "Invoice.UpcomingParamsScheduleDetailsPhaseTransferData"
-        ]
-        """
-        The data with which to automatically create a Transfer for each of the associated subscription's invoices.
-        """
-        trial: NotRequired[bool]
-        """
-        If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
-        """
-        trial_end: NotRequired["int|Literal['now']"]
-        """
-        Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseAddInvoiceItem(TypedDict):
-        discounts: NotRequired[
-            List[
-                "Invoice.UpcomingParamsScheduleDetailsPhaseAddInvoiceItemDiscount"
-            ]
-        ]
-        """
-        The coupons to redeem into discounts for the item.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required.
-        """
-        price_data: NotRequired[
-            "Invoice.UpcomingParamsScheduleDetailsPhaseAddInvoiceItemPriceData"
-        ]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
-        """
-        quantity: NotRequired[int]
-        """
-        Quantity for this item. Defaults to 1.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseAddInvoiceItemDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseAddInvoiceItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge or a negative integer representing the amount to credit to the customer.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseAutomaticTax(TypedDict):
-        enabled: bool
-        """
-        Enabled automatic tax calculation which will automatically compute tax rates on all invoices generated by the subscription.
-        """
-        liability: NotRequired[
-            "Invoice.UpcomingParamsScheduleDetailsPhaseAutomaticTaxLiability"
-        ]
-        """
-        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseAutomaticTaxLiability(TypedDict):
-        account: NotRequired[str]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseBillingThresholds(TypedDict):
-        amount_gte: NotRequired[int]
-        """
-        Monetary threshold that triggers the subscription to advance to a new billing period
-        """
-        reset_billing_cycle_anchor: NotRequired[bool]
-        """
-        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseInvoiceSettings(TypedDict):
-        account_tax_ids: NotRequired["Literal['']|List[str]"]
-        """
-        The account tax IDs associated with this phase of the subscription schedule. Will be set on invoices generated by this phase of the subscription schedule.
-        """
-        days_until_due: NotRequired[int]
-        """
-        Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
-        """
-        issuer: NotRequired[
-            "Invoice.UpcomingParamsScheduleDetailsPhaseInvoiceSettingsIssuer"
-        ]
-        """
-        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseInvoiceSettingsIssuer(TypedDict):
-        account: NotRequired[str]
-        """
-        The connected account being referenced when `type` is `account`.
-        """
-        type: Literal["account", "self"]
-        """
-        Type of the account referenced in the request.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseItem(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|Invoice.UpcomingParamsScheduleDetailsPhaseItemBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.UpcomingParamsScheduleDetailsPhaseItemDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the subscription item.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
-        """
-        plan: NotRequired[str]
-        """
-        The plan ID to subscribe to. You may specify the same ID in `plan` and `price`.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object.
-        """
-        price_data: NotRequired[
-            "Invoice.UpcomingParamsScheduleDetailsPhaseItemPriceData"
-        ]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
-        """
-        quantity: NotRequired[int]
-        """
-        Quantity for the given price. Can be set only if the price's `usage_type` is `licensed` and not `metered`.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseItemBillingThresholds(TypedDict):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseItemDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        recurring: (
-            "Invoice.UpcomingParamsScheduleDetailsPhaseItemPriceDataRecurring"
-        )
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseItemPriceDataRecurring(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired[int]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
-        """
-
-    class UpcomingParamsScheduleDetailsPhaseTransferData(TypedDict):
-        amount_percent: NotRequired[float]
-        """
-        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
-        """
-        destination: str
-        """
-        ID of an existing, connected Stripe account.
-        """
-
-    class UpcomingParamsSubscriptionDetails(TypedDict):
-        billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|int"]
-        """
-        For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
-        """
-        cancel_at: NotRequired["Literal['']|int"]
-        """
-        A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
-        """
-        cancel_at_period_end: NotRequired[bool]
-        """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
-        """
-        cancel_now: NotRequired[bool]
-        """
-        This simulates the subscription being canceled or expired immediately.
-        """
-        default_tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set.
-        """
-        items: NotRequired[
-            List["Invoice.UpcomingParamsSubscriptionDetailsItem"]
-        ]
-        """
-        A list of up to 20 subscription items, each with an attached price.
-        """
-        proration_behavior: NotRequired[
-            Literal["always_invoice", "create_prorations", "none"]
-        ]
-        """
-        Determines how to handle [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
-        """
-        proration_date: NotRequired[int]
-        """
-        If previewing an update to a subscription, and doing proration, `subscription_details.proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_details.items`, or `subscription_details.trial_end` are required. Also, `subscription_details.proration_behavior` cannot be set to 'none'.
-        """
-        resume_at: NotRequired[Literal["now"]]
-        """
-        For paused subscriptions, setting `subscription_details.resume_at` to `now` will preview the invoice that will be generated if the subscription is resumed.
-        """
-        start_date: NotRequired[int]
-        """
-        Date a subscription is intended to start (can be future or past).
-        """
-        trial_end: NotRequired["Literal['now']|int"]
-        """
-        If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_details.items` or `subscription` is required.
-        """
-
-    class UpcomingParamsSubscriptionDetailsItem(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|Invoice.UpcomingParamsSubscriptionDetailsItemBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
-        clear_usage: NotRequired[bool]
-        """
-        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
-        """
-        deleted: NotRequired[bool]
-        """
-        A flag that, if set to `true`, will delete the specified item.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.UpcomingParamsSubscriptionDetailsItemDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the subscription item.
-        """
-        id: NotRequired[str]
-        """
-        Subscription item to update.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        plan: NotRequired[str]
-        """
-        Plan ID for this item, as a string.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
-        """
-        price_data: NotRequired[
-            "Invoice.UpcomingParamsSubscriptionDetailsItemPriceData"
-        ]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
-        """
-        quantity: NotRequired[int]
-        """
-        Quantity for this item.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
-        """
-
-    class UpcomingParamsSubscriptionDetailsItemBillingThresholds(TypedDict):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
-    class UpcomingParamsSubscriptionDetailsItemDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsSubscriptionDetailsItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        recurring: (
-            "Invoice.UpcomingParamsSubscriptionDetailsItemPriceDataRecurring"
-        )
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class UpcomingParamsSubscriptionDetailsItemPriceDataRecurring(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired[int]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
-        """
-
-    class UpcomingParamsSubscriptionItem(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|Invoice.UpcomingParamsSubscriptionItemBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
-        clear_usage: NotRequired[bool]
-        """
-        Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
-        """
-        deleted: NotRequired[bool]
-        """
-        A flag that, if set to `true`, will delete the specified item.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.UpcomingParamsSubscriptionItemDiscount]"
-        ]
-        """
-        The coupons to redeem into discounts for the subscription item.
-        """
-        id: NotRequired[str]
-        """
-        Subscription item to update.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        plan: NotRequired[str]
-        """
-        Plan ID for this item, as a string.
-        """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
-        """
-        price_data: NotRequired[
-            "Invoice.UpcomingParamsSubscriptionItemPriceData"
-        ]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
-        """
-        quantity: NotRequired[int]
-        """
-        Quantity for this item.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
-        """
-
-    class UpcomingParamsSubscriptionItemBillingThresholds(TypedDict):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
-    class UpcomingParamsSubscriptionItemDiscount(TypedDict):
-        coupon: NotRequired[str]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired[str]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-        promotion_code: NotRequired[str]
-        """
-        ID of the promotion code to create a new discount for.
-        """
-
-    class UpcomingParamsSubscriptionItemPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: str
-        """
-        The ID of the product that this price will belong to.
-        """
-        recurring: "Invoice.UpcomingParamsSubscriptionItemPriceDataRecurring"
-        """
-        The recurring components of a price such as `interval` and `interval_count`.
-        """
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-        """
-        unit_amount_decimal: NotRequired[str]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class UpcomingParamsSubscriptionItemPriceDataRecurring(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
-        """
-        interval_count: NotRequired[int]
-        """
-        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
-        """
-
     class UpdateLinesParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -6109,13 +3797,13 @@ class Invoice(
         """
         The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required.
-        """
         price_data: NotRequired["Invoice.UpdateLinesParamsLinePriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        """
+        pricing: NotRequired["Invoice.UpdateLinesParamsLinePricing"]
+        """
+        The pricing information for the invoice item.
         """
         quantity: NotRequired[int]
         """
@@ -6163,13 +3851,13 @@ class Invoice(
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         """
         product_data: NotRequired[
             "Invoice.UpdateLinesParamsLinePriceDataProductData"
         ]
         """
-        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -6208,6 +3896,12 @@ class Invoice(
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
 
+    class UpdateLinesParamsLinePricing(TypedDict):
+        price: NotRequired[str]
+        """
+        The ID of the price object.
+        """
+
     class UpdateLinesParamsLineTaxAmount(TypedDict):
         amount: int
         """
@@ -6218,6 +3912,28 @@ class Invoice(
         Data to find or create a TaxRate object.
 
         Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item's `tax_rates`, and cannot be directly added to invoices, payments, or line items.
+        """
+        taxability_reason: NotRequired[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ]
+        ]
+        """
+        The reasoning behind this tax, for example, if the product is tax exempt.
         """
         taxable_amount: int
         """
@@ -6244,6 +3960,14 @@ class Invoice(
         jurisdiction: NotRequired[str]
         """
         The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
+        """
+        jurisdiction_level: NotRequired[
+            Literal[
+                "city", "country", "county", "district", "multiple", "state"
+            ]
+        ]
+        """
+        The level of the jurisdiction that imposes this tax rate.
         """
         percentage: float
         """
@@ -6297,6 +4021,10 @@ class Invoice(
     """
     Final amount due at this time for this invoice. If the invoice's total is smaller than the minimum charge amount, for example, or if there is account credit that can be applied to the invoice, the `amount_due` may be 0. If there is a positive `starting_balance` for the invoice (the customer owes money), the `amount_due` will also take that into account. The charge that gets generated for the invoice will be for the amount specified in `amount_due`.
     """
+    amount_overpaid: int
+    """
+    Amount that was overpaid on the invoice. The amount overpaid is credited to the customer's credit balance.
+    """
     amount_paid: int
     """
     The amount, in cents (or local equivalent), that was paid.
@@ -6312,10 +4040,6 @@ class Invoice(
     application: Optional[ExpandableField["Application"]]
     """
     ID of the Connect Application that created the invoice.
-    """
-    application_fee_amount: Optional[int]
-    """
-    The fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account when the invoice is paid.
     """
     attempt_count: int
     """
@@ -6358,13 +4082,13 @@ class Invoice(
     * `subscription_update`: A subscription was updated.
     * `upcoming`: Reserved for simulated invoices, per the upcoming invoice endpoint.
     """
-    charge: Optional[ExpandableField["Charge"]]
-    """
-    ID of the latest charge generated for this invoice, if any.
-    """
     collection_method: Literal["charge_automatically", "send_invoice"]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
+    """
+    confirmation_secret: Optional[ConfirmationSecret]
+    """
+    The confirmation secret associated with this invoice. Currently, this contains the client_secret of the PaymentIntent that Stripe creates during invoice finalization.
     """
     created: int
     """
@@ -6429,10 +4153,6 @@ class Invoice(
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users. Referenced as 'memo' in the Dashboard.
-    """
-    discount: Optional["Discount"]
-    """
-    Describes the current discount applied to this invoice, if there is one. Not populated if there are multiple discounts.
     """
     discounts: List[ExpandableField["Discount"]]
     """
@@ -6507,19 +4227,12 @@ class Invoice(
     """
     The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
     """
-    paid: bool
-    """
-    Whether payment was successfully collected for this invoice. An invoice can be paid (most commonly) with a charge or with credit from the customer's account balance.
-    """
-    paid_out_of_band: bool
-    """
-    Returns true if the invoice was manually marked paid, returns false if the invoice hasn't been paid yet or was paid on Stripe.
-    """
-    payment_intent: Optional[ExpandableField["PaymentIntent"]]
-    """
-    The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized, and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent.
-    """
+    parent: Optional[Parent]
     payment_settings: PaymentSettings
+    payments: Optional[ListObject["InvoicePayment"]]
+    """
+    Payments for this invoice
+    """
     period_end: int
     """
     End of the usage period during which invoice items were added to this invoice. This looks back one period for a subscription invoice. Use the [line item period](https://stripe.com/api/invoices/line_item#invoice_line_item_object-period) to get the service period for each price.
@@ -6535,10 +4248,6 @@ class Invoice(
     pre_payment_credit_notes_amount: int
     """
     Total amount of all pre-payment credit notes issued for this invoice.
-    """
-    quote: Optional[ExpandableField["Quote"]]
-    """
-    The quote this invoice was generated from.
     """
     receipt_number: Optional[str]
     """
@@ -6570,17 +4279,6 @@ class Invoice(
     """
     status_transitions: StatusTransitions
     subscription: Optional[ExpandableField["Subscription"]]
-    """
-    The subscription that this invoice was prepared for, if any.
-    """
-    subscription_details: Optional[SubscriptionDetails]
-    """
-    Details about the subscription that created this invoice.
-    """
-    subscription_proration_date: Optional[int]
-    """
-    Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
-    """
     subtotal: int
     """
     Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or exclusive tax is applied. Item discounts are already incorporated
@@ -6588,10 +4286,6 @@ class Invoice(
     subtotal_excluding_tax: Optional[int]
     """
     The integer amount in cents (or local equivalent) representing the subtotal of the invoice before any invoice level discount or tax is applied. Item discounts are already incorporated
-    """
-    tax: Optional[int]
-    """
-    The amount of tax on this invoice. This is the sum of all the tax amounts on this invoice.
     """
     test_clock: Optional[ExpandableField["TestClock"]]
     """
@@ -6614,13 +4308,9 @@ class Invoice(
     """
     Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this invoice. This is a combined list of total_pretax_credit_amounts across all invoice line items.
     """
-    total_tax_amounts: List[TotalTaxAmount]
+    total_taxes: Optional[List[TotalTax]]
     """
-    The aggregate amounts calculated per tax rate for all line items.
-    """
-    transfer_data: Optional[TransferData]
-    """
-    The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to for the invoice.
+    The aggregate tax information of all line items.
     """
     webhooks_delivered_at: Optional[int]
     """
@@ -7580,80 +5270,6 @@ class Invoice(
         )
 
     @classmethod
-    def upcoming(cls, **params: Unpack["Invoice.UpcomingParams"]) -> "Invoice":
-        """
-        At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
-
-        Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
-
-        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
-
-        Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
-        """
-        return cast(
-            "Invoice",
-            cls._static_request(
-                "get",
-                "/v1/invoices/upcoming",
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def upcoming_async(
-        cls, **params: Unpack["Invoice.UpcomingParams"]
-    ) -> "Invoice":
-        """
-        At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
-
-        Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
-
-        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
-
-        Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
-        """
-        return cast(
-            "Invoice",
-            await cls._static_request_async(
-                "get",
-                "/v1/invoices/upcoming",
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def upcomingLines(
-        cls, **params: Unpack["Invoice.UpcomingLinesParams"]
-    ) -> ListObject["InvoiceLineItem"]:
-        """
-        When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        return cast(
-            ListObject["InvoiceLineItem"],
-            cls._static_request(
-                "get",
-                "/v1/invoices/upcoming/lines",
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def upcomingLines_async(
-        cls, **params: Unpack["Invoice.UpcomingLinesParams"]
-    ) -> ListObject["InvoiceLineItem"]:
-        """
-        When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        return cast(
-            ListObject["InvoiceLineItem"],
-            await cls._static_request_async(
-                "get",
-                "/v1/invoices/upcoming/lines",
-                params=params,
-            ),
-        )
-
-    @classmethod
     def _cls_update_lines(
         cls, invoice: str, **params: Unpack["Invoice.UpdateLinesParams"]
     ) -> "Invoice":
@@ -7965,6 +5581,7 @@ class Invoice(
 
     _inner_class_types = {
         "automatic_tax": AutomaticTax,
+        "confirmation_secret": ConfirmationSecret,
         "custom_fields": CustomField,
         "customer_address": CustomerAddress,
         "customer_shipping": CustomerShipping,
@@ -7972,15 +5589,14 @@ class Invoice(
         "from_invoice": FromInvoice,
         "issuer": Issuer,
         "last_finalization_error": LastFinalizationError,
+        "parent": Parent,
         "payment_settings": PaymentSettings,
         "rendering": Rendering,
         "shipping_cost": ShippingCost,
         "shipping_details": ShippingDetails,
         "status_transitions": StatusTransitions,
-        "subscription_details": SubscriptionDetails,
         "threshold_reason": ThresholdReason,
         "total_discount_amounts": TotalDiscountAmount,
         "total_pretax_credit_amounts": TotalPretaxCreditAmount,
-        "total_tax_amounts": TotalTaxAmount,
-        "transfer_data": TransferData,
+        "total_taxes": TotalTax,
     }

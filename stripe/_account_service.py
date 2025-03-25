@@ -296,6 +296,12 @@ class AccountService(StripeService):
         """
         The bank_transfer_payments capability.
         """
+        billie_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesBilliePayments"
+        ]
+        """
+        The billie_payments capability.
+        """
         blik_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesBlikPayments"
         ]
@@ -494,6 +500,12 @@ class AccountService(StripeService):
         """
         The samsung_pay_payments capability.
         """
+        satispay_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesSatispayPayments"
+        ]
+        """
+        The satispay_payments capability.
+        """
         sepa_bank_transfer_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesSepaBankTransferPayments"
         ]
@@ -616,6 +628,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesBilliePayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -819,6 +837,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesSatispayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesSepaBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -980,6 +1004,9 @@ class AccountService(StripeService):
         ownership_exemption_reason: NotRequired[
             "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
         ]
+        """
+        This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
+        """
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).
@@ -1598,6 +1625,10 @@ class AccountService(StripeService):
         """
         Settings specific to card charging on the account.
         """
+        invoices: NotRequired["AccountService.CreateParamsSettingsInvoices"]
+        """
+        Settings specific to the account's use of Invoices.
+        """
         payments: NotRequired["AccountService.CreateParamsSettingsPayments"]
         """
         Settings that apply across payment methods for charging on the account.
@@ -1685,6 +1716,14 @@ class AccountService(StripeService):
         cvc_failure: NotRequired[bool]
         """
         Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
+        """
+
+    class CreateParamsSettingsInvoices(TypedDict):
+        hosted_payment_method_save: NotRequired[
+            Literal["always", "never", "offer"]
+        ]
+        """
+        Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
         """
 
     class CreateParamsSettingsPayments(TypedDict):
@@ -2111,6 +2150,12 @@ class AccountService(StripeService):
         """
         The bank_transfer_payments capability.
         """
+        billie_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesBilliePayments"
+        ]
+        """
+        The billie_payments capability.
+        """
         blik_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesBlikPayments"
         ]
@@ -2309,6 +2354,12 @@ class AccountService(StripeService):
         """
         The samsung_pay_payments capability.
         """
+        satispay_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesSatispayPayments"
+        ]
+        """
+        The satispay_payments capability.
+        """
         sepa_bank_transfer_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesSepaBankTransferPayments"
         ]
@@ -2431,6 +2482,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesBilliePayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2634,6 +2691,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesSatispayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesSepaBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2795,6 +2858,9 @@ class AccountService(StripeService):
         ownership_exemption_reason: NotRequired[
             "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
         ]
+        """
+        This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
+        """
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).
@@ -3472,6 +3538,12 @@ class AccountService(StripeService):
         default_account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
         The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
+        """
+        hosted_payment_method_save: NotRequired[
+            Literal["always", "never", "offer"]
+        ]
+        """
+        Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
         """
 
     class UpdateParamsSettingsPayments(TypedDict):

@@ -121,6 +121,8 @@ class WebhookEndpointService(StripeService):
                 "2024-12-18.acacia",
                 "2025-01-27.acacia",
                 "2025-02-24.acacia",
+                "2025-03-01.dashboard",
+                "2025-03-31.basil",
             ]
         ]
         """
@@ -226,6 +228,7 @@ class WebhookEndpointService(StripeService):
                 "invoice.finalized",
                 "invoice.marked_uncollectible",
                 "invoice.overdue",
+                "invoice.overpaid",
                 "invoice.paid",
                 "invoice.payment_action_required",
                 "invoice.payment_failed",
@@ -523,6 +526,7 @@ class WebhookEndpointService(StripeService):
                     "invoice.finalized",
                     "invoice.marked_uncollectible",
                     "invoice.overdue",
+                    "invoice.overpaid",
                     "invoice.paid",
                     "invoice.payment_action_required",
                     "invoice.payment_failed",

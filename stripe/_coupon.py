@@ -57,13 +57,9 @@ class Coupon(
         """
         Coupons defined in each available currency option (only supported if `amount_off` is passed). Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
         """
-        duration: NotRequired[Literal["forever", "once", "repeating"]]
+        duration: NotRequired[Literal["forever", "once"]]
         """
         Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
-        """
-        duration_in_months: NotRequired[int]
-        """
-        Required only if `duration` is `repeating`, in which case it must be a positive integer that specifies the number of months the discount will be in effect.
         """
         expand: NotRequired[List[str]]
         """
@@ -198,7 +194,7 @@ class Coupon(
     """
     Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     """
-    duration: Literal["forever", "once", "repeating"]
+    duration: Literal["forever", "once"]
     """
     One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount.
     """
