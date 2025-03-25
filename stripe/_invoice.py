@@ -645,15 +645,9 @@ class Invoice(
             quote: str
 
         class SubscriptionDetails(StripeObject):
-            class PauseCollection(StripeObject):
-                behavior: Optional[str]
-                resumes_at: Optional[int]
-
             metadata: Optional[Dict[str, str]]
-            pause_collection: Optional[PauseCollection]
             subscription: str
             subscription_proration_date: Optional[int]
-            _inner_class_types = {"pause_collection": PauseCollection}
 
         quote_details: Optional[QuoteDetails]
         subscription_details: Optional[SubscriptionDetails]
