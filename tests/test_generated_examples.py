@@ -5,7 +5,7 @@ import stripe
 
 from tests.http_client_mock import HTTPClientMock
 import io
-from stripe import StripeClient
+from stripe import StripeClient, _error
 import pytest
 
 
@@ -34810,7 +34810,7 @@ class TestGeneratedExamples(object):
                     ],
                 }
             )
-        except stripe._error.TemporarySessionExpiredError:
+        except _error.TemporarySessionExpiredError:
             pass
         http_client_mock.assert_requested(
             "post",
@@ -34842,7 +34842,7 @@ class TestGeneratedExamples(object):
                     "financial_account": "financial_account",
                 }
             )
-        except stripe._error.FinancialAccountNotOpenError:
+        except _error.FinancialAccountNotOpenError:
             pass
         http_client_mock.assert_requested(
             "post",
@@ -34873,7 +34873,7 @@ class TestGeneratedExamples(object):
                     "account_number": "account_number",
                 }
             )
-        except stripe._error.BlockedByStripeError:
+        except _error.BlockedByStripeError:
             pass
         http_client_mock.assert_requested(
             "post",
@@ -34900,7 +34900,7 @@ class TestGeneratedExamples(object):
 
         try:
             client.v2.money_management.outbound_payments.cancel("id_123")
-        except stripe._error.AlreadyCanceledError:
+        except _error.AlreadyCanceledError:
             pass
         http_client_mock.assert_requested(
             "post",
@@ -34927,7 +34927,7 @@ class TestGeneratedExamples(object):
 
         try:
             client.v2.money_management.outbound_payments.cancel("id_123")
-        except stripe._error.NotCancelableError:
+        except _error.NotCancelableError:
             pass
         http_client_mock.assert_requested(
             "post",
@@ -34963,7 +34963,7 @@ class TestGeneratedExamples(object):
                     "to": {"recipient": "recipient"},
                 }
             )
-        except stripe._error.InsufficientFundsError:
+        except _error.InsufficientFundsError:
             pass
         http_client_mock.assert_requested(
             "post",
@@ -34994,7 +34994,7 @@ class TestGeneratedExamples(object):
                     "account_number": "account_number",
                 }
             )
-        except stripe._error.QuotaExceededError:
+        except _error.QuotaExceededError:
             pass
         http_client_mock.assert_requested(
             "post",
@@ -35030,7 +35030,7 @@ class TestGeneratedExamples(object):
                     "to": {"recipient": "recipient"},
                 }
             )
-        except stripe._error.RecipientNotNotifiableError:
+        except _error.RecipientNotNotifiableError:
             pass
         http_client_mock.assert_requested(
             "post",
@@ -35066,7 +35066,7 @@ class TestGeneratedExamples(object):
                     "to": {"recipient": "recipient"},
                 }
             )
-        except stripe._error.FeatureNotEnabledError:
+        except _error.FeatureNotEnabledError:
             pass
         http_client_mock.assert_requested(
             "post",
@@ -35093,7 +35093,7 @@ class TestGeneratedExamples(object):
 
         try:
             client.v2.money_management.outbound_setup_intents.create()
-        except stripe._error.InvalidPayoutMethodError:
+        except _error.InvalidPayoutMethodError:
             pass
         http_client_mock.assert_requested(
             "post",
@@ -35120,7 +35120,7 @@ class TestGeneratedExamples(object):
 
         try:
             client.v2.core.vault.us_bank_accounts.archive("id_123")
-        except stripe._error.ControlledByDashboardError:
+        except _error.ControlledByDashboardError:
             pass
         http_client_mock.assert_requested(
             "post",
@@ -35151,7 +35151,7 @@ class TestGeneratedExamples(object):
                     "account_number": "account_number",
                 }
             )
-        except stripe._error.InvalidPaymentMethodError:
+        except _error.InvalidPaymentMethodError:
             pass
         http_client_mock.assert_requested(
             "post",

@@ -16,11 +16,15 @@ class PayoutMethodsBankAccountSpec(StripeObject):
 
     class Countries(StripeObject):
         class Field(StripeObject):
+            class LocalNameHuman(StripeObject):
+                content: str
+                localization_key: str
+
             local_name: str
             """
             The local name of the field.
             """
-            local_name_human: str
+            local_name_human: LocalNameHuman
             """
             The human readable local name of the field.
             """
@@ -44,6 +48,7 @@ class PayoutMethodsBankAccountSpec(StripeObject):
             """
             The validation regex of the field.
             """
+            _inner_class_types = {"local_name_human": LocalNameHuman}
 
         fields: List[Field]
         """
