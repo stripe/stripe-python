@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._event import Event
-from stripe.v2._outbound_payment import OutboundPayment
+from stripe.v2.money_management._outbound_payment import OutboundPayment
 from typing import cast
 from typing_extensions import Literal
 

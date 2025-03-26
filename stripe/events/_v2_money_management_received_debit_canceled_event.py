@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._event import Event
-from stripe.v2._received_debit import ReceivedDebit
+from stripe.v2.money_management._received_debit import ReceivedDebit
 from typing import cast
 from typing_extensions import Literal
 

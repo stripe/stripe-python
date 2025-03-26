@@ -5,24 +5,32 @@ from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2._event import Event
-from stripe.v2.money_management._inbound_transfer import InboundTransfer
-from typing import Any, Dict, Optional, cast
+from stripe.v2.core._account_link import AccountLink
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
 
 
-class V2MoneyManagementInboundTransferAvailableEvent(Event):
-    LOOKUP_TYPE = "v2.money_management.inbound_transfer.available"
-    type: Literal["v2.money_management.inbound_transfer.available"]
+class V2CoreAccountLinkCompletedEvent(Event):
+    LOOKUP_TYPE = "v2.core.account_link.completed"
+    type: Literal["v2.core.account_link.completed"]
 
-    class V2MoneyManagementInboundTransferAvailableEventData(StripeObject):
-        transaction_id: str
+    class V2CoreAccountLinkCompletedEventData(StripeObject):
+        account_id: str
         """
-        The transaction ID of the received credit.
+        The ID of the v2 account.
+        """
+        configurations: List[Literal["recipient"]]
+        """
+        Configurations on the Account that was onboarded via the account link.
+        """
+        use_case: Literal["account_onboarding", "account_update"]
+        """
+        Open Enum. The use case type of the account link that has been completed.
         """
 
-    data: V2MoneyManagementInboundTransferAvailableEventData
+    data: V2CoreAccountLinkCompletedEventData
     """
-    Data for the v2.money_management.inbound_transfer.available event
+    Data for the v2.core.account_link.completed event
     """
 
     @classmethod
@@ -33,7 +41,7 @@ class V2MoneyManagementInboundTransferAvailableEvent(Event):
         last_response: Optional[StripeResponse] = None,
         requestor: "_APIRequestor",
         api_mode: ApiMode,
-    ) -> "V2MoneyManagementInboundTransferAvailableEvent":
+    ) -> "V2CoreAccountLinkCompletedEvent":
         evt = super()._construct_from(
             values=values,
             last_response=last_response,
@@ -41,7 +49,7 @@ class V2MoneyManagementInboundTransferAvailableEvent(Event):
             api_mode=api_mode,
         )
         if hasattr(evt, "data"):
-            evt.data = V2MoneyManagementInboundTransferAvailableEvent.V2MoneyManagementInboundTransferAvailableEventData._construct_from(
+            evt.data = V2CoreAccountLinkCompletedEvent.V2CoreAccountLinkCompletedEventData._construct_from(
                 values=evt.data,
                 last_response=last_response,
                 requestor=requestor,
@@ -68,12 +76,12 @@ class V2MoneyManagementInboundTransferAvailableEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> InboundTransfer:
+    def fetch_related_object(self) -> AccountLink:
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            InboundTransfer,
+            AccountLink,
             self._requestor.request(
                 "get",
                 self.related_object.url,

@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._amount import AmountParam
 from stripe.v2._list_object import ListObject
-from stripe.v2._outbound_payment import OutboundPayment
+from stripe.v2.money_management._outbound_payment import OutboundPayment
 from stripe.v2.money_management.outbound_payments._quote_service import (
     QuoteService,
 )

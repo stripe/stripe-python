@@ -3,7 +3,9 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.v2._amount import AmountParam
-from stripe.v2._outbound_payment_quote import OutboundPaymentQuote
+from stripe.v2.money_management._outbound_payment_quote import (
+    OutboundPaymentQuote,
+)
 from typing import cast
 from typing_extensions import Literal, NotRequired, TypedDict
 

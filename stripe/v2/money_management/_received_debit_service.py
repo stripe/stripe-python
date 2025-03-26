@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
-from stripe.v2._received_debit import ReceivedDebit
+from stripe.v2.money_management._received_debit import ReceivedDebit
 from typing import cast
 from typing_extensions import NotRequired, TypedDict
 

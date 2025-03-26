@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe.events._v2_core_account_link_completed_event import (
+    V2CoreAccountLinkCompletedEvent,
+)
 from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEvent,
 )
@@ -95,6 +98,7 @@ from stripe.events._v2_money_management_received_debit_updated_event import (
 THIN_EVENT_CLASSES = {
     V1BillingMeterErrorReportTriggeredEvent.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEvent,
     V1BillingMeterNoMeterFoundEvent.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEvent,
+    V2CoreAccountLinkCompletedEvent.LOOKUP_TYPE: V2CoreAccountLinkCompletedEvent,
     V2MoneyManagementFinancialAccountCreatedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAccountCreatedEvent,
     V2MoneyManagementFinancialAddressActivatedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAddressActivatedEvent,
     V2MoneyManagementFinancialAddressFailedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAddressFailedEvent,

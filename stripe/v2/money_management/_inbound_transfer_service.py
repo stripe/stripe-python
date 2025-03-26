@@ -4,8 +4,8 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._amount import AmountParam
-from stripe.v2._inbound_transfer import InboundTransfer
 from stripe.v2._list_object import ListObject
+from stripe.v2.money_management._inbound_transfer import InboundTransfer
 from typing import cast
 from typing_extensions import NotRequired, TypedDict
 

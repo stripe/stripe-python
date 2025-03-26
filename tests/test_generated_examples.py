@@ -33343,6 +33343,45 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_core_account_link_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/account_links",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.account_links.create(
+            {
+                "account": "account",
+                "use_case": {
+                    "type": "account_onboarding",
+                    "account_onboarding": {
+                        "configurations": ["recipient"],
+                        "refresh_url": "refresh_url",
+                        "return_url": "return_url",
+                    },
+                    "account_update": {
+                        "configurations": ["recipient"],
+                        "refresh_url": "refresh_url",
+                        "return_url": "return_url",
+                    },
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/account_links",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"account":"account","use_case":{"type":"account_onboarding","account_onboarding":{"configurations":["recipient"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"configurations":["recipient"],"refresh_url":"refresh_url","return_url":"return_url"}}}',
+            is_json=True,
+        )
+
     def test_v2_core_event_destination_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:

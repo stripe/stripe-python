@@ -6,6 +6,9 @@ from stripe.events._v1_billing_meter_error_report_triggered_event import (
 from stripe.events._v1_billing_meter_no_meter_found_event import (
     V1BillingMeterNoMeterFoundEvent as V1BillingMeterNoMeterFoundEvent,
 )
+from stripe.events._v2_core_account_link_completed_event import (
+    V2CoreAccountLinkCompletedEvent as V2CoreAccountLinkCompletedEvent,
+)
 from stripe.events._v2_money_management_financial_account_created_event import (
     V2MoneyManagementFinancialAccountCreatedEvent as V2MoneyManagementFinancialAccountCreatedEvent,
 )

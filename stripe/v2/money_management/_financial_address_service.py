@@ -3,8 +3,8 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._financial_address import FinancialAddress
 from stripe.v2._list_object import ListObject
+from stripe.v2.money_management._financial_address import FinancialAddress
 from typing import List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
