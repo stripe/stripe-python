@@ -5,7 +5,7 @@ import stripe
 
 from tests.http_client_mock import HTTPClientMock
 import io
-from stripe import StripeClient
+from stripe import StripeClient, _error
 import pytest
 
 
@@ -33342,7 +33342,7 @@ class TestGeneratedExamples(object):
                     ],
                 }
             )
-        except stripe._error.TemporarySessionExpiredError:
+        except _error.TemporarySessionExpiredError:
             pass
         http_client_mock.assert_requested(
             "post",
