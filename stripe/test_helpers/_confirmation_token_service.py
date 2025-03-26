@@ -355,6 +355,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        stripe_balance: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataStripeBalance"
+        ]
+        """
+        This hash contains details about the Stripe balance payment method.
+        """
         swish: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataSwish"
         ]
@@ -416,6 +422,7 @@ class ConfirmationTokenService(StripeService):
             "sepa_debit",
             "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -868,6 +875,16 @@ class ConfirmationTokenService(StripeService):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
         """
         Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class CreateParamsPaymentMethodDataStripeBalance(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account ID whose Stripe balance to use as the source of payment
+        """
+        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+        """
+        The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
         """
 
     class CreateParamsPaymentMethodDataSwish(TypedDict):

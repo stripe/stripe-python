@@ -424,6 +424,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        stripe_balance: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataStripeBalance"
+        ]
+        """
+        This hash contains details about the Stripe balance payment method.
+        """
         swish: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataSwish"
         ]
@@ -485,6 +491,7 @@ class SetupIntentService(StripeService):
             "sepa_debit",
             "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -935,6 +942,16 @@ class SetupIntentService(StripeService):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
         """
         Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class ConfirmParamsPaymentMethodDataStripeBalance(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account ID whose Stripe balance to use as the source of payment
+        """
+        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+        """
+        The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
         """
 
     class ConfirmParamsPaymentMethodDataSwish(TypedDict):
@@ -1932,6 +1949,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        stripe_balance: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataStripeBalance"
+        ]
+        """
+        This hash contains details about the Stripe balance payment method.
+        """
         swish: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataSwish"
         ]
@@ -1993,6 +2016,7 @@ class SetupIntentService(StripeService):
             "sepa_debit",
             "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -2441,6 +2465,16 @@ class SetupIntentService(StripeService):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
         """
         Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class CreateParamsPaymentMethodDataStripeBalance(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account ID whose Stripe balance to use as the source of payment
+        """
+        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+        """
+        The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
         """
 
     class CreateParamsPaymentMethodDataSwish(TypedDict):
@@ -3417,6 +3451,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        stripe_balance: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataStripeBalance"
+        ]
+        """
+        This hash contains details about the Stripe balance payment method.
+        """
         swish: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataSwish"
         ]
@@ -3478,6 +3518,7 @@ class SetupIntentService(StripeService):
             "sepa_debit",
             "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -3926,6 +3967,16 @@ class SetupIntentService(StripeService):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
         """
         Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class UpdateParamsPaymentMethodDataStripeBalance(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account ID whose Stripe balance to use as the source of payment
+        """
+        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+        """
+        The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
         """
 
     class UpdateParamsPaymentMethodDataSwish(TypedDict):

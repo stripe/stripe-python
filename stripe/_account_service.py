@@ -588,6 +588,12 @@ class AccountService(StripeService):
         """
         The sofort_payments capability.
         """
+        stripe_balance_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesStripeBalancePayments"
+        ]
+        """
+        The stripe_balance_payments capability.
+        """
         swish_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesSwishPayments"
         ]
@@ -998,6 +1004,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesSofortPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesStripeBalancePayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2698,6 +2710,12 @@ class AccountService(StripeService):
         """
         The sofort_payments capability.
         """
+        stripe_balance_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesStripeBalancePayments"
+        ]
+        """
+        The stripe_balance_payments capability.
+        """
         swish_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesSwishPayments"
         ]
@@ -3108,6 +3126,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesSofortPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesStripeBalancePayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

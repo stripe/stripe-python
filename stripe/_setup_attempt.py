@@ -416,6 +416,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class StripeBalance(StripeObject):
+            pass
+
         class UsBankAccount(StripeObject):
             pass
 
@@ -441,6 +444,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
+        stripe_balance: Optional[StripeBalance]
         type: str
         """
         The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
@@ -469,6 +473,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
+            "stripe_balance": StripeBalance,
             "us_bank_account": UsBankAccount,
         }
 

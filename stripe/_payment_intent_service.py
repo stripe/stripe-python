@@ -1941,6 +1941,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        stripe_balance: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataStripeBalance"
+        ]
+        """
+        This hash contains details about the Stripe balance payment method.
+        """
         swish: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataSwish"
         ]
@@ -2002,6 +2008,7 @@ class PaymentIntentService(StripeService):
             "sepa_debit",
             "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -2454,6 +2461,16 @@ class PaymentIntentService(StripeService):
         Two-letter ISO code representing the country the bank account is located in.
         """
 
+    class ConfirmParamsPaymentMethodDataStripeBalance(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account ID whose Stripe balance to use as the source of payment
+        """
+        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+        """
+        The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+        """
+
     class ConfirmParamsPaymentMethodDataSwish(TypedDict):
         pass
 
@@ -2782,6 +2799,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
+        """
+        stripe_balance: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsStripeBalance"
+        ]
+        """
+        If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
         """
         swish: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsSwish"
@@ -4303,6 +4326,22 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsStripeBalance(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class ConfirmParamsPaymentMethodOptionsSwish(TypedDict):
         reference: NotRequired["Literal['']|str"]
         """
@@ -5798,6 +5837,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        stripe_balance: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataStripeBalance"
+        ]
+        """
+        This hash contains details about the Stripe balance payment method.
+        """
         swish: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataSwish"
         ]
@@ -5859,6 +5904,7 @@ class PaymentIntentService(StripeService):
             "sepa_debit",
             "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -6311,6 +6357,16 @@ class PaymentIntentService(StripeService):
         Two-letter ISO code representing the country the bank account is located in.
         """
 
+    class CreateParamsPaymentMethodDataStripeBalance(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account ID whose Stripe balance to use as the source of payment
+        """
+        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+        """
+        The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+        """
+
     class CreateParamsPaymentMethodDataSwish(TypedDict):
         pass
 
@@ -6639,6 +6695,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
+        """
+        stripe_balance: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsStripeBalance"
+        ]
+        """
+        If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
         """
         swish: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsSwish"
@@ -8145,6 +8207,22 @@ class PaymentIntentService(StripeService):
         """
         Language shown to the payer on redirect.
         """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsStripeBalance(TypedDict):
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
         ]
@@ -9843,6 +9921,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         """
+        stripe_balance: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataStripeBalance"
+        ]
+        """
+        This hash contains details about the Stripe balance payment method.
+        """
         swish: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataSwish"
         ]
@@ -9904,6 +9988,7 @@ class PaymentIntentService(StripeService):
             "sepa_debit",
             "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -10356,6 +10441,16 @@ class PaymentIntentService(StripeService):
         Two-letter ISO code representing the country the bank account is located in.
         """
 
+    class UpdateParamsPaymentMethodDataStripeBalance(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account ID whose Stripe balance to use as the source of payment
+        """
+        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+        """
+        The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+        """
+
     class UpdateParamsPaymentMethodDataSwish(TypedDict):
         pass
 
@@ -10684,6 +10779,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
+        """
+        stripe_balance: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsStripeBalance"
+        ]
+        """
+        If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
         """
         swish: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsSwish"
@@ -12190,6 +12291,22 @@ class PaymentIntentService(StripeService):
         """
         Language shown to the payer on redirect.
         """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class UpdateParamsPaymentMethodOptionsStripeBalance(TypedDict):
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session']"
         ]

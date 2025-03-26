@@ -937,6 +937,7 @@ class Customer(
                 "sepa_debit",
                 "shopeepay",
                 "sofort",
+                "stripe_balance",
                 "swish",
                 "twint",
                 "us_bank_account",

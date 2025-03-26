@@ -1545,6 +1545,16 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         class StripeAccount(StripeObject):
             pass
 
+        class StripeBalance(StripeObject):
+            account: Optional[str]
+            """
+            The connected account ID whose Stripe balance to use as the source of payment
+            """
+            source_type: Literal["bank_account", "card", "fpx"]
+            """
+            The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+            """
+
         class Swish(StripeObject):
             fingerprint: Optional[str]
             """
@@ -1684,6 +1694,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
+        stripe_balance: Optional[StripeBalance]
         swish: Optional[Swish]
         twint: Optional[Twint]
         type: str
@@ -1754,6 +1765,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_account": StripeAccount,
+            "stripe_balance": StripeBalance,
             "swish": Swish,
             "twint": Twint,
             "us_bank_account": UsBankAccount,
