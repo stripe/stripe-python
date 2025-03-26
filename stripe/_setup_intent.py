@@ -264,6 +264,8 @@ class SetupIntent(
                 "transfer_source_balance_parameters_mismatch",
                 "transfers_not_allowed",
                 "url_invalid",
+                "v2_account_disconnection_unsupported",
+                "v2_account_missing_configuration",
             ]
         ]
         """
@@ -2182,6 +2184,12 @@ class SetupIntent(
 
         If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
         """
+        customer_account: NotRequired[str]
+        """
+        ID of the Account this SetupIntent belongs to, if one exists.
+
+        If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
+        """
         description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
@@ -3628,6 +3636,10 @@ class SetupIntent(
         """
         Only return SetupIntents for the customer specified by this customer ID.
         """
+        customer_account: NotRequired[str]
+        """
+        Only return SetupIntents for the account specified by this customer ID.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -3679,6 +3691,12 @@ class SetupIntent(
         ID of the Customer this SetupIntent belongs to, if one exists.
 
         If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
+        """
+        customer_account: NotRequired[str]
+        """
+        ID of the Account this SetupIntent belongs to, if one exists.
+
+        If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
         """
         description: NotRequired[str]
         """
@@ -5077,6 +5095,12 @@ class SetupIntent(
     ID of the Customer this SetupIntent belongs to, if one exists.
 
     If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the Account this SetupIntent belongs to, if one exists.
+
+    If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
     """
     description: Optional[str]
     """

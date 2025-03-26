@@ -84,6 +84,10 @@ class SessionService(StripeService):
 
         You can set [`payment_intent_data.setup_future_usage`](https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
         """
+        customer_account: NotRequired[str]
+        """
+        ID of an existing Account, if one exists. Has the same behavior as `customer`.
+        """
         customer_creation: NotRequired[Literal["always", "if_required"]]
         """
         Configure whether a Checkout Session creates a [Customer](https://stripe.com/docs/api/customers) during Session confirmation.
@@ -2661,6 +2665,10 @@ class SessionService(StripeService):
         customer: NotRequired[str]
         """
         Only return the Checkout Sessions for the Customer specified.
+        """
+        customer_account: NotRequired[str]
+        """
+        Only return the Checkout Sessions for the Account specified.
         """
         customer_details: NotRequired[
             "SessionService.ListParamsCustomerDetails"

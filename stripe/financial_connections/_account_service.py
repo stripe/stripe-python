@@ -62,6 +62,10 @@ class AccountService(StripeService):
         """
         The ID of the Stripe customer whose accounts will be retrieved.
         """
+        customer_account: NotRequired[str]
+        """
+        The Account ID of the Stripe customer whose accounts will be retrieved.
+        """
 
     class RefreshParams(TypedDict):
         expand: NotRequired[List[str]]

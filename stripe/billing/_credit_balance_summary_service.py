@@ -13,6 +13,10 @@ class CreditBalanceSummaryService(StripeService):
         """
         The customer for which to fetch credit balance summary.
         """
+        customer_account: NotRequired[str]
+        """
+        The account for which to fetch credit balance summary.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.

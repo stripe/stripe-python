@@ -1414,6 +1414,7 @@ class Customer(
     """
     Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) the customer can be charged in for recurring billing purposes.
     """
+    customer_account: Optional[str]
     default_source: Optional[
         ExpandableField[Union["Account", "BankAccount", "Card", "Source"]]
     ]

@@ -118,6 +118,10 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         """
         The ID of an existing customer for which to create the Customer Session.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of an existing Account for which to create the Customer Session.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -222,6 +226,10 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     customer: ExpandableField["Customer"]
     """
     The Customer the Customer Session was created for.
+    """
+    customer_account: Optional[str]
+    """
+    The Account that the Customer Session was created for.
     """
     expires_at: int
     """

@@ -115,6 +115,10 @@ class InvoiceItem(
         """
         The ID of the customer who will be billed when this invoice item is billed.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of the account who will be billed when this invoice item is billed.
+        """
         description: NotRequired[str]
         """
         An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
@@ -281,6 +285,10 @@ class InvoiceItem(
         customer: NotRequired[str]
         """
         The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
+        """
+        customer_account: NotRequired[str]
+        """
+        The identifier of the account whose invoice items to return. If none is provided, all invoice items will be returned.
         """
         ending_before: NotRequired[str]
         """
@@ -494,6 +502,10 @@ class InvoiceItem(
     customer: ExpandableField["Customer"]
     """
     The ID of the customer who will be billed when this invoice item is billed.
+    """
+    customer_account: Optional[str]
+    """
+    The ID of the account who will be billed when this invoice item is billed.
     """
     date: int
     """

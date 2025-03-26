@@ -663,6 +663,8 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "transfer_source_balance_parameters_mismatch",
                 "transfers_not_allowed",
                 "url_invalid",
+                "v2_account_disconnection_unsupported",
+                "v2_account_missing_configuration",
             ]
         ]
         """
@@ -823,6 +825,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
     customer: Optional[ExpandableField["Customer"]]
     """
     The value of [customer](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer) on the SetupIntent at the time of this confirmation.
+    """
+    customer_account: Optional[str]
+    """
+    The value of [customer_account](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer_account) on the SetupIntent at the time of this confirmation.
     """
     flow_directions: Optional[List[Literal["inbound", "outbound"]]]
     """

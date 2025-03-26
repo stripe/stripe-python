@@ -81,6 +81,10 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
         """
         The customer for which to fetch credit balance summary.
         """
+        customer_account: NotRequired[str]
+        """
+        The account for which to fetch credit balance summary.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -133,6 +137,10 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
     customer: ExpandableField["Customer"]
     """
     The customer the balance is for.
+    """
+    customer_account: Optional[str]
+    """
+    The account the balance is for.
     """
     livemode: bool
     """

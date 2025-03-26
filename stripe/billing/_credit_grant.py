@@ -96,6 +96,10 @@ class CreditGrant(
         """
         ID of the customer to receive the billing credits.
         """
+        customer_account: NotRequired[str]
+        """
+        ID of the account to receive the billing credits.
+        """
         effective_at: NotRequired[int]
         """
         The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
@@ -176,6 +180,10 @@ class CreditGrant(
         """
         Only return credit grants for this customer.
         """
+        customer_account: NotRequired[str]
+        """
+        Only return credit grants for this account.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -232,6 +240,10 @@ class CreditGrant(
     customer: ExpandableField["Customer"]
     """
     ID of the customer receiving the billing credits.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the account receiving the billing credits
     """
     effective_at: Optional[int]
     """

@@ -1401,6 +1401,10 @@ class PaymentMethod(
         """
         The ID of the customer to which to attach the PaymentMethod.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of the account to which to attach the PaymentMethod.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -2482,6 +2486,7 @@ class PaymentMethod(
     """
     The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
     """
+    customer_account: Optional[str]
     customer_balance: Optional[CustomerBalance]
     eps: Optional[Eps]
     fpx: Optional[Fpx]

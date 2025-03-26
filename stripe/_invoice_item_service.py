@@ -23,6 +23,10 @@ class InvoiceItemService(StripeService):
         """
         The ID of the customer who will be billed when this invoice item is billed.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of the account who will be billed when this invoice item is billed.
+        """
         description: NotRequired[str]
         """
         An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
@@ -189,6 +193,10 @@ class InvoiceItemService(StripeService):
         customer: NotRequired[str]
         """
         The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
+        """
+        customer_account: NotRequired[str]
+        """
+        The identifier of the account whose invoice items to return. If none is provided, all invoice items will be returned.
         """
         ending_before: NotRequired[str]
         """

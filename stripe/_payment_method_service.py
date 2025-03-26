@@ -15,6 +15,10 @@ class PaymentMethodService(StripeService):
         """
         The ID of the customer to which to attach the PaymentMethod.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of the account to which to attach the PaymentMethod.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.

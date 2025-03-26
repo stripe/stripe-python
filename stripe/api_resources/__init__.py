@@ -48,6 +48,7 @@ if not TYPE_CHECKING:
         ApplicationFeeRefund,
     )
     from stripe.api_resources.balance import Balance
+    from stripe.api_resources.balance_settings import BalanceSettings
     from stripe.api_resources.balance_transaction import BalanceTransaction
     from stripe.api_resources.bank_account import BankAccount
     from stripe.api_resources.capability import Capability

@@ -548,6 +548,10 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
     """
     ID of the customer who owns the subscription schedule.
     """
+    customer_account: Optional[str]
+    """
+    ID of the account who owns the subscription schedule.
+    """
     default_settings: DefaultSettings
     end_behavior: Literal["cancel", "none", "release", "renew"]
     """

@@ -29,6 +29,10 @@ class CreditGrantService(StripeService):
         """
         ID of the customer to receive the billing credits.
         """
+        customer_account: NotRequired[str]
+        """
+        ID of the account to receive the billing credits.
+        """
         effective_at: NotRequired[int]
         """
         The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
@@ -110,6 +114,10 @@ class CreditGrantService(StripeService):
         customer: NotRequired[str]
         """
         Only return credit grants for this customer.
+        """
+        customer_account: NotRequired[str]
+        """
+        Only return credit grants for this account.
         """
         ending_before: NotRequired[str]
         """

@@ -4607,6 +4607,14 @@ class PaymentIntentService(StripeService):
 
         If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
         """
+        customer_account: NotRequired[str]
+        """
+        ID of the Account this PaymentIntent belongs to, if one exists.
+
+        Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+
+        If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+        """
         description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
@@ -8583,6 +8591,10 @@ class PaymentIntentService(StripeService):
         """
         Only return PaymentIntents for the customer that this customer ID specifies.
         """
+        customer_account: NotRequired[str]
+        """
+        Only return PaymentIntents for the account that this ID specifies.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -8700,6 +8712,14 @@ class PaymentIntentService(StripeService):
         Payment methods attached to other Customers cannot be used with this PaymentIntent.
 
         If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+        """
+        customer_account: NotRequired[str]
+        """
+        ID of the Account this PaymentIntent belongs to, if one exists.
+
+        Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+
+        If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
         """
         description: NotRequired[str]
         """

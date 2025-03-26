@@ -34,6 +34,10 @@ class Discount(StripeObject):
     """
     The ID of the customer associated with this discount.
     """
+    customer_account: Optional[str]
+    """
+    The ID of the account associated with this discount.
+    """
     end: Optional[int]
     """
     If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.

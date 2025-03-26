@@ -412,6 +412,10 @@ class InvoiceService(StripeService):
         """
         The ID of the customer who will be billed.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of the account who will be billed.
+        """
         days_until_due: NotRequired[int]
         """
         The number of days from when the invoice is created until it is due. Valid only for invoices where `collection_method=send_invoice`.
@@ -1098,6 +1102,10 @@ class InvoiceService(StripeService):
         customer: NotRequired[str]
         """
         The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
+        """
+        customer_account: NotRequired[str]
+        """
+        The identifier of the account whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_account`, `customer_details`, `subscription`, or `schedule` must be set.
         """
         customer_details: NotRequired[
             "InvoiceService.CreatePreviewParamsCustomerDetails"
@@ -2952,6 +2960,7 @@ class InvoiceService(StripeService):
         """
         Only return invoices for the customer specified by this customer ID.
         """
+        customer_account: NotRequired[str]
         due_date: NotRequired["InvoiceService.ListParamsDueDate|int"]
         ending_before: NotRequired[str]
         """

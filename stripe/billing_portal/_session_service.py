@@ -17,6 +17,10 @@ class SessionService(StripeService):
         """
         The ID of an existing customer.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of an existing account.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.

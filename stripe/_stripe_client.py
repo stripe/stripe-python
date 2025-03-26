@@ -43,6 +43,7 @@ from stripe._apple_pay_domain_service import ApplePayDomainService
 from stripe._application_fee_service import ApplicationFeeService
 from stripe._apps_service import AppsService
 from stripe._balance_service import BalanceService
+from stripe._balance_settings_service import BalanceSettingsService
 from stripe._balance_transaction_service import BalanceTransactionService
 from stripe._billing_service import BillingService
 from stripe._billing_portal_service import BillingPortalService
@@ -114,6 +115,7 @@ from stripe._topup_service import TopupService
 from stripe._transfer_service import TransferService
 from stripe._treasury_service import TreasuryService
 from stripe._webhook_endpoint_service import WebhookEndpointService
+from stripe._external_account_service import ExternalAccountService
 from stripe._v2_services import V2Services
 # services: The end of the section generated from our OpenAPI spec
 
@@ -200,6 +202,7 @@ class StripeClient(object):
         self.application_fees = ApplicationFeeService(self._requestor)
         self.apps = AppsService(self._requestor)
         self.balance = BalanceService(self._requestor)
+        self.balance_settings = BalanceSettingsService(self._requestor)
         self.balance_transactions = BalanceTransactionService(self._requestor)
         self.billing = BillingService(self._requestor)
         self.billing_portal = BillingPortalService(self._requestor)
@@ -279,6 +282,7 @@ class StripeClient(object):
         self.transfers = TransferService(self._requestor)
         self.treasury = TreasuryService(self._requestor)
         self.webhook_endpoints = WebhookEndpointService(self._requestor)
+        self.external_accounts = ExternalAccountService(self._requestor)
         self.v2 = V2Services(self._requestor)
         # top-level services: The end of the section generated from our OpenAPI spec
 

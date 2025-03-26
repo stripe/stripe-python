@@ -573,6 +573,8 @@ class QuotePreviewInvoice(StripeObject):
                 "transfer_source_balance_parameters_mismatch",
                 "transfers_not_allowed",
                 "url_invalid",
+                "v2_account_disconnection_unsupported",
+                "v2_account_missing_configuration",
             ]
         ]
         """
@@ -1308,6 +1310,10 @@ class QuotePreviewInvoice(StripeObject):
     custom_fields: Optional[List[CustomField]]
     """
     Custom fields displayed on the invoice.
+    """
+    customer_account: Optional[str]
+    """
+    The ID of the account who will be billed.
     """
     customer_address: Optional[CustomerAddress]
     """

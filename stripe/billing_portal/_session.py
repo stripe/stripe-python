@@ -181,6 +181,10 @@ class Session(CreateableAPIResource["Session"]):
         """
         The ID of an existing customer.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of an existing account.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -408,6 +412,10 @@ class Session(CreateableAPIResource["Session"]):
     customer: str
     """
     The ID of the customer for this session.
+    """
+    customer_account: Optional[str]
+    """
+    The ID of the account for this session.
     """
     flow: Optional[Flow]
     """

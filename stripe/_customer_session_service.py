@@ -17,6 +17,10 @@ class CustomerSessionService(StripeService):
         """
         The ID of an existing customer for which to create the Customer Session.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of an existing Account for which to create the Customer Session.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.

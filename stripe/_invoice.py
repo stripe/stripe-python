@@ -590,6 +590,8 @@ class Invoice(
                 "transfer_source_balance_parameters_mismatch",
                 "transfers_not_allowed",
                 "url_invalid",
+                "v2_account_disconnection_unsupported",
+                "v2_account_missing_configuration",
             ]
         ]
         """
@@ -1622,6 +1624,10 @@ class Invoice(
         """
         The ID of the customer who will be billed.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of the account who will be billed.
+        """
         days_until_due: NotRequired[int]
         """
         The number of days from when the invoice is created until it is due. Valid only for invoices where `collection_method=send_invoice`.
@@ -2298,6 +2304,10 @@ class Invoice(
         customer: NotRequired[str]
         """
         The identifier of the customer whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
+        """
+        customer_account: NotRequired[str]
+        """
+        The identifier of the account whose upcoming invoice you'd like to retrieve. If `automatic_tax` is enabled then one of `customer`, `customer_account`, `customer_details`, `subscription`, or `schedule` must be set.
         """
         customer_details: NotRequired[
             "Invoice.CreatePreviewParamsCustomerDetails"
@@ -4164,6 +4174,7 @@ class Invoice(
         """
         Only return invoices for the customer specified by this customer ID.
         """
+        customer_account: NotRequired[str]
         due_date: NotRequired["Invoice.ListParamsDueDate|int"]
         ending_before: NotRequired[str]
         """
@@ -5422,6 +5433,10 @@ class Invoice(
     customer: Optional[ExpandableField["Customer"]]
     """
     The ID of the customer who will be billed.
+    """
+    customer_account: Optional[str]
+    """
+    The ID of the account who will be billed.
     """
     customer_address: Optional[CustomerAddress]
     """

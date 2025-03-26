@@ -651,6 +651,10 @@ class SubscriptionScheduleService(StripeService):
         """
         The identifier of the customer to create the subscription schedule for.
         """
+        customer_account: NotRequired[str]
+        """
+        The identifier of the account to create the subscription schedule for.
+        """
         default_settings: NotRequired[
             "SubscriptionScheduleService.CreateParamsDefaultSettings"
         ]
@@ -1298,6 +1302,10 @@ class SubscriptionScheduleService(StripeService):
         customer: NotRequired[str]
         """
         Only return subscription schedules for the given customer.
+        """
+        customer_account: NotRequired[str]
+        """
+        Only return subscription schedules for the given account.
         """
         ending_before: NotRequired[str]
         """

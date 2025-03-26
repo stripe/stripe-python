@@ -1162,6 +1162,10 @@ class SubscriptionSchedule(
         """
         The identifier of the customer to create the subscription schedule for.
         """
+        customer_account: NotRequired[str]
+        """
+        The identifier of the account to create the subscription schedule for.
+        """
         default_settings: NotRequired[
             "SubscriptionSchedule.CreateParamsDefaultSettings"
         ]
@@ -1803,6 +1807,10 @@ class SubscriptionSchedule(
         customer: NotRequired[str]
         """
         Only return subscription schedules for the given customer.
+        """
+        customer_account: NotRequired[str]
+        """
+        Only return subscription schedules for the given account.
         """
         ending_before: NotRequired[str]
         """
@@ -2578,6 +2586,10 @@ class SubscriptionSchedule(
     customer: ExpandableField["Customer"]
     """
     ID of the customer who owns the subscription schedule.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the account who owns the subscription schedule.
     """
     default_settings: DefaultSettings
     end_behavior: Literal["cancel", "none", "release", "renew"]

@@ -40,6 +40,7 @@ class Session(CreateableAPIResource["Session"]):
         """
         ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
         """
+        customer_account: Optional[str]
         type: Literal["account", "customer"]
         """
         Type of account holder that this account belongs to.
@@ -143,6 +144,10 @@ class Session(CreateableAPIResource["Session"]):
         customer: NotRequired[str]
         """
         The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
+        """
+        customer_account: NotRequired[str]
+        """
+        The ID of the Stripe customer Account whose accounts will be retrieved. Should only be present if `type` is `customer`.
         """
         type: Literal["account", "customer"]
         """

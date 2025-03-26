@@ -65,6 +65,10 @@ class SessionService(StripeService):
         """
         The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of the Stripe customer Account whose accounts will be retrieved. Should only be present if `type` is `customer`.
+        """
         type: Literal["account", "customer"]
         """
         Type of account holder to collect accounts for.

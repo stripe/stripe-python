@@ -154,6 +154,7 @@ class CustomerCashBalanceTransaction(StripeObject):
     """
     The customer whose available cash balance changed as a result of this transaction.
     """
+    customer_account: Optional[str]
     ending_balance: int
     """
     The total available cash balance for the specified currency after this transaction was applied. Represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).

@@ -1459,6 +1459,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
         """
+        customer_account: Optional[str]
         customer_balance: Optional[CustomerBalance]
         eps: Optional[Eps]
         fpx: Optional[Fpx]

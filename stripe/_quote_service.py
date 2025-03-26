@@ -75,6 +75,10 @@ class QuoteService(StripeService):
         """
         The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
         """
+        customer_account: NotRequired[str]
+        """
+        The account for which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
+        """
         default_tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates that will apply to any line item that does not have `tax_rates` set.
@@ -1215,6 +1219,10 @@ class QuoteService(StripeService):
         """
         The ID of the customer whose quotes will be retrieved.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of the account whose quotes will be retrieved.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -1326,6 +1334,10 @@ class QuoteService(StripeService):
         customer: NotRequired[str]
         """
         The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+        """
+        customer_account: NotRequired[str]
+        """
+        The account for which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
         """
         default_tax_rates: NotRequired["Literal['']|List[str]"]
         """

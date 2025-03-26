@@ -47,6 +47,7 @@ class Account(ListableAPIResource["Account"]):
         """
         ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
         """
+        customer_account: Optional[str]
         type: Literal["account", "customer"]
         """
         Type of account holder that this account belongs to.
@@ -233,6 +234,10 @@ class Account(ListableAPIResource["Account"]):
         customer: NotRequired[str]
         """
         The ID of the Stripe customer whose accounts will be retrieved.
+        """
+        customer_account: NotRequired[str]
+        """
+        The Account ID of the Stripe customer whose accounts will be retrieved.
         """
 
     class RefreshAccountParams(RequestOptions):

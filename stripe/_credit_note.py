@@ -356,6 +356,10 @@ class CreditNote(
         """
         Only return credit notes for the customer specified by this customer ID.
         """
+        customer_account: NotRequired[str]
+        """
+        Only return credit notes for the account specified by this account ID.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -722,6 +726,10 @@ class CreditNote(
     customer: ExpandableField["Customer"]
     """
     ID of the customer.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the account.
     """
     customer_balance_transaction: Optional[
         ExpandableField["CustomerBalanceTransaction"]
