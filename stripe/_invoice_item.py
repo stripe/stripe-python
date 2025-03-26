@@ -52,10 +52,22 @@ class InvoiceItem(
     class Parent(StripeObject):
         class SubscriptionDetails(StripeObject):
             subscription: str
+            """
+            The subscription that generated this invoice item
+            """
             subscription_item: Optional[str]
+            """
+            The subscription item that generated this invoice item
+            """
 
         subscription_details: Optional[SubscriptionDetails]
+        """
+        Details about the subscription that generated this invoice item
+        """
         type: Literal["subscription_details"]
+        """
+        The type of parent that generated this invoice item
+        """
         _inner_class_types = {"subscription_details": SubscriptionDetails}
 
     class Period(StripeObject):

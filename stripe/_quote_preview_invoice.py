@@ -672,21 +672,52 @@ class QuotePreviewInvoice(StripeObject):
     class Parent(StripeObject):
         class QuoteDetails(StripeObject):
             quote: str
+            """
+            The quote that generated this invoice
+            """
 
         class SubscriptionDetails(StripeObject):
             class PauseCollection(StripeObject):
                 behavior: Optional[str]
+                """
+                The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+                """
                 resumes_at: Optional[int]
+                """
+                The time after which the subscription will resume collecting payments.
+                """
 
             metadata: Optional[Dict[str, str]]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+             *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
+            """
             pause_collection: Optional[PauseCollection]
+            """
+            If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
+            """
             subscription: str
+            """
+            The subscription that generated this invoice
+            """
             subscription_proration_date: Optional[int]
+            """
+            Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
+            """
             _inner_class_types = {"pause_collection": PauseCollection}
 
         quote_details: Optional[QuoteDetails]
+        """
+        Details about the quote that generated this invoice
+        """
         subscription_details: Optional[SubscriptionDetails]
+        """
+        Details about the subscription that generated this invoice
+        """
         type: Literal["quote_details", "subscription_details"]
+        """
+        The type of parent that generated this invoice
+        """
         _inner_class_types = {
             "quote_details": QuoteDetails,
             "subscription_details": SubscriptionDetails,
