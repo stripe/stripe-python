@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe.v2.money_management import outbound_payments as outbound_payments
+from stripe.v2.money_management._adjustment_service import (
+    AdjustmentService as AdjustmentService,
+)
 from stripe.v2.money_management._financial_account_service import (
     FinancialAccountService as FinancialAccountService,
 )
@@ -38,4 +42,10 @@ from stripe.v2.money_management._received_credit_service import (
 )
 from stripe.v2.money_management._received_debit_service import (
     ReceivedDebitService as ReceivedDebitService,
+)
+from stripe.v2.money_management._transaction_entry_service import (
+    TransactionEntryService as TransactionEntryService,
+)
+from stripe.v2.money_management._transaction_service import (
+    TransactionService as TransactionService,
 )

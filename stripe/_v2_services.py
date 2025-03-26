@@ -11,6 +11,6 @@ class V2Services(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
         self.core = CoreService(self._requestor)
-        self.billing = BillingService(self._requestor)
         self.money_management = MoneyManagementService(self._requestor)
+        self.billing = BillingService(self._requestor)
         self.test_helpers = TestHelperService(self._requestor)

@@ -6,11 +6,18 @@ from stripe._util import sanitize_id
 from stripe.v2._amount import AmountParam
 from stripe.v2._list_object import ListObject
 from stripe.v2._outbound_payment import OutboundPayment
+from stripe.v2.money_management.outbound_payments._quote_service import (
+    QuoteService,
+)
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class OutboundPaymentService(StripeService):
+    def __init__(self, requestor):
+        super().__init__(requestor)
+        self.quotes = QuoteService(self._requestor)
+
     class CancelParams(TypedDict):
         pass
 
@@ -37,6 +44,10 @@ class OutboundPaymentService(StripeService):
         metadata: NotRequired[Dict[str, str]]
         """
         Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        """
+        outbound_payment_quote: NotRequired[str]
+        """
+        The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
         """
         recipient_notification: NotRequired[
             "OutboundPaymentService.CreateParamsRecipientNotification"

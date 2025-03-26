@@ -172,6 +172,7 @@ OBJECT_CLASSES = {
 
 V2_OBJECT_CLASSES = {
     # V2 Object classes: The beginning of the section generated from our OpenAPI spec
+    stripe.v2.Adjustment.OBJECT_NAME: stripe.v2.Adjustment,
     stripe.v2.billing.MeterEvent.OBJECT_NAME: stripe.v2.billing.MeterEvent,
     stripe.v2.billing.MeterEventAdjustment.OBJECT_NAME: stripe.v2.billing.MeterEventAdjustment,
     stripe.v2.billing.MeterEventSession.OBJECT_NAME: stripe.v2.billing.MeterEventSession,
@@ -190,8 +191,11 @@ V2_OBJECT_CLASSES = {
     stripe.v2.money_management.PayoutMethod.OBJECT_NAME: stripe.v2.money_management.PayoutMethod,
     stripe.v2.money_management.PayoutMethodsBankAccountSpec.OBJECT_NAME: stripe.v2.money_management.PayoutMethodsBankAccountSpec,
     stripe.v2.OutboundPayment.OBJECT_NAME: stripe.v2.OutboundPayment,
+    stripe.v2.OutboundPaymentQuote.OBJECT_NAME: stripe.v2.OutboundPaymentQuote,
     stripe.v2.OutboundTransfer.OBJECT_NAME: stripe.v2.OutboundTransfer,
     stripe.v2.ReceivedCredit.OBJECT_NAME: stripe.v2.ReceivedCredit,
     stripe.v2.ReceivedDebit.OBJECT_NAME: stripe.v2.ReceivedDebit,
+    stripe.v2.Transaction.OBJECT_NAME: stripe.v2.Transaction,
+    stripe.v2.TransactionEntry.OBJECT_NAME: stripe.v2.TransactionEntry,
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }
