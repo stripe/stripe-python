@@ -3,8 +3,8 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._event import Event
 from stripe.v2._list_object import ListObject
+from stripe.v2.core._event import Event
 from typing import cast
 from typing_extensions import NotRequired, TypedDict
 
@@ -18,10 +18,6 @@ class EventService(StripeService):
         object_id: str
         """
         Primary object ID used to retrieve related events.
-        """
-        page: NotRequired[str]
-        """
-        The requested page.
         """
 
     class RetrieveParams(TypedDict):
