@@ -68,33 +68,3 @@ class TestSubscriptionItem(object):
             "delete", path="/v1/subscription_items/%s" % TEST_RESOURCE_ID
         )
         assert resource.deleted is True
-
-
-class TestUsageRecords(object):
-    def test_is_creatable(self, http_client_mock):
-        resource = stripe.SubscriptionItem.create_usage_record(
-            TEST_RESOURCE_ID,
-            quantity=5000,
-            timestamp=1524182400,
-            action="increment",
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/subscription_items/%s/usage_records" % TEST_RESOURCE_ID,
-            post_data="action=increment&quantity=5000&timestamp=1524182400",
-        )
-        assert isinstance(resource, stripe.UsageRecord)
-
-
-class TestUsageRecordSummaries(object):
-    def test_is_listable(self, http_client_mock):
-        resource = stripe.SubscriptionItem.list_usage_record_summaries(
-            TEST_RESOURCE_ID
-        )
-        http_client_mock.assert_requested(
-            "get",
-            path="/v1/subscription_items/%s/usage_record_summaries"
-            % TEST_RESOURCE_ID,
-        )
-        assert isinstance(resource.data, list)
-        assert isinstance(resource.data[0], stripe.UsageRecordSummary)
