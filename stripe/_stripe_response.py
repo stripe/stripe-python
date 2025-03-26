@@ -61,6 +61,5 @@ class StripeStreamResponseAsync(StripeResponseBase):
     def stream(self) -> AsyncIterable[bytes]:
         return self._stream
 
-    # TODO (MAJOR): rename this to `read_async`
-    async def read(self) -> bytes:  # noqa: ASY100
+    async def read_async(self) -> bytes:
         return b"".join([chunk async for chunk in self._stream])
