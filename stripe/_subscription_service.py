@@ -93,7 +93,7 @@ class SubscriptionService(StripeService):
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        customer: str
+        customer: NotRequired[str]
         """
         The identifier of the customer to subscribe.
         """
@@ -2130,7 +2130,7 @@ class SubscriptionService(StripeService):
 
     def create(
         self,
-        params: "SubscriptionService.CreateParams",
+        params: "SubscriptionService.CreateParams" = {},
         options: RequestOptions = {},
     ) -> Subscription:
         """
@@ -2155,7 +2155,7 @@ class SubscriptionService(StripeService):
 
     async def create_async(
         self,
-        params: "SubscriptionService.CreateParams",
+        params: "SubscriptionService.CreateParams" = {},
         options: RequestOptions = {},
     ) -> Subscription:
         """

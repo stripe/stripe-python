@@ -1407,7 +1407,7 @@ class PaymentMethod(
         pass
 
     class AttachParams(RequestOptions):
-        customer: str
+        customer: NotRequired[str]
         """
         The ID of the customer to which to attach the PaymentMethod.
         """

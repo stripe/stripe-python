@@ -607,7 +607,7 @@ class Subscription(
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        customer: str
+        customer: NotRequired[str]
         """
         The identifier of the customer to subscribe.
         """
