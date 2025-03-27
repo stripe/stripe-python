@@ -128,10 +128,25 @@ def add_beta_version(
     beta_name: str,
     beta_version: str,
 ):
-    if stripe.api_version.find(f"; {beta_name}=") != -1:
-        raise Exception(
-            f"Stripe version header {stripe.api_version} already contains entry for beta {beta_name}"
+    # Validate beta_version format
+    if not re.match(r"v\d+", beta_version):
+        raise ValueError(
+            f"Invalid beta_version format: {beta_version}. Expected format is 'v' followed by a number (e.g., 'v3')."
         )
+
+    # Check if beta_name already exists
+    existing_beta = re.search(rf"; {beta_name}=v(\d+)", stripe.api_version)
+    if existing_beta:
+        existing_version = int(existing_beta.group(1))
+        new_version = int(beta_version[1:])
+        if new_version <= existing_version:
+            return  # Keep the higher version, no update needed
+        # Remove the existing beta entry
+        stripe.api_version = re.sub(
+            rf"; {beta_name}=v\d+", "", stripe.api_version
+        )
+
+    # Add the new beta version
     stripe.api_version = f"{stripe.api_version}; {beta_name}={beta_version}"
 
 
@@ -638,6 +653,7 @@ from stripe._transfer_service import TransferService as TransferService
 from stripe._treasury_service import TreasuryService as TreasuryService
 from stripe._v2_services import V2Services as V2Services
 from stripe._webhook_endpoint import WebhookEndpoint as WebhookEndpoint
+import re
 from stripe._webhook_endpoint_service import (
     WebhookEndpointService as WebhookEndpointService,
 )
