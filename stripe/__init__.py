@@ -141,7 +141,7 @@ def add_beta_version(
         end_index = stripe.api_version.find(";", start_index)
         end_index = end_index if end_index != -1 else len(stripe.api_version)
         existing_version = int(
-            stripe.api_version[(start_index + 1):end_index]
+            stripe.api_version[(start_index + 1) : end_index]
         )
         new_version = int(beta_version[1:])
         if new_version <= existing_version:
