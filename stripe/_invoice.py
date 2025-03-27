@@ -697,7 +697,9 @@ class Invoice(
 
         class SubscriptionDetails(StripeObject):
             class PauseCollection(StripeObject):
-                behavior: Optional[str]
+                behavior: Optional[
+                    Literal["keep_as_draft", "mark_uncollectible", "void"]
+                ]
                 """
                 The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
                 """
