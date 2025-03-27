@@ -5071,10 +5071,6 @@ class Session(
     """
     Information about the customer collected within the Checkout Session.
     """
-    collected_information: Optional[CollectedInformation]
-    """
-    Information about the customer collected within the Checkout Session.
-    """
     consent: Optional[Consent]
     """
     Results of `consent_collection` for this session.
@@ -5093,7 +5089,7 @@ class Session(
     """
     currency_conversion: Optional[CurrencyConversion]
     """
-    Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions
+    Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions created before 2025-03-31.
     """
     custom_fields: List[CustomField]
     """
