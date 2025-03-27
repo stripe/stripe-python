@@ -61,15 +61,21 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
                 _inner_class_types = {"credited_items": CreditedItems}
 
             invoice_item: str
+            """
+            The invoice item that generated this line item
+            """
             proration: bool
             """
-            Whether this is a proration.
+            Whether this is a proration
             """
             proration_details: Optional[ProrationDetails]
             """
             Additional details for proration line items
             """
             subscription: Optional[str]
+            """
+            The subscription that the invoice item belongs to
+            """
             _inner_class_types = {"proration_details": ProrationDetails}
 
         class SubscriptionItemDetails(StripeObject):
@@ -91,21 +97,39 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
                 _inner_class_types = {"credited_items": CreditedItems}
 
             invoice_item: Optional[str]
+            """
+            The invoice item that generated this line item
+            """
             proration: bool
             """
-            Whether this is a proration.
+            Whether this is a proration
             """
             proration_details: Optional[ProrationDetails]
             """
             Additional details for proration line items
             """
             subscription: str
+            """
+            The subscription that the subscription item belongs to
+            """
             subscription_item: str
+            """
+            The subscription item that generated this line item
+            """
             _inner_class_types = {"proration_details": ProrationDetails}
 
         invoice_item_details: Optional[InvoiceItemDetails]
+        """
+        Details about the invoice item that generated this line item
+        """
         subscription_item_details: Optional[SubscriptionItemDetails]
+        """
+        Details about the subscription item that generated this line item
+        """
         type: Literal["invoice_item_details", "subscription_item_details"]
+        """
+        The type of parent that generated this line item
+        """
         _inner_class_types = {
             "invoice_item_details": InvoiceItemDetails,
             "subscription_item_details": SubscriptionItemDetails,
@@ -488,6 +512,9 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     String representing the object's type. Objects of the same type share the same value.
     """
     parent: Optional[Parent]
+    """
+    The parent that generated this invoice
+    """
     period: Period
     pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
     """

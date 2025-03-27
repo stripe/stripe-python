@@ -1858,7 +1858,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "ConfirmationToken.CreateParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a Satispay PaymentMethod, this hash contains details about the Satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
         """
         sepa_debit: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataSepaDebit"

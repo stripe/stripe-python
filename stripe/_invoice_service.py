@@ -1716,7 +1716,7 @@ class InvoiceService(StripeService):
         """
         For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
         """
-        cancel_at: NotRequired["Literal['']|int|Literal['min_period_end']"]
+        cancel_at: NotRequired["Literal['']|int"]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """

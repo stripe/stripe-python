@@ -643,15 +643,37 @@ class Invoice(
     class Parent(StripeObject):
         class QuoteDetails(StripeObject):
             quote: str
+            """
+            The quote that generated this invoice
+            """
 
         class SubscriptionDetails(StripeObject):
             metadata: Optional[Dict[str, str]]
-            subscription: str
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+             *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
+            """
+            subscription: ExpandableField["Subscription"]
+            """
+            The subscription that generated this invoice
+            """
             subscription_proration_date: Optional[int]
+            """
+            Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
+            """
 
         quote_details: Optional[QuoteDetails]
+        """
+        Details about the quote that generated this invoice
+        """
         subscription_details: Optional[SubscriptionDetails]
+        """
+        Details about the subscription that generated this invoice
+        """
         type: Literal["quote_details", "subscription_details"]
+        """
+        The type of parent that generated this invoice
+        """
         _inner_class_types = {
             "quote_details": QuoteDetails,
             "subscription_details": SubscriptionDetails,
@@ -2794,7 +2816,7 @@ class Invoice(
         """
         For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
         """
-        cancel_at: NotRequired["Literal['']|int|Literal['min_period_end']"]
+        cancel_at: NotRequired["Literal['']|int"]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -4222,6 +4244,9 @@ class Invoice(
     The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
     """
     parent: Optional[Parent]
+    """
+    The parent that generated this invoice
+    """
     payment_settings: PaymentSettings
     payments: Optional[ListObject["InvoicePayment"]]
     """
