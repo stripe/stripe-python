@@ -548,6 +548,9 @@ class InvoiceItem(
     String representing the object's type. Objects of the same type share the same value.
     """
     parent: Optional[Parent]
+    """
+    The parent that generated this invoice
+    """
     period: Period
     pricing: Optional[Pricing]
     """
