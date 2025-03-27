@@ -717,7 +717,7 @@ class Invoice(
             """
             If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
             """
-            subscription: str
+            subscription: ExpandableField["Subscription"]
             """
             The subscription that generated this invoice
             """
