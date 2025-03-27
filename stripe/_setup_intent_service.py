@@ -168,6 +168,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataBillingDetails"
         ]
@@ -304,6 +310,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataOxxo"
         ]
@@ -388,6 +400,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        """
         sepa_debit: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataSepaDebit"
         ]
@@ -405,6 +423,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
+        """
+        stripe_balance: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataStripeBalance"
+        ]
+        """
+        This hash contains details about the Stripe balance payment method.
         """
         swish: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataSwish"
@@ -428,6 +452,7 @@ class SetupIntentService(StripeService):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -448,6 +473,7 @@ class SetupIntentService(StripeService):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -461,9 +487,11 @@ class SetupIntentService(StripeService):
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -542,6 +570,9 @@ class SetupIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -767,6 +798,29 @@ class SetupIntentService(StripeService):
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
 
+    class ConfirmParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
+        """
+
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -872,6 +926,9 @@ class SetupIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataSamsungPay(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataSatispay(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
         iban: str
         """
@@ -885,6 +942,16 @@ class SetupIntentService(StripeService):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
         """
         Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class ConfirmParamsPaymentMethodDataStripeBalance(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account ID whose Stripe balance to use as the source of payment
+        """
+        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+        """
+        The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
         """
 
     class ConfirmParamsPaymentMethodDataSwish(TypedDict):
@@ -1440,6 +1507,12 @@ class SetupIntentService(StripeService):
 
         If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
         """
+        customer_account: NotRequired[str]
+        """
+        ID of the Account this SetupIntent belongs to, if one exists.
+
+        If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
+        """
         description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
@@ -1500,6 +1573,8 @@ class SetupIntentService(StripeService):
         single_use: NotRequired["SetupIntentService.CreateParamsSingleUse"]
         """
         If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
+
+        Single-use mandates are only valid for the following payment methods: `acss_debit`, `alipay`, `au_becs_debit`, `bacs_debit`, `bancontact`, `boleto`, `ideal`, `link`, `sepa_debit`, and `us_bank_account`.
         """
         usage: NotRequired[Literal["off_session", "on_session"]]
         """
@@ -1625,6 +1700,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
+        """
+        billie: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
         """
         billing_details: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataBillingDetails"
@@ -1758,6 +1839,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -1838,6 +1925,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        """
         sepa_debit: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataSepaDebit"
         ]
@@ -1855,6 +1948,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
+        """
+        stripe_balance: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataStripeBalance"
+        ]
+        """
+        This hash contains details about the Stripe balance payment method.
         """
         swish: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataSwish"
@@ -1878,6 +1977,7 @@ class SetupIntentService(StripeService):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -1898,6 +1998,7 @@ class SetupIntentService(StripeService):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -1911,9 +2012,11 @@ class SetupIntentService(StripeService):
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -1990,6 +2093,9 @@ class SetupIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -2215,6 +2321,29 @@ class SetupIntentService(StripeService):
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
 
+    class CreateParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
+        """
+
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -2320,6 +2449,9 @@ class SetupIntentService(StripeService):
     class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataSatispay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):
         iban: str
         """
@@ -2333,6 +2465,16 @@ class SetupIntentService(StripeService):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
         """
         Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class CreateParamsPaymentMethodDataStripeBalance(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account ID whose Stripe balance to use as the source of payment
+        """
+        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+        """
+        The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
         """
 
     class CreateParamsPaymentMethodDataSwish(TypedDict):
@@ -2884,6 +3026,10 @@ class SetupIntentService(StripeService):
         """
         Only return SetupIntents for the customer specified by this customer ID.
         """
+        customer_account: NotRequired[str]
+        """
+        Only return SetupIntents for the account specified by this customer ID.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -2945,6 +3091,12 @@ class SetupIntentService(StripeService):
         ID of the Customer this SetupIntent belongs to, if one exists.
 
         If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
+        """
+        customer_account: NotRequired[str]
+        """
+        ID of the Account this SetupIntent belongs to, if one exists.
+
+        If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
         """
         description: NotRequired[str]
         """
@@ -3050,6 +3202,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
+        """
+        billie: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
         """
         billing_details: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataBillingDetails"
@@ -3183,6 +3341,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataOxxo"
         ]
@@ -3263,6 +3427,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        """
         sepa_debit: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataSepaDebit"
         ]
@@ -3280,6 +3450,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
+        """
+        stripe_balance: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataStripeBalance"
+        ]
+        """
+        This hash contains details about the Stripe balance payment method.
         """
         swish: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataSwish"
@@ -3303,6 +3479,7 @@ class SetupIntentService(StripeService):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -3323,6 +3500,7 @@ class SetupIntentService(StripeService):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -3336,9 +3514,11 @@ class SetupIntentService(StripeService):
             "rechnung",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -3415,6 +3595,9 @@ class SetupIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -3640,6 +3823,29 @@ class SetupIntentService(StripeService):
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
 
+    class UpdateParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
+        """
+
     class UpdateParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -3745,6 +3951,9 @@ class SetupIntentService(StripeService):
     class UpdateParamsPaymentMethodDataSamsungPay(TypedDict):
         pass
 
+    class UpdateParamsPaymentMethodDataSatispay(TypedDict):
+        pass
+
     class UpdateParamsPaymentMethodDataSepaDebit(TypedDict):
         iban: str
         """
@@ -3758,6 +3967,16 @@ class SetupIntentService(StripeService):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
         """
         Two-letter ISO code representing the country the bank account is located in.
+        """
+
+    class UpdateParamsPaymentMethodDataStripeBalance(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account ID whose Stripe balance to use as the source of payment
+        """
+        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+        """
+        The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
         """
 
     class UpdateParamsPaymentMethodDataSwish(TypedDict):

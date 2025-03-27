@@ -204,6 +204,10 @@ class Account(
         """
         The status of the customer_balance payments capability of the account, or whether the account can directly process customer_balance charges.
         """
+        billie_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Billie capability of the account, or whether the account can directly process Billie payments.
+        """
         blik_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the blik payments capability of the account, or whether the account can directly process blik charges.
@@ -388,6 +392,10 @@ class Account(
         """
         The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
         """
+        satispay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Satispay capability of the account, or whether the account can directly process Satispay payments.
+        """
         sepa_bank_transfer_payments: Optional[
             Literal["active", "inactive", "pending"]
         ]
@@ -405,6 +413,12 @@ class Account(
         sofort_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
+        """
+        stripe_balance_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the stripe_balance payments capability of the account, or whether the account can directly process stripe_balance charges.
         """
         swish_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -635,15 +649,15 @@ class Account(
         """
         name: Optional[str]
         """
-        The company's legal name.
+        The company's legal name. Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
         """
         name_kana: Optional[str]
         """
-        The Kana variation of the company's legal name (Japan only).
+        The Kana variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
         """
         name_kanji: Optional[str]
         """
-        The Kanji variation of the company's legal name (Japan only).
+        The Kanji variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
         """
         owners_provided: Optional[bool]
         """
@@ -659,6 +673,9 @@ class Account(
                 "qualifies_as_financial_institution",
             ]
         ]
+        """
+        This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
+        """
         phone: Optional[str]
         """
         The company's phone number (used for verification).
@@ -691,7 +708,7 @@ class Account(
             ]
         ]
         """
-        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
+        The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
         """
         tax_id_provided: Optional[bool]
         """
@@ -801,6 +818,7 @@ class Account(
 
         class Error(StripeObject):
             code: Literal[
+                "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
@@ -813,6 +831,7 @@ class Account(
                 "invalid_product_description_length",
                 "invalid_product_description_url_match",
                 "invalid_representative_country",
+                "invalid_signator",
                 "invalid_statement_descriptor_business_mismatch",
                 "invalid_statement_descriptor_denylisted",
                 "invalid_statement_descriptor_length",
@@ -874,6 +893,7 @@ class Account(
                 "verification_document_type_not_supported",
                 "verification_extraneous_directors",
                 "verification_failed_address_match",
+                "verification_failed_authorizer_authority",
                 "verification_failed_business_iec_number",
                 "verification_failed_document_match",
                 "verification_failed_id_number_match",
@@ -888,6 +908,7 @@ class Account(
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
+                "verification_rejected_ownership_exemption_reason",
                 "verification_requires_additional_memorandum_of_associations",
                 "verification_requires_additional_proof_of_registration",
                 "verification_supportability",
@@ -975,6 +996,7 @@ class Account(
 
         class Error(StripeObject):
             code: Literal[
+                "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
@@ -987,6 +1009,7 @@ class Account(
                 "invalid_product_description_length",
                 "invalid_product_description_url_match",
                 "invalid_representative_country",
+                "invalid_signator",
                 "invalid_statement_descriptor_business_mismatch",
                 "invalid_statement_descriptor_denylisted",
                 "invalid_statement_descriptor_length",
@@ -1048,6 +1071,7 @@ class Account(
                 "verification_document_type_not_supported",
                 "verification_extraneous_directors",
                 "verification_failed_address_match",
+                "verification_failed_authorizer_authority",
                 "verification_failed_business_iec_number",
                 "verification_failed_document_match",
                 "verification_failed_id_number_match",
@@ -1062,6 +1086,7 @@ class Account(
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
+                "verification_rejected_ownership_exemption_reason",
                 "verification_requires_additional_memorandum_of_associations",
                 "verification_requires_additional_proof_of_registration",
                 "verification_supportability",
@@ -1270,6 +1295,12 @@ class Account(
             """
             The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
             """
+            hosted_payment_method_save: Optional[
+                Literal["always", "never", "offer"]
+            ]
+            """
+            Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+            """
 
         class Payments(StripeObject):
             statement_descriptor: Optional[str]
@@ -1416,7 +1447,7 @@ class Account(
             "Account.CreateExternalAccountParamsCardToken",
         ]
         """
-        Please refer to full [documentation](https://stripe.com/docs/api) instead.
+        A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js) or a dictionary containing a user's external account details (with the options shown below). Please refer to full [documentation](https://stripe.com/docs/api/external_accounts) instead.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -1761,6 +1792,12 @@ class Account(
         """
         The bank_transfer_payments capability.
         """
+        billie_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesBilliePayments"
+        ]
+        """
+        The billie_payments capability.
+        """
         blik_payments: NotRequired[
             "Account.CreateParamsCapabilitiesBlikPayments"
         ]
@@ -2007,6 +2044,12 @@ class Account(
         """
         The samsung_pay_payments capability.
         """
+        satispay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesSatispayPayments"
+        ]
+        """
+        The satispay_payments capability.
+        """
         sepa_bank_transfer_payments: NotRequired[
             "Account.CreateParamsCapabilitiesSepaBankTransferPayments"
         ]
@@ -2030,6 +2073,12 @@ class Account(
         ]
         """
         The sofort_payments capability.
+        """
+        stripe_balance_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesStripeBalancePayments"
+        ]
+        """
+        The stripe_balance_payments capability.
         """
         swish_payments: NotRequired[
             "Account.CreateParamsCapabilitiesSwishPayments"
@@ -2155,6 +2204,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesBilliePayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2406,6 +2461,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesSatispayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesSepaBankTransferPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2425,6 +2486,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesSofortPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesStripeBalancePayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2587,6 +2654,9 @@ class Account(
         ownership_exemption_reason: NotRequired[
             "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
         ]
+        """
+        This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
+        """
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).
@@ -3253,6 +3323,10 @@ class Account(
         """
         Settings specific to card charging on the account.
         """
+        invoices: NotRequired["Account.CreateParamsSettingsInvoices"]
+        """
+        Settings specific to the account's use of Invoices.
+        """
         payments: NotRequired["Account.CreateParamsSettingsPayments"]
         """
         Settings that apply across payment methods for charging on the account.
@@ -3364,6 +3438,14 @@ class Account(
         cvc_failure: NotRequired[bool]
         """
         Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
+        """
+
+    class CreateParamsSettingsInvoices(TypedDict):
+        hosted_payment_method_save: NotRequired[
+            Literal["always", "never", "offer"]
+        ]
+        """
+        Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
         """
 
     class CreateParamsSettingsPayments(TypedDict):
@@ -3563,7 +3645,7 @@ class Account(
         """
         The person's phone number.
         """
-        political_exposure: NotRequired[str]
+        political_exposure: NotRequired[Literal["existing", "none"]]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """
@@ -4152,7 +4234,7 @@ class Account(
         """
         The person's phone number.
         """
-        political_exposure: NotRequired[str]
+        political_exposure: NotRequired[Literal["existing", "none"]]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """
@@ -4507,7 +4589,7 @@ class Account(
         Literal["company", "government_entity", "individual", "non_profit"]
     ]
     """
-    The business type. After you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property is only returned for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+    The business type.
     """
     capabilities: Optional[Capabilities]
     charges_enabled: Optional[bool]
@@ -4553,7 +4635,7 @@ class Account(
     """
     This is an object representing a person associated with a Stripe account.
 
-    A platform cannot access a person for an account where [account.controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
+    A platform can only access a subset of data in a person for an account where [account.controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
 
     See the [Standard onboarding](https://stripe.com/connect/standard-accounts) or [Express onboarding](https://stripe.com/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](https://stripe.com/connect/handling-api-verification#person-information).
     """

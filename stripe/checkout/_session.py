@@ -110,6 +110,10 @@ class Session(
         """
         The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         """
+        provider: Optional[str]
+        """
+        The tax provider powering automatic tax.
+        """
         status: Optional[
             Literal["complete", "failed", "requires_location_inputs"]
         ]
@@ -146,22 +150,10 @@ class Session(
                 State, county, province, or region.
                 """
 
-            address: Optional[Address]
-            carrier: Optional[str]
+            address: Address
+            name: str
             """
-            The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-            """
-            name: Optional[str]
-            """
-            Recipient name.
-            """
-            phone: Optional[str]
-            """
-            Recipient phone (including extension).
-            """
-            tracking_number: Optional[str]
-            """
-            The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+            Customer name.
             """
             _inner_class_types = {"address": Address}
 
@@ -745,6 +737,26 @@ class Session(
         """
         invoice_data: InvoiceData
         _inner_class_types = {"invoice_data": InvoiceData}
+
+    class OptionalItem(StripeObject):
+        class AdjustableQuantity(StripeObject):
+            enabled: bool
+            """
+            Set to true if the quantity can be adjusted to any non-negative integer.
+            """
+            maximum: Optional[int]
+            """
+            The maximum quantity of this item the customer can purchase. By default this value is 99. You can specify a value up to 999999.
+            """
+            minimum: Optional[int]
+            """
+            The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
+            """
+
+        adjustable_quantity: Optional[AdjustableQuantity]
+        price: str
+        quantity: int
+        _inner_class_types = {"adjustable_quantity": AdjustableQuantity}
 
     class PaymentMethodConfigurationDetails(StripeObject):
         id: str
@@ -1639,12 +1651,32 @@ class Session(
         """
         Permissions for updating the Checkout Session.
         """
+        update_shipping_details: Optional[
+            Literal["client_only", "server_only"]
+        ]
+        """
+        Determines which entity is allowed to update the shipping details.
+
+        Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+
+        When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        """
         _inner_class_types = {"update": Update}
 
     class PhoneNumberCollection(StripeObject):
         enabled: bool
         """
         Indicates whether phone number collection is enabled for the session
+        """
+
+    class PresentmentDetails(StripeObject):
+        presentment_amount: int
+        """
+        Amount intended to be collected by this payment, denominated in presentment_currency.
+        """
+        presentment_currency: str
+        """
+        Currency presented to the customer during payment.
         """
 
     class SavedPaymentMethodOptions(StripeObject):
@@ -1972,52 +2004,6 @@ class Session(
         """
         _inner_class_types = {"taxes": Tax}
 
-    class ShippingDetails(StripeObject):
-        class Address(StripeObject):
-            city: Optional[str]
-            """
-            City, district, suburb, town, or village.
-            """
-            country: Optional[str]
-            """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            """
-            line1: Optional[str]
-            """
-            Address line 1 (e.g., street, PO Box, or company name).
-            """
-            line2: Optional[str]
-            """
-            Address line 2 (e.g., apartment, suite, unit, or building).
-            """
-            postal_code: Optional[str]
-            """
-            ZIP or postal code.
-            """
-            state: Optional[str]
-            """
-            State, county, province, or region.
-            """
-
-        address: Optional[Address]
-        carrier: Optional[str]
-        """
-        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-        """
-        name: Optional[str]
-        """
-        Recipient name.
-        """
-        phone: Optional[str]
-        """
-        Recipient phone (including extension).
-        """
-        tracking_number: Optional[str]
-        """
-        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-        """
-        _inner_class_types = {"address": Address}
-
     class ShippingOption(StripeObject):
         shipping_amount: int
         """
@@ -2179,6 +2165,10 @@ class Session(
 
         You can set [`payment_intent_data.setup_future_usage`](https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
         """
+        customer_account: NotRequired[str]
+        """
+        ID of an existing Account, if one exists. Has the same behavior as `customer`.
+        """
         customer_creation: NotRequired[Literal["always", "if_required"]]
         """
         Configure whether a Checkout Session creates a [Customer](https://stripe.com/docs/api/customers) during Session confirmation.
@@ -2283,6 +2273,16 @@ class Session(
         """
         The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
         """
+        optional_items: NotRequired[List["Session.CreateParamsOptionalItem"]]
+        """
+        A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+
+        There is a maximum of 10 optional items allowed on a Checkout Session, and the existing limits on the number of line items allowed on a Checkout Session apply to the combined number of line items and optional items.
+
+        For `payment` mode, there is a maximum of 100 combined line items and optional items, however it is recommended to consolidate items if there are more than a few dozen.
+
+        For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
+        """
         payment_intent_data: NotRequired[
             "Session.CreateParamsPaymentIntentData"
         ]
@@ -2328,6 +2328,7 @@ class Session(
                     "au_becs_debit",
                     "bacs_debit",
                     "bancontact",
+                    "billie",
                     "blik",
                     "boleto",
                     "card",
@@ -2361,6 +2362,7 @@ class Session(
                     "rechnung",
                     "revolut_pay",
                     "samsung_pay",
+                    "satispay",
                     "sepa_debit",
                     "shopeepay",
                     "sofort",
@@ -2438,9 +2440,10 @@ class Session(
             Literal["auto", "book", "donate", "pay", "subscribe"]
         ]
         """
-        Describes the type of transaction being performed by Checkout in order to customize
-        relevant text on the page, such as the submit button. `submit_type` can only be
-        specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
+        Describes the type of transaction being performed by Checkout in order
+        to customize relevant text on the page, such as the submit button.
+         `submit_type` can only be specified on Checkout Sessions in
+        `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
         """
         subscription_data: NotRequired["Session.CreateParamsSubscriptionData"]
         """
@@ -2826,13 +2829,13 @@ class Session(
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         """
         product_data: NotRequired[
             "Session.CreateParamsLineItemPriceDataProductData"
         ]
         """
-        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         """
         recurring: NotRequired[
             "Session.CreateParamsLineItemPriceDataRecurring"
@@ -2887,10 +2890,40 @@ class Session(
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
+    class CreateParamsOptionalItem(TypedDict):
+        adjustable_quantity: NotRequired[
+            "Session.CreateParamsOptionalItemAdjustableQuantity"
+        ]
+        """
+        When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
+        """
+        price: str
+        """
+        The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+        """
+        quantity: int
+        """
+        The initial quantity of the line item created when a customer chooses to add this optional item to their order.
+        """
+
+    class CreateParamsOptionalItemAdjustableQuantity(TypedDict):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative integer.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity of this item the customer can purchase. By default this value is 99. You can specify a value up to 999999.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
+        """
+
     class CreateParamsPaymentIntentData(TypedDict):
         application_fee_amount: NotRequired[int]
         """
-        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
         capture_method: NotRequired[
             Literal["automatic", "automatic_async", "manual"]
@@ -4096,6 +4129,16 @@ class Session(
         """
         Permissions for updating the Checkout Session.
         """
+        update_shipping_details: NotRequired[
+            Literal["client_only", "server_only"]
+        ]
+        """
+        Determines which entity is allowed to update the shipping details.
+
+        Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+
+        When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        """
 
     class CreateParamsPermissionsUpdate(TypedDict):
         line_items: NotRequired[Literal["client_only", "server_only"]]
@@ -4666,6 +4709,10 @@ class Session(
         """
         Only return the Checkout Sessions for the Customer specified.
         """
+        customer_account: NotRequired[str]
+        """
+        Only return the Checkout Sessions for the Account specified.
+        """
         customer_details: NotRequired["Session.ListParamsCustomerDetails"]
         """
         Only return the Checkout Sessions for the Customer details specified.
@@ -4748,7 +4795,7 @@ class Session(
 
         To update an existing line item, specify its `id` along with the new values of the fields to update.
 
-        To add a new line item, specify a `price` and `quantity`. We don't currently support recurring prices.
+        To add a new line item, specify a `price` and `quantity`.
 
         To remove an existing line item, omit the line item's ID from the retransmitted array.
 
@@ -5017,7 +5064,8 @@ class Session(
     """
     client_secret: Optional[str]
     """
-    The client secret of the Session. Use this with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
+    The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. For `ui_mode: embedded`, the client secret is to be used when initializing Stripe.js embedded checkout.
+     For `ui_mode: custom`, use the client secret with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
     """
     collected_information: Optional[CollectedInformation]
     """
@@ -5059,6 +5107,10 @@ class Session(
     will create a new customer object based on information provided
     during the payment flow unless an existing customer was provided when
     the Session was created.
+    """
+    customer_account: Optional[str]
+    """
+    The ID of the account for this Session.
     """
     customer_creation: Optional[Literal["always", "if_required"]]
     """
@@ -5164,6 +5216,10 @@ class Session(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    optional_items: Optional[List[OptionalItem]]
+    """
+    The optional items presented to the customer at checkout.
+    """
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     """
     The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
@@ -5203,6 +5259,7 @@ class Session(
     For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
     """
     phone_number_collection: Optional[PhoneNumberCollection]
+    presentment_details: Optional[PresentmentDetails]
     recovered_from: Optional[str]
     """
     The ID of the original expired Checkout Session that triggered the recovery flow.
@@ -5230,10 +5287,6 @@ class Session(
     shipping_cost: Optional[ShippingCost]
     """
     The details of the customer cost of shipping, including the customer chosen ShippingRate.
-    """
-    shipping_details: Optional[ShippingDetails]
-    """
-    Shipping information for this Checkout Session.
     """
     shipping_options: List[ShippingOption]
     """
@@ -5271,14 +5324,14 @@ class Session(
     """
     url: Optional[str]
     """
-    The URL to the Checkout Session. Redirect customers to this URL to take them to Checkout. If you're using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it'll use `checkout.stripe.com.`
+    The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you're using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it'll use `checkout.stripe.com.`
     This value is only present when the session is active.
     """
 
     @classmethod
     def create(cls, **params: Unpack["Session.CreateParams"]) -> "Session":
         """
-        Creates a Session object.
+        Creates a Checkout Session object.
         """
         return cast(
             "Session",
@@ -5294,7 +5347,7 @@ class Session(
         cls, **params: Unpack["Session.CreateParams"]
     ) -> "Session":
         """
-        Creates a Session object.
+        Creates a Checkout Session object.
         """
         return cast(
             "Session",
@@ -5310,9 +5363,9 @@ class Session(
         cls, session: str, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
             "Session",
@@ -5331,18 +5384,18 @@ class Session(
         session: str, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         ...
 
     @overload
     def expire(self, **params: Unpack["Session.ExpireParams"]) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         ...
 
@@ -5351,9 +5404,9 @@ class Session(
         self, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
             "Session",
@@ -5371,9 +5424,9 @@ class Session(
         cls, session: str, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
             "Session",
@@ -5392,9 +5445,9 @@ class Session(
         session: str, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         ...
 
@@ -5403,9 +5456,9 @@ class Session(
         self, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         ...
 
@@ -5414,9 +5467,9 @@ class Session(
         self, **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
             "Session",
@@ -5584,7 +5637,7 @@ class Session(
         cls, id: str, **params: Unpack["Session.ModifyParams"]
     ) -> "Session":
         """
-        Updates a Session object.
+        Updates a Checkout Session object.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -5601,7 +5654,7 @@ class Session(
         cls, id: str, **params: Unpack["Session.ModifyParams"]
     ) -> "Session":
         """
-        Updates a Session object.
+        Updates a Checkout Session object.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -5618,7 +5671,7 @@ class Session(
         cls, id: str, **params: Unpack["Session.RetrieveParams"]
     ) -> "Session":
         """
-        Retrieves a Session object.
+        Retrieves a Checkout Session object.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -5629,7 +5682,7 @@ class Session(
         cls, id: str, **params: Unpack["Session.RetrieveParams"]
     ) -> "Session":
         """
-        Retrieves a Session object.
+        Retrieves a Checkout Session object.
         """
         instance = cls(id, **params)
         await instance.refresh_async()
@@ -5648,14 +5701,15 @@ class Session(
         "customer_details": CustomerDetails,
         "discounts": Discount,
         "invoice_creation": InvoiceCreation,
+        "optional_items": OptionalItem,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,
         "permissions": Permissions,
         "phone_number_collection": PhoneNumberCollection,
+        "presentment_details": PresentmentDetails,
         "saved_payment_method_options": SavedPaymentMethodOptions,
         "shipping_address_collection": ShippingAddressCollection,
         "shipping_cost": ShippingCost,
-        "shipping_details": ShippingDetails,
         "shipping_options": ShippingOption,
         "tax_id_collection": TaxIdCollection,
         "total_details": TotalDetails,

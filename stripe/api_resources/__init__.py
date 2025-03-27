@@ -48,6 +48,7 @@ if not TYPE_CHECKING:
         ApplicationFeeRefund,
     )
     from stripe.api_resources.balance import Balance
+    from stripe.api_resources.balance_settings import BalanceSettings
     from stripe.api_resources.balance_transaction import BalanceTransaction
     from stripe.api_resources.bank_account import BankAccount
     from stripe.api_resources.capability import Capability
@@ -138,8 +139,6 @@ if not TYPE_CHECKING:
     from stripe.api_resources.token import Token
     from stripe.api_resources.topup import Topup
     from stripe.api_resources.transfer import Transfer
-    from stripe.api_resources.usage_record import UsageRecord
-    from stripe.api_resources.usage_record_summary import UsageRecordSummary
     from stripe.api_resources.webhook_endpoint import WebhookEndpoint
 
 # The end of the section generated from our OpenAPI spec

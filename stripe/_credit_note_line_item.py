@@ -52,37 +52,49 @@ class CreditNoteLineItem(StripeObject):
         Type of the pretax credit amount referenced.
         """
 
-    class TaxAmount(StripeObject):
+    class TaxCalculationReference(StripeObject):
+        calculation_id: Optional[str]
+        """
+        The calculation identifier for tax calculation response.
+        """
+        calculation_item_id: Optional[str]
+        """
+        The calculation identifier for tax calculation response line item.
+        """
+
+    class Tax(StripeObject):
+        class TaxRateDetails(StripeObject):
+            tax_rate: str
+
         amount: int
         """
-        The amount, in cents (or local equivalent), of the tax.
+        The amount of the tax, in cents (or local equivalent).
         """
-        inclusive: bool
+        tax_behavior: Literal["exclusive", "inclusive"]
         """
-        Whether this tax amount is inclusive or exclusive.
+        Whether this tax is inclusive or exclusive.
         """
-        tax_rate: ExpandableField["TaxRate"]
+        tax_rate_details: Optional[TaxRateDetails]
         """
-        The tax rate that was applied to get this tax amount.
+        Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
         """
-        taxability_reason: Optional[
-            Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
-            ]
+        taxability_reason: Literal[
+            "customer_exempt",
+            "not_available",
+            "not_collecting",
+            "not_subject_to_tax",
+            "not_supported",
+            "portion_product_exempt",
+            "portion_reduced_rated",
+            "portion_standard_rated",
+            "product_exempt",
+            "product_exempt_holiday",
+            "proportionally_rated",
+            "reduced_rated",
+            "reverse_charge",
+            "standard_rated",
+            "taxable_basis_reduced",
+            "zero_rated",
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -91,14 +103,15 @@ class CreditNoteLineItem(StripeObject):
         """
         The amount on which tax is calculated, in cents (or local equivalent).
         """
+        type: Literal["tax_rate_details"]
+        """
+        The type of tax information.
+        """
+        _inner_class_types = {"tax_rate_details": TaxRateDetails}
 
     amount: int
     """
     The integer amount in cents (or local equivalent) representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts.
-    """
-    amount_excluding_tax: Optional[int]
-    """
-    The integer amount in cents (or local equivalent) representing the amount being credited for this line item, excluding all tax and discounts.
     """
     description: Optional[str]
     """
@@ -136,13 +149,17 @@ class CreditNoteLineItem(StripeObject):
     """
     The number of units of product being credited.
     """
-    tax_amounts: List[TaxAmount]
+    tax_calculation_reference: Optional[TaxCalculationReference]
     """
-    The amount of tax calculated per tax rate for this line item
+    The tax calculation identifiers of the line item.
     """
     tax_rates: List["TaxRate"]
     """
     The tax rates which apply to the line item.
+    """
+    taxes: Optional[List[Tax]]
+    """
+    The tax information of the line item.
     """
     type: Literal["custom_line_item", "invoice_line_item"]
     """
@@ -156,12 +173,9 @@ class CreditNoteLineItem(StripeObject):
     """
     Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
     """
-    unit_amount_excluding_tax: Optional[str]
-    """
-    The amount in cents (or local equivalent) representing the unit amount being credited for this line item, excluding all tax and discounts.
-    """
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
         "pretax_credit_amounts": PretaxCreditAmount,
-        "tax_amounts": TaxAmount,
+        "tax_calculation_reference": TaxCalculationReference,
+        "taxes": Tax,
     }

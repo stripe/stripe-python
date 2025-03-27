@@ -32,6 +32,10 @@ class CashBalance(StripeObject):
     """
     The ID of the customer whose cash balance this object represents.
     """
+    customer_account: Optional[str]
+    """
+    The ID of the account whose cash balance this object represents.
+    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

@@ -359,6 +359,15 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Link(StripeObject):
             pass
 
+        class NaverPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
+            """
+
+        class NzBankAccount(StripeObject):
+            pass
+
         class Paypal(StripeObject):
             pass
 
@@ -407,6 +416,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class StripeBalance(StripeObject):
+            pass
+
         class UsBankAccount(StripeObject):
             pass
 
@@ -425,11 +437,14 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         klarna: Optional[Klarna]
         kr_card: Optional[KrCard]
         link: Optional[Link]
+        naver_pay: Optional[NaverPay]
+        nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
+        stripe_balance: Optional[StripeBalance]
         type: str
         """
         The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
@@ -451,11 +466,14 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "klarna": Klarna,
             "kr_card": KrCard,
             "link": Link,
+            "naver_pay": NaverPay,
+            "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
             "payto": Payto,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
+            "stripe_balance": StripeBalance,
             "us_bank_account": UsBankAccount,
         }
 
@@ -522,6 +540,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
+                "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
                 "gift_card_balance_insufficient",
@@ -622,6 +641,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "setup_intent_authentication_failure",
                 "setup_intent_invalid_parameter",
                 "setup_intent_mandate_invalid",
+                "setup_intent_mobile_wallet_unsupported",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
                 "shipping_address_invalid",
@@ -648,6 +668,8 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "transfer_source_balance_parameters_mismatch",
                 "transfers_not_allowed",
                 "url_invalid",
+                "v2_account_disconnection_unsupported",
+                "v2_account_missing_configuration",
             ]
         ]
         """
@@ -808,6 +830,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
     customer: Optional[ExpandableField["Customer"]]
     """
     The value of [customer](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer) on the SetupIntent at the time of this confirmation.
+    """
+    customer_account: Optional[str]
+    """
+    The value of [customer_account](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer_account) on the SetupIntent at the time of this confirmation.
     """
     flow_directions: Optional[List[Literal["inbound", "outbound"]]]
     """

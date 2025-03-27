@@ -147,37 +147,39 @@ class CreditNote(
         """
         _inner_class_types = {"taxes": Tax}
 
-    class TaxAmount(StripeObject):
+    class TotalTax(StripeObject):
+        class TaxRateDetails(StripeObject):
+            tax_rate: str
+
         amount: int
         """
-        The amount, in cents (or local equivalent), of the tax.
+        The amount of the tax, in cents (or local equivalent).
         """
-        inclusive: bool
+        tax_behavior: Literal["exclusive", "inclusive"]
         """
-        Whether this tax amount is inclusive or exclusive.
+        Whether this tax is inclusive or exclusive.
         """
-        tax_rate: ExpandableField["TaxRate"]
+        tax_rate_details: Optional[TaxRateDetails]
         """
-        The tax rate that was applied to get this tax amount.
+        Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
         """
-        taxability_reason: Optional[
-            Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
-            ]
+        taxability_reason: Literal[
+            "customer_exempt",
+            "not_available",
+            "not_collecting",
+            "not_subject_to_tax",
+            "not_supported",
+            "portion_product_exempt",
+            "portion_reduced_rated",
+            "portion_standard_rated",
+            "product_exempt",
+            "product_exempt_holiday",
+            "proportionally_rated",
+            "reduced_rated",
+            "reverse_charge",
+            "standard_rated",
+            "taxable_basis_reduced",
+            "zero_rated",
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -186,6 +188,11 @@ class CreditNote(
         """
         The amount on which tax is calculated, in cents (or local equivalent).
         """
+        type: Literal["tax_rate_details"]
+        """
+        The type of tax information.
+        """
+        _inner_class_types = {"tax_rate_details": TaxRateDetails}
 
     class CreateParams(RequestOptions):
         amount: NotRequired[int]
@@ -238,10 +245,6 @@ class CreditNote(
         ]
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
-        """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
         """
         refund_amount: NotRequired[int]
         """
@@ -352,6 +355,10 @@ class CreditNote(
         customer: NotRequired[str]
         """
         Only return credit notes for the customer specified by this customer ID.
+        """
+        customer_account: NotRequired[str]
+        """
+        Only return credit notes for the account specified by this account ID.
         """
         ending_before: NotRequired[str]
         """
@@ -465,10 +472,6 @@ class CreditNote(
         ]
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
-        """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
         """
         refund_amount: NotRequired[int]
         """
@@ -609,10 +612,6 @@ class CreditNote(
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
         """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
-        """
         refund_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
@@ -728,6 +727,10 @@ class CreditNote(
     """
     ID of the customer.
     """
+    customer_account: Optional[str]
+    """
+    ID of the account.
+    """
     customer_balance_transaction: Optional[
         ExpandableField["CustomerBalanceTransaction"]
     ]
@@ -800,11 +803,7 @@ class CreditNote(
     """
     Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
     """
-    refund: Optional[ExpandableField["RefundResource"]]
-    """
-    Refund related to this credit note.
-    """
-    refunds: Optional[List[Refund]]
+    refunds: List[Refund]
     """
     Refunds related to this credit note.
     """
@@ -824,10 +823,6 @@ class CreditNote(
     """
     The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding all tax and invoice level discounts.
     """
-    tax_amounts: List[TaxAmount]
-    """
-    The aggregate amounts calculated per tax rate for all line items.
-    """
     total: int
     """
     The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax and all discount.
@@ -835,6 +830,10 @@ class CreditNote(
     total_excluding_tax: Optional[int]
     """
     The integer amount in cents (or local equivalent) representing the total amount of the credit note, excluding tax, but including discounts.
+    """
+    total_taxes: Optional[List[TotalTax]]
+    """
+    The aggregate tax information for all line items.
     """
     type: Literal["post_payment", "pre_payment"]
     """
@@ -1210,5 +1209,5 @@ class CreditNote(
         "pretax_credit_amounts": PretaxCreditAmount,
         "refunds": Refund,
         "shipping_cost": ShippingCost,
-        "tax_amounts": TaxAmount,
+        "total_taxes": TotalTax,
     }

@@ -84,6 +84,10 @@ class SessionService(StripeService):
 
         You can set [`payment_intent_data.setup_future_usage`](https://stripe.com/docs/api/checkout/sessions/create#create_checkout_session-payment_intent_data-setup_future_usage) to have Checkout automatically attach the payment method to the Customer you pass in for future reuse.
         """
+        customer_account: NotRequired[str]
+        """
+        ID of an existing Account, if one exists. Has the same behavior as `customer`.
+        """
         customer_creation: NotRequired[Literal["always", "if_required"]]
         """
         Configure whether a Checkout Session creates a [Customer](https://stripe.com/docs/api/customers) during Session confirmation.
@@ -192,6 +196,18 @@ class SessionService(StripeService):
         """
         The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
         """
+        optional_items: NotRequired[
+            List["SessionService.CreateParamsOptionalItem"]
+        ]
+        """
+        A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+
+        There is a maximum of 10 optional items allowed on a Checkout Session, and the existing limits on the number of line items allowed on a Checkout Session apply to the combined number of line items and optional items.
+
+        For `payment` mode, there is a maximum of 100 combined line items and optional items, however it is recommended to consolidate items if there are more than a few dozen.
+
+        For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
+        """
         payment_intent_data: NotRequired[
             "SessionService.CreateParamsPaymentIntentData"
         ]
@@ -237,6 +253,7 @@ class SessionService(StripeService):
                     "au_becs_debit",
                     "bacs_debit",
                     "bancontact",
+                    "billie",
                     "blik",
                     "boleto",
                     "card",
@@ -270,6 +287,7 @@ class SessionService(StripeService):
                     "rechnung",
                     "revolut_pay",
                     "samsung_pay",
+                    "satispay",
                     "sepa_debit",
                     "shopeepay",
                     "sofort",
@@ -349,9 +367,10 @@ class SessionService(StripeService):
             Literal["auto", "book", "donate", "pay", "subscribe"]
         ]
         """
-        Describes the type of transaction being performed by Checkout in order to customize
-        relevant text on the page, such as the submit button. `submit_type` can only be
-        specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
+        Describes the type of transaction being performed by Checkout in order
+        to customize relevant text on the page, such as the submit button.
+         `submit_type` can only be specified on Checkout Sessions in
+        `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
         """
         subscription_data: NotRequired[
             "SessionService.CreateParamsSubscriptionData"
@@ -747,13 +766,13 @@ class SessionService(StripeService):
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         """
         product_data: NotRequired[
             "SessionService.CreateParamsLineItemPriceDataProductData"
         ]
         """
-        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         """
         recurring: NotRequired[
             "SessionService.CreateParamsLineItemPriceDataRecurring"
@@ -808,10 +827,40 @@ class SessionService(StripeService):
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
+    class CreateParamsOptionalItem(TypedDict):
+        adjustable_quantity: NotRequired[
+            "SessionService.CreateParamsOptionalItemAdjustableQuantity"
+        ]
+        """
+        When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
+        """
+        price: str
+        """
+        The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+        """
+        quantity: int
+        """
+        The initial quantity of the line item created when a customer chooses to add this optional item to their order.
+        """
+
+    class CreateParamsOptionalItemAdjustableQuantity(TypedDict):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative integer.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity of this item the customer can purchase. By default this value is 99. You can specify a value up to 999999.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
+        """
+
     class CreateParamsPaymentIntentData(TypedDict):
         application_fee_amount: NotRequired[int]
         """
-        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
         """
         capture_method: NotRequired[
             Literal["automatic", "automatic_async", "manual"]
@@ -2057,6 +2106,16 @@ class SessionService(StripeService):
         """
         Permissions for updating the Checkout Session.
         """
+        update_shipping_details: NotRequired[
+            Literal["client_only", "server_only"]
+        ]
+        """
+        Determines which entity is allowed to update the shipping details.
+
+        Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+
+        When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        """
 
     class CreateParamsPermissionsUpdate(TypedDict):
         line_items: NotRequired[Literal["client_only", "server_only"]]
@@ -2607,6 +2666,10 @@ class SessionService(StripeService):
         """
         Only return the Checkout Sessions for the Customer specified.
         """
+        customer_account: NotRequired[str]
+        """
+        Only return the Checkout Sessions for the Account specified.
+        """
         customer_details: NotRequired[
             "SessionService.ListParamsCustomerDetails"
         ]
@@ -2697,7 +2760,7 @@ class SessionService(StripeService):
 
         To update an existing line item, specify its `id` along with the new values of the fields to update.
 
-        To add a new line item, specify a `price` and `quantity`. We don't currently support recurring prices.
+        To add a new line item, specify a `price` and `quantity`.
 
         To remove an existing line item, omit the line item's ID from the retransmitted array.
 
@@ -2965,7 +3028,7 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        Creates a Session object.
+        Creates a Checkout Session object.
         """
         return cast(
             Session,
@@ -2984,7 +3047,7 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        Creates a Session object.
+        Creates a Checkout Session object.
         """
         return cast(
             Session,
@@ -3004,7 +3067,7 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        Retrieves a Session object.
+        Retrieves a Checkout Session object.
         """
         return cast(
             Session,
@@ -3026,7 +3089,7 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        Retrieves a Session object.
+        Retrieves a Checkout Session object.
         """
         return cast(
             Session,
@@ -3048,7 +3111,7 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        Updates a Session object.
+        Updates a Checkout Session object.
         """
         return cast(
             Session,
@@ -3070,7 +3133,7 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        Updates a Session object.
+        Updates a Checkout Session object.
         """
         return cast(
             Session,
@@ -3092,9 +3155,9 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
             Session,
@@ -3116,9 +3179,9 @@ class SessionService(StripeService):
         options: RequestOptions = {},
     ) -> Session:
         """
-        A Session can be expired when it is in one of these statuses: open
+        A Checkout Session can be expired when it is in one of these statuses: open
 
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
             Session,

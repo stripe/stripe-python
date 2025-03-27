@@ -13,6 +13,10 @@ class CreditBalanceSummaryService(StripeService):
         """
         The customer for which to fetch credit balance summary.
         """
+        customer_account: NotRequired[str]
+        """
+        The account for which to fetch credit balance summary.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -41,7 +45,7 @@ class CreditBalanceSummaryService(StripeService):
     class RetrieveParamsFilterApplicabilityScope(TypedDict):
         price_type: NotRequired[Literal["metered"]]
         """
-        The price type that credit grants can apply to. We currently only support the `metered` price type.
+        The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
         """
         prices: NotRequired[
             List[
@@ -49,7 +53,7 @@ class CreditBalanceSummaryService(StripeService):
             ]
         ]
         """
-        A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+        A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
         """
 
     class RetrieveParamsFilterApplicabilityScopePrice(TypedDict):

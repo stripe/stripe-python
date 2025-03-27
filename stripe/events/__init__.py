@@ -6,3 +6,90 @@ from stripe.events._v1_billing_meter_error_report_triggered_event import (
 from stripe.events._v1_billing_meter_no_meter_found_event import (
     V1BillingMeterNoMeterFoundEvent as V1BillingMeterNoMeterFoundEvent,
 )
+from stripe.events._v2_core_account_link_completed_event import (
+    V2CoreAccountLinkCompletedEvent as V2CoreAccountLinkCompletedEvent,
+)
+from stripe.events._v2_money_management_financial_account_created_event import (
+    V2MoneyManagementFinancialAccountCreatedEvent as V2MoneyManagementFinancialAccountCreatedEvent,
+)
+from stripe.events._v2_money_management_financial_address_activated_event import (
+    V2MoneyManagementFinancialAddressActivatedEvent as V2MoneyManagementFinancialAddressActivatedEvent,
+)
+from stripe.events._v2_money_management_financial_address_failed_event import (
+    V2MoneyManagementFinancialAddressFailedEvent as V2MoneyManagementFinancialAddressFailedEvent,
+)
+from stripe.events._v2_money_management_inbound_transfer_available_event import (
+    V2MoneyManagementInboundTransferAvailableEvent as V2MoneyManagementInboundTransferAvailableEvent,
+)
+from stripe.events._v2_money_management_inbound_transfer_bank_debit_failed_event import (
+    V2MoneyManagementInboundTransferBankDebitFailedEvent as V2MoneyManagementInboundTransferBankDebitFailedEvent,
+)
+from stripe.events._v2_money_management_inbound_transfer_bank_debit_processing_event import (
+    V2MoneyManagementInboundTransferBankDebitProcessingEvent as V2MoneyManagementInboundTransferBankDebitProcessingEvent,
+)
+from stripe.events._v2_money_management_inbound_transfer_bank_debit_queued_event import (
+    V2MoneyManagementInboundTransferBankDebitQueuedEvent as V2MoneyManagementInboundTransferBankDebitQueuedEvent,
+)
+from stripe.events._v2_money_management_inbound_transfer_bank_debit_returned_event import (
+    V2MoneyManagementInboundTransferBankDebitReturnedEvent as V2MoneyManagementInboundTransferBankDebitReturnedEvent,
+)
+from stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_event import (
+    V2MoneyManagementInboundTransferBankDebitSucceededEvent as V2MoneyManagementInboundTransferBankDebitSucceededEvent,
+)
+from stripe.events._v2_money_management_outbound_payment_canceled_event import (
+    V2MoneyManagementOutboundPaymentCanceledEvent as V2MoneyManagementOutboundPaymentCanceledEvent,
+)
+from stripe.events._v2_money_management_outbound_payment_created_event import (
+    V2MoneyManagementOutboundPaymentCreatedEvent as V2MoneyManagementOutboundPaymentCreatedEvent,
+)
+from stripe.events._v2_money_management_outbound_payment_failed_event import (
+    V2MoneyManagementOutboundPaymentFailedEvent as V2MoneyManagementOutboundPaymentFailedEvent,
+)
+from stripe.events._v2_money_management_outbound_payment_posted_event import (
+    V2MoneyManagementOutboundPaymentPostedEvent as V2MoneyManagementOutboundPaymentPostedEvent,
+)
+from stripe.events._v2_money_management_outbound_payment_returned_event import (
+    V2MoneyManagementOutboundPaymentReturnedEvent as V2MoneyManagementOutboundPaymentReturnedEvent,
+)
+from stripe.events._v2_money_management_outbound_transfer_canceled_event import (
+    V2MoneyManagementOutboundTransferCanceledEvent as V2MoneyManagementOutboundTransferCanceledEvent,
+)
+from stripe.events._v2_money_management_outbound_transfer_created_event import (
+    V2MoneyManagementOutboundTransferCreatedEvent as V2MoneyManagementOutboundTransferCreatedEvent,
+)
+from stripe.events._v2_money_management_outbound_transfer_failed_event import (
+    V2MoneyManagementOutboundTransferFailedEvent as V2MoneyManagementOutboundTransferFailedEvent,
+)
+from stripe.events._v2_money_management_outbound_transfer_posted_event import (
+    V2MoneyManagementOutboundTransferPostedEvent as V2MoneyManagementOutboundTransferPostedEvent,
+)
+from stripe.events._v2_money_management_outbound_transfer_returned_event import (
+    V2MoneyManagementOutboundTransferReturnedEvent as V2MoneyManagementOutboundTransferReturnedEvent,
+)
+from stripe.events._v2_money_management_received_credit_available_event import (
+    V2MoneyManagementReceivedCreditAvailableEvent as V2MoneyManagementReceivedCreditAvailableEvent,
+)
+from stripe.events._v2_money_management_received_credit_failed_event import (
+    V2MoneyManagementReceivedCreditFailedEvent as V2MoneyManagementReceivedCreditFailedEvent,
+)
+from stripe.events._v2_money_management_received_credit_returned_event import (
+    V2MoneyManagementReceivedCreditReturnedEvent as V2MoneyManagementReceivedCreditReturnedEvent,
+)
+from stripe.events._v2_money_management_received_credit_succeeded_event import (
+    V2MoneyManagementReceivedCreditSucceededEvent as V2MoneyManagementReceivedCreditSucceededEvent,
+)
+from stripe.events._v2_money_management_received_debit_canceled_event import (
+    V2MoneyManagementReceivedDebitCanceledEvent as V2MoneyManagementReceivedDebitCanceledEvent,
+)
+from stripe.events._v2_money_management_received_debit_failed_event import (
+    V2MoneyManagementReceivedDebitFailedEvent as V2MoneyManagementReceivedDebitFailedEvent,
+)
+from stripe.events._v2_money_management_received_debit_pending_event import (
+    V2MoneyManagementReceivedDebitPendingEvent as V2MoneyManagementReceivedDebitPendingEvent,
+)
+from stripe.events._v2_money_management_received_debit_succeeded_event import (
+    V2MoneyManagementReceivedDebitSucceededEvent as V2MoneyManagementReceivedDebitSucceededEvent,
+)
+from stripe.events._v2_money_management_received_debit_updated_event import (
+    V2MoneyManagementReceivedDebitUpdatedEvent as V2MoneyManagementReceivedDebitUpdatedEvent,
+)

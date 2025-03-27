@@ -192,4 +192,66 @@ class TemporarySessionExpiredError(StripeError):
     pass
 
 
+class FinancialAccountNotOpenError(StripeError):
+    pass
+
+
+class BlockedByStripeError(StripeError):
+    pass
+
+
+class AlreadyCanceledError(StripeError):
+    pass
+
+
+class NotCancelableError(StripeError):
+    pass
+
+
+class InsufficientFundsError(StripeError):
+    pass
+
+
+class QuotaExceededError(StripeError):
+    pass
+
+
+class RecipientNotNotifiableError(StripeError):
+    pass
+
+
+class FeatureNotEnabledError(StripeError):
+    pass
+
+
+class InvalidPayoutMethodError(StripeError):
+    pass
+
+
+class ControlledByDashboardError(StripeError):
+    pass
+
+
+class InvalidPaymentMethodError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        invalid_param=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.invalid_param = invalid_param
+
+
 # classDefinitions: The end of the section generated from our OpenAPI spec

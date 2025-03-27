@@ -29,6 +29,10 @@ class CreditGrantService(StripeService):
         """
         ID of the customer to receive the billing credits.
         """
+        customer_account: NotRequired[str]
+        """
+        ID of the account to receive the billing credits.
+        """
         effective_at: NotRequired[int]
         """
         The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
@@ -83,7 +87,7 @@ class CreditGrantService(StripeService):
     class CreateParamsApplicabilityConfigScope(TypedDict):
         price_type: NotRequired[Literal["metered"]]
         """
-        The price type that credit grants can apply to. We currently only support the `metered` price type.
+        The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
         """
         prices: NotRequired[
             List[
@@ -91,7 +95,7 @@ class CreditGrantService(StripeService):
             ]
         ]
         """
-        A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+        A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
         """
 
     class CreateParamsApplicabilityConfigScopePrice(TypedDict):
@@ -110,6 +114,10 @@ class CreditGrantService(StripeService):
         customer: NotRequired[str]
         """
         Only return credit grants for this customer.
+        """
+        customer_account: NotRequired[str]
+        """
+        Only return credit grants for this account.
         """
         ending_before: NotRequired[str]
         """

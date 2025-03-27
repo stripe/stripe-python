@@ -72,6 +72,10 @@ class Quote(
         """
         The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         """
+        provider: Optional[str]
+        """
+        The tax provider powering automatic tax.
+        """
         status: Optional[
             Literal["complete", "failed", "requires_location_inputs"]
         ]
@@ -927,6 +931,10 @@ class Quote(
         """
         The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
         """
+        customer_account: NotRequired[str]
+        """
+        The account for which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
+        """
         default_tax_rates: NotRequired["Literal['']|List[str]"]
         """
         The tax rates that will apply to any line item that does not have `tax_rates` set.
@@ -1581,7 +1589,7 @@ class Quote(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: NotRequired["Quote.CreateParamsLineItemPriceDataRecurring"]
         """
@@ -2091,6 +2099,10 @@ class Quote(
         """
         The ID of the customer whose quotes will be retrieved.
         """
+        customer_account: NotRequired[str]
+        """
+        The ID of the account whose quotes will be retrieved.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -2220,6 +2232,10 @@ class Quote(
         customer: NotRequired[str]
         """
         The customer for which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+        """
+        customer_account: NotRequired[str]
+        """
+        The account for which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
         """
         default_tax_rates: NotRequired["Literal['']|List[str]"]
         """
@@ -2865,7 +2881,7 @@ class Quote(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: NotRequired["Quote.ModifyParamsLineItemPriceDataRecurring"]
         """
@@ -3365,6 +3381,10 @@ class Quote(
     customer: Optional[ExpandableField["Customer"]]
     """
     The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+    """
+    customer_account: Optional[str]
+    """
+    The account which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
     """
     default_tax_rates: Optional[List[ExpandableField["TaxRate"]]]
     """

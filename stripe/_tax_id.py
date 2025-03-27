@@ -50,6 +50,10 @@ class TaxId(
         """
         The customer being referenced when `type` is `customer`.
         """
+        customer_account: Optional[str]
+        """
+        The account being referenced when `type` is `customer`.
+        """
         type: Literal["account", "application", "customer", "self"]
         """
         Type of owner referenced.
@@ -197,6 +201,10 @@ class TaxId(
         """
         Customer the tax ID belongs to. Required when `type=customer`
         """
+        customer_account: NotRequired[str]
+        """
+        v2 Account the tax ID belongs to. Can be used in place of `customer` when `type=customer`
+        """
         type: Literal["account", "application", "customer", "self"]
         """
         Type of owner referenced.
@@ -236,6 +244,10 @@ class TaxId(
         """
         Customer the tax ID belongs to. Required when `type=customer`
         """
+        customer_account: NotRequired[str]
+        """
+        v2 Account the tax ID belongs to. Can be used in place of `customer` when `type=customer`
+        """
         type: Literal["account", "application", "customer", "self"]
         """
         Type of owner referenced.
@@ -258,6 +270,10 @@ class TaxId(
     customer: Optional[ExpandableField["Customer"]]
     """
     ID of the customer.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the account.
     """
     id: str
     """

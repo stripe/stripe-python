@@ -332,6 +332,10 @@ from stripe._application_fee_service import (
 from stripe._apps_service import AppsService as AppsService
 from stripe._balance import Balance as Balance
 from stripe._balance_service import BalanceService as BalanceService
+from stripe._balance_settings import BalanceSettings as BalanceSettings
+from stripe._balance_settings_service import (
+    BalanceSettingsService as BalanceSettingsService,
+)
 from stripe._balance_transaction import (
     BalanceTransaction as BalanceTransaction,
 )
@@ -419,6 +423,17 @@ from stripe._ephemeral_key_service import (
     EphemeralKeyService as EphemeralKeyService,
 )
 from stripe._error import (
+    AlreadyCanceledError as AlreadyCanceledError,
+    BlockedByStripeError as BlockedByStripeError,
+    ControlledByDashboardError as ControlledByDashboardError,
+    FeatureNotEnabledError as FeatureNotEnabledError,
+    FinancialAccountNotOpenError as FinancialAccountNotOpenError,
+    InsufficientFundsError as InsufficientFundsError,
+    InvalidPaymentMethodError as InvalidPaymentMethodError,
+    InvalidPayoutMethodError as InvalidPayoutMethodError,
+    NotCancelableError as NotCancelableError,
+    QuotaExceededError as QuotaExceededError,
+    RecipientNotNotifiableError as RecipientNotNotifiableError,
     TemporarySessionExpiredError as TemporarySessionExpiredError,
 )
 from stripe._event import Event as Event
@@ -426,6 +441,9 @@ from stripe._event_service import EventService as EventService
 from stripe._exchange_rate import ExchangeRate as ExchangeRate
 from stripe._exchange_rate_service import (
     ExchangeRateService as ExchangeRateService,
+)
+from stripe._external_account_service import (
+    ExternalAccountService as ExternalAccountService,
 )
 from stripe._file import File as File
 from stripe._file_link import FileLink as FileLink
@@ -460,9 +478,6 @@ from stripe._invoice_rendering_template_service import (
     InvoiceRenderingTemplateService as InvoiceRenderingTemplateService,
 )
 from stripe._invoice_service import InvoiceService as InvoiceService
-from stripe._invoice_upcoming_lines_service import (
-    InvoiceUpcomingLinesService as InvoiceUpcomingLinesService,
-)
 from stripe._issuing_service import IssuingService as IssuingService
 from stripe._line_item import LineItem as LineItem
 from stripe._login_link import LoginLink as LoginLink
@@ -588,12 +603,6 @@ from stripe._subscription_item import SubscriptionItem as SubscriptionItem
 from stripe._subscription_item_service import (
     SubscriptionItemService as SubscriptionItemService,
 )
-from stripe._subscription_item_usage_record_service import (
-    SubscriptionItemUsageRecordService as SubscriptionItemUsageRecordService,
-)
-from stripe._subscription_item_usage_record_summary_service import (
-    SubscriptionItemUsageRecordSummaryService as SubscriptionItemUsageRecordSummaryService,
-)
 from stripe._subscription_schedule import (
     SubscriptionSchedule as SubscriptionSchedule,
 )
@@ -627,10 +636,6 @@ from stripe._transfer_reversal_service import (
 )
 from stripe._transfer_service import TransferService as TransferService
 from stripe._treasury_service import TreasuryService as TreasuryService
-from stripe._usage_record import UsageRecord as UsageRecord
-from stripe._usage_record_summary import (
-    UsageRecordSummary as UsageRecordSummary,
-)
 from stripe._v2_services import V2Services as V2Services
 from stripe._webhook_endpoint import WebhookEndpoint as WebhookEndpoint
 from stripe._webhook_endpoint_service import (

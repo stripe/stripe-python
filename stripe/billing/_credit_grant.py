@@ -68,11 +68,11 @@ class CreditGrant(
 
             price_type: Optional[Literal["metered"]]
             """
-            The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+            The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `prices`.
             """
             prices: Optional[List[Price]]
             """
-            The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+            The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `price_type`.
             """
             _inner_class_types = {"prices": Price}
 
@@ -95,6 +95,10 @@ class CreditGrant(
         customer: str
         """
         ID of the customer to receive the billing credits.
+        """
+        customer_account: NotRequired[str]
+        """
+        ID of the account to receive the billing credits.
         """
         effective_at: NotRequired[int]
         """
@@ -150,13 +154,13 @@ class CreditGrant(
     class CreateParamsApplicabilityConfigScope(TypedDict):
         price_type: NotRequired[Literal["metered"]]
         """
-        The price type that credit grants can apply to. We currently only support the `metered` price type.
+        The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
         """
         prices: NotRequired[
             List["CreditGrant.CreateParamsApplicabilityConfigScopePrice"]
         ]
         """
-        A list of prices that the credit grant can apply to. We currently only support the `metered` prices.
+        A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
         """
 
     class CreateParamsApplicabilityConfigScopePrice(TypedDict):
@@ -175,6 +179,10 @@ class CreditGrant(
         customer: NotRequired[str]
         """
         Only return credit grants for this customer.
+        """
+        customer_account: NotRequired[str]
+        """
+        Only return credit grants for this account.
         """
         ending_before: NotRequired[str]
         """
@@ -232,6 +240,10 @@ class CreditGrant(
     customer: ExpandableField["Customer"]
     """
     ID of the customer receiving the billing credits.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the account receiving the billing credits
     """
     effective_at: Optional[int]
     """

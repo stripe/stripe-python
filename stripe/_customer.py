@@ -187,7 +187,7 @@ class Customer(
         class Location(StripeObject):
             country: str
             """
-            The customer's country as identified by Stripe Tax.
+            The identified tax country of the customer.
             """
             source: Literal[
                 "billing_address",
@@ -200,7 +200,7 @@ class Customer(
             """
             state: Optional[str]
             """
-            The customer's state, county, province, or region as identified by Stripe Tax.
+            The identified tax state, county, province, or region of the customer.
             """
 
         automatic_tax: Literal[
@@ -215,7 +215,7 @@ class Customer(
         """
         location: Optional[Location]
         """
-        The customer's location as identified by Stripe Tax.
+        The identified tax location of the customer.
         """
         _inner_class_types = {"location": Location}
 
@@ -304,7 +304,6 @@ class Customer(
         """
         Balance information and default balance settings for this customer.
         """
-        coupon: NotRequired[str]
         description: NotRequired[str]
         """
         An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
@@ -345,10 +344,6 @@ class Customer(
         preferred_locales: NotRequired[List[str]]
         """
         Customer's preferred languages, ordered by preference.
-        """
-        promotion_code: NotRequired[str]
-        """
-        The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
         """
         shipping: NotRequired["Literal['']|Customer.CreateParamsShipping"]
         """
@@ -902,6 +897,7 @@ class Customer(
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
+                "billie",
                 "blik",
                 "boleto",
                 "card",
@@ -923,6 +919,7 @@ class Customer(
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
+                "nz_bank_account",
                 "oxxo",
                 "p24",
                 "pay_by_bank",
@@ -936,9 +933,11 @@ class Customer(
                 "rechnung",
                 "revolut_pay",
                 "samsung_pay",
+                "satispay",
                 "sepa_debit",
                 "shopeepay",
                 "sofort",
+                "stripe_balance",
                 "swish",
                 "twint",
                 "us_bank_account",
@@ -1035,7 +1034,6 @@ class Customer(
         """
         Balance information and default balance settings for this customer.
         """
-        coupon: NotRequired[str]
         default_source: NotRequired[str]
         """
         If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
@@ -1083,10 +1081,6 @@ class Customer(
         preferred_locales: NotRequired[List[str]]
         """
         Customer's preferred languages, ordered by preference.
-        """
-        promotion_code: NotRequired[str]
-        """
-        The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
         """
         shipping: NotRequired["Literal['']|Customer.ModifyParamsShipping"]
         """
@@ -1421,6 +1415,7 @@ class Customer(
     """
     Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) the customer can be charged in for recurring billing purposes.
     """
+    customer_account: Optional[str]
     default_source: Optional[
         ExpandableField[Union["Account", "BankAccount", "Card", "Source"]]
     ]

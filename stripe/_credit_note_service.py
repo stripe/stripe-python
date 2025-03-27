@@ -71,10 +71,6 @@ class CreditNoteService(StripeService):
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
         """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
-        """
         refund_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
@@ -169,6 +165,10 @@ class CreditNoteService(StripeService):
         """
         Only return credit notes for the customer specified by this customer ID.
         """
+        customer_account: NotRequired[str]
+        """
+        Only return credit notes for the account specified by this account ID.
+        """
         ending_before: NotRequired[str]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -259,10 +259,6 @@ class CreditNoteService(StripeService):
         ]
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
-        """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
         """
         refund_amount: NotRequired[int]
         """

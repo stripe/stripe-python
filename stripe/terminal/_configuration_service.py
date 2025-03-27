@@ -53,11 +53,15 @@ class ConfigurationService(StripeService):
         """
         An object containing device type specific settings for Verifone P400 readers
         """
+        wifi: NotRequired["Literal['']|ConfigurationService.CreateParamsWifi"]
+        """
+        Configurations for connecting to a WiFi network.
+        """
 
     class CreateParamsBbposWiseposE(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class CreateParamsOffline(TypedDict):
@@ -378,6 +382,82 @@ class ConfigurationService(StripeService):
         A File ID representing an image you would like displayed on the reader.
         """
 
+    class CreateParamsWifi(TypedDict):
+        enterprise_eap_peap: NotRequired[
+            "ConfigurationService.CreateParamsWifiEnterpriseEapPeap"
+        ]
+        """
+        Credentials for a WPA-Enterprise WiFi network using the EAP-PEAP authentication method.
+        """
+        enterprise_eap_tls: NotRequired[
+            "ConfigurationService.CreateParamsWifiEnterpriseEapTls"
+        ]
+        """
+        Credentials for a WPA-Enterprise WiFi network using the EAP-TLS authentication method.
+        """
+        personal_psk: NotRequired[
+            "ConfigurationService.CreateParamsWifiPersonalPsk"
+        ]
+        """
+        Credentials for a WPA-Personal WiFi network.
+        """
+        type: Literal[
+            "enterprise_eap_peap", "enterprise_eap_tls", "personal_psk"
+        ]
+        """
+        Security type of the WiFi network. Fill out the hash with the corresponding name to provide the set of credentials for this security type.
+        """
+
+    class CreateParamsWifiEnterpriseEapPeap(TypedDict):
+        ca_certificate_file: NotRequired[str]
+        """
+        A File ID representing a PEM file containing the server certificate
+        """
+        password: str
+        """
+        Password for connecting to the WiFi network
+        """
+        ssid: str
+        """
+        Name of the WiFi network
+        """
+        username: str
+        """
+        Username for connecting to the WiFi network
+        """
+
+    class CreateParamsWifiEnterpriseEapTls(TypedDict):
+        ca_certificate_file: NotRequired[str]
+        """
+        A File ID representing a PEM file containing the server certificate
+        """
+        client_certificate_file: str
+        """
+        A File ID representing a PEM file containing the client certificate
+        """
+        private_key_file: str
+        """
+        A File ID representing a PEM file containing the client RSA private key
+        """
+        private_key_file_password: NotRequired[str]
+        """
+        Password for the private key file
+        """
+        ssid: str
+        """
+        Name of the WiFi network
+        """
+
+    class CreateParamsWifiPersonalPsk(TypedDict):
+        password: str
+        """
+        Password for connecting to the WiFi network
+        """
+        ssid: str
+        """
+        Name of the WiFi network
+        """
+
     class DeleteParams(TypedDict):
         pass
 
@@ -454,11 +534,15 @@ class ConfigurationService(StripeService):
         """
         An object containing device type specific settings for Verifone P400 readers
         """
+        wifi: NotRequired["Literal['']|ConfigurationService.UpdateParamsWifi"]
+        """
+        Configurations for connecting to a WiFi network.
+        """
 
     class UpdateParamsBbposWiseposE(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class UpdateParamsOffline(TypedDict):
@@ -777,6 +861,82 @@ class ConfigurationService(StripeService):
         splashscreen: NotRequired["Literal['']|str"]
         """
         A File ID representing an image you would like displayed on the reader.
+        """
+
+    class UpdateParamsWifi(TypedDict):
+        enterprise_eap_peap: NotRequired[
+            "ConfigurationService.UpdateParamsWifiEnterpriseEapPeap"
+        ]
+        """
+        Credentials for a WPA-Enterprise WiFi network using the EAP-PEAP authentication method.
+        """
+        enterprise_eap_tls: NotRequired[
+            "ConfigurationService.UpdateParamsWifiEnterpriseEapTls"
+        ]
+        """
+        Credentials for a WPA-Enterprise WiFi network using the EAP-TLS authentication method.
+        """
+        personal_psk: NotRequired[
+            "ConfigurationService.UpdateParamsWifiPersonalPsk"
+        ]
+        """
+        Credentials for a WPA-Personal WiFi network.
+        """
+        type: Literal[
+            "enterprise_eap_peap", "enterprise_eap_tls", "personal_psk"
+        ]
+        """
+        Security type of the WiFi network. Fill out the hash with the corresponding name to provide the set of credentials for this security type.
+        """
+
+    class UpdateParamsWifiEnterpriseEapPeap(TypedDict):
+        ca_certificate_file: NotRequired[str]
+        """
+        A File ID representing a PEM file containing the server certificate
+        """
+        password: str
+        """
+        Password for connecting to the WiFi network
+        """
+        ssid: str
+        """
+        Name of the WiFi network
+        """
+        username: str
+        """
+        Username for connecting to the WiFi network
+        """
+
+    class UpdateParamsWifiEnterpriseEapTls(TypedDict):
+        ca_certificate_file: NotRequired[str]
+        """
+        A File ID representing a PEM file containing the server certificate
+        """
+        client_certificate_file: str
+        """
+        A File ID representing a PEM file containing the client certificate
+        """
+        private_key_file: str
+        """
+        A File ID representing a PEM file containing the client RSA private key
+        """
+        private_key_file_password: NotRequired[str]
+        """
+        Password for the private key file
+        """
+        ssid: str
+        """
+        Name of the WiFi network
+        """
+
+    class UpdateParamsWifiPersonalPsk(TypedDict):
+        password: str
+        """
+        Password for connecting to the WiFi network
+        """
+        ssid: str
+        """
+        Name of the WiFi network
         """
 
     def delete(

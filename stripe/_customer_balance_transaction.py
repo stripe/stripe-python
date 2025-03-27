@@ -10,6 +10,7 @@ from typing_extensions import Literal, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._credit_note import CreditNote
     from stripe._invoice import Invoice
+    from stripe.checkout._session import Session
 
 
 class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
@@ -29,6 +30,10 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     """
     The amount of the transaction. A negative value is a credit for the customer's balance, and a positive value is a debit to the customer's `balance`.
     """
+    checkout_session: Optional[ExpandableField["Session"]]
+    """
+    The ID of the checkout session (if any) that created the transaction.
+    """
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -45,6 +50,7 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     """
     The ID of the customer the transaction belongs to.
     """
+    customer_account: Optional[str]
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
@@ -76,6 +82,8 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     type: Literal[
         "adjustment",
         "applied_to_invoice",
+        "checkout_session_subscription_payment",
+        "checkout_session_subscription_payment_canceled",
         "credit_note",
         "initial",
         "invoice_overpaid",
@@ -86,7 +94,7 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
         "unspent_receiver_credit",
     ]
     """
-    Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_overpaid`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, or `unapplied_from_invoice`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types.
+    Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_overpaid`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, `unapplied_from_invoice`, `checkout_session_subscription_payment`, or `checkout_session_subscription_payment_canceled`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types.
     """
 
     def instance_url(self):

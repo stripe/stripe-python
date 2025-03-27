@@ -29,6 +29,10 @@ class PromotionCodeService(StripeService):
         """
         The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.
         """
+        customer_account: NotRequired[str]
+        """
+        The account that this promotion code can be used by. If not set, the promotion code can be used by all accounts.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -101,6 +105,10 @@ class PromotionCodeService(StripeService):
         customer: NotRequired[str]
         """
         Only return promotion codes that are restricted to this customer.
+        """
+        customer_account: NotRequired[str]
+        """
+        Only return promotion codes that are restricted to this account.
         """
         ending_before: NotRequired[str]
         """
