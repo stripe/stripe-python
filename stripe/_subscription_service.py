@@ -75,7 +75,7 @@ class SubscriptionService(StripeService):
         """
         Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
         """
-        cancel_at: NotRequired["int|Literal['min_period_end']"]
+        cancel_at: NotRequired[int]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -93,7 +93,7 @@ class SubscriptionService(StripeService):
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        customer: str
+        customer: NotRequired[str]
         """
         The identifier of the customer to subscribe.
         """
@@ -1068,7 +1068,7 @@ class SubscriptionService(StripeService):
         """
         Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
-        cancel_at: NotRequired["Literal['']|int|Literal['min_period_end']"]
+        cancel_at: NotRequired["Literal['']|int"]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -2130,7 +2130,7 @@ class SubscriptionService(StripeService):
 
     def create(
         self,
-        params: "SubscriptionService.CreateParams",
+        params: "SubscriptionService.CreateParams" = {},
         options: RequestOptions = {},
     ) -> Subscription:
         """
@@ -2155,7 +2155,7 @@ class SubscriptionService(StripeService):
 
     async def create_async(
         self,
-        params: "SubscriptionService.CreateParams",
+        params: "SubscriptionService.CreateParams" = {},
         options: RequestOptions = {},
     ) -> Subscription:
         """

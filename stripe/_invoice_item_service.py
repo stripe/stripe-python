@@ -19,7 +19,7 @@ class InvoiceItemService(StripeService):
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        customer: str
+        customer: NotRequired[str]
         """
         The ID of the customer who will be billed when this invoice item is billed.
         """
@@ -571,7 +571,7 @@ class InvoiceItemService(StripeService):
 
     def create(
         self,
-        params: "InvoiceItemService.CreateParams",
+        params: "InvoiceItemService.CreateParams" = {},
         options: RequestOptions = {},
     ) -> InvoiceItem:
         """
@@ -590,7 +590,7 @@ class InvoiceItemService(StripeService):
 
     async def create_async(
         self,
-        params: "InvoiceItemService.CreateParams",
+        params: "InvoiceItemService.CreateParams" = {},
         options: RequestOptions = {},
     ) -> InvoiceItem:
         """

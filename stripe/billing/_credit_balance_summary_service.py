@@ -9,7 +9,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class CreditBalanceSummaryService(StripeService):
     class RetrieveParams(TypedDict):
-        customer: str
+        customer: NotRequired[str]
         """
         The customer for which to fetch credit balance summary.
         """

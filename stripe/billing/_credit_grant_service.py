@@ -25,7 +25,7 @@ class CreditGrantService(StripeService):
         """
         The category of this credit grant.
         """
-        customer: str
+        customer: NotRequired[str]
         """
         ID of the customer to receive the billing credits.
         """

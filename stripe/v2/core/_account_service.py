@@ -31,7 +31,7 @@ class AccountService(StripeService):
         """
         contact_email: NotRequired[str]
         """
-        The default contact email address for the Account.
+        The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
         """
         dashboard: NotRequired[Literal["express", "full", "none"]]
         """
@@ -80,7 +80,7 @@ class AccountService(StripeService):
             "AccountService.CreateParamsConfigurationMerchant"
         ]
         """
-        The Merchant Configuration allows the Account to make charges.
+        The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you've completed onboarding as a Connect platform.
         """
         recipient: NotRequired[
             "AccountService.CreateParamsConfigurationRecipient"
@@ -5257,7 +5257,7 @@ class AccountService(StripeService):
         """
         contact_email: NotRequired[str]
         """
-        The default contact email address for the Account.
+        The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
         """
         dashboard: NotRequired[Literal["express", "full", "none"]]
         """
@@ -5306,7 +5306,7 @@ class AccountService(StripeService):
             "AccountService.UpdateParamsConfigurationMerchant"
         ]
         """
-        The Merchant Configuration allows the Account to make charges.
+        The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you've completed onboarding as a Connect platform.
         """
         recipient: NotRequired[
             "AccountService.UpdateParamsConfigurationRecipient"

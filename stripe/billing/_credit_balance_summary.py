@@ -77,7 +77,7 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
         }
 
     class RetrieveParams(RequestOptions):
-        customer: str
+        customer: NotRequired[str]
         """
         The customer for which to fetch credit balance summary.
         """

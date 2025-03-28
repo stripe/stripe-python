@@ -13,7 +13,7 @@ class SessionService(StripeService):
         """
         The ID of an existing [configuration](https://stripe.com/docs/api/customer_portal/configuration) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
         """
-        customer: str
+        customer: NotRequired[str]
         """
         The ID of an existing customer.
         """
@@ -239,7 +239,7 @@ class SessionService(StripeService):
 
     def create(
         self,
-        params: "SessionService.CreateParams",
+        params: "SessionService.CreateParams" = {},
         options: RequestOptions = {},
     ) -> Session:
         """
@@ -258,7 +258,7 @@ class SessionService(StripeService):
 
     async def create_async(
         self,
-        params: "SessionService.CreateParams",
+        params: "SessionService.CreateParams" = {},
         options: RequestOptions = {},
     ) -> Session:
         """

@@ -13,7 +13,7 @@ class CustomerSessionService(StripeService):
         """
         Configuration for each component. Exactly 1 component must be enabled.
         """
-        customer: str
+        customer: NotRequired[str]
         """
         The ID of an existing customer for which to create the Customer Session.
         """

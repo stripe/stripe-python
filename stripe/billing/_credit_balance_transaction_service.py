@@ -15,7 +15,7 @@ class CreditBalanceTransactionService(StripeService):
         """
         The credit grant for which to fetch credit balance transactions.
         """
-        customer: str
+        customer: NotRequired[str]
         """
         The customer for which to fetch credit balance transactions.
         """
@@ -48,7 +48,7 @@ class CreditBalanceTransactionService(StripeService):
 
     def list(
         self,
-        params: "CreditBalanceTransactionService.ListParams",
+        params: "CreditBalanceTransactionService.ListParams" = {},
         options: RequestOptions = {},
     ) -> ListObject[CreditBalanceTransaction]:
         """
@@ -67,7 +67,7 @@ class CreditBalanceTransactionService(StripeService):
 
     async def list_async(
         self,
-        params: "CreditBalanceTransactionService.ListParams",
+        params: "CreditBalanceTransactionService.ListParams" = {},
         options: RequestOptions = {},
     ) -> ListObject[CreditBalanceTransaction]:
         """

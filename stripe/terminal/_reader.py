@@ -84,22 +84,30 @@ class Reader(
 
                 class Selection(StripeObject):
                     class Choice(StripeObject):
+                        id: Optional[str]
+                        """
+                        The id to be selected
+                        """
                         style: Optional[Literal["primary", "secondary"]]
                         """
                         The button style for the choice
                         """
-                        value: str
+                        text: str
                         """
-                        A value to be selected
+                        The text to be selected
                         """
 
                     choices: List[Choice]
                     """
                     List of possible choices to be selected
                     """
-                    value: Optional[str]
+                    id: Optional[str]
                     """
-                    The value of the selected choice
+                    The id of the selected choice
+                    """
+                    text: Optional[str]
+                    """
+                    The text of the selected choice
                     """
                     _inner_class_types = {"choices": Choice}
 
@@ -542,11 +550,15 @@ class Reader(
         """
 
     class CollectInputsParamsInputSelectionChoice(TypedDict):
+        id: str
+        """
+        The unique identifier for this choice
+        """
         style: NotRequired[Literal["primary", "secondary"]]
         """
         The style of the button which will be shown for this choice
         """
-        value: str
+        text: str
         """
         The text which will be shown on the button for this choice
         """
