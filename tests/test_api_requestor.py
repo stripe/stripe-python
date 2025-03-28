@@ -626,11 +626,25 @@ class TestAPIRequestor(object):
         stripe.api_version = "2024-02-26"
         stripe.add_beta_version("feature_beta", "v3")
         assert stripe.api_version == "2024-02-26; feature_beta=v3"
-        with pytest.raises(
-            Exception,
-            match="Stripe version header 2024-02-26; feature_beta=v3 already contains entry for beta feature_beta",
-        ):
-            stripe.add_beta_version("feature_beta", "v2")
+
+        # Same version should be ignored
+        stripe.add_beta_version("feature_beta", "v3")
+        assert stripe.api_version == "2024-02-26; feature_beta=v3"
+
+        # Higher version should replace lower
+        stripe.add_beta_version("feature_beta", "v4")
+        assert stripe.api_version == "2024-02-26; feature_beta=v4"
+
+        # Lower version should be ignored
+        stripe.add_beta_version("feature_beta", "v2")
+        assert stripe.api_version == "2024-02-26; feature_beta=v4"
+
+        # Adding a new name should append
+        stripe.add_beta_version("another_feature_beta", "v2")
+        assert (
+            stripe.api_version
+            == "2024-02-26; feature_beta=v4; another_feature_beta=v2"
+        )
 
     def test_uses_app_info(self, requestor, http_client_mock):
         try:

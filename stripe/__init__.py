@@ -128,10 +128,31 @@ def add_beta_version(
     beta_name: str,
     beta_version: str,
 ):
-    if stripe.api_version.find(f"; {beta_name}=") != -1:
-        raise Exception(
-            f"Stripe version header {stripe.api_version} already contains entry for beta {beta_name}"
+    # Validate beta_version format
+    if not beta_version.startswith("v") or not beta_version[1:].isdigit():
+        raise ValueError(
+            f"Invalid beta_version format: {beta_version}. Expected format is 'v' followed by a number (e.g., 'v3')."
         )
+
+    # Check if beta_name already exists
+    beta_entry = f"; {beta_name}="
+    if beta_entry in stripe.api_version:
+        start_index = stripe.api_version.index(beta_entry) + len(beta_entry)
+        end_index = stripe.api_version.find(";", start_index)
+        end_index = end_index if end_index != -1 else len(stripe.api_version)
+        existing_version = int(
+            stripe.api_version[(start_index + 1) : end_index]
+        )
+        new_version = int(beta_version[1:])
+        if new_version <= existing_version:
+            return  # Keep the higher version, no update needed
+        # Remove the existing beta entry
+        stripe.api_version = (
+            stripe.api_version[: stripe.api_version.index(beta_entry)]
+            + stripe.api_version[end_index:]
+        )
+
+    # Add the new beta version
     stripe.api_version = f"{stripe.api_version}; {beta_name}={beta_version}"
 
 
