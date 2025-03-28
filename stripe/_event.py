@@ -487,7 +487,6 @@ class Event(ListableAPIResource["Event"]):
         "billing.meter.deactivated",
         "billing.meter.reactivated",
         "billing.meter.updated",
-        "balance_settings.updated",
     ]
     """
     Description of the event (for example, `invoice.created` or `charge.refunded`).

@@ -420,7 +420,6 @@ class WebhookEndpointService(StripeService):
                 "billing.meter.deactivated",
                 "billing.meter.reactivated",
                 "billing.meter.updated",
-                "balance_settings.updated",
             ]
         ]
         """
@@ -760,7 +759,6 @@ class WebhookEndpointService(StripeService):
                     "billing.meter.deactivated",
                     "billing.meter.reactivated",
                     "billing.meter.updated",
-                    "balance_settings.updated",
                 ]
             ]
         ]
