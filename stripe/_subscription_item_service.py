@@ -4,36 +4,13 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._subscription_item import SubscriptionItem
-from stripe._subscription_item_usage_record_service import (
-    SubscriptionItemUsageRecordService,
-)
-from stripe._subscription_item_usage_record_summary_service import (
-    SubscriptionItemUsageRecordSummaryService,
-)
 from stripe._util import sanitize_id
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class SubscriptionItemService(StripeService):
-    def __init__(self, requestor):
-        super().__init__(requestor)
-        self.usage_records = SubscriptionItemUsageRecordService(
-            self._requestor
-        )
-        self.usage_record_summaries = (
-            SubscriptionItemUsageRecordSummaryService(
-                self._requestor,
-            )
-        )
-
     class CreateParams(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|SubscriptionItemService.CreateParamsBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionItemService.CreateParamsDiscount]"
         ]
@@ -102,12 +79,6 @@ class SubscriptionItemService(StripeService):
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
 
-    class CreateParamsBillingThresholds(TypedDict):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
     class CreateParamsDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -129,7 +100,7 @@ class SubscriptionItemService(StripeService):
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: "SubscriptionItemService.CreateParamsPriceDataRecurring"
         """
@@ -205,12 +176,6 @@ class SubscriptionItemService(StripeService):
         """
 
     class UpdateParams(TypedDict):
-        billing_thresholds: NotRequired[
-            "Literal['']|SubscriptionItemService.UpdateParamsBillingThresholds"
-        ]
-        """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
-        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionItemService.UpdateParamsDiscount]"
         ]
@@ -279,12 +244,6 @@ class SubscriptionItemService(StripeService):
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
 
-    class UpdateParamsBillingThresholds(TypedDict):
-        usage_gte: int
-        """
-        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
-        """
-
     class UpdateParamsDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -306,7 +265,7 @@ class SubscriptionItemService(StripeService):
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: "SubscriptionItemService.UpdateParamsPriceDataRecurring"
         """

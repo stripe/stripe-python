@@ -78,6 +78,7 @@ if not TYPE_CHECKING:
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.invoice_item import InvoiceItem
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
+    from stripe.api_resources.invoice_payment import InvoicePayment
     from stripe.api_resources.invoice_rendering_template import (
         InvoiceRenderingTemplate,
     )
@@ -123,8 +124,6 @@ if not TYPE_CHECKING:
     from stripe.api_resources.token import Token
     from stripe.api_resources.topup import Topup
     from stripe.api_resources.transfer import Transfer
-    from stripe.api_resources.usage_record import UsageRecord
-    from stripe.api_resources.usage_record_summary import UsageRecordSummary
     from stripe.api_resources.webhook_endpoint import WebhookEndpoint
 
 # The end of the section generated from our OpenAPI spec

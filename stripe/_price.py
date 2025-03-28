@@ -128,12 +128,6 @@ class Price(
         """
 
     class Recurring(StripeObject):
-        aggregate_usage: Optional[
-            Literal["last_during_period", "last_ever", "max", "sum"]
-        ]
-        """
-        Specifies a usage aggregation strategy for prices of `usage_type=metered`. Defaults to `sum`.
-        """
         interval: Literal["day", "month", "week", "year"]
         """
         The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
@@ -228,7 +222,7 @@ class Price(
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         product_data: NotRequired["Price.CreateParamsProductData"]
         """
@@ -386,12 +380,6 @@ class Price(
         """
 
     class CreateParamsRecurring(TypedDict):
-        aggregate_usage: NotRequired[
-            Literal["last_during_period", "last_ever", "max", "sum"]
-        ]
-        """
-        Specifies a usage aggregation strategy for prices of `usage_type=metered`. Defaults to `sum`.
-        """
         interval: Literal["day", "month", "week", "year"]
         """
         Specifies billing frequency. Either `day`, `week`, `month` or `year`.
@@ -743,7 +731,7 @@ class Price(
     @classmethod
     def create(cls, **params: Unpack["Price.CreateParams"]) -> "Price":
         """
-        Creates a new price for an existing product. The price can be recurring or one-time.
+        Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
         """
         return cast(
             "Price",
@@ -759,7 +747,7 @@ class Price(
         cls, **params: Unpack["Price.CreateParams"]
     ) -> "Price":
         """
-        Creates a new price for an existing product. The price can be recurring or one-time.
+        Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
         """
         return cast(
             "Price",

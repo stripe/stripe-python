@@ -164,6 +164,9 @@ class Token(CreateableAPIResource["Token"]):
         ownership_exemption_reason: NotRequired[
             "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
         ]
+        """
+        This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
+        """
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).
@@ -808,7 +811,7 @@ class Token(CreateableAPIResource["Token"]):
         """
         The person's phone number.
         """
-        political_exposure: NotRequired[str]
+        political_exposure: NotRequired[Literal["existing", "none"]]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """

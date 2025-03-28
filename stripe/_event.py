@@ -245,6 +245,7 @@ class Event(ListableAPIResource["Event"]):
         "invoice.finalized",
         "invoice.marked_uncollectible",
         "invoice.overdue",
+        "invoice.overpaid",
         "invoice.paid",
         "invoice.payment_action_required",
         "invoice.payment_failed",
@@ -395,6 +396,13 @@ class Event(ListableAPIResource["Event"]):
         "treasury.received_credit.failed",
         "treasury.received_credit.succeeded",
         "treasury.received_debit.created",
+        "billing.credit_balance_transaction.created",
+        "billing.credit_grant.created",
+        "billing.credit_grant.updated",
+        "billing.meter.created",
+        "billing.meter.deactivated",
+        "billing.meter.reactivated",
+        "billing.meter.updated",
     ]
     """
     Description of the event (for example, `invoice.created` or `charge.refunded`).
