@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.v2.money_management import outbound_payments as outbound_payments
 from stripe.v2.money_management._adjustment import Adjustment as Adjustment
 from stripe.v2.money_management._adjustment_service import (
     AdjustmentService as AdjustmentService,
@@ -28,6 +27,9 @@ from stripe.v2.money_management._outbound_payment import (
 )
 from stripe.v2.money_management._outbound_payment_quote import (
     OutboundPaymentQuote as OutboundPaymentQuote,
+)
+from stripe.v2.money_management._outbound_payment_quote_service import (
+    OutboundPaymentQuoteService as OutboundPaymentQuoteService,
 )
 from stripe.v2.money_management._outbound_payment_service import (
     OutboundPaymentService as OutboundPaymentService,
