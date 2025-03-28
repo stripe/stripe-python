@@ -439,6 +439,7 @@ class WebhookEndpoint(
                 "billing.meter.deactivated",
                 "billing.meter.reactivated",
                 "billing.meter.updated",
+                "balance_settings.updated",
             ]
         ]
         """
@@ -772,6 +773,7 @@ class WebhookEndpoint(
                     "billing.meter.deactivated",
                     "billing.meter.reactivated",
                     "billing.meter.updated",
+                    "balance_settings.updated",
                 ]
             ]
         ]
