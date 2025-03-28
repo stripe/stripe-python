@@ -452,6 +452,12 @@ class AccountService(StripeService):
         """
         The naver_pay_payments capability.
         """
+        nz_bank_account_becs_debit_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesNzBankAccountBecsDebitPayments"
+        ]
+        """
+        The nz_bank_account_becs_debit_payments capability.
+        """
         oxxo_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesOxxoPayments"
         ]
@@ -784,6 +790,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesNaverPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesNzBankAccountBecsDebitPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2306,6 +2318,12 @@ class AccountService(StripeService):
         """
         The naver_pay_payments capability.
         """
+        nz_bank_account_becs_debit_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesNzBankAccountBecsDebitPayments"
+        ]
+        """
+        The nz_bank_account_becs_debit_payments capability.
+        """
         oxxo_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesOxxoPayments"
         ]
@@ -2638,6 +2656,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesNaverPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesNzBankAccountBecsDebitPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

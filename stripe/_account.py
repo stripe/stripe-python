@@ -312,6 +312,12 @@ class Account(
         """
         The status of the NaverPay capability of the account, or whether the account can directly process NaverPay payments.
         """
+        nz_bank_account_becs_debit_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the New Zealand BECS Direct Debit payments capability of the account, or whether the account can directly process New Zealand BECS Direct Debit charges.
+        """
         oxxo_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges.
@@ -1781,6 +1787,12 @@ class Account(
         """
         The naver_pay_payments capability.
         """
+        nz_bank_account_becs_debit_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesNzBankAccountBecsDebitPayments"
+        ]
+        """
+        The nz_bank_account_becs_debit_payments capability.
+        """
         oxxo_payments: NotRequired[
             "Account.CreateParamsCapabilitiesOxxoPayments"
         ]
@@ -2109,6 +2121,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesNaverPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesNzBankAccountBecsDebitPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
