@@ -140,6 +140,8 @@ class WebhookEndpoint(
                 "2024-12-18.acacia",
                 "2025-01-27.acacia",
                 "2025-02-24.acacia",
+                "2025-03-01.dashboard",
+                "2025-03-31.basil",
             ]
         ]
         """
@@ -245,6 +247,7 @@ class WebhookEndpoint(
                 "invoice.finalized",
                 "invoice.marked_uncollectible",
                 "invoice.overdue",
+                "invoice.overpaid",
                 "invoice.paid",
                 "invoice.payment_action_required",
                 "invoice.payment_failed",
@@ -395,6 +398,13 @@ class WebhookEndpoint(
                 "treasury.received_credit.failed",
                 "treasury.received_credit.succeeded",
                 "treasury.received_debit.created",
+                "billing.credit_balance_transaction.created",
+                "billing.credit_grant.created",
+                "billing.credit_grant.updated",
+                "billing.meter.created",
+                "billing.meter.deactivated",
+                "billing.meter.reactivated",
+                "billing.meter.updated",
             ]
         ]
         """
@@ -536,6 +546,7 @@ class WebhookEndpoint(
                     "invoice.finalized",
                     "invoice.marked_uncollectible",
                     "invoice.overdue",
+                    "invoice.overpaid",
                     "invoice.paid",
                     "invoice.payment_action_required",
                     "invoice.payment_failed",
@@ -686,6 +697,13 @@ class WebhookEndpoint(
                     "treasury.received_credit.failed",
                     "treasury.received_credit.succeeded",
                     "treasury.received_debit.created",
+                    "billing.credit_balance_transaction.created",
+                    "billing.credit_grant.created",
+                    "billing.credit_grant.updated",
+                    "billing.meter.created",
+                    "billing.meter.deactivated",
+                    "billing.meter.reactivated",
+                    "billing.meter.updated",
                 ]
             ]
         ]

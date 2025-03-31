@@ -628,7 +628,7 @@ class Quote(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: NotRequired["Quote.CreateParamsLineItemPriceDataRecurring"]
         """
@@ -950,7 +950,7 @@ class Quote(
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: NotRequired["Quote.ModifyParamsLineItemPriceDataRecurring"]
         """

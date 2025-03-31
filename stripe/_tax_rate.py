@@ -272,7 +272,7 @@ class TaxRate(
     """
     rate_type: Optional[Literal["flat_amount", "percentage"]]
     """
-    Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location.
+    Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location. This field is only present for TaxRates created by Stripe Tax.
     """
     state: Optional[str]
     """

@@ -429,6 +429,10 @@ from stripe._invoice_line_item import InvoiceLineItem as InvoiceLineItem
 from stripe._invoice_line_item_service import (
     InvoiceLineItemService as InvoiceLineItemService,
 )
+from stripe._invoice_payment import InvoicePayment as InvoicePayment
+from stripe._invoice_payment_service import (
+    InvoicePaymentService as InvoicePaymentService,
+)
 from stripe._invoice_rendering_template import (
     InvoiceRenderingTemplate as InvoiceRenderingTemplate,
 )
@@ -436,9 +440,6 @@ from stripe._invoice_rendering_template_service import (
     InvoiceRenderingTemplateService as InvoiceRenderingTemplateService,
 )
 from stripe._invoice_service import InvoiceService as InvoiceService
-from stripe._invoice_upcoming_lines_service import (
-    InvoiceUpcomingLinesService as InvoiceUpcomingLinesService,
-)
 from stripe._issuing_service import IssuingService as IssuingService
 from stripe._line_item import LineItem as LineItem
 from stripe._login_link import LoginLink as LoginLink
@@ -533,12 +534,6 @@ from stripe._subscription_item import SubscriptionItem as SubscriptionItem
 from stripe._subscription_item_service import (
     SubscriptionItemService as SubscriptionItemService,
 )
-from stripe._subscription_item_usage_record_service import (
-    SubscriptionItemUsageRecordService as SubscriptionItemUsageRecordService,
-)
-from stripe._subscription_item_usage_record_summary_service import (
-    SubscriptionItemUsageRecordSummaryService as SubscriptionItemUsageRecordSummaryService,
-)
 from stripe._subscription_schedule import (
     SubscriptionSchedule as SubscriptionSchedule,
 )
@@ -572,10 +567,6 @@ from stripe._transfer_reversal_service import (
 )
 from stripe._transfer_service import TransferService as TransferService
 from stripe._treasury_service import TreasuryService as TreasuryService
-from stripe._usage_record import UsageRecord as UsageRecord
-from stripe._usage_record_summary import (
-    UsageRecordSummary as UsageRecordSummary,
-)
 from stripe._v2_services import V2Services as V2Services
 from stripe._webhook_endpoint import WebhookEndpoint as WebhookEndpoint
 from stripe._webhook_endpoint_service import (
