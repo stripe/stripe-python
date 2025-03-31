@@ -9,11 +9,20 @@ from stripe.events._v1_billing_meter_no_meter_found_event import (
 from stripe.events._v2_core_account_configuration_customer_capability_status_updated_event import (
     V2CoreAccountConfigurationCustomerCapabilityStatusUpdatedEvent as V2CoreAccountConfigurationCustomerCapabilityStatusUpdatedEvent,
 )
+from stripe.events._v2_core_account_configuration_customer_updated_event import (
+    V2CoreAccountConfigurationCustomerUpdatedEvent as V2CoreAccountConfigurationCustomerUpdatedEvent,
+)
 from stripe.events._v2_core_account_configuration_merchant_capability_status_updated_event import (
     V2CoreAccountConfigurationMerchantCapabilityStatusUpdatedEvent as V2CoreAccountConfigurationMerchantCapabilityStatusUpdatedEvent,
 )
+from stripe.events._v2_core_account_configuration_merchant_updated_event import (
+    V2CoreAccountConfigurationMerchantUpdatedEvent as V2CoreAccountConfigurationMerchantUpdatedEvent,
+)
 from stripe.events._v2_core_account_configuration_recipient_capability_status_updated_event import (
     V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEvent as V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEvent,
+)
+from stripe.events._v2_core_account_configuration_recipient_updated_event import (
+    V2CoreAccountConfigurationRecipientUpdatedEvent as V2CoreAccountConfigurationRecipientUpdatedEvent,
 )
 from stripe.events._v2_core_account_identity_updated_event import (
     V2CoreAccountIdentityUpdatedEvent as V2CoreAccountIdentityUpdatedEvent,
