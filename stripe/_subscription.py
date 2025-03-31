@@ -2014,7 +2014,7 @@ class Subscription(
     """
     A date in the future at which the subscription will automatically get canceled
     """
-    cancel_at_period_end: Optional[bool]
+    cancel_at_period_end: bool
     """
     Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period.
     """
