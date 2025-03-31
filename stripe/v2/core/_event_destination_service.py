@@ -101,10 +101,6 @@ class EventDestinationService(StripeService):
         """
         The page size.
         """
-        page: NotRequired[str]
-        """
-        The requested page.
-        """
 
     class PingParams(TypedDict):
         pass

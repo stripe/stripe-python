@@ -144,6 +144,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Bancontact(StripeObject):
             pass
 
+        class Billie(StripeObject):
+            pass
+
         class BillingDetails(StripeObject):
             class Address(StripeObject):
                 city: Optional[str]
@@ -1112,9 +1115,39 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             pass
 
         class NaverPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
+            """
             funding: Literal["card", "points"]
             """
             Whether to fund this transaction with Naver Pay points or a card.
+            """
+
+        class NzBankAccount(StripeObject):
+            account_holder_name: Optional[str]
+            """
+            The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+            """
+            bank_code: str
+            """
+            The numeric code for the bank account's bank.
+            """
+            bank_name: str
+            """
+            The name of the bank.
+            """
+            branch_code: str
+            """
+            The numeric code for the bank account's bank branch.
+            """
+            last4: str
+            """
+            Last four digits of the bank account number.
+            """
+            suffix: Optional[str]
+            """
+            The suffix of the bank account number.
             """
 
         class Oxxo(StripeObject):
@@ -1189,6 +1222,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             pass
 
         class SamsungPay(StripeObject):
+            pass
+
+        class Satispay(StripeObject):
             pass
 
         class SepaDebit(StripeObject):
@@ -1349,6 +1385,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
+        billie: Optional[Billie]
         billing_details: BillingDetails
         blik: Optional[Blik]
         boleto: Optional[Boleto]
@@ -1374,6 +1411,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
         naver_pay: Optional[NaverPay]
+        nz_bank_account: Optional[NzBankAccount]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
         pay_by_bank: Optional[PayByBank]
@@ -1384,6 +1422,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
+        satispay: Optional[Satispay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
@@ -1398,6 +1437,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "card",
@@ -1418,6 +1458,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -1428,6 +1469,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "promptpay",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -1452,6 +1494,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
+            "billie": Billie,
             "billing_details": BillingDetails,
             "blik": Blik,
             "boleto": Boleto,
@@ -1473,6 +1516,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
             "naver_pay": NaverPay,
+            "nz_bank_account": NzBankAccount,
             "oxxo": Oxxo,
             "p24": P24,
             "pay_by_bank": PayByBank,
@@ -1483,6 +1527,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
+            "satispay": Satispay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "swish": Swish,
@@ -1621,6 +1666,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataBillingDetails"
         ]
@@ -1735,6 +1786,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -1797,6 +1854,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        """
         sepa_debit: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataSepaDebit"
         ]
@@ -1831,6 +1894,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -1848,6 +1912,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -1858,6 +1923,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "promptpay",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -1936,6 +2002,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
 
     class CreateParamsPaymentMethodDataBancontact(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataBillie(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
@@ -2149,6 +2218,29 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
 
+    class CreateParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
+        """
+
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
         pass
 
@@ -2215,6 +2307,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         pass
 
     class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataSatispay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):

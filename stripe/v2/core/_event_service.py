@@ -19,10 +19,6 @@ class EventService(StripeService):
         """
         Primary object ID used to retrieve related events.
         """
-        page: NotRequired[str]
-        """
-        The requested page.
-        """
 
     class RetrieveParams(TypedDict):
         pass
