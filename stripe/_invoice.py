@@ -4297,7 +4297,6 @@ class Invoice(
     The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
     """
     status_transitions: StatusTransitions
-    subscription: Optional[ExpandableField["Subscription"]]
     subtotal: int
     """
     Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or exclusive tax is applied. Item discounts are already incorporated
