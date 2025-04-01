@@ -23,6 +23,9 @@ class ConfirmationTokenService(StripeService):
         """
         If provided, this hash will be used to create a PaymentMethod.
         """
+        payment_method_options: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodOptions"
+        ]
         return_url: NotRequired[str]
         """
         Return URL used to confirm the Intent.
@@ -920,6 +923,41 @@ class ConfirmationTokenService(StripeService):
 
     class CreateParamsPaymentMethodDataZip(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodOptions(TypedDict):
+        card: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodOptionsCard"
+        ]
+
+    class CreateParamsPaymentMethodOptionsCard(TypedDict):
+        installments: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodOptionsCardInstallments"
+        ]
+        """
+        Installment configuration for payments attempted on this PaymentIntent.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
+        plan: "ConfirmationTokenService.CreateParamsPaymentMethodOptionsCardInstallmentsPlan"
+        """
+        The selected installment plan to use for this payment attempt.
+        This parameter can only be provided during confirmation.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
+        count: NotRequired[int]
+        """
+        For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
+        """
+        interval: NotRequired[Literal["month"]]
+        """
+        For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
+        One of `month`.
+        """
+        type: Literal["fixed_count"]
+        """
+        Type of installment plan, one of `fixed_count`.
+        """
 
     class CreateParamsShipping(TypedDict):
         address: "ConfirmationTokenService.CreateParamsShippingAddress"

@@ -64,10 +64,34 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     class PaymentMethodOptions(StripeObject):
         class Card(StripeObject):
+            class Installments(StripeObject):
+                class Plan(StripeObject):
+                    count: Optional[int]
+                    """
+                    For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+                    """
+                    interval: Optional[Literal["month"]]
+                    """
+                    For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
+                    One of `month`.
+                    """
+                    type: Literal["fixed_count"]
+                    """
+                    Type of installment plan, one of `fixed_count`.
+                    """
+
+                plan: Optional[Plan]
+                _inner_class_types = {"plan": Plan}
+
             cvc_token: Optional[str]
             """
             The `cvc_update` Token collected from the Payment Element.
             """
+            installments: Optional[Installments]
+            """
+            Installment configuration for payments.
+            """
+            _inner_class_types = {"installments": Installments}
 
         card: Optional[Card]
         """
@@ -1688,6 +1712,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If provided, this hash will be used to create a PaymentMethod.
         """
+        payment_method_options: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodOptions"
+        ]
         return_url: NotRequired[str]
         """
         Return URL used to confirm the Intent.
@@ -2573,6 +2600,41 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     class CreateParamsPaymentMethodDataZip(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodOptions(TypedDict):
+        card: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodOptionsCard"
+        ]
+
+    class CreateParamsPaymentMethodOptionsCard(TypedDict):
+        installments: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodOptionsCardInstallments"
+        ]
+        """
+        Installment configuration for payments attempted on this PaymentIntent.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
+        plan: "ConfirmationToken.CreateParamsPaymentMethodOptionsCardInstallmentsPlan"
+        """
+        The selected installment plan to use for this payment attempt.
+        This parameter can only be provided during confirmation.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
+        count: NotRequired[int]
+        """
+        For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
+        """
+        interval: NotRequired[Literal["month"]]
+        """
+        For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
+        One of `month`.
+        """
+        type: Literal["fixed_count"]
+        """
+        Type of installment plan, one of `fixed_count`.
+        """
 
     class CreateParamsShipping(TypedDict):
         address: "ConfirmationToken.CreateParamsShippingAddress"
