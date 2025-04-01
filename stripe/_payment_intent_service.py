@@ -2560,6 +2560,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
         """
+        billie: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
+        """
         blik: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsBlik"
         ]
@@ -3062,6 +3068,16 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsBillie(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class ConfirmParamsPaymentMethodOptionsBlik(TypedDict):
@@ -6456,6 +6472,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
         """
+        billie: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
+        """
         blik: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsBlik"
         ]
@@ -6958,6 +6980,16 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsBillie(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class CreateParamsPaymentMethodOptionsBlik(TypedDict):
@@ -10540,6 +10572,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
         """
+        billie: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
+        """
         blik: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsBlik"
         ]
@@ -11042,6 +11080,16 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class UpdateParamsPaymentMethodOptionsBillie(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class UpdateParamsPaymentMethodOptionsBlik(TypedDict):
