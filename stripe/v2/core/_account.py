@@ -3129,69 +3129,71 @@ class Account(StripeObject):
                 }
 
             class DefaultOutboundDestination(StripeObject):
-                type: Optional[
-                    Literal[
-                        "at_bank_account",
-                        "au_bank_account",
-                        "ba_bank_account",
-                        "be_bank_account",
-                        "bg_bank_account",
-                        "bj_bank_account",
-                        "bs_bank_account",
-                        "card",
-                        "ca_bank_account",
-                        "ch_bank_account",
-                        "ci_bank_account",
-                        "cy_bank_account",
-                        "cz_bank_account",
-                        "de_bank_account",
-                        "dk_bank_account",
-                        "ec_bank_account",
-                        "ee_bank_account",
-                        "es_bank_account",
-                        "et_bank_account",
-                        "fi_bank_account",
-                        "fr_bank_account",
-                        "gb_bank_account",
-                        "gr_bank_account",
-                        "hr_bank_account",
-                        "hu_bank_account",
-                        "id_bank_account",
-                        "ie_bank_account",
-                        "il_bank_account",
-                        "in_bank_account",
-                        "is_bank_account",
-                        "it_bank_account",
-                        "ke_bank_account",
-                        "li_bank_account",
-                        "lt_bank_account",
-                        "lu_bank_account",
-                        "lv_bank_account",
-                        "mn_bank_account",
-                        "mt_bank_account",
-                        "mu_bank_account",
-                        "mx_bank_account",
-                        "na_bank_account",
-                        "nl_bank_account",
-                        "no_bank_account",
-                        "nz_bank_account",
-                        "pa_bank_account",
-                        "ph_bank_account",
-                        "pl_bank_account",
-                        "pt_bank_account",
-                        "ro_bank_account",
-                        "rs_bank_account",
-                        "se_bank_account",
-                        "sg_bank_account",
-                        "si_bank_account",
-                        "sk_bank_account",
-                        "sn_bank_account",
-                        "sv_bank_account",
-                        "tn_bank_account",
-                        "tr_bank_account",
-                        "us_bank_account",
-                        "za_bank_account",
-                    ]
+                id: str
+                """
+                The payout method ID of the default outbound destination.
+                """
+                type: Literal[
+                    "at_bank_account",
+                    "au_bank_account",
+                    "ba_bank_account",
+                    "be_bank_account",
+                    "bg_bank_account",
+                    "bj_bank_account",
+                    "bs_bank_account",
+                    "card",
+                    "ca_bank_account",
+                    "ch_bank_account",
+                    "ci_bank_account",
+                    "cy_bank_account",
+                    "cz_bank_account",
+                    "de_bank_account",
+                    "dk_bank_account",
+                    "ec_bank_account",
+                    "ee_bank_account",
+                    "es_bank_account",
+                    "et_bank_account",
+                    "fi_bank_account",
+                    "fr_bank_account",
+                    "gb_bank_account",
+                    "gr_bank_account",
+                    "hr_bank_account",
+                    "hu_bank_account",
+                    "id_bank_account",
+                    "ie_bank_account",
+                    "il_bank_account",
+                    "in_bank_account",
+                    "is_bank_account",
+                    "it_bank_account",
+                    "ke_bank_account",
+                    "li_bank_account",
+                    "lt_bank_account",
+                    "lu_bank_account",
+                    "lv_bank_account",
+                    "mn_bank_account",
+                    "mt_bank_account",
+                    "mu_bank_account",
+                    "mx_bank_account",
+                    "na_bank_account",
+                    "nl_bank_account",
+                    "no_bank_account",
+                    "nz_bank_account",
+                    "pa_bank_account",
+                    "ph_bank_account",
+                    "pl_bank_account",
+                    "pt_bank_account",
+                    "ro_bank_account",
+                    "rs_bank_account",
+                    "se_bank_account",
+                    "sg_bank_account",
+                    "si_bank_account",
+                    "sk_bank_account",
+                    "sn_bank_account",
+                    "sv_bank_account",
+                    "tn_bank_account",
+                    "tr_bank_account",
+                    "us_bank_account",
+                    "za_bank_account",
                 ]
                 """
                 Closed Enum. The payout method type of the default outbound destination.
@@ -3216,7 +3218,7 @@ class Account(StripeObject):
         """
         merchant: Optional[Merchant]
         """
-        The Merchant Configuration allows the Account to make charges.
+        The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you've completed onboarding as a Connect platform.
         """
         recipient: Optional[Recipient]
         """
@@ -7156,7 +7158,7 @@ class Account(StripeObject):
 
             minimum_deadline: Optional[MinimumDeadline]
             """
-            An aggregate soonest point when the account will be impacted by not providing requirements.
+            The soonest date and time a requirement on the Account will become `past due`. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
             """
             _inner_class_types = {"minimum_deadline": MinimumDeadline}
 
@@ -7184,7 +7186,7 @@ class Account(StripeObject):
     """
     contact_email: Optional[str]
     """
-    The default contact email address for the Account.
+    The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
     """
     created: str
     """

@@ -10,10 +10,10 @@ from typing import cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
-class QuoteService(StripeService):
+class OutboundPaymentQuoteService(StripeService):
     _CreateParamsBase = TypedDict(
         "CreateParams",
-        {"from": "QuoteService.CreateParamsFrom"},
+        {"from": "OutboundPaymentQuoteService.CreateParamsFrom"},
     )
 
     class CreateParams(_CreateParamsBase):
@@ -22,12 +22,12 @@ class QuoteService(StripeService):
         The "presentment amount" to be sent to the recipient.
         """
         delivery_options: NotRequired[
-            "QuoteService.CreateParamsDeliveryOptions"
+            "OutboundPaymentQuoteService.CreateParamsDeliveryOptions"
         ]
         """
         Method to be used to send the OutboundPayment.
         """
-        to: "QuoteService.CreateParamsTo"
+        to: "OutboundPaymentQuoteService.CreateParamsTo"
         """
         Request details about the recipient of an OutboundPaymentQuote.
         """
@@ -69,7 +69,9 @@ class QuoteService(StripeService):
         """
 
     def create(
-        self, params: "QuoteService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "OutboundPaymentQuoteService.CreateParams",
+        options: RequestOptions = {},
     ) -> OutboundPaymentQuote:
         """
         Creates an OutboundPaymentQuote usable in an OutboundPayment.
@@ -78,7 +80,7 @@ class QuoteService(StripeService):
             OutboundPaymentQuote,
             self._request(
                 "post",
-                "/v2/money_management/outbound_payments/quotes",
+                "/v2/money_management/outbound_payment_quotes",
                 base_address="api",
                 params=params,
                 options=options,
@@ -86,7 +88,9 @@ class QuoteService(StripeService):
         )
 
     async def create_async(
-        self, params: "QuoteService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "OutboundPaymentQuoteService.CreateParams",
+        options: RequestOptions = {},
     ) -> OutboundPaymentQuote:
         """
         Creates an OutboundPaymentQuote usable in an OutboundPayment.
@@ -95,7 +99,7 @@ class QuoteService(StripeService):
             OutboundPaymentQuote,
             await self._request_async(
                 "post",
-                "/v2/money_management/outbound_payments/quotes",
+                "/v2/money_management/outbound_payment_quotes",
                 base_address="api",
                 params=params,
                 options=options,

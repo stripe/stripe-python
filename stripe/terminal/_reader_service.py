@@ -83,11 +83,15 @@ class ReaderService(StripeService):
         """
 
     class CollectInputsParamsInputSelectionChoice(TypedDict):
+        id: str
+        """
+        The unique identifier for this choice
+        """
         style: NotRequired[Literal["primary", "secondary"]]
         """
         The style of the button which will be shown for this choice
         """
-        value: str
+        text: str
         """
         The text which will be shown on the button for this choice
         """

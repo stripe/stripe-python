@@ -11,7 +11,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class PaymentMethodService(StripeService):
     class AttachParams(TypedDict):
-        customer: str
+        customer: NotRequired[str]
         """
         The ID of the customer to which to attach the PaymentMethod.
         """
@@ -1271,7 +1271,7 @@ class PaymentMethodService(StripeService):
     def attach(
         self,
         payment_method: str,
-        params: "PaymentMethodService.AttachParams",
+        params: "PaymentMethodService.AttachParams" = {},
         options: RequestOptions = {},
     ) -> PaymentMethod:
         """
@@ -1305,7 +1305,7 @@ class PaymentMethodService(StripeService):
     async def attach_async(
         self,
         payment_method: str,
-        params: "PaymentMethodService.AttachParams",
+        params: "PaymentMethodService.AttachParams" = {},
         options: RequestOptions = {},
     ) -> PaymentMethod:
         """

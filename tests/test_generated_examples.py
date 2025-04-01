@@ -34125,19 +34125,19 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
-    def test_v2_money_management_outbound_payments_quote_post_service(
+    def test_v2_money_management_outbound_payment_quote_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/money_management/outbound_payments/quotes",
+            "/v2/money_management/outbound_payment_quotes",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.money_management.outbound_payments.quotes.create(
+        client.v2.money_management.outbound_payment_quotes.create(
             {
                 "amount": {"currency": "USD", "value": 96},
                 "from": {
@@ -34153,7 +34153,7 @@ class TestGeneratedExamples(object):
         )
         http_client_mock.assert_requested(
             "post",
-            path="/v2/money_management/outbound_payments/quotes",
+            path="/v2/money_management/outbound_payment_quotes",
             query_string="",
             api_base="https://api.stripe.com",
             post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"currency","financial_account":"financial_account"},"to":{"currency":"currency","payout_method":"payout_method","recipient":"recipient"}}',

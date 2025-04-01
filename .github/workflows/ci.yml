@@ -71,12 +71,15 @@ jobs:
     # Specific ubuntu version to support python 3.6 testing
     # see https://github.com/actions/setup-python/issues/544#issuecomment-1332535877 for details
     # move to ubuntu-latest when we drop 3.6
-    runs-on: ubuntu-20.04
+
+    #### TODO (helenye): **REVERT THIS BACK WHEN THE 20.04 BROWNOUT IS OVER**
+    #### https://github.com/actions/setup-python/issues/544#issuecomment-1332535877
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
         python_version:
-          - "3.6"
+          # - "3.6"
           - "3.7"
           - "3.8"
           - "3.9"

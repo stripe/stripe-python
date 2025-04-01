@@ -2106,6 +2106,14 @@ class SessionService(StripeService):
         """
         Permissions for updating the Checkout Session.
         """
+        update_line_items: NotRequired[Literal["client_only", "server_only"]]
+        """
+        Determines which entity is allowed to update the line items.
+
+        Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+
+        When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+        """
         update_shipping_details: NotRequired[
             Literal["client_only", "server_only"]
         ]

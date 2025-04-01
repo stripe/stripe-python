@@ -11,6 +11,9 @@ from stripe.v2.money_management._financial_address_service import (
 from stripe.v2.money_management._inbound_transfer_service import (
     InboundTransferService,
 )
+from stripe.v2.money_management._outbound_payment_quote_service import (
+    OutboundPaymentQuoteService,
+)
 from stripe.v2.money_management._outbound_payment_service import (
     OutboundPaymentService,
 )
@@ -46,6 +49,9 @@ class MoneyManagementService(StripeService):
         self.financial_addresses = FinancialAddressService(self._requestor)
         self.inbound_transfers = InboundTransferService(self._requestor)
         self.outbound_payments = OutboundPaymentService(self._requestor)
+        self.outbound_payment_quotes = OutboundPaymentQuoteService(
+            self._requestor,
+        )
         self.outbound_transfers = OutboundTransferService(self._requestor)
         self.outbound_setup_intents = OutboundSetupIntentService(
             self._requestor,

@@ -6,18 +6,11 @@ from stripe._util import sanitize_id
 from stripe.v2._amount import AmountParam
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._outbound_payment import OutboundPayment
-from stripe.v2.money_management.outbound_payments._quote_service import (
-    QuoteService,
-)
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class OutboundPaymentService(StripeService):
-    def __init__(self, requestor):
-        super().__init__(requestor)
-        self.quotes = QuoteService(self._requestor)
-
     class CancelParams(TypedDict):
         pass
 

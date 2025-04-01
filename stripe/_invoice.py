@@ -697,7 +697,9 @@ class Invoice(
 
         class SubscriptionDetails(StripeObject):
             class PauseCollection(StripeObject):
-                behavior: Optional[str]
+                behavior: Optional[
+                    Literal["keep_as_draft", "mark_uncollectible", "void"]
+                ]
                 """
                 The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
                 """
@@ -715,7 +717,7 @@ class Invoice(
             """
             If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
             """
-            subscription: str
+            subscription: ExpandableField["Subscription"]
             """
             The subscription that generated this invoice
             """
@@ -3936,7 +3938,7 @@ class Invoice(
         """
         For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
         """
-        cancel_at: NotRequired["Literal['']|int|Literal['min_period_end']"]
+        cancel_at: NotRequired["Literal['']|int"]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -5565,6 +5567,9 @@ class Invoice(
     The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
     """
     parent: Optional[Parent]
+    """
+    The parent that generated this invoice
+    """
     payment_settings: PaymentSettings
     payments: Optional[ListObject["InvoicePayment"]]
     """

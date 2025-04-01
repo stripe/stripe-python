@@ -124,7 +124,7 @@ class CreditBalanceTransaction(
         """
         The credit grant for which to fetch credit balance transactions.
         """
-        customer: str
+        customer: NotRequired[str]
         """
         The customer for which to fetch credit balance transactions.
         """
