@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.events._v2_core_account_requirements_updated_event import (
-    V2CoreAccountRequirementsUpdatedEvent,
+from stripe.events._v2_core_account_including_requirements_updated_event import (
+    V2CoreAccountIncludingRequirementsUpdatedEvent,
 )
 from stripe.events._v2_core_account_link_completed_event import (
     V2CoreAccountLinkCompletedEvent,
 )
-from stripe.events._v2_core_account_configuration_customer_capability_status_updated_event import (
-    V2CoreAccountConfigurationCustomerCapabilityStatusUpdatedEvent,
+from stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event import (
+    V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
 )
-from stripe.events._v2_core_account_configuration_customer_updated_event import (
-    V2CoreAccountConfigurationCustomerUpdatedEvent,
+from stripe.events._v2_core_account_including_configuration_customer_updated_event import (
+    V2CoreAccountIncludingConfigurationCustomerUpdatedEvent,
 )
-from stripe.events._v2_core_account_identity_updated_event import (
-    V2CoreAccountIdentityUpdatedEvent,
+from stripe.events._v2_core_account_including_identity_updated_event import (
+    V2CoreAccountIncludingIdentityUpdatedEvent,
 )
 from stripe.events._v2_core_account_person_created_event import (
     V2CoreAccountPersonCreatedEvent,
@@ -24,17 +24,17 @@ from stripe.events._v2_core_account_person_deleted_event import (
 from stripe.events._v2_core_account_person_updated_event import (
     V2CoreAccountPersonUpdatedEvent,
 )
-from stripe.events._v2_core_account_configuration_merchant_capability_status_updated_event import (
-    V2CoreAccountConfigurationMerchantCapabilityStatusUpdatedEvent,
+from stripe.events._v2_core_account_including_configuration_merchant_capability_status_updated_event import (
+    V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent,
 )
-from stripe.events._v2_core_account_configuration_merchant_updated_event import (
-    V2CoreAccountConfigurationMerchantUpdatedEvent,
+from stripe.events._v2_core_account_including_configuration_merchant_updated_event import (
+    V2CoreAccountIncludingConfigurationMerchantUpdatedEvent,
 )
-from stripe.events._v2_core_account_configuration_recipient_capability_status_updated_event import (
-    V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEvent,
+from stripe.events._v2_core_account_including_configuration_recipient_capability_status_updated_event import (
+    V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
 )
-from stripe.events._v2_core_account_configuration_recipient_updated_event import (
-    V2CoreAccountConfigurationRecipientUpdatedEvent,
+from stripe.events._v2_core_account_including_configuration_recipient_updated_event import (
+    V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
 )
 from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEvent,
@@ -131,18 +131,18 @@ from stripe.events._v2_money_management_received_debit_updated_event import (
 THIN_EVENT_CLASSES = {
     V1BillingMeterErrorReportTriggeredEvent.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEvent,
     V1BillingMeterNoMeterFoundEvent.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEvent,
-    V2CoreAccountConfigurationCustomerCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountConfigurationCustomerCapabilityStatusUpdatedEvent,
-    V2CoreAccountConfigurationCustomerUpdatedEvent.LOOKUP_TYPE: V2CoreAccountConfigurationCustomerUpdatedEvent,
-    V2CoreAccountConfigurationMerchantCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountConfigurationMerchantCapabilityStatusUpdatedEvent,
-    V2CoreAccountConfigurationMerchantUpdatedEvent.LOOKUP_TYPE: V2CoreAccountConfigurationMerchantUpdatedEvent,
-    V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEvent,
-    V2CoreAccountConfigurationRecipientUpdatedEvent.LOOKUP_TYPE: V2CoreAccountConfigurationRecipientUpdatedEvent,
-    V2CoreAccountIdentityUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIdentityUpdatedEvent,
+    V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
+    V2CoreAccountIncludingConfigurationCustomerUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerUpdatedEvent,
+    V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent,
+    V2CoreAccountIncludingConfigurationMerchantUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationMerchantUpdatedEvent,
+    V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
+    V2CoreAccountIncludingConfigurationRecipientUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
+    V2CoreAccountIncludingIdentityUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingIdentityUpdatedEvent,
+    V2CoreAccountIncludingRequirementsUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingRequirementsUpdatedEvent,
     V2CoreAccountLinkCompletedEvent.LOOKUP_TYPE: V2CoreAccountLinkCompletedEvent,
     V2CoreAccountPersonCreatedEvent.LOOKUP_TYPE: V2CoreAccountPersonCreatedEvent,
     V2CoreAccountPersonDeletedEvent.LOOKUP_TYPE: V2CoreAccountPersonDeletedEvent,
     V2CoreAccountPersonUpdatedEvent.LOOKUP_TYPE: V2CoreAccountPersonUpdatedEvent,
-    V2CoreAccountRequirementsUpdatedEvent.LOOKUP_TYPE: V2CoreAccountRequirementsUpdatedEvent,
     V2MoneyManagementFinancialAccountCreatedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAccountCreatedEvent,
     V2MoneyManagementFinancialAddressActivatedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAddressActivatedEvent,
     V2MoneyManagementFinancialAddressFailedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAddressFailedEvent,

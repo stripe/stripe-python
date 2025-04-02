@@ -5,11 +5,14 @@ from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2._event import Event
-from typing import Any, Dict, Optional
+from stripe.v2.core._account import Account
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 
 
-class V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEvent(Event):
+class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent(
+    Event,
+):
     LOOKUP_TYPE = (
         "v2.core.account[configuration.recipient].capability_status_updated"
     )
@@ -17,7 +20,7 @@ class V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEvent(Event):
         "v2.core.account[configuration.recipient].capability_status_updated"
     ]
 
-    class V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEventData(
+    class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventData(
         StripeObject,
     ):
         updated_capability: Literal[
@@ -35,7 +38,7 @@ class V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEvent(Event):
         Open Enum. The capability which had its status updated.
         """
 
-    data: V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEventData
+    data: V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventData
     """
     Data for the v2.core.account[configuration.recipient].capability_status_updated event
     """
@@ -48,7 +51,7 @@ class V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEvent(Event):
         last_response: Optional[StripeResponse] = None,
         requestor: "_APIRequestor",
         api_mode: ApiMode,
-    ) -> "V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEvent":
+    ) -> "V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent":
         evt = super()._construct_from(
             values=values,
             last_response=last_response,
@@ -56,10 +59,43 @@ class V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEvent(Event):
             api_mode=api_mode,
         )
         if hasattr(evt, "data"):
-            evt.data = V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEvent.V2CoreAccountConfigurationRecipientCapabilityStatusUpdatedEventData._construct_from(
+            evt.data = V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent.V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventData._construct_from(
                 values=evt.data,
                 last_response=last_response,
                 requestor=requestor,
                 api_mode=api_mode,
             )
         return evt
+
+    class RelatedObject(StripeObject):
+        id: str
+        """
+        Unique identifier for the object relevant to the event.
+        """
+        type: str
+        """
+        Type of the object relevant to the event.
+        """
+        url: str
+        """
+        URL to retrieve the resource.
+        """
+
+    related_object: RelatedObject
+    """
+    Object containing the reference to API resource relevant to the event
+    """
+
+    def fetch_related_object(self) -> Account:
+        """
+        Retrieves the related object from the API. Makes an API request on every call.
+        """
+        return cast(
+            Account,
+            self._requestor.request(
+                "get",
+                self.related_object.url,
+                base_address="api",
+                options={"stripe_account": self.context},
+            ),
+        )
