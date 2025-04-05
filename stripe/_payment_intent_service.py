@@ -1689,7 +1689,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntentService.ConfirmParamsPaymentMethodDataBillie"
         ]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataBillingDetails"
@@ -1909,7 +1909,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntentService.ConfirmParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataSamsungPay"
@@ -1921,7 +1921,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntentService.ConfirmParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataSepaDebit"
@@ -5601,7 +5601,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntentService.CreateParamsPaymentMethodDataBillie"
         ]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataBillingDetails"
@@ -5821,7 +5821,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntentService.CreateParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataSamsungPay"
@@ -5833,7 +5833,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntentService.CreateParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataSepaDebit"
@@ -9701,7 +9701,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntentService.UpdateParamsPaymentMethodDataBillie"
         ]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataBillingDetails"
@@ -9921,7 +9921,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntentService.UpdateParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataSamsungPay"
@@ -9933,7 +9933,7 @@ class PaymentIntentService(StripeService):
             "PaymentIntentService.UpdateParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataSepaDebit"

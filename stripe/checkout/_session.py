@@ -2110,6 +2110,16 @@ class Session(
         breakdown: Optional[Breakdown]
         _inner_class_types = {"breakdown": Breakdown}
 
+    class WalletOptions(StripeObject):
+        class Link(StripeObject):
+            display: Optional[Literal["auto", "never"]]
+            """
+            Describes whether Checkout should display Link. Defaults to `auto`.
+            """
+
+        link: Optional[Link]
+        _inner_class_types = {"link": Link}
+
     class CreateParams(RequestOptions):
         adaptive_pricing: NotRequired["Session.CreateParamsAdaptivePricing"]
         """
@@ -2399,7 +2409,7 @@ class Session(
         """
         This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
 
-        For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+        For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
         """
         phone_number_collection: NotRequired[
             "Session.CreateParamsPhoneNumberCollection"
@@ -2472,6 +2482,10 @@ class Session(
         ui_mode: NotRequired[Literal["custom", "embedded", "hosted"]]
         """
         The UI mode of the Session. Defaults to `hosted`.
+        """
+        wallet_options: NotRequired["Session.CreateParamsWalletOptions"]
+        """
+        Wallet-specific configuration.
         """
 
     class CreateParamsAdaptivePricing(TypedDict):
@@ -4692,6 +4706,18 @@ class Session(
         Describes whether a tax ID is required during checkout. Defaults to `never`.
         """
 
+    class CreateParamsWalletOptions(TypedDict):
+        link: NotRequired["Session.CreateParamsWalletOptionsLink"]
+        """
+        contains details about the Link wallet options.
+        """
+
+    class CreateParamsWalletOptionsLink(TypedDict):
+        display: NotRequired[Literal["auto", "never"]]
+        """
+        Specifies whether Checkout should display Link as a payment option. By default, Checkout will display all the supported wallets that the Checkout Session was created with. This is the `auto` behavior, and it is the default choice.
+        """
+
     class ExpireParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -5268,7 +5294,7 @@ class Session(
     """
     This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
 
-    For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+    For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
     """
     phone_number_collection: Optional[PhoneNumberCollection]
     presentment_details: Optional[PresentmentDetails]
@@ -5338,6 +5364,10 @@ class Session(
     """
     The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you're using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it'll use `checkout.stripe.com.`
     This value is only present when the session is active.
+    """
+    wallet_options: Optional[WalletOptions]
+    """
+    Wallet-specific configuration for this Checkout Session.
     """
 
     @classmethod
@@ -5725,4 +5755,5 @@ class Session(
         "shipping_options": ShippingOption,
         "tax_id_collection": TaxIdCollection,
         "total_details": TotalDetails,
+        "wallet_options": WalletOptions,
     }

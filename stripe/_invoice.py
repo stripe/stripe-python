@@ -4178,6 +4178,9 @@ class Invoice(
         Only return invoices for the customer specified by this customer ID.
         """
         customer_account: NotRequired[str]
+        """
+        Only return invoices for the account specified by this account ID.
+        """
         due_date: NotRequired["Invoice.ListParamsDueDate|int"]
         ending_before: NotRequired[str]
         """

@@ -29,6 +29,7 @@ if not TYPE_CHECKING:
         gift_cards,
         identity,
         issuing,
+        privacy,
         radar,
         reporting,
         sigma,

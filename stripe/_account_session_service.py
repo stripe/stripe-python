@@ -83,6 +83,12 @@ class AccountSessionService(StripeService):
         """
         Configuration for the documents embedded component.
         """
+        export_tax_transactions: NotRequired[
+            "AccountSessionService.CreateParamsComponentsExportTaxTransactions"
+        ]
+        """
+        Configuration for the export tax transactions embedded component.
+        """
         financial_account: NotRequired[
             "AccountSessionService.CreateParamsComponentsFinancialAccount"
         ]
@@ -367,6 +373,21 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsDocumentsFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsExportTaxTransactions(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsExportTaxTransactionsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsExportTaxTransactionsFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsFinancialAccount(TypedDict):

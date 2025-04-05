@@ -4822,7 +4822,7 @@ class PaymentIntent(
             "PaymentIntent.ConfirmParamsPaymentMethodDataBillie"
         ]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataBillingDetails"
@@ -5018,7 +5018,7 @@ class PaymentIntent(
             "PaymentIntent.ConfirmParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataSamsungPay"
@@ -5030,7 +5030,7 @@ class PaymentIntent(
             "PaymentIntent.ConfirmParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataSepaDebit"
@@ -8682,7 +8682,7 @@ class PaymentIntent(
             "PaymentIntent.CreateParamsPaymentMethodDataBillie"
         ]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataBillingDetails"
@@ -8876,7 +8876,7 @@ class PaymentIntent(
             "PaymentIntent.CreateParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataSamsungPay"
@@ -8888,7 +8888,7 @@ class PaymentIntent(
             "PaymentIntent.CreateParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataSepaDebit"
@@ -12676,7 +12676,7 @@ class PaymentIntent(
             "PaymentIntent.ModifyParamsPaymentMethodDataBillie"
         ]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataBillingDetails"
@@ -12870,7 +12870,7 @@ class PaymentIntent(
             "PaymentIntent.ModifyParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataSamsungPay"
@@ -12882,7 +12882,7 @@ class PaymentIntent(
             "PaymentIntent.ModifyParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataSepaDebit"

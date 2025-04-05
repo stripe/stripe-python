@@ -300,6 +300,7 @@ from stripe import (
     gift_cards as gift_cards,
     identity as identity,
     issuing as issuing,
+    privacy as privacy,
     radar as radar,
     reporting as reporting,
     sigma as sigma,
@@ -555,6 +556,7 @@ from stripe._plan import Plan as Plan
 from stripe._plan_service import PlanService as PlanService
 from stripe._price import Price as Price
 from stripe._price_service import PriceService as PriceService
+from stripe._privacy_service import PrivacyService as PrivacyService
 from stripe._product import Product as Product
 from stripe._product_feature import ProductFeature as ProductFeature
 from stripe._product_feature_service import (
