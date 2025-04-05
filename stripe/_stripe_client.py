@@ -70,6 +70,7 @@ from stripe._forwarding_service import ForwardingService
 from stripe._gift_cards_service import GiftCardsService
 from stripe._identity_service import IdentityService
 from stripe._invoice_service import InvoiceService
+from stripe._invoice_payment_service import InvoicePaymentService
 from stripe._invoice_rendering_template_service import (
     InvoiceRenderingTemplateService,
 )
@@ -231,6 +232,7 @@ class StripeClient(object):
         self.gift_cards = GiftCardsService(self._requestor)
         self.identity = IdentityService(self._requestor)
         self.invoices = InvoiceService(self._requestor)
+        self.invoice_payments = InvoicePaymentService(self._requestor)
         self.invoice_rendering_templates = InvoiceRenderingTemplateService(
             self._requestor,
         )

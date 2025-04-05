@@ -77,7 +77,7 @@ This release changes the pinned API version to `2025-03-31.preview`
     * Add support for new thin events `V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationCustomerUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientUpdatedEvent`, `V2CoreAccountIncludingIdentityUpdatedEvent`, and `V2CoreAccountIncludingRequirementsUpdatedEvent`
     * Add support for new thin event `V2CoreAccountLinkCompletedEvent` with related object `V2.Core.AccountLink`
     * Add support for new thin events `V2CoreAccountPersonCreatedEvent`, `V2CoreAccountPersonDeletedEvent`, and `V2CoreAccountPersonUpdatedEvent` with related object `V2.Core.Person`
-    
+
 ### Changes
     * Change `CustomerSession.CreateParams.customer`, `InvoiceItem.CreateParams.customer`, `PaymentMethod.AttachParams.customer`, `Subscription.CreateParams.customer`, `billing.CreditBalanceSummary.RetrieveParams.customer`, `billing.CreditBalanceTransaction.ListParams.customer`, `billing.CreditGrant.CreateParams.customer`, and `billingportal.Session.CreateParams.customer` to be optional
     * Change type of `Invoice.Parent.SubscriptionDetail.PauseCollection.behavior` and `QuotePreviewInvoice.Parent.SubscriptionDetail.PauseCollection.behavior` from `string` to `enum('keep_as_draft'|'mark_uncollectible'|'void')`
@@ -191,7 +191,7 @@ This release changes the pinned API version to `2025-03-31.preview`
 
 ## 11.7.0b1 - 2025-03-18
 * [#1469](https://github.com/stripe/stripe-python/pull/1469) Beta SDK updates between Open API versions 1473 and 1505
-  
+
   * Add support for `target_date` on parameter classes `stripe.Order.CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit`, `stripe.Order.CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit`, `stripe.Order.ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit`, and `stripe.Order.ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit` and resource classes `stripe.Order.Payment.Settings.PaymentMethodOptions.AcssDebit` and `stripe.Order.Payment.Settings.PaymentMethodOptions.SepaDebit`
   * Add support for `succeed_input_collection` and `timeout_input_collection` on resource `stripe.terminal.Reader`
 * [#1467](https://github.com/stripe/stripe-python/pull/1467) Merge python-beta
@@ -756,7 +756,7 @@ This release changes the pinned API version to `2025-03-31.preview`
   * Add support for `tax_ids` on resource class `stripe.checkout.Session.CollectedInformation`
   * Add support for `billing.meter_error_report.triggered` on enums `stripe.Event.type`, `stripe.WebhookEndpoint.CreateParams.enabled_events`, and `stripe.WebhookEndpoint.ModifyParams.enabled_events`
   * Add support for `mb_way` on enums `stripe.PaymentLink.payment_method_types`, `stripe.PaymentLink.CreateParams.payment_method_types`, and `stripe.PaymentLink.ModifyParams.payment_method_types`
-* [#1386](https://github.com/stripe/stripe-python/pull/1386) Merge from master 
+* [#1386](https://github.com/stripe/stripe-python/pull/1386) Merge from master
 * [#1384](https://github.com/stripe/stripe-python/pull/1384) Merge from master after the changes to not pass api_mode from individual methods
 * [#1380](https://github.com/stripe/stripe-python/pull/1380) Update generated code for beta
   * Add support for `email` on resource class `stripe.checkout.Session.CollectedInformation`
