@@ -1467,7 +1467,7 @@ class PaymentMethod(
         """
         billie: NotRequired["PaymentMethod.CreateParamsBillie"]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "PaymentMethod.CreateParamsBillingDetails"
@@ -1639,7 +1639,7 @@ class PaymentMethod(
         """
         revolut_pay: NotRequired["PaymentMethod.CreateParamsRevolutPay"]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired["PaymentMethod.CreateParamsSamsungPay"]
         """
@@ -1647,7 +1647,7 @@ class PaymentMethod(
         """
         satispay: NotRequired["PaymentMethod.CreateParamsSatispay"]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired["PaymentMethod.CreateParamsSepaDebit"]
         """

@@ -78,6 +78,23 @@ class PaymentMethodDomain(
         """
         _inner_class_types = {"status_details": StatusDetails}
 
+    class Klarna(StripeObject):
+        class StatusDetails(StripeObject):
+            error_message: str
+            """
+            The error message associated with the status of the payment method on the domain.
+            """
+
+        status: Literal["active", "inactive"]
+        """
+        The status of the payment method on the domain.
+        """
+        status_details: Optional[StatusDetails]
+        """
+        Contains additional details about the status of a payment method for a specific payment method domain.
+        """
+        _inner_class_types = {"status_details": StatusDetails}
+
     class Link(StripeObject):
         class StatusDetails(StripeObject):
             error_message: str
@@ -201,6 +218,10 @@ class PaymentMethodDomain(
     id: str
     """
     Unique identifier for the object.
+    """
+    klarna: Klarna
+    """
+    Indicates the status of a specific payment method on a payment method domain.
     """
     link: Link
     """
@@ -507,6 +528,7 @@ class PaymentMethodDomain(
         "amazon_pay": AmazonPay,
         "apple_pay": ApplePay,
         "google_pay": GooglePay,
+        "klarna": Klarna,
         "link": Link,
         "paypal": Paypal,
     }

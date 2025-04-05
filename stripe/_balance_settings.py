@@ -13,7 +13,7 @@ class BalanceSettings(
     UpdateableAPIResource["BalanceSettings"],
 ):
     """
-    "Options for customizing account balances within Stripe."
+    Options for customizing account balances within Stripe.
     """
 
     OBJECT_NAME: ClassVar[Literal["balance_settings"]] = "balance_settings"

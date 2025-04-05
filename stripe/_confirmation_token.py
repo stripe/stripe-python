@@ -1795,7 +1795,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "ConfirmationToken.CreateParamsPaymentMethodDataBillie"
         ]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataBillingDetails"
@@ -2007,7 +2007,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "ConfirmationToken.CreateParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataSamsungPay"
@@ -2019,7 +2019,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "ConfirmationToken.CreateParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataSepaDebit"

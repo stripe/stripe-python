@@ -472,6 +472,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the documents embedded component.
         """
+        export_tax_transactions: NotRequired[
+            "AccountSession.CreateParamsComponentsExportTaxTransactions"
+        ]
+        """
+        Configuration for the export tax transactions embedded component.
+        """
         financial_account: NotRequired[
             "AccountSession.CreateParamsComponentsFinancialAccount"
         ]
@@ -752,6 +758,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsDocumentsFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsExportTaxTransactions(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsExportTaxTransactionsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsExportTaxTransactionsFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsFinancialAccount(TypedDict):

@@ -36,7 +36,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
+        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
         """
 
     class AmountFailed(StripeObject):
@@ -46,7 +46,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
+        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
         """
 
     class AmountGuaranteed(StripeObject):
@@ -56,7 +56,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
+        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
         """
 
     class AmountRequested(StripeObject):
@@ -66,7 +66,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
+        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
         """
 
     class CustomerDetails(StripeObject):
@@ -2035,7 +2035,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     class ReportPaymentParams(RequestOptions):
         amount_requested: "PaymentRecord.ReportPaymentParamsAmountRequested"
         """
-        The amount you intend to collect for this payment.
+        The amount you initially requested for this payment.
         """
         customer_details: NotRequired[
             "PaymentRecord.ReportPaymentParamsCustomerDetails"
@@ -2099,7 +2099,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) e.g., 100 cents for $1.00 or 100 for ¥100, a zero-decimal currency).
+        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
         """
 
     class ReportPaymentParamsCustomerDetails(TypedDict):
