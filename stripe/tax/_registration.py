@@ -377,6 +377,12 @@ class Registration(
             """
             _inner_class_types = {"standard": Standard}
 
+        class In(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Is(StripeObject):
             type: Literal["standard"]
             """
@@ -855,6 +861,7 @@ class Registration(
         hu: Optional[Hu]
         id: Optional[Id]
         ie: Optional[Ie]
+        in_: Optional[In]
         is_: Optional[Is]
         it: Optional[It]
         jp: Optional[Jp]
@@ -942,6 +949,7 @@ class Registration(
             "hu": Hu,
             "id": Id,
             "ie": Ie,
+            "in": In,
             "is": Is,
             "it": It,
             "jp": Jp,
@@ -992,7 +1000,7 @@ class Registration(
             "zm": Zm,
             "zw": Zw,
         }
-        _field_remappings = {"is_": "is"}
+        _field_remappings = {"in_": "in", "is_": "is"}
 
     class CreateParams(RequestOptions):
         active_from: Union[Literal["now"], int]
@@ -1018,7 +1026,10 @@ class Registration(
 
     _CreateParamsCountryOptionsBase = TypedDict(
         "CreateParamsCountryOptions",
-        {"is": NotRequired["Registration.CreateParamsCountryOptionsIs"]},
+        {
+            "in": NotRequired["Registration.CreateParamsCountryOptionsIn"],
+            "is": NotRequired["Registration.CreateParamsCountryOptionsIs"],
+        },
     )
 
     class CreateParamsCountryOptions(_CreateParamsCountryOptionsBase):
@@ -1775,6 +1786,12 @@ class Registration(
         place_of_supply_scheme: Literal["small_seller", "standard"]
         """
         Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsIn(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
         """
 
     class CreateParamsCountryOptionsIs(TypedDict):

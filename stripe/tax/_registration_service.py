@@ -35,9 +35,12 @@ class RegistrationService(StripeService):
     _CreateParamsCountryOptionsBase = TypedDict(
         "CreateParamsCountryOptions",
         {
+            "in": NotRequired[
+                "RegistrationService.CreateParamsCountryOptionsIn"
+            ],
             "is": NotRequired[
                 "RegistrationService.CreateParamsCountryOptionsIs"
-            ]
+            ],
         },
     )
 
@@ -795,6 +798,12 @@ class RegistrationService(StripeService):
         place_of_supply_scheme: Literal["small_seller", "standard"]
         """
         Place of supply scheme used in an EU standard registration.
+        """
+
+    class CreateParamsCountryOptionsIn(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
         """
 
     class CreateParamsCountryOptionsIs(TypedDict):
