@@ -1,4 +1,5 @@
 # packages needed to package & release
 
-twine
-setuptools
+# pinned to latest as of 2025-04-08; nothing special about these versions
+twine == 6.1.0
+build == 1.2.2
