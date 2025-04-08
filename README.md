@@ -13,8 +13,6 @@ API.
 
 See the [Python API docs](https://stripe.com/docs/api?lang=python).
 
-See [video demonstrations][youtube-playlist] covering how to use the library.
-
 ## Installation
 
 You don't need this source code unless you want to modify the package. If you just
