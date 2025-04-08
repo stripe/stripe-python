@@ -399,7 +399,6 @@ just format
 [poetry]: https://github.com/sdispater/poetry
 [stripe-mock]: https://github.com/stripe/stripe-mock
 [idempotency-keys]: https://stripe.com/docs/api/idempotent_requests?lang=python
-[youtube-playlist]: https://www.youtube.com/playlist?list=PLy1nL-pvL2M55YVn0mGoQ5r-39A1-ZypO
 
 <!--
 # vim: set tw=79:
