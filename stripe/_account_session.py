@@ -514,6 +514,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the payment details embedded component.
         """
+        payment_disputes: NotRequired[
+            "AccountSession.CreateParamsComponentsPaymentDisputes"
+        ]
+        """
+        Configuration for the payment disputes embedded component.
+        """
         payment_method_settings: NotRequired[
             "AccountSession.CreateParamsComponentsPaymentMethodSettings"
         ]
@@ -928,6 +934,32 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether to allow capturing and cancelling payment intents. This is `true` by default.
         """
+        destination_on_behalf_of_charge_management: NotRequired[bool]
+        """
+        Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+        """
+        dispute_management: NotRequired[bool]
+        """
+        Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+        """
+        refund_management: NotRequired[bool]
+        """
+        Whether to allow sending refunds. This is `true` by default.
+        """
+
+    class CreateParamsComponentsPaymentDisputes(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPaymentDisputesFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsPaymentDisputesFeatures(TypedDict):
         destination_on_behalf_of_charge_management: NotRequired[bool]
         """
         Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
