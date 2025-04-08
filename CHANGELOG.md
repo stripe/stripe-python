@@ -6,86 +6,86 @@
 This release changes the pinned API version to `2025-03-31.preview`
 
 ### Breaking changes:
-    * Remove support for `AmountOverpaid` on `InvoicePayment`
-    * Remove support for values `out_of_band_payment` and `payment_record` from enum `InvoicePayment.Payment.type`
-    * Remove support for `RateCardSubscriptionDetails` on `InvoiceItemParent`
-    * Remove support for `ApplicationFeeAmount`, `PaidOutOfBand`, and `Paid` on `QuotePreviewInvoice`
-    * Remove support for `billing_thresholds` on `QuotePreviewSubscriptionSchedule.DefaultSetting`, `QuotePreviewSubscriptionSchedule.Phase.Item`, and `QuotePreviewSubscriptionSchedule.Phase`
-    * Remove support for `coupon` on `QuotePreviewSubscriptionSchedule.Phase`
-    * Change type of `QuotePreviewInvoice.Parent.SubscriptionDetail.subscription` from `string` to `expandable($Subscription)`
-    * Change `CheckoutSession.Permission.update` to be optional
-    * Change type of `PaymentAttemptRecord.PaymentMethodDetail.type` and `PaymentRecord.PaymentMethodDetail.type` from `literal('custom')` to `string`
-    * Change type of `PaymentAttemptRecord.payment_record` from `string` to `nullable(string)`
-    * Change `PaymentAttemptRecord.PaymentMethodDetail.custom` and `PaymentRecord.PaymentMethodDetail.custom` to be optional
-    * Change type of `PaymentRecord.latest_payment_attempt_record` from `string` to `nullable(string)`
-    * Change type of `Order.CreateParamsPaymentSettingPaymentMethodOptionWechatPay.client` and `Order.UpdateParamsPaymentSettingPaymentMethodOptionWechatPay.client` to be optional
+* Remove support for `AmountOverpaid` on `InvoicePayment`
+* Remove support for values `out_of_band_payment` and `payment_record` from enum `InvoicePayment.Payment.type`
+* Remove support for `RateCardSubscriptionDetails` on `InvoiceItemParent`
+* Remove support for `ApplicationFeeAmount`, `PaidOutOfBand`, and `Paid` on `QuotePreviewInvoice`
+* Remove support for `billing_thresholds` on `QuotePreviewSubscriptionSchedule.DefaultSetting`, `QuotePreviewSubscriptionSchedule.Phase.Item`, and `QuotePreviewSubscriptionSchedule.Phase`
+* Remove support for `coupon` on `QuotePreviewSubscriptionSchedule.Phase`
+* Change type of `QuotePreviewInvoice.Parent.SubscriptionDetail.subscription` from `string` to `expandable($Subscription)`
+* Change `CheckoutSession.Permission.update` to be optional
+* Change type of `PaymentAttemptRecord.PaymentMethodDetail.type` and `PaymentRecord.PaymentMethodDetail.type` from `literal('custom')` to `string`
+* Change type of `PaymentAttemptRecord.payment_record` from `string` to `nullable(string)`
+* Change `PaymentAttemptRecord.PaymentMethodDetail.custom` and `PaymentRecord.PaymentMethodDetail.custom` to be optional
+* Change type of `PaymentRecord.latest_payment_attempt_record` from `string` to `nullable(string)`
+* Change type of `Order.CreateParamsPaymentSettingPaymentMethodOptionWechatPay.client` and `Order.UpdateParamsPaymentSettingPaymentMethodOptionWechatPay.client` to be optional
 
 ### Additions
-    * Add support for `payment_method_options` on `ConfirmationToken.CreateParams`
-    * Add support for `installments` on `ConfirmationToken.PaymentMethodOption.Card`
-    * Add support for `billie` on `PaymentIntent.ConfirmParamsPaymentMethodOption`, `PaymentIntent.CreateParamsPaymentMethodOption`, `PaymentIntent.PaymentMethodOption`, and `PaymentIntent.UpdateParamsPaymentMethodOption`
-    * Add support for `update_line_items` on `CheckoutSession.Permission` and `checkout.Session.CreateParamsPermission`
-    * Add support for `new resources` BalanceSettings
-    * Add support for `modify` and `retrieve` methods on resource `BalanceSettings`
-    * Add support for `create`, `delete`, `list`, `modify`, and `retrieve` methods on a new `ExternalAccountService` to access cards and bank accounts made available in the new path `v1/external_accounts`
-    * Add support for `stripe_balance_payments` on `Account.Capability`, `Account.CreateParamsCapability`, and `Account.UpdateParamsCapability`
-    * Add support for new values `stripe_balance_payment_debit_reversal` and `stripe_balance_payment_debit` on enum `BalanceTransaction.type`
-    * Add support for `customer_account` on `BillingCreditBalanceSummary`, `BillingCreditGrant`, `BillingPortalSession`, `CheckoutSession`, `ConfirmationToken.PaymentMethodPreview`, `CreditNote.ListParams`, `CreditNote`, `CustomerBalanceTransaction`, `CustomerCashBalanceTransaction`, `CustomerCashBalance`, `CustomerPaymentMethod`, `CustomerSession.CreateParams`, `CustomerSession`, `CustomerTaxId.Owner`, `CustomerTaxId`, `Customer`, `Discount`, `FinancialConnectionsAccount.AccountHolder`, `FinancialConnectionsSession.AccountHolder`, `Invoice.CreateParams`, `Invoice.CreatePreviewParams`, `Invoice.ListParams`, `InvoiceItem.CreateParams`, `InvoiceItem.ListParams`, `InvoiceItem`, `Invoice`, `PaymentIntent.CreateParams`, `PaymentIntent.ListParams`, `PaymentIntent.UpdateParams`, `PaymentIntent`, `PaymentMethod.AttachParams`, `PaymentMethod`, `PromotionCode.CreateParams`, `PromotionCode.ListParams`, `PromotionCode`, `Quote.CreateParams`, `Quote.ListParams`, `Quote.UpdateParams`, `QuotePreviewInvoice`, `QuotePreviewSubscriptionSchedule`, `Quote`, `SetupAttempt`, `SetupIntent.CreateParams`, `SetupIntent.ListParams`, `SetupIntent.UpdateParams`, `SetupIntent`, `Subscription.CreateParams`, `Subscription.ListParams`, `SubscriptionSchedule.CreateParams`, `SubscriptionSchedule.ListParams`, `SubscriptionSchedule`, `Subscription`, `TaxId.CreateParamsOwner`, `TaxId.ListParamsOwner`, `TaxId.Owner`, `TaxId`, `billing.CreditBalanceSummary.RetrieveParams`, `billing.CreditBalanceTransaction.ListParams`, `billing.CreditGrant.CreateParams`, `billing.CreditGrant.ListParams`, `billingportal.Session.CreateParams`, `checkout.Session.CreateParams`, `checkout.Session.ListParams`, `financialconnections.Account.ListParamsAccountHolder`, and `financialconnections.Session.CreateParamsAccountHolder`
-    * Add support for `stripe_balance` on `Charge.PaymentMethodDetail`, `ConfirmationToken.CreateParamsPaymentMethodDatum`, `ConfirmationToken.PaymentMethodPreview`, `CustomerPaymentMethod`, `PaymentAttemptRecord.PaymentMethodDetail`, `PaymentIntent.ConfirmParamsPaymentMethodDatum`, `PaymentIntent.ConfirmParamsPaymentMethodOption`, `PaymentIntent.CreateParamsPaymentMethodDatum`, `PaymentIntent.CreateParamsPaymentMethodOption`, `PaymentIntent.PaymentMethodOption`, `PaymentIntent.UpdateParamsPaymentMethodDatum`, `PaymentIntent.UpdateParamsPaymentMethodOption`, `PaymentMethod.CreateParams`, `PaymentMethod`, `PaymentRecord.PaymentMethodDetail`, `SetupAttempt.PaymentMethodDetail`, `SetupIntent.ConfirmParamsPaymentMethodDatum`, `SetupIntent.CreateParamsPaymentMethodDatum`, and `SetupIntent.UpdateParamsPaymentMethodDatum`
-    * Add support for `update_shipping_details` on `CheckoutSession.Permission` and `checkout.Session.CreateParamsPermission`
-    * Add support for `provider` on `CheckoutSession.AutomaticTax`, `Invoice.AutomaticTax`, `Quote.AutomaticTax`, and `QuotePreviewInvoice.AutomaticTax`
-    * Add support for `tax_calculation_reference` on `CreditNoteLineItem`, `CreditNotePreviewLines`, `InvoiceLineItem`, `LineItem`, `PaymentLinkLineItem`, `QuoteComputedUpfrontLineItems`, `QuoteLineItem`, and `SessionLineItem`
-    * Add support for `context` on `Event`
-    * Add support for `related_customer_account` on `IdentityVerificationSession`, `identity.VerificationSession.CreateParams`, and `identity.VerificationSession.ListParams`
-    * Add support for `payout_method` on `Payout.CreateParams` and `Payout`
-    * Add support for `confirmation_secret`, `parent`, and `total_taxes` on `QuotePreviewInvoice`
-    * Add support for new values `forwarding_api_retryable_upstream_error`, `setup_intent_mobile_wallet_unsupported`, `v2_account_disconnection_unsupported`, and `v2_account_missing_configuration` on enum `QuotePreviewInvoice.LastFinalizationError.code`
-    * Add support for new values `klarna`, `nz_bank_account`, and `stripe_balance` on enum `QuotePreviewInvoice.PaymentSetting.payment_method_types`
-    * Add support for `id` and `text` on `TerminalReader.Action.CollectInput.Input.Selection.Choice`, `TerminalReader.Action.CollectInput.Input.Selection`, and `terminal.Reader.CollectInputsParamsInputSelectionChoice`
-    * Add support for `network_data` on `IssuingDisputeSettlementDetail`
-    * Add support for `interchange_fees_amount`, `net_total_amount`, `network_fees_amount`, `other_fees_amount`, `other_fees_count`, and `transaction_amount` on `IssuingSettlement`
-    * Add support for `reported_by` on `PaymentAttemptRecord`
+* Add support for `payment_method_options` on `ConfirmationToken.CreateParams`
+* Add support for `installments` on `ConfirmationToken.PaymentMethodOption.Card`
+* Add support for `billie` on `PaymentIntent.ConfirmParamsPaymentMethodOption`, `PaymentIntent.CreateParamsPaymentMethodOption`, `PaymentIntent.PaymentMethodOption`, and `PaymentIntent.UpdateParamsPaymentMethodOption`
+* Add support for `update_line_items` on `CheckoutSession.Permission` and `checkout.Session.CreateParamsPermission`
+* Add support for `new resources` BalanceSettings
+* Add support for `modify` and `retrieve` methods on resource `BalanceSettings`
+* Add support for `create`, `delete`, `list`, `modify`, and `retrieve` methods on a new `ExternalAccountService` to access cards and bank accounts made available in the new path `v1/external_accounts`
+* Add support for `stripe_balance_payments` on `Account.Capability`, `Account.CreateParamsCapability`, and `Account.UpdateParamsCapability`
+* Add support for new values `stripe_balance_payment_debit_reversal` and `stripe_balance_payment_debit` on enum `BalanceTransaction.type`
+* Add support for `customer_account` on `BillingCreditBalanceSummary`, `BillingCreditGrant`, `BillingPortalSession`, `CheckoutSession`, `ConfirmationToken.PaymentMethodPreview`, `CreditNote.ListParams`, `CreditNote`, `CustomerBalanceTransaction`, `CustomerCashBalanceTransaction`, `CustomerCashBalance`, `CustomerPaymentMethod`, `CustomerSession.CreateParams`, `CustomerSession`, `CustomerTaxId.Owner`, `CustomerTaxId`, `Customer`, `Discount`, `FinancialConnectionsAccount.AccountHolder`, `FinancialConnectionsSession.AccountHolder`, `Invoice.CreateParams`, `Invoice.CreatePreviewParams`, `Invoice.ListParams`, `InvoiceItem.CreateParams`, `InvoiceItem.ListParams`, `InvoiceItem`, `Invoice`, `PaymentIntent.CreateParams`, `PaymentIntent.ListParams`, `PaymentIntent.UpdateParams`, `PaymentIntent`, `PaymentMethod.AttachParams`, `PaymentMethod`, `PromotionCode.CreateParams`, `PromotionCode.ListParams`, `PromotionCode`, `Quote.CreateParams`, `Quote.ListParams`, `Quote.UpdateParams`, `QuotePreviewInvoice`, `QuotePreviewSubscriptionSchedule`, `Quote`, `SetupAttempt`, `SetupIntent.CreateParams`, `SetupIntent.ListParams`, `SetupIntent.UpdateParams`, `SetupIntent`, `Subscription.CreateParams`, `Subscription.ListParams`, `SubscriptionSchedule.CreateParams`, `SubscriptionSchedule.ListParams`, `SubscriptionSchedule`, `Subscription`, `TaxId.CreateParamsOwner`, `TaxId.ListParamsOwner`, `TaxId.Owner`, `TaxId`, `billing.CreditBalanceSummary.RetrieveParams`, `billing.CreditBalanceTransaction.ListParams`, `billing.CreditGrant.CreateParams`, `billing.CreditGrant.ListParams`, `billingportal.Session.CreateParams`, `checkout.Session.CreateParams`, `checkout.Session.ListParams`, `financialconnections.Account.ListParamsAccountHolder`, and `financialconnections.Session.CreateParamsAccountHolder`
+* Add support for `stripe_balance` on `Charge.PaymentMethodDetail`, `ConfirmationToken.CreateParamsPaymentMethodDatum`, `ConfirmationToken.PaymentMethodPreview`, `CustomerPaymentMethod`, `PaymentAttemptRecord.PaymentMethodDetail`, `PaymentIntent.ConfirmParamsPaymentMethodDatum`, `PaymentIntent.ConfirmParamsPaymentMethodOption`, `PaymentIntent.CreateParamsPaymentMethodDatum`, `PaymentIntent.CreateParamsPaymentMethodOption`, `PaymentIntent.PaymentMethodOption`, `PaymentIntent.UpdateParamsPaymentMethodDatum`, `PaymentIntent.UpdateParamsPaymentMethodOption`, `PaymentMethod.CreateParams`, `PaymentMethod`, `PaymentRecord.PaymentMethodDetail`, `SetupAttempt.PaymentMethodDetail`, `SetupIntent.ConfirmParamsPaymentMethodDatum`, `SetupIntent.CreateParamsPaymentMethodDatum`, and `SetupIntent.UpdateParamsPaymentMethodDatum`
+* Add support for `update_shipping_details` on `CheckoutSession.Permission` and `checkout.Session.CreateParamsPermission`
+* Add support for `provider` on `CheckoutSession.AutomaticTax`, `Invoice.AutomaticTax`, `Quote.AutomaticTax`, and `QuotePreviewInvoice.AutomaticTax`
+* Add support for `tax_calculation_reference` on `CreditNoteLineItem`, `CreditNotePreviewLines`, `InvoiceLineItem`, `LineItem`, `PaymentLinkLineItem`, `QuoteComputedUpfrontLineItems`, `QuoteLineItem`, and `SessionLineItem`
+* Add support for `context` on `Event`
+* Add support for `related_customer_account` on `IdentityVerificationSession`, `identity.VerificationSession.CreateParams`, and `identity.VerificationSession.ListParams`
+* Add support for `payout_method` on `Payout.CreateParams` and `Payout`
+* Add support for `confirmation_secret`, `parent`, and `total_taxes` on `QuotePreviewInvoice`
+* Add support for new values `forwarding_api_retryable_upstream_error`, `setup_intent_mobile_wallet_unsupported`, `v2_account_disconnection_unsupported`, and `v2_account_missing_configuration` on enum `QuotePreviewInvoice.LastFinalizationError.code`
+* Add support for new values `klarna`, `nz_bank_account`, and `stripe_balance` on enum `QuotePreviewInvoice.PaymentSetting.payment_method_types`
+* Add support for `id` and `text` on `TerminalReader.Action.CollectInput.Input.Selection.Choice`, `TerminalReader.Action.CollectInput.Input.Selection`, and `terminal.Reader.CollectInputsParamsInputSelectionChoice`
+* Add support for `network_data` on `IssuingDisputeSettlementDetail`
+* Add support for `interchange_fees_amount`, `net_total_amount`, `network_fees_amount`, `other_fees_amount`, `other_fees_count`, and `transaction_amount` on `IssuingSettlement`
+* Add support for `reported_by` on `PaymentAttemptRecord`
 
-   #### New APIs for Money CardManagement
+#### New APIs for Money CardManagement
 
-    * Add support for new resources `V2.FinancialAddressCreditSimulation`, `V2.FinancialAddressGeneratedMicrodeposits`, `V2.MoneyManagement.Adjustment`, `V2.MoneyManagement.FinancialAccount`, `V2.MoneyManagement.FinancialAddress`, `V2.MoneyManagement.InboundTransfer`, `V2.MoneyManagement.OutboundPaymentQuote`, `V2.MoneyManagement.OutboundPayment`, `V2.MoneyManagement.OutboundSetupIntent`, `V2.MoneyManagement.OutboundTransfer`, `V2.MoneyManagement.PayoutMethod`, `V2.MoneyManagement.PayoutMethodsBankAccountSpec`, `V2.MoneyManagement.ReceivedCredit`, `V2.MoneyManagement.ReceivedDebit`, `V2.MoneyManagement.TransactionEntry`, and `V2.MoneyManagement.Transaction`
-    * Add support for `create` method on resource `V2.MoneyManagement.OutboundPaymentQuote`
-    * Add support for `list` and `retrieve` methods on resources `V2.MoneyManagement.Adjustment`, `V2.MoneyManagement.FinancialAccount`, `V2.MoneyManagement.ReceivedCredit`, `V2.MoneyManagement.ReceivedDebit`, `V2.MoneyManagement.TransactionEntry`, and `V2.MoneyManagement.Transaction`
-    * Add support for `create`, `list`, and `retrieve` methods on resources `V2.MoneyManagement.FinancialAddress` and `V2.MoneyManagement.InboundTransfer`
-    * Add support for `cancel`, `create`, `list`, and `retrieve` methods on resources `V2.MoneyManagement.OutboundPayment` and `V2.MoneyManagement.OutboundTransfer`
-    * Add support for `archive`, `list`, `retrieve`, and `unarchive` methods on resource `V2.MoneyManagement.PayoutMethod`
-    * Add support for `cancel`, `create`, `list`, `modify`, and `retrieve` methods on resource `V2.MoneyManagement.OutboundSetupIntent`
-    * Add support for `retrieve` method on resource `V2.MoneyManagement.PayoutMethodsBankAccountSpec`
-    * Add support for `acknowledge_confirmation_of_payee`, `archive`, `create`, `initiate_confirmation_of_payee`, and `retrieve` methods on resource `V2.Core.Vault.GbBankAccount`
-    * Add support for `archive`, `create`, `modify`, and `retrieve` methods on resource `V2.Core.Vault.UsBankAccount`
-    * Add support for new values `account_number`, `fedwire_routing_number`, and `routing_number` on enum `InvalidPaymentMethod.invalid_param`
-    * Add support for new thin event `V2MoneyManagementFinancialAccountCreatedEvent` with related object `V2.MoneyManagement.FinancialAccount`
-    * Add support for new thin events `V2MoneyManagementFinancialAddressActivatedEvent` and `V2MoneyManagementFinancialAddressFailedEvent` with related object `V2.MoneyManagement.FinancialAddress`
-    * Add support for new thin events `V2MoneyManagementInboundTransferAvailableEvent`, `V2MoneyManagementInboundTransferBankDebitFailedEvent`, `V2MoneyManagementInboundTransferBankDebitProcessingEvent`, `V2MoneyManagementInboundTransferBankDebitQueuedEvent`, `V2MoneyManagementInboundTransferBankDebitReturnedEvent`, and `V2MoneyManagementInboundTransferBankDebitSucceededEvent` with related object `V2.MoneyManagement.InboundTransfer`
-    * Add support for new thin events `V2MoneyManagementOutboundPaymentCanceledEvent`, `V2MoneyManagementOutboundPaymentCreatedEvent`, `V2MoneyManagementOutboundPaymentFailedEvent`, `V2MoneyManagementOutboundPaymentPostedEvent`, and `V2MoneyManagementOutboundPaymentReturnedEvent` with related object `V2.MoneyManagement.OutboundPayment`
-    * Add support for new thin events `V2MoneyManagementOutboundTransferCanceledEvent`, `V2MoneyManagementOutboundTransferCreatedEvent`, `V2MoneyManagementOutboundTransferFailedEvent`, `V2MoneyManagementOutboundTransferPostedEvent`, and `V2MoneyManagementOutboundTransferReturnedEvent` with related object `V2.MoneyManagement.OutboundTransfer`
-    * Add support for new thin events `V2MoneyManagementReceivedCreditAvailableEvent`, `V2MoneyManagementReceivedCreditFailedEvent`, `V2MoneyManagementReceivedCreditReturnedEvent`, and `V2MoneyManagementReceivedCreditSucceededEvent` with related object `V2.MoneyManagement.ReceivedCredit`
-    * Add support for new thin events `V2MoneyManagementReceivedDebitCanceledEvent`, `V2MoneyManagementReceivedDebitFailedEvent`, `V2MoneyManagementReceivedDebitPendingEvent`, `V2MoneyManagementReceivedDebitSucceededEvent`, and `V2MoneyManagementReceivedDebitUpdatedEvent` with related object `V2.MoneyManagement.ReceivedDebit`
-    * Add support for new error types `AlreadyCanceledError`, `BlockedByStripeError`, `ControlledByDashboardError`, `FeatureNotEnabledError`, `FinancialAccountNotOpenError`, `InsufficientFundsError`, `InvalidPayoutMethodError`, `NotCancelableError`, and `RecipientNotNotifiableError`
+* Add support for new resources `V2.FinancialAddressCreditSimulation`, `V2.FinancialAddressGeneratedMicrodeposits`, `V2.MoneyManagement.Adjustment`, `V2.MoneyManagement.FinancialAccount`, `V2.MoneyManagement.FinancialAddress`, `V2.MoneyManagement.InboundTransfer`, `V2.MoneyManagement.OutboundPaymentQuote`, `V2.MoneyManagement.OutboundPayment`, `V2.MoneyManagement.OutboundSetupIntent`, `V2.MoneyManagement.OutboundTransfer`, `V2.MoneyManagement.PayoutMethod`, `V2.MoneyManagement.PayoutMethodsBankAccountSpec`, `V2.MoneyManagement.ReceivedCredit`, `V2.MoneyManagement.ReceivedDebit`, `V2.MoneyManagement.TransactionEntry`, and `V2.MoneyManagement.Transaction`
+* Add support for `create` method on resource `V2.MoneyManagement.OutboundPaymentQuote`
+* Add support for `list` and `retrieve` methods on resources `V2.MoneyManagement.Adjustment`, `V2.MoneyManagement.FinancialAccount`, `V2.MoneyManagement.ReceivedCredit`, `V2.MoneyManagement.ReceivedDebit`, `V2.MoneyManagement.TransactionEntry`, and `V2.MoneyManagement.Transaction`
+* Add support for `create`, `list`, and `retrieve` methods on resources `V2.MoneyManagement.FinancialAddress` and `V2.MoneyManagement.InboundTransfer`
+* Add support for `cancel`, `create`, `list`, and `retrieve` methods on resources `V2.MoneyManagement.OutboundPayment` and `V2.MoneyManagement.OutboundTransfer`
+* Add support for `archive`, `list`, `retrieve`, and `unarchive` methods on resource `V2.MoneyManagement.PayoutMethod`
+* Add support for `cancel`, `create`, `list`, `modify`, and `retrieve` methods on resource `V2.MoneyManagement.OutboundSetupIntent`
+* Add support for `retrieve` method on resource `V2.MoneyManagement.PayoutMethodsBankAccountSpec`
+* Add support for `acknowledge_confirmation_of_payee`, `archive`, `create`, `initiate_confirmation_of_payee`, and `retrieve` methods on resource `V2.Core.Vault.GbBankAccount`
+* Add support for `archive`, `create`, `modify`, and `retrieve` methods on resource `V2.Core.Vault.UsBankAccount`
+* Add support for new values `account_number`, `fedwire_routing_number`, and `routing_number` on enum `InvalidPaymentMethod.invalid_param`
+* Add support for new thin event `V2MoneyManagementFinancialAccountCreatedEvent` with related object `V2.MoneyManagement.FinancialAccount`
+* Add support for new thin events `V2MoneyManagementFinancialAddressActivatedEvent` and `V2MoneyManagementFinancialAddressFailedEvent` with related object `V2.MoneyManagement.FinancialAddress`
+* Add support for new thin events `V2MoneyManagementInboundTransferAvailableEvent`, `V2MoneyManagementInboundTransferBankDebitFailedEvent`, `V2MoneyManagementInboundTransferBankDebitProcessingEvent`, `V2MoneyManagementInboundTransferBankDebitQueuedEvent`, `V2MoneyManagementInboundTransferBankDebitReturnedEvent`, and `V2MoneyManagementInboundTransferBankDebitSucceededEvent` with related object `V2.MoneyManagement.InboundTransfer`
+* Add support for new thin events `V2MoneyManagementOutboundPaymentCanceledEvent`, `V2MoneyManagementOutboundPaymentCreatedEvent`, `V2MoneyManagementOutboundPaymentFailedEvent`, `V2MoneyManagementOutboundPaymentPostedEvent`, and `V2MoneyManagementOutboundPaymentReturnedEvent` with related object `V2.MoneyManagement.OutboundPayment`
+* Add support for new thin events `V2MoneyManagementOutboundTransferCanceledEvent`, `V2MoneyManagementOutboundTransferCreatedEvent`, `V2MoneyManagementOutboundTransferFailedEvent`, `V2MoneyManagementOutboundTransferPostedEvent`, and `V2MoneyManagementOutboundTransferReturnedEvent` with related object `V2.MoneyManagement.OutboundTransfer`
+* Add support for new thin events `V2MoneyManagementReceivedCreditAvailableEvent`, `V2MoneyManagementReceivedCreditFailedEvent`, `V2MoneyManagementReceivedCreditReturnedEvent`, and `V2MoneyManagementReceivedCreditSucceededEvent` with related object `V2.MoneyManagement.ReceivedCredit`
+* Add support for new thin events `V2MoneyManagementReceivedDebitCanceledEvent`, `V2MoneyManagementReceivedDebitFailedEvent`, `V2MoneyManagementReceivedDebitPendingEvent`, `V2MoneyManagementReceivedDebitSucceededEvent`, and `V2MoneyManagementReceivedDebitUpdatedEvent` with related object `V2.MoneyManagement.ReceivedDebit`
+* Add support for new error types `AlreadyCanceledError`, `BlockedByStripeError`, `ControlledByDashboardError`, `FeatureNotEnabledError`, `FinancialAccountNotOpenError`, `InsufficientFundsError`, `InvalidPayoutMethodError`, `NotCancelableError`, and `RecipientNotNotifiableError`
 
-   #### New APIs for Accounts v2 in private preview
-    See [SaaS platform payments with subscription billing using Accounts v2](https://docs.stripe.com/connect/accounts-v2/saas-platform-payments-billing)
+#### New APIs for Accounts v2 in private preview
+See [SaaS platform payments with subscription billing using Accounts v2](https://docs.stripe.com/connect/accounts-v2/saas-platform-payments-billing)
 
-    * Add support for new resources `V2.Core.AccountLink`, `V2.Core.Account`, `V2.Core.Person`, `V2.Core.Vault.GbBankAccount`, `V2.Core.Vault.UsBankAccount`
-    * Add support for `close`, `create`, `list`, `modify`, and `retrieve` methods on resource `V2.Core.Account`
-    * Add support for `create` method on resource `V2.Core.AccountLink`
-    * Add support for new thin events `V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationCustomerUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientUpdatedEvent`, `V2CoreAccountIncludingIdentityUpdatedEvent`, and `V2CoreAccountIncludingRequirementsUpdatedEvent`
-    * Add support for new thin event `V2CoreAccountLinkCompletedEvent` with related object `V2.Core.AccountLink`
-    * Add support for new thin events `V2CoreAccountPersonCreatedEvent`, `V2CoreAccountPersonDeletedEvent`, and `V2CoreAccountPersonUpdatedEvent` with related object `V2.Core.Person`
+* Add support for new resources `V2.Core.AccountLink`, `V2.Core.Account`, `V2.Core.Person`, `V2.Core.Vault.GbBankAccount`, `V2.Core.Vault.UsBankAccount`
+* Add support for `close`, `create`, `list`, `modify`, and `retrieve` methods on resource `V2.Core.Account`
+* Add support for `create` method on resource `V2.Core.AccountLink`
+* Add support for new thin events `V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationCustomerUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientUpdatedEvent`, `V2CoreAccountIncludingIdentityUpdatedEvent`, and `V2CoreAccountIncludingRequirementsUpdatedEvent`
+* Add support for new thin event `V2CoreAccountLinkCompletedEvent` with related object `V2.Core.AccountLink`
+* Add support for new thin events `V2CoreAccountPersonCreatedEvent`, `V2CoreAccountPersonDeletedEvent`, and `V2CoreAccountPersonUpdatedEvent` with related object `V2.Core.Person`
 
 ### Changes
-    * Change `CustomerSession.CreateParams.customer`, `InvoiceItem.CreateParams.customer`, `PaymentMethod.AttachParams.customer`, `Subscription.CreateParams.customer`, `billing.CreditBalanceSummary.RetrieveParams.customer`, `billing.CreditBalanceTransaction.ListParams.customer`, `billing.CreditGrant.CreateParams.customer`, and `billingportal.Session.CreateParams.customer` to be optional
-    * Change type of `Invoice.Parent.SubscriptionDetail.PauseCollection.behavior` and `QuotePreviewInvoice.Parent.SubscriptionDetail.PauseCollection.behavior` from `string` to `enum('keep_as_draft'|'mark_uncollectible'|'void')`
-    * Change `CreditNote.refunds` to be required
-    * Change `Invoice.amount_overpaid` and `QuotePreviewInvoice.amount_overpaid` to be required
-    * Change type of `InvoicePayment.is_default` from `nullable(boolean)` to `boolean`
-    * Change type of `PaymentAttemptRecord.PaymentMethodDetail.custom` and `PaymentRecord.PaymentMethodDetail.custom` from `nullable(PaymentsPrimitivesPaymentRecordsResourcePaymentMethodCustomDetails)` to `PaymentsPrimitivesPaymentRecordsResourcePaymentMethodCustomDetails`
-    * Change `PaymentRecord.ReportPaymentParams.payment_reference` to be optional
+* Change `CustomerSession.CreateParams.customer`, `InvoiceItem.CreateParams.customer`, `PaymentMethod.AttachParams.customer`, `Subscription.CreateParams.customer`, `billing.CreditBalanceSummary.RetrieveParams.customer`, `billing.CreditBalanceTransaction.ListParams.customer`, `billing.CreditGrant.CreateParams.customer`, and `billingportal.Session.CreateParams.customer` to be optional
+* Change type of `Invoice.Parent.SubscriptionDetail.PauseCollection.behavior` and `QuotePreviewInvoice.Parent.SubscriptionDetail.PauseCollection.behavior` from `string` to `enum('keep_as_draft'|'mark_uncollectible'|'void')`
+* Change `CreditNote.refunds` to be required
+* Change `Invoice.amount_overpaid` and `QuotePreviewInvoice.amount_overpaid` to be required
+* Change type of `InvoicePayment.is_default` from `nullable(boolean)` to `boolean`
+* Change type of `PaymentAttemptRecord.PaymentMethodDetail.custom` and `PaymentRecord.PaymentMethodDetail.custom` from `nullable(PaymentsPrimitivesPaymentRecordsResourcePaymentMethodCustomDetails)` to `PaymentsPrimitivesPaymentRecordsResourcePaymentMethodCustomDetails`
+* Change `PaymentRecord.ReportPaymentParams.payment_reference` to be optional
 
 * [#1476](https://github.com/stripe/stripe-python/pull/1476) Update add_beta_version logic
   * ⚠️ stripe.add_beta_version` will use the highest version number used for a beta feature instead of raising an `Exception` on a conflict as it had done previously.
