@@ -80,7 +80,6 @@ if not TYPE_CHECKING:
     from stripe.api_resources.file import File
     from stripe.api_resources.file_link import FileLink
     from stripe.api_resources.funding_instructions import FundingInstructions
-    from stripe.api_resources.fx_quote import FxQuote
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.invoice_item import InvoiceItem
     from stripe.api_resources.invoice_line_item import InvoiceLineItem

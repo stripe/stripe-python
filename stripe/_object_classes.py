@@ -72,7 +72,6 @@ OBJECT_CLASSES = {
     stripe.financial_connections.Transaction.OBJECT_NAME: stripe.financial_connections.Transaction,
     stripe.forwarding.Request.OBJECT_NAME: stripe.forwarding.Request,
     stripe.FundingInstructions.OBJECT_NAME: stripe.FundingInstructions,
-    stripe.FxQuote.OBJECT_NAME: stripe.FxQuote,
     stripe.gift_cards.Card.OBJECT_NAME: stripe.gift_cards.Card,
     stripe.gift_cards.Transaction.OBJECT_NAME: stripe.gift_cards.Transaction,
     stripe.identity.VerificationReport.OBJECT_NAME: stripe.identity.VerificationReport,
