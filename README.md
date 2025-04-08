@@ -65,6 +65,12 @@ customer = client.customers.retrieve("cus_123456789")
 print(customer.email)
 ```
 
+### StripeClient vs legacy pattern
+
+We introduced the `StripeClient` class in v8 of the Python SDK. The legacy pattern used prior to that version is still available to use but will be marked as deprecated soon. Review the [migration guide to use StripeClient](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v8-(StripeClient)) to move from the legacy pattern.
+
+Once the legacy pattern is deprecated, new API endpoints will only be accessible in the StripeClient. While there are no current plans to remove the legacy pattern for existing API endpoints, this may change in the future.
+
 ### Handling exceptions
 
 Unsuccessful requests raise exceptions. The class of the exception will reflect
