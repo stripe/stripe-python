@@ -31,19 +31,16 @@ format: install-dev-deps
 format-check: install-dev-deps
     ruff format . --check  --quiet
 
-# remove venv
+# remove venv & build artifacts
 clean:
-    # clear old files too
-    rm -rf {{ VENV_NAME }} venv .tox
+    rm -rf {{ VENV_NAME }} venv .tox dist stripe.egg-info
 
 # blow away and reinstall virtual env
 reset: clean && venv
 
 # build the package for upload
 build: install-build-deps
-    # --universal is deprecated, so we'll probably need to look at this eventually
-    # given that we don't care about universal 2 and 3 packages, we probably don't need it?
-    python -I setup.py clean --all sdist bdist_wheel --universal
+    python -m build
     python -m twine check dist/*
 
 # typecheck some examples w/ mypy
@@ -64,7 +61,8 @@ _install-all: install-dev-deps install-test-deps install-build-deps
 
 # installs files out of a {group}-requirements.txt into the local venv; mostly used by other recipes
 install group: venv
-    python -I -m pip install -r deps/{{ group }}-requirements.txt --disable-pip-version-check {{ if is_dependency() == "true" {"--quiet"} else {""} }}
+    # always log deps in CI, but don't do it locally
+    python -I -m pip install -r deps/{{ group }}-requirements.txt --disable-pip-version-check {{ if env("CI", "") == "true" {""} else if is_dependency() == "true" {"--quiet"} else {""} }}
 
 # create a virtualenv if it doesn't exist; always installs the local package
 [private]
