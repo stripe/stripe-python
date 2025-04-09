@@ -275,6 +275,7 @@ class PaymentIntent(
                 "status_transition_invalid",
                 "stripe_tax_inactive",
                 "tax_id_invalid",
+                "tax_id_prohibited",
                 "taxes_calculation_failed",
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",
