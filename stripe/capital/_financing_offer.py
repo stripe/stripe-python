@@ -222,7 +222,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     """
     The current status of the offer.
     """
-    type: Optional[Literal["cash_advance", "flex_loan"]]
+    type: Optional[Literal["cash_advance", "fixed_term_loan", "flex_loan"]]
     """
     See [financing_type](https://stripe.com/docs/api/capital/connect_financing_object#financing_offer_object-financing_type).
     """

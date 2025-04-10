@@ -120,6 +120,20 @@ class Account(
         """
         [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         """
+        minority_owned_business_designation: Optional[
+            List[
+                Literal[
+                    "lgbtqi_owned_business",
+                    "minority_owned_business",
+                    "none_of_these_apply",
+                    "prefer_not_to_answer",
+                    "women_owned_business",
+                ]
+            ]
+        ]
+        """
+        Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        """
         monthly_estimated_revenue: Optional[MonthlyEstimatedRevenue]
         name: Optional[str]
         """
@@ -911,6 +925,7 @@ class Account(
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
+                "verification_legal_entity_structure_mismatch",
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
@@ -1089,6 +1104,7 @@ class Account(
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
+                "verification_legal_entity_structure_mismatch",
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
@@ -1649,6 +1665,20 @@ class Account(
         mcc: NotRequired[str]
         """
         [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        """
+        minority_owned_business_designation: NotRequired[
+            List[
+                Literal[
+                    "lgbtqi_owned_business",
+                    "minority_owned_business",
+                    "none_of_these_apply",
+                    "prefer_not_to_answer",
+                    "women_owned_business",
+                ]
+            ]
+        ]
+        """
+        Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
         """
         monthly_estimated_revenue: NotRequired[
             "Account.CreateParamsBusinessProfileMonthlyEstimatedRevenue"

@@ -13,8 +13,6 @@ API.
 
 See the [Python API docs](https://stripe.com/docs/api?lang=python).
 
-See [video demonstrations][youtube-playlist] covering how to use the library.
-
 ## Installation
 
 You don't need this source code unless you want to modify the package. If you just
@@ -64,6 +62,12 @@ customer = client.customers.retrieve("cus_123456789")
 # print that customer's email
 print(customer.email)
 ```
+
+### StripeClient vs legacy pattern
+
+We introduced the `StripeClient` class in v8 of the Python SDK. The legacy pattern used prior to that version is still available to use but will be marked as deprecated soon. Review the [migration guide to use StripeClient](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v8-(StripeClient)) to move from the legacy pattern.
+
+Once the legacy pattern is deprecated, new API endpoints will only be accessible in the StripeClient. While there are no current plans to remove the legacy pattern for existing API endpoints, this may change in the future.
 
 ### Handling exceptions
 
@@ -401,7 +405,6 @@ just format
 [poetry]: https://github.com/sdispater/poetry
 [stripe-mock]: https://github.com/stripe/stripe-mock
 [idempotency-keys]: https://stripe.com/docs/api/idempotent_requests?lang=python
-[youtube-playlist]: https://www.youtube.com/playlist?list=PLy1nL-pvL2M55YVn0mGoQ5r-39A1-ZypO
 
 <!--
 # vim: set tw=79:

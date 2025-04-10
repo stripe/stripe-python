@@ -70,7 +70,6 @@ from stripe._forwarding_service import ForwardingService
 from stripe._gift_cards_service import GiftCardsService
 from stripe._identity_service import IdentityService
 from stripe._invoice_service import InvoiceService
-from stripe._invoice_payment_service import InvoicePaymentService
 from stripe._invoice_rendering_template_service import (
     InvoiceRenderingTemplateService,
 )
@@ -91,6 +90,7 @@ from stripe._payment_record_service import PaymentRecordService
 from stripe._payout_service import PayoutService
 from stripe._plan_service import PlanService
 from stripe._price_service import PriceService
+from stripe._privacy_service import PrivacyService
 from stripe._product_service import ProductService
 from stripe._promotion_code_service import PromotionCodeService
 from stripe._quote_service import QuoteService
@@ -232,7 +232,6 @@ class StripeClient(object):
         self.gift_cards = GiftCardsService(self._requestor)
         self.identity = IdentityService(self._requestor)
         self.invoices = InvoiceService(self._requestor)
-        self.invoice_payments = InvoicePaymentService(self._requestor)
         self.invoice_rendering_templates = InvoiceRenderingTemplateService(
             self._requestor,
         )
@@ -257,6 +256,7 @@ class StripeClient(object):
         self.payouts = PayoutService(self._requestor)
         self.plans = PlanService(self._requestor)
         self.prices = PriceService(self._requestor)
+        self.privacy = PrivacyService(self._requestor)
         self.products = ProductService(self._requestor)
         self.promotion_codes = PromotionCodeService(self._requestor)
         self.quotes = QuoteService(self._requestor)

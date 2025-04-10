@@ -573,6 +573,7 @@ class Invoice(
                 "status_transition_invalid",
                 "stripe_tax_inactive",
                 "tax_id_invalid",
+                "tax_id_prohibited",
                 "taxes_calculation_failed",
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",
@@ -4178,6 +4179,9 @@ class Invoice(
         Only return invoices for the customer specified by this customer ID.
         """
         customer_account: NotRequired[str]
+        """
+        Only return invoices for the account specified by this account ID.
+        """
         due_date: NotRequired["Invoice.ListParamsDueDate|int"]
         ending_before: NotRequired[str]
         """

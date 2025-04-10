@@ -158,7 +158,7 @@ class ReceivedDebit(StripeObject):
     """
     Detailed information about the status of the ReceivedDebit.
     """
-    status_transitions: StatusTransitions
+    status_transitions: Optional[StatusTransitions]
     """
     The time at which the ReceivedDebit transitioned to a particular status.
     """
