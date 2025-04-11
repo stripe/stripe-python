@@ -22,7 +22,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     class AcceptedTerms(StripeObject):
         advance_amount: int
         """
-        Amount of financing offered, in minor units.
+        Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
         """
         currency: str
         """
@@ -30,7 +30,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         """
         fee_amount: int
         """
-        Fixed fee amount, in minor units.
+        Fixed fee amount, in minor units. For example, $100 USD will be represented as 10000.
         """
         previous_financing_fee_discount_amount: Optional[int]
         """
@@ -45,7 +45,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     class OfferedTerms(StripeObject):
         advance_amount: int
         """
-        Amount of financing offered, in minor units.
+        Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
         """
         campaign_type: Literal[
             "newly_eligible_user", "previously_eligible_user", "repeat_user"
@@ -59,7 +59,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         """
         fee_amount: int
         """
-        Fixed fee amount, in minor units.
+        Fixed fee amount, in minor units. For example, $100 USD will be represented as 10000.
         """
         previous_financing_fee_discount_rate: Optional[float]
         """

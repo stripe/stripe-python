@@ -301,6 +301,7 @@ class Event(ListableAPIResource["Event"]):
         "financial_connections.account.refreshed_ownership",
         "financial_connections.account.refreshed_transactions",
         "financial_connections.session.updated",
+        "fx_quote.expired",
         "identity.verification_session.canceled",
         "identity.verification_session.created",
         "identity.verification_session.processing",
