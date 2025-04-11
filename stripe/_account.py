@@ -5224,6 +5224,42 @@ class Account(
         return params
 
     @classmethod
+    def list_capabilities(
+        cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
+    ) -> ListObject["Capability"]:
+        """
+        Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
+        """
+        return cast(
+            ListObject["Capability"],
+            cls._static_request(
+                "get",
+                "/v1/accounts/{account}/capabilities".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_capabilities_async(
+        cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
+    ) -> ListObject["Capability"]:
+        """
+        Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
+        """
+        return cast(
+            ListObject["Capability"],
+            await cls._static_request_async(
+                "get",
+                "/v1/accounts/{account}/capabilities".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve_capability(
         cls,
         account: str,
@@ -5312,76 +5348,42 @@ class Account(
         )
 
     @classmethod
-    def list_capabilities(
-        cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
-    ) -> ListObject["Capability"]:
-        """
-        Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
-        """
-        return cast(
-            ListObject["Capability"],
-            cls._static_request(
-                "get",
-                "/v1/accounts/{account}/capabilities".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_capabilities_async(
-        cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
-    ) -> ListObject["Capability"]:
-        """
-        Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
-        """
-        return cast(
-            ListObject["Capability"],
-            await cls._static_request_async(
-                "get",
-                "/v1/accounts/{account}/capabilities".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def create_external_account(
+    def delete_external_account(
         cls,
         account: str,
-        **params: Unpack["Account.CreateExternalAccountParams"],
+        id: str,
+        **params: Unpack["Account.DeleteExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
-        Create an external account for a given account.
+        Delete a specified external account for a given account.
         """
         return cast(
             Union["BankAccount", "Card"],
             cls._static_request(
-                "post",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account)
+                "delete",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=sanitize_id(account), id=sanitize_id(id)
                 ),
                 params=params,
             ),
         )
 
     @classmethod
-    async def create_external_account_async(
+    async def delete_external_account_async(
         cls,
         account: str,
-        **params: Unpack["Account.CreateExternalAccountParams"],
+        id: str,
+        **params: Unpack["Account.DeleteExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
-        Create an external account for a given account.
+        Delete a specified external account for a given account.
         """
         return cast(
             Union["BankAccount", "Card"],
             await cls._static_request_async(
-                "post",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account)
+                "delete",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=sanitize_id(account), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -5486,48 +5488,6 @@ class Account(
         )
 
     @classmethod
-    def delete_external_account(
-        cls,
-        account: str,
-        id: str,
-        **params: Unpack["Account.DeleteExternalAccountParams"],
-    ) -> Union["BankAccount", "Card"]:
-        """
-        Delete a specified external account for a given account.
-        """
-        return cast(
-            Union["BankAccount", "Card"],
-            cls._static_request(
-                "delete",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def delete_external_account_async(
-        cls,
-        account: str,
-        id: str,
-        **params: Unpack["Account.DeleteExternalAccountParams"],
-    ) -> Union["BankAccount", "Card"]:
-        """
-        Delete a specified external account for a given account.
-        """
-        return cast(
-            Union["BankAccount", "Card"],
-            await cls._static_request_async(
-                "delete",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list_external_accounts(
         cls,
         account: str,
@@ -5560,6 +5520,46 @@ class Account(
             ListObject[Union["BankAccount", "Card"]],
             await cls._static_request_async(
                 "get",
+                "/v1/accounts/{account}/external_accounts".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def create_external_account(
+        cls,
+        account: str,
+        **params: Unpack["Account.CreateExternalAccountParams"],
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Create an external account for a given account.
+        """
+        return cast(
+            Union["BankAccount", "Card"],
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/external_accounts".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_external_account_async(
+        cls,
+        account: str,
+        **params: Unpack["Account.CreateExternalAccountParams"],
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Create an external account for a given account.
+        """
+        return cast(
+            Union["BankAccount", "Card"],
+            await cls._static_request_async(
+                "post",
                 "/v1/accounts/{account}/external_accounts".format(
                     account=sanitize_id(account)
                 ),
@@ -5608,36 +5608,42 @@ class Account(
         )
 
     @classmethod
-    def create_person(
-        cls, account: str, **params: Unpack["Account.CreatePersonParams"]
+    def delete_person(
+        cls,
+        account: str,
+        person: str,
+        **params: Unpack["Account.DeletePersonParams"],
     ) -> "Person":
         """
-        Creates a new person.
+        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
         return cast(
             "Person",
             cls._static_request(
-                "post",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
+                "delete",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=sanitize_id(account), person=sanitize_id(person)
                 ),
                 params=params,
             ),
         )
 
     @classmethod
-    async def create_person_async(
-        cls, account: str, **params: Unpack["Account.CreatePersonParams"]
+    async def delete_person_async(
+        cls,
+        account: str,
+        person: str,
+        **params: Unpack["Account.DeletePersonParams"],
     ) -> "Person":
         """
-        Creates a new person.
+        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
         return cast(
             "Person",
             await cls._static_request_async(
-                "post",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
+                "delete",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=sanitize_id(account), person=sanitize_id(person)
                 ),
                 params=params,
             ),
@@ -5728,48 +5734,6 @@ class Account(
         )
 
     @classmethod
-    def delete_person(
-        cls,
-        account: str,
-        person: str,
-        **params: Unpack["Account.DeletePersonParams"],
-    ) -> "Person":
-        """
-        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
-        """
-        return cast(
-            "Person",
-            cls._static_request(
-                "delete",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def delete_person_async(
-        cls,
-        account: str,
-        person: str,
-        **params: Unpack["Account.DeletePersonParams"],
-    ) -> "Person":
-        """
-        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
-        """
-        return cast(
-            "Person",
-            await cls._static_request_async(
-                "delete",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list_persons(
         cls, account: str, **params: Unpack["Account.ListPersonsParams"]
     ) -> ListObject["Person"]:
@@ -5798,6 +5762,42 @@ class Account(
             ListObject["Person"],
             await cls._static_request_async(
                 "get",
+                "/v1/accounts/{account}/persons".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def create_person(
+        cls, account: str, **params: Unpack["Account.CreatePersonParams"]
+    ) -> "Person":
+        """
+        Creates a new person.
+        """
+        return cast(
+            "Person",
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/persons".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_person_async(
+        cls, account: str, **params: Unpack["Account.CreatePersonParams"]
+    ) -> "Person":
+        """
+        Creates a new person.
+        """
+        return cast(
+            "Person",
+            await cls._static_request_async(
+                "post",
                 "/v1/accounts/{account}/persons".format(
                     account=sanitize_id(account)
                 ),

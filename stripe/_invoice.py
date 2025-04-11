@@ -55,8 +55,8 @@ if TYPE_CHECKING:
     from stripe.test_helpers._test_clock import TestClock
 
 
-@nested_resource_class_methods("line")
 @nested_resource_class_methods("payment")
+@nested_resource_class_methods("line")
 class Invoice(
     CreateableAPIResource["Invoice"],
     DeletableAPIResource["Invoice"],
@@ -7277,42 +7277,6 @@ class Invoice(
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
     @classmethod
-    def list_lines(
-        cls, invoice: str, **params: Unpack["Invoice.ListLinesParams"]
-    ) -> ListObject["InvoiceLineItem"]:
-        """
-        When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        return cast(
-            ListObject["InvoiceLineItem"],
-            cls._static_request(
-                "get",
-                "/v1/invoices/{invoice}/lines".format(
-                    invoice=sanitize_id(invoice)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_lines_async(
-        cls, invoice: str, **params: Unpack["Invoice.ListLinesParams"]
-    ) -> ListObject["InvoiceLineItem"]:
-        """
-        When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        return cast(
-            ListObject["InvoiceLineItem"],
-            await cls._static_request_async(
-                "get",
-                "/v1/invoices/{invoice}/lines".format(
-                    invoice=sanitize_id(invoice)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list_payments(
         cls, invoice: str, **params: Unpack["Invoice.ListPaymentsParams"]
     ) -> ListObject["InvoicePayment"]:
@@ -7387,6 +7351,42 @@ class Invoice(
                 "/v1/invoices/{invoice}/payments/{invoice_payment}".format(
                     invoice=sanitize_id(invoice),
                     invoice_payment=sanitize_id(invoice_payment),
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def list_lines(
+        cls, invoice: str, **params: Unpack["Invoice.ListLinesParams"]
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["InvoiceLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/invoices/{invoice}/lines".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_lines_async(
+        cls, invoice: str, **params: Unpack["Invoice.ListLinesParams"]
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        return cast(
+            ListObject["InvoiceLineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/invoices/{invoice}/lines".format(
+                    invoice=sanitize_id(invoice)
                 ),
                 params=params,
             ),
