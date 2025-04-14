@@ -2407,7 +2407,7 @@ class Session(
         """
         permissions: NotRequired["Session.CreateParamsPermissions"]
         """
-        This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
+        This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object. Can only be set when creating `embedded` or `custom` sessions.
 
         For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
         """
@@ -4821,7 +4821,7 @@ class Session(
             "Session.ModifyParamsCollectedInformation"
         ]
         """
-        Information about the customer collected within the Checkout Session.
+        Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         """
         expand: NotRequired[List[str]]
         """
