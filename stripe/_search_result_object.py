@@ -26,7 +26,7 @@ T = TypeVar("T", bound=StripeObject)
 
 class SearchResultObject(StripeObject, Generic[T]):
     OBJECT_NAME = "search_result"
-    data: List[StripeObject]
+    data: List[T]
     has_more: bool
     next_page: str
 
