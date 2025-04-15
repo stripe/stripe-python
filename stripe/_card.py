@@ -37,9 +37,6 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         pass
 
     account: Optional[ExpandableField["Account"]]
-    """
-    The account this card belongs to. This attribute will not be in the card object if the card belongs to a customer or recipient instead. This property is only available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
-    """
     address_city: Optional[str]
     """
     City/District/Suburb/Town/Village.
@@ -72,6 +69,10 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.
     """
+    allow_redisplay: Optional[Literal["always", "limited", "unspecified"]]
+    """
+    This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
+    """
     available_payout_methods: Optional[List[Literal["instant", "standard"]]]
     """
     A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
@@ -86,7 +87,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     currency: Optional[str]
     """
-    Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+    Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available when returned as an [External Account](https://stripe.com/api/external_account_cards/object) where [controller.is_controller](https://stripe.com/api/accounts/object#account_object-controller-is_controller) is `true`.
     """
     customer: Optional[ExpandableField["Customer"]]
     """
@@ -154,6 +155,10 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     object: Literal["card"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    regulated_status: Optional[Literal["regulated", "unregulated"]]
+    """
+    Status of a card based on the card issuer.
     """
     status: Optional[str]
     """

@@ -107,9 +107,23 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
         """
 
     class RetrieveParamsFilterApplicabilityScope(TypedDict):
-        price_type: Literal["metered"]
+        price_type: NotRequired[Literal["metered"]]
         """
-        The price type for which credit grants can apply. We currently only support the `metered` price type.
+        The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
+        """
+        prices: NotRequired[
+            List[
+                "CreditBalanceSummary.RetrieveParamsFilterApplicabilityScopePrice"
+            ]
+        ]
+        """
+        A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+        """
+
+    class RetrieveParamsFilterApplicabilityScopePrice(TypedDict):
+        id: str
+        """
+        The price ID this credit grant should apply to.
         """
 
     balances: List[Balance]
@@ -134,7 +148,7 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
         cls, **params: Unpack["CreditBalanceSummary.RetrieveParams"]
     ) -> "CreditBalanceSummary":
         """
-        Retrieves the credit balance summary for a customer
+        Retrieves the credit balance summary for a customer.
         """
         instance = cls(None, **params)
         instance.refresh()
@@ -145,7 +159,7 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
         cls, **params: Unpack["CreditBalanceSummary.RetrieveParams"]
     ) -> "CreditBalanceSummary":
         """
-        Retrieves the credit balance summary for a customer
+        Retrieves the credit balance summary for a customer.
         """
         instance = cls(None, **params)
         await instance.refresh_async()

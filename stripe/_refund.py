@@ -170,6 +170,9 @@ class Refund(
             Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
             """
 
+        class NzBankTransfer(StripeObject):
+            pass
+
         class P24(StripeObject):
             reference: Optional[str]
             """
@@ -255,6 +258,7 @@ class Refund(
         klarna: Optional[Klarna]
         multibanco: Optional[Multibanco]
         mx_bank_transfer: Optional[MxBankTransfer]
+        nz_bank_transfer: Optional[NzBankTransfer]
         p24: Optional[P24]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
@@ -291,6 +295,7 @@ class Refund(
             "klarna": Klarna,
             "multibanco": Multibanco,
             "mx_bank_transfer": MxBankTransfer,
+            "nz_bank_transfer": NzBankTransfer,
             "p24": P24,
             "paynow": Paynow,
             "paypal": Paypal,
@@ -329,6 +334,16 @@ class Refund(
         Type of the next action to perform.
         """
         _inner_class_types = {"display_details": DisplayDetails}
+
+    class PresentmentDetails(StripeObject):
+        presentment_amount: int
+        """
+        Amount intended to be collected by this payment, denominated in presentment_currency.
+        """
+        presentment_currency: str
+        """
+        Currency presented to the customer during payment.
+        """
 
     class CancelParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -513,6 +528,7 @@ class Refund(
     """
     ID of the PaymentIntent that's refunded.
     """
+    presentment_details: Optional[PresentmentDetails]
     reason: Optional[
         Literal[
             "duplicate",
@@ -933,6 +949,7 @@ class Refund(
     _inner_class_types = {
         "destination_details": DestinationDetails,
         "next_action": NextAction,
+        "presentment_details": PresentmentDetails,
     }
 
 

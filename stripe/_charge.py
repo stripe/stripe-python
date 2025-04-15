@@ -38,7 +38,6 @@ if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
     from stripe._card import Card as CardResource
     from stripe._customer import Customer
-    from stripe._invoice import Invoice
     from stripe._mandate import Mandate
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
@@ -151,6 +150,20 @@ class Charge(
             The predicate to evaluate the payment against.
             """
 
+        advice_code: Optional[
+            Literal["confirm_card_data", "do_not_try_again", "try_again_later"]
+        ]
+        """
+        An enumerated value providing a more detailed explanation on [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines).
+        """
+        network_advice_code: Optional[str]
+        """
+        For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
+        """
+        network_decline_code: Optional[str]
+        """
+        For charges declined by the network, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        """
         network_status: Optional[str]
         """
         Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
@@ -286,7 +299,42 @@ class Charge(
             pass
 
         class AmazonPay(StripeObject):
-            pass
+            class Funding(StripeObject):
+                class Card(StripeObject):
+                    brand: Optional[str]
+                    """
+                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+                    """
+                    exp_month: Optional[int]
+                    """
+                    Two-digit number representing the card's expiration month.
+                    """
+                    exp_year: Optional[int]
+                    """
+                    Four-digit number representing the card's expiration year.
+                    """
+                    funding: Optional[str]
+                    """
+                    Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+                    """
+                    last4: Optional[str]
+                    """
+                    The last four digits of the card.
+                    """
+
+                card: Optional[Card]
+                type: Optional[Literal["card"]]
+                """
+                funding type of the underlying payment method.
+                """
+                _inner_class_types = {"card": Card}
+
+            funding: Optional[Funding]
+            _inner_class_types = {"funding": Funding}
 
         class AuBecsDebit(StripeObject):
             bsb_number: Optional[str]
@@ -359,6 +407,9 @@ class Charge(
             Owner's verified full name. Values are verified or provided by Bancontact directly
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
+
+        class Billie(StripeObject):
+            pass
 
         class Blik(StripeObject):
             buyer_id: Optional[str]
@@ -785,7 +836,15 @@ class Charge(
             """
             If this card has network token credentials, this contains the details of the network token credentials.
             """
+            network_transaction_id: Optional[str]
+            """
+            This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
+            """
             overcapture: Optional[Overcapture]
+            regulated_status: Optional[Literal["regulated", "unregulated"]]
+            """
+            Status of a card based on the card issuer.
+            """
             three_d_secure: Optional[ThreeDSecure]
             """
             Populated if this transaction used 3D Secure authentication.
@@ -941,7 +1000,7 @@ class Charge(
             """
             network_transaction_id: Optional[str]
             """
-            This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands.
+            This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
             """
             offline: Optional[Offline]
             """
@@ -1264,7 +1323,7 @@ class Charge(
             """
             network_transaction_id: Optional[str]
             """
-            This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands.
+            This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
             """
             preferred_locales: Optional[List[str]]
             """
@@ -1430,6 +1489,32 @@ class Charge(
             A unique identifier for the buyer as determined by the local payment processor.
             """
 
+        class NzBankAccount(StripeObject):
+            account_holder_name: Optional[str]
+            """
+            The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+            """
+            bank_code: str
+            """
+            The numeric code for the bank account's bank.
+            """
+            bank_name: str
+            """
+            The name of the bank.
+            """
+            branch_code: str
+            """
+            The numeric code for the bank account's bank branch.
+            """
+            last4: str
+            """
+            Last four digits of the bank account number.
+            """
+            suffix: Optional[str]
+            """
+            The suffix of the bank account number.
+            """
+
         class Oxxo(StripeObject):
             number: Optional[str]
             """
@@ -1481,6 +1566,9 @@ class Charge(
             Przelewy24 rarely provides this information so the attribute is usually empty.
             """
 
+        class PayByBank(StripeObject):
+            pass
+
         class Payco(StripeObject):
             buyer_id: Optional[str]
             """
@@ -1508,6 +1596,10 @@ class Charge(
                 Indicates whether the transaction is eligible for PayPal's seller protection.
                 """
 
+            country: Optional[str]
+            """
+            Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            """
             payer_email: Optional[str]
             """
             Owner's email. Values are provided by PayPal directly
@@ -1545,13 +1637,51 @@ class Charge(
             """
 
         class RevolutPay(StripeObject):
-            pass
+            class Funding(StripeObject):
+                class Card(StripeObject):
+                    brand: Optional[str]
+                    """
+                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+                    """
+                    exp_month: Optional[int]
+                    """
+                    Two-digit number representing the card's expiration month.
+                    """
+                    exp_year: Optional[int]
+                    """
+                    Four-digit number representing the card's expiration year.
+                    """
+                    funding: Optional[str]
+                    """
+                    Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+                    """
+                    last4: Optional[str]
+                    """
+                    The last four digits of the card.
+                    """
+
+                card: Optional[Card]
+                type: Optional[Literal["card"]]
+                """
+                funding type of the underlying payment method.
+                """
+                _inner_class_types = {"card": Card}
+
+            funding: Optional[Funding]
+            _inner_class_types = {"funding": Funding}
 
         class SamsungPay(StripeObject):
             buyer_id: Optional[str]
             """
             A unique identifier for the buyer as determined by the local payment processor.
             """
+
+        class Satispay(StripeObject):
+            pass
 
         class SepaCreditTransfer(StripeObject):
             bank_name: Optional[str]
@@ -1716,6 +1846,7 @@ class Charge(
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
+        billie: Optional[Billie]
         blik: Optional[Blik]
         boleto: Optional[Boleto]
         card: Optional[Card]
@@ -1736,8 +1867,10 @@ class Charge(
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
         naver_pay: Optional[NaverPay]
+        nz_bank_account: Optional[NzBankAccount]
         oxxo: Optional[Oxxo]
         p24: Optional[P24]
+        pay_by_bank: Optional[PayByBank]
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
@@ -1745,6 +1878,7 @@ class Charge(
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
+        satispay: Optional[Satispay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
@@ -1753,7 +1887,7 @@ class Charge(
         twint: Optional[Twint]
         type: str
         """
-        The type of transaction-specific details of the payment method used in the payment, one of `ach_credit_transfer`, `ach_debit`, `acss_debit`, `alipay`, `au_becs_debit`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `klarna`, `multibanco`, `p24`, `sepa_debit`, `sofort`, `stripe_account`, or `wechat`.
+        The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
         An additional hash is included on `payment_method_details` with a name matching this value.
         It contains information specific to the payment method.
         """
@@ -1773,6 +1907,7 @@ class Charge(
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
+            "billie": Billie,
             "blik": Blik,
             "boleto": Boleto,
             "card": Card,
@@ -1793,8 +1928,10 @@ class Charge(
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
             "naver_pay": NaverPay,
+            "nz_bank_account": NzBankAccount,
             "oxxo": Oxxo,
             "p24": P24,
+            "pay_by_bank": PayByBank,
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
@@ -1802,6 +1939,7 @@ class Charge(
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
+            "satispay": Satispay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
@@ -1813,6 +1951,16 @@ class Charge(
             "wechat_pay": WechatPay,
             "zip": Zip,
         }
+
+    class PresentmentDetails(StripeObject):
+        presentment_amount: int
+        """
+        Amount intended to be collected by this payment, denominated in presentment_currency.
+        """
+        presentment_currency: str
+        """
+        Currency presented to the customer during payment.
+        """
 
     class RadarOptions(StripeObject):
         session: Optional[str]
@@ -1879,7 +2027,7 @@ class Charge(
     class CaptureParams(RequestOptions):
         amount: NotRequired[int]
         """
-        The amount to capture, which must be less than or equal to the original amount. Any additional amount will be automatically refunded.
+        The amount to capture, which must be less than or equal to the original amount.
         """
         application_fee: NotRequired[int]
         """
@@ -2341,10 +2489,6 @@ class Charge(
     """
     Unique identifier for the object.
     """
-    invoice: Optional[ExpandableField["Invoice"]]
-    """
-    ID of the invoice this charge is for if one exists.
-    """
     level3: Optional[Level3]
     livemode: bool
     """
@@ -2382,6 +2526,7 @@ class Charge(
     """
     Details about the payment method at the time of the transaction.
     """
+    presentment_details: Optional[PresentmentDetails]
     radar_options: Optional[RadarOptions]
     """
     Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
@@ -2859,6 +3004,7 @@ class Charge(
         "level3": Level3,
         "outcome": Outcome,
         "payment_method_details": PaymentMethodDetails,
+        "presentment_details": PresentmentDetails,
         "radar_options": RadarOptions,
         "shipping": Shipping,
         "transfer_data": TransferData,

@@ -69,6 +69,7 @@ OBJECT_CLASSES = {
     stripe.Invoice.OBJECT_NAME: stripe.Invoice,
     stripe.InvoiceItem.OBJECT_NAME: stripe.InvoiceItem,
     stripe.InvoiceLineItem.OBJECT_NAME: stripe.InvoiceLineItem,
+    stripe.InvoicePayment.OBJECT_NAME: stripe.InvoicePayment,
     stripe.InvoiceRenderingTemplate.OBJECT_NAME: stripe.InvoiceRenderingTemplate,
     stripe.issuing.Authorization.OBJECT_NAME: stripe.issuing.Authorization,
     stripe.issuing.Card.OBJECT_NAME: stripe.issuing.Card,
@@ -142,8 +143,6 @@ OBJECT_CLASSES = {
     stripe.treasury.ReceivedDebit.OBJECT_NAME: stripe.treasury.ReceivedDebit,
     stripe.treasury.Transaction.OBJECT_NAME: stripe.treasury.Transaction,
     stripe.treasury.TransactionEntry.OBJECT_NAME: stripe.treasury.TransactionEntry,
-    stripe.UsageRecord.OBJECT_NAME: stripe.UsageRecord,
-    stripe.UsageRecordSummary.OBJECT_NAME: stripe.UsageRecordSummary,
     stripe.WebhookEndpoint.OBJECT_NAME: stripe.WebhookEndpoint,
     # Object classes: The end of the section generated from our OpenAPI spec
 }

@@ -241,6 +241,10 @@ class Authorization(
         """
         State where the seller is located
         """
+        tax_id: Optional[str]
+        """
+        The seller's tax identification number. Currently populated for French merchants only.
+        """
         terminal_id: Optional[str]
         """
         An ID assigned by the seller to the location of the sale.
@@ -363,6 +367,7 @@ class Authorization(
             "cardholder_verification_required",
             "insecure_authorization_method",
             "insufficient_funds",
+            "network_fallback",
             "not_allowed",
             "pin_blocked",
             "spending_controls",
@@ -1535,7 +1540,9 @@ class Authorization(
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
-        status: NotRequired[Literal["closed", "pending", "reversed"]]
+        status: NotRequired[
+            Literal["closed", "expired", "pending", "reversed"]
+        ]
         """
         Only return authorizations with the given status. One of `pending`, `closed`, or `reversed`.
         """
@@ -1681,7 +1688,7 @@ class Authorization(
     """
     History of every time a `pending_request` authorization was approved/declined, either by you directly or by Stripe (e.g. based on your spending_controls). If the merchant changes the authorization by performing an incremental authorization, you can look at this field to see the previous requests for the authorization. This field can be helpful in determining why a given authorization was approved/declined.
     """
-    status: Literal["closed", "pending", "reversed"]
+    status: Literal["closed", "expired", "pending", "reversed"]
     """
     The current status of the authorization in its lifecycle.
     """

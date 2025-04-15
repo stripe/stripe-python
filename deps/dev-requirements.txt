@@ -1,0 +1,15 @@
+# packages needed to run static analysis (lints, types, etc)
+# version requirements: any modern python version (currently 3.10)
+
+# typechecking for all versions
+# can't use `>=1.1.339` since it flags override issues, e.g.:
+# > Method "_cls_delete" overrides class "DeletableAPIResource" in an incompatible manner Parameter "**params" has no corresponding parameter Pylance(reportIncompatibleMethodOverride)
+# can probably fix/ignore these issues and move forward, but we're stuck until then
+pyright == 1.1.336
+# general typechecking
+mypy == 1.7.0
+# formatting
+ruff == 0.9.6
+# linting
+# flake8 7.2.0 bumped to pyflakes 3.3.0, which adds a new lint error around global usage which will need to be manually fixed
+flake8==7.1.2

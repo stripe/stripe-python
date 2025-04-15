@@ -118,6 +118,12 @@ class Mandate(APIResource["Mandate"]):
         class Link(StripeObject):
             pass
 
+        class NaverPay(StripeObject):
+            pass
+
+        class NzBankAccount(StripeObject):
+            pass
+
         class Paypal(StripeObject):
             billing_agreement_id: Optional[str]
             """
@@ -156,6 +162,8 @@ class Mandate(APIResource["Mandate"]):
         kakao_pay: Optional[KakaoPay]
         kr_card: Optional[KrCard]
         link: Optional[Link]
+        naver_pay: Optional[NaverPay]
+        nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
@@ -174,6 +182,8 @@ class Mandate(APIResource["Mandate"]):
             "kakao_pay": KakaoPay,
             "kr_card": KrCard,
             "link": Link,
+            "naver_pay": NaverPay,
+            "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,

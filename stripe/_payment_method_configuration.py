@@ -257,6 +257,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Billie(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Blik(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -653,6 +675,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class NzBankAccount(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Oxxo(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -676,6 +720,28 @@ class PaymentMethodConfiguration(
         _inner_class_types = {"display_preference": DisplayPreference}
 
     class P24(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class PayByBank(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
             """
@@ -764,6 +830,28 @@ class PaymentMethodConfiguration(
         _inner_class_types = {"display_preference": DisplayPreference}
 
     class RevolutPay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class Satispay(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
             """
@@ -1000,6 +1088,10 @@ class PaymentMethodConfiguration(
         """
         Bancontact is the most popular online payment method in Belgium, with over 15 million cards in circulation. [Customers](https://stripe.com/docs/api/customers) use a Bancontact card or mobile app linked to a Belgian bank account to make online payments that are secure, guaranteed, and confirmed immediately. Check this [page](https://stripe.com/docs/payments/bancontact) for more details.
         """
+        billie: NotRequired["PaymentMethodConfiguration.CreateParamsBillie"]
+        """
+        Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+        """
         blik: NotRequired["PaymentMethodConfiguration.CreateParamsBlik"]
         """
         BLIK is a [single use](https://stripe.com/docs/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://stripe.com/docs/payments/blik) for more details.
@@ -1090,6 +1182,12 @@ class PaymentMethodConfiguration(
         """
         Configuration name.
         """
+        nz_bank_account: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsNzBankAccount"
+        ]
+        """
+        Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
+        """
         oxxo: NotRequired["PaymentMethodConfiguration.CreateParamsOxxo"]
         """
         OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
@@ -1101,6 +1199,12 @@ class PaymentMethodConfiguration(
         parent: NotRequired[str]
         """
         Configuration's parent configuration. Specify to create a child configuration.
+        """
+        pay_by_bank: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsPayByBank"
+        ]
+        """
+        Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
         """
         paynow: NotRequired["PaymentMethodConfiguration.CreateParamsPaynow"]
         """
@@ -1121,6 +1225,12 @@ class PaymentMethodConfiguration(
         ]
         """
         Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer's stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
+        """
+        satispay: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsSatispay"
+        ]
+        """
+        Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
         """
         sepa_debit: NotRequired[
             "PaymentMethodConfiguration.CreateParamsSepaDebit"
@@ -1306,6 +1416,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsBancontactDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsBillie(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsBillieDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsBillieDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1563,6 +1687,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsNzBankAccount(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsNzBankAccountDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsNzBankAccountDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsOxxoDisplayPreference"
@@ -1586,6 +1724,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsP24DisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsPayByBank(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsPayByBankDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPayByBankDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1642,6 +1794,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsRevolutPayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsSatispay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsSatispayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsSatispayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1832,6 +1998,10 @@ class PaymentMethodConfiguration(
         """
         Bancontact is the most popular online payment method in Belgium, with over 15 million cards in circulation. [Customers](https://stripe.com/docs/api/customers) use a Bancontact card or mobile app linked to a Belgian bank account to make online payments that are secure, guaranteed, and confirmed immediately. Check this [page](https://stripe.com/docs/payments/bancontact) for more details.
         """
+        billie: NotRequired["PaymentMethodConfiguration.ModifyParamsBillie"]
+        """
+        Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+        """
         blik: NotRequired["PaymentMethodConfiguration.ModifyParamsBlik"]
         """
         BLIK is a [single use](https://stripe.com/docs/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://stripe.com/docs/payments/blik) for more details.
@@ -1922,6 +2092,12 @@ class PaymentMethodConfiguration(
         """
         Configuration name.
         """
+        nz_bank_account: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsNzBankAccount"
+        ]
+        """
+        Stripe users in New Zealand can accept Bulk Electronic Clearing System (BECS) direct debit payments from customers with a New Zeland bank account. Check this [page](https://stripe.com/docs/payments/nz-bank-account) for more details.
+        """
         oxxo: NotRequired["PaymentMethodConfiguration.ModifyParamsOxxo"]
         """
         OXXO is a Mexican chain of convenience stores with thousands of locations across Latin America and represents nearly 20% of online transactions in Mexico. OXXO allows customers to pay bills and online purchases in-store with cash. Check this [page](https://stripe.com/docs/payments/oxxo) for more details.
@@ -1929,6 +2105,12 @@ class PaymentMethodConfiguration(
         p24: NotRequired["PaymentMethodConfiguration.ModifyParamsP24"]
         """
         Przelewy24 is a Poland-based payment method aggregator that allows customers to complete transactions online using bank transfers and other methods. Bank transfers account for 30% of online payments in Poland and Przelewy24 provides a way for customers to pay with over 165 banks. Check this [page](https://stripe.com/docs/payments/p24) for more details.
+        """
+        pay_by_bank: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsPayByBank"
+        ]
+        """
+        Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
         """
         paynow: NotRequired["PaymentMethodConfiguration.ModifyParamsPaynow"]
         """
@@ -1949,6 +2131,12 @@ class PaymentMethodConfiguration(
         ]
         """
         Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer's stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
+        """
+        satispay: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsSatispay"
+        ]
+        """
+        Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
         """
         sepa_debit: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsSepaDebit"
@@ -2134,6 +2322,20 @@ class PaymentMethodConfiguration(
         """
 
     class ModifyParamsBancontactDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsBillie(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsBillieDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsBillieDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -2391,6 +2593,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsNzBankAccount(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsNzBankAccountDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsNzBankAccountDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsOxxo(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsOxxoDisplayPreference"
@@ -2414,6 +2630,20 @@ class PaymentMethodConfiguration(
         """
 
     class ModifyParamsP24DisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsPayByBank(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsPayByBankDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsPayByBankDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -2470,6 +2700,20 @@ class PaymentMethodConfiguration(
         """
 
     class ModifyParamsRevolutPayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsSatispay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsSatispayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsSatispayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -2597,6 +2841,7 @@ class PaymentMethodConfiguration(
     au_becs_debit: Optional[AuBecsDebit]
     bacs_debit: Optional[BacsDebit]
     bancontact: Optional[Bancontact]
+    billie: Optional[Billie]
     blik: Optional[Blik]
     boleto: Optional[Boleto]
     card: Optional[Card]
@@ -2631,6 +2876,7 @@ class PaymentMethodConfiguration(
     """
     The configuration's name.
     """
+    nz_bank_account: Optional[NzBankAccount]
     object: Literal["payment_method_configuration"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -2641,10 +2887,12 @@ class PaymentMethodConfiguration(
     """
     For child configs, the configuration's parent configuration.
     """
+    pay_by_bank: Optional[PayByBank]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
     promptpay: Optional[Promptpay]
     revolut_pay: Optional[RevolutPay]
+    satispay: Optional[Satispay]
     sepa_debit: Optional[SepaDebit]
     sofort: Optional[Sofort]
     swish: Optional[Swish]
@@ -2800,6 +3048,7 @@ class PaymentMethodConfiguration(
         "au_becs_debit": AuBecsDebit,
         "bacs_debit": BacsDebit,
         "bancontact": Bancontact,
+        "billie": Billie,
         "blik": Blik,
         "boleto": Boleto,
         "card": Card,
@@ -2818,12 +3067,15 @@ class PaymentMethodConfiguration(
         "link": Link,
         "mobilepay": Mobilepay,
         "multibanco": Multibanco,
+        "nz_bank_account": NzBankAccount,
         "oxxo": Oxxo,
         "p24": P24,
+        "pay_by_bank": PayByBank,
         "paynow": Paynow,
         "paypal": Paypal,
         "promptpay": Promptpay,
         "revolut_pay": RevolutPay,
+        "satispay": Satispay,
         "sepa_debit": SepaDebit,
         "sofort": Sofort,
         "swish": Swish,

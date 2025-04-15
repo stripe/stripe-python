@@ -2,7 +2,6 @@
 
 [![pypi](https://img.shields.io/pypi/v/stripe.svg)](https://pypi.python.org/pypi/stripe)
 [![Build Status](https://github.com/stripe/stripe-python/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/stripe/stripe-python/actions?query=branch%3Amaster)
-[![Coverage Status](https://coveralls.io/repos/github/stripe/stripe-python/badge.svg?branch=master)](https://coveralls.io/github/stripe/stripe-python?branch=master)
 
 The Stripe Python library provides convenient access to the Stripe API from
 applications written in the Python language. It includes a pre-defined set of
@@ -13,8 +12,6 @@ API.
 ## Documentation
 
 See the [Python API docs](https://stripe.com/docs/api?lang=python).
-
-See [video demonstrations][youtube-playlist] covering how to use the library.
 
 ## Installation
 
@@ -65,6 +62,12 @@ customer = client.customers.retrieve("cus_123456789")
 # print that customer's email
 print(customer.email)
 ```
+
+### StripeClient vs legacy pattern
+
+We introduced the `StripeClient` class in v8 of the Python SDK. The legacy pattern used prior to that version is still available to use but will be marked as deprecated soon. Review the [migration guide to use StripeClient](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v8-(StripeClient)) to move from the legacy pattern.
+
+Once the legacy pattern is deprecated, new API endpoints will only be accessible in the StripeClient. While there are no current plans to remove the legacy pattern for existing API endpoints, this may change in the future.
 
 ### Handling exceptions
 
@@ -332,6 +335,8 @@ New features and bug fixes are released on the latest major version of the Strip
 
 ## Development
 
+[Contribution guidelines for this project](CONTRIBUTING.md)
+
 The test suite depends on [stripe-mock], so make sure to fetch and run it from a
 background terminal ([stripe-mock's README][stripe-mock] also contains
 instructions for installing via Homebrew and other methods):
@@ -341,46 +346,48 @@ go install github.com/stripe/stripe-mock@latest
 stripe-mock
 ```
 
+We use [just](https://github.com/casey/just) for conveniently running development tasks. You can use them directly, or copy the commands out of the `justfile`. To our help docs, run `just`. By default, all commands will use an virtualenv created by your default python version (whatever comes out of `python --version`). We recommend using [mise](https://mise.jdx.dev/lang/python.html) or [pyenv](https://github.com/pyenv/pyenv) to control that version.
+
 Run the following command to set up the development virtualenv:
 
 ```sh
-make
+just venv
+# or: python -m venv venv  && venv/bin/python -I -m pip install -e .
 ```
 
-Run all tests on all supported Python versions:
+Run all tests:
 
 ```sh
-make test
-```
-
-Run all tests for a specific Python version (modify `-e` according to your Python target):
-
-```sh
-TOX_ARGS="-e py37" make test
+just test
+# or: venv/bin/pytest
 ```
 
 Run all tests in a single file:
 
 ```sh
-TOX_ARGS="-e py37 -- tests/api_resources/abstract/test_updateable_api_resource.py" make test
+just test tests/api_resources/abstract/test_updateable_api_resource.py
+# or: venv/bin/pytest tests/api_resources/abstract/test_updateable_api_resource.py
 ```
 
 Run a single test suite:
 
 ```sh
-TOX_ARGS="-e py37 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource" make test
+just test tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource
+# or: venv/bin/pytest tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource
 ```
 
 Run a single test:
 
 ```sh
-TOX_ARGS="-e py37 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource::test_save" make test
+just test tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource::test_save
+# or: venv/bin/pytest tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource::test_save
 ```
 
 Run the linter with:
 
 ```sh
-make lint
+just lint
+# or: venv/bin/python -m flake8 --show-source stripe tests setup.py
 ```
 
 The library uses [Ruff][ruff] for code formatting. Code must be formatted
@@ -388,7 +395,8 @@ with Black before PRs are submitted, otherwise CI will fail. Run the formatter
 with:
 
 ```sh
-make fmt
+just format
+# or: venv/bin/ruff format . --quiet
 ```
 
 [api-keys]: https://dashboard.stripe.com/account/apikeys
@@ -397,7 +405,6 @@ make fmt
 [poetry]: https://github.com/sdispater/poetry
 [stripe-mock]: https://github.com/stripe/stripe-mock
 [idempotency-keys]: https://stripe.com/docs/api/idempotent_requests?lang=python
-[youtube-playlist]: https://www.youtube.com/playlist?list=PLy1nL-pvL2M55YVn0mGoQ5r-39A1-ZypO
 
 <!--
 # vim: set tw=79:

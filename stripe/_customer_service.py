@@ -58,7 +58,6 @@ class CustomerService(StripeService):
         """
         Balance information and default balance settings for this customer.
         """
-        coupon: NotRequired[str]
         description: NotRequired[str]
         """
         An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
@@ -101,10 +100,6 @@ class CustomerService(StripeService):
         preferred_locales: NotRequired[List[str]]
         """
         Customer's preferred languages, ordered by preference.
-        """
-        promotion_code: NotRequired[str]
-        """
-        The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
         """
         shipping: NotRequired[
             "Literal['']|CustomerService.CreateParamsShipping"
@@ -276,14 +271,20 @@ class CustomerService(StripeService):
         type: Literal[
             "ad_nrt",
             "ae_trn",
+            "al_tin",
+            "am_tin",
+            "ao_tin",
             "ar_cuit",
             "au_abn",
             "au_arn",
+            "ba_tin",
+            "bb_tin",
             "bg_uic",
             "bh_vat",
             "bo_tin",
             "br_cnpj",
             "br_cpf",
+            "bs_tin",
             "by_tin",
             "ca_bn",
             "ca_gst_hst",
@@ -291,6 +292,7 @@ class CustomerService(StripeService):
             "ca_pst_mb",
             "ca_pst_sk",
             "ca_qst",
+            "cd_nif",
             "ch_uid",
             "ch_vat",
             "cl_tin",
@@ -306,6 +308,7 @@ class CustomerService(StripeService):
             "eu_vat",
             "gb_vat",
             "ge_vat",
+            "gn_nif",
             "hk_br",
             "hr_oib",
             "hu_tin",
@@ -317,12 +320,16 @@ class CustomerService(StripeService):
             "jp_rn",
             "jp_trn",
             "ke_pin",
+            "kh_tin",
             "kr_brn",
             "kz_bin",
             "li_uid",
             "li_vat",
             "ma_vat",
             "md_vat",
+            "me_pib",
+            "mk_vat",
+            "mr_nif",
             "mx_rfc",
             "my_frp",
             "my_itn",
@@ -330,6 +337,7 @@ class CustomerService(StripeService):
             "ng_tin",
             "no_vat",
             "no_voec",
+            "np_pan",
             "nz_gst",
             "om_vat",
             "pe_ruc",
@@ -342,12 +350,16 @@ class CustomerService(StripeService):
             "sg_gst",
             "sg_uen",
             "si_tin",
+            "sn_ninea",
+            "sr_fin",
             "sv_nit",
             "th_vat",
+            "tj_tin",
             "tr_tin",
             "tw_vat",
             "tz_vat",
             "ua_vat",
+            "ug_tin",
             "us_ein",
             "uy_ruc",
             "uz_tin",
@@ -355,9 +367,11 @@ class CustomerService(StripeService):
             "ve_rif",
             "vn_tin",
             "za_vat",
+            "zm_tin",
+            "zw_tin",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, or `za_vat`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         """
         value: str
         """
@@ -455,7 +469,6 @@ class CustomerService(StripeService):
         """
         Balance information and default balance settings for this customer.
         """
-        coupon: NotRequired[str]
         default_source: NotRequired[str]
         """
         If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
@@ -505,10 +518,6 @@ class CustomerService(StripeService):
         preferred_locales: NotRequired[List[str]]
         """
         Customer's preferred languages, ordered by preference.
-        """
-        promotion_code: NotRequired[str]
-        """
-        The ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
         """
         shipping: NotRequired[
             "Literal['']|CustomerService.UpdateParamsShipping"
@@ -665,7 +674,7 @@ class CustomerService(StripeService):
             Literal["auto", "deferred", "immediately"]
         ]
         """
-        A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
+        A flag that indicates when Stripe should validate the customer tax location. Defaults to `auto`.
         """
 
     def delete(

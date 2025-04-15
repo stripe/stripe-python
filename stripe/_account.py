@@ -198,6 +198,10 @@ class Account(
         """
         The status of the customer_balance payments capability of the account, or whether the account can directly process customer_balance charges.
         """
+        billie_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Billie capability of the account, or whether the account can directly process Billie payments.
+        """
         blik_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the blik payments capability of the account, or whether the account can directly process blik charges.
@@ -308,6 +312,12 @@ class Account(
         """
         The status of the NaverPay capability of the account, or whether the account can directly process NaverPay payments.
         """
+        nz_bank_account_becs_debit_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the New Zealand BECS Direct Debit payments capability of the account, or whether the account can directly process New Zealand BECS Direct Debit charges.
+        """
         oxxo_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges.
@@ -315,6 +325,12 @@ class Account(
         p24_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
+        """
+        pay_by_bank_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the pay_by_bank payments capability of the account, or whether the account can directly process pay_by_bank charges.
         """
         payco_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -339,6 +355,10 @@ class Account(
         ]
         """
         The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
+        """
+        satispay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Satispay capability of the account, or whether the account can directly process Satispay payments.
         """
         sepa_bank_transfer_payments: Optional[
             Literal["active", "inactive", "pending"]
@@ -486,6 +506,20 @@ class Account(
             Town/cho-me.
             """
 
+        class DirectorshipDeclaration(StripeObject):
+            date: Optional[int]
+            """
+            The Unix timestamp marking when the directorship declaration attestation was made.
+            """
+            ip: Optional[str]
+            """
+            The IP address from which the directorship declaration attestation was made.
+            """
+            user_agent: Optional[str]
+            """
+            The user-agent string from the browser where the directorship declaration attestation was made.
+            """
+
         class OwnershipDeclaration(StripeObject):
             date: Optional[int]
             """
@@ -535,6 +569,10 @@ class Account(
         """
         Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided).
         """
+        directorship_declaration: Optional[DirectorshipDeclaration]
+        """
+        This hash is used to attest that the director information provided to Stripe is both current and correct.
+        """
         executives_provided: Optional[bool]
         """
         Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided.
@@ -549,15 +587,15 @@ class Account(
         """
         name: Optional[str]
         """
-        The company's legal name.
+        The company's legal name. Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
         """
         name_kana: Optional[str]
         """
-        The Kana variation of the company's legal name (Japan only).
+        The Kana variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
         """
         name_kanji: Optional[str]
         """
-        The Kanji variation of the company's legal name (Japan only).
+        The Kanji variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
         """
         owners_provided: Optional[bool]
         """
@@ -566,6 +604,15 @@ class Account(
         ownership_declaration: Optional[OwnershipDeclaration]
         """
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
+        """
+        ownership_exemption_reason: Optional[
+            Literal[
+                "qualified_entity_exceeds_ownership_threshold",
+                "qualifies_as_financial_institution",
+            ]
+        ]
+        """
+        This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
         """
         phone: Optional[str]
         """
@@ -599,7 +646,7 @@ class Account(
             ]
         ]
         """
-        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
+        The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
         """
         tax_id_provided: Optional[bool]
         """
@@ -621,6 +668,7 @@ class Account(
             "address": Address,
             "address_kana": AddressKana,
             "address_kanji": AddressKanji,
+            "directorship_declaration": DirectorshipDeclaration,
             "ownership_declaration": OwnershipDeclaration,
             "verification": Verification,
         }
@@ -683,6 +731,7 @@ class Account(
 
         class Error(StripeObject):
             code: Literal[
+                "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
@@ -695,6 +744,7 @@ class Account(
                 "invalid_product_description_length",
                 "invalid_product_description_url_match",
                 "invalid_representative_country",
+                "invalid_signator",
                 "invalid_statement_descriptor_business_mismatch",
                 "invalid_statement_descriptor_denylisted",
                 "invalid_statement_descriptor_length",
@@ -756,6 +806,7 @@ class Account(
                 "verification_document_type_not_supported",
                 "verification_extraneous_directors",
                 "verification_failed_address_match",
+                "verification_failed_authorizer_authority",
                 "verification_failed_business_iec_number",
                 "verification_failed_document_match",
                 "verification_failed_id_number_match",
@@ -770,6 +821,7 @@ class Account(
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
+                "verification_rejected_ownership_exemption_reason",
                 "verification_requires_additional_memorandum_of_associations",
                 "verification_requires_additional_proof_of_registration",
                 "verification_supportability",
@@ -792,7 +844,7 @@ class Account(
         """
         current_deadline: Optional[int]
         """
-        Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
+        Date on which `future_requirements` becomes the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
         """
         currently_due: Optional[List[str]]
         """
@@ -826,7 +878,7 @@ class Account(
         """
         eventually_due: Optional[List[str]]
         """
-        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well.
+        Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well.
         """
         past_due: Optional[List[str]]
         """
@@ -857,6 +909,7 @@ class Account(
 
         class Error(StripeObject):
             code: Literal[
+                "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
@@ -869,6 +922,7 @@ class Account(
                 "invalid_product_description_length",
                 "invalid_product_description_url_match",
                 "invalid_representative_country",
+                "invalid_signator",
                 "invalid_statement_descriptor_business_mismatch",
                 "invalid_statement_descriptor_denylisted",
                 "invalid_statement_descriptor_length",
@@ -930,6 +984,7 @@ class Account(
                 "verification_document_type_not_supported",
                 "verification_extraneous_directors",
                 "verification_failed_address_match",
+                "verification_failed_authorizer_authority",
                 "verification_failed_business_iec_number",
                 "verification_failed_document_match",
                 "verification_failed_id_number_match",
@@ -944,6 +999,7 @@ class Account(
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
+                "verification_rejected_ownership_exemption_reason",
                 "verification_requires_additional_memorandum_of_associations",
                 "verification_requires_additional_proof_of_registration",
                 "verification_supportability",
@@ -1000,7 +1056,7 @@ class Account(
         """
         eventually_due: Optional[List[str]]
         """
-        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
+        Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
         """
         past_due: Optional[List[str]]
         """
@@ -1099,6 +1155,12 @@ class Account(
             default_account_tax_ids: Optional[List[ExpandableField["TaxId"]]]
             """
             The list of default Account Tax IDs to automatically include on invoices. Account Tax IDs get added when an invoice is finalized.
+            """
+            hosted_payment_method_save: Optional[
+                Literal["always", "never", "offer"]
+            ]
+            """
+            Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
             """
 
         class Payments(StripeObject):
@@ -1234,7 +1296,7 @@ class Account(
             "Account.CreateExternalAccountParamsCardToken",
         ]
         """
-        Please refer to full [documentation](https://stripe.com/docs/api) instead.
+        A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js) or a dictionary containing a user's external account details (with the options shown below). Please refer to full [documentation](https://stripe.com/docs/api/external_accounts) instead.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -1362,7 +1424,7 @@ class Account(
         """
         groups: NotRequired["Account.CreateParamsGroups"]
         """
-        A hash of account group type to tokens. These are account groups this account should be added to
+        A hash of account group type to tokens. These are account groups this account should be added to.
         """
         individual: NotRequired["Account.CreateParamsIndividual"]
         """
@@ -1569,6 +1631,12 @@ class Account(
         """
         The bank_transfer_payments capability.
         """
+        billie_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesBilliePayments"
+        ]
+        """
+        The billie_payments capability.
+        """
         blik_payments: NotRequired[
             "Account.CreateParamsCapabilitiesBlikPayments"
         ]
@@ -1719,6 +1787,12 @@ class Account(
         """
         The naver_pay_payments capability.
         """
+        nz_bank_account_becs_debit_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesNzBankAccountBecsDebitPayments"
+        ]
+        """
+        The nz_bank_account_becs_debit_payments capability.
+        """
         oxxo_payments: NotRequired[
             "Account.CreateParamsCapabilitiesOxxoPayments"
         ]
@@ -1730,6 +1804,12 @@ class Account(
         ]
         """
         The p24_payments capability.
+        """
+        pay_by_bank_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesPayByBankPayments"
+        ]
+        """
+        The pay_by_bank_payments capability.
         """
         payco_payments: NotRequired[
             "Account.CreateParamsCapabilitiesPaycoPayments"
@@ -1760,6 +1840,12 @@ class Account(
         ]
         """
         The samsung_pay_payments capability.
+        """
+        satispay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesSatispayPayments"
+        ]
+        """
+        The satispay_payments capability.
         """
         sepa_bank_transfer_payments: NotRequired[
             "Account.CreateParamsCapabilitiesSepaBankTransferPayments"
@@ -1879,6 +1965,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesBankTransferPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesBilliePayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2034,6 +2126,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesNzBankAccountBecsDebitPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesOxxoPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2041,6 +2139,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesP24Payments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPayByBankPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2071,6 +2175,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesSamsungPayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesSatispayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2190,6 +2300,12 @@ class Account(
         """
         Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
+        directorship_declaration: NotRequired[
+            "Account.CreateParamsCompanyDirectorshipDeclaration"
+        ]
+        """
+        This hash is used to attest that the directors information provided to Stripe is both current and correct.
+        """
         executives_provided: NotRequired[bool]
         """
         Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
@@ -2223,6 +2339,12 @@ class Account(
         ]
         """
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
+        """
+        ownership_exemption_reason: NotRequired[
+            "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
+        ]
+        """
+        This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
         """
         phone: NotRequired[str]
         """
@@ -2341,6 +2463,20 @@ class Account(
         Town or cho-me.
         """
 
+    class CreateParamsCompanyDirectorshipDeclaration(TypedDict):
+        date: NotRequired[int]
+        """
+        The Unix timestamp marking when the directorship declaration attestation was made.
+        """
+        ip: NotRequired[str]
+        """
+        The IP address from which the directorship declaration attestation was made.
+        """
+        user_agent: NotRequired[str]
+        """
+        The user agent of the browser from which the directorship declaration attestation was made.
+        """
+
     class CreateParamsCompanyOwnershipDeclaration(TypedDict):
         date: NotRequired[int]
         """
@@ -2454,6 +2590,12 @@ class Account(
         """
         One or more documents showing the company's proof of registration with the national business registry.
         """
+        proof_of_ultimate_beneficial_ownership: NotRequired[
+            "Account.CreateParamsDocumentsProofOfUltimateBeneficialOwnership"
+        ]
+        """
+        One or more documents that demonstrate proof of ultimate beneficial ownership.
+        """
 
     class CreateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
         files: NotRequired[List[str]]
@@ -2492,6 +2634,12 @@ class Account(
         """
 
     class CreateParamsDocumentsProofOfRegistration(TypedDict):
+        files: NotRequired[List[str]]
+        """
+        One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class CreateParamsDocumentsProofOfUltimateBeneficialOwnership(TypedDict):
         files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
@@ -2802,6 +2950,10 @@ class Account(
         """
         Settings specific to card charging on the account.
         """
+        invoices: NotRequired["Account.CreateParamsSettingsInvoices"]
+        """
+        Settings specific to the account's use of Invoices.
+        """
         payments: NotRequired["Account.CreateParamsSettingsPayments"]
         """
         Settings that apply across payment methods for charging on the account.
@@ -2889,6 +3041,14 @@ class Account(
         cvc_failure: NotRequired[bool]
         """
         Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
+        """
+
+    class CreateParamsSettingsInvoices(TypedDict):
+        hosted_payment_method_save: NotRequired[
+            Literal["always", "never", "offer"]
+        ]
+        """
+        Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
         """
 
     class CreateParamsSettingsPayments(TypedDict):
@@ -3082,7 +3242,7 @@ class Account(
         """
         The person's phone number.
         """
-        political_exposure: NotRequired[str]
+        political_exposure: NotRequired[Literal["existing", "none"]]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """
@@ -3671,7 +3831,7 @@ class Account(
         """
         The person's phone number.
         """
-        political_exposure: NotRequired[str]
+        political_exposure: NotRequired[Literal["existing", "none"]]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """
@@ -4026,7 +4186,7 @@ class Account(
         Literal["company", "government_entity", "individual", "non_profit"]
     ]
     """
-    The business type. After you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property is only returned for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+    The business type.
     """
     capabilities: Optional[Capabilities]
     charges_enabled: Optional[bool]
@@ -4072,7 +4232,7 @@ class Account(
     """
     This is an object representing a person associated with a Stripe account.
 
-    A platform cannot access a person for an account where [account.controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
+    A platform can only access a subset of data in a person for an account where [account.controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
 
     See the [Standard onboarding](https://stripe.com/connect/standard-accounts) or [Express onboarding](https://stripe.com/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](https://stripe.com/connect/handling-api-verification#person-information).
     """

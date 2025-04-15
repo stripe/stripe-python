@@ -496,7 +496,7 @@ class TestIntegration(object):
         stripe.upload_api_base = "http://localhost:%s" % self.mock_server_port
 
         result = await stripe.Quote.pdf_async("qt_123")
-        assert str(await result.read(), "utf-8") == "hello"
+        assert str(await result.read_async(), "utf-8") == "hello"
 
     async def test_async_httpx_stream_error(
         self, set_global_async_http_client

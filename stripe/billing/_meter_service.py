@@ -30,7 +30,7 @@ class MeterService(StripeService):
         """
         display_name: str
         """
-        The meter's name.
+        The meter's name. Not visible to the customer.
         """
         event_name: str
         """
@@ -52,7 +52,7 @@ class MeterService(StripeService):
     class CreateParamsCustomerMapping(TypedDict):
         event_payload_key: str
         """
-        The key in the usage event payload to use for mapping the event to a customer.
+        The key in the meter event payload to use for mapping the event to a customer.
         """
         type: Literal["by_id"]
         """
@@ -60,9 +60,9 @@ class MeterService(StripeService):
         """
 
     class CreateParamsDefaultAggregation(TypedDict):
-        formula: Literal["count", "sum"]
+        formula: Literal["count", "last", "sum"]
         """
-        Specifies how events are aggregated. Allowed values are `count` to count the number of events and `sum` to sum each event's value.
+        Specifies how events are aggregated. Allowed values are `count` to count the number of events, `sum` to sum each event's value and `last` to take the last event's value in the window.
         """
 
     class CreateParamsValueSettings(TypedDict):
@@ -114,7 +114,7 @@ class MeterService(StripeService):
     class UpdateParams(TypedDict):
         display_name: NotRequired[str]
         """
-        The meter's name.
+        The meter's name. Not visible to the customer.
         """
         expand: NotRequired[List[str]]
         """
@@ -163,7 +163,7 @@ class MeterService(StripeService):
         self, params: "MeterService.CreateParams", options: RequestOptions = {}
     ) -> Meter:
         """
-        Creates a billing meter
+        Creates a billing meter.
         """
         return cast(
             Meter,
@@ -180,7 +180,7 @@ class MeterService(StripeService):
         self, params: "MeterService.CreateParams", options: RequestOptions = {}
     ) -> Meter:
         """
-        Creates a billing meter
+        Creates a billing meter.
         """
         return cast(
             Meter,
@@ -200,7 +200,7 @@ class MeterService(StripeService):
         options: RequestOptions = {},
     ) -> Meter:
         """
-        Retrieves a billing meter given an ID
+        Retrieves a billing meter given an ID.
         """
         return cast(
             Meter,
@@ -220,7 +220,7 @@ class MeterService(StripeService):
         options: RequestOptions = {},
     ) -> Meter:
         """
-        Retrieves a billing meter given an ID
+        Retrieves a billing meter given an ID.
         """
         return cast(
             Meter,
@@ -240,7 +240,7 @@ class MeterService(StripeService):
         options: RequestOptions = {},
     ) -> Meter:
         """
-        Updates a billing meter
+        Updates a billing meter.
         """
         return cast(
             Meter,
@@ -260,7 +260,7 @@ class MeterService(StripeService):
         options: RequestOptions = {},
     ) -> Meter:
         """
-        Updates a billing meter
+        Updates a billing meter.
         """
         return cast(
             Meter,
@@ -280,7 +280,7 @@ class MeterService(StripeService):
         options: RequestOptions = {},
     ) -> Meter:
         """
-        Deactivates a billing meter
+        When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
         return cast(
             Meter,
@@ -302,7 +302,7 @@ class MeterService(StripeService):
         options: RequestOptions = {},
     ) -> Meter:
         """
-        Deactivates a billing meter
+        When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
         return cast(
             Meter,
@@ -324,7 +324,7 @@ class MeterService(StripeService):
         options: RequestOptions = {},
     ) -> Meter:
         """
-        Reactivates a billing meter
+        When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
         return cast(
             Meter,
@@ -346,7 +346,7 @@ class MeterService(StripeService):
         options: RequestOptions = {},
     ) -> Meter:
         """
-        Reactivates a billing meter
+        When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
         return cast(
             Meter,

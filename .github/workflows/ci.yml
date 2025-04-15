@@ -19,25 +19,37 @@ on:
 
 jobs:
   lint:
-    name: Lint & Mypy
-    runs-on: ubuntu-latest
+    name: Static Checks
+    runs-on: "ubuntu-24.04"
     steps:
+      - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      - name: mypy
-        run: make mypy
-      - name: lint
-        run: make lint
-      - name: fmtcheck
-        run: make fmtcheck
+      - name: check examples w/ mypy (against python@3.10)
+        run: just typecheck-examples
+      # skip deps on all these since mypy installed everything
+      - name: check linting
+        run: just --no-deps lint
+      - name: check formatting
+        run: just --no-deps format-check
+      # pyright depends on node, which it handles and installs for itself as needed
+      # we _could_ run setup-node to make it available for it if we're having reliability problems
+      - name: check types (all Python versions)
+        run: |
+          set -eox
+
+          for minor in {6..12}; do
+            just --no-deps typecheck $minor
+          done
 
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: "ubuntu-24.04"
     steps:
+      - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
 
       - name: Set up Python 3
@@ -45,69 +57,47 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Install tools
-        run: make venv
-
       - name: Build and check package
         run: |
-          set -x
-          source venv/bin/activate
-          python setup.py clean --all sdist bdist_wheel --universal
-          python -m twine check dist/*
+          just build
 
       - name: "Upload Artifact"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dist
           path: dist/
 
   test:
-    # Specific ubuntu version to support python 3.6 testing
-    # see https://github.com/actions/setup-python/issues/544#issuecomment-1332535877 for details
-    # move to ubuntu-latest when we drop 3.6
-    runs-on: ubuntu-20.04
+    # Specific ubuntu version to support python 3.7 testing
+    # see https://github.com/actions/setup-python/issues/544#issuecomment-1332535877 for list of supported versions
+    # move to ubuntu-latest when we drop 3.7
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
-        python:
-          - { version: "3.6" , env: "py36" }
-          - { version: "3.7" , env: "py37" }
-          - { version: "3.8" , env: "py38" }
-          - { version: "3.9" , env: "py39" }
-          - { version: "3.10" , env: "py310" }
-          - { version: "3.11" , env: "py311" }
-          - { version: "3.12" , env: "py312" }
-          - { version: "pypy-3.7" , env: "py3.7" }
-          - { version: "pypy-3.8" , env: "py3.8" }
-          - { version: "pypy-3.9" , env: "py3.9" }
-          - { version: "pypy-3.10" , env: "py3.10" }
-    name: Test (${{ matrix.python.version }})
+        python_version:
+          - "3.7"
+          - "3.8"
+          - "3.9"
+          - "3.10"
+          - "3.11"
+          - "3.12"
+          - "pypy-3.7"
+          - "pypy-3.8"
+          - "pypy-3.9"
+          - "pypy-3.10"
+    name: Test (${{ matrix.python_version }})
     steps:
+      - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
-
-      - name: Set up Python ${{ matrix.python.version }} and 3.10
+      - name: Set up Python ${{ matrix.python_version }}
         uses: actions/setup-python@v4
         with:
-          python-version: |
-            ${{ matrix.python.version }}
-            3.10
-
+          python-version: ${{ matrix.python_version }}
       - uses: stripe/openapi/actions/stripe-mock@master
 
-      - name: Typecheck with pyright
-        run: PYRIGHT_ARGS="-- --pythonversion ${{ matrix.python.version }}" make pyright
-        # Skip typecheking in pypy legs
-        if: ${{ !contains(matrix.python.version, 'pypy') }}
-
-      - name: Test with pytest
-        run: TOX_ARGS="-e ${{ matrix.python.env }}" make ci-test
-
-      - name: Calculate and publish coverage
-        run: make coveralls
-        if: env.COVERALLS_REPO_TOKEN && matrix.python.version == '3.10'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      - name: "run tests"
+        run: just test
 
   publish:
     name: Publish
@@ -116,11 +106,12 @@ jobs:
       startsWith(github.ref, 'refs/tags/v') &&
       endsWith(github.actor, '-stripe')
     needs: [build, test, lint]
-    runs-on: ubuntu-latest
+    runs-on: "ubuntu-24.04"
     steps:
+      - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
       - name: Download all workflow run artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
@@ -137,11 +128,12 @@ jobs:
           GPG_SIGNING_PRIVKEY: ${{ secrets.GPG_SIGNING_PRIVKEY }}
           GPG_SIGNING_PASSPHRASE: ${{ secrets.GPG_SIGNING_PASSPHRASE }}
       - name: Install tools
-        run: make venv
-      - name: Publish packages to PyPy
+        run: just install-build-deps
+      - name: Publish packages to PyPI
+        # could probably move this into a just recipe too?
         run: |
           set -ex
-          source venv/bin/activate
+          source .venv/bin/activate
           export VERSION=$(cat VERSION)
           gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION.tar.gz
           gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION-py2.py3-none-any.whl

@@ -17,6 +17,32 @@ class FinancialAccountService(StripeService):
         super().__init__(requestor)
         self.features = FinancialAccountFeaturesService(self._requestor)
 
+    class CloseParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        forwarding_settings: NotRequired[
+            "FinancialAccountService.CloseParamsForwardingSettings"
+        ]
+        """
+        A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
+        """
+
+    class CloseParamsForwardingSettings(TypedDict):
+        financial_account: NotRequired[str]
+        """
+        The financial_account id
+        """
+        payment_method: NotRequired[str]
+        """
+        The payment_method or bank account id. This needs to be a verified bank account.
+        """
+        type: Literal["financial_account", "payment_method"]
+        """
+        The type of the bank account provided. This can be either "financial_account" or "payment_method"
+        """
+
     class CreateParams(TypedDict):
         expand: NotRequired[List[str]]
         """
@@ -29,6 +55,10 @@ class FinancialAccountService(StripeService):
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        nickname: NotRequired["Literal['']|str"]
+        """
+        The nickname for the FinancialAccount.
         """
         platform_restrictions: NotRequired[
             "FinancialAccountService.CreateParamsPlatformRestrictions"
@@ -248,9 +278,19 @@ class FinancialAccountService(StripeService):
         """
         Encodes whether a FinancialAccount has access to a particular feature, with a status enum and associated `status_details`. Stripe or the platform may control features via the requested field.
         """
+        forwarding_settings: NotRequired[
+            "FinancialAccountService.UpdateParamsForwardingSettings"
+        ]
+        """
+        A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        nickname: NotRequired["Literal['']|str"]
+        """
+        The nickname for the FinancialAccount.
         """
         platform_restrictions: NotRequired[
             "FinancialAccountService.UpdateParamsPlatformRestrictions"
@@ -401,6 +441,20 @@ class FinancialAccountService(StripeService):
         Whether the FinancialAccount should have the Feature.
         """
 
+    class UpdateParamsForwardingSettings(TypedDict):
+        financial_account: NotRequired[str]
+        """
+        The financial_account id
+        """
+        payment_method: NotRequired[str]
+        """
+        The payment_method or bank account id. This needs to be a verified bank account.
+        """
+        type: Literal["financial_account", "payment_method"]
+        """
+        The type of the bank account provided. This can be either "financial_account" or "payment_method"
+        """
+
     class UpdateParamsPlatformRestrictions(TypedDict):
         inbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
         """
@@ -455,7 +509,7 @@ class FinancialAccountService(StripeService):
         options: RequestOptions = {},
     ) -> FinancialAccount:
         """
-        Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
+        Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
         """
         return cast(
             FinancialAccount,
@@ -474,7 +528,7 @@ class FinancialAccountService(StripeService):
         options: RequestOptions = {},
     ) -> FinancialAccount:
         """
-        Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
+        Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
         """
         return cast(
             FinancialAccount,
@@ -567,6 +621,50 @@ class FinancialAccountService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}".format(
+                    financial_account=sanitize_id(financial_account),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def close(
+        self,
+        financial_account: str,
+        params: "FinancialAccountService.CloseParams" = {},
+        options: RequestOptions = {},
+    ) -> FinancialAccount:
+        """
+        Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+        """
+        return cast(
+            FinancialAccount,
+            self._request(
+                "post",
+                "/v1/treasury/financial_accounts/{financial_account}/close".format(
+                    financial_account=sanitize_id(financial_account),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def close_async(
+        self,
+        financial_account: str,
+        params: "FinancialAccountService.CloseParams" = {},
+        options: RequestOptions = {},
+    ) -> FinancialAccount:
+        """
+        Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
+        """
+        return cast(
+            FinancialAccount,
+            await self._request_async(
+                "post",
+                "/v1/treasury/financial_accounts/{financial_account}/close".format(
                     financial_account=sanitize_id(financial_account),
                 ),
                 base_address="api",

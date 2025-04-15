@@ -39,7 +39,7 @@ class Configuration(
     class BbposWiseposE(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class Offline(StripeObject):
@@ -61,7 +61,7 @@ class Configuration(
     class StripeS700(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class Tipping(StripeObject):
@@ -164,6 +164,20 @@ class Configuration(
             """
 
         class Hkd(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Jpy(StripeObject):
             fixed_amounts: Optional[List[int]]
             """
             Fixed amounts displayed when collecting a tip
@@ -283,6 +297,7 @@ class Configuration(
         eur: Optional[Eur]
         gbp: Optional[Gbp]
         hkd: Optional[Hkd]
+        jpy: Optional[Jpy]
         myr: Optional[Myr]
         nok: Optional[Nok]
         nzd: Optional[Nzd]
@@ -299,6 +314,7 @@ class Configuration(
             "eur": Eur,
             "gbp": Gbp,
             "hkd": Hkd,
+            "jpy": Jpy,
             "myr": Myr,
             "nok": Nok,
             "nzd": Nzd,
@@ -311,8 +327,74 @@ class Configuration(
     class VerifoneP400(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
+
+    class Wifi(StripeObject):
+        class EnterpriseEapPeap(StripeObject):
+            ca_certificate_file: Optional[str]
+            """
+            A File ID representing a PEM file containing the server certificate
+            """
+            password: str
+            """
+            Password for connecting to the WiFi network
+            """
+            ssid: str
+            """
+            Name of the WiFi network
+            """
+            username: str
+            """
+            Username for connecting to the WiFi network
+            """
+
+        class EnterpriseEapTls(StripeObject):
+            ca_certificate_file: Optional[str]
+            """
+            A File ID representing a PEM file containing the server certificate
+            """
+            client_certificate_file: str
+            """
+            A File ID representing a PEM file containing the client certificate
+            """
+            private_key_file: str
+            """
+            A File ID representing a PEM file containing the client RSA private key
+            """
+            private_key_file_password: Optional[str]
+            """
+            Password for the private key file
+            """
+            ssid: str
+            """
+            Name of the WiFi network
+            """
+
+        class PersonalPsk(StripeObject):
+            password: str
+            """
+            Password for connecting to the WiFi network
+            """
+            ssid: str
+            """
+            Name of the WiFi network
+            """
+
+        enterprise_eap_peap: Optional[EnterpriseEapPeap]
+        enterprise_eap_tls: Optional[EnterpriseEapTls]
+        personal_psk: Optional[PersonalPsk]
+        type: Literal[
+            "enterprise_eap_peap", "enterprise_eap_tls", "personal_psk"
+        ]
+        """
+        Security type of the WiFi network. The hash with the corresponding name contains the credentials for this security type.
+        """
+        _inner_class_types = {
+            "enterprise_eap_peap": EnterpriseEapPeap,
+            "enterprise_eap_tls": EnterpriseEapTls,
+            "personal_psk": PersonalPsk,
+        }
 
     class CreateParams(RequestOptions):
         bbpos_wisepos_e: NotRequired["Configuration.CreateParamsBbposWiseposE"]
@@ -347,11 +429,15 @@ class Configuration(
         """
         An object containing device type specific settings for Verifone P400 readers
         """
+        wifi: NotRequired["Literal['']|Configuration.CreateParamsWifi"]
+        """
+        Configurations for connecting to a WiFi network.
+        """
 
     class CreateParamsBbposWiseposE(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class CreateParamsOffline(TypedDict):
@@ -408,6 +494,10 @@ class Configuration(
         hkd: NotRequired["Configuration.CreateParamsTippingHkd"]
         """
         Tipping configuration for HKD
+        """
+        jpy: NotRequired["Configuration.CreateParamsTippingJpy"]
+        """
+        Tipping configuration for JPY
         """
         myr: NotRequired["Configuration.CreateParamsTippingMyr"]
         """
@@ -550,6 +640,20 @@ class Configuration(
         Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
         """
 
+    class CreateParamsTippingJpy(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
     class CreateParamsTippingMyr(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
@@ -654,6 +758,80 @@ class Configuration(
         A File ID representing an image you would like displayed on the reader.
         """
 
+    class CreateParamsWifi(TypedDict):
+        enterprise_eap_peap: NotRequired[
+            "Configuration.CreateParamsWifiEnterpriseEapPeap"
+        ]
+        """
+        Credentials for a WPA-Enterprise WiFi network using the EAP-PEAP authentication method.
+        """
+        enterprise_eap_tls: NotRequired[
+            "Configuration.CreateParamsWifiEnterpriseEapTls"
+        ]
+        """
+        Credentials for a WPA-Enterprise WiFi network using the EAP-TLS authentication method.
+        """
+        personal_psk: NotRequired["Configuration.CreateParamsWifiPersonalPsk"]
+        """
+        Credentials for a WPA-Personal WiFi network.
+        """
+        type: Literal[
+            "enterprise_eap_peap", "enterprise_eap_tls", "personal_psk"
+        ]
+        """
+        Security type of the WiFi network. Fill out the hash with the corresponding name to provide the set of credentials for this security type.
+        """
+
+    class CreateParamsWifiEnterpriseEapPeap(TypedDict):
+        ca_certificate_file: NotRequired[str]
+        """
+        A File ID representing a PEM file containing the server certificate
+        """
+        password: str
+        """
+        Password for connecting to the WiFi network
+        """
+        ssid: str
+        """
+        Name of the WiFi network
+        """
+        username: str
+        """
+        Username for connecting to the WiFi network
+        """
+
+    class CreateParamsWifiEnterpriseEapTls(TypedDict):
+        ca_certificate_file: NotRequired[str]
+        """
+        A File ID representing a PEM file containing the server certificate
+        """
+        client_certificate_file: str
+        """
+        A File ID representing a PEM file containing the client certificate
+        """
+        private_key_file: str
+        """
+        A File ID representing a PEM file containing the client RSA private key
+        """
+        private_key_file_password: NotRequired[str]
+        """
+        Password for the private key file
+        """
+        ssid: str
+        """
+        Name of the WiFi network
+        """
+
+    class CreateParamsWifiPersonalPsk(TypedDict):
+        password: str
+        """
+        Password for connecting to the WiFi network
+        """
+        ssid: str
+        """
+        Name of the WiFi network
+        """
+
     class DeleteParams(RequestOptions):
         pass
 
@@ -720,11 +898,15 @@ class Configuration(
         """
         An object containing device type specific settings for Verifone P400 readers
         """
+        wifi: NotRequired["Literal['']|Configuration.ModifyParamsWifi"]
+        """
+        Configurations for connecting to a WiFi network.
+        """
 
     class ModifyParamsBbposWiseposE(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
-        A File ID representing an image you would like displayed on the reader.
+        A File ID representing an image to display on the reader
         """
 
     class ModifyParamsOffline(TypedDict):
@@ -781,6 +963,10 @@ class Configuration(
         hkd: NotRequired["Configuration.ModifyParamsTippingHkd"]
         """
         Tipping configuration for HKD
+        """
+        jpy: NotRequired["Configuration.ModifyParamsTippingJpy"]
+        """
+        Tipping configuration for JPY
         """
         myr: NotRequired["Configuration.ModifyParamsTippingMyr"]
         """
@@ -923,6 +1109,20 @@ class Configuration(
         Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
         """
 
+    class ModifyParamsTippingJpy(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
     class ModifyParamsTippingMyr(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
@@ -1027,6 +1227,80 @@ class Configuration(
         A File ID representing an image you would like displayed on the reader.
         """
 
+    class ModifyParamsWifi(TypedDict):
+        enterprise_eap_peap: NotRequired[
+            "Configuration.ModifyParamsWifiEnterpriseEapPeap"
+        ]
+        """
+        Credentials for a WPA-Enterprise WiFi network using the EAP-PEAP authentication method.
+        """
+        enterprise_eap_tls: NotRequired[
+            "Configuration.ModifyParamsWifiEnterpriseEapTls"
+        ]
+        """
+        Credentials for a WPA-Enterprise WiFi network using the EAP-TLS authentication method.
+        """
+        personal_psk: NotRequired["Configuration.ModifyParamsWifiPersonalPsk"]
+        """
+        Credentials for a WPA-Personal WiFi network.
+        """
+        type: Literal[
+            "enterprise_eap_peap", "enterprise_eap_tls", "personal_psk"
+        ]
+        """
+        Security type of the WiFi network. Fill out the hash with the corresponding name to provide the set of credentials for this security type.
+        """
+
+    class ModifyParamsWifiEnterpriseEapPeap(TypedDict):
+        ca_certificate_file: NotRequired[str]
+        """
+        A File ID representing a PEM file containing the server certificate
+        """
+        password: str
+        """
+        Password for connecting to the WiFi network
+        """
+        ssid: str
+        """
+        Name of the WiFi network
+        """
+        username: str
+        """
+        Username for connecting to the WiFi network
+        """
+
+    class ModifyParamsWifiEnterpriseEapTls(TypedDict):
+        ca_certificate_file: NotRequired[str]
+        """
+        A File ID representing a PEM file containing the server certificate
+        """
+        client_certificate_file: str
+        """
+        A File ID representing a PEM file containing the client certificate
+        """
+        private_key_file: str
+        """
+        A File ID representing a PEM file containing the client RSA private key
+        """
+        private_key_file_password: NotRequired[str]
+        """
+        Password for the private key file
+        """
+        ssid: str
+        """
+        Name of the WiFi network
+        """
+
+    class ModifyParamsWifiPersonalPsk(TypedDict):
+        password: str
+        """
+        Password for connecting to the WiFi network
+        """
+        ssid: str
+        """
+        Name of the WiFi network
+        """
+
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -1059,6 +1333,7 @@ class Configuration(
     stripe_s700: Optional[StripeS700]
     tipping: Optional[Tipping]
     verifone_p400: Optional[VerifoneP400]
+    wifi: Optional[Wifi]
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
@@ -1297,4 +1572,5 @@ class Configuration(
         "stripe_s700": StripeS700,
         "tipping": Tipping,
         "verifone_p400": VerifoneP400,
+        "wifi": Wifi,
     }

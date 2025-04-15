@@ -60,10 +60,21 @@ class CreditGrant(
 
     class ApplicabilityConfig(StripeObject):
         class Scope(StripeObject):
-            price_type: Literal["metered"]
+            class Price(StripeObject):
+                id: Optional[str]
+                """
+                Unique identifier for the object.
+                """
+
+            price_type: Optional[Literal["metered"]]
             """
-            The price type for which credit grants can apply. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
+            The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `prices`.
             """
+            prices: Optional[List[Price]]
+            """
+            The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `price_type`.
+            """
+            _inner_class_types = {"prices": Price}
 
         scope: Scope
         _inner_class_types = {"scope": Scope}
@@ -75,7 +86,7 @@ class CreditGrant(
         """
         applicability_config: "CreditGrant.CreateParamsApplicabilityConfig"
         """
-        Configuration specifying what this credit grant applies to.
+        Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
         """
         category: Literal["paid", "promotional"]
         """
@@ -87,7 +98,7 @@ class CreditGrant(
         """
         effective_at: NotRequired[int]
         """
-        The time when the billing credits become effective—when they're eligible for use. Defaults to the current timestamp if not specified.
+        The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
         """
         expand: NotRequired[List[str]]
         """
@@ -95,15 +106,19 @@ class CreditGrant(
         """
         expires_at: NotRequired[int]
         """
-        The time when the billing credits will expire. If not specified, the billing credits don't expire.
+        The time when the billing credits expire. If not specified, the billing credits don't expire.
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object (for example, cost basis) in a structured format.
+        Set of key-value pairs that you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
         """
         name: NotRequired[str]
         """
         A descriptive name shown in the Dashboard.
+        """
+        priority: NotRequired[int]
+        """
+        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
         """
 
     class CreateParamsAmount(TypedDict):
@@ -133,9 +148,21 @@ class CreditGrant(
         """
 
     class CreateParamsApplicabilityConfigScope(TypedDict):
-        price_type: Literal["metered"]
+        price_type: NotRequired[Literal["metered"]]
         """
-        The price type for which credit grants can apply. We currently only support the `metered` price type.
+        The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
+        """
+        prices: NotRequired[
+            List["CreditGrant.CreateParamsApplicabilityConfigScopePrice"]
+        ]
+        """
+        A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+        """
+
+    class CreateParamsApplicabilityConfigScopePrice(TypedDict):
+        id: str
+        """
+        The price ID this credit grant should apply to.
         """
 
     class ExpireParams(RequestOptions):
@@ -177,7 +204,7 @@ class CreditGrant(
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs you can attach to an object. This can be useful for storing additional information about the object (for example, cost basis) in a structured format.
+        Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
         """
 
     class RetrieveParams(RequestOptions):
@@ -208,7 +235,7 @@ class CreditGrant(
     """
     effective_at: Optional[int]
     """
-    The time when the billing credits become effective—when they're eligible for use.
+    The time when the billing credits become effective-when they're eligible for use.
     """
     expires_at: Optional[int]
     """
@@ -234,6 +261,10 @@ class CreditGrant(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    priority: Optional[int]
+    """
+    The priority for applying this credit grant. The highest priority is 0 and the lowest is 100.
+    """
     test_clock: Optional[ExpandableField["TestClock"]]
     """
     ID of the test clock this credit grant belongs to.
@@ -252,7 +283,7 @@ class CreditGrant(
         cls, **params: Unpack["CreditGrant.CreateParams"]
     ) -> "CreditGrant":
         """
-        Creates a credit grant
+        Creates a credit grant.
         """
         return cast(
             "CreditGrant",
@@ -268,7 +299,7 @@ class CreditGrant(
         cls, **params: Unpack["CreditGrant.CreateParams"]
     ) -> "CreditGrant":
         """
-        Creates a credit grant
+        Creates a credit grant.
         """
         return cast(
             "CreditGrant",
@@ -434,7 +465,7 @@ class CreditGrant(
         cls, id: str, **params: Unpack["CreditGrant.ModifyParams"]
     ) -> "CreditGrant":
         """
-        Updates a credit grant
+        Updates a credit grant.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -451,7 +482,7 @@ class CreditGrant(
         cls, id: str, **params: Unpack["CreditGrant.ModifyParams"]
     ) -> "CreditGrant":
         """
-        Updates a credit grant
+        Updates a credit grant.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -468,7 +499,7 @@ class CreditGrant(
         cls, id: str, **params: Unpack["CreditGrant.RetrieveParams"]
     ) -> "CreditGrant":
         """
-        Retrieves a credit grant
+        Retrieves a credit grant.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -479,7 +510,7 @@ class CreditGrant(
         cls, id: str, **params: Unpack["CreditGrant.RetrieveParams"]
     ) -> "CreditGrant":
         """
-        Retrieves a credit grant
+        Retrieves a credit grant.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

@@ -1,3 +1,4 @@
+import base64
 from typing import Any, List
 from typing_extensions import Type
 from unittest.mock import call
@@ -1971,3 +1972,33 @@ class TestAIOHTTPClientRetryBehavior(TestAIOHTTPClient):
 
     def test_timeout_async(self):
         pass
+
+
+class TestLiveHTTPClients:
+    """
+    Tests that actually make HTTP requests in order to test functionality (like https)
+    end to end.
+    """
+
+    @pytest.mark.anyio
+    async def test_httpx_request_async_https(self):
+        """
+        Test to ensure that httpx https calls succeed by making a live test call
+        to the public stripe API.
+        """
+        method = "get"
+        abs_url = "https://api.stripe.com/v1/balance"
+        data = {}
+
+        client = _http_client.HTTPXClient(verify_ssl_certs=True)
+        # the public test secret key, as found on https://docs.stripe.com/keys#obtain-api-keys
+        test_api_key = "sk_test_BQokikJOvBiI2HlWgH4olfQ2"
+        basic_auth = base64.b64encode(
+            (test_api_key + ":").encode("utf-8")
+        ).decode("utf-8")
+        headers = {"Authorization": "Basic " + basic_auth}
+
+        _, code, _ = await client.request_with_retries_async(
+            method, abs_url, headers, data
+        )
+        assert code >= 200 and code < 400

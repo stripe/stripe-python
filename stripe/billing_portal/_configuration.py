@@ -160,7 +160,7 @@ class Configuration(
             """
             Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. Defaults to a value of `none` if you don't set it during creation.
             """
-            schedule_at_period_end: Optional[ScheduleAtPeriodEnd]
+            schedule_at_period_end: ScheduleAtPeriodEnd
             _inner_class_types = {
                 "products": Product,
                 "schedule_at_period_end": ScheduleAtPeriodEnd,
@@ -308,7 +308,7 @@ class Configuration(
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
+        Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. Passing `always_invoice` will result in an error. No prorations are generated when canceling a subscription at the end of its natural billing period.
         """
 
     class CreateParamsFeaturesSubscriptionCancelCancellationReason(TypedDict):
@@ -546,7 +546,7 @@ class Configuration(
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
+        Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. Passing `always_invoice` will result in an error. No prorations are generated when canceling a subscription at the end of its natural billing period.
         """
 
     class ModifyParamsFeaturesSubscriptionCancelCancellationReason(TypedDict):

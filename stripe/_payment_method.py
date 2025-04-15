@@ -106,6 +106,9 @@ class PaymentMethod(
     class Bancontact(StripeObject):
         pass
 
+    class Billie(StripeObject):
+        pass
+
     class BillingDetails(StripeObject):
         class Address(StripeObject):
             city: Optional[str]
@@ -312,7 +315,7 @@ class PaymentMethod(
                     """
                     network_transaction_id: Optional[str]
                     """
-                    This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. The first three digits of the Trace ID is the Financial Network Code, the next 6 digits is the Banknet Reference Number, and the last 4 digits represent the date (MM/DD). This field will be available for successful Visa, Mastercard, or American Express transactions and always null for other card brands.
+                    This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
                     """
                     offline: Optional[Offline]
                     """
@@ -375,7 +378,7 @@ class PaymentMethod(
         class Networks(StripeObject):
             available: List[str]
             """
-            All available networks for the card.
+            All networks available for selection via [payment_method_options.card.network](https://stripe.com/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
             """
             preferred: Optional[str]
             """
@@ -643,6 +646,10 @@ class PaymentMethod(
         """
         Contains information about card networks that can be used to process the payment.
         """
+        regulated_status: Optional[Literal["regulated", "unregulated"]]
+        """
+        Status of a card based on the card issuer.
+        """
         three_d_secure_usage: Optional[ThreeDSecureUsage]
         """
         Contains details on how this Card may be used for 3D Secure authentication.
@@ -663,7 +670,7 @@ class PaymentMethod(
         class Networks(StripeObject):
             available: List[str]
             """
-            All available networks for the card.
+            All networks available for selection via [payment_method_options.card.network](https://stripe.com/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
             """
             preferred: Optional[str]
             """
@@ -909,7 +916,7 @@ class PaymentMethod(
         class Networks(StripeObject):
             available: List[str]
             """
-            All available networks for the card.
+            All networks available for selection via [payment_method_options.card.network](https://stripe.com/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
             """
             preferred: Optional[str]
             """
@@ -1063,9 +1070,39 @@ class PaymentMethod(
         pass
 
     class NaverPay(StripeObject):
+        buyer_id: Optional[str]
+        """
+        Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
+        """
         funding: Literal["card", "points"]
         """
         Whether to fund this transaction with Naver Pay points or a card.
+        """
+
+    class NzBankAccount(StripeObject):
+        account_holder_name: Optional[str]
+        """
+        The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        bank_name: str
+        """
+        The name of the bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        last4: str
+        """
+        Last four digits of the bank account number.
+        """
+        suffix: Optional[str]
+        """
+        The suffix of the bank account number.
         """
 
     class Oxxo(StripeObject):
@@ -1106,6 +1143,9 @@ class PaymentMethod(
         The customer's bank, if provided.
         """
 
+    class PayByBank(StripeObject):
+        pass
+
     class Payco(StripeObject):
         pass
 
@@ -1113,6 +1153,10 @@ class PaymentMethod(
         pass
 
     class Paypal(StripeObject):
+        country: Optional[str]
+        """
+        Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+        """
         payer_email: Optional[str]
         """
         Owner's email. Values are provided by PayPal directly
@@ -1139,6 +1183,9 @@ class PaymentMethod(
         pass
 
     class SamsungPay(StripeObject):
+        pass
+
+    class Satispay(StripeObject):
         pass
 
     class SepaDebit(StripeObject):
@@ -1341,6 +1388,10 @@ class PaymentMethod(
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired["PaymentMethod.CreateParamsBillie"]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        """
         billing_details: NotRequired[
             "PaymentMethod.CreateParamsBillingDetails"
         ]
@@ -1439,6 +1490,10 @@ class PaymentMethod(
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired["PaymentMethod.CreateParamsNzBankAccount"]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired["PaymentMethod.CreateParamsOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -1446,6 +1501,10 @@ class PaymentMethod(
         p24: NotRequired["PaymentMethod.CreateParamsP24"]
         """
         If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
+        """
+        pay_by_bank: NotRequired["PaymentMethod.CreateParamsPayByBank"]
+        """
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
         """
         payco: NotRequired["PaymentMethod.CreateParamsPayco"]
         """
@@ -1483,6 +1542,10 @@ class PaymentMethod(
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
         """
+        satispay: NotRequired["PaymentMethod.CreateParamsSatispay"]
+        """
+        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        """
         sepa_debit: NotRequired["PaymentMethod.CreateParamsSepaDebit"]
         """
         If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
@@ -1510,6 +1573,7 @@ class PaymentMethod(
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
+                "billie",
                 "blik",
                 "boleto",
                 "card",
@@ -1528,8 +1592,10 @@ class PaymentMethod(
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
+                "nz_bank_account",
                 "oxxo",
                 "p24",
+                "pay_by_bank",
                 "payco",
                 "paynow",
                 "paypal",
@@ -1537,6 +1603,7 @@ class PaymentMethod(
                 "promptpay",
                 "revolut_pay",
                 "samsung_pay",
+                "satispay",
                 "sepa_debit",
                 "sofort",
                 "swish",
@@ -1612,6 +1679,9 @@ class PaymentMethod(
         """
 
     class CreateParamsBancontact(TypedDict):
+        pass
+
+    class CreateParamsBillie(TypedDict):
         pass
 
     class CreateParamsBillingDetails(TypedDict):
@@ -1857,6 +1927,29 @@ class PaymentMethod(
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
         """
 
+    class CreateParamsNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
+        """
+
     class CreateParamsOxxo(TypedDict):
         pass
 
@@ -1895,6 +1988,9 @@ class PaymentMethod(
         The customer's bank.
         """
 
+    class CreateParamsPayByBank(TypedDict):
+        pass
+
     class CreateParamsPayco(TypedDict):
         pass
 
@@ -1920,6 +2016,9 @@ class PaymentMethod(
         pass
 
     class CreateParamsSamsungPay(TypedDict):
+        pass
+
+    class CreateParamsSatispay(TypedDict):
         pass
 
     class CreateParamsSepaDebit(TypedDict):
@@ -2006,6 +2105,7 @@ class PaymentMethod(
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
+                "billie",
                 "blik",
                 "boleto",
                 "card",
@@ -2024,8 +2124,10 @@ class PaymentMethod(
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
+                "nz_bank_account",
                 "oxxo",
                 "p24",
+                "pay_by_bank",
                 "payco",
                 "paynow",
                 "paypal",
@@ -2033,6 +2135,7 @@ class PaymentMethod(
                 "promptpay",
                 "revolut_pay",
                 "samsung_pay",
+                "satispay",
                 "sepa_debit",
                 "sofort",
                 "swish",
@@ -2075,9 +2178,9 @@ class PaymentMethod(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        naver_pay: NotRequired["PaymentMethod.ModifyParamsNaverPay"]
+        pay_by_bank: NotRequired["PaymentMethod.ModifyParamsPayByBank"]
         """
-        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
+        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
         """
         us_bank_account: NotRequired["PaymentMethod.ModifyParamsUsBankAccount"]
         """
@@ -2155,11 +2258,8 @@ class PaymentMethod(
     class ModifyParamsLink(TypedDict):
         pass
 
-    class ModifyParamsNaverPay(TypedDict):
-        funding: NotRequired[Literal["card", "points"]]
-        """
-        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
-        """
+    class ModifyParamsPayByBank(TypedDict):
+        pass
 
     class ModifyParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]
@@ -2190,6 +2290,7 @@ class PaymentMethod(
     au_becs_debit: Optional[AuBecsDebit]
     bacs_debit: Optional[BacsDebit]
     bancontact: Optional[Bancontact]
+    billie: Optional[Billie]
     billing_details: BillingDetails
     blik: Optional[Blik]
     boleto: Optional[Boleto]
@@ -2231,12 +2332,14 @@ class PaymentMethod(
     mobilepay: Optional[Mobilepay]
     multibanco: Optional[Multibanco]
     naver_pay: Optional[NaverPay]
+    nz_bank_account: Optional[NzBankAccount]
     object: Literal["payment_method"]
     """
     String representing the object's type. Objects of the same type share the same value.
     """
     oxxo: Optional[Oxxo]
     p24: Optional[P24]
+    pay_by_bank: Optional[PayByBank]
     payco: Optional[Payco]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
@@ -2248,6 +2351,7 @@ class PaymentMethod(
     """
     revolut_pay: Optional[RevolutPay]
     samsung_pay: Optional[SamsungPay]
+    satispay: Optional[Satispay]
     sepa_debit: Optional[SepaDebit]
     sofort: Optional[Sofort]
     swish: Optional[Swish]
@@ -2262,6 +2366,7 @@ class PaymentMethod(
         "au_becs_debit",
         "bacs_debit",
         "bancontact",
+        "billie",
         "blik",
         "boleto",
         "card",
@@ -2282,8 +2387,10 @@ class PaymentMethod(
         "mobilepay",
         "multibanco",
         "naver_pay",
+        "nz_bank_account",
         "oxxo",
         "p24",
+        "pay_by_bank",
         "payco",
         "paynow",
         "paypal",
@@ -2291,6 +2398,7 @@ class PaymentMethod(
         "promptpay",
         "revolut_pay",
         "samsung_pay",
+        "satispay",
         "sepa_debit",
         "sofort",
         "swish",
@@ -2772,6 +2880,7 @@ class PaymentMethod(
         "au_becs_debit": AuBecsDebit,
         "bacs_debit": BacsDebit,
         "bancontact": Bancontact,
+        "billie": Billie,
         "billing_details": BillingDetails,
         "blik": Blik,
         "boleto": Boleto,
@@ -2793,8 +2902,10 @@ class PaymentMethod(
         "mobilepay": Mobilepay,
         "multibanco": Multibanco,
         "naver_pay": NaverPay,
+        "nz_bank_account": NzBankAccount,
         "oxxo": Oxxo,
         "p24": P24,
+        "pay_by_bank": PayByBank,
         "payco": Payco,
         "paynow": Paynow,
         "paypal": Paypal,
@@ -2803,6 +2914,7 @@ class PaymentMethod(
         "radar_options": RadarOptions,
         "revolut_pay": RevolutPay,
         "samsung_pay": SamsungPay,
+        "satispay": Satispay,
         "sepa_debit": SepaDebit,
         "sofort": Sofort,
         "swish": Swish,

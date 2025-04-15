@@ -38,7 +38,7 @@ class MeterEventAdjustmentService(StripeService):
         options: RequestOptions = {},
     ) -> MeterEventAdjustment:
         """
-        Creates a billing meter event adjustment
+        Creates a billing meter event adjustment.
         """
         return cast(
             MeterEventAdjustment,
@@ -57,7 +57,7 @@ class MeterEventAdjustmentService(StripeService):
         options: RequestOptions = {},
     ) -> MeterEventAdjustment:
         """
-        Creates a billing meter event adjustment
+        Creates a billing meter event adjustment.
         """
         return cast(
             MeterEventAdjustment,
