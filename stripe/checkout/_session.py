@@ -4919,7 +4919,7 @@ class Session(
         """
         The ID of the [Price](https://stripe.com/docs/api/prices).
         """
-        quantity: NotRequired[int]
+        quantity: NotRequired["Literal['']|int"]
         """
         The quantity of the line item being purchased.
         """
