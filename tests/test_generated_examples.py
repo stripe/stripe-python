@@ -13,7 +13,7 @@ class TestGeneratedExamples(object):
     def test_account_links_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account_link = stripe.AccountLink.create(
+        stripe.AccountLink.create(
             account="acct_xxxxxxxxxxxxx",
             refresh_url="https://example.com/reauth",
             return_url="https://example.com/return",
@@ -58,7 +58,7 @@ class TestGeneratedExamples(object):
     async def test_account_links_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account_link = await stripe.AccountLink.create_async(
+        await stripe.AccountLink.create_async(
             account="acct_xxxxxxxxxxxxx",
             refresh_url="https://example.com/reauth",
             return_url="https://example.com/return",
@@ -103,7 +103,7 @@ class TestGeneratedExamples(object):
     def test_accounts_capabilities_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        capabilities = stripe.Account.list_capabilities("acct_xxxxxxxxxxxxx")
+        stripe.Account.list_capabilities("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities",
@@ -134,9 +134,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_capabilities_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        capabilities = await stripe.Account.list_capabilities_async(
-            "acct_xxxxxxxxxxxxx",
-        )
+        await stripe.Account.list_capabilities_async("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities",
@@ -169,7 +167,7 @@ class TestGeneratedExamples(object):
     def test_accounts_capabilities_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        capability = stripe.Account.retrieve_capability(
+        stripe.Account.retrieve_capability(
             "acct_xxxxxxxxxxxxx",
             "card_payments",
         )
@@ -206,7 +204,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_capabilities_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        capability = await stripe.Account.retrieve_capability_async(
+        await stripe.Account.retrieve_capability_async(
             "acct_xxxxxxxxxxxxx",
             "card_payments",
         )
@@ -243,7 +241,7 @@ class TestGeneratedExamples(object):
     def test_accounts_capabilities_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        capability = stripe.Account.modify_capability(
+        stripe.Account.modify_capability(
             "acct_xxxxxxxxxxxxx",
             "card_payments",
             requested=True,
@@ -284,7 +282,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_capabilities_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        capability = await stripe.Account.modify_capability_async(
+        await stripe.Account.modify_capability_async(
             "acct_xxxxxxxxxxxxx",
             "card_payments",
             requested=True,
@@ -323,7 +321,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_accounts_delete(self, http_client_mock: HTTPClientMock) -> None:
-        deleted = stripe.Account.delete("acct_xxxxxxxxxxxxx")
+        stripe.Account.delete("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
@@ -354,7 +352,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.Account.delete_async("acct_xxxxxxxxxxxxx")
+        await stripe.Account.delete_async("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
@@ -385,7 +383,7 @@ class TestGeneratedExamples(object):
     def test_accounts_external_accounts_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.Account.delete_external_account(
+        stripe.Account.delete_external_account(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
@@ -422,7 +420,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_external_accounts_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.Account.delete_external_account_async(
+        await stripe.Account.delete_external_account_async(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
@@ -459,7 +457,7 @@ class TestGeneratedExamples(object):
     def test_accounts_external_accounts_delete_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.Account.delete_external_account(
+        stripe.Account.delete_external_account(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -496,7 +494,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_external_accounts_delete_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.Account.delete_external_account_async(
+        await stripe.Account.delete_external_account_async(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -533,7 +531,7 @@ class TestGeneratedExamples(object):
     def test_accounts_external_accounts_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_accounts = stripe.Account.list_external_accounts(
+        stripe.Account.list_external_accounts(
             "acct_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -571,7 +569,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_external_accounts_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_accounts = await stripe.Account.list_external_accounts_async(
+        await stripe.Account.list_external_accounts_async(
             "acct_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -609,7 +607,7 @@ class TestGeneratedExamples(object):
     def test_accounts_external_accounts_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_accounts = stripe.Account.list_external_accounts(
+        stripe.Account.list_external_accounts(
             "acct_xxxxxxxxxxxxx",
             object="bank_account",
             limit=3,
@@ -648,7 +646,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_external_accounts_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_accounts = await stripe.Account.list_external_accounts_async(
+        await stripe.Account.list_external_accounts_async(
             "acct_xxxxxxxxxxxxx",
             object="bank_account",
             limit=3,
@@ -687,7 +685,7 @@ class TestGeneratedExamples(object):
     def test_accounts_external_accounts_get_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_accounts = stripe.Account.list_external_accounts(
+        stripe.Account.list_external_accounts(
             "acct_xxxxxxxxxxxxx",
             object="card",
             limit=3,
@@ -726,7 +724,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_external_accounts_get_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_accounts = await stripe.Account.list_external_accounts_async(
+        await stripe.Account.list_external_accounts_async(
             "acct_xxxxxxxxxxxxx",
             object="card",
             limit=3,
@@ -765,7 +763,7 @@ class TestGeneratedExamples(object):
     def test_accounts_external_accounts_get_4(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_account = stripe.Account.retrieve_external_account(
+        stripe.Account.retrieve_external_account(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
@@ -802,11 +800,9 @@ class TestGeneratedExamples(object):
     async def test_accounts_external_accounts_get_4_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_account = (
-            await stripe.Account.retrieve_external_account_async(
-                "acct_xxxxxxxxxxxxx",
-                "ba_xxxxxxxxxxxxx",
-            )
+        await stripe.Account.retrieve_external_account_async(
+            "acct_xxxxxxxxxxxxx",
+            "ba_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -843,7 +839,7 @@ class TestGeneratedExamples(object):
     def test_accounts_external_accounts_get_5(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_account = stripe.Account.retrieve_external_account(
+        stripe.Account.retrieve_external_account(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -880,11 +876,9 @@ class TestGeneratedExamples(object):
     async def test_accounts_external_accounts_get_5_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_account = (
-            await stripe.Account.retrieve_external_account_async(
-                "acct_xxxxxxxxxxxxx",
-                "card_xxxxxxxxxxxxx",
-            )
+        await stripe.Account.retrieve_external_account_async(
+            "acct_xxxxxxxxxxxxx",
+            "card_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -921,7 +915,7 @@ class TestGeneratedExamples(object):
     def test_accounts_external_accounts_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_account = stripe.Account.create_external_account(
+        stripe.Account.create_external_account(
             "acct_xxxxxxxxxxxxx",
             external_account="btok_xxxxxxxxxxxxx",
         )
@@ -960,7 +954,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_external_accounts_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_account = await stripe.Account.create_external_account_async(
+        await stripe.Account.create_external_account_async(
             "acct_xxxxxxxxxxxxx",
             external_account="btok_xxxxxxxxxxxxx",
         )
@@ -1001,7 +995,7 @@ class TestGeneratedExamples(object):
     def test_accounts_external_accounts_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_account = stripe.Account.create_external_account(
+        stripe.Account.create_external_account(
             "acct_xxxxxxxxxxxxx",
             external_account="tok_xxxx_debit",
         )
@@ -1040,7 +1034,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_external_accounts_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_account = await stripe.Account.create_external_account_async(
+        await stripe.Account.create_external_account_async(
             "acct_xxxxxxxxxxxxx",
             external_account="tok_xxxx_debit",
         )
@@ -1081,7 +1075,7 @@ class TestGeneratedExamples(object):
     def test_accounts_external_accounts_post_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_account = stripe.Account.modify_external_account(
+        stripe.Account.modify_external_account(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
@@ -1122,7 +1116,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_external_accounts_post_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_account = await stripe.Account.modify_external_account_async(
+        await stripe.Account.modify_external_account_async(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
@@ -1165,7 +1159,7 @@ class TestGeneratedExamples(object):
     def test_accounts_external_accounts_post_4(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_account = stripe.Account.modify_external_account(
+        stripe.Account.modify_external_account(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
@@ -1206,7 +1200,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_external_accounts_post_4_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        external_account = await stripe.Account.modify_external_account_async(
+        await stripe.Account.modify_external_account_async(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
@@ -1247,7 +1241,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_accounts_get(self, http_client_mock: HTTPClientMock) -> None:
-        accounts = stripe.Account.list(limit=3)
+        stripe.Account.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts",
@@ -1279,7 +1273,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        accounts = await stripe.Account.list_async(limit=3)
+        await stripe.Account.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts",
@@ -1309,7 +1303,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_accounts_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        account = stripe.Account.retrieve("acct_xxxxxxxxxxxxx")
+        stripe.Account.retrieve("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
@@ -1340,7 +1334,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = await stripe.Account.retrieve_async("acct_xxxxxxxxxxxxx")
+        await stripe.Account.retrieve_async("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
@@ -1371,7 +1365,7 @@ class TestGeneratedExamples(object):
     def test_accounts_login_links_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        login_link = stripe.Account.create_login_link("acct_xxxxxxxxxxxxx")
+        stripe.Account.create_login_link("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/login_links",
@@ -1402,9 +1396,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_login_links_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        login_link = await stripe.Account.create_login_link_async(
-            "acct_xxxxxxxxxxxxx",
-        )
+        await stripe.Account.create_login_link_async("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/login_links",
@@ -1437,7 +1429,7 @@ class TestGeneratedExamples(object):
     def test_accounts_persons_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.Account.delete_person(
+        stripe.Account.delete_person(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
         )
@@ -1474,7 +1466,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_persons_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.Account.delete_person_async(
+        await stripe.Account.delete_person_async(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
         )
@@ -1511,7 +1503,7 @@ class TestGeneratedExamples(object):
     def test_accounts_persons_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        persons = stripe.Account.persons(
+        stripe.Account.persons(
             "acct_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -1549,7 +1541,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_persons_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        persons = await stripe.Account.persons_async(
+        await stripe.Account.persons_async(
             "acct_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -1587,7 +1579,7 @@ class TestGeneratedExamples(object):
     def test_accounts_persons_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        person = stripe.Account.retrieve_person(
+        stripe.Account.retrieve_person(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
         )
@@ -1624,7 +1616,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_persons_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        person = await stripe.Account.retrieve_person_async(
+        await stripe.Account.retrieve_person_async(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
         )
@@ -1661,7 +1653,7 @@ class TestGeneratedExamples(object):
     def test_accounts_persons_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        person = stripe.Account.create_person(
+        stripe.Account.create_person(
             "acct_xxxxxxxxxxxxx",
             first_name="Jane",
             last_name="Diaz",
@@ -1701,7 +1693,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_persons_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        person = await stripe.Account.create_person_async(
+        await stripe.Account.create_person_async(
             "acct_xxxxxxxxxxxxx",
             first_name="Jane",
             last_name="Diaz",
@@ -1741,7 +1733,7 @@ class TestGeneratedExamples(object):
     def test_accounts_persons_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        person = stripe.Account.modify_person(
+        stripe.Account.modify_person(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
@@ -1782,7 +1774,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_persons_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        person = await stripe.Account.modify_person_async(
+        await stripe.Account.modify_person_async(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
@@ -1821,7 +1813,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_accounts_post(self, http_client_mock: HTTPClientMock) -> None:
-        account = stripe.Account.create(
+        stripe.Account.create(
             type="custom",
             country="US",
             email="jenny.rosen@example.com",
@@ -1872,7 +1864,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = await stripe.Account.create_async(
+        await stripe.Account.create_async(
             type="custom",
             country="US",
             email="jenny.rosen@example.com",
@@ -1921,7 +1913,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_accounts_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        account = stripe.Account.modify(
+        stripe.Account.modify(
             "acct_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -1960,7 +1952,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = await stripe.Account.modify_async(
+        await stripe.Account.modify_async(
             "acct_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -1999,7 +1991,7 @@ class TestGeneratedExamples(object):
     def test_accounts_reject_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = stripe.Account.reject(
+        stripe.Account.reject(
             "acct_xxxxxxxxxxxxx",
             reason="fraud",
         )
@@ -2038,7 +2030,7 @@ class TestGeneratedExamples(object):
     async def test_accounts_reject_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = await stripe.Account.reject_async(
+        await stripe.Account.reject_async(
             "acct_xxxxxxxxxxxxx",
             reason="fraud",
         )
@@ -2077,7 +2069,7 @@ class TestGeneratedExamples(object):
     def test_application_fees_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        application_fees = stripe.ApplicationFee.list(limit=3)
+        stripe.ApplicationFee.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/application_fees",
@@ -2109,7 +2101,7 @@ class TestGeneratedExamples(object):
     async def test_application_fees_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        application_fees = await stripe.ApplicationFee.list_async(limit=3)
+        await stripe.ApplicationFee.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/application_fees",
@@ -2145,7 +2137,7 @@ class TestGeneratedExamples(object):
     def test_application_fees_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        application_fee = stripe.ApplicationFee.retrieve("fee_xxxxxxxxxxxxx")
+        stripe.ApplicationFee.retrieve("fee_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx",
@@ -2176,9 +2168,7 @@ class TestGeneratedExamples(object):
     async def test_application_fees_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        application_fee = await stripe.ApplicationFee.retrieve_async(
-            "fee_xxxxxxxxxxxxx",
-        )
+        await stripe.ApplicationFee.retrieve_async("fee_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx",
@@ -2211,7 +2201,7 @@ class TestGeneratedExamples(object):
     def test_application_fees_refunds_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        application_fee_refunds = stripe.ApplicationFee.list_refunds(
+        stripe.ApplicationFee.list_refunds(
             "fee_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -2249,11 +2239,9 @@ class TestGeneratedExamples(object):
     async def test_application_fees_refunds_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        application_fee_refunds = (
-            await stripe.ApplicationFee.list_refunds_async(
-                "fee_xxxxxxxxxxxxx",
-                limit=3,
-            )
+        await stripe.ApplicationFee.list_refunds_async(
+            "fee_xxxxxxxxxxxxx",
+            limit=3,
         )
         http_client_mock.assert_requested(
             "get",
@@ -2291,7 +2279,7 @@ class TestGeneratedExamples(object):
     def test_application_fees_refunds_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        application_fee_refund = stripe.ApplicationFee.retrieve_refund(
+        stripe.ApplicationFee.retrieve_refund(
             "fee_xxxxxxxxxxxxx",
             "fr_xxxxxxxxxxxxx",
         )
@@ -2328,11 +2316,9 @@ class TestGeneratedExamples(object):
     async def test_application_fees_refunds_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        application_fee_refund = (
-            await stripe.ApplicationFee.retrieve_refund_async(
-                "fee_xxxxxxxxxxxxx",
-                "fr_xxxxxxxxxxxxx",
-            )
+        await stripe.ApplicationFee.retrieve_refund_async(
+            "fee_xxxxxxxxxxxxx",
+            "fr_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -2369,9 +2355,7 @@ class TestGeneratedExamples(object):
     def test_application_fees_refunds_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        application_fee_refund = stripe.ApplicationFee.create_refund(
-            "fee_xxxxxxxxxxxxx",
-        )
+        stripe.ApplicationFee.create_refund("fee_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
@@ -2404,11 +2388,7 @@ class TestGeneratedExamples(object):
     async def test_application_fees_refunds_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        application_fee_refund = (
-            await stripe.ApplicationFee.create_refund_async(
-                "fee_xxxxxxxxxxxxx",
-            )
-        )
+        await stripe.ApplicationFee.create_refund_async("fee_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
@@ -2443,7 +2423,7 @@ class TestGeneratedExamples(object):
     def test_application_fees_refunds_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        application_fee_refund = stripe.ApplicationFee.modify_refund(
+        stripe.ApplicationFee.modify_refund(
             "fee_xxxxxxxxxxxxx",
             "fr_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
@@ -2484,12 +2464,10 @@ class TestGeneratedExamples(object):
     async def test_application_fees_refunds_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        application_fee_refund = (
-            await stripe.ApplicationFee.modify_refund_async(
-                "fee_xxxxxxxxxxxxx",
-                "fr_xxxxxxxxxxxxx",
-                metadata={"order_id": "6735"},
-            )
+        await stripe.ApplicationFee.modify_refund_async(
+            "fee_xxxxxxxxxxxxx",
+            "fr_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
         )
         http_client_mock.assert_requested(
             "post",
@@ -2529,7 +2507,7 @@ class TestGeneratedExamples(object):
     def test_apps_secrets_delete_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        secret = stripe.apps.Secret.delete_where(
+        stripe.apps.Secret.delete_where(
             name="my-api-key",
             scope={"type": "account"},
         )
@@ -2570,7 +2548,7 @@ class TestGeneratedExamples(object):
     async def test_apps_secrets_delete_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        secret = await stripe.apps.Secret.delete_where_async(
+        await stripe.apps.Secret.delete_where_async(
             name="my-api-key",
             scope={"type": "account"},
         )
@@ -2611,7 +2589,7 @@ class TestGeneratedExamples(object):
     def test_apps_secrets_find_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        secret = stripe.apps.Secret.find(
+        stripe.apps.Secret.find(
             name="sec_123",
             scope={"type": "account"},
         )
@@ -2651,7 +2629,7 @@ class TestGeneratedExamples(object):
     async def test_apps_secrets_find_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        secret = await stripe.apps.Secret.find_async(
+        await stripe.apps.Secret.find_async(
             name="sec_123",
             scope={"type": "account"},
         )
@@ -2689,7 +2667,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_apps_secrets_get(self, http_client_mock: HTTPClientMock) -> None:
-        secrets = stripe.apps.Secret.list(
+        stripe.apps.Secret.list(
             scope={"type": "account"},
             limit=2,
         )
@@ -2729,7 +2707,7 @@ class TestGeneratedExamples(object):
     async def test_apps_secrets_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        secrets = await stripe.apps.Secret.list_async(
+        await stripe.apps.Secret.list_async(
             scope={"type": "account"},
             limit=2,
         )
@@ -2769,7 +2747,7 @@ class TestGeneratedExamples(object):
     def test_apps_secrets_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        secrets = stripe.apps.Secret.list(
+        stripe.apps.Secret.list(
             scope={"type": "account"},
             limit=2,
         )
@@ -2809,7 +2787,7 @@ class TestGeneratedExamples(object):
     async def test_apps_secrets_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        secrets = await stripe.apps.Secret.list_async(
+        await stripe.apps.Secret.list_async(
             scope={"type": "account"},
             limit=2,
         )
@@ -2847,7 +2825,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_apps_secrets_post(self, http_client_mock: HTTPClientMock) -> None:
-        secret = stripe.apps.Secret.create(
+        stripe.apps.Secret.create(
             name="sec_123",
             payload="very secret string",
             scope={"type": "account"},
@@ -2890,7 +2868,7 @@ class TestGeneratedExamples(object):
     async def test_apps_secrets_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        secret = await stripe.apps.Secret.create_async(
+        await stripe.apps.Secret.create_async(
             name="sec_123",
             payload="very secret string",
             scope={"type": "account"},
@@ -2933,7 +2911,7 @@ class TestGeneratedExamples(object):
     def test_apps_secrets_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        secret = stripe.apps.Secret.create(
+        stripe.apps.Secret.create(
             name="my-api-key",
             payload="secret_key_xxxxxx",
             scope={"type": "account"},
@@ -2976,7 +2954,7 @@ class TestGeneratedExamples(object):
     async def test_apps_secrets_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        secret = await stripe.apps.Secret.create_async(
+        await stripe.apps.Secret.create_async(
             name="my-api-key",
             payload="secret_key_xxxxxx",
             scope={"type": "account"},
@@ -3019,7 +2997,7 @@ class TestGeneratedExamples(object):
     def test_balance_transactions_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        balance_transactions = stripe.BalanceTransaction.list(limit=3)
+        stripe.BalanceTransaction.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/balance_transactions",
@@ -3051,9 +3029,7 @@ class TestGeneratedExamples(object):
     async def test_balance_transactions_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        balance_transactions = await stripe.BalanceTransaction.list_async(
-            limit=3,
-        )
+        await stripe.BalanceTransaction.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/balance_transactions",
@@ -3089,9 +3065,7 @@ class TestGeneratedExamples(object):
     def test_balance_transactions_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        balance_transaction = stripe.BalanceTransaction.retrieve(
-            "txn_xxxxxxxxxxxxx",
-        )
+        stripe.BalanceTransaction.retrieve("txn_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/balance_transactions/txn_xxxxxxxxxxxxx",
@@ -3124,9 +3098,7 @@ class TestGeneratedExamples(object):
     async def test_balance_transactions_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        balance_transaction = await stripe.BalanceTransaction.retrieve_async(
-            "txn_xxxxxxxxxxxxx",
-        )
+        await stripe.BalanceTransaction.retrieve_async("txn_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/balance_transactions/txn_xxxxxxxxxxxxx",
@@ -3159,7 +3131,7 @@ class TestGeneratedExamples(object):
     def test_billing_portal_configurations_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configurations = stripe.billing_portal.Configuration.list(limit=3)
+        stripe.billing_portal.Configuration.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/billing_portal/configurations",
@@ -3193,9 +3165,7 @@ class TestGeneratedExamples(object):
     async def test_billing_portal_configurations_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configurations = await stripe.billing_portal.Configuration.list_async(
-            limit=3,
-        )
+        await stripe.billing_portal.Configuration.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/billing_portal/configurations",
@@ -3231,9 +3201,7 @@ class TestGeneratedExamples(object):
     def test_billing_portal_configurations_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = stripe.billing_portal.Configuration.retrieve(
-            "bpc_xxxxxxxxxxxxx",
-        )
+        stripe.billing_portal.Configuration.retrieve("bpc_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
@@ -3266,10 +3234,8 @@ class TestGeneratedExamples(object):
     async def test_billing_portal_configurations_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = (
-            await stripe.billing_portal.Configuration.retrieve_async(
-                "bpc_xxxxxxxxxxxxx",
-            )
+        await stripe.billing_portal.Configuration.retrieve_async(
+            "bpc_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -3305,7 +3271,7 @@ class TestGeneratedExamples(object):
     def test_billing_portal_configurations_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = stripe.billing_portal.Configuration.create(
+        stripe.billing_portal.Configuration.create(
             features={
                 "customer_update": {
                     "allowed_updates": ["email", "tax_id"],
@@ -3364,7 +3330,7 @@ class TestGeneratedExamples(object):
     async def test_billing_portal_configurations_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = await stripe.billing_portal.Configuration.create_async(
+        await stripe.billing_portal.Configuration.create_async(
             features={
                 "customer_update": {
                     "allowed_updates": ["email", "tax_id"],
@@ -3425,7 +3391,7 @@ class TestGeneratedExamples(object):
     def test_billing_portal_configurations_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = stripe.billing_portal.Configuration.modify(
+        stripe.billing_portal.Configuration.modify(
             "bpc_xxxxxxxxxxxxx",
             business_profile={
                 "privacy_policy_url": "https://example.com/privacy",
@@ -3472,7 +3438,7 @@ class TestGeneratedExamples(object):
     async def test_billing_portal_configurations_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = await stripe.billing_portal.Configuration.modify_async(
+        await stripe.billing_portal.Configuration.modify_async(
             "bpc_xxxxxxxxxxxxx",
             business_profile={
                 "privacy_policy_url": "https://example.com/privacy",
@@ -3521,7 +3487,7 @@ class TestGeneratedExamples(object):
     def test_billing_portal_sessions_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = stripe.billing_portal.Session.create(
+        stripe.billing_portal.Session.create(
             customer="cus_xxxxxxxxxxxxx",
             return_url="https://example.com/account",
         )
@@ -3562,7 +3528,7 @@ class TestGeneratedExamples(object):
     async def test_billing_portal_sessions_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = await stripe.billing_portal.Session.create_async(
+        await stripe.billing_portal.Session.create_async(
             customer="cus_xxxxxxxxxxxxx",
             return_url="https://example.com/account",
         )
@@ -3603,7 +3569,7 @@ class TestGeneratedExamples(object):
     def test_charges_capture_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        charge = stripe.Charge.capture("ch_xxxxxxxxxxxxx")
+        stripe.Charge.capture("ch_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/charges/ch_xxxxxxxxxxxxx/capture",
@@ -3634,7 +3600,7 @@ class TestGeneratedExamples(object):
     async def test_charges_capture_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        charge = await stripe.Charge.capture_async("ch_xxxxxxxxxxxxx")
+        await stripe.Charge.capture_async("ch_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/charges/ch_xxxxxxxxxxxxx/capture",
@@ -3663,7 +3629,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_charges_get(self, http_client_mock: HTTPClientMock) -> None:
-        charges = stripe.Charge.list(limit=3)
+        stripe.Charge.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/charges",
@@ -3695,7 +3661,7 @@ class TestGeneratedExamples(object):
     async def test_charges_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        charges = await stripe.Charge.list_async(limit=3)
+        await stripe.Charge.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/charges",
@@ -3725,7 +3691,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_charges_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        charge = stripe.Charge.retrieve("ch_xxxxxxxxxxxxx")
+        stripe.Charge.retrieve("ch_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/charges/ch_xxxxxxxxxxxxx",
@@ -3756,7 +3722,7 @@ class TestGeneratedExamples(object):
     async def test_charges_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        charge = await stripe.Charge.retrieve_async("ch_xxxxxxxxxxxxx")
+        await stripe.Charge.retrieve_async("ch_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/charges/ch_xxxxxxxxxxxxx",
@@ -3785,7 +3751,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_charges_post(self, http_client_mock: HTTPClientMock) -> None:
-        charge = stripe.Charge.create(
+        stripe.Charge.create(
             amount=2000,
             currency="usd",
             source="tok_xxxx",
@@ -3830,7 +3796,7 @@ class TestGeneratedExamples(object):
     async def test_charges_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        charge = await stripe.Charge.create_async(
+        await stripe.Charge.create_async(
             amount=2000,
             currency="usd",
             source="tok_xxxx",
@@ -3873,7 +3839,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_charges_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        charge = stripe.Charge.modify(
+        stripe.Charge.modify(
             "ch_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -3912,7 +3878,7 @@ class TestGeneratedExamples(object):
     async def test_charges_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        charge = await stripe.Charge.modify_async(
+        await stripe.Charge.modify_async(
             "ch_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -3951,8 +3917,8 @@ class TestGeneratedExamples(object):
     def test_charges_search_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        charges = stripe.Charge.search(
-            query="amount>999 AND metadata['order_id']:'6735'",
+        stripe.Charge.search(
+            query="amount>999 AND metadata['order_id']:'6735'"
         )
         http_client_mock.assert_requested(
             "get",
@@ -3989,7 +3955,7 @@ class TestGeneratedExamples(object):
     async def test_charges_search_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        charges = await stripe.Charge.search_async(
+        await stripe.Charge.search_async(
             query="amount>999 AND metadata['order_id']:'6735'",
         )
         http_client_mock.assert_requested(
@@ -4027,7 +3993,7 @@ class TestGeneratedExamples(object):
     def test_checkout_sessions_expire_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = stripe.checkout.Session.expire("sess_xyz")
+        stripe.checkout.Session.expire("sess_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/checkout/sessions/sess_xyz/expire",
@@ -4058,7 +4024,7 @@ class TestGeneratedExamples(object):
     async def test_checkout_sessions_expire_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = await stripe.checkout.Session.expire_async("sess_xyz")
+        await stripe.checkout.Session.expire_async("sess_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/checkout/sessions/sess_xyz/expire",
@@ -4089,7 +4055,7 @@ class TestGeneratedExamples(object):
     def test_checkout_sessions_expire_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = stripe.checkout.Session.expire("cs_test_xxxxxxxxxxxxx")
+        stripe.checkout.Session.expire("cs_test_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire",
@@ -4120,9 +4086,7 @@ class TestGeneratedExamples(object):
     async def test_checkout_sessions_expire_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = await stripe.checkout.Session.expire_async(
-            "cs_test_xxxxxxxxxxxxx",
-        )
+        await stripe.checkout.Session.expire_async("cs_test_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire",
@@ -4155,7 +4119,7 @@ class TestGeneratedExamples(object):
     def test_checkout_sessions_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        sessions = stripe.checkout.Session.list(limit=3)
+        stripe.checkout.Session.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/checkout/sessions",
@@ -4187,7 +4151,7 @@ class TestGeneratedExamples(object):
     async def test_checkout_sessions_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        sessions = await stripe.checkout.Session.list_async(limit=3)
+        await stripe.checkout.Session.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/checkout/sessions",
@@ -4219,7 +4183,7 @@ class TestGeneratedExamples(object):
     def test_checkout_sessions_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = stripe.checkout.Session.retrieve("cs_test_xxxxxxxxxxxxx")
+        stripe.checkout.Session.retrieve("cs_test_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx",
@@ -4250,9 +4214,7 @@ class TestGeneratedExamples(object):
     async def test_checkout_sessions_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = await stripe.checkout.Session.retrieve_async(
-            "cs_test_xxxxxxxxxxxxx",
-        )
+        await stripe.checkout.Session.retrieve_async("cs_test_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx",
@@ -4285,7 +4247,7 @@ class TestGeneratedExamples(object):
     def test_checkout_sessions_line_items_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        line_items = stripe.checkout.Session.list_line_items("sess_xyz")
+        stripe.checkout.Session.list_line_items("sess_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/checkout/sessions/sess_xyz/line_items",
@@ -4316,9 +4278,7 @@ class TestGeneratedExamples(object):
     async def test_checkout_sessions_line_items_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        line_items = await stripe.checkout.Session.list_line_items_async(
-            "sess_xyz",
-        )
+        await stripe.checkout.Session.list_line_items_async("sess_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/checkout/sessions/sess_xyz/line_items",
@@ -4351,7 +4311,7 @@ class TestGeneratedExamples(object):
     def test_checkout_sessions_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = stripe.checkout.Session.create(
+        stripe.checkout.Session.create(
             success_url="https://example.com/success",
             cancel_url="https://example.com/cancel",
             mode="payment",
@@ -4418,7 +4378,7 @@ class TestGeneratedExamples(object):
     async def test_checkout_sessions_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = await stripe.checkout.Session.create_async(
+        await stripe.checkout.Session.create_async(
             success_url="https://example.com/success",
             cancel_url="https://example.com/cancel",
             mode="payment",
@@ -4485,7 +4445,7 @@ class TestGeneratedExamples(object):
     def test_checkout_sessions_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = stripe.checkout.Session.create(
+        stripe.checkout.Session.create(
             success_url="https://example.com/success",
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 2}],
             mode="payment",
@@ -4530,7 +4490,7 @@ class TestGeneratedExamples(object):
     async def test_checkout_sessions_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = await stripe.checkout.Session.create_async(
+        await stripe.checkout.Session.create_async(
             success_url="https://example.com/success",
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 2}],
             mode="payment",
@@ -4593,7 +4553,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_country_specs_get(self, http_client_mock: HTTPClientMock) -> None:
-        country_specs = stripe.CountrySpec.list(limit=3)
+        stripe.CountrySpec.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/country_specs",
@@ -4625,7 +4585,7 @@ class TestGeneratedExamples(object):
     async def test_country_specs_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        country_specs = await stripe.CountrySpec.list_async(limit=3)
+        await stripe.CountrySpec.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/country_specs",
@@ -4657,7 +4617,7 @@ class TestGeneratedExamples(object):
     def test_country_specs_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        country_spec = stripe.CountrySpec.retrieve("US")
+        stripe.CountrySpec.retrieve("US")
         http_client_mock.assert_requested(
             "get",
             path="/v1/country_specs/US",
@@ -4688,7 +4648,7 @@ class TestGeneratedExamples(object):
     async def test_country_specs_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        country_spec = await stripe.CountrySpec.retrieve_async("US")
+        await stripe.CountrySpec.retrieve_async("US")
         http_client_mock.assert_requested(
             "get",
             path="/v1/country_specs/US",
@@ -4717,7 +4677,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_coupons_delete(self, http_client_mock: HTTPClientMock) -> None:
-        deleted = stripe.Coupon.delete("Z4OV52SU")
+        stripe.Coupon.delete("Z4OV52SU")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/coupons/Z4OV52SU",
@@ -4748,7 +4708,7 @@ class TestGeneratedExamples(object):
     async def test_coupons_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.Coupon.delete_async("Z4OV52SU")
+        await stripe.Coupon.delete_async("Z4OV52SU")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/coupons/Z4OV52SU",
@@ -4777,7 +4737,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_coupons_get(self, http_client_mock: HTTPClientMock) -> None:
-        coupons = stripe.Coupon.list(limit=3)
+        stripe.Coupon.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/coupons",
@@ -4809,7 +4769,7 @@ class TestGeneratedExamples(object):
     async def test_coupons_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        coupons = await stripe.Coupon.list_async(limit=3)
+        await stripe.Coupon.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/coupons",
@@ -4839,7 +4799,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_coupons_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        coupon = stripe.Coupon.retrieve("Z4OV52SU")
+        stripe.Coupon.retrieve("Z4OV52SU")
         http_client_mock.assert_requested(
             "get",
             path="/v1/coupons/Z4OV52SU",
@@ -4870,7 +4830,7 @@ class TestGeneratedExamples(object):
     async def test_coupons_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        coupon = await stripe.Coupon.retrieve_async("Z4OV52SU")
+        await stripe.Coupon.retrieve_async("Z4OV52SU")
         http_client_mock.assert_requested(
             "get",
             path="/v1/coupons/Z4OV52SU",
@@ -4899,7 +4859,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_coupons_post(self, http_client_mock: HTTPClientMock) -> None:
-        coupon = stripe.Coupon.create(
+        stripe.Coupon.create(
             percent_off=25.5,
             duration="once",
         )
@@ -4940,7 +4900,7 @@ class TestGeneratedExamples(object):
     async def test_coupons_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        coupon = await stripe.Coupon.create_async(
+        await stripe.Coupon.create_async(
             percent_off=25.5,
             duration="once",
         )
@@ -4979,7 +4939,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_coupons_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        coupon = stripe.Coupon.modify(
+        stripe.Coupon.modify(
             "Z4OV52SU",
             metadata={"order_id": "6735"},
         )
@@ -5018,7 +4978,7 @@ class TestGeneratedExamples(object):
     async def test_coupons_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        coupon = await stripe.Coupon.modify_async(
+        await stripe.Coupon.modify_async(
             "Z4OV52SU",
             metadata={"order_id": "6735"},
         )
@@ -5055,7 +5015,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_credit_notes_get(self, http_client_mock: HTTPClientMock) -> None:
-        credit_notes = stripe.CreditNote.list(limit=3)
+        stripe.CreditNote.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/credit_notes",
@@ -5087,7 +5047,7 @@ class TestGeneratedExamples(object):
     async def test_credit_notes_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_notes = await stripe.CreditNote.list_async(limit=3)
+        await stripe.CreditNote.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/credit_notes",
@@ -5119,7 +5079,7 @@ class TestGeneratedExamples(object):
     def test_credit_notes_lines_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_note_line_items = stripe.CreditNote.list_lines(
+        stripe.CreditNote.list_lines(
             "cn_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -5157,7 +5117,7 @@ class TestGeneratedExamples(object):
     async def test_credit_notes_lines_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_note_line_items = await stripe.CreditNote.list_lines_async(
+        await stripe.CreditNote.list_lines_async(
             "cn_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -5195,7 +5155,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_credit_notes_post(self, http_client_mock: HTTPClientMock) -> None:
-        credit_note = stripe.CreditNote.create(
+        stripe.CreditNote.create(
             invoice="in_xxxxxxxxxxxxx",
             lines=[
                 {
@@ -5248,7 +5208,7 @@ class TestGeneratedExamples(object):
     async def test_credit_notes_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_note = await stripe.CreditNote.create_async(
+        await stripe.CreditNote.create_async(
             invoice="in_xxxxxxxxxxxxx",
             lines=[
                 {
@@ -5301,7 +5261,7 @@ class TestGeneratedExamples(object):
     def test_credit_notes_preview_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_note = stripe.CreditNote.preview(
+        stripe.CreditNote.preview(
             invoice="in_xxxxxxxxxxxxx",
             lines=[
                 {
@@ -5353,7 +5313,7 @@ class TestGeneratedExamples(object):
     async def test_credit_notes_preview_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_note = await stripe.CreditNote.preview_async(
+        await stripe.CreditNote.preview_async(
             invoice="in_xxxxxxxxxxxxx",
             lines=[
                 {
@@ -5405,7 +5365,7 @@ class TestGeneratedExamples(object):
     def test_credit_notes_preview_lines_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_note_line_items = stripe.CreditNote.preview_lines(
+        stripe.CreditNote.preview_lines(
             limit=3,
             invoice="in_xxxxxxxxxxxxx",
         )
@@ -5445,7 +5405,7 @@ class TestGeneratedExamples(object):
     async def test_credit_notes_preview_lines_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_note_line_items = await stripe.CreditNote.preview_lines_async(
+        await stripe.CreditNote.preview_lines_async(
             limit=3,
             invoice="in_xxxxxxxxxxxxx",
         )
@@ -5484,7 +5444,7 @@ class TestGeneratedExamples(object):
     def test_credit_notes_void_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_note = stripe.CreditNote.void_credit_note("cn_xxxxxxxxxxxxx")
+        stripe.CreditNote.void_credit_note("cn_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
@@ -5515,9 +5475,7 @@ class TestGeneratedExamples(object):
     async def test_credit_notes_void_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_note = await stripe.CreditNote.void_credit_note_async(
-            "cn_xxxxxxxxxxxxx",
-        )
+        await stripe.CreditNote.void_credit_note_async("cn_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
@@ -5550,7 +5508,7 @@ class TestGeneratedExamples(object):
     def test_customer_sessions_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_session = stripe.CustomerSession.create(
+        stripe.CustomerSession.create(
             customer="cus_123",
             components={"buy_button": {"enabled": True}},
         )
@@ -5591,7 +5549,7 @@ class TestGeneratedExamples(object):
     async def test_customer_sessions_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_session = await stripe.CustomerSession.create_async(
+        await stripe.CustomerSession.create_async(
             customer="cus_123",
             components={"buy_button": {"enabled": True}},
         )
@@ -5632,11 +5590,9 @@ class TestGeneratedExamples(object):
     def test_customers_balance_transactions_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_balance_transactions = (
-            stripe.Customer.list_balance_transactions(
-                "cus_xxxxxxxxxxxxx",
-                limit=3,
-            )
+        stripe.Customer.list_balance_transactions(
+            "cus_xxxxxxxxxxxxx",
+            limit=3,
         )
         http_client_mock.assert_requested(
             "get",
@@ -5674,11 +5630,9 @@ class TestGeneratedExamples(object):
     async def test_customers_balance_transactions_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_balance_transactions = (
-            await stripe.Customer.list_balance_transactions_async(
-                "cus_xxxxxxxxxxxxx",
-                limit=3,
-            )
+        await stripe.Customer.list_balance_transactions_async(
+            "cus_xxxxxxxxxxxxx",
+            limit=3,
         )
         http_client_mock.assert_requested(
             "get",
@@ -5716,11 +5670,9 @@ class TestGeneratedExamples(object):
     def test_customers_balance_transactions_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_balance_transaction = (
-            stripe.Customer.retrieve_balance_transaction(
-                "cus_xxxxxxxxxxxxx",
-                "cbtxn_xxxxxxxxxxxxx",
-            )
+        stripe.Customer.retrieve_balance_transaction(
+            "cus_xxxxxxxxxxxxx",
+            "cbtxn_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -5757,11 +5709,9 @@ class TestGeneratedExamples(object):
     async def test_customers_balance_transactions_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_balance_transaction = (
-            await stripe.Customer.retrieve_balance_transaction_async(
-                "cus_xxxxxxxxxxxxx",
-                "cbtxn_xxxxxxxxxxxxx",
-            )
+        await stripe.Customer.retrieve_balance_transaction_async(
+            "cus_xxxxxxxxxxxxx",
+            "cbtxn_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -5798,12 +5748,10 @@ class TestGeneratedExamples(object):
     def test_customers_balance_transactions_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_balance_transaction = (
-            stripe.Customer.create_balance_transaction(
-                "cus_xxxxxxxxxxxxx",
-                amount=-500,
-                currency="usd",
-            )
+        stripe.Customer.create_balance_transaction(
+            "cus_xxxxxxxxxxxxx",
+            amount=-500,
+            currency="usd",
         )
         http_client_mock.assert_requested(
             "post",
@@ -5842,12 +5790,10 @@ class TestGeneratedExamples(object):
     async def test_customers_balance_transactions_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_balance_transaction = (
-            await stripe.Customer.create_balance_transaction_async(
-                "cus_xxxxxxxxxxxxx",
-                amount=-500,
-                currency="usd",
-            )
+        await stripe.Customer.create_balance_transaction_async(
+            "cus_xxxxxxxxxxxxx",
+            amount=-500,
+            currency="usd",
         )
         http_client_mock.assert_requested(
             "post",
@@ -5886,12 +5832,10 @@ class TestGeneratedExamples(object):
     def test_customers_balance_transactions_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_balance_transaction = (
-            stripe.Customer.modify_balance_transaction(
-                "cus_xxxxxxxxxxxxx",
-                "cbtxn_xxxxxxxxxxxxx",
-                metadata={"order_id": "6735"},
-            )
+        stripe.Customer.modify_balance_transaction(
+            "cus_xxxxxxxxxxxxx",
+            "cbtxn_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
         )
         http_client_mock.assert_requested(
             "post",
@@ -5931,12 +5875,10 @@ class TestGeneratedExamples(object):
     async def test_customers_balance_transactions_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_balance_transaction = (
-            await stripe.Customer.modify_balance_transaction_async(
-                "cus_xxxxxxxxxxxxx",
-                "cbtxn_xxxxxxxxxxxxx",
-                metadata={"order_id": "6735"},
-            )
+        await stripe.Customer.modify_balance_transaction_async(
+            "cus_xxxxxxxxxxxxx",
+            "cbtxn_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
         )
         http_client_mock.assert_requested(
             "post",
@@ -5976,7 +5918,7 @@ class TestGeneratedExamples(object):
     def test_customers_cash_balance_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cash_balance = stripe.Customer.retrieve_cash_balance("cus_123")
+        stripe.Customer.retrieve_cash_balance("cus_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers/cus_123/cash_balance",
@@ -6007,9 +5949,7 @@ class TestGeneratedExamples(object):
     async def test_customers_cash_balance_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cash_balance = await stripe.Customer.retrieve_cash_balance_async(
-            "cus_123",
-        )
+        await stripe.Customer.retrieve_cash_balance_async("cus_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers/cus_123/cash_balance",
@@ -6042,7 +5982,7 @@ class TestGeneratedExamples(object):
     def test_customers_cash_balance_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cash_balance = stripe.Customer.modify_cash_balance(
+        stripe.Customer.modify_cash_balance(
             "cus_123",
             settings={"reconciliation_mode": "manual"},
         )
@@ -6081,7 +6021,7 @@ class TestGeneratedExamples(object):
     async def test_customers_cash_balance_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cash_balance = await stripe.Customer.modify_cash_balance_async(
+        await stripe.Customer.modify_cash_balance_async(
             "cus_123",
             settings={"reconciliation_mode": "manual"},
         )
@@ -6120,11 +6060,9 @@ class TestGeneratedExamples(object):
     def test_customers_cash_balance_transactions_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_cash_balance_transactions = (
-            stripe.Customer.list_cash_balance_transactions(
-                "cus_123",
-                limit=3,
-            )
+        stripe.Customer.list_cash_balance_transactions(
+            "cus_123",
+            limit=3,
         )
         http_client_mock.assert_requested(
             "get",
@@ -6162,11 +6100,9 @@ class TestGeneratedExamples(object):
     async def test_customers_cash_balance_transactions_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_cash_balance_transactions = (
-            await stripe.Customer.list_cash_balance_transactions_async(
-                "cus_123",
-                limit=3,
-            )
+        await stripe.Customer.list_cash_balance_transactions_async(
+            "cus_123",
+            limit=3,
         )
         http_client_mock.assert_requested(
             "get",
@@ -6202,7 +6138,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_customers_delete(self, http_client_mock: HTTPClientMock) -> None:
-        deleted = stripe.Customer.delete("cus_xxxxxxxxxxxxx")
+        stripe.Customer.delete("cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
@@ -6233,7 +6169,7 @@ class TestGeneratedExamples(object):
     async def test_customers_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.Customer.delete_async("cus_xxxxxxxxxxxxx")
+        await stripe.Customer.delete_async("cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
@@ -6264,7 +6200,7 @@ class TestGeneratedExamples(object):
     def test_customers_funding_instructions_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        funding_instructions = stripe.Customer.create_funding_instructions(
+        stripe.Customer.create_funding_instructions(
             "cus_123",
             bank_transfer={
                 "requested_address_types": ["zengin"],
@@ -6315,16 +6251,14 @@ class TestGeneratedExamples(object):
     async def test_customers_funding_instructions_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        funding_instructions = (
-            await stripe.Customer.create_funding_instructions_async(
-                "cus_123",
-                bank_transfer={
-                    "requested_address_types": ["zengin"],
-                    "type": "jp_bank_transfer",
-                },
-                currency="usd",
-                funding_type="bank_transfer",
-            )
+        await stripe.Customer.create_funding_instructions_async(
+            "cus_123",
+            bank_transfer={
+                "requested_address_types": ["zengin"],
+                "type": "jp_bank_transfer",
+            },
+            currency="usd",
+            funding_type="bank_transfer",
         )
         http_client_mock.assert_requested(
             "post",
@@ -6368,7 +6302,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_customers_get(self, http_client_mock: HTTPClientMock) -> None:
-        customers = stripe.Customer.list(limit=3)
+        stripe.Customer.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers",
@@ -6400,7 +6334,7 @@ class TestGeneratedExamples(object):
     async def test_customers_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customers = await stripe.Customer.list_async(limit=3)
+        await stripe.Customer.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers",
@@ -6430,7 +6364,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_customers_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        customers = stripe.Customer.list(limit=3)
+        stripe.Customer.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers",
@@ -6462,7 +6396,7 @@ class TestGeneratedExamples(object):
     async def test_customers_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customers = await stripe.Customer.list_async(limit=3)
+        await stripe.Customer.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers",
@@ -6492,7 +6426,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_customers_get_3(self, http_client_mock: HTTPClientMock) -> None:
-        customer = stripe.Customer.retrieve("cus_xxxxxxxxxxxxx")
+        stripe.Customer.retrieve("cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
@@ -6523,7 +6457,7 @@ class TestGeneratedExamples(object):
     async def test_customers_get_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer = await stripe.Customer.retrieve_async("cus_xxxxxxxxxxxxx")
+        await stripe.Customer.retrieve_async("cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
@@ -6554,7 +6488,7 @@ class TestGeneratedExamples(object):
     def test_customers_payment_methods_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_methods = stripe.Customer.list_payment_methods(
+        stripe.Customer.list_payment_methods(
             "cus_xyz",
             type="card",
         )
@@ -6592,7 +6526,7 @@ class TestGeneratedExamples(object):
     async def test_customers_payment_methods_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_methods = await stripe.Customer.list_payment_methods_async(
+        await stripe.Customer.list_payment_methods_async(
             "cus_xyz",
             type="card",
         )
@@ -6630,7 +6564,7 @@ class TestGeneratedExamples(object):
     def test_customers_payment_methods_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_methods = stripe.Customer.list_payment_methods(
+        stripe.Customer.list_payment_methods(
             "cus_xxxxxxxxxxxxx",
             type="card",
         )
@@ -6668,7 +6602,7 @@ class TestGeneratedExamples(object):
     async def test_customers_payment_methods_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_methods = await stripe.Customer.list_payment_methods_async(
+        await stripe.Customer.list_payment_methods_async(
             "cus_xxxxxxxxxxxxx",
             type="card",
         )
@@ -6704,7 +6638,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_customers_post(self, http_client_mock: HTTPClientMock) -> None:
-        customer = stripe.Customer.create(
+        stripe.Customer.create(
             description="My First Test Customer (created for API docs at https://www.stripe.com/docs/api)",
         )
         http_client_mock.assert_requested(
@@ -6743,7 +6677,7 @@ class TestGeneratedExamples(object):
     async def test_customers_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer = await stripe.Customer.create_async(
+        await stripe.Customer.create_async(
             description="My First Test Customer (created for API docs at https://www.stripe.com/docs/api)",
         )
         http_client_mock.assert_requested(
@@ -6780,7 +6714,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_customers_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        customer = stripe.Customer.modify(
+        stripe.Customer.modify(
             "cus_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -6819,7 +6753,7 @@ class TestGeneratedExamples(object):
     async def test_customers_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer = await stripe.Customer.modify_async(
+        await stripe.Customer.modify_async(
             "cus_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -6858,7 +6792,7 @@ class TestGeneratedExamples(object):
     def test_customers_search_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customers = stripe.Customer.search(
+        stripe.Customer.search(
             query="name:'fakename' AND metadata['foo']:'bar'",
         )
         http_client_mock.assert_requested(
@@ -6896,7 +6830,7 @@ class TestGeneratedExamples(object):
     async def test_customers_search_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customers = await stripe.Customer.search_async(
+        await stripe.Customer.search_async(
             query="name:'fakename' AND metadata['foo']:'bar'",
         )
         http_client_mock.assert_requested(
@@ -6934,7 +6868,7 @@ class TestGeneratedExamples(object):
     def test_customers_search_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customers = stripe.Customer.search(
+        stripe.Customer.search(
             query="name:'fakename' AND metadata['foo']:'bar'",
         )
         http_client_mock.assert_requested(
@@ -6972,7 +6906,7 @@ class TestGeneratedExamples(object):
     async def test_customers_search_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customers = await stripe.Customer.search_async(
+        await stripe.Customer.search_async(
             query="name:'fakename' AND metadata['foo']:'bar'",
         )
         http_client_mock.assert_requested(
@@ -7010,7 +6944,7 @@ class TestGeneratedExamples(object):
     def test_customers_sources_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = stripe.Customer.delete_source(
+        stripe.Customer.delete_source(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
@@ -7047,7 +6981,7 @@ class TestGeneratedExamples(object):
     async def test_customers_sources_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = await stripe.Customer.delete_source_async(
+        await stripe.Customer.delete_source_async(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
@@ -7084,7 +7018,7 @@ class TestGeneratedExamples(object):
     def test_customers_sources_delete_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = stripe.Customer.delete_source(
+        stripe.Customer.delete_source(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -7121,7 +7055,7 @@ class TestGeneratedExamples(object):
     async def test_customers_sources_delete_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = await stripe.Customer.delete_source_async(
+        await stripe.Customer.delete_source_async(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -7158,7 +7092,7 @@ class TestGeneratedExamples(object):
     def test_customers_sources_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_sources = stripe.Customer.list_sources(
+        stripe.Customer.list_sources(
             "cus_xxxxxxxxxxxxx",
             object="bank_account",
             limit=3,
@@ -7197,7 +7131,7 @@ class TestGeneratedExamples(object):
     async def test_customers_sources_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_sources = await stripe.Customer.list_sources_async(
+        await stripe.Customer.list_sources_async(
             "cus_xxxxxxxxxxxxx",
             object="bank_account",
             limit=3,
@@ -7236,7 +7170,7 @@ class TestGeneratedExamples(object):
     def test_customers_sources_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_sources = stripe.Customer.list_sources(
+        stripe.Customer.list_sources(
             "cus_xxxxxxxxxxxxx",
             object="card",
             limit=3,
@@ -7275,7 +7209,7 @@ class TestGeneratedExamples(object):
     async def test_customers_sources_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_sources = await stripe.Customer.list_sources_async(
+        await stripe.Customer.list_sources_async(
             "cus_xxxxxxxxxxxxx",
             object="card",
             limit=3,
@@ -7314,7 +7248,7 @@ class TestGeneratedExamples(object):
     def test_customers_sources_get_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = stripe.Customer.retrieve_source(
+        stripe.Customer.retrieve_source(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
@@ -7351,7 +7285,7 @@ class TestGeneratedExamples(object):
     async def test_customers_sources_get_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = await stripe.Customer.retrieve_source_async(
+        await stripe.Customer.retrieve_source_async(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
@@ -7388,7 +7322,7 @@ class TestGeneratedExamples(object):
     def test_customers_sources_get_4(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = stripe.Customer.retrieve_source(
+        stripe.Customer.retrieve_source(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -7425,7 +7359,7 @@ class TestGeneratedExamples(object):
     async def test_customers_sources_get_4_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = await stripe.Customer.retrieve_source_async(
+        await stripe.Customer.retrieve_source_async(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -7462,7 +7396,7 @@ class TestGeneratedExamples(object):
     def test_customers_sources_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = stripe.Customer.modify_source(
+        stripe.Customer.modify_source(
             "cus_123",
             "card_123",
             account_holder_name="Kamil",
@@ -7503,7 +7437,7 @@ class TestGeneratedExamples(object):
     async def test_customers_sources_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = await stripe.Customer.modify_source_async(
+        await stripe.Customer.modify_source_async(
             "cus_123",
             "card_123",
             account_holder_name="Kamil",
@@ -7544,7 +7478,7 @@ class TestGeneratedExamples(object):
     def test_customers_sources_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = stripe.Customer.create_source(
+        stripe.Customer.create_source(
             "cus_xxxxxxxxxxxxx",
             source="btok_xxxxxxxxxxxxx",
         )
@@ -7583,7 +7517,7 @@ class TestGeneratedExamples(object):
     async def test_customers_sources_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = await stripe.Customer.create_source_async(
+        await stripe.Customer.create_source_async(
             "cus_xxxxxxxxxxxxx",
             source="btok_xxxxxxxxxxxxx",
         )
@@ -7622,7 +7556,7 @@ class TestGeneratedExamples(object):
     def test_customers_sources_post_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = stripe.Customer.create_source(
+        stripe.Customer.create_source(
             "cus_xxxxxxxxxxxxx",
             source="tok_xxxx",
         )
@@ -7661,7 +7595,7 @@ class TestGeneratedExamples(object):
     async def test_customers_sources_post_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = await stripe.Customer.create_source_async(
+        await stripe.Customer.create_source_async(
             "cus_xxxxxxxxxxxxx",
             source="tok_xxxx",
         )
@@ -7700,7 +7634,7 @@ class TestGeneratedExamples(object):
     def test_customers_sources_post_4(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = stripe.Customer.modify_source(
+        stripe.Customer.modify_source(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
@@ -7741,7 +7675,7 @@ class TestGeneratedExamples(object):
     async def test_customers_sources_post_4_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = await stripe.Customer.modify_source_async(
+        await stripe.Customer.modify_source_async(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
@@ -7782,7 +7716,7 @@ class TestGeneratedExamples(object):
     def test_customers_sources_post_5(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = stripe.Customer.modify_source(
+        stripe.Customer.modify_source(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
             name="Jenny Rosen",
@@ -7823,7 +7757,7 @@ class TestGeneratedExamples(object):
     async def test_customers_sources_post_5_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_source = await stripe.Customer.modify_source_async(
+        await stripe.Customer.modify_source_async(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
             name="Jenny Rosen",
@@ -7864,7 +7798,7 @@ class TestGeneratedExamples(object):
     def test_customers_tax_ids_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.Customer.delete_tax_id(
+        stripe.Customer.delete_tax_id(
             "cus_xxxxxxxxxxxxx",
             "txi_xxxxxxxxxxxxx",
         )
@@ -7901,7 +7835,7 @@ class TestGeneratedExamples(object):
     async def test_customers_tax_ids_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.Customer.delete_tax_id_async(
+        await stripe.Customer.delete_tax_id_async(
             "cus_xxxxxxxxxxxxx",
             "txi_xxxxxxxxxxxxx",
         )
@@ -7938,7 +7872,7 @@ class TestGeneratedExamples(object):
     def test_customers_tax_ids_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_ids = stripe.Customer.list_tax_ids(
+        stripe.Customer.list_tax_ids(
             "cus_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -7976,7 +7910,7 @@ class TestGeneratedExamples(object):
     async def test_customers_tax_ids_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_ids = await stripe.Customer.list_tax_ids_async(
+        await stripe.Customer.list_tax_ids_async(
             "cus_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -8014,7 +7948,7 @@ class TestGeneratedExamples(object):
     def test_customers_tax_ids_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_id = stripe.Customer.retrieve_tax_id(
+        stripe.Customer.retrieve_tax_id(
             "cus_xxxxxxxxxxxxx",
             "txi_xxxxxxxxxxxxx",
         )
@@ -8051,7 +7985,7 @@ class TestGeneratedExamples(object):
     async def test_customers_tax_ids_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_id = await stripe.Customer.retrieve_tax_id_async(
+        await stripe.Customer.retrieve_tax_id_async(
             "cus_xxxxxxxxxxxxx",
             "txi_xxxxxxxxxxxxx",
         )
@@ -8088,7 +8022,7 @@ class TestGeneratedExamples(object):
     def test_customers_tax_ids_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_id = stripe.Customer.create_tax_id(
+        stripe.Customer.create_tax_id(
             "cus_xxxxxxxxxxxxx",
             type="eu_vat",
             value="DE123456789",
@@ -8128,7 +8062,7 @@ class TestGeneratedExamples(object):
     async def test_customers_tax_ids_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_id = await stripe.Customer.create_tax_id_async(
+        await stripe.Customer.create_tax_id_async(
             "cus_xxxxxxxxxxxxx",
             type="eu_vat",
             value="DE123456789",
@@ -8168,7 +8102,7 @@ class TestGeneratedExamples(object):
     def test_disputes_close_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        dispute = stripe.Dispute.close("dp_xxxxxxxxxxxxx")
+        stripe.Dispute.close("dp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/disputes/dp_xxxxxxxxxxxxx/close",
@@ -8199,7 +8133,7 @@ class TestGeneratedExamples(object):
     async def test_disputes_close_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        dispute = await stripe.Dispute.close_async("dp_xxxxxxxxxxxxx")
+        await stripe.Dispute.close_async("dp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/disputes/dp_xxxxxxxxxxxxx/close",
@@ -8228,7 +8162,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_disputes_get(self, http_client_mock: HTTPClientMock) -> None:
-        disputes = stripe.Dispute.list(limit=3)
+        stripe.Dispute.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/disputes",
@@ -8260,7 +8194,7 @@ class TestGeneratedExamples(object):
     async def test_disputes_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        disputes = await stripe.Dispute.list_async(limit=3)
+        await stripe.Dispute.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/disputes",
@@ -8290,7 +8224,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_disputes_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        dispute = stripe.Dispute.retrieve("dp_xxxxxxxxxxxxx")
+        stripe.Dispute.retrieve("dp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/disputes/dp_xxxxxxxxxxxxx",
@@ -8321,7 +8255,7 @@ class TestGeneratedExamples(object):
     async def test_disputes_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        dispute = await stripe.Dispute.retrieve_async("dp_xxxxxxxxxxxxx")
+        await stripe.Dispute.retrieve_async("dp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/disputes/dp_xxxxxxxxxxxxx",
@@ -8350,7 +8284,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_disputes_post(self, http_client_mock: HTTPClientMock) -> None:
-        dispute = stripe.Dispute.modify(
+        stripe.Dispute.modify(
             "dp_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -8389,7 +8323,7 @@ class TestGeneratedExamples(object):
     async def test_disputes_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        dispute = await stripe.Dispute.modify_async(
+        await stripe.Dispute.modify_async(
             "dp_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -8426,7 +8360,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_events_get(self, http_client_mock: HTTPClientMock) -> None:
-        events = stripe.Event.list(limit=3)
+        stripe.Event.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/events",
@@ -8458,7 +8392,7 @@ class TestGeneratedExamples(object):
     async def test_events_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        events = await stripe.Event.list_async(limit=3)
+        await stripe.Event.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/events",
@@ -8488,7 +8422,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_events_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        event = stripe.Event.retrieve("evt_xxxxxxxxxxxxx")
+        stripe.Event.retrieve("evt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/events/evt_xxxxxxxxxxxxx",
@@ -8519,7 +8453,7 @@ class TestGeneratedExamples(object):
     async def test_events_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        event = await stripe.Event.retrieve_async("evt_xxxxxxxxxxxxx")
+        await stripe.Event.retrieve_async("evt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/events/evt_xxxxxxxxxxxxx",
@@ -8548,7 +8482,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_file_links_get(self, http_client_mock: HTTPClientMock) -> None:
-        file_links = stripe.FileLink.list(limit=3)
+        stripe.FileLink.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/file_links",
@@ -8580,7 +8514,7 @@ class TestGeneratedExamples(object):
     async def test_file_links_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        file_links = await stripe.FileLink.list_async(limit=3)
+        await stripe.FileLink.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/file_links",
@@ -8610,7 +8544,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_file_links_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        file_link = stripe.FileLink.retrieve("link_xxxxxxxxxxxxx")
+        stripe.FileLink.retrieve("link_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/file_links/link_xxxxxxxxxxxxx",
@@ -8641,7 +8575,7 @@ class TestGeneratedExamples(object):
     async def test_file_links_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        file_link = await stripe.FileLink.retrieve_async("link_xxxxxxxxxxxxx")
+        await stripe.FileLink.retrieve_async("link_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/file_links/link_xxxxxxxxxxxxx",
@@ -8672,7 +8606,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_file_links_post(self, http_client_mock: HTTPClientMock) -> None:
-        file_link = stripe.FileLink.create(file="file_xxxxxxxxxxxxx")
+        stripe.FileLink.create(file="file_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/file_links",
@@ -8705,9 +8639,7 @@ class TestGeneratedExamples(object):
     async def test_file_links_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        file_link = await stripe.FileLink.create_async(
-            file="file_xxxxxxxxxxxxx",
-        )
+        await stripe.FileLink.create_async(file="file_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/file_links",
@@ -8742,7 +8674,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_file_links_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        file_link = stripe.FileLink.modify(
+        stripe.FileLink.modify(
             "link_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -8781,7 +8713,7 @@ class TestGeneratedExamples(object):
     async def test_file_links_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        file_link = await stripe.FileLink.modify_async(
+        await stripe.FileLink.modify_async(
             "link_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -8818,7 +8750,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_files_get(self, http_client_mock: HTTPClientMock) -> None:
-        files = stripe.File.list(limit=3)
+        stripe.File.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/files",
@@ -8848,7 +8780,7 @@ class TestGeneratedExamples(object):
     async def test_files_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        files = await stripe.File.list_async(limit=3)
+        await stripe.File.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/files",
@@ -8878,7 +8810,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_files_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        file = stripe.File.retrieve("file_xxxxxxxxxxxxx")
+        stripe.File.retrieve("file_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/files/file_xxxxxxxxxxxxx",
@@ -8909,7 +8841,7 @@ class TestGeneratedExamples(object):
     async def test_files_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        file = await stripe.File.retrieve_async("file_xxxxxxxxxxxxx")
+        await stripe.File.retrieve_async("file_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/files/file_xxxxxxxxxxxxx",
@@ -8938,7 +8870,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_files_post(self, http_client_mock: HTTPClientMock) -> None:
-        file = stripe.File.create(
+        stripe.File.create(
             purpose="account_requirement",
             file=io.StringIO("foo"),
         )
@@ -8977,7 +8909,7 @@ class TestGeneratedExamples(object):
     async def test_files_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        file = await stripe.File.create_async(
+        await stripe.File.create_async(
             purpose="account_requirement",
             file=io.StringIO("foo"),
         )
@@ -9016,7 +8948,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_accounts_disconnect_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = stripe.financial_connections.Account.disconnect("fca_xyz")
+        stripe.financial_connections.Account.disconnect("fca_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xyz/disconnect",
@@ -9047,9 +8979,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_accounts_disconnect_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = await stripe.financial_connections.Account.disconnect_async(
-            "fca_xyz",
-        )
+        await stripe.financial_connections.Account.disconnect_async("fca_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xyz/disconnect",
@@ -9082,9 +9012,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_accounts_disconnect_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = stripe.financial_connections.Account.disconnect(
-            "fca_xxxxxxxxxxxxx",
-        )
+        stripe.financial_connections.Account.disconnect("fca_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/disconnect",
@@ -9117,7 +9045,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_accounts_disconnect_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = await stripe.financial_connections.Account.disconnect_async(
+        await stripe.financial_connections.Account.disconnect_async(
             "fca_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -9152,7 +9080,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_accounts_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        accounts = stripe.financial_connections.Account.list()
+        stripe.financial_connections.Account.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/accounts",
@@ -9183,7 +9111,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_accounts_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        accounts = await stripe.financial_connections.Account.list_async()
+        await stripe.financial_connections.Account.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/accounts",
@@ -9214,7 +9142,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_accounts_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = stripe.financial_connections.Account.retrieve("fca_xyz")
+        stripe.financial_connections.Account.retrieve("fca_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xyz",
@@ -9245,9 +9173,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_accounts_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = await stripe.financial_connections.Account.retrieve_async(
-            "fca_xyz",
-        )
+        await stripe.financial_connections.Account.retrieve_async("fca_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xyz",
@@ -9280,7 +9206,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_accounts_get_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        accounts = stripe.financial_connections.Account.list(
+        stripe.financial_connections.Account.list(
             account_holder={"customer": "cus_xxxxxxxxxxxxx"},
         )
         http_client_mock.assert_requested(
@@ -9318,7 +9244,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_accounts_get_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        accounts = await stripe.financial_connections.Account.list_async(
+        await stripe.financial_connections.Account.list_async(
             account_holder={"customer": "cus_xxxxxxxxxxxxx"},
         )
         http_client_mock.assert_requested(
@@ -9356,9 +9282,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_accounts_get_4(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = stripe.financial_connections.Account.retrieve(
-            "fca_xxxxxxxxxxxxx",
-        )
+        stripe.financial_connections.Account.retrieve("fca_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx",
@@ -9391,7 +9315,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_accounts_get_4_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = await stripe.financial_connections.Account.retrieve_async(
+        await stripe.financial_connections.Account.retrieve_async(
             "fca_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -9426,7 +9350,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_accounts_owners_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account_owners = stripe.financial_connections.Account.list_owners(
+        stripe.financial_connections.Account.list_owners(
             "fca_xyz",
             ownership="fcaowns_xyz",
         )
@@ -9464,11 +9388,9 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_accounts_owners_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account_owners = (
-            await stripe.financial_connections.Account.list_owners_async(
-                "fca_xyz",
-                ownership="fcaowns_xyz",
-            )
+        await stripe.financial_connections.Account.list_owners_async(
+            "fca_xyz",
+            ownership="fcaowns_xyz",
         )
         http_client_mock.assert_requested(
             "get",
@@ -9506,7 +9428,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_accounts_owners_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account_owners = stripe.financial_connections.Account.list_owners(
+        stripe.financial_connections.Account.list_owners(
             "fca_xxxxxxxxxxxxx",
             limit=3,
             ownership="fcaowns_xxxxxxxxxxxxx",
@@ -9545,12 +9467,10 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_accounts_owners_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account_owners = (
-            await stripe.financial_connections.Account.list_owners_async(
-                "fca_xxxxxxxxxxxxx",
-                limit=3,
-                ownership="fcaowns_xxxxxxxxxxxxx",
-            )
+        await stripe.financial_connections.Account.list_owners_async(
+            "fca_xxxxxxxxxxxxx",
+            limit=3,
+            ownership="fcaowns_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -9588,7 +9508,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_accounts_refresh_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = stripe.financial_connections.Account.refresh_account(
+        stripe.financial_connections.Account.refresh_account(
             "fca_xyz",
             features=["balance"],
         )
@@ -9627,11 +9547,9 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_accounts_refresh_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = (
-            await stripe.financial_connections.Account.refresh_account_async(
-                "fca_xyz",
-                features=["balance"],
-            )
+        await stripe.financial_connections.Account.refresh_account_async(
+            "fca_xyz",
+            features=["balance"],
         )
         http_client_mock.assert_requested(
             "post",
@@ -9668,7 +9586,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_accounts_subscribe_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = stripe.financial_connections.Account.subscribe(
+        stripe.financial_connections.Account.subscribe(
             "fa_123",
             features=["transactions"],
         )
@@ -9707,7 +9625,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_accounts_subscribe_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = await stripe.financial_connections.Account.subscribe_async(
+        await stripe.financial_connections.Account.subscribe_async(
             "fa_123",
             features=["transactions"],
         )
@@ -9746,7 +9664,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_accounts_unsubscribe_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = stripe.financial_connections.Account.unsubscribe(
+        stripe.financial_connections.Account.unsubscribe(
             "fa_123",
             features=["transactions"],
         )
@@ -9785,7 +9703,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_accounts_unsubscribe_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        account = await stripe.financial_connections.Account.unsubscribe_async(
+        await stripe.financial_connections.Account.unsubscribe_async(
             "fa_123",
             features=["transactions"],
         )
@@ -9826,7 +9744,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_sessions_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = stripe.financial_connections.Session.retrieve("fcsess_xyz")
+        stripe.financial_connections.Session.retrieve("fcsess_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/sessions/fcsess_xyz",
@@ -9857,9 +9775,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_sessions_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = await stripe.financial_connections.Session.retrieve_async(
-            "fcsess_xyz",
-        )
+        await stripe.financial_connections.Session.retrieve_async("fcsess_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/sessions/fcsess_xyz",
@@ -9892,9 +9808,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_sessions_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = stripe.financial_connections.Session.retrieve(
-            "fcsess_xxxxxxxxxxxxx",
-        )
+        stripe.financial_connections.Session.retrieve("fcsess_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx",
@@ -9927,7 +9841,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_sessions_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = await stripe.financial_connections.Session.retrieve_async(
+        await stripe.financial_connections.Session.retrieve_async(
             "fcsess_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -9962,7 +9876,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_sessions_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = stripe.financial_connections.Session.create(
+        stripe.financial_connections.Session.create(
             account_holder={"type": "customer", "customer": "cus_123"},
             permissions=["balances"],
         )
@@ -10003,7 +9917,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_sessions_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = await stripe.financial_connections.Session.create_async(
+        await stripe.financial_connections.Session.create_async(
             account_holder={"type": "customer", "customer": "cus_123"},
             permissions=["balances"],
         )
@@ -10044,7 +9958,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_sessions_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = stripe.financial_connections.Session.create(
+        stripe.financial_connections.Session.create(
             account_holder={
                 "type": "customer",
                 "customer": "cus_xxxxxxxxxxxxx",
@@ -10093,7 +10007,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_sessions_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        session = await stripe.financial_connections.Session.create_async(
+        await stripe.financial_connections.Session.create_async(
             account_holder={
                 "type": "customer",
                 "customer": "cus_xxxxxxxxxxxxx",
@@ -10142,9 +10056,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_transactions_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = stripe.financial_connections.Transaction.retrieve(
-            "tr_123",
-        )
+        stripe.financial_connections.Transaction.retrieve("tr_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/transactions/tr_123",
@@ -10177,11 +10089,7 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_transactions_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = (
-            await stripe.financial_connections.Transaction.retrieve_async(
-                "tr_123",
-            )
-        )
+        await stripe.financial_connections.Transaction.retrieve_async("tr_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/transactions/tr_123",
@@ -10216,9 +10124,7 @@ class TestGeneratedExamples(object):
     def test_financial_connections_transactions_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transactions = stripe.financial_connections.Transaction.list(
-            account="fca_xyz",
-        )
+        stripe.financial_connections.Transaction.list(account="fca_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/transactions",
@@ -10254,10 +10160,8 @@ class TestGeneratedExamples(object):
     async def test_financial_connections_transactions_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transactions = (
-            await stripe.financial_connections.Transaction.list_async(
-                account="fca_xyz",
-            )
+        await stripe.financial_connections.Transaction.list_async(
+            account="fca_xyz",
         )
         http_client_mock.assert_requested(
             "get",
@@ -10294,7 +10198,7 @@ class TestGeneratedExamples(object):
     def test_identity_verification_reports_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_reports = stripe.identity.VerificationReport.list(limit=3)
+        stripe.identity.VerificationReport.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_reports",
@@ -10330,11 +10234,7 @@ class TestGeneratedExamples(object):
     async def test_identity_verification_reports_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_reports = (
-            await stripe.identity.VerificationReport.list_async(
-                limit=3,
-            )
-        )
+        await stripe.identity.VerificationReport.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_reports",
@@ -10368,9 +10268,7 @@ class TestGeneratedExamples(object):
     def test_identity_verification_reports_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_report = stripe.identity.VerificationReport.retrieve(
-            "vr_xxxxxxxxxxxxx",
-        )
+        stripe.identity.VerificationReport.retrieve("vr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_reports/vr_xxxxxxxxxxxxx",
@@ -10403,10 +10301,8 @@ class TestGeneratedExamples(object):
     async def test_identity_verification_reports_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_report = (
-            await stripe.identity.VerificationReport.retrieve_async(
-                "vr_xxxxxxxxxxxxx",
-            )
+        await stripe.identity.VerificationReport.retrieve_async(
+            "vr_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -10442,9 +10338,7 @@ class TestGeneratedExamples(object):
     def test_identity_verification_sessions_cancel_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_session = stripe.identity.VerificationSession.cancel(
-            "vs_xxxxxxxxxxxxx",
-        )
+        stripe.identity.VerificationSession.cancel("vs_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel",
@@ -10477,10 +10371,8 @@ class TestGeneratedExamples(object):
     async def test_identity_verification_sessions_cancel_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_session = (
-            await stripe.identity.VerificationSession.cancel_async(
-                "vs_xxxxxxxxxxxxx",
-            )
+        await stripe.identity.VerificationSession.cancel_async(
+            "vs_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
@@ -10516,9 +10408,7 @@ class TestGeneratedExamples(object):
     def test_identity_verification_sessions_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_sessions = stripe.identity.VerificationSession.list(
-            limit=3,
-        )
+        stripe.identity.VerificationSession.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_sessions",
@@ -10554,11 +10444,7 @@ class TestGeneratedExamples(object):
     async def test_identity_verification_sessions_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_sessions = (
-            await stripe.identity.VerificationSession.list_async(
-                limit=3,
-            )
-        )
+        await stripe.identity.VerificationSession.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_sessions",
@@ -10594,9 +10480,7 @@ class TestGeneratedExamples(object):
     def test_identity_verification_sessions_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_session = stripe.identity.VerificationSession.retrieve(
-            "vs_xxxxxxxxxxxxx",
-        )
+        stripe.identity.VerificationSession.retrieve("vs_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
@@ -10629,10 +10513,8 @@ class TestGeneratedExamples(object):
     async def test_identity_verification_sessions_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_session = (
-            await stripe.identity.VerificationSession.retrieve_async(
-                "vs_xxxxxxxxxxxxx",
-            )
+        await stripe.identity.VerificationSession.retrieve_async(
+            "vs_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -10668,9 +10550,7 @@ class TestGeneratedExamples(object):
     def test_identity_verification_sessions_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_session = stripe.identity.VerificationSession.create(
-            type="document",
-        )
+        stripe.identity.VerificationSession.create(type="document")
         http_client_mock.assert_requested(
             "post",
             path="/v1/identity/verification_sessions",
@@ -10707,11 +10587,7 @@ class TestGeneratedExamples(object):
     async def test_identity_verification_sessions_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_session = (
-            await stripe.identity.VerificationSession.create_async(
-                type="document",
-            )
-        )
+        await stripe.identity.VerificationSession.create_async(type="document")
         http_client_mock.assert_requested(
             "post",
             path="/v1/identity/verification_sessions",
@@ -10748,7 +10624,7 @@ class TestGeneratedExamples(object):
     def test_identity_verification_sessions_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_session = stripe.identity.VerificationSession.modify(
+        stripe.identity.VerificationSession.modify(
             "vs_xxxxxxxxxxxxx",
             type="id_number",
         )
@@ -10787,11 +10663,9 @@ class TestGeneratedExamples(object):
     async def test_identity_verification_sessions_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_session = (
-            await stripe.identity.VerificationSession.modify_async(
-                "vs_xxxxxxxxxxxxx",
-                type="id_number",
-            )
+        await stripe.identity.VerificationSession.modify_async(
+            "vs_xxxxxxxxxxxxx",
+            type="id_number",
         )
         http_client_mock.assert_requested(
             "post",
@@ -10830,9 +10704,7 @@ class TestGeneratedExamples(object):
     def test_identity_verification_sessions_redact_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_session = stripe.identity.VerificationSession.redact(
-            "vs_xxxxxxxxxxxxx",
-        )
+        stripe.identity.VerificationSession.redact("vs_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact",
@@ -10865,10 +10737,8 @@ class TestGeneratedExamples(object):
     async def test_identity_verification_sessions_redact_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        verification_session = (
-            await stripe.identity.VerificationSession.redact_async(
-                "vs_xxxxxxxxxxxxx",
-            )
+        await stripe.identity.VerificationSession.redact_async(
+            "vs_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
@@ -10904,7 +10774,7 @@ class TestGeneratedExamples(object):
     def test_invoiceitems_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.InvoiceItem.delete("ii_xxxxxxxxxxxxx")
+        stripe.InvoiceItem.delete("ii_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
@@ -10935,7 +10805,7 @@ class TestGeneratedExamples(object):
     async def test_invoiceitems_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.InvoiceItem.delete_async("ii_xxxxxxxxxxxxx")
+        await stripe.InvoiceItem.delete_async("ii_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
@@ -10964,7 +10834,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_invoiceitems_get(self, http_client_mock: HTTPClientMock) -> None:
-        invoice_items = stripe.InvoiceItem.list(limit=3)
+        stripe.InvoiceItem.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoiceitems",
@@ -10996,7 +10866,7 @@ class TestGeneratedExamples(object):
     async def test_invoiceitems_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice_items = await stripe.InvoiceItem.list_async(limit=3)
+        await stripe.InvoiceItem.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoiceitems",
@@ -11028,7 +10898,7 @@ class TestGeneratedExamples(object):
     def test_invoiceitems_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice_item = stripe.InvoiceItem.retrieve("ii_xxxxxxxxxxxxx")
+        stripe.InvoiceItem.retrieve("ii_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
@@ -11059,9 +10929,7 @@ class TestGeneratedExamples(object):
     async def test_invoiceitems_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice_item = await stripe.InvoiceItem.retrieve_async(
-            "ii_xxxxxxxxxxxxx",
-        )
+        await stripe.InvoiceItem.retrieve_async("ii_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
@@ -11092,7 +10960,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_invoiceitems_post(self, http_client_mock: HTTPClientMock) -> None:
-        invoice_item = stripe.InvoiceItem.create(customer="cus_xxxxxxxxxxxxx")
+        stripe.InvoiceItem.create(customer="cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoiceitems",
@@ -11129,9 +10997,7 @@ class TestGeneratedExamples(object):
     async def test_invoiceitems_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice_item = await stripe.InvoiceItem.create_async(
-            customer="cus_xxxxxxxxxxxxx",
-        )
+        await stripe.InvoiceItem.create_async(customer="cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoiceitems",
@@ -11168,7 +11034,7 @@ class TestGeneratedExamples(object):
     def test_invoiceitems_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice_item = stripe.InvoiceItem.modify(
+        stripe.InvoiceItem.modify(
             "ii_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -11207,7 +11073,7 @@ class TestGeneratedExamples(object):
     async def test_invoiceitems_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice_item = await stripe.InvoiceItem.modify_async(
+        await stripe.InvoiceItem.modify_async(
             "ii_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -11244,7 +11110,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_invoices_delete(self, http_client_mock: HTTPClientMock) -> None:
-        deleted = stripe.Invoice.delete("in_xxxxxxxxxxxxx")
+        stripe.Invoice.delete("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
@@ -11275,7 +11141,7 @@ class TestGeneratedExamples(object):
     async def test_invoices_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.Invoice.delete_async("in_xxxxxxxxxxxxx")
+        await stripe.Invoice.delete_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
@@ -11306,7 +11172,7 @@ class TestGeneratedExamples(object):
     def test_invoices_finalize_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = stripe.Invoice.finalize_invoice("in_xxxxxxxxxxxxx")
+        stripe.Invoice.finalize_invoice("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/finalize",
@@ -11337,9 +11203,7 @@ class TestGeneratedExamples(object):
     async def test_invoices_finalize_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = await stripe.Invoice.finalize_invoice_async(
-            "in_xxxxxxxxxxxxx",
-        )
+        await stripe.Invoice.finalize_invoice_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/finalize",
@@ -11370,7 +11234,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_invoices_get(self, http_client_mock: HTTPClientMock) -> None:
-        invoices = stripe.Invoice.list(limit=3)
+        stripe.Invoice.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoices",
@@ -11402,7 +11266,7 @@ class TestGeneratedExamples(object):
     async def test_invoices_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoices = await stripe.Invoice.list_async(limit=3)
+        await stripe.Invoice.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoices",
@@ -11432,7 +11296,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_invoices_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        invoice = stripe.Invoice.retrieve("in_xxxxxxxxxxxxx")
+        stripe.Invoice.retrieve("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
@@ -11463,7 +11327,7 @@ class TestGeneratedExamples(object):
     async def test_invoices_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = await stripe.Invoice.retrieve_async("in_xxxxxxxxxxxxx")
+        await stripe.Invoice.retrieve_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
@@ -11492,7 +11356,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_invoices_get_3(self, http_client_mock: HTTPClientMock) -> None:
-        invoice = stripe.Invoice.retrieve(
+        stripe.Invoice.retrieve(
             "in_xxxxxxxxxxxxx",
             expand=["customer"],
         )
@@ -11530,7 +11394,7 @@ class TestGeneratedExamples(object):
     async def test_invoices_get_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = await stripe.Invoice.retrieve_async(
+        await stripe.Invoice.retrieve_async(
             "in_xxxxxxxxxxxxx",
             expand=["customer"],
         )
@@ -11568,7 +11432,7 @@ class TestGeneratedExamples(object):
     def test_invoices_mark_uncollectible_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = stripe.Invoice.mark_uncollectible("in_xxxxxxxxxxxxx")
+        stripe.Invoice.mark_uncollectible("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible",
@@ -11599,9 +11463,7 @@ class TestGeneratedExamples(object):
     async def test_invoices_mark_uncollectible_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = await stripe.Invoice.mark_uncollectible_async(
-            "in_xxxxxxxxxxxxx",
-        )
+        await stripe.Invoice.mark_uncollectible_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible",
@@ -11632,7 +11494,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_invoices_pay_post(self, http_client_mock: HTTPClientMock) -> None:
-        invoice = stripe.Invoice.pay("in_xxxxxxxxxxxxx")
+        stripe.Invoice.pay("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/pay",
@@ -11663,7 +11525,7 @@ class TestGeneratedExamples(object):
     async def test_invoices_pay_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = await stripe.Invoice.pay_async("in_xxxxxxxxxxxxx")
+        await stripe.Invoice.pay_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/pay",
@@ -11692,7 +11554,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_invoices_post(self, http_client_mock: HTTPClientMock) -> None:
-        invoice = stripe.Invoice.create(customer="cus_xxxxxxxxxxxxx")
+        stripe.Invoice.create(customer="cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices",
@@ -11725,9 +11587,7 @@ class TestGeneratedExamples(object):
     async def test_invoices_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = await stripe.Invoice.create_async(
-            customer="cus_xxxxxxxxxxxxx",
-        )
+        await stripe.Invoice.create_async(customer="cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices",
@@ -11762,7 +11622,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_invoices_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        invoice = stripe.Invoice.modify(
+        stripe.Invoice.modify(
             "in_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -11801,7 +11661,7 @@ class TestGeneratedExamples(object):
     async def test_invoices_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = await stripe.Invoice.modify_async(
+        await stripe.Invoice.modify_async(
             "in_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -11840,8 +11700,8 @@ class TestGeneratedExamples(object):
     def test_invoices_search_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoices = stripe.Invoice.search(
-            query="total>999 AND metadata['order_id']:'6735'",
+        stripe.Invoice.search(
+            query="total>999 AND metadata['order_id']:'6735'"
         )
         http_client_mock.assert_requested(
             "get",
@@ -11878,7 +11738,7 @@ class TestGeneratedExamples(object):
     async def test_invoices_search_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoices = await stripe.Invoice.search_async(
+        await stripe.Invoice.search_async(
             query="total>999 AND metadata['order_id']:'6735'",
         )
         http_client_mock.assert_requested(
@@ -11916,7 +11776,7 @@ class TestGeneratedExamples(object):
     def test_invoices_send_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = stripe.Invoice.send_invoice("in_xxxxxxxxxxxxx")
+        stripe.Invoice.send_invoice("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/send",
@@ -11947,7 +11807,7 @@ class TestGeneratedExamples(object):
     async def test_invoices_send_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = await stripe.Invoice.send_invoice_async("in_xxxxxxxxxxxxx")
+        await stripe.Invoice.send_invoice_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/send",
@@ -11978,7 +11838,7 @@ class TestGeneratedExamples(object):
     def test_invoices_void_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = stripe.Invoice.void_invoice("in_xxxxxxxxxxxxx")
+        stripe.Invoice.void_invoice("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/void",
@@ -12009,7 +11869,7 @@ class TestGeneratedExamples(object):
     async def test_invoices_void_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        invoice = await stripe.Invoice.void_invoice_async("in_xxxxxxxxxxxxx")
+        await stripe.Invoice.void_invoice_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/void",
@@ -12040,9 +11900,7 @@ class TestGeneratedExamples(object):
     def test_issuing_authorizations_approve_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = stripe.issuing.Authorization.approve(
-            "iauth_xxxxxxxxxxxxx",
-        )
+        stripe.issuing.Authorization.approve("iauth_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve",
@@ -12075,9 +11933,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_authorizations_approve_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = await stripe.issuing.Authorization.approve_async(
-            "iauth_xxxxxxxxxxxxx",
-        )
+        await stripe.issuing.Authorization.approve_async("iauth_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve",
@@ -12110,9 +11966,7 @@ class TestGeneratedExamples(object):
     def test_issuing_authorizations_decline_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = stripe.issuing.Authorization.decline(
-            "iauth_xxxxxxxxxxxxx",
-        )
+        stripe.issuing.Authorization.decline("iauth_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline",
@@ -12145,9 +11999,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_authorizations_decline_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = await stripe.issuing.Authorization.decline_async(
-            "iauth_xxxxxxxxxxxxx",
-        )
+        await stripe.issuing.Authorization.decline_async("iauth_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline",
@@ -12180,7 +12032,7 @@ class TestGeneratedExamples(object):
     def test_issuing_authorizations_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorizations = stripe.issuing.Authorization.list(limit=3)
+        stripe.issuing.Authorization.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/authorizations",
@@ -12212,7 +12064,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_authorizations_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorizations = await stripe.issuing.Authorization.list_async(limit=3)
+        await stripe.issuing.Authorization.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/authorizations",
@@ -12248,9 +12100,7 @@ class TestGeneratedExamples(object):
     def test_issuing_authorizations_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = stripe.issuing.Authorization.retrieve(
-            "iauth_xxxxxxxxxxxxx",
-        )
+        stripe.issuing.Authorization.retrieve("iauth_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
@@ -12283,8 +12133,8 @@ class TestGeneratedExamples(object):
     async def test_issuing_authorizations_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = await stripe.issuing.Authorization.retrieve_async(
-            "iauth_xxxxxxxxxxxxx",
+        await stripe.issuing.Authorization.retrieve_async(
+            "iauth_xxxxxxxxxxxxx"
         )
         http_client_mock.assert_requested(
             "get",
@@ -12318,7 +12168,7 @@ class TestGeneratedExamples(object):
     def test_issuing_authorizations_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = stripe.issuing.Authorization.modify(
+        stripe.issuing.Authorization.modify(
             "iauth_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -12357,7 +12207,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_authorizations_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = await stripe.issuing.Authorization.modify_async(
+        await stripe.issuing.Authorization.modify_async(
             "iauth_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -12396,7 +12246,7 @@ class TestGeneratedExamples(object):
     def test_issuing_cardholders_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cardholders = stripe.issuing.Cardholder.list(limit=3)
+        stripe.issuing.Cardholder.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cardholders",
@@ -12428,7 +12278,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_cardholders_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cardholders = await stripe.issuing.Cardholder.list_async(limit=3)
+        await stripe.issuing.Cardholder.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cardholders",
@@ -12460,7 +12310,7 @@ class TestGeneratedExamples(object):
     def test_issuing_cardholders_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cardholder = stripe.issuing.Cardholder.retrieve("ich_xxxxxxxxxxxxx")
+        stripe.issuing.Cardholder.retrieve("ich_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
@@ -12491,9 +12341,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_cardholders_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cardholder = await stripe.issuing.Cardholder.retrieve_async(
-            "ich_xxxxxxxxxxxxx",
-        )
+        await stripe.issuing.Cardholder.retrieve_async("ich_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
@@ -12526,7 +12374,7 @@ class TestGeneratedExamples(object):
     def test_issuing_cardholders_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cardholder = stripe.issuing.Cardholder.create(
+        stripe.issuing.Cardholder.create(
             type="individual",
             name="Jenny Rosen",
             email="jenny.rosen@example.com",
@@ -12589,7 +12437,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_cardholders_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cardholder = await stripe.issuing.Cardholder.create_async(
+        await stripe.issuing.Cardholder.create_async(
             type="individual",
             name="Jenny Rosen",
             email="jenny.rosen@example.com",
@@ -12652,7 +12500,7 @@ class TestGeneratedExamples(object):
     def test_issuing_cardholders_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cardholder = stripe.issuing.Cardholder.modify(
+        stripe.issuing.Cardholder.modify(
             "ich_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -12691,7 +12539,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_cardholders_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cardholder = await stripe.issuing.Cardholder.modify_async(
+        await stripe.issuing.Cardholder.modify_async(
             "ich_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -12728,7 +12576,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_issuing_cards_get(self, http_client_mock: HTTPClientMock) -> None:
-        cards = stripe.issuing.Card.list(limit=3)
+        stripe.issuing.Card.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cards",
@@ -12760,7 +12608,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_cards_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        cards = await stripe.issuing.Card.list_async(limit=3)
+        await stripe.issuing.Card.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cards",
@@ -12792,7 +12640,7 @@ class TestGeneratedExamples(object):
     def test_issuing_cards_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = stripe.issuing.Card.retrieve("ic_xxxxxxxxxxxxx")
+        stripe.issuing.Card.retrieve("ic_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cards/ic_xxxxxxxxxxxxx",
@@ -12823,7 +12671,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_cards_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = await stripe.issuing.Card.retrieve_async("ic_xxxxxxxxxxxxx")
+        await stripe.issuing.Card.retrieve_async("ic_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cards/ic_xxxxxxxxxxxxx",
@@ -12854,7 +12702,7 @@ class TestGeneratedExamples(object):
     def test_issuing_cards_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = stripe.issuing.Card.create(
+        stripe.issuing.Card.create(
             cardholder="ich_xxxxxxxxxxxxx",
             currency="usd",
             type="virtual",
@@ -12897,7 +12745,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_cards_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = await stripe.issuing.Card.create_async(
+        await stripe.issuing.Card.create_async(
             cardholder="ich_xxxxxxxxxxxxx",
             currency="usd",
             type="virtual",
@@ -12940,7 +12788,7 @@ class TestGeneratedExamples(object):
     def test_issuing_cards_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = stripe.issuing.Card.modify(
+        stripe.issuing.Card.modify(
             "ic_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -12979,7 +12827,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_cards_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = await stripe.issuing.Card.modify_async(
+        await stripe.issuing.Card.modify_async(
             "ic_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -13018,7 +12866,7 @@ class TestGeneratedExamples(object):
     def test_issuing_disputes_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        disputes = stripe.issuing.Dispute.list(limit=3)
+        stripe.issuing.Dispute.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/disputes",
@@ -13050,7 +12898,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_disputes_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        disputes = await stripe.issuing.Dispute.list_async(limit=3)
+        await stripe.issuing.Dispute.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/disputes",
@@ -13082,7 +12930,7 @@ class TestGeneratedExamples(object):
     def test_issuing_disputes_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        dispute = stripe.issuing.Dispute.retrieve("idp_xxxxxxxxxxxxx")
+        stripe.issuing.Dispute.retrieve("idp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx",
@@ -13113,9 +12961,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_disputes_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        dispute = await stripe.issuing.Dispute.retrieve_async(
-            "idp_xxxxxxxxxxxxx",
-        )
+        await stripe.issuing.Dispute.retrieve_async("idp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx",
@@ -13148,7 +12994,7 @@ class TestGeneratedExamples(object):
     def test_issuing_disputes_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        dispute = stripe.issuing.Dispute.create(
+        stripe.issuing.Dispute.create(
             transaction="ipi_xxxxxxxxxxxxx",
             evidence={
                 "reason": "fraudulent",
@@ -13197,7 +13043,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_disputes_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        dispute = await stripe.issuing.Dispute.create_async(
+        await stripe.issuing.Dispute.create_async(
             transaction="ipi_xxxxxxxxxxxxx",
             evidence={
                 "reason": "fraudulent",
@@ -13246,7 +13092,7 @@ class TestGeneratedExamples(object):
     def test_issuing_disputes_submit_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        dispute = stripe.issuing.Dispute.submit("idp_xxxxxxxxxxxxx")
+        stripe.issuing.Dispute.submit("idp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit",
@@ -13277,9 +13123,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_disputes_submit_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        dispute = await stripe.issuing.Dispute.submit_async(
-            "idp_xxxxxxxxxxxxx"
-        )
+        await stripe.issuing.Dispute.submit_async("idp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit",
@@ -13312,7 +13156,7 @@ class TestGeneratedExamples(object):
     def test_issuing_personalization_designs_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_designs = stripe.issuing.PersonalizationDesign.list()
+        stripe.issuing.PersonalizationDesign.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/personalization_designs",
@@ -13343,9 +13187,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_personalization_designs_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_designs = (
-            await stripe.issuing.PersonalizationDesign.list_async()
-        )
+        await stripe.issuing.PersonalizationDesign.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/personalization_designs",
@@ -13378,9 +13220,7 @@ class TestGeneratedExamples(object):
     def test_issuing_personalization_designs_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_design = stripe.issuing.PersonalizationDesign.retrieve(
-            "pd_xyz",
-        )
+        stripe.issuing.PersonalizationDesign.retrieve("pd_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/personalization_designs/pd_xyz",
@@ -13413,11 +13253,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_personalization_designs_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_design = (
-            await stripe.issuing.PersonalizationDesign.retrieve_async(
-                "pd_xyz",
-            )
-        )
+        await stripe.issuing.PersonalizationDesign.retrieve_async("pd_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/personalization_designs/pd_xyz",
@@ -13452,9 +13288,7 @@ class TestGeneratedExamples(object):
     def test_issuing_personalization_designs_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_design = stripe.issuing.PersonalizationDesign.create(
-            physical_bundle="pb_xyz",
-        )
+        stripe.issuing.PersonalizationDesign.create(physical_bundle="pb_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/personalization_designs",
@@ -13491,10 +13325,8 @@ class TestGeneratedExamples(object):
     async def test_issuing_personalization_designs_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_design = (
-            await stripe.issuing.PersonalizationDesign.create_async(
-                physical_bundle="pb_xyz",
-            )
+        await stripe.issuing.PersonalizationDesign.create_async(
+            physical_bundle="pb_xyz",
         )
         http_client_mock.assert_requested(
             "post",
@@ -13532,9 +13364,7 @@ class TestGeneratedExamples(object):
     def test_issuing_personalization_designs_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_design = stripe.issuing.PersonalizationDesign.modify(
-            "pd_xyz",
-        )
+        stripe.issuing.PersonalizationDesign.modify("pd_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/personalization_designs/pd_xyz",
@@ -13567,11 +13397,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_personalization_designs_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_design = (
-            await stripe.issuing.PersonalizationDesign.modify_async(
-                "pd_xyz",
-            )
-        )
+        await stripe.issuing.PersonalizationDesign.modify_async("pd_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/personalization_designs/pd_xyz",
@@ -13604,7 +13430,7 @@ class TestGeneratedExamples(object):
     def test_issuing_physical_bundles_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        physical_bundles = stripe.issuing.PhysicalBundle.list()
+        stripe.issuing.PhysicalBundle.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/physical_bundles",
@@ -13635,7 +13461,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_physical_bundles_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        physical_bundles = await stripe.issuing.PhysicalBundle.list_async()
+        await stripe.issuing.PhysicalBundle.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/physical_bundles",
@@ -13666,7 +13492,7 @@ class TestGeneratedExamples(object):
     def test_issuing_physical_bundles_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        physical_bundle = stripe.issuing.PhysicalBundle.retrieve("pb_xyz")
+        stripe.issuing.PhysicalBundle.retrieve("pb_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/physical_bundles/pb_xyz",
@@ -13697,9 +13523,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_physical_bundles_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        physical_bundle = await stripe.issuing.PhysicalBundle.retrieve_async(
-            "pb_xyz",
-        )
+        await stripe.issuing.PhysicalBundle.retrieve_async("pb_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/physical_bundles/pb_xyz",
@@ -13732,7 +13556,7 @@ class TestGeneratedExamples(object):
     def test_issuing_transactions_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transactions = stripe.issuing.Transaction.list(limit=3)
+        stripe.issuing.Transaction.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/transactions",
@@ -13764,7 +13588,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_transactions_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transactions = await stripe.issuing.Transaction.list_async(limit=3)
+        await stripe.issuing.Transaction.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/transactions",
@@ -13800,7 +13624,7 @@ class TestGeneratedExamples(object):
     def test_issuing_transactions_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = stripe.issuing.Transaction.retrieve("ipi_xxxxxxxxxxxxx")
+        stripe.issuing.Transaction.retrieve("ipi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
@@ -13831,9 +13655,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_transactions_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = await stripe.issuing.Transaction.retrieve_async(
-            "ipi_xxxxxxxxxxxxx",
-        )
+        await stripe.issuing.Transaction.retrieve_async("ipi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
@@ -13866,7 +13688,7 @@ class TestGeneratedExamples(object):
     def test_issuing_transactions_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = stripe.issuing.Transaction.modify(
+        stripe.issuing.Transaction.modify(
             "ipi_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -13905,7 +13727,7 @@ class TestGeneratedExamples(object):
     async def test_issuing_transactions_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = await stripe.issuing.Transaction.modify_async(
+        await stripe.issuing.Transaction.modify_async(
             "ipi_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -13942,7 +13764,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_mandates_get(self, http_client_mock: HTTPClientMock) -> None:
-        mandate = stripe.Mandate.retrieve("mandate_xxxxxxxxxxxxx")
+        stripe.Mandate.retrieve("mandate_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/mandates/mandate_xxxxxxxxxxxxx",
@@ -13973,7 +13795,7 @@ class TestGeneratedExamples(object):
     async def test_mandates_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        mandate = await stripe.Mandate.retrieve_async("mandate_xxxxxxxxxxxxx")
+        await stripe.Mandate.retrieve_async("mandate_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/mandates/mandate_xxxxxxxxxxxxx",
@@ -14004,9 +13826,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_apply_customer_balance_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = stripe.PaymentIntent.apply_customer_balance(
-            "pi_xxxxxxxxxxxxx",
-        )
+        stripe.PaymentIntent.apply_customer_balance("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance",
@@ -14039,10 +13859,8 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_apply_customer_balance_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = (
-            await stripe.PaymentIntent.apply_customer_balance_async(
-                "pi_xxxxxxxxxxxxx",
-            )
+        await stripe.PaymentIntent.apply_customer_balance_async(
+            "pi_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
@@ -14078,7 +13896,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_cancel_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = stripe.PaymentIntent.cancel("pi_xxxxxxxxxxxxx")
+        stripe.PaymentIntent.cancel("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel",
@@ -14109,9 +13927,7 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_cancel_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = await stripe.PaymentIntent.cancel_async(
-            "pi_xxxxxxxxxxxxx",
-        )
+        await stripe.PaymentIntent.cancel_async("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel",
@@ -14144,7 +13960,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_capture_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = stripe.PaymentIntent.capture("pi_xxxxxxxxxxxxx")
+        stripe.PaymentIntent.capture("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/capture",
@@ -14175,9 +13991,7 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_capture_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = await stripe.PaymentIntent.capture_async(
-            "pi_xxxxxxxxxxxxx",
-        )
+        await stripe.PaymentIntent.capture_async("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/capture",
@@ -14210,7 +14024,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_confirm_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = stripe.PaymentIntent.confirm(
+        stripe.PaymentIntent.confirm(
             "pi_xxxxxxxxxxxxx",
             payment_method="pm_card_visa",
         )
@@ -14249,7 +14063,7 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_confirm_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = await stripe.PaymentIntent.confirm_async(
+        await stripe.PaymentIntent.confirm_async(
             "pi_xxxxxxxxxxxxx",
             payment_method="pm_card_visa",
         )
@@ -14288,7 +14102,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intents = stripe.PaymentIntent.list(limit=3)
+        stripe.PaymentIntent.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_intents",
@@ -14320,7 +14134,7 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intents = await stripe.PaymentIntent.list_async(limit=3)
+        await stripe.PaymentIntent.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_intents",
@@ -14352,7 +14166,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = stripe.PaymentIntent.retrieve("pi_xxxxxxxxxxxxx")
+        stripe.PaymentIntent.retrieve("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx",
@@ -14383,9 +14197,7 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = await stripe.PaymentIntent.retrieve_async(
-            "pi_xxxxxxxxxxxxx",
-        )
+        await stripe.PaymentIntent.retrieve_async("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx",
@@ -14418,7 +14230,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_increment_authorization_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = stripe.PaymentIntent.increment_authorization(
+        stripe.PaymentIntent.increment_authorization(
             "pi_xxxxxxxxxxxxx",
             amount=2099,
         )
@@ -14457,11 +14269,9 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_increment_authorization_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = (
-            await stripe.PaymentIntent.increment_authorization_async(
-                "pi_xxxxxxxxxxxxx",
-                amount=2099,
-            )
+        await stripe.PaymentIntent.increment_authorization_async(
+            "pi_xxxxxxxxxxxxx",
+            amount=2099,
         )
         http_client_mock.assert_requested(
             "post",
@@ -14500,7 +14310,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = stripe.PaymentIntent.create(
+        stripe.PaymentIntent.create(
             amount=1099,
             currency="eur",
             automatic_payment_methods={"enabled": True},
@@ -14543,7 +14353,7 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = await stripe.PaymentIntent.create_async(
+        await stripe.PaymentIntent.create_async(
             amount=1099,
             currency="eur",
             automatic_payment_methods={"enabled": True},
@@ -14586,7 +14396,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = stripe.PaymentIntent.create(
+        stripe.PaymentIntent.create(
             amount=2000,
             currency="usd",
             automatic_payment_methods={"enabled": True},
@@ -14629,7 +14439,7 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = await stripe.PaymentIntent.create_async(
+        await stripe.PaymentIntent.create_async(
             amount=2000,
             currency="usd",
             automatic_payment_methods={"enabled": True},
@@ -14672,7 +14482,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_post_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = stripe.PaymentIntent.modify(
+        stripe.PaymentIntent.modify(
             "pi_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -14711,7 +14521,7 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_post_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = await stripe.PaymentIntent.modify_async(
+        await stripe.PaymentIntent.modify_async(
             "pi_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -14750,7 +14560,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_post_4(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = stripe.PaymentIntent.create(
+        stripe.PaymentIntent.create(
             amount=200,
             currency="usd",
             payment_method_data={"type": "p24", "p24": {"bank": "blik"}},
@@ -14796,7 +14606,7 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_post_4_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = await stripe.PaymentIntent.create_async(
+        await stripe.PaymentIntent.create_async(
             amount=200,
             currency="usd",
             payment_method_data={"type": "p24", "p24": {"bank": "blik"}},
@@ -14842,7 +14652,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_search_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intents = stripe.PaymentIntent.search(
+        stripe.PaymentIntent.search(
             query="status:'succeeded' AND metadata['order_id']:'6735'",
         )
         http_client_mock.assert_requested(
@@ -14880,7 +14690,7 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_search_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intents = await stripe.PaymentIntent.search_async(
+        await stripe.PaymentIntent.search_async(
             query="status:'succeeded' AND metadata['order_id']:'6735'",
         )
         http_client_mock.assert_requested(
@@ -14918,9 +14728,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_verify_microdeposits_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = stripe.PaymentIntent.verify_microdeposits(
-            "pi_xxxxxxxxxxxxx",
-        )
+        stripe.PaymentIntent.verify_microdeposits("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
@@ -14953,7 +14761,7 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_verify_microdeposits_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = await stripe.PaymentIntent.verify_microdeposits_async(
+        await stripe.PaymentIntent.verify_microdeposits_async(
             "pi_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -14990,7 +14798,7 @@ class TestGeneratedExamples(object):
     def test_payment_intents_verify_microdeposits_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = stripe.PaymentIntent.verify_microdeposits(
+        stripe.PaymentIntent.verify_microdeposits(
             "pi_xxxxxxxxxxxxx",
             amounts=[32, 45],
         )
@@ -15029,7 +14837,7 @@ class TestGeneratedExamples(object):
     async def test_payment_intents_verify_microdeposits_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_intent = await stripe.PaymentIntent.verify_microdeposits_async(
+        await stripe.PaymentIntent.verify_microdeposits_async(
             "pi_xxxxxxxxxxxxx",
             amounts=[32, 45],
         )
@@ -15068,7 +14876,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_payment_links_get(self, http_client_mock: HTTPClientMock) -> None:
-        payment_link = stripe.PaymentLink.retrieve("pl_xyz")
+        stripe.PaymentLink.retrieve("pl_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links/pl_xyz",
@@ -15099,7 +14907,7 @@ class TestGeneratedExamples(object):
     async def test_payment_links_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_link = await stripe.PaymentLink.retrieve_async("pl_xyz")
+        await stripe.PaymentLink.retrieve_async("pl_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links/pl_xyz",
@@ -15130,7 +14938,7 @@ class TestGeneratedExamples(object):
     def test_payment_links_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_links = stripe.PaymentLink.list(limit=3)
+        stripe.PaymentLink.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links",
@@ -15162,7 +14970,7 @@ class TestGeneratedExamples(object):
     async def test_payment_links_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_links = await stripe.PaymentLink.list_async(limit=3)
+        await stripe.PaymentLink.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links",
@@ -15194,7 +15002,7 @@ class TestGeneratedExamples(object):
     def test_payment_links_get_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_link = stripe.PaymentLink.retrieve("plink_xxxxxxxxxxxxx")
+        stripe.PaymentLink.retrieve("plink_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
@@ -15225,9 +15033,7 @@ class TestGeneratedExamples(object):
     async def test_payment_links_get_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_link = await stripe.PaymentLink.retrieve_async(
-            "plink_xxxxxxxxxxxxx",
-        )
+        await stripe.PaymentLink.retrieve_async("plink_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
@@ -15260,7 +15066,7 @@ class TestGeneratedExamples(object):
     def test_payment_links_line_items_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        line_items = stripe.PaymentLink.list_line_items("pl_xyz")
+        stripe.PaymentLink.list_line_items("pl_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links/pl_xyz/line_items",
@@ -15291,7 +15097,7 @@ class TestGeneratedExamples(object):
     async def test_payment_links_line_items_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        line_items = await stripe.PaymentLink.list_line_items_async("pl_xyz")
+        await stripe.PaymentLink.list_line_items_async("pl_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links/pl_xyz/line_items",
@@ -15322,7 +15128,7 @@ class TestGeneratedExamples(object):
     def test_payment_links_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_link = stripe.PaymentLink.create(
+        stripe.PaymentLink.create(
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
         )
         http_client_mock.assert_requested(
@@ -15363,7 +15169,7 @@ class TestGeneratedExamples(object):
     async def test_payment_links_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_link = await stripe.PaymentLink.create_async(
+        await stripe.PaymentLink.create_async(
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
         )
         http_client_mock.assert_requested(
@@ -15404,7 +15210,7 @@ class TestGeneratedExamples(object):
     def test_payment_links_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_link = stripe.PaymentLink.create(
+        stripe.PaymentLink.create(
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
         )
         http_client_mock.assert_requested(
@@ -15445,7 +15251,7 @@ class TestGeneratedExamples(object):
     async def test_payment_links_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_link = await stripe.PaymentLink.create_async(
+        await stripe.PaymentLink.create_async(
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
         )
         http_client_mock.assert_requested(
@@ -15486,7 +15292,7 @@ class TestGeneratedExamples(object):
     def test_payment_links_post_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_link = stripe.PaymentLink.modify(
+        stripe.PaymentLink.modify(
             "plink_xxxxxxxxxxxxx",
             active=False,
         )
@@ -15525,7 +15331,7 @@ class TestGeneratedExamples(object):
     async def test_payment_links_post_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_link = await stripe.PaymentLink.modify_async(
+        await stripe.PaymentLink.modify_async(
             "plink_xxxxxxxxxxxxx",
             active=False,
         )
@@ -15564,9 +15370,7 @@ class TestGeneratedExamples(object):
     def test_payment_method_configurations_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method_configurations = stripe.PaymentMethodConfiguration.list(
-            application="foo",
-        )
+        stripe.PaymentMethodConfiguration.list(application="foo")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_method_configurations",
@@ -15600,11 +15404,7 @@ class TestGeneratedExamples(object):
     async def test_payment_method_configurations_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method_configurations = (
-            await stripe.PaymentMethodConfiguration.list_async(
-                application="foo",
-            )
-        )
+        await stripe.PaymentMethodConfiguration.list_async(application="foo")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_method_configurations",
@@ -15640,11 +15440,7 @@ class TestGeneratedExamples(object):
     def test_payment_method_configurations_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method_configuration = (
-            stripe.PaymentMethodConfiguration.retrieve(
-                "foo",
-            )
-        )
+        stripe.PaymentMethodConfiguration.retrieve("foo")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_method_configurations/foo",
@@ -15677,11 +15473,7 @@ class TestGeneratedExamples(object):
     async def test_payment_method_configurations_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method_configuration = (
-            await stripe.PaymentMethodConfiguration.retrieve_async(
-                "foo",
-            )
-        )
+        await stripe.PaymentMethodConfiguration.retrieve_async("foo")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_method_configurations/foo",
@@ -15714,11 +15506,9 @@ class TestGeneratedExamples(object):
     def test_payment_method_configurations_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method_configuration = (
-            stripe.PaymentMethodConfiguration.create(
-                acss_debit={"display_preference": {"preference": "none"}},
-                affirm={"display_preference": {"preference": "none"}},
-            )
+        stripe.PaymentMethodConfiguration.create(
+            acss_debit={"display_preference": {"preference": "none"}},
+            affirm={"display_preference": {"preference": "none"}},
         )
         http_client_mock.assert_requested(
             "post",
@@ -15761,11 +15551,9 @@ class TestGeneratedExamples(object):
     async def test_payment_method_configurations_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method_configuration = (
-            await stripe.PaymentMethodConfiguration.create_async(
-                acss_debit={"display_preference": {"preference": "none"}},
-                affirm={"display_preference": {"preference": "none"}},
-            )
+        await stripe.PaymentMethodConfiguration.create_async(
+            acss_debit={"display_preference": {"preference": "none"}},
+            affirm={"display_preference": {"preference": "none"}},
         )
         http_client_mock.assert_requested(
             "post",
@@ -15808,11 +15596,9 @@ class TestGeneratedExamples(object):
     def test_payment_method_configurations_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method_configuration = (
-            stripe.PaymentMethodConfiguration.modify(
-                "foo",
-                acss_debit={"display_preference": {"preference": "on"}},
-            )
+        stripe.PaymentMethodConfiguration.modify(
+            "foo",
+            acss_debit={"display_preference": {"preference": "on"}},
         )
         http_client_mock.assert_requested(
             "post",
@@ -15851,11 +15637,9 @@ class TestGeneratedExamples(object):
     async def test_payment_method_configurations_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method_configuration = (
-            await stripe.PaymentMethodConfiguration.modify_async(
-                "foo",
-                acss_debit={"display_preference": {"preference": "on"}},
-            )
+        await stripe.PaymentMethodConfiguration.modify_async(
+            "foo",
+            acss_debit={"display_preference": {"preference": "on"}},
         )
         http_client_mock.assert_requested(
             "post",
@@ -15894,7 +15678,7 @@ class TestGeneratedExamples(object):
     def test_payment_methods_attach_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method = stripe.PaymentMethod.attach(
+        stripe.PaymentMethod.attach(
             "pm_xxxxxxxxxxxxx",
             customer="cus_xxxxxxxxxxxxx",
         )
@@ -15933,7 +15717,7 @@ class TestGeneratedExamples(object):
     async def test_payment_methods_attach_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method = await stripe.PaymentMethod.attach_async(
+        await stripe.PaymentMethod.attach_async(
             "pm_xxxxxxxxxxxxx",
             customer="cus_xxxxxxxxxxxxx",
         )
@@ -15972,7 +15756,7 @@ class TestGeneratedExamples(object):
     def test_payment_methods_detach_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method = stripe.PaymentMethod.detach("pm_xxxxxxxxxxxxx")
+        stripe.PaymentMethod.detach("pm_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx/detach",
@@ -16003,9 +15787,7 @@ class TestGeneratedExamples(object):
     async def test_payment_methods_detach_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method = await stripe.PaymentMethod.detach_async(
-            "pm_xxxxxxxxxxxxx",
-        )
+        await stripe.PaymentMethod.detach_async("pm_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx/detach",
@@ -16038,7 +15820,7 @@ class TestGeneratedExamples(object):
     def test_payment_methods_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_methods = stripe.PaymentMethod.list(
+        stripe.PaymentMethod.list(
             customer="cus_xxxxxxxxxxxxx",
             type="card",
         )
@@ -16078,7 +15860,7 @@ class TestGeneratedExamples(object):
     async def test_payment_methods_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_methods = await stripe.PaymentMethod.list_async(
+        await stripe.PaymentMethod.list_async(
             customer="cus_xxxxxxxxxxxxx",
             type="card",
         )
@@ -16118,7 +15900,7 @@ class TestGeneratedExamples(object):
     def test_payment_methods_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method = stripe.PaymentMethod.retrieve("pm_xxxxxxxxxxxxx")
+        stripe.PaymentMethod.retrieve("pm_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx",
@@ -16149,9 +15931,7 @@ class TestGeneratedExamples(object):
     async def test_payment_methods_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method = await stripe.PaymentMethod.retrieve_async(
-            "pm_xxxxxxxxxxxxx",
-        )
+        await stripe.PaymentMethod.retrieve_async("pm_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx",
@@ -16184,7 +15964,7 @@ class TestGeneratedExamples(object):
     def test_payment_methods_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method = stripe.PaymentMethod.create(
+        stripe.PaymentMethod.create(
             type="card",
             card={
                 "number": "4242424242424242",
@@ -16235,7 +16015,7 @@ class TestGeneratedExamples(object):
     async def test_payment_methods_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method = await stripe.PaymentMethod.create_async(
+        await stripe.PaymentMethod.create_async(
             type="card",
             card={
                 "number": "4242424242424242",
@@ -16286,7 +16066,7 @@ class TestGeneratedExamples(object):
     def test_payment_methods_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method = stripe.PaymentMethod.modify(
+        stripe.PaymentMethod.modify(
             "pm_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -16325,7 +16105,7 @@ class TestGeneratedExamples(object):
     async def test_payment_methods_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payment_method = await stripe.PaymentMethod.modify_async(
+        await stripe.PaymentMethod.modify_async(
             "pm_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -16364,7 +16144,7 @@ class TestGeneratedExamples(object):
     def test_payouts_cancel_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payout = stripe.Payout.cancel("po_xxxxxxxxxxxxx")
+        stripe.Payout.cancel("po_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx/cancel",
@@ -16395,7 +16175,7 @@ class TestGeneratedExamples(object):
     async def test_payouts_cancel_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payout = await stripe.Payout.cancel_async("po_xxxxxxxxxxxxx")
+        await stripe.Payout.cancel_async("po_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx/cancel",
@@ -16424,7 +16204,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_payouts_get(self, http_client_mock: HTTPClientMock) -> None:
-        payouts = stripe.Payout.list(limit=3)
+        stripe.Payout.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/payouts",
@@ -16456,7 +16236,7 @@ class TestGeneratedExamples(object):
     async def test_payouts_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payouts = await stripe.Payout.list_async(limit=3)
+        await stripe.Payout.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/payouts",
@@ -16486,7 +16266,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_payouts_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        payout = stripe.Payout.retrieve("po_xxxxxxxxxxxxx")
+        stripe.Payout.retrieve("po_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payouts/po_xxxxxxxxxxxxx",
@@ -16517,7 +16297,7 @@ class TestGeneratedExamples(object):
     async def test_payouts_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payout = await stripe.Payout.retrieve_async("po_xxxxxxxxxxxxx")
+        await stripe.Payout.retrieve_async("po_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payouts/po_xxxxxxxxxxxxx",
@@ -16546,7 +16326,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_payouts_post(self, http_client_mock: HTTPClientMock) -> None:
-        payout = stripe.Payout.create(
+        stripe.Payout.create(
             amount=1100,
             currency="usd",
         )
@@ -16582,7 +16362,7 @@ class TestGeneratedExamples(object):
     async def test_payouts_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payout = await stripe.Payout.create_async(
+        await stripe.Payout.create_async(
             amount=1100,
             currency="usd",
         )
@@ -16621,7 +16401,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_payouts_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        payout = stripe.Payout.modify(
+        stripe.Payout.modify(
             "po_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -16660,7 +16440,7 @@ class TestGeneratedExamples(object):
     async def test_payouts_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payout = await stripe.Payout.modify_async(
+        await stripe.Payout.modify_async(
             "po_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -16699,7 +16479,7 @@ class TestGeneratedExamples(object):
     def test_payouts_reverse_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payout = stripe.Payout.reverse("po_xxxxxxxxxxxxx")
+        stripe.Payout.reverse("po_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx/reverse",
@@ -16730,7 +16510,7 @@ class TestGeneratedExamples(object):
     async def test_payouts_reverse_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        payout = await stripe.Payout.reverse_async("po_xxxxxxxxxxxxx")
+        await stripe.Payout.reverse_async("po_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx/reverse",
@@ -16759,7 +16539,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_plans_delete(self, http_client_mock: HTTPClientMock) -> None:
-        deleted = stripe.Plan.delete("price_xxxxxxxxxxxxx")
+        stripe.Plan.delete("price_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/plans/price_xxxxxxxxxxxxx",
@@ -16790,7 +16570,7 @@ class TestGeneratedExamples(object):
     async def test_plans_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.Plan.delete_async("price_xxxxxxxxxxxxx")
+        await stripe.Plan.delete_async("price_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/plans/price_xxxxxxxxxxxxx",
@@ -16819,7 +16599,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_plans_get(self, http_client_mock: HTTPClientMock) -> None:
-        plans = stripe.Plan.list(limit=3)
+        stripe.Plan.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/plans",
@@ -16849,7 +16629,7 @@ class TestGeneratedExamples(object):
     async def test_plans_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        plans = await stripe.Plan.list_async(limit=3)
+        await stripe.Plan.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/plans",
@@ -16879,7 +16659,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_plans_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        plan = stripe.Plan.retrieve("price_xxxxxxxxxxxxx")
+        stripe.Plan.retrieve("price_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/plans/price_xxxxxxxxxxxxx",
@@ -16910,7 +16690,7 @@ class TestGeneratedExamples(object):
     async def test_plans_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        plan = await stripe.Plan.retrieve_async("price_xxxxxxxxxxxxx")
+        await stripe.Plan.retrieve_async("price_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/plans/price_xxxxxxxxxxxxx",
@@ -16939,7 +16719,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_plans_post(self, http_client_mock: HTTPClientMock) -> None:
-        plan = stripe.Plan.create(
+        stripe.Plan.create(
             amount=2000,
             currency="usd",
             interval="month",
@@ -16984,7 +16764,7 @@ class TestGeneratedExamples(object):
     async def test_plans_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        plan = await stripe.Plan.create_async(
+        await stripe.Plan.create_async(
             amount=2000,
             currency="usd",
             interval="month",
@@ -17027,7 +16807,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_plans_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        plan = stripe.Plan.create(
+        stripe.Plan.create(
             amount=2000,
             currency="usd",
             interval="month",
@@ -17072,7 +16852,7 @@ class TestGeneratedExamples(object):
     async def test_plans_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        plan = await stripe.Plan.create_async(
+        await stripe.Plan.create_async(
             amount=2000,
             currency="usd",
             interval="month",
@@ -17115,7 +16895,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_plans_post_3(self, http_client_mock: HTTPClientMock) -> None:
-        plan = stripe.Plan.modify(
+        stripe.Plan.modify(
             "price_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -17154,7 +16934,7 @@ class TestGeneratedExamples(object):
     async def test_plans_post_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        plan = await stripe.Plan.modify_async(
+        await stripe.Plan.modify_async(
             "price_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -17191,7 +16971,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_prices_get(self, http_client_mock: HTTPClientMock) -> None:
-        prices = stripe.Price.list(limit=3)
+        stripe.Price.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/prices",
@@ -17223,7 +17003,7 @@ class TestGeneratedExamples(object):
     async def test_prices_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        prices = await stripe.Price.list_async(limit=3)
+        await stripe.Price.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/prices",
@@ -17253,7 +17033,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_prices_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        price = stripe.Price.retrieve("price_xxxxxxxxxxxxx")
+        stripe.Price.retrieve("price_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/prices/price_xxxxxxxxxxxxx",
@@ -17284,7 +17064,7 @@ class TestGeneratedExamples(object):
     async def test_prices_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        price = await stripe.Price.retrieve_async("price_xxxxxxxxxxxxx")
+        await stripe.Price.retrieve_async("price_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/prices/price_xxxxxxxxxxxxx",
@@ -17313,7 +17093,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_prices_post(self, http_client_mock: HTTPClientMock) -> None:
-        price = stripe.Price.create(
+        stripe.Price.create(
             unit_amount=2000,
             currency="usd",
             currency_options={
@@ -17366,7 +17146,7 @@ class TestGeneratedExamples(object):
     async def test_prices_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        price = await stripe.Price.create_async(
+        await stripe.Price.create_async(
             unit_amount=2000,
             currency="usd",
             currency_options={
@@ -17417,7 +17197,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_prices_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        price = stripe.Price.create(
+        stripe.Price.create(
             unit_amount=2000,
             currency="usd",
             recurring={"interval": "month"},
@@ -17462,7 +17242,7 @@ class TestGeneratedExamples(object):
     async def test_prices_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        price = await stripe.Price.create_async(
+        await stripe.Price.create_async(
             unit_amount=2000,
             currency="usd",
             recurring={"interval": "month"},
@@ -17505,7 +17285,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_prices_post_3(self, http_client_mock: HTTPClientMock) -> None:
-        price = stripe.Price.modify(
+        stripe.Price.modify(
             "price_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -17544,7 +17324,7 @@ class TestGeneratedExamples(object):
     async def test_prices_post_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        price = await stripe.Price.modify_async(
+        await stripe.Price.modify_async(
             "price_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -17581,7 +17361,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_prices_search_get(self, http_client_mock: HTTPClientMock) -> None:
-        prices = stripe.Price.search(
+        stripe.Price.search(
             query="active:'true' AND metadata['order_id']:'6735'",
         )
         http_client_mock.assert_requested(
@@ -17619,7 +17399,7 @@ class TestGeneratedExamples(object):
     async def test_prices_search_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        prices = await stripe.Price.search_async(
+        await stripe.Price.search_async(
             query="active:'true' AND metadata['order_id']:'6735'",
         )
         http_client_mock.assert_requested(
@@ -17655,7 +17435,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_products_delete(self, http_client_mock: HTTPClientMock) -> None:
-        deleted = stripe.Product.delete("prod_xxxxxxxxxxxxx")
+        stripe.Product.delete("prod_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/products/prod_xxxxxxxxxxxxx",
@@ -17686,7 +17466,7 @@ class TestGeneratedExamples(object):
     async def test_products_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.Product.delete_async("prod_xxxxxxxxxxxxx")
+        await stripe.Product.delete_async("prod_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/products/prod_xxxxxxxxxxxxx",
@@ -17715,7 +17495,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_products_get(self, http_client_mock: HTTPClientMock) -> None:
-        products = stripe.Product.list(limit=3)
+        stripe.Product.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/products",
@@ -17747,7 +17527,7 @@ class TestGeneratedExamples(object):
     async def test_products_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        products = await stripe.Product.list_async(limit=3)
+        await stripe.Product.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/products",
@@ -17777,7 +17557,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_products_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        product = stripe.Product.retrieve("prod_xxxxxxxxxxxxx")
+        stripe.Product.retrieve("prod_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/products/prod_xxxxxxxxxxxxx",
@@ -17808,7 +17588,7 @@ class TestGeneratedExamples(object):
     async def test_products_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        product = await stripe.Product.retrieve_async("prod_xxxxxxxxxxxxx")
+        await stripe.Product.retrieve_async("prod_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/products/prod_xxxxxxxxxxxxx",
@@ -17837,7 +17617,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_products_post(self, http_client_mock: HTTPClientMock) -> None:
-        product = stripe.Product.create(name="Gold Special")
+        stripe.Product.create(name="Gold Special")
         http_client_mock.assert_requested(
             "post",
             path="/v1/products",
@@ -17870,7 +17650,7 @@ class TestGeneratedExamples(object):
     async def test_products_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        product = await stripe.Product.create_async(name="Gold Special")
+        await stripe.Product.create_async(name="Gold Special")
         http_client_mock.assert_requested(
             "post",
             path="/v1/products",
@@ -17901,7 +17681,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_products_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        product = stripe.Product.modify(
+        stripe.Product.modify(
             "prod_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -17940,7 +17720,7 @@ class TestGeneratedExamples(object):
     async def test_products_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        product = await stripe.Product.modify_async(
+        await stripe.Product.modify_async(
             "prod_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -17979,7 +17759,7 @@ class TestGeneratedExamples(object):
     def test_products_search_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        products = stripe.Product.search(
+        stripe.Product.search(
             query="active:'true' AND metadata['order_id']:'6735'",
         )
         http_client_mock.assert_requested(
@@ -18017,7 +17797,7 @@ class TestGeneratedExamples(object):
     async def test_products_search_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        products = await stripe.Product.search_async(
+        await stripe.Product.search_async(
             query="active:'true' AND metadata['order_id']:'6735'",
         )
         http_client_mock.assert_requested(
@@ -18055,7 +17835,7 @@ class TestGeneratedExamples(object):
     def test_promotion_codes_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        promotion_codes = stripe.PromotionCode.list(limit=3)
+        stripe.PromotionCode.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/promotion_codes",
@@ -18087,7 +17867,7 @@ class TestGeneratedExamples(object):
     async def test_promotion_codes_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        promotion_codes = await stripe.PromotionCode.list_async(limit=3)
+        await stripe.PromotionCode.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/promotion_codes",
@@ -18119,7 +17899,7 @@ class TestGeneratedExamples(object):
     def test_promotion_codes_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        promotion_code = stripe.PromotionCode.retrieve("promo_xxxxxxxxxxxxx")
+        stripe.PromotionCode.retrieve("promo_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/promotion_codes/promo_xxxxxxxxxxxxx",
@@ -18150,9 +17930,7 @@ class TestGeneratedExamples(object):
     async def test_promotion_codes_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        promotion_code = await stripe.PromotionCode.retrieve_async(
-            "promo_xxxxxxxxxxxxx",
-        )
+        await stripe.PromotionCode.retrieve_async("promo_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/promotion_codes/promo_xxxxxxxxxxxxx",
@@ -18185,7 +17963,7 @@ class TestGeneratedExamples(object):
     def test_promotion_codes_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        promotion_code = stripe.PromotionCode.create(coupon="Z4OV52SU")
+        stripe.PromotionCode.create(coupon="Z4OV52SU")
         http_client_mock.assert_requested(
             "post",
             path="/v1/promotion_codes",
@@ -18218,9 +17996,7 @@ class TestGeneratedExamples(object):
     async def test_promotion_codes_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        promotion_code = await stripe.PromotionCode.create_async(
-            coupon="Z4OV52SU",
-        )
+        await stripe.PromotionCode.create_async(coupon="Z4OV52SU")
         http_client_mock.assert_requested(
             "post",
             path="/v1/promotion_codes",
@@ -18257,7 +18033,7 @@ class TestGeneratedExamples(object):
     def test_promotion_codes_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        promotion_code = stripe.PromotionCode.modify(
+        stripe.PromotionCode.modify(
             "promo_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -18296,7 +18072,7 @@ class TestGeneratedExamples(object):
     async def test_promotion_codes_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        promotion_code = await stripe.PromotionCode.modify_async(
+        await stripe.PromotionCode.modify_async(
             "promo_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -18335,7 +18111,7 @@ class TestGeneratedExamples(object):
     def test_quotes_accept_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        quote = stripe.Quote.accept("qt_xxxxxxxxxxxxx")
+        stripe.Quote.accept("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/accept",
@@ -18366,7 +18142,7 @@ class TestGeneratedExamples(object):
     async def test_quotes_accept_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        quote = await stripe.Quote.accept_async("qt_xxxxxxxxxxxxx")
+        await stripe.Quote.accept_async("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/accept",
@@ -18397,7 +18173,7 @@ class TestGeneratedExamples(object):
     def test_quotes_cancel_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        quote = stripe.Quote.cancel("qt_xxxxxxxxxxxxx")
+        stripe.Quote.cancel("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/cancel",
@@ -18428,7 +18204,7 @@ class TestGeneratedExamples(object):
     async def test_quotes_cancel_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        quote = await stripe.Quote.cancel_async("qt_xxxxxxxxxxxxx")
+        await stripe.Quote.cancel_async("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/cancel",
@@ -18459,7 +18235,7 @@ class TestGeneratedExamples(object):
     def test_quotes_finalize_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        quote = stripe.Quote.finalize_quote("qt_xxxxxxxxxxxxx")
+        stripe.Quote.finalize_quote("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/finalize",
@@ -18490,7 +18266,7 @@ class TestGeneratedExamples(object):
     async def test_quotes_finalize_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        quote = await stripe.Quote.finalize_quote_async("qt_xxxxxxxxxxxxx")
+        await stripe.Quote.finalize_quote_async("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/finalize",
@@ -18519,7 +18295,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_quotes_get(self, http_client_mock: HTTPClientMock) -> None:
-        quotes = stripe.Quote.list(limit=3)
+        stripe.Quote.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes",
@@ -18551,7 +18327,7 @@ class TestGeneratedExamples(object):
     async def test_quotes_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        quotes = await stripe.Quote.list_async(limit=3)
+        await stripe.Quote.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes",
@@ -18581,7 +18357,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_quotes_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        quote = stripe.Quote.retrieve("qt_xxxxxxxxxxxxx")
+        stripe.Quote.retrieve("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx",
@@ -18612,7 +18388,7 @@ class TestGeneratedExamples(object):
     async def test_quotes_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        quote = await stripe.Quote.retrieve_async("qt_xxxxxxxxxxxxx")
+        await stripe.Quote.retrieve_async("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx",
@@ -18643,7 +18419,7 @@ class TestGeneratedExamples(object):
     def test_quotes_line_items_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        line_items = stripe.Quote.list_line_items("qt_xxxxxxxxxxxxx")
+        stripe.Quote.list_line_items("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/line_items",
@@ -18674,9 +18450,7 @@ class TestGeneratedExamples(object):
     async def test_quotes_line_items_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        line_items = await stripe.Quote.list_line_items_async(
-            "qt_xxxxxxxxxxxxx",
-        )
+        await stripe.Quote.list_line_items_async("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/line_items",
@@ -18707,7 +18481,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_quotes_pdf_get(self, http_client_mock: HTTPClientMock) -> None:
-        file = stripe.Quote.pdf("qt_xxxxxxxxxxxxx")
+        stripe.Quote.pdf("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
@@ -18738,7 +18512,7 @@ class TestGeneratedExamples(object):
     async def test_quotes_pdf_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        file = await stripe.Quote.pdf_async("qt_xxxxxxxxxxxxx")
+        await stripe.Quote.pdf_async("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
@@ -18767,7 +18541,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_quotes_post(self, http_client_mock: HTTPClientMock) -> None:
-        quote = stripe.Quote.create(
+        stripe.Quote.create(
             customer="cus_xxxxxxxxxxxxx",
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 2}],
         )
@@ -18810,7 +18584,7 @@ class TestGeneratedExamples(object):
     async def test_quotes_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        quote = await stripe.Quote.create_async(
+        await stripe.Quote.create_async(
             customer="cus_xxxxxxxxxxxxx",
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 2}],
         )
@@ -18851,7 +18625,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_quotes_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        quote = stripe.Quote.modify(
+        stripe.Quote.modify(
             "qt_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -18890,7 +18664,7 @@ class TestGeneratedExamples(object):
     async def test_quotes_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        quote = await stripe.Quote.modify_async(
+        await stripe.Quote.modify_async(
             "qt_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -18929,7 +18703,7 @@ class TestGeneratedExamples(object):
     def test_radar_early_fraud_warnings_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        early_fraud_warnings = stripe.radar.EarlyFraudWarning.list(limit=3)
+        stripe.radar.EarlyFraudWarning.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/early_fraud_warnings",
@@ -18965,9 +18739,7 @@ class TestGeneratedExamples(object):
     async def test_radar_early_fraud_warnings_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        early_fraud_warnings = await stripe.radar.EarlyFraudWarning.list_async(
-            limit=3,
-        )
+        await stripe.radar.EarlyFraudWarning.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/early_fraud_warnings",
@@ -19001,9 +18773,7 @@ class TestGeneratedExamples(object):
     def test_radar_early_fraud_warnings_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        early_fraud_warning = stripe.radar.EarlyFraudWarning.retrieve(
-            "issfr_xxxxxxxxxxxxx",
-        )
+        stripe.radar.EarlyFraudWarning.retrieve("issfr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx",
@@ -19036,10 +18806,8 @@ class TestGeneratedExamples(object):
     async def test_radar_early_fraud_warnings_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        early_fraud_warning = (
-            await stripe.radar.EarlyFraudWarning.retrieve_async(
-                "issfr_xxxxxxxxxxxxx",
-            )
+        await stripe.radar.EarlyFraudWarning.retrieve_async(
+            "issfr_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -19075,7 +18843,7 @@ class TestGeneratedExamples(object):
     def test_radar_value_list_items_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.radar.ValueListItem.delete("rsli_xxxxxxxxxxxxx")
+        stripe.radar.ValueListItem.delete("rsli_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
@@ -19106,9 +18874,7 @@ class TestGeneratedExamples(object):
     async def test_radar_value_list_items_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.radar.ValueListItem.delete_async(
-            "rsli_xxxxxxxxxxxxx",
-        )
+        await stripe.radar.ValueListItem.delete_async("rsli_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
@@ -19141,7 +18907,7 @@ class TestGeneratedExamples(object):
     def test_radar_value_list_items_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_list_items = stripe.radar.ValueListItem.list(
+        stripe.radar.ValueListItem.list(
             limit=3,
             value_list="rsl_xxxxxxxxxxxxx",
         )
@@ -19181,7 +18947,7 @@ class TestGeneratedExamples(object):
     async def test_radar_value_list_items_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_list_items = await stripe.radar.ValueListItem.list_async(
+        await stripe.radar.ValueListItem.list_async(
             limit=3,
             value_list="rsl_xxxxxxxxxxxxx",
         )
@@ -19221,9 +18987,7 @@ class TestGeneratedExamples(object):
     def test_radar_value_list_items_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_list_item = stripe.radar.ValueListItem.retrieve(
-            "rsli_xxxxxxxxxxxxx",
-        )
+        stripe.radar.ValueListItem.retrieve("rsli_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
@@ -19256,9 +19020,7 @@ class TestGeneratedExamples(object):
     async def test_radar_value_list_items_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_list_item = await stripe.radar.ValueListItem.retrieve_async(
-            "rsli_xxxxxxxxxxxxx",
-        )
+        await stripe.radar.ValueListItem.retrieve_async("rsli_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
@@ -19291,7 +19053,7 @@ class TestGeneratedExamples(object):
     def test_radar_value_list_items_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_list_item = stripe.radar.ValueListItem.create(
+        stripe.radar.ValueListItem.create(
             value_list="rsl_xxxxxxxxxxxxx",
             value="1.2.3.4",
         )
@@ -19332,7 +19094,7 @@ class TestGeneratedExamples(object):
     async def test_radar_value_list_items_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_list_item = await stripe.radar.ValueListItem.create_async(
+        await stripe.radar.ValueListItem.create_async(
             value_list="rsl_xxxxxxxxxxxxx",
             value="1.2.3.4",
         )
@@ -19373,7 +19135,7 @@ class TestGeneratedExamples(object):
     def test_radar_value_lists_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.radar.ValueList.delete("rsl_xxxxxxxxxxxxx")
+        stripe.radar.ValueList.delete("rsl_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
@@ -19404,9 +19166,7 @@ class TestGeneratedExamples(object):
     async def test_radar_value_lists_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.radar.ValueList.delete_async(
-            "rsl_xxxxxxxxxxxxx"
-        )
+        await stripe.radar.ValueList.delete_async("rsl_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
@@ -19439,7 +19199,7 @@ class TestGeneratedExamples(object):
     def test_radar_value_lists_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_lists = stripe.radar.ValueList.list(limit=3)
+        stripe.radar.ValueList.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/value_lists",
@@ -19471,7 +19231,7 @@ class TestGeneratedExamples(object):
     async def test_radar_value_lists_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_lists = await stripe.radar.ValueList.list_async(limit=3)
+        await stripe.radar.ValueList.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/value_lists",
@@ -19503,7 +19263,7 @@ class TestGeneratedExamples(object):
     def test_radar_value_lists_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_list = stripe.radar.ValueList.retrieve("rsl_xxxxxxxxxxxxx")
+        stripe.radar.ValueList.retrieve("rsl_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
@@ -19534,9 +19294,7 @@ class TestGeneratedExamples(object):
     async def test_radar_value_lists_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_list = await stripe.radar.ValueList.retrieve_async(
-            "rsl_xxxxxxxxxxxxx",
-        )
+        await stripe.radar.ValueList.retrieve_async("rsl_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
@@ -19569,7 +19327,7 @@ class TestGeneratedExamples(object):
     def test_radar_value_lists_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_list = stripe.radar.ValueList.create(
+        stripe.radar.ValueList.create(
             alias="custom_ip_xxxxxxxxxxxxx",
             name="Custom IP Blocklist",
             item_type="ip_address",
@@ -19612,7 +19370,7 @@ class TestGeneratedExamples(object):
     async def test_radar_value_lists_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_list = await stripe.radar.ValueList.create_async(
+        await stripe.radar.ValueList.create_async(
             alias="custom_ip_xxxxxxxxxxxxx",
             name="Custom IP Blocklist",
             item_type="ip_address",
@@ -19655,7 +19413,7 @@ class TestGeneratedExamples(object):
     def test_radar_value_lists_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_list = stripe.radar.ValueList.modify(
+        stripe.radar.ValueList.modify(
             "rsl_xxxxxxxxxxxxx",
             name="Updated IP Block List",
         )
@@ -19694,7 +19452,7 @@ class TestGeneratedExamples(object):
     async def test_radar_value_lists_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        value_list = await stripe.radar.ValueList.modify_async(
+        await stripe.radar.ValueList.modify_async(
             "rsl_xxxxxxxxxxxxx",
             name="Updated IP Block List",
         )
@@ -19733,7 +19491,7 @@ class TestGeneratedExamples(object):
     def test_refunds_cancel_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        refund = stripe.Refund.cancel("re_xxxxxxxxxxxxx")
+        stripe.Refund.cancel("re_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/refunds/re_xxxxxxxxxxxxx/cancel",
@@ -19764,7 +19522,7 @@ class TestGeneratedExamples(object):
     async def test_refunds_cancel_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        refund = await stripe.Refund.cancel_async("re_xxxxxxxxxxxxx")
+        await stripe.Refund.cancel_async("re_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/refunds/re_xxxxxxxxxxxxx/cancel",
@@ -19793,7 +19551,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_refunds_get(self, http_client_mock: HTTPClientMock) -> None:
-        refunds = stripe.Refund.list(limit=3)
+        stripe.Refund.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/refunds",
@@ -19825,7 +19583,7 @@ class TestGeneratedExamples(object):
     async def test_refunds_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        refunds = await stripe.Refund.list_async(limit=3)
+        await stripe.Refund.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/refunds",
@@ -19855,7 +19613,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_refunds_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        refund = stripe.Refund.retrieve("re_xxxxxxxxxxxxx")
+        stripe.Refund.retrieve("re_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/refunds/re_xxxxxxxxxxxxx",
@@ -19886,7 +19644,7 @@ class TestGeneratedExamples(object):
     async def test_refunds_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        refund = await stripe.Refund.retrieve_async("re_xxxxxxxxxxxxx")
+        await stripe.Refund.retrieve_async("re_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/refunds/re_xxxxxxxxxxxxx",
@@ -19915,7 +19673,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_refunds_post(self, http_client_mock: HTTPClientMock) -> None:
-        refund = stripe.Refund.create(charge="ch_xxxxxxxxxxxxx")
+        stripe.Refund.create(charge="ch_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/refunds",
@@ -19948,7 +19706,7 @@ class TestGeneratedExamples(object):
     async def test_refunds_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        refund = await stripe.Refund.create_async(charge="ch_xxxxxxxxxxxxx")
+        await stripe.Refund.create_async(charge="ch_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/refunds",
@@ -19983,7 +19741,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_refunds_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        refund = stripe.Refund.modify(
+        stripe.Refund.modify(
             "re_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -20022,7 +19780,7 @@ class TestGeneratedExamples(object):
     async def test_refunds_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        refund = await stripe.Refund.modify_async(
+        await stripe.Refund.modify_async(
             "re_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -20061,7 +19819,7 @@ class TestGeneratedExamples(object):
     def test_reporting_report_runs_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        report_runs = stripe.reporting.ReportRun.list(limit=3)
+        stripe.reporting.ReportRun.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_runs",
@@ -20093,7 +19851,7 @@ class TestGeneratedExamples(object):
     async def test_reporting_report_runs_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        report_runs = await stripe.reporting.ReportRun.list_async(limit=3)
+        await stripe.reporting.ReportRun.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_runs",
@@ -20129,7 +19887,7 @@ class TestGeneratedExamples(object):
     def test_reporting_report_runs_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        report_run = stripe.reporting.ReportRun.retrieve("frr_xxxxxxxxxxxxx")
+        stripe.reporting.ReportRun.retrieve("frr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_runs/frr_xxxxxxxxxxxxx",
@@ -20160,9 +19918,7 @@ class TestGeneratedExamples(object):
     async def test_reporting_report_runs_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        report_run = await stripe.reporting.ReportRun.retrieve_async(
-            "frr_xxxxxxxxxxxxx",
-        )
+        await stripe.reporting.ReportRun.retrieve_async("frr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_runs/frr_xxxxxxxxxxxxx",
@@ -20195,7 +19951,7 @@ class TestGeneratedExamples(object):
     def test_reporting_report_runs_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        report_run = stripe.reporting.ReportRun.create(
+        stripe.reporting.ReportRun.create(
             report_type="balance.summary.1",
             parameters={
                 "interval_start": 1522540800,
@@ -20242,7 +19998,7 @@ class TestGeneratedExamples(object):
     async def test_reporting_report_runs_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        report_run = await stripe.reporting.ReportRun.create_async(
+        await stripe.reporting.ReportRun.create_async(
             report_type="balance.summary.1",
             parameters={
                 "interval_start": 1522540800,
@@ -20289,7 +20045,7 @@ class TestGeneratedExamples(object):
     def test_reporting_report_types_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        report_types = stripe.reporting.ReportType.list()
+        stripe.reporting.ReportType.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_types",
@@ -20320,7 +20076,7 @@ class TestGeneratedExamples(object):
     async def test_reporting_report_types_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        report_types = await stripe.reporting.ReportType.list_async()
+        await stripe.reporting.ReportType.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_types",
@@ -20351,7 +20107,7 @@ class TestGeneratedExamples(object):
     def test_reporting_report_types_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        report_type = stripe.reporting.ReportType.retrieve("balance.summary.1")
+        stripe.reporting.ReportType.retrieve("balance.summary.1")
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_types/balance.summary.1",
@@ -20384,9 +20140,7 @@ class TestGeneratedExamples(object):
     async def test_reporting_report_types_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        report_type = await stripe.reporting.ReportType.retrieve_async(
-            "balance.summary.1",
-        )
+        await stripe.reporting.ReportType.retrieve_async("balance.summary.1")
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_types/balance.summary.1",
@@ -20419,7 +20173,7 @@ class TestGeneratedExamples(object):
     def test_reviews_approve_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        review = stripe.Review.approve("prv_xxxxxxxxxxxxx")
+        stripe.Review.approve("prv_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/reviews/prv_xxxxxxxxxxxxx/approve",
@@ -20450,7 +20204,7 @@ class TestGeneratedExamples(object):
     async def test_reviews_approve_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        review = await stripe.Review.approve_async("prv_xxxxxxxxxxxxx")
+        await stripe.Review.approve_async("prv_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/reviews/prv_xxxxxxxxxxxxx/approve",
@@ -20479,7 +20233,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_reviews_get(self, http_client_mock: HTTPClientMock) -> None:
-        reviews = stripe.Review.list(limit=3)
+        stripe.Review.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/reviews",
@@ -20511,7 +20265,7 @@ class TestGeneratedExamples(object):
     async def test_reviews_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reviews = await stripe.Review.list_async(limit=3)
+        await stripe.Review.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/reviews",
@@ -20541,7 +20295,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_reviews_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        review = stripe.Review.retrieve("prv_xxxxxxxxxxxxx")
+        stripe.Review.retrieve("prv_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/reviews/prv_xxxxxxxxxxxxx",
@@ -20572,7 +20326,7 @@ class TestGeneratedExamples(object):
     async def test_reviews_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        review = await stripe.Review.retrieve_async("prv_xxxxxxxxxxxxx")
+        await stripe.Review.retrieve_async("prv_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/reviews/prv_xxxxxxxxxxxxx",
@@ -20603,7 +20357,7 @@ class TestGeneratedExamples(object):
     def test_setup_attempts_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_attempts = stripe.SetupAttempt.list(
+        stripe.SetupAttempt.list(
             limit=3,
             setup_intent="si_xyz",
         )
@@ -20643,7 +20397,7 @@ class TestGeneratedExamples(object):
     async def test_setup_attempts_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_attempts = await stripe.SetupAttempt.list_async(
+        await stripe.SetupAttempt.list_async(
             limit=3,
             setup_intent="si_xyz",
         )
@@ -20683,7 +20437,7 @@ class TestGeneratedExamples(object):
     def test_setup_intents_cancel_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = stripe.SetupIntent.cancel("seti_xxxxxxxxxxxxx")
+        stripe.SetupIntent.cancel("seti_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel",
@@ -20714,9 +20468,7 @@ class TestGeneratedExamples(object):
     async def test_setup_intents_cancel_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = await stripe.SetupIntent.cancel_async(
-            "seti_xxxxxxxxxxxxx",
-        )
+        await stripe.SetupIntent.cancel_async("seti_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel",
@@ -20749,7 +20501,7 @@ class TestGeneratedExamples(object):
     def test_setup_intents_confirm_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = stripe.SetupIntent.confirm(
+        stripe.SetupIntent.confirm(
             "seti_xxxxxxxxxxxxx",
             payment_method="pm_card_visa",
         )
@@ -20788,7 +20540,7 @@ class TestGeneratedExamples(object):
     async def test_setup_intents_confirm_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = await stripe.SetupIntent.confirm_async(
+        await stripe.SetupIntent.confirm_async(
             "seti_xxxxxxxxxxxxx",
             payment_method="pm_card_visa",
         )
@@ -20825,7 +20577,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_setup_intents_get(self, http_client_mock: HTTPClientMock) -> None:
-        setup_intents = stripe.SetupIntent.list(limit=3)
+        stripe.SetupIntent.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/setup_intents",
@@ -20857,7 +20609,7 @@ class TestGeneratedExamples(object):
     async def test_setup_intents_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intents = await stripe.SetupIntent.list_async(limit=3)
+        await stripe.SetupIntent.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/setup_intents",
@@ -20889,7 +20641,7 @@ class TestGeneratedExamples(object):
     def test_setup_intents_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = stripe.SetupIntent.retrieve("seti_xxxxxxxxxxxxx")
+        stripe.SetupIntent.retrieve("seti_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx",
@@ -20920,9 +20672,7 @@ class TestGeneratedExamples(object):
     async def test_setup_intents_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = await stripe.SetupIntent.retrieve_async(
-            "seti_xxxxxxxxxxxxx",
-        )
+        await stripe.SetupIntent.retrieve_async("seti_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx",
@@ -20955,7 +20705,7 @@ class TestGeneratedExamples(object):
     def test_setup_intents_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = stripe.SetupIntent.create(payment_method_types=["card"])
+        stripe.SetupIntent.create(payment_method_types=["card"])
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents",
@@ -20992,9 +20742,7 @@ class TestGeneratedExamples(object):
     async def test_setup_intents_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = await stripe.SetupIntent.create_async(
-            payment_method_types=["card"],
-        )
+        await stripe.SetupIntent.create_async(payment_method_types=["card"])
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents",
@@ -21031,7 +20779,7 @@ class TestGeneratedExamples(object):
     def test_setup_intents_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = stripe.SetupIntent.modify(
+        stripe.SetupIntent.modify(
             "seti_xxxxxxxxxxxxx",
             metadata={"user_id": "3435453"},
         )
@@ -21070,7 +20818,7 @@ class TestGeneratedExamples(object):
     async def test_setup_intents_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = await stripe.SetupIntent.modify_async(
+        await stripe.SetupIntent.modify_async(
             "seti_xxxxxxxxxxxxx",
             metadata={"user_id": "3435453"},
         )
@@ -21109,9 +20857,7 @@ class TestGeneratedExamples(object):
     def test_setup_intents_verify_microdeposits_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = stripe.SetupIntent.verify_microdeposits(
-            "seti_xxxxxxxxxxxxx",
-        )
+        stripe.SetupIntent.verify_microdeposits("seti_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
@@ -21144,7 +20890,7 @@ class TestGeneratedExamples(object):
     async def test_setup_intents_verify_microdeposits_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = await stripe.SetupIntent.verify_microdeposits_async(
+        await stripe.SetupIntent.verify_microdeposits_async(
             "seti_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -21179,7 +20925,7 @@ class TestGeneratedExamples(object):
     def test_setup_intents_verify_microdeposits_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = stripe.SetupIntent.verify_microdeposits(
+        stripe.SetupIntent.verify_microdeposits(
             "seti_xxxxxxxxxxxxx",
             amounts=[32, 45],
         )
@@ -21218,7 +20964,7 @@ class TestGeneratedExamples(object):
     async def test_setup_intents_verify_microdeposits_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        setup_intent = await stripe.SetupIntent.verify_microdeposits_async(
+        await stripe.SetupIntent.verify_microdeposits_async(
             "seti_xxxxxxxxxxxxx",
             amounts=[32, 45],
         )
@@ -21257,7 +21003,7 @@ class TestGeneratedExamples(object):
     def test_shipping_rates_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        shipping_rates = stripe.ShippingRate.list()
+        stripe.ShippingRate.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/shipping_rates",
@@ -21288,7 +21034,7 @@ class TestGeneratedExamples(object):
     async def test_shipping_rates_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        shipping_rates = await stripe.ShippingRate.list_async()
+        await stripe.ShippingRate.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/shipping_rates",
@@ -21319,7 +21065,7 @@ class TestGeneratedExamples(object):
     def test_shipping_rates_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        shipping_rates = stripe.ShippingRate.list(limit=3)
+        stripe.ShippingRate.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/shipping_rates",
@@ -21351,7 +21097,7 @@ class TestGeneratedExamples(object):
     async def test_shipping_rates_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        shipping_rates = await stripe.ShippingRate.list_async(limit=3)
+        await stripe.ShippingRate.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/shipping_rates",
@@ -21383,7 +21129,7 @@ class TestGeneratedExamples(object):
     def test_shipping_rates_get_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        shipping_rate = stripe.ShippingRate.retrieve("shr_xxxxxxxxxxxxx")
+        stripe.ShippingRate.retrieve("shr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/shipping_rates/shr_xxxxxxxxxxxxx",
@@ -21414,9 +21160,7 @@ class TestGeneratedExamples(object):
     async def test_shipping_rates_get_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        shipping_rate = await stripe.ShippingRate.retrieve_async(
-            "shr_xxxxxxxxxxxxx",
-        )
+        await stripe.ShippingRate.retrieve_async("shr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/shipping_rates/shr_xxxxxxxxxxxxx",
@@ -21449,7 +21193,7 @@ class TestGeneratedExamples(object):
     def test_shipping_rates_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        shipping_rate = stripe.ShippingRate.create(
+        stripe.ShippingRate.create(
             display_name="Sample Shipper",
             fixed_amount={"currency": "usd", "amount": 400},
             type="fixed_amount",
@@ -21492,7 +21236,7 @@ class TestGeneratedExamples(object):
     async def test_shipping_rates_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        shipping_rate = await stripe.ShippingRate.create_async(
+        await stripe.ShippingRate.create_async(
             display_name="Sample Shipper",
             fixed_amount={"currency": "usd", "amount": 400},
             type="fixed_amount",
@@ -21535,7 +21279,7 @@ class TestGeneratedExamples(object):
     def test_shipping_rates_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        shipping_rate = stripe.ShippingRate.create(
+        stripe.ShippingRate.create(
             display_name="Ground shipping",
             type="fixed_amount",
             fixed_amount={"amount": 500, "currency": "usd"},
@@ -21578,7 +21322,7 @@ class TestGeneratedExamples(object):
     async def test_shipping_rates_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        shipping_rate = await stripe.ShippingRate.create_async(
+        await stripe.ShippingRate.create_async(
             display_name="Ground shipping",
             type="fixed_amount",
             fixed_amount={"amount": 500, "currency": "usd"},
@@ -21621,7 +21365,7 @@ class TestGeneratedExamples(object):
     def test_shipping_rates_post_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        shipping_rate = stripe.ShippingRate.modify(
+        stripe.ShippingRate.modify(
             "shr_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -21660,7 +21404,7 @@ class TestGeneratedExamples(object):
     async def test_shipping_rates_post_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        shipping_rate = await stripe.ShippingRate.modify_async(
+        await stripe.ShippingRate.modify_async(
             "shr_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -21699,7 +21443,7 @@ class TestGeneratedExamples(object):
     def test_sigma_scheduled_query_runs_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        scheduled_query_runs = stripe.sigma.ScheduledQueryRun.list(limit=3)
+        stripe.sigma.ScheduledQueryRun.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/sigma/scheduled_query_runs",
@@ -21735,9 +21479,7 @@ class TestGeneratedExamples(object):
     async def test_sigma_scheduled_query_runs_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        scheduled_query_runs = await stripe.sigma.ScheduledQueryRun.list_async(
-            limit=3,
-        )
+        await stripe.sigma.ScheduledQueryRun.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/sigma/scheduled_query_runs",
@@ -21771,9 +21513,7 @@ class TestGeneratedExamples(object):
     def test_sigma_scheduled_query_runs_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        scheduled_query_run = stripe.sigma.ScheduledQueryRun.retrieve(
-            "sqr_xxxxxxxxxxxxx",
-        )
+        stripe.sigma.ScheduledQueryRun.retrieve("sqr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx",
@@ -21806,10 +21546,8 @@ class TestGeneratedExamples(object):
     async def test_sigma_scheduled_query_runs_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        scheduled_query_run = (
-            await stripe.sigma.ScheduledQueryRun.retrieve_async(
-                "sqr_xxxxxxxxxxxxx",
-            )
+        await stripe.sigma.ScheduledQueryRun.retrieve_async(
+            "sqr_xxxxxxxxxxxxx"
         )
         http_client_mock.assert_requested(
             "get",
@@ -21843,7 +21581,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_sources_get(self, http_client_mock: HTTPClientMock) -> None:
-        source = stripe.Source.retrieve("src_xxxxxxxxxxxxx")
+        stripe.Source.retrieve("src_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/sources/src_xxxxxxxxxxxxx",
@@ -21874,7 +21612,7 @@ class TestGeneratedExamples(object):
     async def test_sources_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        source = await stripe.Source.retrieve_async("src_xxxxxxxxxxxxx")
+        await stripe.Source.retrieve_async("src_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/sources/src_xxxxxxxxxxxxx",
@@ -21903,7 +21641,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_sources_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        source = stripe.Source.retrieve("src_xxxxxxxxxxxxx")
+        stripe.Source.retrieve("src_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/sources/src_xxxxxxxxxxxxx",
@@ -21934,7 +21672,7 @@ class TestGeneratedExamples(object):
     async def test_sources_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        source = await stripe.Source.retrieve_async("src_xxxxxxxxxxxxx")
+        await stripe.Source.retrieve_async("src_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/sources/src_xxxxxxxxxxxxx",
@@ -21963,7 +21701,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_sources_post(self, http_client_mock: HTTPClientMock) -> None:
-        source = stripe.Source.modify(
+        stripe.Source.modify(
             "src_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -22002,7 +21740,7 @@ class TestGeneratedExamples(object):
     async def test_sources_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        source = await stripe.Source.modify_async(
+        await stripe.Source.modify_async(
             "src_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -22041,7 +21779,7 @@ class TestGeneratedExamples(object):
     def test_subscription_items_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.SubscriptionItem.delete("si_xxxxxxxxxxxxx")
+        stripe.SubscriptionItem.delete("si_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
@@ -22072,9 +21810,7 @@ class TestGeneratedExamples(object):
     async def test_subscription_items_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.SubscriptionItem.delete_async(
-            "si_xxxxxxxxxxxxx"
-        )
+        await stripe.SubscriptionItem.delete_async("si_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
@@ -22107,9 +21843,7 @@ class TestGeneratedExamples(object):
     def test_subscription_items_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_items = stripe.SubscriptionItem.list(
-            subscription="sub_xxxxxxxxxxxxx",
-        )
+        stripe.SubscriptionItem.list(subscription="sub_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscription_items",
@@ -22145,7 +21879,7 @@ class TestGeneratedExamples(object):
     async def test_subscription_items_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_items = await stripe.SubscriptionItem.list_async(
+        await stripe.SubscriptionItem.list_async(
             subscription="sub_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -22183,9 +21917,7 @@ class TestGeneratedExamples(object):
     def test_subscription_items_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_item = stripe.SubscriptionItem.retrieve(
-            "si_xxxxxxxxxxxxx"
-        )
+        stripe.SubscriptionItem.retrieve("si_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
@@ -22218,9 +21950,7 @@ class TestGeneratedExamples(object):
     async def test_subscription_items_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_item = await stripe.SubscriptionItem.retrieve_async(
-            "si_xxxxxxxxxxxxx",
-        )
+        await stripe.SubscriptionItem.retrieve_async("si_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
@@ -22253,7 +21983,7 @@ class TestGeneratedExamples(object):
     def test_subscription_items_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_item = stripe.SubscriptionItem.create(
+        stripe.SubscriptionItem.create(
             subscription="sub_xxxxxxxxxxxxx",
             price="price_xxxxxxxxxxxxx",
             quantity=2,
@@ -22296,7 +22026,7 @@ class TestGeneratedExamples(object):
     async def test_subscription_items_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_item = await stripe.SubscriptionItem.create_async(
+        await stripe.SubscriptionItem.create_async(
             subscription="sub_xxxxxxxxxxxxx",
             price="price_xxxxxxxxxxxxx",
             quantity=2,
@@ -22339,7 +22069,7 @@ class TestGeneratedExamples(object):
     def test_subscription_items_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_item = stripe.SubscriptionItem.modify(
+        stripe.SubscriptionItem.modify(
             "si_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -22378,7 +22108,7 @@ class TestGeneratedExamples(object):
     async def test_subscription_items_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_item = await stripe.SubscriptionItem.modify_async(
+        await stripe.SubscriptionItem.modify_async(
             "si_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -22417,9 +22147,7 @@ class TestGeneratedExamples(object):
     def test_subscription_schedules_cancel_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_schedule = stripe.SubscriptionSchedule.cancel(
-            "sub_sched_xxxxxxxxxxxxx",
-        )
+        stripe.SubscriptionSchedule.cancel("sub_sched_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/cancel",
@@ -22452,7 +22180,7 @@ class TestGeneratedExamples(object):
     async def test_subscription_schedules_cancel_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_schedule = await stripe.SubscriptionSchedule.cancel_async(
+        await stripe.SubscriptionSchedule.cancel_async(
             "sub_sched_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -22489,7 +22217,7 @@ class TestGeneratedExamples(object):
     def test_subscription_schedules_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_schedules = stripe.SubscriptionSchedule.list(limit=3)
+        stripe.SubscriptionSchedule.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscription_schedules",
@@ -22525,9 +22253,7 @@ class TestGeneratedExamples(object):
     async def test_subscription_schedules_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_schedules = await stripe.SubscriptionSchedule.list_async(
-            limit=3,
-        )
+        await stripe.SubscriptionSchedule.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscription_schedules",
@@ -22561,9 +22287,7 @@ class TestGeneratedExamples(object):
     def test_subscription_schedules_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_schedule = stripe.SubscriptionSchedule.retrieve(
-            "sub_sched_xxxxxxxxxxxxx",
-        )
+        stripe.SubscriptionSchedule.retrieve("sub_sched_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
@@ -22596,10 +22320,8 @@ class TestGeneratedExamples(object):
     async def test_subscription_schedules_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_schedule = (
-            await stripe.SubscriptionSchedule.retrieve_async(
-                "sub_sched_xxxxxxxxxxxxx",
-            )
+        await stripe.SubscriptionSchedule.retrieve_async(
+            "sub_sched_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -22635,7 +22357,7 @@ class TestGeneratedExamples(object):
     def test_subscription_schedules_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_schedule = stripe.SubscriptionSchedule.create(
+        stripe.SubscriptionSchedule.create(
             customer="cus_xxxxxxxxxxxxx",
             start_date=1676070661,
             end_behavior="release",
@@ -22692,7 +22414,7 @@ class TestGeneratedExamples(object):
     async def test_subscription_schedules_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_schedule = await stripe.SubscriptionSchedule.create_async(
+        await stripe.SubscriptionSchedule.create_async(
             customer="cus_xxxxxxxxxxxxx",
             start_date=1676070661,
             end_behavior="release",
@@ -22751,7 +22473,7 @@ class TestGeneratedExamples(object):
     def test_subscription_schedules_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_schedule = stripe.SubscriptionSchedule.modify(
+        stripe.SubscriptionSchedule.modify(
             "sub_sched_xxxxxxxxxxxxx",
             end_behavior="release",
         )
@@ -22790,7 +22512,7 @@ class TestGeneratedExamples(object):
     async def test_subscription_schedules_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_schedule = await stripe.SubscriptionSchedule.modify_async(
+        await stripe.SubscriptionSchedule.modify_async(
             "sub_sched_xxxxxxxxxxxxx",
             end_behavior="release",
         )
@@ -22831,9 +22553,7 @@ class TestGeneratedExamples(object):
     def test_subscription_schedules_release_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_schedule = stripe.SubscriptionSchedule.release(
-            "sub_sched_xxxxxxxxxxxxx",
-        )
+        stripe.SubscriptionSchedule.release("sub_sched_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/release",
@@ -22866,10 +22586,8 @@ class TestGeneratedExamples(object):
     async def test_subscription_schedules_release_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription_schedule = (
-            await stripe.SubscriptionSchedule.release_async(
-                "sub_sched_xxxxxxxxxxxxx",
-            )
+        await stripe.SubscriptionSchedule.release_async(
+            "sub_sched_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
@@ -22905,7 +22623,7 @@ class TestGeneratedExamples(object):
     def test_subscriptions_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription = stripe.Subscription.cancel("sub_xxxxxxxxxxxxx")
+        stripe.Subscription.cancel("sub_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
@@ -22936,9 +22654,7 @@ class TestGeneratedExamples(object):
     async def test_subscriptions_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription = await stripe.Subscription.cancel_async(
-            "sub_xxxxxxxxxxxxx",
-        )
+        await stripe.Subscription.cancel_async("sub_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
@@ -22971,7 +22687,7 @@ class TestGeneratedExamples(object):
     def test_subscriptions_discount_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.Subscription.delete_discount("sub_xyz")
+        stripe.Subscription.delete_discount("sub_xyz")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/subscriptions/sub_xyz/discount",
@@ -23002,7 +22718,7 @@ class TestGeneratedExamples(object):
     async def test_subscriptions_discount_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.Subscription.delete_discount_async("sub_xyz")
+        await stripe.Subscription.delete_discount_async("sub_xyz")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/subscriptions/sub_xyz/discount",
@@ -23031,7 +22747,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_subscriptions_get(self, http_client_mock: HTTPClientMock) -> None:
-        subscriptions = stripe.Subscription.list(limit=3)
+        stripe.Subscription.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscriptions",
@@ -23063,7 +22779,7 @@ class TestGeneratedExamples(object):
     async def test_subscriptions_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscriptions = await stripe.Subscription.list_async(limit=3)
+        await stripe.Subscription.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscriptions",
@@ -23095,7 +22811,7 @@ class TestGeneratedExamples(object):
     def test_subscriptions_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription = stripe.Subscription.retrieve("sub_xxxxxxxxxxxxx")
+        stripe.Subscription.retrieve("sub_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
@@ -23126,9 +22842,7 @@ class TestGeneratedExamples(object):
     async def test_subscriptions_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription = await stripe.Subscription.retrieve_async(
-            "sub_xxxxxxxxxxxxx",
-        )
+        await stripe.Subscription.retrieve_async("sub_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
@@ -23161,7 +22875,7 @@ class TestGeneratedExamples(object):
     def test_subscriptions_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription = stripe.Subscription.create(
+        stripe.Subscription.create(
             customer="cus_xxxxxxxxxxxxx",
             items=[{"price": "price_xxxxxxxxxxxxx"}],
         )
@@ -23202,7 +22916,7 @@ class TestGeneratedExamples(object):
     async def test_subscriptions_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription = await stripe.Subscription.create_async(
+        await stripe.Subscription.create_async(
             customer="cus_xxxxxxxxxxxxx",
             items=[{"price": "price_xxxxxxxxxxxxx"}],
         )
@@ -23243,7 +22957,7 @@ class TestGeneratedExamples(object):
     def test_subscriptions_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription = stripe.Subscription.modify(
+        stripe.Subscription.modify(
             "sub_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -23282,7 +22996,7 @@ class TestGeneratedExamples(object):
     async def test_subscriptions_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscription = await stripe.Subscription.modify_async(
+        await stripe.Subscription.modify_async(
             "sub_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -23321,7 +23035,7 @@ class TestGeneratedExamples(object):
     def test_subscriptions_search_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscriptions = stripe.Subscription.search(
+        stripe.Subscription.search(
             query="status:'active' AND metadata['order_id']:'6735'",
         )
         http_client_mock.assert_requested(
@@ -23359,7 +23073,7 @@ class TestGeneratedExamples(object):
     async def test_subscriptions_search_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        subscriptions = await stripe.Subscription.search_async(
+        await stripe.Subscription.search_async(
             query="status:'active' AND metadata['order_id']:'6735'",
         )
         http_client_mock.assert_requested(
@@ -23397,7 +23111,7 @@ class TestGeneratedExamples(object):
     def test_tax_calculations_line_items_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        calculation_line_items = stripe.tax.Calculation.list_line_items("xxx")
+        stripe.tax.Calculation.list_line_items("xxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/calculations/xxx/line_items",
@@ -23428,11 +23142,7 @@ class TestGeneratedExamples(object):
     async def test_tax_calculations_line_items_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        calculation_line_items = (
-            await stripe.tax.Calculation.list_line_items_async(
-                "xxx",
-            )
-        )
+        await stripe.tax.Calculation.list_line_items_async("xxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/calculations/xxx/line_items",
@@ -23465,7 +23175,7 @@ class TestGeneratedExamples(object):
     def test_tax_calculations_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        calculation = stripe.tax.Calculation.create(
+        stripe.tax.Calculation.create(
             currency="usd",
             line_items=[{"amount": 1000, "reference": "L1"}],
             customer_details={
@@ -23526,7 +23236,7 @@ class TestGeneratedExamples(object):
     async def test_tax_calculations_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        calculation = await stripe.tax.Calculation.create_async(
+        await stripe.tax.Calculation.create_async(
             currency="usd",
             line_items=[{"amount": 1000, "reference": "L1"}],
             customer_details={
@@ -23585,7 +23295,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tax_codes_get(self, http_client_mock: HTTPClientMock) -> None:
-        tax_codes = stripe.TaxCode.list(limit=3)
+        stripe.TaxCode.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_codes",
@@ -23617,7 +23327,7 @@ class TestGeneratedExamples(object):
     async def test_tax_codes_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_codes = await stripe.TaxCode.list_async(limit=3)
+        await stripe.TaxCode.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_codes",
@@ -23647,7 +23357,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tax_codes_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        tax_code = stripe.TaxCode.retrieve("txcd_xxxxxxxxxxxxx")
+        stripe.TaxCode.retrieve("txcd_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_codes/txcd_xxxxxxxxxxxxx",
@@ -23678,7 +23388,7 @@ class TestGeneratedExamples(object):
     async def test_tax_codes_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_code = await stripe.TaxCode.retrieve_async("txcd_xxxxxxxxxxxxx")
+        await stripe.TaxCode.retrieve_async("txcd_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_codes/txcd_xxxxxxxxxxxxx",
@@ -23707,7 +23417,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tax_ids_delete(self, http_client_mock: HTTPClientMock) -> None:
-        deleted = stripe.TaxId.delete("taxid_123")
+        stripe.TaxId.delete("taxid_123")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/tax_ids/taxid_123",
@@ -23738,7 +23448,7 @@ class TestGeneratedExamples(object):
     async def test_tax_ids_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.TaxId.delete_async("taxid_123")
+        await stripe.TaxId.delete_async("taxid_123")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/tax_ids/taxid_123",
@@ -23767,7 +23477,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tax_ids_get(self, http_client_mock: HTTPClientMock) -> None:
-        tax_ids = stripe.TaxId.list()
+        stripe.TaxId.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_ids",
@@ -23798,7 +23508,7 @@ class TestGeneratedExamples(object):
     async def test_tax_ids_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_ids = await stripe.TaxId.list_async()
+        await stripe.TaxId.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_ids",
@@ -23827,7 +23537,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tax_ids_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        tax_id = stripe.TaxId.retrieve("taxid_123")
+        stripe.TaxId.retrieve("taxid_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_ids/taxid_123",
@@ -23858,7 +23568,7 @@ class TestGeneratedExamples(object):
     async def test_tax_ids_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_id = await stripe.TaxId.retrieve_async("taxid_123")
+        await stripe.TaxId.retrieve_async("taxid_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_ids/taxid_123",
@@ -23887,7 +23597,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tax_ids_post(self, http_client_mock: HTTPClientMock) -> None:
-        tax_id = stripe.TaxId.create(
+        stripe.TaxId.create(
             type="eu_vat",
             value="123",
         )
@@ -23923,7 +23633,7 @@ class TestGeneratedExamples(object):
     async def test_tax_ids_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_id = await stripe.TaxId.create_async(
+        await stripe.TaxId.create_async(
             type="eu_vat",
             value="123",
         )
@@ -23962,7 +23672,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tax_rates_get(self, http_client_mock: HTTPClientMock) -> None:
-        tax_rates = stripe.TaxRate.list(limit=3)
+        stripe.TaxRate.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_rates",
@@ -23994,7 +23704,7 @@ class TestGeneratedExamples(object):
     async def test_tax_rates_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_rates = await stripe.TaxRate.list_async(limit=3)
+        await stripe.TaxRate.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_rates",
@@ -24024,7 +23734,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tax_rates_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        tax_rate = stripe.TaxRate.retrieve("txr_xxxxxxxxxxxxx")
+        stripe.TaxRate.retrieve("txr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
@@ -24055,7 +23765,7 @@ class TestGeneratedExamples(object):
     async def test_tax_rates_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_rate = await stripe.TaxRate.retrieve_async("txr_xxxxxxxxxxxxx")
+        await stripe.TaxRate.retrieve_async("txr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
@@ -24084,7 +23794,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tax_rates_post(self, http_client_mock: HTTPClientMock) -> None:
-        tax_rate = stripe.TaxRate.create(
+        stripe.TaxRate.create(
             display_name="VAT",
             description="VAT Germany",
             jurisdiction="DE",
@@ -24131,7 +23841,7 @@ class TestGeneratedExamples(object):
     async def test_tax_rates_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_rate = await stripe.TaxRate.create_async(
+        await stripe.TaxRate.create_async(
             display_name="VAT",
             description="VAT Germany",
             jurisdiction="DE",
@@ -24176,7 +23886,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tax_rates_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        tax_rate = stripe.TaxRate.modify(
+        stripe.TaxRate.modify(
             "txr_xxxxxxxxxxxxx",
             active=False,
         )
@@ -24215,7 +23925,7 @@ class TestGeneratedExamples(object):
     async def test_tax_rates_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        tax_rate = await stripe.TaxRate.modify_async(
+        await stripe.TaxRate.modify_async(
             "txr_xxxxxxxxxxxxx",
             active=False,
         )
@@ -24254,7 +23964,7 @@ class TestGeneratedExamples(object):
     def test_tax_registrations_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        registrations = stripe.tax.Registration.list(status="all")
+        stripe.tax.Registration.list(status="all")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/registrations",
@@ -24286,7 +23996,7 @@ class TestGeneratedExamples(object):
     async def test_tax_registrations_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        registrations = await stripe.tax.Registration.list_async(status="all")
+        await stripe.tax.Registration.list_async(status="all")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/registrations",
@@ -24322,7 +24032,7 @@ class TestGeneratedExamples(object):
     def test_tax_registrations_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        registration = stripe.tax.Registration.create(
+        stripe.tax.Registration.create(
             country="IE",
             country_options={"ie": {"type": "oss_union"}},
             active_from="now",
@@ -24365,7 +24075,7 @@ class TestGeneratedExamples(object):
     async def test_tax_registrations_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        registration = await stripe.tax.Registration.create_async(
+        await stripe.tax.Registration.create_async(
             country="IE",
             country_options={"ie": {"type": "oss_union"}},
             active_from="now",
@@ -24408,7 +24118,7 @@ class TestGeneratedExamples(object):
     def test_tax_registrations_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        registration = stripe.tax.Registration.modify(
+        stripe.tax.Registration.modify(
             "taxreg_xxxxxxxxxxxxx",
             expires_at="now",
         )
@@ -24447,7 +24157,7 @@ class TestGeneratedExamples(object):
     async def test_tax_registrations_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        registration = await stripe.tax.Registration.modify_async(
+        await stripe.tax.Registration.modify_async(
             "taxreg_xxxxxxxxxxxxx",
             expires_at="now",
         )
@@ -24484,7 +24194,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tax_settings_get(self, http_client_mock: HTTPClientMock) -> None:
-        settings = stripe.tax.Settings.retrieve()
+        stripe.tax.Settings.retrieve()
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/settings",
@@ -24515,7 +24225,7 @@ class TestGeneratedExamples(object):
     async def test_tax_settings_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        settings = await stripe.tax.Settings.retrieve_async()
+        await stripe.tax.Settings.retrieve_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/settings",
@@ -24544,9 +24254,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tax_settings_post(self, http_client_mock: HTTPClientMock) -> None:
-        settings = stripe.tax.Settings.modify(
-            defaults={"tax_code": "txcd_10000000"},
-        )
+        stripe.tax.Settings.modify(defaults={"tax_code": "txcd_10000000"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/tax/settings",
@@ -24583,7 +24291,7 @@ class TestGeneratedExamples(object):
     async def test_tax_settings_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        settings = await stripe.tax.Settings.modify_async(
+        await stripe.tax.Settings.modify_async(
             defaults={"tax_code": "txcd_10000000"},
         )
         http_client_mock.assert_requested(
@@ -24622,7 +24330,7 @@ class TestGeneratedExamples(object):
     def test_tax_transactions_create_from_calculation_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = stripe.tax.Transaction.create_from_calculation(
+        stripe.tax.Transaction.create_from_calculation(
             calculation="xxx",
             reference="yyy",
         )
@@ -24663,11 +24371,9 @@ class TestGeneratedExamples(object):
     async def test_tax_transactions_create_from_calculation_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = (
-            await stripe.tax.Transaction.create_from_calculation_async(
-                calculation="xxx",
-                reference="yyy",
-            )
+        await stripe.tax.Transaction.create_from_calculation_async(
+            calculation="xxx",
+            reference="yyy",
         )
         http_client_mock.assert_requested(
             "post",
@@ -24708,7 +24414,7 @@ class TestGeneratedExamples(object):
     def test_terminal_configurations_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.terminal.Configuration.delete("uc_123")
+        stripe.terminal.Configuration.delete("uc_123")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/configurations/uc_123",
@@ -24739,7 +24445,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_configurations_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.terminal.Configuration.delete_async("uc_123")
+        await stripe.terminal.Configuration.delete_async("uc_123")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/configurations/uc_123",
@@ -24770,7 +24476,7 @@ class TestGeneratedExamples(object):
     def test_terminal_configurations_delete_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.terminal.Configuration.delete("tmc_xxxxxxxxxxxxx")
+        stripe.terminal.Configuration.delete("tmc_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
@@ -24801,9 +24507,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_configurations_delete_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.terminal.Configuration.delete_async(
-            "tmc_xxxxxxxxxxxxx",
-        )
+        await stripe.terminal.Configuration.delete_async("tmc_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
@@ -24836,7 +24540,7 @@ class TestGeneratedExamples(object):
     def test_terminal_configurations_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configurations = stripe.terminal.Configuration.list()
+        stripe.terminal.Configuration.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations",
@@ -24867,7 +24571,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_configurations_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configurations = await stripe.terminal.Configuration.list_async()
+        await stripe.terminal.Configuration.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations",
@@ -24898,7 +24602,7 @@ class TestGeneratedExamples(object):
     def test_terminal_configurations_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = stripe.terminal.Configuration.retrieve("uc_123")
+        stripe.terminal.Configuration.retrieve("uc_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations/uc_123",
@@ -24929,9 +24633,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_configurations_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = await stripe.terminal.Configuration.retrieve_async(
-            "uc_123",
-        )
+        await stripe.terminal.Configuration.retrieve_async("uc_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations/uc_123",
@@ -24964,7 +24666,7 @@ class TestGeneratedExamples(object):
     def test_terminal_configurations_get_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configurations = stripe.terminal.Configuration.list(limit=3)
+        stripe.terminal.Configuration.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations",
@@ -24996,9 +24698,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_configurations_get_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configurations = await stripe.terminal.Configuration.list_async(
-            limit=3
-        )
+        await stripe.terminal.Configuration.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations",
@@ -25034,9 +24734,7 @@ class TestGeneratedExamples(object):
     def test_terminal_configurations_get_4(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = stripe.terminal.Configuration.retrieve(
-            "tmc_xxxxxxxxxxxxx",
-        )
+        stripe.terminal.Configuration.retrieve("tmc_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
@@ -25069,9 +24767,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_configurations_get_4_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = await stripe.terminal.Configuration.retrieve_async(
-            "tmc_xxxxxxxxxxxxx",
-        )
+        await stripe.terminal.Configuration.retrieve_async("tmc_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
@@ -25104,7 +24800,7 @@ class TestGeneratedExamples(object):
     def test_terminal_configurations_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = stripe.terminal.Configuration.create()
+        stripe.terminal.Configuration.create()
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/configurations",
@@ -25135,7 +24831,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_configurations_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = await stripe.terminal.Configuration.create_async()
+        await stripe.terminal.Configuration.create_async()
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/configurations",
@@ -25166,7 +24862,7 @@ class TestGeneratedExamples(object):
     def test_terminal_configurations_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = stripe.terminal.Configuration.modify(
+        stripe.terminal.Configuration.modify(
             "uc_123",
             tipping={"usd": {"fixed_amounts": [10]}},
         )
@@ -25205,7 +24901,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_configurations_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = await stripe.terminal.Configuration.modify_async(
+        await stripe.terminal.Configuration.modify_async(
             "uc_123",
             tipping={"usd": {"fixed_amounts": [10]}},
         )
@@ -25244,7 +24940,7 @@ class TestGeneratedExamples(object):
     def test_terminal_configurations_post_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = stripe.terminal.Configuration.create(
+        stripe.terminal.Configuration.create(
             bbpos_wisepos_e={"splashscreen": "file_xxxxxxxxxxxxx"},
         )
         http_client_mock.assert_requested(
@@ -25283,7 +24979,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_configurations_post_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = await stripe.terminal.Configuration.create_async(
+        await stripe.terminal.Configuration.create_async(
             bbpos_wisepos_e={"splashscreen": "file_xxxxxxxxxxxxx"},
         )
         http_client_mock.assert_requested(
@@ -25322,7 +25018,7 @@ class TestGeneratedExamples(object):
     def test_terminal_configurations_post_4(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = stripe.terminal.Configuration.modify(
+        stripe.terminal.Configuration.modify(
             "tmc_xxxxxxxxxxxxx",
             bbpos_wisepos_e={"splashscreen": "file_xxxxxxxxxxxxx"},
         )
@@ -25361,7 +25057,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_configurations_post_4_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        configuration = await stripe.terminal.Configuration.modify_async(
+        await stripe.terminal.Configuration.modify_async(
             "tmc_xxxxxxxxxxxxx",
             bbpos_wisepos_e={"splashscreen": "file_xxxxxxxxxxxxx"},
         )
@@ -25400,7 +25096,7 @@ class TestGeneratedExamples(object):
     def test_terminal_connection_tokens_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        connection_token = stripe.terminal.ConnectionToken.create()
+        stripe.terminal.ConnectionToken.create()
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/connection_tokens",
@@ -25431,7 +25127,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_connection_tokens_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        connection_token = await stripe.terminal.ConnectionToken.create_async()
+        await stripe.terminal.ConnectionToken.create_async()
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/connection_tokens",
@@ -25464,7 +25160,7 @@ class TestGeneratedExamples(object):
     def test_terminal_locations_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.terminal.Location.delete("tml_xxxxxxxxxxxxx")
+        stripe.terminal.Location.delete("tml_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
@@ -25495,9 +25191,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_locations_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.terminal.Location.delete_async(
-            "tml_xxxxxxxxxxxxx",
-        )
+        await stripe.terminal.Location.delete_async("tml_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
@@ -25530,7 +25224,7 @@ class TestGeneratedExamples(object):
     def test_terminal_locations_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        locations = stripe.terminal.Location.list(limit=3)
+        stripe.terminal.Location.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/locations",
@@ -25562,7 +25256,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_locations_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        locations = await stripe.terminal.Location.list_async(limit=3)
+        await stripe.terminal.Location.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/locations",
@@ -25594,7 +25288,7 @@ class TestGeneratedExamples(object):
     def test_terminal_locations_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        location = stripe.terminal.Location.retrieve("tml_xxxxxxxxxxxxx")
+        stripe.terminal.Location.retrieve("tml_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
@@ -25625,9 +25319,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_locations_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        location = await stripe.terminal.Location.retrieve_async(
-            "tml_xxxxxxxxxxxxx",
-        )
+        await stripe.terminal.Location.retrieve_async("tml_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
@@ -25660,7 +25352,7 @@ class TestGeneratedExamples(object):
     def test_terminal_locations_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        location = stripe.terminal.Location.create(
+        stripe.terminal.Location.create(
             display_name="My First Store",
             address={
                 "line1": "1234 Main Street",
@@ -25713,7 +25405,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_locations_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        location = await stripe.terminal.Location.create_async(
+        await stripe.terminal.Location.create_async(
             display_name="My First Store",
             address={
                 "line1": "1234 Main Street",
@@ -25766,7 +25458,7 @@ class TestGeneratedExamples(object):
     def test_terminal_locations_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        location = stripe.terminal.Location.modify(
+        stripe.terminal.Location.modify(
             "tml_xxxxxxxxxxxxx",
             display_name="My First Store",
         )
@@ -25805,7 +25497,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_locations_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        location = await stripe.terminal.Location.modify_async(
+        await stripe.terminal.Location.modify_async(
             "tml_xxxxxxxxxxxxx",
             display_name="My First Store",
         )
@@ -25844,7 +25536,7 @@ class TestGeneratedExamples(object):
     def test_terminal_readers_cancel_action_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reader = stripe.terminal.Reader.cancel_action("tmr_xxxxxxxxxxxxx")
+        stripe.terminal.Reader.cancel_action("tmr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action",
@@ -25875,9 +25567,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_readers_cancel_action_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reader = await stripe.terminal.Reader.cancel_action_async(
-            "tmr_xxxxxxxxxxxxx",
-        )
+        await stripe.terminal.Reader.cancel_action_async("tmr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action",
@@ -25910,7 +25600,7 @@ class TestGeneratedExamples(object):
     def test_terminal_readers_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.terminal.Reader.delete("tmr_xxxxxxxxxxxxx")
+        stripe.terminal.Reader.delete("tmr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
@@ -25941,9 +25631,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_readers_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.terminal.Reader.delete_async(
-            "tmr_xxxxxxxxxxxxx"
-        )
+        await stripe.terminal.Reader.delete_async("tmr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
@@ -25976,7 +25664,7 @@ class TestGeneratedExamples(object):
     def test_terminal_readers_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        readers = stripe.terminal.Reader.list(limit=3)
+        stripe.terminal.Reader.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/readers",
@@ -26008,7 +25696,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_readers_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        readers = await stripe.terminal.Reader.list_async(limit=3)
+        await stripe.terminal.Reader.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/readers",
@@ -26040,7 +25728,7 @@ class TestGeneratedExamples(object):
     def test_terminal_readers_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reader = stripe.terminal.Reader.retrieve("tmr_xxxxxxxxxxxxx")
+        stripe.terminal.Reader.retrieve("tmr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
@@ -26071,9 +25759,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_readers_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reader = await stripe.terminal.Reader.retrieve_async(
-            "tmr_xxxxxxxxxxxxx",
-        )
+        await stripe.terminal.Reader.retrieve_async("tmr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
@@ -26106,7 +25792,7 @@ class TestGeneratedExamples(object):
     def test_terminal_readers_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reader = stripe.terminal.Reader.create(
+        stripe.terminal.Reader.create(
             registration_code="puppies-plug-could",
             label="Blue Rabbit",
             location="tml_1234",
@@ -26149,7 +25835,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_readers_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reader = await stripe.terminal.Reader.create_async(
+        await stripe.terminal.Reader.create_async(
             registration_code="puppies-plug-could",
             label="Blue Rabbit",
             location="tml_1234",
@@ -26192,7 +25878,7 @@ class TestGeneratedExamples(object):
     def test_terminal_readers_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reader = stripe.terminal.Reader.modify(
+        stripe.terminal.Reader.modify(
             "tmr_xxxxxxxxxxxxx",
             label="Blue Rabbit",
         )
@@ -26231,7 +25917,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_readers_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reader = await stripe.terminal.Reader.modify_async(
+        await stripe.terminal.Reader.modify_async(
             "tmr_xxxxxxxxxxxxx",
             label="Blue Rabbit",
         )
@@ -26270,7 +25956,7 @@ class TestGeneratedExamples(object):
     def test_terminal_readers_process_payment_intent_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reader = stripe.terminal.Reader.process_payment_intent(
+        stripe.terminal.Reader.process_payment_intent(
             "tmr_xxxxxxxxxxxxx",
             payment_intent="pi_xxxxxxxxxxxxx",
         )
@@ -26309,7 +25995,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_readers_process_payment_intent_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reader = await stripe.terminal.Reader.process_payment_intent_async(
+        await stripe.terminal.Reader.process_payment_intent_async(
             "tmr_xxxxxxxxxxxxx",
             payment_intent="pi_xxxxxxxxxxxxx",
         )
@@ -26348,7 +26034,7 @@ class TestGeneratedExamples(object):
     def test_terminal_readers_process_setup_intent_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reader = stripe.terminal.Reader.process_setup_intent(
+        stripe.terminal.Reader.process_setup_intent(
             "tmr_xxxxxxxxxxxxx",
             setup_intent="seti_xxxxxxxxxxxxx",
             allow_redisplay="always",
@@ -26391,7 +26077,7 @@ class TestGeneratedExamples(object):
     async def test_terminal_readers_process_setup_intent_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reader = await stripe.terminal.Reader.process_setup_intent_async(
+        await stripe.terminal.Reader.process_setup_intent_async(
             "tmr_xxxxxxxxxxxxx",
             setup_intent="seti_xxxxxxxxxxxxx",
             allow_redisplay="always",
@@ -26434,12 +26120,10 @@ class TestGeneratedExamples(object):
     def test_test_helpers_customers_fund_cash_balance_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_cash_balance_transaction = (
-            stripe.Customer.TestHelpers.fund_cash_balance(
-                "cus_123",
-                amount=30,
-                currency="eur",
-            )
+        stripe.Customer.TestHelpers.fund_cash_balance(
+            "cus_123",
+            amount=30,
+            currency="eur",
         )
         http_client_mock.assert_requested(
             "post",
@@ -26478,12 +26162,10 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_customers_fund_cash_balance_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        customer_cash_balance_transaction = (
-            await stripe.Customer.TestHelpers.fund_cash_balance_async(
-                "cus_123",
-                amount=30,
-                currency="eur",
-            )
+        await stripe.Customer.TestHelpers.fund_cash_balance_async(
+            "cus_123",
+            amount=30,
+            currency="eur",
         )
         http_client_mock.assert_requested(
             "post",
@@ -26522,7 +26204,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_authorizations_capture_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = stripe.issuing.Authorization.TestHelpers.capture(
+        stripe.issuing.Authorization.TestHelpers.capture(
             "example_authorization",
             capture_amount=100,
             close_authorization=True,
@@ -26633,46 +26315,44 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_authorizations_capture_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = (
-            await stripe.issuing.Authorization.TestHelpers.capture_async(
-                "example_authorization",
-                capture_amount=100,
-                close_authorization=True,
-                purchase_details={
-                    "flight": {
-                        "departure_at": 1633651200,
-                        "passenger_name": "John Doe",
-                        "refundable": True,
-                        "segments": [
-                            {
-                                "arrival_airport_code": "SFO",
-                                "carrier": "Delta",
-                                "departure_airport_code": "LAX",
-                                "flight_number": "DL100",
-                                "service_class": "Economy",
-                                "stopover_allowed": True,
-                            },
-                        ],
-                        "travel_agency": "Orbitz",
-                    },
-                    "fuel": {
-                        "type": "diesel",
-                        "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
-                    },
-                    "lodging": {"check_in_at": 1633651200, "nights": 2},
-                    "receipt": [
+        await stripe.issuing.Authorization.TestHelpers.capture_async(
+            "example_authorization",
+            capture_amount=100,
+            close_authorization=True,
+            purchase_details={
+                "flight": {
+                    "departure_at": 1633651200,
+                    "passenger_name": "John Doe",
+                    "refundable": True,
+                    "segments": [
                         {
-                            "description": "Room charge",
-                            "quantity": "1",
-                            "total": 200,
-                            "unit_cost": 200,
+                            "arrival_airport_code": "SFO",
+                            "carrier": "Delta",
+                            "departure_airport_code": "LAX",
+                            "flight_number": "DL100",
+                            "service_class": "Economy",
+                            "stopover_allowed": True,
                         },
                     ],
-                    "reference": "foo",
+                    "travel_agency": "Orbitz",
                 },
-            )
+                "fuel": {
+                    "type": "diesel",
+                    "unit": "liter",
+                    "unit_cost_decimal": "3.5",
+                    "quantity_decimal": "10",
+                },
+                "lodging": {"check_in_at": 1633651200, "nights": 2},
+                "receipt": [
+                    {
+                        "description": "Room charge",
+                        "quantity": "1",
+                        "total": 200,
+                        "unit_cost": 200,
+                    },
+                ],
+                "reference": "foo",
+            },
         )
         http_client_mock.assert_requested(
             "post",
@@ -26748,8 +26428,8 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_authorizations_expire_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = stripe.issuing.Authorization.TestHelpers.expire(
-            "example_authorization",
+        stripe.issuing.Authorization.TestHelpers.expire(
+            "example_authorization"
         )
         http_client_mock.assert_requested(
             "post",
@@ -26783,10 +26463,8 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_authorizations_expire_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = (
-            await stripe.issuing.Authorization.TestHelpers.expire_async(
-                "example_authorization",
-            )
+        await stripe.issuing.Authorization.TestHelpers.expire_async(
+            "example_authorization",
         )
         http_client_mock.assert_requested(
             "post",
@@ -26822,7 +26500,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_authorizations_increment_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = stripe.issuing.Authorization.TestHelpers.increment(
+        stripe.issuing.Authorization.TestHelpers.increment(
             "example_authorization",
             increment_amount=50,
             is_amount_controllable=True,
@@ -26862,12 +26540,10 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_authorizations_increment_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = (
-            await stripe.issuing.Authorization.TestHelpers.increment_async(
-                "example_authorization",
-                increment_amount=50,
-                is_amount_controllable=True,
-            )
+        await stripe.issuing.Authorization.TestHelpers.increment_async(
+            "example_authorization",
+            increment_amount=50,
+            is_amount_controllable=True,
         )
         http_client_mock.assert_requested(
             "post",
@@ -26906,7 +26582,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_authorizations_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = stripe.issuing.Authorization.TestHelpers.create(
+        stripe.issuing.Authorization.TestHelpers.create(
             amount=100,
             amount_details={"atm_fee": 10, "cashback_amount": 5},
             authorization_method="chip",
@@ -26991,33 +26667,31 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_authorizations_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = (
-            await stripe.issuing.Authorization.TestHelpers.create_async(
-                amount=100,
-                amount_details={"atm_fee": 10, "cashback_amount": 5},
-                authorization_method="chip",
-                card="foo",
-                currency="usd",
-                is_amount_controllable=True,
-                merchant_data={
-                    "category": "ac_refrigeration_repair",
-                    "city": "foo",
-                    "country": "bar",
-                    "name": "foo",
-                    "network_id": "bar",
-                    "postal_code": "foo",
-                    "state": "bar",
-                    "terminal_id": "foo",
-                },
-                network_data={"acquiring_institution_id": "foo"},
-                verification_data={
-                    "address_line1_check": "mismatch",
-                    "address_postal_code_check": "match",
-                    "cvc_check": "match",
-                    "expiry_check": "mismatch",
-                },
-                wallet="apple_pay",
-            )
+        await stripe.issuing.Authorization.TestHelpers.create_async(
+            amount=100,
+            amount_details={"atm_fee": 10, "cashback_amount": 5},
+            authorization_method="chip",
+            card="foo",
+            currency="usd",
+            is_amount_controllable=True,
+            merchant_data={
+                "category": "ac_refrigeration_repair",
+                "city": "foo",
+                "country": "bar",
+                "name": "foo",
+                "network_id": "bar",
+                "postal_code": "foo",
+                "state": "bar",
+                "terminal_id": "foo",
+            },
+            network_data={"acquiring_institution_id": "foo"},
+            verification_data={
+                "address_line1_check": "mismatch",
+                "address_postal_code_check": "match",
+                "cvc_check": "match",
+                "expiry_check": "mismatch",
+            },
+            wallet="apple_pay",
         )
         http_client_mock.assert_requested(
             "post",
@@ -27080,7 +26754,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_authorizations_reverse_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = stripe.issuing.Authorization.TestHelpers.reverse(
+        stripe.issuing.Authorization.TestHelpers.reverse(
             "example_authorization",
             reverse_amount=20,
         )
@@ -27119,11 +26793,9 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_authorizations_reverse_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        authorization = (
-            await stripe.issuing.Authorization.TestHelpers.reverse_async(
-                "example_authorization",
-                reverse_amount=20,
-            )
+        await stripe.issuing.Authorization.TestHelpers.reverse_async(
+            "example_authorization",
+            reverse_amount=20,
         )
         http_client_mock.assert_requested(
             "post",
@@ -27162,7 +26834,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_cards_shipping_deliver_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = stripe.issuing.Card.TestHelpers.deliver_card("card_123")
+        stripe.issuing.Card.TestHelpers.deliver_card("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/deliver",
@@ -27193,9 +26865,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_cards_shipping_deliver_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = await stripe.issuing.Card.TestHelpers.deliver_card_async(
-            "card_123",
-        )
+        await stripe.issuing.Card.TestHelpers.deliver_card_async("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/deliver",
@@ -27228,7 +26898,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_cards_shipping_fail_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = stripe.issuing.Card.TestHelpers.fail_card("card_123")
+        stripe.issuing.Card.TestHelpers.fail_card("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/fail",
@@ -27259,9 +26929,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_cards_shipping_fail_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = await stripe.issuing.Card.TestHelpers.fail_card_async(
-            "card_123"
-        )
+        await stripe.issuing.Card.TestHelpers.fail_card_async("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/fail",
@@ -27294,7 +26962,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_cards_shipping_return_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = stripe.issuing.Card.TestHelpers.return_card("card_123")
+        stripe.issuing.Card.TestHelpers.return_card("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/return",
@@ -27325,9 +26993,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_cards_shipping_return_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = await stripe.issuing.Card.TestHelpers.return_card_async(
-            "card_123",
-        )
+        await stripe.issuing.Card.TestHelpers.return_card_async("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/return",
@@ -27360,7 +27026,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_cards_shipping_ship_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = stripe.issuing.Card.TestHelpers.ship_card("card_123")
+        stripe.issuing.Card.TestHelpers.ship_card("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/ship",
@@ -27391,9 +27057,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_cards_shipping_ship_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        card = await stripe.issuing.Card.TestHelpers.ship_card_async(
-            "card_123"
-        )
+        await stripe.issuing.Card.TestHelpers.ship_card_async("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/ship",
@@ -27426,11 +27090,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_personalization_designs_activate_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_design = (
-            stripe.issuing.PersonalizationDesign.TestHelpers.activate(
-                "pd_xyz",
-            )
-        )
+        stripe.issuing.PersonalizationDesign.TestHelpers.activate("pd_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate",
@@ -27465,7 +27125,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_personalization_designs_activate_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_design = await stripe.issuing.PersonalizationDesign.TestHelpers.activate_async(
+        await stripe.issuing.PersonalizationDesign.TestHelpers.activate_async(
             "pd_xyz",
         )
         http_client_mock.assert_requested(
@@ -27500,11 +27160,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_personalization_designs_deactivate_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_design = (
-            stripe.issuing.PersonalizationDesign.TestHelpers.deactivate(
-                "pd_xyz",
-            )
-        )
+        stripe.issuing.PersonalizationDesign.TestHelpers.deactivate("pd_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate",
@@ -27539,8 +27195,10 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_personalization_designs_deactivate_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_design = await stripe.issuing.PersonalizationDesign.TestHelpers.deactivate_async(
-            "pd_xyz",
+        await (
+            stripe.issuing.PersonalizationDesign.TestHelpers.deactivate_async(
+                "pd_xyz",
+            )
         )
         http_client_mock.assert_requested(
             "post",
@@ -27574,11 +27232,9 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_personalization_designs_reject_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_design = (
-            stripe.issuing.PersonalizationDesign.TestHelpers.reject(
-                "pd_xyz",
-                rejection_reasons={"card_logo": ["geographic_location"]},
-            )
+        stripe.issuing.PersonalizationDesign.TestHelpers.reject(
+            "pd_xyz",
+            rejection_reasons={"card_logo": ["geographic_location"]},
         )
         http_client_mock.assert_requested(
             "post",
@@ -27617,7 +27273,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_personalization_designs_reject_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        personalization_design = await stripe.issuing.PersonalizationDesign.TestHelpers.reject_async(
+        await stripe.issuing.PersonalizationDesign.TestHelpers.reject_async(
             "pd_xyz",
             rejection_reasons={"card_logo": ["geographic_location"]},
         )
@@ -27656,56 +27312,54 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_transactions_create_force_capture_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = (
-            stripe.issuing.Transaction.TestHelpers.create_force_capture(
-                amount=100,
-                card="foo",
-                currency="usd",
-                merchant_data={
-                    "category": "ac_refrigeration_repair",
-                    "city": "foo",
-                    "country": "US",
-                    "name": "foo",
-                    "network_id": "bar",
-                    "postal_code": "10001",
-                    "state": "NY",
-                    "terminal_id": "foo",
-                },
-                purchase_details={
-                    "flight": {
-                        "departure_at": 1633651200,
-                        "passenger_name": "John Doe",
-                        "refundable": True,
-                        "segments": [
-                            {
-                                "arrival_airport_code": "SFO",
-                                "carrier": "Delta",
-                                "departure_airport_code": "LAX",
-                                "flight_number": "DL100",
-                                "service_class": "Economy",
-                                "stopover_allowed": True,
-                            },
-                        ],
-                        "travel_agency": "Orbitz",
-                    },
-                    "fuel": {
-                        "type": "diesel",
-                        "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
-                    },
-                    "lodging": {"check_in_at": 1533651200, "nights": 2},
-                    "receipt": [
+        stripe.issuing.Transaction.TestHelpers.create_force_capture(
+            amount=100,
+            card="foo",
+            currency="usd",
+            merchant_data={
+                "category": "ac_refrigeration_repair",
+                "city": "foo",
+                "country": "US",
+                "name": "foo",
+                "network_id": "bar",
+                "postal_code": "10001",
+                "state": "NY",
+                "terminal_id": "foo",
+            },
+            purchase_details={
+                "flight": {
+                    "departure_at": 1633651200,
+                    "passenger_name": "John Doe",
+                    "refundable": True,
+                    "segments": [
                         {
-                            "description": "Room charge",
-                            "quantity": "1",
-                            "total": 200,
-                            "unit_cost": 200,
+                            "arrival_airport_code": "SFO",
+                            "carrier": "Delta",
+                            "departure_airport_code": "LAX",
+                            "flight_number": "DL100",
+                            "service_class": "Economy",
+                            "stopover_allowed": True,
                         },
                     ],
-                    "reference": "foo",
+                    "travel_agency": "Orbitz",
                 },
-            )
+                "fuel": {
+                    "type": "diesel",
+                    "unit": "liter",
+                    "unit_cost_decimal": "3.5",
+                    "quantity_decimal": "10",
+                },
+                "lodging": {"check_in_at": 1533651200, "nights": 2},
+                "receipt": [
+                    {
+                        "description": "Room charge",
+                        "quantity": "1",
+                        "total": 200,
+                        "unit_cost": 200,
+                    },
+                ],
+                "reference": "foo",
+            },
         )
         http_client_mock.assert_requested(
             "post",
@@ -27791,54 +27445,56 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_transactions_create_force_capture_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = await stripe.issuing.Transaction.TestHelpers.create_force_capture_async(
-            amount=100,
-            card="foo",
-            currency="usd",
-            merchant_data={
-                "category": "ac_refrigeration_repair",
-                "city": "foo",
-                "country": "US",
-                "name": "foo",
-                "network_id": "bar",
-                "postal_code": "10001",
-                "state": "NY",
-                "terminal_id": "foo",
-            },
-            purchase_details={
-                "flight": {
-                    "departure_at": 1633651200,
-                    "passenger_name": "John Doe",
-                    "refundable": True,
-                    "segments": [
+        await (
+            stripe.issuing.Transaction.TestHelpers.create_force_capture_async(
+                amount=100,
+                card="foo",
+                currency="usd",
+                merchant_data={
+                    "category": "ac_refrigeration_repair",
+                    "city": "foo",
+                    "country": "US",
+                    "name": "foo",
+                    "network_id": "bar",
+                    "postal_code": "10001",
+                    "state": "NY",
+                    "terminal_id": "foo",
+                },
+                purchase_details={
+                    "flight": {
+                        "departure_at": 1633651200,
+                        "passenger_name": "John Doe",
+                        "refundable": True,
+                        "segments": [
+                            {
+                                "arrival_airport_code": "SFO",
+                                "carrier": "Delta",
+                                "departure_airport_code": "LAX",
+                                "flight_number": "DL100",
+                                "service_class": "Economy",
+                                "stopover_allowed": True,
+                            },
+                        ],
+                        "travel_agency": "Orbitz",
+                    },
+                    "fuel": {
+                        "type": "diesel",
+                        "unit": "liter",
+                        "unit_cost_decimal": "3.5",
+                        "quantity_decimal": "10",
+                    },
+                    "lodging": {"check_in_at": 1533651200, "nights": 2},
+                    "receipt": [
                         {
-                            "arrival_airport_code": "SFO",
-                            "carrier": "Delta",
-                            "departure_airport_code": "LAX",
-                            "flight_number": "DL100",
-                            "service_class": "Economy",
-                            "stopover_allowed": True,
+                            "description": "Room charge",
+                            "quantity": "1",
+                            "total": 200,
+                            "unit_cost": 200,
                         },
                     ],
-                    "travel_agency": "Orbitz",
+                    "reference": "foo",
                 },
-                "fuel": {
-                    "type": "diesel",
-                    "unit": "liter",
-                    "unit_cost_decimal": "3.5",
-                    "quantity_decimal": "10",
-                },
-                "lodging": {"check_in_at": 1533651200, "nights": 2},
-                "receipt": [
-                    {
-                        "description": "Room charge",
-                        "quantity": "1",
-                        "total": 200,
-                        "unit_cost": 200,
-                    },
-                ],
-                "reference": "foo",
-            },
+            )
         )
         http_client_mock.assert_requested(
             "post",
@@ -27922,56 +27578,54 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_transactions_create_unlinked_refund_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = (
-            stripe.issuing.Transaction.TestHelpers.create_unlinked_refund(
-                amount=100,
-                card="foo",
-                currency="usd",
-                merchant_data={
-                    "category": "ac_refrigeration_repair",
-                    "city": "foo",
-                    "country": "bar",
-                    "name": "foo",
-                    "network_id": "bar",
-                    "postal_code": "foo",
-                    "state": "bar",
-                    "terminal_id": "foo",
-                },
-                purchase_details={
-                    "flight": {
-                        "departure_at": 1533651200,
-                        "passenger_name": "John Doe",
-                        "refundable": True,
-                        "segments": [
-                            {
-                                "arrival_airport_code": "SFO",
-                                "carrier": "Delta",
-                                "departure_airport_code": "LAX",
-                                "flight_number": "DL100",
-                                "service_class": "Economy",
-                                "stopover_allowed": True,
-                            },
-                        ],
-                        "travel_agency": "Orbitz",
-                    },
-                    "fuel": {
-                        "type": "diesel",
-                        "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
-                    },
-                    "lodging": {"check_in_at": 1533651200, "nights": 2},
-                    "receipt": [
+        stripe.issuing.Transaction.TestHelpers.create_unlinked_refund(
+            amount=100,
+            card="foo",
+            currency="usd",
+            merchant_data={
+                "category": "ac_refrigeration_repair",
+                "city": "foo",
+                "country": "bar",
+                "name": "foo",
+                "network_id": "bar",
+                "postal_code": "foo",
+                "state": "bar",
+                "terminal_id": "foo",
+            },
+            purchase_details={
+                "flight": {
+                    "departure_at": 1533651200,
+                    "passenger_name": "John Doe",
+                    "refundable": True,
+                    "segments": [
                         {
-                            "description": "Room charge",
-                            "quantity": "1",
-                            "total": 200,
-                            "unit_cost": 200,
+                            "arrival_airport_code": "SFO",
+                            "carrier": "Delta",
+                            "departure_airport_code": "LAX",
+                            "flight_number": "DL100",
+                            "service_class": "Economy",
+                            "stopover_allowed": True,
                         },
                     ],
-                    "reference": "foo",
+                    "travel_agency": "Orbitz",
                 },
-            )
+                "fuel": {
+                    "type": "diesel",
+                    "unit": "liter",
+                    "unit_cost_decimal": "3.5",
+                    "quantity_decimal": "10",
+                },
+                "lodging": {"check_in_at": 1533651200, "nights": 2},
+                "receipt": [
+                    {
+                        "description": "Room charge",
+                        "quantity": "1",
+                        "total": 200,
+                        "unit_cost": 200,
+                    },
+                ],
+                "reference": "foo",
+            },
         )
         http_client_mock.assert_requested(
             "post",
@@ -28057,7 +27711,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_transactions_create_unlinked_refund_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = await stripe.issuing.Transaction.TestHelpers.create_unlinked_refund_async(
+        await stripe.issuing.Transaction.TestHelpers.create_unlinked_refund_async(
             amount=100,
             card="foo",
             currency="usd",
@@ -28188,7 +27842,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_issuing_transactions_refund_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = stripe.issuing.Transaction.TestHelpers.refund(
+        stripe.issuing.Transaction.TestHelpers.refund(
             "example_transaction",
             refund_amount=50,
         )
@@ -28227,11 +27881,9 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_issuing_transactions_refund_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = (
-            await stripe.issuing.Transaction.TestHelpers.refund_async(
-                "example_transaction",
-                refund_amount=50,
-            )
+        await stripe.issuing.Transaction.TestHelpers.refund_async(
+            "example_transaction",
+            refund_amount=50,
         )
         http_client_mock.assert_requested(
             "post",
@@ -28270,7 +27922,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_refunds_expire_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        refund = stripe.Refund.TestHelpers.expire("re_123")
+        stripe.Refund.TestHelpers.expire("re_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/refunds/re_123/expire",
@@ -28301,7 +27953,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_refunds_expire_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        refund = await stripe.Refund.TestHelpers.expire_async("re_123")
+        await stripe.Refund.TestHelpers.expire_async("re_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/refunds/re_123/expire",
@@ -28332,7 +27984,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_test_clocks_advance_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clock = stripe.test_helpers.TestClock.advance(
+        stripe.test_helpers.TestClock.advance(
             "clock_xyz",
             frozen_time=142,
         )
@@ -28371,7 +28023,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_test_clocks_advance_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clock = await stripe.test_helpers.TestClock.advance_async(
+        await stripe.test_helpers.TestClock.advance_async(
             "clock_xyz",
             frozen_time=142,
         )
@@ -28410,7 +28062,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_test_clocks_advance_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clock = stripe.test_helpers.TestClock.advance(
+        stripe.test_helpers.TestClock.advance(
             "clock_xxxxxxxxxxxxx",
             frozen_time=1675552261,
         )
@@ -28449,7 +28101,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_test_clocks_advance_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clock = await stripe.test_helpers.TestClock.advance_async(
+        await stripe.test_helpers.TestClock.advance_async(
             "clock_xxxxxxxxxxxxx",
             frozen_time=1675552261,
         )
@@ -28488,7 +28140,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_test_clocks_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.test_helpers.TestClock.delete("clock_xyz")
+        stripe.test_helpers.TestClock.delete("clock_xyz")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/test_helpers/test_clocks/clock_xyz",
@@ -28519,7 +28171,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_test_clocks_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.test_helpers.TestClock.delete_async("clock_xyz")
+        await stripe.test_helpers.TestClock.delete_async("clock_xyz")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/test_helpers/test_clocks/clock_xyz",
@@ -28552,7 +28204,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_test_clocks_delete_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.test_helpers.TestClock.delete("clock_xxxxxxxxxxxxx")
+        stripe.test_helpers.TestClock.delete("clock_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
@@ -28583,9 +28235,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_test_clocks_delete_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.test_helpers.TestClock.delete_async(
-            "clock_xxxxxxxxxxxxx",
-        )
+        await stripe.test_helpers.TestClock.delete_async("clock_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
@@ -28618,7 +28268,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_test_clocks_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clocks = stripe.test_helpers.TestClock.list()
+        stripe.test_helpers.TestClock.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks",
@@ -28649,7 +28299,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_test_clocks_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clocks = await stripe.test_helpers.TestClock.list_async()
+        await stripe.test_helpers.TestClock.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks",
@@ -28680,7 +28330,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_test_clocks_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clock = stripe.test_helpers.TestClock.retrieve("clock_xyz")
+        stripe.test_helpers.TestClock.retrieve("clock_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks/clock_xyz",
@@ -28711,9 +28361,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_test_clocks_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clock = await stripe.test_helpers.TestClock.retrieve_async(
-            "clock_xyz",
-        )
+        await stripe.test_helpers.TestClock.retrieve_async("clock_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks/clock_xyz",
@@ -28746,7 +28394,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_test_clocks_get_3(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clocks = stripe.test_helpers.TestClock.list(limit=3)
+        stripe.test_helpers.TestClock.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks",
@@ -28778,7 +28426,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_test_clocks_get_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clocks = await stripe.test_helpers.TestClock.list_async(limit=3)
+        await stripe.test_helpers.TestClock.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks",
@@ -28814,9 +28462,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_test_clocks_get_4(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clock = stripe.test_helpers.TestClock.retrieve(
-            "clock_xxxxxxxxxxxxx",
-        )
+        stripe.test_helpers.TestClock.retrieve("clock_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
@@ -28849,7 +28495,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_test_clocks_get_4_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clock = await stripe.test_helpers.TestClock.retrieve_async(
+        await stripe.test_helpers.TestClock.retrieve_async(
             "clock_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -28884,7 +28530,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_test_clocks_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clock = stripe.test_helpers.TestClock.create(
+        stripe.test_helpers.TestClock.create(
             frozen_time=123,
             name="cogsworth",
         )
@@ -28925,7 +28571,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_test_clocks_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clock = await stripe.test_helpers.TestClock.create_async(
+        await stripe.test_helpers.TestClock.create_async(
             frozen_time=123,
             name="cogsworth",
         )
@@ -28966,9 +28612,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_test_clocks_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clock = stripe.test_helpers.TestClock.create(
-            frozen_time=1577836800,
-        )
+        stripe.test_helpers.TestClock.create(frozen_time=1577836800)
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/test_clocks",
@@ -29005,8 +28649,8 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_test_clocks_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        test_clock = await stripe.test_helpers.TestClock.create_async(
-            frozen_time=1577836800,
+        await stripe.test_helpers.TestClock.create_async(
+            frozen_time=1577836800
         )
         http_client_mock.assert_requested(
             "post",
@@ -29044,7 +28688,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_treasury_inbound_transfers_fail_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfer = stripe.treasury.InboundTransfer.TestHelpers.fail(
+        stripe.treasury.InboundTransfer.TestHelpers.fail(
             "ibt_123",
             failure_details={"code": "account_closed"},
         )
@@ -29083,11 +28727,9 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_treasury_inbound_transfers_fail_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfer = (
-            await stripe.treasury.InboundTransfer.TestHelpers.fail_async(
-                "ibt_123",
-                failure_details={"code": "account_closed"},
-            )
+        await stripe.treasury.InboundTransfer.TestHelpers.fail_async(
+            "ibt_123",
+            failure_details={"code": "account_closed"},
         )
         http_client_mock.assert_requested(
             "post",
@@ -29126,7 +28768,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_treasury_inbound_transfers_return_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfer = stripe.treasury.InboundTransfer.TestHelpers.return_inbound_transfer(
+        stripe.treasury.InboundTransfer.TestHelpers.return_inbound_transfer(
             "ibt_123",
         )
         http_client_mock.assert_requested(
@@ -29161,7 +28803,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_treasury_inbound_transfers_return_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfer = await stripe.treasury.InboundTransfer.TestHelpers.return_inbound_transfer_async(
+        await stripe.treasury.InboundTransfer.TestHelpers.return_inbound_transfer_async(
             "ibt_123",
         )
         http_client_mock.assert_requested(
@@ -29196,9 +28838,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_treasury_inbound_transfers_succeed_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfer = stripe.treasury.InboundTransfer.TestHelpers.succeed(
-            "ibt_123",
-        )
+        stripe.treasury.InboundTransfer.TestHelpers.succeed("ibt_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed",
@@ -29231,10 +28871,8 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_treasury_inbound_transfers_succeed_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfer = (
-            await stripe.treasury.InboundTransfer.TestHelpers.succeed_async(
-                "ibt_123",
-            )
+        await stripe.treasury.InboundTransfer.TestHelpers.succeed_async(
+            "ibt_123",
         )
         http_client_mock.assert_requested(
             "post",
@@ -29270,9 +28908,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_treasury_outbound_transfers_fail_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfer = stripe.treasury.OutboundTransfer.TestHelpers.fail(
-            "obt_123",
-        )
+        stripe.treasury.OutboundTransfer.TestHelpers.fail("obt_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/outbound_transfers/obt_123/fail",
@@ -29305,10 +28941,8 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_treasury_outbound_transfers_fail_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfer = (
-            await stripe.treasury.OutboundTransfer.TestHelpers.fail_async(
-                "obt_123",
-            )
+        await stripe.treasury.OutboundTransfer.TestHelpers.fail_async(
+            "obt_123"
         )
         http_client_mock.assert_requested(
             "post",
@@ -29344,9 +28978,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_treasury_outbound_transfers_post_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfer = stripe.treasury.OutboundTransfer.TestHelpers.post(
-            "obt_123",
-        )
+        stripe.treasury.OutboundTransfer.TestHelpers.post("obt_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/outbound_transfers/obt_123/post",
@@ -29379,10 +29011,8 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_treasury_outbound_transfers_post_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfer = (
-            await stripe.treasury.OutboundTransfer.TestHelpers.post_async(
-                "obt_123",
-            )
+        await stripe.treasury.OutboundTransfer.TestHelpers.post_async(
+            "obt_123"
         )
         http_client_mock.assert_requested(
             "post",
@@ -29418,7 +29048,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_treasury_outbound_transfers_return_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfer = stripe.treasury.OutboundTransfer.TestHelpers.return_outbound_transfer(
+        stripe.treasury.OutboundTransfer.TestHelpers.return_outbound_transfer(
             "obt_123",
             returned_details={"code": "account_closed"},
         )
@@ -29457,7 +29087,7 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_treasury_outbound_transfers_return_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfer = await stripe.treasury.OutboundTransfer.TestHelpers.return_outbound_transfer_async(
+        await stripe.treasury.OutboundTransfer.TestHelpers.return_outbound_transfer_async(
             "obt_123",
             returned_details={"code": "account_closed"},
         )
@@ -29496,7 +29126,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_treasury_received_credits_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        received_credit = stripe.treasury.ReceivedCredit.TestHelpers.create(
+        stripe.treasury.ReceivedCredit.TestHelpers.create(
             financial_account="fa_123",
             network="ach",
             amount=1234,
@@ -29541,13 +29171,11 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_treasury_received_credits_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        received_credit = (
-            await stripe.treasury.ReceivedCredit.TestHelpers.create_async(
-                financial_account="fa_123",
-                network="ach",
-                amount=1234,
-                currency="usd",
-            )
+        await stripe.treasury.ReceivedCredit.TestHelpers.create_async(
+            financial_account="fa_123",
+            network="ach",
+            amount=1234,
+            currency="usd",
         )
         http_client_mock.assert_requested(
             "post",
@@ -29590,7 +29218,7 @@ class TestGeneratedExamples(object):
     def test_test_helpers_treasury_received_debits_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        received_debit = stripe.treasury.ReceivedDebit.TestHelpers.create(
+        stripe.treasury.ReceivedDebit.TestHelpers.create(
             financial_account="fa_123",
             network="ach",
             amount=1234,
@@ -29635,13 +29263,11 @@ class TestGeneratedExamples(object):
     async def test_test_helpers_treasury_received_debits_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        received_debit = (
-            await stripe.treasury.ReceivedDebit.TestHelpers.create_async(
-                financial_account="fa_123",
-                network="ach",
-                amount=1234,
-                currency="usd",
-            )
+        await stripe.treasury.ReceivedDebit.TestHelpers.create_async(
+            financial_account="fa_123",
+            network="ach",
+            amount=1234,
+            currency="usd",
         )
         http_client_mock.assert_requested(
             "post",
@@ -29682,7 +29308,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tokens_get(self, http_client_mock: HTTPClientMock) -> None:
-        token = stripe.Token.retrieve("tok_xxxx")
+        stripe.Token.retrieve("tok_xxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tokens/tok_xxxx",
@@ -29713,7 +29339,7 @@ class TestGeneratedExamples(object):
     async def test_tokens_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        token = await stripe.Token.retrieve_async("tok_xxxx")
+        await stripe.Token.retrieve_async("tok_xxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tokens/tok_xxxx",
@@ -29742,7 +29368,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tokens_post(self, http_client_mock: HTTPClientMock) -> None:
-        token = stripe.Token.create(
+        stripe.Token.create(
             card={
                 "number": "4242424242424242",
                 "exp_month": "5",
@@ -29791,7 +29417,7 @@ class TestGeneratedExamples(object):
     async def test_tokens_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        token = await stripe.Token.create_async(
+        await stripe.Token.create_async(
             card={
                 "number": "4242424242424242",
                 "exp_month": "5",
@@ -29838,7 +29464,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tokens_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        token = stripe.Token.create(
+        stripe.Token.create(
             bank_account={
                 "country": "US",
                 "currency": "usd",
@@ -29891,7 +29517,7 @@ class TestGeneratedExamples(object):
     async def test_tokens_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        token = await stripe.Token.create_async(
+        await stripe.Token.create_async(
             bank_account={
                 "country": "US",
                 "currency": "usd",
@@ -29942,7 +29568,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tokens_post_3(self, http_client_mock: HTTPClientMock) -> None:
-        token = stripe.Token.create(pii={"id_number": "000000000"})
+        stripe.Token.create(pii={"id_number": "000000000"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/tokens",
@@ -29975,7 +29601,7 @@ class TestGeneratedExamples(object):
     async def test_tokens_post_3_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        token = await stripe.Token.create_async(pii={"id_number": "000000000"})
+        await stripe.Token.create_async(pii={"id_number": "000000000"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/tokens",
@@ -30010,7 +29636,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tokens_post_4(self, http_client_mock: HTTPClientMock) -> None:
-        token = stripe.Token.create(
+        stripe.Token.create(
             account={
                 "individual": {"first_name": "Jane", "last_name": "Doe"},
                 "tos_shown_and_accepted": True,
@@ -30055,7 +29681,7 @@ class TestGeneratedExamples(object):
     async def test_tokens_post_4_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        token = await stripe.Token.create_async(
+        await stripe.Token.create_async(
             account={
                 "individual": {"first_name": "Jane", "last_name": "Doe"},
                 "tos_shown_and_accepted": True,
@@ -30098,7 +29724,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tokens_post_5(self, http_client_mock: HTTPClientMock) -> None:
-        token = stripe.Token.create(
+        stripe.Token.create(
             person={
                 "first_name": "Jane",
                 "last_name": "Doe",
@@ -30145,7 +29771,7 @@ class TestGeneratedExamples(object):
     async def test_tokens_post_5_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        token = await stripe.Token.create_async(
+        await stripe.Token.create_async(
             person={
                 "first_name": "Jane",
                 "last_name": "Doe",
@@ -30190,7 +29816,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_tokens_post_6(self, http_client_mock: HTTPClientMock) -> None:
-        token = stripe.Token.create(cvc_update={"cvc": "123"})
+        stripe.Token.create(cvc_update={"cvc": "123"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/tokens",
@@ -30223,7 +29849,7 @@ class TestGeneratedExamples(object):
     async def test_tokens_post_6_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        token = await stripe.Token.create_async(cvc_update={"cvc": "123"})
+        await stripe.Token.create_async(cvc_update={"cvc": "123"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/tokens",
@@ -30258,7 +29884,7 @@ class TestGeneratedExamples(object):
     def test_topups_cancel_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        topup = stripe.Topup.cancel("tu_xxxxxxxxxxxxx")
+        stripe.Topup.cancel("tu_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/topups/tu_xxxxxxxxxxxxx/cancel",
@@ -30289,7 +29915,7 @@ class TestGeneratedExamples(object):
     async def test_topups_cancel_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        topup = await stripe.Topup.cancel_async("tu_xxxxxxxxxxxxx")
+        await stripe.Topup.cancel_async("tu_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/topups/tu_xxxxxxxxxxxxx/cancel",
@@ -30318,7 +29944,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_topups_get(self, http_client_mock: HTTPClientMock) -> None:
-        topups = stripe.Topup.list(limit=3)
+        stripe.Topup.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/topups",
@@ -30350,7 +29976,7 @@ class TestGeneratedExamples(object):
     async def test_topups_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        topups = await stripe.Topup.list_async(limit=3)
+        await stripe.Topup.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/topups",
@@ -30380,7 +30006,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_topups_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        topup = stripe.Topup.retrieve("tu_xxxxxxxxxxxxx")
+        stripe.Topup.retrieve("tu_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/topups/tu_xxxxxxxxxxxxx",
@@ -30411,7 +30037,7 @@ class TestGeneratedExamples(object):
     async def test_topups_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        topup = await stripe.Topup.retrieve_async("tu_xxxxxxxxxxxxx")
+        await stripe.Topup.retrieve_async("tu_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/topups/tu_xxxxxxxxxxxxx",
@@ -30440,7 +30066,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_topups_post(self, http_client_mock: HTTPClientMock) -> None:
-        topup = stripe.Topup.create(
+        stripe.Topup.create(
             amount=2000,
             currency="usd",
             description="Top-up for Jenny Rosen",
@@ -30485,7 +30111,7 @@ class TestGeneratedExamples(object):
     async def test_topups_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        topup = await stripe.Topup.create_async(
+        await stripe.Topup.create_async(
             amount=2000,
             currency="usd",
             description="Top-up for Jenny Rosen",
@@ -30528,7 +30154,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_topups_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        topup = stripe.Topup.modify(
+        stripe.Topup.modify(
             "tu_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -30567,7 +30193,7 @@ class TestGeneratedExamples(object):
     async def test_topups_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        topup = await stripe.Topup.modify_async(
+        await stripe.Topup.modify_async(
             "tu_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -30604,7 +30230,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_transfers_get(self, http_client_mock: HTTPClientMock) -> None:
-        transfers = stripe.Transfer.list(limit=3)
+        stripe.Transfer.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/transfers",
@@ -30636,7 +30262,7 @@ class TestGeneratedExamples(object):
     async def test_transfers_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transfers = await stripe.Transfer.list_async(limit=3)
+        await stripe.Transfer.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/transfers",
@@ -30666,7 +30292,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_transfers_get_2(self, http_client_mock: HTTPClientMock) -> None:
-        transfer = stripe.Transfer.retrieve("tr_xxxxxxxxxxxxx")
+        stripe.Transfer.retrieve("tr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/transfers/tr_xxxxxxxxxxxxx",
@@ -30697,7 +30323,7 @@ class TestGeneratedExamples(object):
     async def test_transfers_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transfer = await stripe.Transfer.retrieve_async("tr_xxxxxxxxxxxxx")
+        await stripe.Transfer.retrieve_async("tr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/transfers/tr_xxxxxxxxxxxxx",
@@ -30726,7 +30352,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_transfers_post(self, http_client_mock: HTTPClientMock) -> None:
-        transfer = stripe.Transfer.create(
+        stripe.Transfer.create(
             amount=400,
             currency="usd",
             destination="acct_xxxxxxxxxxxxx",
@@ -30771,7 +30397,7 @@ class TestGeneratedExamples(object):
     async def test_transfers_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transfer = await stripe.Transfer.create_async(
+        await stripe.Transfer.create_async(
             amount=400,
             currency="usd",
             destination="acct_xxxxxxxxxxxxx",
@@ -30814,7 +30440,7 @@ class TestGeneratedExamples(object):
         )
 
     def test_transfers_post_2(self, http_client_mock: HTTPClientMock) -> None:
-        transfer = stripe.Transfer.modify(
+        stripe.Transfer.modify(
             "tr_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -30853,7 +30479,7 @@ class TestGeneratedExamples(object):
     async def test_transfers_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transfer = await stripe.Transfer.modify_async(
+        await stripe.Transfer.modify_async(
             "tr_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -30892,7 +30518,7 @@ class TestGeneratedExamples(object):
     def test_transfers_reversals_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reversals = stripe.Transfer.list_reversals(
+        stripe.Transfer.list_reversals(
             "tr_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -30930,7 +30556,7 @@ class TestGeneratedExamples(object):
     async def test_transfers_reversals_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reversals = await stripe.Transfer.list_reversals_async(
+        await stripe.Transfer.list_reversals_async(
             "tr_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -30968,7 +30594,7 @@ class TestGeneratedExamples(object):
     def test_transfers_reversals_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reversal = stripe.Transfer.retrieve_reversal(
+        stripe.Transfer.retrieve_reversal(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",
         )
@@ -31005,7 +30631,7 @@ class TestGeneratedExamples(object):
     async def test_transfers_reversals_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reversal = await stripe.Transfer.retrieve_reversal_async(
+        await stripe.Transfer.retrieve_reversal_async(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",
         )
@@ -31042,7 +30668,7 @@ class TestGeneratedExamples(object):
     def test_transfers_reversals_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reversal = stripe.Transfer.create_reversal(
+        stripe.Transfer.create_reversal(
             "tr_xxxxxxxxxxxxx",
             amount=100,
         )
@@ -31081,7 +30707,7 @@ class TestGeneratedExamples(object):
     async def test_transfers_reversals_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reversal = await stripe.Transfer.create_reversal_async(
+        await stripe.Transfer.create_reversal_async(
             "tr_xxxxxxxxxxxxx",
             amount=100,
         )
@@ -31120,7 +30746,7 @@ class TestGeneratedExamples(object):
     def test_transfers_reversals_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reversal = stripe.Transfer.modify_reversal(
+        stripe.Transfer.modify_reversal(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
@@ -31161,7 +30787,7 @@ class TestGeneratedExamples(object):
     async def test_transfers_reversals_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        reversal = await stripe.Transfer.modify_reversal_async(
+        await stripe.Transfer.modify_reversal_async(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
@@ -31202,7 +30828,7 @@ class TestGeneratedExamples(object):
     def test_treasury_credit_reversals_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_reversals = stripe.treasury.CreditReversal.list(
+        stripe.treasury.CreditReversal.list(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -31242,7 +30868,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_credit_reversals_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_reversals = await stripe.treasury.CreditReversal.list_async(
+        await stripe.treasury.CreditReversal.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -31282,9 +30908,7 @@ class TestGeneratedExamples(object):
     def test_treasury_credit_reversals_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_reversal = stripe.treasury.CreditReversal.retrieve(
-            "credrev_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.CreditReversal.retrieve("credrev_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx",
@@ -31317,7 +30941,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_credit_reversals_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_reversal = await stripe.treasury.CreditReversal.retrieve_async(
+        await stripe.treasury.CreditReversal.retrieve_async(
             "credrev_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -31354,7 +30978,7 @@ class TestGeneratedExamples(object):
     def test_treasury_credit_reversals_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_reversal = stripe.treasury.CreditReversal.create(
+        stripe.treasury.CreditReversal.create(
             received_credit="rc_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -31393,7 +31017,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_credit_reversals_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        credit_reversal = await stripe.treasury.CreditReversal.create_async(
+        await stripe.treasury.CreditReversal.create_async(
             received_credit="rc_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -31432,7 +31056,7 @@ class TestGeneratedExamples(object):
     def test_treasury_debit_reversals_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        debit_reversals = stripe.treasury.DebitReversal.list(
+        stripe.treasury.DebitReversal.list(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -31472,7 +31096,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_debit_reversals_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        debit_reversals = await stripe.treasury.DebitReversal.list_async(
+        await stripe.treasury.DebitReversal.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -31512,9 +31136,7 @@ class TestGeneratedExamples(object):
     def test_treasury_debit_reversals_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        debit_reversal = stripe.treasury.DebitReversal.retrieve(
-            "debrev_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.DebitReversal.retrieve("debrev_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx",
@@ -31547,7 +31169,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_debit_reversals_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        debit_reversal = await stripe.treasury.DebitReversal.retrieve_async(
+        await stripe.treasury.DebitReversal.retrieve_async(
             "debrev_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -31582,9 +31204,7 @@ class TestGeneratedExamples(object):
     def test_treasury_debit_reversals_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        debit_reversal = stripe.treasury.DebitReversal.create(
-            received_debit="rd_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.DebitReversal.create(received_debit="rd_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/treasury/debit_reversals",
@@ -31621,7 +31241,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_debit_reversals_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        debit_reversal = await stripe.treasury.DebitReversal.create_async(
+        await stripe.treasury.DebitReversal.create_async(
             received_debit="rd_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -31660,11 +31280,7 @@ class TestGeneratedExamples(object):
     def test_treasury_financial_accounts_features_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        financial_account_features = (
-            stripe.treasury.FinancialAccount.retrieve_features(
-                "fa_xxxxxxxxxxxxx",
-            )
-        )
+        stripe.treasury.FinancialAccount.retrieve_features("fa_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features",
@@ -31699,10 +31315,8 @@ class TestGeneratedExamples(object):
     async def test_treasury_financial_accounts_features_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        financial_account_features = (
-            await stripe.treasury.FinancialAccount.retrieve_features_async(
-                "fa_xxxxxxxxxxxxx",
-            )
+        await stripe.treasury.FinancialAccount.retrieve_features_async(
+            "fa_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -31738,7 +31352,7 @@ class TestGeneratedExamples(object):
     def test_treasury_financial_accounts_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        financial_accounts = stripe.treasury.FinancialAccount.list(limit=3)
+        stripe.treasury.FinancialAccount.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts",
@@ -31774,9 +31388,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_financial_accounts_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        financial_accounts = await stripe.treasury.FinancialAccount.list_async(
-            limit=3,
-        )
+        await stripe.treasury.FinancialAccount.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts",
@@ -31810,9 +31422,7 @@ class TestGeneratedExamples(object):
     def test_treasury_financial_accounts_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        financial_account = stripe.treasury.FinancialAccount.retrieve(
-            "fa_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.FinancialAccount.retrieve("fa_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
@@ -31845,10 +31455,8 @@ class TestGeneratedExamples(object):
     async def test_treasury_financial_accounts_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        financial_account = (
-            await stripe.treasury.FinancialAccount.retrieve_async(
-                "fa_xxxxxxxxxxxxx",
-            )
+        await stripe.treasury.FinancialAccount.retrieve_async(
+            "fa_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -31884,7 +31492,7 @@ class TestGeneratedExamples(object):
     def test_treasury_financial_accounts_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        financial_account = stripe.treasury.FinancialAccount.create(
+        stripe.treasury.FinancialAccount.create(
             supported_currencies=["usd"],
             features={},
         )
@@ -31925,11 +31533,9 @@ class TestGeneratedExamples(object):
     async def test_treasury_financial_accounts_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        financial_account = (
-            await stripe.treasury.FinancialAccount.create_async(
-                supported_currencies=["usd"],
-                features={},
-            )
+        await stripe.treasury.FinancialAccount.create_async(
+            supported_currencies=["usd"],
+            features={},
         )
         http_client_mock.assert_requested(
             "post",
@@ -31967,7 +31573,7 @@ class TestGeneratedExamples(object):
     def test_treasury_financial_accounts_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        financial_account = stripe.treasury.FinancialAccount.modify(
+        stripe.treasury.FinancialAccount.modify(
             "fa_xxxxxxxxxxxxx",
             metadata={"order_id": "6735"},
         )
@@ -32006,11 +31612,9 @@ class TestGeneratedExamples(object):
     async def test_treasury_financial_accounts_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        financial_account = (
-            await stripe.treasury.FinancialAccount.modify_async(
-                "fa_xxxxxxxxxxxxx",
-                metadata={"order_id": "6735"},
-            )
+        await stripe.treasury.FinancialAccount.modify_async(
+            "fa_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
         )
         http_client_mock.assert_requested(
             "post",
@@ -32049,9 +31653,7 @@ class TestGeneratedExamples(object):
     def test_treasury_inbound_transfers_cancel_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfer = stripe.treasury.InboundTransfer.cancel(
-            "ibt_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.InboundTransfer.cancel("ibt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel",
@@ -32084,9 +31686,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_inbound_transfers_cancel_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfer = await stripe.treasury.InboundTransfer.cancel_async(
-            "ibt_xxxxxxxxxxxxx",
-        )
+        await stripe.treasury.InboundTransfer.cancel_async("ibt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel",
@@ -32121,7 +31721,7 @@ class TestGeneratedExamples(object):
     def test_treasury_inbound_transfers_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfers = stripe.treasury.InboundTransfer.list(
+        stripe.treasury.InboundTransfer.list(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -32161,7 +31761,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_inbound_transfers_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfers = await stripe.treasury.InboundTransfer.list_async(
+        await stripe.treasury.InboundTransfer.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -32201,9 +31801,7 @@ class TestGeneratedExamples(object):
     def test_treasury_inbound_transfers_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfer = stripe.treasury.InboundTransfer.retrieve(
-            "ibt_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.InboundTransfer.retrieve("ibt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx",
@@ -32236,10 +31834,8 @@ class TestGeneratedExamples(object):
     async def test_treasury_inbound_transfers_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfer = (
-            await stripe.treasury.InboundTransfer.retrieve_async(
-                "ibt_xxxxxxxxxxxxx",
-            )
+        await stripe.treasury.InboundTransfer.retrieve_async(
+            "ibt_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -32275,7 +31871,7 @@ class TestGeneratedExamples(object):
     def test_treasury_inbound_transfers_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfer = stripe.treasury.InboundTransfer.create(
+        stripe.treasury.InboundTransfer.create(
             financial_account="fa_xxxxxxxxxxxxx",
             amount=10000,
             currency="usd",
@@ -32322,7 +31918,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_inbound_transfers_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        inbound_transfer = await stripe.treasury.InboundTransfer.create_async(
+        await stripe.treasury.InboundTransfer.create_async(
             financial_account="fa_xxxxxxxxxxxxx",
             amount=10000,
             currency="usd",
@@ -32371,9 +31967,7 @@ class TestGeneratedExamples(object):
     def test_treasury_outbound_payments_cancel_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_payment = stripe.treasury.OutboundPayment.cancel(
-            "bot_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.OutboundPayment.cancel("bot_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel",
@@ -32406,9 +32000,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_outbound_payments_cancel_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_payment = await stripe.treasury.OutboundPayment.cancel_async(
-            "bot_xxxxxxxxxxxxx",
-        )
+        await stripe.treasury.OutboundPayment.cancel_async("bot_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel",
@@ -32443,7 +32035,7 @@ class TestGeneratedExamples(object):
     def test_treasury_outbound_payments_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_payments = stripe.treasury.OutboundPayment.list(
+        stripe.treasury.OutboundPayment.list(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -32483,7 +32075,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_outbound_payments_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_payments = await stripe.treasury.OutboundPayment.list_async(
+        await stripe.treasury.OutboundPayment.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -32523,9 +32115,7 @@ class TestGeneratedExamples(object):
     def test_treasury_outbound_payments_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_payment = stripe.treasury.OutboundPayment.retrieve(
-            "bot_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.OutboundPayment.retrieve("bot_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx",
@@ -32558,10 +32148,8 @@ class TestGeneratedExamples(object):
     async def test_treasury_outbound_payments_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_payment = (
-            await stripe.treasury.OutboundPayment.retrieve_async(
-                "bot_xxxxxxxxxxxxx",
-            )
+        await stripe.treasury.OutboundPayment.retrieve_async(
+            "bot_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -32597,7 +32185,7 @@ class TestGeneratedExamples(object):
     def test_treasury_outbound_payments_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_payment = stripe.treasury.OutboundPayment.create(
+        stripe.treasury.OutboundPayment.create(
             financial_account="fa_xxxxxxxxxxxxx",
             amount=10000,
             currency="usd",
@@ -32646,7 +32234,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_outbound_payments_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_payment = await stripe.treasury.OutboundPayment.create_async(
+        await stripe.treasury.OutboundPayment.create_async(
             financial_account="fa_xxxxxxxxxxxxx",
             amount=10000,
             currency="usd",
@@ -32697,9 +32285,7 @@ class TestGeneratedExamples(object):
     def test_treasury_outbound_transfers_cancel_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfer = stripe.treasury.OutboundTransfer.cancel(
-            "obt_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.OutboundTransfer.cancel("obt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel",
@@ -32732,10 +32318,8 @@ class TestGeneratedExamples(object):
     async def test_treasury_outbound_transfers_cancel_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfer = (
-            await stripe.treasury.OutboundTransfer.cancel_async(
-                "obt_xxxxxxxxxxxxx",
-            )
+        await stripe.treasury.OutboundTransfer.cancel_async(
+            "obt_xxxxxxxxxxxxx"
         )
         http_client_mock.assert_requested(
             "post",
@@ -32771,7 +32355,7 @@ class TestGeneratedExamples(object):
     def test_treasury_outbound_transfers_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfers = stripe.treasury.OutboundTransfer.list(
+        stripe.treasury.OutboundTransfer.list(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -32811,7 +32395,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_outbound_transfers_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfers = await stripe.treasury.OutboundTransfer.list_async(
+        await stripe.treasury.OutboundTransfer.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -32850,9 +32434,7 @@ class TestGeneratedExamples(object):
     def test_treasury_outbound_transfers_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfer = stripe.treasury.OutboundTransfer.retrieve(
-            "obt_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.OutboundTransfer.retrieve("obt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx",
@@ -32885,10 +32467,8 @@ class TestGeneratedExamples(object):
     async def test_treasury_outbound_transfers_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfer = (
-            await stripe.treasury.OutboundTransfer.retrieve_async(
-                "obt_xxxxxxxxxxxxx",
-            )
+        await stripe.treasury.OutboundTransfer.retrieve_async(
+            "obt_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -32924,7 +32504,7 @@ class TestGeneratedExamples(object):
     def test_treasury_outbound_transfers_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfer = stripe.treasury.OutboundTransfer.create(
+        stripe.treasury.OutboundTransfer.create(
             financial_account="fa_xxxxxxxxxxxxx",
             destination_payment_method="pm_xxxxxxxxxxxxx",
             amount=500,
@@ -32971,14 +32551,12 @@ class TestGeneratedExamples(object):
     async def test_treasury_outbound_transfers_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        outbound_transfer = (
-            await stripe.treasury.OutboundTransfer.create_async(
-                financial_account="fa_xxxxxxxxxxxxx",
-                destination_payment_method="pm_xxxxxxxxxxxxx",
-                amount=500,
-                currency="usd",
-                description="OutboundTransfer to my external bank account",
-            )
+        await stripe.treasury.OutboundTransfer.create_async(
+            financial_account="fa_xxxxxxxxxxxxx",
+            destination_payment_method="pm_xxxxxxxxxxxxx",
+            amount=500,
+            currency="usd",
+            description="OutboundTransfer to my external bank account",
         )
         http_client_mock.assert_requested(
             "post",
@@ -33020,7 +32598,7 @@ class TestGeneratedExamples(object):
     def test_treasury_received_credits_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        received_credits = stripe.treasury.ReceivedCredit.list(
+        stripe.treasury.ReceivedCredit.list(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -33060,7 +32638,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_received_credits_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        received_credits = await stripe.treasury.ReceivedCredit.list_async(
+        await stripe.treasury.ReceivedCredit.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -33100,9 +32678,7 @@ class TestGeneratedExamples(object):
     def test_treasury_received_credits_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        received_credit = stripe.treasury.ReceivedCredit.retrieve(
-            "rc_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.ReceivedCredit.retrieve("rc_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/received_credits/rc_xxxxxxxxxxxxx",
@@ -33135,9 +32711,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_received_credits_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        received_credit = await stripe.treasury.ReceivedCredit.retrieve_async(
-            "rc_xxxxxxxxxxxxx",
-        )
+        await stripe.treasury.ReceivedCredit.retrieve_async("rc_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/received_credits/rc_xxxxxxxxxxxxx",
@@ -33172,7 +32746,7 @@ class TestGeneratedExamples(object):
     def test_treasury_received_debits_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        received_debits = stripe.treasury.ReceivedDebit.list(
+        stripe.treasury.ReceivedDebit.list(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -33212,7 +32786,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_received_debits_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        received_debits = await stripe.treasury.ReceivedDebit.list_async(
+        await stripe.treasury.ReceivedDebit.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -33252,9 +32826,7 @@ class TestGeneratedExamples(object):
     def test_treasury_received_debits_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        received_debit = stripe.treasury.ReceivedDebit.retrieve(
-            "rd_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.ReceivedDebit.retrieve("rd_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/received_debits/rd_xxxxxxxxxxxxx",
@@ -33287,9 +32859,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_received_debits_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        received_debit = await stripe.treasury.ReceivedDebit.retrieve_async(
-            "rd_xxxxxxxxxxxxx",
-        )
+        await stripe.treasury.ReceivedDebit.retrieve_async("rd_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/received_debits/rd_xxxxxxxxxxxxx",
@@ -33322,7 +32892,7 @@ class TestGeneratedExamples(object):
     def test_treasury_transaction_entries_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction_entries = stripe.treasury.TransactionEntry.list(
+        stripe.treasury.TransactionEntry.list(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -33362,11 +32932,9 @@ class TestGeneratedExamples(object):
     async def test_treasury_transaction_entries_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction_entries = (
-            await stripe.treasury.TransactionEntry.list_async(
-                financial_account="fa_xxxxxxxxxxxxx",
-                limit=3,
-            )
+        await stripe.treasury.TransactionEntry.list_async(
+            financial_account="fa_xxxxxxxxxxxxx",
+            limit=3,
         )
         http_client_mock.assert_requested(
             "get",
@@ -33403,9 +32971,7 @@ class TestGeneratedExamples(object):
     def test_treasury_transaction_entries_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction_entry = stripe.treasury.TransactionEntry.retrieve(
-            "trxne_xxxxxxxxxxxxx",
-        )
+        stripe.treasury.TransactionEntry.retrieve("trxne_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx",
@@ -33438,10 +33004,8 @@ class TestGeneratedExamples(object):
     async def test_treasury_transaction_entries_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction_entry = (
-            await stripe.treasury.TransactionEntry.retrieve_async(
-                "trxne_xxxxxxxxxxxxx",
-            )
+        await stripe.treasury.TransactionEntry.retrieve_async(
+            "trxne_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -33477,7 +33041,7 @@ class TestGeneratedExamples(object):
     def test_treasury_transactions_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transactions = stripe.treasury.Transaction.list(
+        stripe.treasury.Transaction.list(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -33517,7 +33081,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_transactions_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transactions = await stripe.treasury.Transaction.list_async(
+        await stripe.treasury.Transaction.list_async(
             financial_account="fa_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -33557,9 +33121,7 @@ class TestGeneratedExamples(object):
     def test_treasury_transactions_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = stripe.treasury.Transaction.retrieve(
-            "trxn_xxxxxxxxxxxxx"
-        )
+        stripe.treasury.Transaction.retrieve("trxn_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/transactions/trxn_xxxxxxxxxxxxx",
@@ -33592,9 +33154,7 @@ class TestGeneratedExamples(object):
     async def test_treasury_transactions_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        transaction = await stripe.treasury.Transaction.retrieve_async(
-            "trxn_xxxxxxxxxxxxx",
-        )
+        await stripe.treasury.Transaction.retrieve_async("trxn_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/transactions/trxn_xxxxxxxxxxxxx",
@@ -33627,7 +33187,7 @@ class TestGeneratedExamples(object):
     def test_webhook_endpoints_delete(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = stripe.WebhookEndpoint.delete("we_xxxxxxxxxxxxx")
+        stripe.WebhookEndpoint.delete("we_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
@@ -33658,7 +33218,7 @@ class TestGeneratedExamples(object):
     async def test_webhook_endpoints_delete_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        deleted = await stripe.WebhookEndpoint.delete_async("we_xxxxxxxxxxxxx")
+        await stripe.WebhookEndpoint.delete_async("we_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
@@ -33691,7 +33251,7 @@ class TestGeneratedExamples(object):
     def test_webhook_endpoints_get(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        webhook_endpoints = stripe.WebhookEndpoint.list(limit=3)
+        stripe.WebhookEndpoint.list(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/webhook_endpoints",
@@ -33723,7 +33283,7 @@ class TestGeneratedExamples(object):
     async def test_webhook_endpoints_get_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        webhook_endpoints = await stripe.WebhookEndpoint.list_async(limit=3)
+        await stripe.WebhookEndpoint.list_async(limit=3)
         http_client_mock.assert_requested(
             "get",
             path="/v1/webhook_endpoints",
@@ -33759,7 +33319,7 @@ class TestGeneratedExamples(object):
     def test_webhook_endpoints_get_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        webhook_endpoint = stripe.WebhookEndpoint.retrieve("we_xxxxxxxxxxxxx")
+        stripe.WebhookEndpoint.retrieve("we_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
@@ -33792,9 +33352,7 @@ class TestGeneratedExamples(object):
     async def test_webhook_endpoints_get_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        webhook_endpoint = await stripe.WebhookEndpoint.retrieve_async(
-            "we_xxxxxxxxxxxxx",
-        )
+        await stripe.WebhookEndpoint.retrieve_async("we_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
@@ -33827,7 +33385,7 @@ class TestGeneratedExamples(object):
     def test_webhook_endpoints_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        webhook_endpoint = stripe.WebhookEndpoint.create(
+        stripe.WebhookEndpoint.create(
             url="https://example.com/my/webhook/endpoint",
             enabled_events=["charge.failed", "charge.succeeded"],
         )
@@ -33868,7 +33426,7 @@ class TestGeneratedExamples(object):
     async def test_webhook_endpoints_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        webhook_endpoint = await stripe.WebhookEndpoint.create_async(
+        await stripe.WebhookEndpoint.create_async(
             url="https://example.com/my/webhook/endpoint",
             enabled_events=["charge.failed", "charge.succeeded"],
         )
@@ -33909,7 +33467,7 @@ class TestGeneratedExamples(object):
     def test_webhook_endpoints_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        webhook_endpoint = stripe.WebhookEndpoint.modify(
+        stripe.WebhookEndpoint.modify(
             "we_xxxxxxxxxxxxx",
             url="https://example.com/new_endpoint",
         )
@@ -33948,7 +33506,7 @@ class TestGeneratedExamples(object):
     async def test_webhook_endpoints_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        webhook_endpoint = await stripe.WebhookEndpoint.modify_async(
+        await stripe.WebhookEndpoint.modify_async(
             "we_xxxxxxxxxxxxx",
             url="https://example.com/new_endpoint",
         )
