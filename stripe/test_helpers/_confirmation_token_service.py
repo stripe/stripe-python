@@ -528,6 +528,10 @@ class ConfirmationTokenService(StripeService):
         """
         Billing phone number (including extension).
         """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number.
+        """
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
         city: NotRequired[str]

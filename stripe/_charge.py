@@ -106,6 +106,10 @@ class Charge(
         """
         Billing phone number (including extension).
         """
+        tax_id: Optional[str]
+        """
+        Taxpayer identification number
+        """
         _inner_class_types = {"address": Address}
 
     class FraudDetails(StripeObject):

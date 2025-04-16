@@ -117,6 +117,10 @@ class OutboundPaymentService(StripeService):
         """
         Billing phone number (including extension).
         """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number.
+        """
 
     class CreateParamsDestinationPaymentMethodDataBillingDetailsAddress(
         TypedDict,

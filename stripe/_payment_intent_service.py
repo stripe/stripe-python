@@ -2115,6 +2115,10 @@ class PaymentIntentService(StripeService):
         """
         Billing phone number (including extension).
         """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number.
+        """
 
     class ConfirmParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
         city: NotRequired[str]
@@ -6030,6 +6034,10 @@ class PaymentIntentService(StripeService):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number.
         """
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
@@ -10134,6 +10142,10 @@ class PaymentIntentService(StripeService):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number.
         """
 
     class UpdateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
