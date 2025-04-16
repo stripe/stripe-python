@@ -66,6 +66,10 @@ class Transfer(
         """
         Specifies which fields in the response should be expanded.
         """
+        fx_quote: NotRequired[str]
+        """
+        The FX rate in the quote is validated and used to convert the transfer amount to the destination currency.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -238,6 +242,10 @@ class Transfer(
     destination_payment: Optional[ExpandableField["Charge"]]
     """
     If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer.
+    """
+    fx_quote: Optional[str]
+    """
+    The FX Quote used for the transfer.
     """
     id: str
     """

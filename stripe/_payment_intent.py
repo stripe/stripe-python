@@ -3966,6 +3966,10 @@ class PaymentIntent(
         """
         Specifies which fields in the response should be expanded.
         """
+        fx_quote: NotRequired[str]
+        """
+        The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
+        """
         mandate: NotRequired[str]
         """
         ID of the mandate that's used for this payment.
@@ -7785,6 +7789,10 @@ class PaymentIntent(
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        fx_quote: NotRequired[str]
+        """
+        The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
         """
         mandate: NotRequired[str]
         """
@@ -11839,6 +11847,10 @@ class PaymentIntent(
         """
         Specifies which fields in the response should be expanded.
         """
+        fx_quote: NotRequired[str]
+        """
+        The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
+        """
         mandate_data: NotRequired["PaymentIntent.ModifyParamsMandateData"]
         """
         This hash contains details about the Mandate to create.
@@ -15717,6 +15729,10 @@ class PaymentIntent(
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
+    """
+    fx_quote: Optional[str]
+    """
+    The FX Quote used for the PaymentIntent.
     """
     id: str
     """

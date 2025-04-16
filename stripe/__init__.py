@@ -478,6 +478,8 @@ from stripe._forwarding_service import ForwardingService as ForwardingService
 from stripe._funding_instructions import (
     FundingInstructions as FundingInstructions,
 )
+from stripe._fx_quote import FxQuote as FxQuote
+from stripe._fx_quote_service import FxQuoteService as FxQuoteService
 from stripe._gift_cards_service import GiftCardsService as GiftCardsService
 from stripe._identity_service import IdentityService as IdentityService
 from stripe._invoice import Invoice as Invoice

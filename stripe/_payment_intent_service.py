@@ -816,6 +816,10 @@ class PaymentIntentService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
+        fx_quote: NotRequired[str]
+        """
+        The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
+        """
         mandate: NotRequired[str]
         """
         ID of the mandate that's used for this payment.
@@ -4681,6 +4685,10 @@ class PaymentIntentService(StripeService):
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        fx_quote: NotRequired[str]
+        """
+        The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
         """
         mandate: NotRequired[str]
         """
@@ -8838,6 +8846,10 @@ class PaymentIntentService(StripeService):
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        fx_quote: NotRequired[str]
+        """
+        The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
         """
         mandate_data: NotRequired[
             "PaymentIntentService.UpdateParamsMandateData"
