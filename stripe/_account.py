@@ -3711,6 +3711,10 @@ class Account(
         """
         The last four digits of the person's Social Security number (U.S. only).
         """
+        us_cfpb_data: NotRequired["Account.CreatePersonParamsUsCfpbData"]
+        """
+        Demographic data related to the person.
+        """
         verification: NotRequired["Account.CreatePersonParamsVerification"]
         """
         The person's verification status.
@@ -3930,6 +3934,85 @@ class Account(
         title: NotRequired[str]
         """
         The person's title (e.g., CEO, Support Engineer).
+        """
+
+    class CreatePersonParamsUsCfpbData(TypedDict):
+        ethnicity_details: NotRequired[
+            "Account.CreatePersonParamsUsCfpbDataEthnicityDetails"
+        ]
+        """
+        The persons ethnicity details
+        """
+        race_details: NotRequired[
+            "Account.CreatePersonParamsUsCfpbDataRaceDetails"
+        ]
+        """
+        The persons race details
+        """
+        self_identified_gender: NotRequired[str]
+        """
+        The persons self-identified gender
+        """
+
+    class CreatePersonParamsUsCfpbDataEthnicityDetails(TypedDict):
+        ethnicity: NotRequired[
+            List[
+                Literal[
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                ]
+            ]
+        ]
+        """
+        The persons ethnicity
+        """
+        ethnicity_other: NotRequired[str]
+        """
+        Please specify your origin, when other is selected.
+        """
+
+    class CreatePersonParamsUsCfpbDataRaceDetails(TypedDict):
+        race: NotRequired[
+            List[
+                Literal[
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                ]
+            ]
+        ]
+        """
+        The persons race.
+        """
+        race_other: NotRequired[str]
+        """
+        Please specify your race, when other is selected.
         """
 
     class CreatePersonParamsVerification(TypedDict):
@@ -4300,6 +4383,10 @@ class Account(
         """
         The last four digits of the person's Social Security number (U.S. only).
         """
+        us_cfpb_data: NotRequired["Account.ModifyPersonParamsUsCfpbData"]
+        """
+        Demographic data related to the person.
+        """
         verification: NotRequired["Account.ModifyPersonParamsVerification"]
         """
         The person's verification status.
@@ -4519,6 +4606,85 @@ class Account(
         title: NotRequired[str]
         """
         The person's title (e.g., CEO, Support Engineer).
+        """
+
+    class ModifyPersonParamsUsCfpbData(TypedDict):
+        ethnicity_details: NotRequired[
+            "Account.ModifyPersonParamsUsCfpbDataEthnicityDetails"
+        ]
+        """
+        The persons ethnicity details
+        """
+        race_details: NotRequired[
+            "Account.ModifyPersonParamsUsCfpbDataRaceDetails"
+        ]
+        """
+        The persons race details
+        """
+        self_identified_gender: NotRequired[str]
+        """
+        The persons self-identified gender
+        """
+
+    class ModifyPersonParamsUsCfpbDataEthnicityDetails(TypedDict):
+        ethnicity: NotRequired[
+            List[
+                Literal[
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                ]
+            ]
+        ]
+        """
+        The persons ethnicity
+        """
+        ethnicity_other: NotRequired[str]
+        """
+        Please specify your origin, when other is selected.
+        """
+
+    class ModifyPersonParamsUsCfpbDataRaceDetails(TypedDict):
+        race: NotRequired[
+            List[
+                Literal[
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                ]
+            ]
+        ]
+        """
+        The persons race.
+        """
+        race_other: NotRequired[str]
+        """
+        Please specify your race, when other is selected.
         """
 
     class ModifyPersonParamsVerification(TypedDict):
