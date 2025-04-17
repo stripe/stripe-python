@@ -438,7 +438,7 @@ class PaymentMethodService(StripeService):
         """
         tax_id: NotRequired[str]
         """
-        Taxpayer identification number.
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class CreateParamsBillingDetailsAddress(TypedDict):
@@ -1027,7 +1027,7 @@ class PaymentMethodService(StripeService):
         """
         tax_id: NotRequired[str]
         """
-        Taxpayer identification number.
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class UpdateParamsBillingDetailsAddress(TypedDict):

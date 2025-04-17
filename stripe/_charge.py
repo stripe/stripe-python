@@ -108,7 +108,7 @@ class Charge(
         """
         tax_id: Optional[str]
         """
-        Taxpayer identification number
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
         _inner_class_types = {"address": Address}
 

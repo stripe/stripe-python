@@ -5280,7 +5280,7 @@ class PaymentIntent(
         """
         tax_id: NotRequired[str]
         """
-        Taxpayer identification number.
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class ConfirmParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
@@ -9154,7 +9154,7 @@ class PaymentIntent(
         """
         tax_id: NotRequired[str]
         """
-        Taxpayer identification number.
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
@@ -13182,7 +13182,7 @@ class PaymentIntent(
         """
         tax_id: NotRequired[str]
         """
-        Taxpayer identification number.
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class ModifyParamsPaymentMethodDataBillingDetailsAddress(TypedDict):

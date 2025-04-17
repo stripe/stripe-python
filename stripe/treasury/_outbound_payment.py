@@ -322,7 +322,7 @@ class OutboundPayment(
         """
         tax_id: NotRequired[str]
         """
-        Taxpayer identification number.
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class CreateParamsDestinationPaymentMethodDataBillingDetailsAddress(
