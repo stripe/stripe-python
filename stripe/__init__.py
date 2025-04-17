@@ -492,9 +492,6 @@ from stripe._invoice_line_item_service import (
     InvoiceLineItemService as InvoiceLineItemService,
 )
 from stripe._invoice_payment import InvoicePayment as InvoicePayment
-from stripe._invoice_payment_service import (
-    InvoicePaymentService as InvoicePaymentService,
-)
 from stripe._invoice_rendering_template import (
     InvoiceRenderingTemplate as InvoiceRenderingTemplate,
 )
