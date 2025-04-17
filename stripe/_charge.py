@@ -2269,6 +2269,10 @@ class Charge(
         """
         Car rental details for this PaymentIntent.
         """
+        customer_reference: NotRequired["Literal['']|str"]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
         event_details: NotRequired[
             "Charge.CaptureParamsPaymentDetailsEventDetails"
         ]
@@ -2282,6 +2286,10 @@ class Charge(
         lodging: NotRequired["Charge.CaptureParamsPaymentDetailsLodging"]
         """
         Lodging reservation details for this PaymentIntent
+        """
+        order_reference: NotRequired["Literal['']|str"]
+        """
+        A unique value assigned by the business to identify the transaction.
         """
         subscription: NotRequired[
             "Charge.CaptureParamsPaymentDetailsSubscription"
@@ -3186,6 +3194,10 @@ class Charge(
         """
         Car rental details for this PaymentIntent.
         """
+        customer_reference: NotRequired["Literal['']|str"]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
         event_details: NotRequired[
             "Charge.ModifyParamsPaymentDetailsEventDetails"
         ]
@@ -3199,6 +3211,10 @@ class Charge(
         lodging: NotRequired["Charge.ModifyParamsPaymentDetailsLodging"]
         """
         Lodging reservation details for this PaymentIntent
+        """
+        order_reference: NotRequired["Literal['']|str"]
+        """
+        A unique value assigned by the business to identify the transaction.
         """
         subscription: NotRequired[
             "Charge.ModifyParamsPaymentDetailsSubscription"

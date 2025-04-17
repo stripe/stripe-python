@@ -98,6 +98,9 @@ if not TYPE_CHECKING:
         PaymentAttemptRecord,
     )
     from stripe.api_resources.payment_intent import PaymentIntent
+    from stripe.api_resources.payment_intent_amount_details_line_item import (
+        PaymentIntentAmountDetailsLineItem,
+    )
     from stripe.api_resources.payment_link import PaymentLink
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.payment_method_configuration import (

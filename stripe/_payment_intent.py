@@ -4,6 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
@@ -37,12 +38,16 @@ if TYPE_CHECKING:
     from stripe._card import Card as CardResource
     from stripe._charge import Charge
     from stripe._customer import Customer
+    from stripe._payment_intent_amount_details_line_item import (
+        PaymentIntentAmountDetailsLineItem,
+    )
     from stripe._payment_method import PaymentMethod
     from stripe._review import Review
     from stripe._setup_intent import SetupIntent
     from stripe._source import Source
 
 
+@nested_resource_class_methods("amount_details_line_item")
 class PaymentIntent(
     CreateableAPIResource["PaymentIntent"],
     ListableAPIResource["PaymentIntent"],
@@ -66,14 +71,44 @@ class PaymentIntent(
     OBJECT_NAME: ClassVar[Literal["payment_intent"]] = "payment_intent"
 
     class AmountDetails(StripeObject):
+        class Shipping(StripeObject):
+            amount: Optional[int]
+            """
+            Portion of the amount that is for shipping.
+            """
+            from_postal_code: Optional[str]
+            """
+            The postal code that represents the shipping source.
+            """
+            to_postal_code: Optional[str]
+            """
+            The postal code that represents the shipping destination.
+            """
+
+        class Tax(StripeObject):
+            total_tax_amount: Optional[int]
+            """
+            Total portion of the amount that is for tax.
+            """
+
         class Tip(StripeObject):
             amount: Optional[int]
             """
             Portion of the amount that corresponds to a tip.
             """
 
+        discount_amount: Optional[int]
+        """
+        The amount an item was discounted for.
+        """
+        line_items: Optional[ListObject["PaymentIntentAmountDetailsLineItem"]]
+        """
+        A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        """
+        shipping: Optional[Shipping]
+        tax: Optional[Tax]
         tip: Optional[Tip]
-        _inner_class_types = {"tip": Tip}
+        _inner_class_types = {"shipping": Shipping, "tax": Tax, "tip": Tip}
 
     class AsyncWorkflows(StripeObject):
         class Inputs(StripeObject):
@@ -1656,7 +1691,15 @@ class PaymentIntent(
             }
 
         car_rental: Optional[CarRental]
+        customer_reference: Optional[str]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
         event_details: Optional[EventDetails]
+        order_reference: Optional[str]
+        """
+        A unique value assigned by the business to identify the transaction.
+        """
         subscription: Optional[Subscription]
         _inner_class_types = {
             "car_rental": CarRental,
@@ -3281,6 +3324,10 @@ class PaymentIntent(
         """
         Car rental details for this PaymentIntent.
         """
+        customer_reference: NotRequired["Literal['']|str"]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
         event_details: NotRequired[
             "PaymentIntent.CaptureParamsPaymentDetailsEventDetails"
         ]
@@ -3296,6 +3343,10 @@ class PaymentIntent(
         ]
         """
         Lodging reservation details for this PaymentIntent
+        """
+        order_reference: NotRequired["Literal['']|str"]
+        """
+        A unique value assigned by the business to identify the transaction.
         """
         subscription: NotRequired[
             "PaymentIntent.CaptureParamsPaymentDetailsSubscription"
@@ -4116,6 +4167,10 @@ class PaymentIntent(
         """
         Car rental details for this PaymentIntent.
         """
+        customer_reference: NotRequired["Literal['']|str"]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
         event_details: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentDetailsEventDetails"
         ]
@@ -4131,6 +4186,10 @@ class PaymentIntent(
         ]
         """
         Lodging reservation details for this PaymentIntent
+        """
+        order_reference: NotRequired["Literal['']|str"]
+        """
+        A unique value assigned by the business to identify the transaction.
         """
         subscription: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentDetailsSubscription"
@@ -7988,6 +8047,10 @@ class PaymentIntent(
         """
         Car rental details for this PaymentIntent.
         """
+        customer_reference: NotRequired["Literal['']|str"]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
         event_details: NotRequired[
             "PaymentIntent.CreateParamsPaymentDetailsEventDetails"
         ]
@@ -8001,6 +8064,10 @@ class PaymentIntent(
         lodging: NotRequired["PaymentIntent.CreateParamsPaymentDetailsLodging"]
         """
         Lodging reservation details for this PaymentIntent
+        """
+        order_reference: NotRequired["Literal['']|str"]
+        """
+        A unique value assigned by the business to identify the transaction.
         """
         subscription: NotRequired[
             "PaymentIntent.CreateParamsPaymentDetailsSubscription"
@@ -11758,6 +11825,24 @@ class PaymentIntent(
         The amount that will be transferred automatically when a charge succeeds.
         """
 
+    class ListAmountDetailsLineItemsParams(RequestOptions):
+        ending_before: NotRequired[str]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired[int]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired[str]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
     class ListParams(RequestOptions):
         created: NotRequired["PaymentIntent.ListParamsCreated|int"]
         """
@@ -11990,6 +12075,10 @@ class PaymentIntent(
         """
         Car rental details for this PaymentIntent.
         """
+        customer_reference: NotRequired["Literal['']|str"]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
         event_details: NotRequired[
             "PaymentIntent.ModifyParamsPaymentDetailsEventDetails"
         ]
@@ -12003,6 +12092,10 @@ class PaymentIntent(
         lodging: NotRequired["PaymentIntent.ModifyParamsPaymentDetailsLodging"]
         """
         Lodging reservation details for this PaymentIntent
+        """
+        order_reference: NotRequired["Literal['']|str"]
+        """
+        A unique value assigned by the business to identify the transaction.
         """
         subscription: NotRequired[
             "PaymentIntent.ModifyParamsPaymentDetailsSubscription"
@@ -17536,6 +17629,46 @@ class PaymentIntent(
         cls, *args, **kwargs: Unpack["PaymentIntent.SearchParams"]
     ) -> AsyncIterator["PaymentIntent"]:
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
+
+    @classmethod
+    def list_amount_details_line_items(
+        cls,
+        intent: str,
+        **params: Unpack["PaymentIntent.ListAmountDetailsLineItemsParams"],
+    ) -> ListObject["PaymentIntentAmountDetailsLineItem"]:
+        """
+        Lists all LineItems of a given PaymentIntent.
+        """
+        return cast(
+            ListObject["PaymentIntentAmountDetailsLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/payment_intents/{intent}/amount_details_line_items".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_amount_details_line_items_async(
+        cls,
+        intent: str,
+        **params: Unpack["PaymentIntent.ListAmountDetailsLineItemsParams"],
+    ) -> ListObject["PaymentIntentAmountDetailsLineItem"]:
+        """
+        Lists all LineItems of a given PaymentIntent.
+        """
+        return cast(
+            ListObject["PaymentIntentAmountDetailsLineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/payment_intents/{intent}/amount_details_line_items".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
 
     _inner_class_types = {
         "amount_details": AmountDetails,

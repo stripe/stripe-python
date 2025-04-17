@@ -521,6 +521,12 @@ from stripe._payment_attempt_record_service import (
     PaymentAttemptRecordService as PaymentAttemptRecordService,
 )
 from stripe._payment_intent import PaymentIntent as PaymentIntent
+from stripe._payment_intent_amount_details_line_item import (
+    PaymentIntentAmountDetailsLineItem as PaymentIntentAmountDetailsLineItem,
+)
+from stripe._payment_intent_amount_details_line_item_service import (
+    PaymentIntentAmountDetailsLineItemService as PaymentIntentAmountDetailsLineItemService,
+)
 from stripe._payment_intent_service import (
     PaymentIntentService as PaymentIntentService,
 )
