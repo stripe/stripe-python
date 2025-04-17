@@ -80,6 +80,7 @@ if not TYPE_CHECKING:
     from stripe.api_resources.file import File
     from stripe.api_resources.file_link import FileLink
     from stripe.api_resources.funding_instructions import FundingInstructions
+    from stripe.api_resources.fx_quote import FxQuote
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.invoice_item import InvoiceItem
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
@@ -97,6 +98,9 @@ if not TYPE_CHECKING:
         PaymentAttemptRecord,
     )
     from stripe.api_resources.payment_intent import PaymentIntent
+    from stripe.api_resources.payment_intent_amount_details_line_item import (
+        PaymentIntentAmountDetailsLineItem,
+    )
     from stripe.api_resources.payment_link import PaymentLink
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.payment_method_configuration import (

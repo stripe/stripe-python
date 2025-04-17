@@ -152,6 +152,10 @@ class PaymentMethod(
         """
         Billing phone number (including extension).
         """
+        tax_id: Optional[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+        """
         _inner_class_types = {"address": Address}
 
     class Blik(StripeObject):
@@ -1822,6 +1826,10 @@ class PaymentMethod(
         """
         Billing phone number (including extension).
         """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+        """
 
     class CreateParamsBillingDetailsAddress(TypedDict):
         city: NotRequired[str]
@@ -2398,6 +2406,10 @@ class PaymentMethod(
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class ModifyParamsBillingDetailsAddress(TypedDict):

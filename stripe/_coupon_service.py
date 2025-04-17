@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Any, Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -65,6 +65,10 @@ class CouponService(StripeService):
         """
         Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers.
         """
+        script: NotRequired["CouponService.CreateParamsScript"]
+        """
+        Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
+        """
 
     class CreateParamsAppliesTo(TypedDict):
         products: NotRequired[List[str]]
@@ -76,6 +80,16 @@ class CouponService(StripeService):
         amount_off: int
         """
         A positive integer representing the amount to subtract from an invoice total.
+        """
+
+    class CreateParamsScript(TypedDict):
+        configuration: Dict[str, Any]
+        """
+        The configuration values of the script. The keys and values are specific to the script implementation.
+        """
+        id: str
+        """
+        The script implementation ID for this coupon.
         """
 
     class DeleteParams(TypedDict):

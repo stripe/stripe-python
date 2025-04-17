@@ -214,6 +214,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             Billing phone number (including extension).
             """
+            tax_id: Optional[str]
+            """
+            Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+            """
             _inner_class_types = {"address": Address}
 
         class Blik(StripeObject):
@@ -2206,6 +2210,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):

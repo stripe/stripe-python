@@ -594,6 +594,10 @@ class SetupIntentService(StripeService):
         """
         Billing phone number (including extension).
         """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+        """
 
     class ConfirmParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
         city: NotRequired[str]
@@ -2117,6 +2121,10 @@ class SetupIntentService(StripeService):
         """
         Billing phone number (including extension).
         """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+        """
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
         city: NotRequired[str]
@@ -3618,6 +3626,10 @@ class SetupIntentService(StripeService):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class UpdateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):

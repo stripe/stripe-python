@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._invoice import Invoice
 from stripe._invoice_line_item_service import InvoiceLineItemService
-from stripe._invoice_payment_service import InvoicePaymentService
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
@@ -15,7 +14,6 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class InvoiceService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.payments = InvoicePaymentService(self._requestor)
         self.line_items = InvoiceLineItemService(self._requestor)
 
     class AddLinesParams(TypedDict):
@@ -299,20 +297,6 @@ class InvoiceService(StripeService):
         ]
         """
         The high-level tax type, such as `vat` or `sales_tax`.
-        """
-
-    class AttachPaymentIntentParams(TypedDict):
-        amount_requested: NotRequired[int]
-        """
-        The portion of the PaymentIntent's `amount` that should be applied to thisinvoice. Defaults to the entire amount.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        payment_intent: str
-        """
-        The ID of the PaymentIntent to attach to the invoice.
         """
 
     class AttachPaymentParams(TypedDict):
@@ -649,7 +633,7 @@ class InvoiceService(StripeService):
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -3659,7 +3643,7 @@ class InvoiceService(StripeService):
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -4458,66 +4442,6 @@ class InvoiceService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/attach_payment".format(
-                    invoice=sanitize_id(invoice),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def attach_payment_intent(
-        self,
-        invoice: str,
-        params: "InvoiceService.AttachPaymentIntentParams",
-        options: RequestOptions = {},
-    ) -> Invoice:
-        """
-        Attaches a PaymentIntent to the invoice, adding it to the list of payments.
-        When the PaymentIntent's status changes to succeeded, the payment is credited
-        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
-        invoice's status becomes paid.
-
-        If the PaymentIntent's status is already succeeded when it is attached, it is
-        credited to the invoice immediately.
-
-        Related guide: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create)
-        """
-        return cast(
-            Invoice,
-            self._request(
-                "post",
-                "/v1/invoices/{invoice}/attach_payment_intent".format(
-                    invoice=sanitize_id(invoice),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def attach_payment_intent_async(
-        self,
-        invoice: str,
-        params: "InvoiceService.AttachPaymentIntentParams",
-        options: RequestOptions = {},
-    ) -> Invoice:
-        """
-        Attaches a PaymentIntent to the invoice, adding it to the list of payments.
-        When the PaymentIntent's status changes to succeeded, the payment is credited
-        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
-        invoice's status becomes paid.
-
-        If the PaymentIntent's status is already succeeded when it is attached, it is
-        credited to the invoice immediately.
-
-        Related guide: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create)
-        """
-        return cast(
-            Invoice,
-            await self._request_async(
-                "post",
-                "/v1/invoices/{invoice}/attach_payment_intent".format(
                     invoice=sanitize_id(invoice),
                 ),
                 base_address="api",

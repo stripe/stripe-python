@@ -2407,7 +2407,7 @@ class Session(
         """
         permissions: NotRequired["Session.CreateParamsPermissions"]
         """
-        This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
+        This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object. Can only be set when creating `embedded` or `custom` sessions.
 
         For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
         """
@@ -4821,7 +4821,7 @@ class Session(
             "Session.ModifyParamsCollectedInformation"
         ]
         """
-        Information about the customer collected within the Checkout Session.
+        Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         """
         expand: NotRequired[List[str]]
         """
@@ -4917,9 +4917,13 @@ class Session(
         """
         price: NotRequired[str]
         """
-        The ID of the [Price](https://stripe.com/docs/api/prices).
+        The ID of the [Price](https://stripe.com/docs/api/prices). One of `price` or `price_data` is required when creating a new line item.
         """
-        quantity: NotRequired[int]
+        price_data: NotRequired["Session.ModifyParamsLineItemPriceData"]
+        """
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
+        """
+        quantity: NotRequired["Literal['']|int"]
         """
         The quantity of the line item being purchased.
         """
@@ -4940,6 +4944,74 @@ class Session(
         minimum: NotRequired[int]
         """
         The minimum quantity the customer must purchase for the Checkout Session. By default this value is 0.
+        """
+
+    class ModifyParamsLineItemPriceData(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: NotRequired[str]
+        """
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
+        """
+        product_data: NotRequired[
+            "Session.ModifyParamsLineItemPriceDataProductData"
+        ]
+        """
+        Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
+        """
+        recurring: NotRequired[
+            "Session.ModifyParamsLineItemPriceDataRecurring"
+        ]
+        """
+        The recurring components of a price such as `interval` and `interval_count`.
+        """
+        tax_behavior: NotRequired[
+            Literal["exclusive", "inclusive", "unspecified"]
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired[int]
+        """
+        A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+        """
+        unit_amount_decimal: NotRequired[str]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class ModifyParamsLineItemPriceDataProductData(TypedDict):
+        description: NotRequired[str]
+        """
+        The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+        """
+        images: NotRequired[List[str]]
+        """
+        A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: str
+        """
+        The product's name, meant to be displayable to the customer.
+        """
+        tax_code: NotRequired[str]
+        """
+        A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        """
+
+    class ModifyParamsLineItemPriceDataRecurring(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
     class ModifyParamsShippingOption(TypedDict):

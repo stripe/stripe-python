@@ -436,6 +436,10 @@ class PaymentMethodService(StripeService):
         """
         Billing phone number (including extension).
         """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+        """
 
     class CreateParamsBillingDetailsAddress(TypedDict):
         city: NotRequired[str]
@@ -1020,6 +1024,10 @@ class PaymentMethodService(StripeService):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class UpdateParamsBillingDetailsAddress(TypedDict):

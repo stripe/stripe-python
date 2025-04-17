@@ -2,6 +2,9 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._payment_intent import PaymentIntent
+from stripe._payment_intent_amount_details_line_item_service import (
+    PaymentIntentAmountDetailsLineItemService,
+)
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
@@ -11,6 +14,14 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class PaymentIntentService(StripeService):
+    def __init__(self, requestor):
+        super().__init__(requestor)
+        self.amount_details_line_items = (
+            PaymentIntentAmountDetailsLineItemService(
+                self._requestor,
+            )
+        )
+
     class ApplyCustomerBalanceParams(TypedDict):
         amount: NotRequired[int]
         """
@@ -123,6 +134,10 @@ class PaymentIntentService(StripeService):
         """
         Car rental details for this PaymentIntent.
         """
+        customer_reference: NotRequired["Literal['']|str"]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
         event_details: NotRequired[
             "PaymentIntentService.CaptureParamsPaymentDetailsEventDetails"
         ]
@@ -140,6 +155,10 @@ class PaymentIntentService(StripeService):
         ]
         """
         Lodging reservation details for this PaymentIntent
+        """
+        order_reference: NotRequired["Literal['']|str"]
+        """
+        A unique value assigned by the business to identify the transaction.
         """
         subscription: NotRequired[
             "PaymentIntentService.CaptureParamsPaymentDetailsSubscription"
@@ -816,6 +835,10 @@ class PaymentIntentService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
+        fx_quote: NotRequired[str]
+        """
+        The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
+        """
         mandate: NotRequired[str]
         """
         ID of the mandate that's used for this payment.
@@ -968,6 +991,10 @@ class PaymentIntentService(StripeService):
         """
         Car rental details for this PaymentIntent.
         """
+        customer_reference: NotRequired["Literal['']|str"]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
         event_details: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentDetailsEventDetails"
         ]
@@ -985,6 +1012,10 @@ class PaymentIntentService(StripeService):
         ]
         """
         Lodging reservation details for this PaymentIntent
+        """
+        order_reference: NotRequired["Literal['']|str"]
+        """
+        A unique value assigned by the business to identify the transaction.
         """
         subscription: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentDetailsSubscription"
@@ -2110,6 +2141,10 @@ class PaymentIntentService(StripeService):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class ConfirmParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
@@ -4682,6 +4717,10 @@ class PaymentIntentService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
+        fx_quote: NotRequired[str]
+        """
+        The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
+        """
         mandate: NotRequired[str]
         """
         ID of the mandate that's used for this payment. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
@@ -4880,6 +4919,10 @@ class PaymentIntentService(StripeService):
         """
         Car rental details for this PaymentIntent.
         """
+        customer_reference: NotRequired["Literal['']|str"]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
         event_details: NotRequired[
             "PaymentIntentService.CreateParamsPaymentDetailsEventDetails"
         ]
@@ -4897,6 +4940,10 @@ class PaymentIntentService(StripeService):
         ]
         """
         Lodging reservation details for this PaymentIntent
+        """
+        order_reference: NotRequired["Literal['']|str"]
+        """
+        A unique value assigned by the business to identify the transaction.
         """
         subscription: NotRequired[
             "PaymentIntentService.CreateParamsPaymentDetailsSubscription"
@@ -6022,6 +6069,10 @@ class PaymentIntentService(StripeService):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
@@ -8839,6 +8890,10 @@ class PaymentIntentService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
+        fx_quote: NotRequired[str]
+        """
+        The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
+        """
         mandate_data: NotRequired[
             "PaymentIntentService.UpdateParamsMandateData"
         ]
@@ -8980,6 +9035,10 @@ class PaymentIntentService(StripeService):
         """
         Car rental details for this PaymentIntent.
         """
+        customer_reference: NotRequired["Literal['']|str"]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
         event_details: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentDetailsEventDetails"
         ]
@@ -8997,6 +9056,10 @@ class PaymentIntentService(StripeService):
         ]
         """
         Lodging reservation details for this PaymentIntent
+        """
+        order_reference: NotRequired["Literal['']|str"]
+        """
+        A unique value assigned by the business to identify the transaction.
         """
         subscription: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentDetailsSubscription"
@@ -10122,6 +10185,10 @@ class PaymentIntentService(StripeService):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class UpdateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):

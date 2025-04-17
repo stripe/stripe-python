@@ -66,6 +66,10 @@ class Transfer(
         """
         Specifies which fields in the response should be expanded.
         """
+        fx_quote: NotRequired[str]
+        """
+        The FX rate in the quote is validated and used to convert the transfer amount to the destination currency.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -239,6 +243,10 @@ class Transfer(
     """
     If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer.
     """
+    fx_quote: Optional[str]
+    """
+    The FX Quote used for the transfer.
+    """
     id: str
     """
     Unique identifier for the object.
@@ -407,6 +415,38 @@ class Transfer(
         return instance
 
     @classmethod
+    def list_reversals(
+        cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
+    ) -> ListObject["Reversal"]:
+        """
+        You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
+        """
+        return cast(
+            ListObject["Reversal"],
+            cls._static_request(
+                "get",
+                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_reversals_async(
+        cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
+    ) -> ListObject["Reversal"]:
+        """
+        You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
+        """
+        return cast(
+            ListObject["Reversal"],
+            await cls._static_request_async(
+                "get",
+                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create_reversal(
         cls, id: str, **params: Unpack["Transfer.CreateReversalParams"]
     ) -> "Reversal":
@@ -530,38 +570,6 @@ class Transfer(
                 "/v1/transfers/{transfer}/reversals/{id}".format(
                     transfer=sanitize_id(transfer), id=sanitize_id(id)
                 ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def list_reversals(
-        cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
-    ) -> ListObject["Reversal"]:
-        """
-        You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
-        """
-        return cast(
-            ListObject["Reversal"],
-            cls._static_request(
-                "get",
-                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_reversals_async(
-        cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
-    ) -> ListObject["Reversal"]:
-        """
-        You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
-        """
-        return cast(
-            ListObject["Reversal"],
-            await cls._static_request_async(
-                "get",
-                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
                 params=params,
             ),
         )

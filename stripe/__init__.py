@@ -478,6 +478,8 @@ from stripe._forwarding_service import ForwardingService as ForwardingService
 from stripe._funding_instructions import (
     FundingInstructions as FundingInstructions,
 )
+from stripe._fx_quote import FxQuote as FxQuote
+from stripe._fx_quote_service import FxQuoteService as FxQuoteService
 from stripe._gift_cards_service import GiftCardsService as GiftCardsService
 from stripe._identity_service import IdentityService as IdentityService
 from stripe._invoice import Invoice as Invoice
@@ -490,9 +492,6 @@ from stripe._invoice_line_item_service import (
     InvoiceLineItemService as InvoiceLineItemService,
 )
 from stripe._invoice_payment import InvoicePayment as InvoicePayment
-from stripe._invoice_payment_service import (
-    InvoicePaymentService as InvoicePaymentService,
-)
 from stripe._invoice_rendering_template import (
     InvoiceRenderingTemplate as InvoiceRenderingTemplate,
 )
@@ -519,6 +518,12 @@ from stripe._payment_attempt_record_service import (
     PaymentAttemptRecordService as PaymentAttemptRecordService,
 )
 from stripe._payment_intent import PaymentIntent as PaymentIntent
+from stripe._payment_intent_amount_details_line_item import (
+    PaymentIntentAmountDetailsLineItem as PaymentIntentAmountDetailsLineItem,
+)
+from stripe._payment_intent_amount_details_line_item_service import (
+    PaymentIntentAmountDetailsLineItemService as PaymentIntentAmountDetailsLineItemService,
+)
 from stripe._payment_intent_service import (
     PaymentIntentService as PaymentIntentService,
 )
