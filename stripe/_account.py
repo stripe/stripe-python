@@ -616,6 +616,20 @@ class Account(
             The user-agent string from the browser where the beneficial owner attestation was made.
             """
 
+        class RegistrationDate(StripeObject):
+            day: Optional[int]
+            """
+            The day of registration, between 1 and 31.
+            """
+            month: Optional[int]
+            """
+            The month of registration, between 1 and 12.
+            """
+            year: Optional[int]
+            """
+            The four-digit year of registration.
+            """
+
         class Verification(StripeObject):
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
@@ -700,6 +714,7 @@ class Account(
         """
         The company's phone number (used for verification).
         """
+        registration_date: Optional[RegistrationDate]
         structure: Optional[
             Literal[
                 "free_zone_establishment",
@@ -752,6 +767,7 @@ class Account(
             "address_kanji": AddressKanji,
             "directorship_declaration": DirectorshipDeclaration,
             "ownership_declaration": OwnershipDeclaration,
+            "registration_date": RegistrationDate,
             "verification": Verification,
         }
 
@@ -2709,6 +2725,9 @@ class Account(
         """
         The company's phone number (used for verification).
         """
+        registration_date: NotRequired[
+            "Literal['']|Account.CreateParamsCompanyRegistrationDate"
+        ]
         registration_number: NotRequired[str]
         """
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -2848,6 +2867,20 @@ class Account(
         user_agent: NotRequired[str]
         """
         The user agent of the browser from which the beneficial owner attestation was made.
+        """
+
+    class CreateParamsCompanyRegistrationDate(TypedDict):
+        day: int
+        """
+        The day of registration, between 1 and 31.
+        """
+        month: int
+        """
+        The month of registration, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of registration.
         """
 
     class CreateParamsCompanyVerification(TypedDict):

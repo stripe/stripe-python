@@ -138,6 +138,9 @@ class TokenService(StripeService):
         """
         The company's phone number (used for verification).
         """
+        registration_date: NotRequired[
+            "Literal['']|TokenService.CreateParamsAccountCompanyRegistrationDate"
+        ]
         registration_number: NotRequired[str]
         """
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -279,6 +282,20 @@ class TokenService(StripeService):
         user_agent: NotRequired[str]
         """
         The user agent of the browser from which the beneficial owner attestation was made.
+        """
+
+    class CreateParamsAccountCompanyRegistrationDate(TypedDict):
+        day: int
+        """
+        The day of registration, between 1 and 31.
+        """
+        month: int
+        """
+        The month of registration, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of registration.
         """
 
     class CreateParamsAccountCompanyVerification(TypedDict):
