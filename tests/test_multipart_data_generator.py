@@ -56,7 +56,7 @@ class TestMultipartDataGenerator(object):
         assert re.search(
             r"Content-Disposition: form-data; name=\"key4\[bool\]\"", http_body
         )
-        assert re.search(r"True", http_body)
+        assert re.search(r"true", http_body)
         assert re.search(
             r"Content-Disposition: form-data; name=\"key4\[dict\]\[foo\]\"",
             http_body,

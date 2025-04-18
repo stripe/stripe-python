@@ -93,6 +93,10 @@ class RegistrationService(StripeService):
         """
         Options for the registration in BE.
         """
+        bf: NotRequired["RegistrationService.CreateParamsCountryOptionsBf"]
+        """
+        Options for the registration in BF.
+        """
         bg: NotRequired["RegistrationService.CreateParamsCountryOptionsBg"]
         """
         Options for the registration in BG.
@@ -129,6 +133,10 @@ class RegistrationService(StripeService):
         """
         Options for the registration in CL.
         """
+        cm: NotRequired["RegistrationService.CreateParamsCountryOptionsCm"]
+        """
+        Options for the registration in CM.
+        """
         co: NotRequired["RegistrationService.CreateParamsCountryOptionsCo"]
         """
         Options for the registration in CO.
@@ -136,6 +144,10 @@ class RegistrationService(StripeService):
         cr: NotRequired["RegistrationService.CreateParamsCountryOptionsCr"]
         """
         Options for the registration in CR.
+        """
+        cv: NotRequired["RegistrationService.CreateParamsCountryOptionsCv"]
+        """
+        Options for the registration in CV.
         """
         cy: NotRequired["RegistrationService.CreateParamsCountryOptionsCy"]
         """
@@ -514,6 +526,12 @@ class RegistrationService(StripeService):
         Place of supply scheme used in an EU standard registration.
         """
 
+    class CreateParamsCountryOptionsBf(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsBg(TypedDict):
         standard: NotRequired[
             "RegistrationService.CreateParamsCountryOptionsBgStandard"
@@ -592,6 +610,12 @@ class RegistrationService(StripeService):
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsCm(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsCo(TypedDict):
         type: Literal["simplified"]
         """
@@ -599,6 +623,12 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsCr(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsCv(TypedDict):
         type: Literal["simplified"]
         """
         Type of registration to be created in `country`.

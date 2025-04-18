@@ -115,6 +115,12 @@ class Registration(
             """
             _inner_class_types = {"standard": Standard}
 
+        class Bf(StripeObject):
+            type: Literal["standard"]
+            """
+            Type of registration in `country`.
+            """
+
         class Bg(StripeObject):
             class Standard(StripeObject):
                 place_of_supply_scheme: Literal["small_seller", "standard"]
@@ -185,6 +191,12 @@ class Registration(
             Type of registration in `country`.
             """
 
+        class Cm(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Co(StripeObject):
             type: Literal["simplified"]
             """
@@ -192,6 +204,12 @@ class Registration(
             """
 
         class Cr(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
+        class Cv(StripeObject):
             type: Literal["simplified"]
             """
             Type of registration in `country`.
@@ -884,6 +902,7 @@ class Registration(
         bb: Optional[Bb]
         bd: Optional[Bd]
         be: Optional[Be]
+        bf: Optional[Bf]
         bg: Optional[Bg]
         bh: Optional[Bh]
         bj: Optional[Bj]
@@ -893,8 +912,10 @@ class Registration(
         cd: Optional[Cd]
         ch: Optional[Ch]
         cl: Optional[Cl]
+        cm: Optional[Cm]
         co: Optional[Co]
         cr: Optional[Cr]
+        cv: Optional[Cv]
         cy: Optional[Cy]
         cz: Optional[Cz]
         de: Optional[De]
@@ -980,6 +1001,7 @@ class Registration(
             "bb": Bb,
             "bd": Bd,
             "be": Be,
+            "bf": Bf,
             "bg": Bg,
             "bh": Bh,
             "bj": Bj,
@@ -989,8 +1011,10 @@ class Registration(
             "cd": Cd,
             "ch": Ch,
             "cl": Cl,
+            "cm": Cm,
             "co": Co,
             "cr": Cr,
+            "cv": Cv,
             "cy": Cy,
             "cz": Cz,
             "de": De,
@@ -1145,6 +1169,10 @@ class Registration(
         """
         Options for the registration in BE.
         """
+        bf: NotRequired["Registration.CreateParamsCountryOptionsBf"]
+        """
+        Options for the registration in BF.
+        """
         bg: NotRequired["Registration.CreateParamsCountryOptionsBg"]
         """
         Options for the registration in BG.
@@ -1181,6 +1209,10 @@ class Registration(
         """
         Options for the registration in CL.
         """
+        cm: NotRequired["Registration.CreateParamsCountryOptionsCm"]
+        """
+        Options for the registration in CM.
+        """
         co: NotRequired["Registration.CreateParamsCountryOptionsCo"]
         """
         Options for the registration in CO.
@@ -1188,6 +1220,10 @@ class Registration(
         cr: NotRequired["Registration.CreateParamsCountryOptionsCr"]
         """
         Options for the registration in CR.
+        """
+        cv: NotRequired["Registration.CreateParamsCountryOptionsCv"]
+        """
+        Options for the registration in CV.
         """
         cy: NotRequired["Registration.CreateParamsCountryOptionsCy"]
         """
@@ -1566,6 +1602,12 @@ class Registration(
         Place of supply scheme used in an EU standard registration.
         """
 
+    class CreateParamsCountryOptionsBf(TypedDict):
+        type: Literal["standard"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsBg(TypedDict):
         standard: NotRequired[
             "Registration.CreateParamsCountryOptionsBgStandard"
@@ -1644,6 +1686,12 @@ class Registration(
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsCm(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
     class CreateParamsCountryOptionsCo(TypedDict):
         type: Literal["simplified"]
         """
@@ -1651,6 +1699,12 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsCr(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsCv(TypedDict):
         type: Literal["simplified"]
         """
         Type of registration to be created in `country`.

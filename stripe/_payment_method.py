@@ -39,6 +39,10 @@ class PaymentMethod(
     OBJECT_NAME: ClassVar[Literal["payment_method"]] = "payment_method"
 
     class AcssDebit(StripeObject):
+        account_number: Optional[str]
+        """
+        Account number of the bank account.
+        """
         bank_name: Optional[str]
         """
         Name of the bank associated with the bank account.
