@@ -21,7 +21,7 @@ class TestConfiguration(object):
         http_client_mock.assert_requested(
             "post",
             path="/v1/billing_portal/configurations",
-            post_data="business_profile[privacy_policy_url]=https://example.com/privacy&business_profile[terms_of_service_url]=https://example.com/tos&features[customer_update][allowed_updates][0]=address&features[customer_update][enabled]=True",
+            post_data="business_profile[privacy_policy_url]=https://example.com/privacy&business_profile[terms_of_service_url]=https://example.com/tos&features[customer_update][allowed_updates][0]=address&features[customer_update][enabled]=true",
         )
         assert isinstance(resource, stripe.billing_portal.Configuration)
 
