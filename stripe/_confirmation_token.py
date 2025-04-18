@@ -101,6 +101,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     class PaymentMethodPreview(StripeObject):
         class AcssDebit(StripeObject):
+            account_number: Optional[str]
+            """
+            Account number of the bank account.
+            """
             bank_name: Optional[str]
             """
             Name of the bank associated with the bank account.
