@@ -119,7 +119,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             """
             Additional details for proration line items
             """
-            subscription: str
+            subscription: Optional[str]
             """
             The subscription that the subscription item belongs to
             """
