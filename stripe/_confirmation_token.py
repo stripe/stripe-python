@@ -1719,6 +1719,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         payment_method_options: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodOptions"
         ]
+        """
+        Payment-method-specific configuration for this ConfirmationToken.
+        """
         return_url: NotRequired[str]
         """
         Return URL used to confirm the Intent.
@@ -2613,13 +2616,16 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         card: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodOptionsCard"
         ]
+        """
+        Configuration for any card payments confirmed using this ConfirmationToken.
+        """
 
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
         installments: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this PaymentIntent.
+        Installment configuration for payments confirmed using this ConfirmationToken.
         """
 
     class CreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
