@@ -50,5 +50,7 @@ def _api_encode(
                 yield (subkey, subvalue)
         elif isinstance(value, datetime.datetime):
             yield (key, _encode_datetime(value))
+        elif isinstance(value, bool):
+            yield (key, str(value).lower())
         else:
             yield (key, value)

@@ -248,7 +248,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
-            post_data="requested=True",
+            post_data="requested=true",
         )
 
     def test_accounts_capabilities_post_service(
@@ -273,7 +273,7 @@ class TestGeneratedExamples(object):
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="requested=True",
+            post_data="requested=true",
         )
 
     @pytest.mark.anyio
@@ -289,7 +289,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
-            post_data="requested=True",
+            post_data="requested=true",
         )
 
     @pytest.mark.anyio
@@ -315,7 +315,7 @@ class TestGeneratedExamples(object):
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="requested=True",
+            post_data="requested=true",
         )
 
     def test_accounts_delete(self, http_client_mock: HTTPClientMock) -> None:
@@ -1810,7 +1810,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/accounts",
             query_string="",
-            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=True&capabilities[transfers][requested]=True",
+            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=true&capabilities[transfers][requested]=true",
         )
 
     def test_accounts_post_service(
@@ -1841,7 +1841,7 @@ class TestGeneratedExamples(object):
             path="/v1/accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=True&capabilities[transfers][requested]=True",
+            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=true&capabilities[transfers][requested]=true",
         )
 
     @pytest.mark.anyio
@@ -1861,7 +1861,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/accounts",
             query_string="",
-            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=True&capabilities[transfers][requested]=True",
+            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=true&capabilities[transfers][requested]=true",
         )
 
     @pytest.mark.anyio
@@ -1893,7 +1893,7 @@ class TestGeneratedExamples(object):
             path="/v1/accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=True&capabilities[transfers][requested]=True",
+            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=true&capabilities[transfers][requested]=true",
         )
 
     def test_accounts_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -3226,7 +3226,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/billing_portal/configurations",
             query_string="",
-            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=True&features[invoice_history][enabled]=True&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
+            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=true&features[invoice_history][enabled]=true&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
         )
 
     def test_billing_portal_configurations_post_service(
@@ -3261,7 +3261,7 @@ class TestGeneratedExamples(object):
             path="/v1/billing_portal/configurations",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=True&features[invoice_history][enabled]=True&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
+            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=true&features[invoice_history][enabled]=true&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
         )
 
     @pytest.mark.anyio
@@ -3285,7 +3285,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/billing_portal/configurations",
             query_string="",
-            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=True&features[invoice_history][enabled]=True&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
+            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=true&features[invoice_history][enabled]=true&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
         )
 
     @pytest.mark.anyio
@@ -3321,7 +3321,7 @@ class TestGeneratedExamples(object):
             path="/v1/billing_portal/configurations",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=True&features[invoice_history][enabled]=True&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
+            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=true&features[invoice_history][enabled]=true&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
         )
 
     def test_billing_portal_configurations_post_2(
@@ -5436,7 +5436,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/customer_sessions",
             query_string="",
-            post_data="customer=cus_123&components[buy_button][enabled]=True",
+            post_data="customer=cus_123&components[buy_button][enabled]=true",
         )
 
     def test_customer_sessions_post_service(
@@ -5462,7 +5462,7 @@ class TestGeneratedExamples(object):
             path="/v1/customer_sessions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_123&components[buy_button][enabled]=True",
+            post_data="customer=cus_123&components[buy_button][enabled]=true",
         )
 
     @pytest.mark.anyio
@@ -5477,7 +5477,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/customer_sessions",
             query_string="",
-            post_data="customer=cus_123&components[buy_button][enabled]=True",
+            post_data="customer=cus_123&components[buy_button][enabled]=true",
         )
 
     @pytest.mark.anyio
@@ -5504,7 +5504,7 @@ class TestGeneratedExamples(object):
             path="/v1/customer_sessions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_123&components[buy_button][enabled]=True",
+            post_data="customer=cus_123&components[buy_button][enabled]=true",
         )
 
     def test_customers_balance_transactions_get(
@@ -14087,7 +14087,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/payment_intents",
             query_string="",
-            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=True",
+            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=true",
         )
 
     def test_payment_intents_post_service(
@@ -14114,7 +14114,7 @@ class TestGeneratedExamples(object):
             path="/v1/payment_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=True",
+            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=true",
         )
 
     @pytest.mark.anyio
@@ -14130,7 +14130,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/payment_intents",
             query_string="",
-            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=True",
+            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=true",
         )
 
     @pytest.mark.anyio
@@ -14158,7 +14158,7 @@ class TestGeneratedExamples(object):
             path="/v1/payment_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=True",
+            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=true",
         )
 
     def test_payment_intents_post_2(
@@ -14173,7 +14173,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/payment_intents",
             query_string="",
-            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=True",
+            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=true",
         )
 
     def test_payment_intents_post_2_service(
@@ -14200,7 +14200,7 @@ class TestGeneratedExamples(object):
             path="/v1/payment_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=True",
+            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=true",
         )
 
     @pytest.mark.anyio
@@ -14216,7 +14216,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/payment_intents",
             query_string="",
-            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=True",
+            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=true",
         )
 
     @pytest.mark.anyio
@@ -14244,7 +14244,7 @@ class TestGeneratedExamples(object):
             path="/v1/payment_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=True",
+            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=true",
         )
 
     def test_payment_intents_post_3(
@@ -15060,7 +15060,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
             query_string="",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     def test_payment_links_post_3_service(
@@ -15084,7 +15084,7 @@ class TestGeneratedExamples(object):
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     @pytest.mark.anyio
@@ -15099,7 +15099,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
             query_string="",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     @pytest.mark.anyio
@@ -15124,7 +15124,7 @@ class TestGeneratedExamples(object):
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     def test_payment_method_configurations_get(
@@ -23428,7 +23428,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tax_rates",
             query_string="",
-            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=False",
+            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=false",
         )
 
     def test_tax_rates_post_service(
@@ -23457,7 +23457,7 @@ class TestGeneratedExamples(object):
             path="/v1/tax_rates",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=False",
+            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=false",
         )
 
     @pytest.mark.anyio
@@ -23475,7 +23475,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tax_rates",
             query_string="",
-            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=False",
+            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=false",
         )
 
     @pytest.mark.anyio
@@ -23505,7 +23505,7 @@ class TestGeneratedExamples(object):
             path="/v1/tax_rates",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=False",
+            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=false",
         )
 
     def test_tax_rates_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -23517,7 +23517,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     def test_tax_rates_post_2_service(
@@ -23541,7 +23541,7 @@ class TestGeneratedExamples(object):
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     @pytest.mark.anyio
@@ -23556,7 +23556,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     @pytest.mark.anyio
@@ -23581,7 +23581,7 @@ class TestGeneratedExamples(object):
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     def test_tax_registrations_get(
@@ -25834,7 +25834,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
-            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="capture_amount=100&close_authorization=true&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_authorizations_capture_post_service(
@@ -25895,7 +25895,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="capture_amount=100&close_authorization=true&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -25945,7 +25945,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
-            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="capture_amount=100&close_authorization=true&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -26007,7 +26007,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="capture_amount=100&close_authorization=true&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_authorizations_expire_post(
@@ -26092,7 +26092,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/increment",
             query_string="",
-            post_data="increment_amount=50&is_amount_controllable=True",
+            post_data="increment_amount=50&is_amount_controllable=true",
         )
 
     def test_test_helpers_issuing_authorizations_increment_post_service(
@@ -26116,7 +26116,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations/example_authorization/increment",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="increment_amount=50&is_amount_controllable=True",
+            post_data="increment_amount=50&is_amount_controllable=true",
         )
 
     @pytest.mark.anyio
@@ -26132,7 +26132,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/increment",
             query_string="",
-            post_data="increment_amount=50&is_amount_controllable=True",
+            post_data="increment_amount=50&is_amount_controllable=true",
         )
 
     @pytest.mark.anyio
@@ -26157,7 +26157,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations/example_authorization/increment",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="increment_amount=50&is_amount_controllable=True",
+            post_data="increment_amount=50&is_amount_controllable=true",
         )
 
     def test_test_helpers_issuing_authorizations_post(
@@ -26193,7 +26193,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations",
             query_string="",
-            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=True&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
+            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=true&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
         )
 
     def test_test_helpers_issuing_authorizations_post_service(
@@ -26241,7 +26241,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=True&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
+            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=true&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
         )
 
     @pytest.mark.anyio
@@ -26278,7 +26278,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations",
             query_string="",
-            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=True&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
+            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=true&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
         )
 
     @pytest.mark.anyio
@@ -26327,7 +26327,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=True&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
+            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=true&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
         )
 
     def test_test_helpers_issuing_authorizations_reverse_post(
@@ -26928,7 +26928,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_create_force_capture_post_service(
@@ -26999,7 +26999,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -27061,7 +27061,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -27133,7 +27133,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_create_unlinked_refund_post(
@@ -27192,7 +27192,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_create_unlinked_refund_post_service(
@@ -27263,7 +27263,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -27323,7 +27323,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -27395,7 +27395,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_refund_post(
@@ -29167,7 +29167,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tokens",
             query_string="",
-            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=True",
+            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=true",
         )
 
     def test_tokens_post_4_service(
@@ -29195,7 +29195,7 @@ class TestGeneratedExamples(object):
             path="/v1/tokens",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=True",
+            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=true",
         )
 
     @pytest.mark.anyio
@@ -29212,7 +29212,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tokens",
             query_string="",
-            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=True",
+            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=true",
         )
 
     @pytest.mark.anyio
@@ -29241,7 +29241,7 @@ class TestGeneratedExamples(object):
             path="/v1/tokens",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=True",
+            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=true",
         )
 
     def test_tokens_post_5(self, http_client_mock: HTTPClientMock) -> None:
@@ -29256,7 +29256,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tokens",
             query_string="",
-            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=True",
+            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=true",
         )
 
     def test_tokens_post_5_service(
@@ -29285,7 +29285,7 @@ class TestGeneratedExamples(object):
             path="/v1/tokens",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=True",
+            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=true",
         )
 
     @pytest.mark.anyio
@@ -29303,7 +29303,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tokens",
             query_string="",
-            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=True",
+            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=true",
         )
 
     @pytest.mark.anyio
@@ -29333,7 +29333,7 @@ class TestGeneratedExamples(object):
             path="/v1/tokens",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=True",
+            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=true",
         )
 
     def test_tokens_post_6(self, http_client_mock: HTTPClientMock) -> None:

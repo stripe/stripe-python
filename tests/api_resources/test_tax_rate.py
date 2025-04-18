@@ -25,7 +25,7 @@ class TestTaxRate(object):
         http_client_mock.assert_requested(
             "post",
             path="/v1/tax_rates",
-            post_data="display_name=name&inclusive=False&percentage=10.15",
+            post_data="display_name=name&inclusive=false&percentage=10.15",
         )
         assert isinstance(resource, stripe.TaxRate)
 
