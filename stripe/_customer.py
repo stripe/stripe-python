@@ -2261,6 +2261,46 @@ class Customer(
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
     @classmethod
+    def list_balance_transactions(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.ListBalanceTransactionsParams"],
+    ) -> ListObject["CustomerBalanceTransaction"]:
+        """
+        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        """
+        return cast(
+            ListObject["CustomerBalanceTransaction"],
+            cls._static_request(
+                "get",
+                "/v1/customers/{customer}/balance_transactions".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_balance_transactions_async(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.ListBalanceTransactionsParams"],
+    ) -> ListObject["CustomerBalanceTransaction"]:
+        """
+        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        """
+        return cast(
+            ListObject["CustomerBalanceTransaction"],
+            await cls._static_request_async(
+                "get",
+                "/v1/customers/{customer}/balance_transactions".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create_balance_transaction(
         cls,
         customer: str,
@@ -2389,19 +2429,19 @@ class Customer(
         )
 
     @classmethod
-    def list_balance_transactions(
+    def list_cash_balance_transactions(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListBalanceTransactionsParams"],
-    ) -> ListObject["CustomerBalanceTransaction"]:
+        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
+    ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
-        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
         """
         return cast(
-            ListObject["CustomerBalanceTransaction"],
+            ListObject["CustomerCashBalanceTransaction"],
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/balance_transactions".format(
+                "/v1/customers/{customer}/cash_balance_transactions".format(
                     customer=sanitize_id(customer)
                 ),
                 params=params,
@@ -2409,19 +2449,19 @@ class Customer(
         )
 
     @classmethod
-    async def list_balance_transactions_async(
+    async def list_cash_balance_transactions_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListBalanceTransactionsParams"],
-    ) -> ListObject["CustomerBalanceTransaction"]:
+        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
+    ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
-        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
         """
         return cast(
-            ListObject["CustomerBalanceTransaction"],
+            ListObject["CustomerCashBalanceTransaction"],
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/balance_transactions".format(
+                "/v1/customers/{customer}/cash_balance_transactions".format(
                     customer=sanitize_id(customer)
                 ),
                 params=params,
@@ -2473,19 +2513,17 @@ class Customer(
         )
 
     @classmethod
-    def list_cash_balance_transactions(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
-    ) -> ListObject["CustomerCashBalanceTransaction"]:
+    def list_sources(
+        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
+    ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         """
-        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        List sources for a specified customer.
         """
         return cast(
-            ListObject["CustomerCashBalanceTransaction"],
+            ListObject[Union["Account", "BankAccount", "Card", "Source"]],
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/cash_balance_transactions".format(
+                "/v1/customers/{customer}/sources".format(
                     customer=sanitize_id(customer)
                 ),
                 params=params,
@@ -2493,19 +2531,17 @@ class Customer(
         )
 
     @classmethod
-    async def list_cash_balance_transactions_async(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
-    ) -> ListObject["CustomerCashBalanceTransaction"]:
+    async def list_sources_async(
+        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
+    ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         """
-        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        List sources for a specified customer.
         """
         return cast(
-            ListObject["CustomerCashBalanceTransaction"],
+            ListObject[Union["Account", "BankAccount", "Card", "Source"]],
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/cash_balance_transactions".format(
+                "/v1/customers/{customer}/sources".format(
                     customer=sanitize_id(customer)
                 ),
                 params=params,
@@ -2677,42 +2713,6 @@ class Customer(
                 "delete",
                 "/v1/customers/{customer}/sources/{id}".format(
                     customer=sanitize_id(customer), id=sanitize_id(id)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def list_sources(
-        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
-    ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
-        """
-        List sources for a specified customer.
-        """
-        return cast(
-            ListObject[Union["Account", "BankAccount", "Card", "Source"]],
-            cls._static_request(
-                "get",
-                "/v1/customers/{customer}/sources".format(
-                    customer=sanitize_id(customer)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_sources_async(
-        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
-    ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
-        """
-        List sources for a specified customer.
-        """
-        return cast(
-            ListObject[Union["Account", "BankAccount", "Card", "Source"]],
-            await cls._static_request_async(
-                "get",
-                "/v1/customers/{customer}/sources".format(
-                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),

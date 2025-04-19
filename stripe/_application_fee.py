@@ -448,54 +448,6 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         return instance
 
     @classmethod
-    def create_refund(
-        cls, id: str, **params: Unpack["ApplicationFee.CreateRefundParams"]
-    ) -> "ApplicationFeeRefund":
-        """
-        Refunds an application fee that has previously been collected but not yet refunded.
-        Funds will be refunded to the Stripe account from which the fee was originally collected.
-
-        You can optionally refund only part of an application fee.
-        You can do so multiple times, until the entire fee has been refunded.
-
-        Once entirely refunded, an application fee can't be refunded again.
-        This method will raise an error when called on an already-refunded application fee,
-        or when trying to refund more money than is left on an application fee.
-        """
-        return cast(
-            "ApplicationFeeRefund",
-            cls._static_request(
-                "post",
-                "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def create_refund_async(
-        cls, id: str, **params: Unpack["ApplicationFee.CreateRefundParams"]
-    ) -> "ApplicationFeeRefund":
-        """
-        Refunds an application fee that has previously been collected but not yet refunded.
-        Funds will be refunded to the Stripe account from which the fee was originally collected.
-
-        You can optionally refund only part of an application fee.
-        You can do so multiple times, until the entire fee has been refunded.
-
-        Once entirely refunded, an application fee can't be refunded again.
-        This method will raise an error when called on an already-refunded application fee,
-        or when trying to refund more money than is left on an application fee.
-        """
-        return cast(
-            "ApplicationFeeRefund",
-            await cls._static_request_async(
-                "post",
-                "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def retrieve_refund(
         cls,
         fee: str,
@@ -610,6 +562,54 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             ListObject["ApplicationFeeRefund"],
             await cls._static_request_async(
                 "get",
+                "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def create_refund(
+        cls, id: str, **params: Unpack["ApplicationFee.CreateRefundParams"]
+    ) -> "ApplicationFeeRefund":
+        """
+        Refunds an application fee that has previously been collected but not yet refunded.
+        Funds will be refunded to the Stripe account from which the fee was originally collected.
+
+        You can optionally refund only part of an application fee.
+        You can do so multiple times, until the entire fee has been refunded.
+
+        Once entirely refunded, an application fee can't be refunded again.
+        This method will raise an error when called on an already-refunded application fee,
+        or when trying to refund more money than is left on an application fee.
+        """
+        return cast(
+            "ApplicationFeeRefund",
+            cls._static_request(
+                "post",
+                "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_refund_async(
+        cls, id: str, **params: Unpack["ApplicationFee.CreateRefundParams"]
+    ) -> "ApplicationFeeRefund":
+        """
+        Refunds an application fee that has previously been collected but not yet refunded.
+        Funds will be refunded to the Stripe account from which the fee was originally collected.
+
+        You can optionally refund only part of an application fee.
+        You can do so multiple times, until the entire fee has been refunded.
+
+        Once entirely refunded, an application fee can't be refunded again.
+        This method will raise an error when called on an already-refunded application fee,
+        or when trying to refund more money than is left on an application fee.
+        """
+        return cast(
+            "ApplicationFeeRefund",
+            await cls._static_request_async(
+                "post",
                 "/v1/application_fees/{id}/refunds".format(id=sanitize_id(id)),
                 params=params,
             ),
