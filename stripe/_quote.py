@@ -597,6 +597,12 @@ class Quote(
         """
         Whether the subscription will always start a new billing period when the quote is accepted.
         """
+        billing_mode: Optional[
+            Literal["credits_attributed_to_debits", "legacy_prorations"]
+        ]
+        """
+        The [billing mode](https://stripe.com/api/subscriptions/create#create_subscription-billing_mode) that will be set on the subscription once the quote is accepted.
+        """
         description: Optional[str]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.

@@ -2372,6 +2372,12 @@ class Subscription(
     """
     The fixed values used to calculate the `billing_cycle_anchor`.
     """
+    billing_mode: Optional[
+        Literal["credits_attributed_to_debits", "legacy_prorations"]
+    ]
+    """
+    Configure billing_mode in each subscription to opt in improved credit proration behavior.
+    """
     cancel_at: Optional[int]
     """
     A date in the future at which the subscription will automatically get canceled

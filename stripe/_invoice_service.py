@@ -1618,6 +1618,12 @@ class InvoiceService(StripeService):
         """
         Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
         """
+        billing_mode: NotRequired[
+            Literal["credits_attributed_to_debits", "legacy_prorations"]
+        ]
+        """
+        The billing mode that will be used to create the subscription schedule. When the schedule creates a subscription, the subscription's `billing_mode` will be set to the same value as the schedule's `billing_mode`.
+        """
         end_behavior: NotRequired[Literal["cancel", "release"]]
         """
         Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
@@ -2732,6 +2738,12 @@ class InvoiceService(StripeService):
         billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|int"]
         """
         For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
+        """
+        billing_mode: NotRequired[
+            Literal["credits_attributed_to_debits", "legacy_prorations"]
+        ]
+        """
+        The billing mode to create the subscription with. Once a subscription has been created with a billing_mode, all future operations on the subscription will be processed based on the billing_mode.
         """
         cancel_at: NotRequired["Literal['']|int"]
         """

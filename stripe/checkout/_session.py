@@ -4620,6 +4620,12 @@ class Session(
         """
         A future timestamp to anchor the subscription's billing cycle for new subscriptions.
         """
+        billing_mode: NotRequired[
+            Literal["credits_attributed_to_debits", "legacy_prorations"]
+        ]
+        """
+        The billing mode to create the subscription with. Once a subscription has been created with a billing_mode, all future operations on the subscription will be processed based on the billing_mode.
+        """
         default_tax_rates: NotRequired[List[str]]
         """
         The tax rates that will apply to any subscription item that does not have
