@@ -120,6 +120,20 @@ class Account(
         """
         [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         """
+        minority_owned_business_designation: Optional[
+            List[
+                Literal[
+                    "lgbtqi_owned_business",
+                    "minority_owned_business",
+                    "none_of_these_apply",
+                    "prefer_not_to_answer",
+                    "women_owned_business",
+                ]
+            ]
+        ]
+        """
+        Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        """
         monthly_estimated_revenue: Optional[MonthlyEstimatedRevenue]
         name: Optional[str]
         """
@@ -534,6 +548,20 @@ class Account(
             The user-agent string from the browser where the beneficial owner attestation was made.
             """
 
+        class RegistrationDate(StripeObject):
+            day: Optional[int]
+            """
+            The day of registration, between 1 and 31.
+            """
+            month: Optional[int]
+            """
+            The month of registration, between 1 and 12.
+            """
+            year: Optional[int]
+            """
+            The four-digit year of registration.
+            """
+
         class Verification(StripeObject):
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
@@ -618,6 +646,7 @@ class Account(
         """
         The company's phone number (used for verification).
         """
+        registration_date: Optional[RegistrationDate]
         structure: Optional[
             Literal[
                 "free_zone_establishment",
@@ -670,6 +699,7 @@ class Account(
             "address_kanji": AddressKanji,
             "directorship_declaration": DirectorshipDeclaration,
             "ownership_declaration": OwnershipDeclaration,
+            "registration_date": RegistrationDate,
             "verification": Verification,
         }
 
@@ -818,6 +848,7 @@ class Account(
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
+                "verification_legal_entity_structure_mismatch",
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
@@ -996,6 +1027,7 @@ class Account(
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
+                "verification_legal_entity_structure_mismatch",
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
@@ -1488,6 +1520,20 @@ class Account(
         mcc: NotRequired[str]
         """
         [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        """
+        minority_owned_business_designation: NotRequired[
+            List[
+                Literal[
+                    "lgbtqi_owned_business",
+                    "minority_owned_business",
+                    "none_of_these_apply",
+                    "prefer_not_to_answer",
+                    "women_owned_business",
+                ]
+            ]
+        ]
+        """
+        Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
         """
         monthly_estimated_revenue: NotRequired[
             "Account.CreateParamsBusinessProfileMonthlyEstimatedRevenue"
@@ -2350,6 +2396,9 @@ class Account(
         """
         The company's phone number (used for verification).
         """
+        registration_date: NotRequired[
+            "Literal['']|Account.CreateParamsCompanyRegistrationDate"
+        ]
         registration_number: NotRequired[str]
         """
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -2489,6 +2538,20 @@ class Account(
         user_agent: NotRequired[str]
         """
         The user agent of the browser from which the beneficial owner attestation was made.
+        """
+
+    class CreateParamsCompanyRegistrationDate(TypedDict):
+        day: int
+        """
+        The day of registration, between 1 and 31.
+        """
+        month: int
+        """
+        The month of registration, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of registration.
         """
 
     class CreateParamsCompanyVerification(TypedDict):
@@ -3260,6 +3323,10 @@ class Account(
         """
         The last four digits of the person's Social Security number (U.S. only).
         """
+        us_cfpb_data: NotRequired["Account.CreatePersonParamsUsCfpbData"]
+        """
+        Demographic data related to the person.
+        """
         verification: NotRequired["Account.CreatePersonParamsVerification"]
         """
         The person's verification status.
@@ -3479,6 +3546,85 @@ class Account(
         title: NotRequired[str]
         """
         The person's title (e.g., CEO, Support Engineer).
+        """
+
+    class CreatePersonParamsUsCfpbData(TypedDict):
+        ethnicity_details: NotRequired[
+            "Account.CreatePersonParamsUsCfpbDataEthnicityDetails"
+        ]
+        """
+        The persons ethnicity details
+        """
+        race_details: NotRequired[
+            "Account.CreatePersonParamsUsCfpbDataRaceDetails"
+        ]
+        """
+        The persons race details
+        """
+        self_identified_gender: NotRequired[str]
+        """
+        The persons self-identified gender
+        """
+
+    class CreatePersonParamsUsCfpbDataEthnicityDetails(TypedDict):
+        ethnicity: NotRequired[
+            List[
+                Literal[
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                ]
+            ]
+        ]
+        """
+        The persons ethnicity
+        """
+        ethnicity_other: NotRequired[str]
+        """
+        Please specify your origin, when other is selected.
+        """
+
+    class CreatePersonParamsUsCfpbDataRaceDetails(TypedDict):
+        race: NotRequired[
+            List[
+                Literal[
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                ]
+            ]
+        ]
+        """
+        The persons race.
+        """
+        race_other: NotRequired[str]
+        """
+        Please specify your race, when other is selected.
         """
 
     class CreatePersonParamsVerification(TypedDict):
@@ -3849,6 +3995,10 @@ class Account(
         """
         The last four digits of the person's Social Security number (U.S. only).
         """
+        us_cfpb_data: NotRequired["Account.ModifyPersonParamsUsCfpbData"]
+        """
+        Demographic data related to the person.
+        """
         verification: NotRequired["Account.ModifyPersonParamsVerification"]
         """
         The person's verification status.
@@ -4068,6 +4218,85 @@ class Account(
         title: NotRequired[str]
         """
         The person's title (e.g., CEO, Support Engineer).
+        """
+
+    class ModifyPersonParamsUsCfpbData(TypedDict):
+        ethnicity_details: NotRequired[
+            "Account.ModifyPersonParamsUsCfpbDataEthnicityDetails"
+        ]
+        """
+        The persons ethnicity details
+        """
+        race_details: NotRequired[
+            "Account.ModifyPersonParamsUsCfpbDataRaceDetails"
+        ]
+        """
+        The persons race details
+        """
+        self_identified_gender: NotRequired[str]
+        """
+        The persons self-identified gender
+        """
+
+    class ModifyPersonParamsUsCfpbDataEthnicityDetails(TypedDict):
+        ethnicity: NotRequired[
+            List[
+                Literal[
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                ]
+            ]
+        ]
+        """
+        The persons ethnicity
+        """
+        ethnicity_other: NotRequired[str]
+        """
+        Please specify your origin, when other is selected.
+        """
+
+    class ModifyPersonParamsUsCfpbDataRaceDetails(TypedDict):
+        race: NotRequired[
+            List[
+                Literal[
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                ]
+            ]
+        ]
+        """
+        The persons race.
+        """
+        race_other: NotRequired[str]
+        """
+        Please specify your race, when other is selected.
         """
 
     class ModifyPersonParamsVerification(TypedDict):

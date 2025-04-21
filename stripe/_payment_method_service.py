@@ -69,7 +69,7 @@ class PaymentMethodService(StripeService):
         """
         billie: NotRequired["PaymentMethodService.CreateParamsBillie"]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "PaymentMethodService.CreateParamsBillingDetails"
@@ -219,7 +219,7 @@ class PaymentMethodService(StripeService):
         """
         revolut_pay: NotRequired["PaymentMethodService.CreateParamsRevolutPay"]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired["PaymentMethodService.CreateParamsSamsungPay"]
         """
@@ -227,7 +227,7 @@ class PaymentMethodService(StripeService):
         """
         satispay: NotRequired["PaymentMethodService.CreateParamsSatispay"]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired["PaymentMethodService.CreateParamsSepaDebit"]
         """
@@ -387,6 +387,10 @@ class PaymentMethodService(StripeService):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class CreateParamsBillingDetailsAddress(TypedDict):
@@ -898,6 +902,10 @@ class PaymentMethodService(StripeService):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class UpdateParamsBillingDetailsAddress(TypedDict):

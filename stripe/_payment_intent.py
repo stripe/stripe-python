@@ -256,6 +256,7 @@ class PaymentIntent(
                 "status_transition_invalid",
                 "stripe_tax_inactive",
                 "tax_id_invalid",
+                "tax_id_prohibited",
                 "taxes_calculation_failed",
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",
@@ -1522,6 +1523,9 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
             """
 
+        class Billie(StripeObject):
+            pass
+
         class Blik(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
             """
@@ -2366,6 +2370,7 @@ class PaymentIntent(
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
+        billie: Optional[Billie]
         blik: Optional[Blik]
         boleto: Optional[Boleto]
         card: Optional[Card]
@@ -2414,6 +2419,7 @@ class PaymentIntent(
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
+            "billie": Billie,
             "blik": Blik,
             "boleto": Boleto,
             "card": Card,
@@ -2820,7 +2826,7 @@ class PaymentIntent(
             "PaymentIntent.ConfirmParamsPaymentMethodDataBillie"
         ]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataBillingDetails"
@@ -2986,7 +2992,7 @@ class PaymentIntent(
             "PaymentIntent.ConfirmParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataSamsungPay"
@@ -2998,7 +3004,7 @@ class PaymentIntent(
             "PaymentIntent.ConfirmParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataSepaDebit"
@@ -3161,6 +3167,10 @@ class PaymentIntent(
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class ConfirmParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
@@ -3548,6 +3558,12 @@ class PaymentIntent(
         ]
         """
         If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
+        """
+        billie: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
         """
         blik: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBlik"
@@ -4003,6 +4019,16 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsBillie(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class ConfirmParamsPaymentMethodOptionsBlik(TypedDict):
@@ -5494,7 +5520,7 @@ class PaymentIntent(
             "PaymentIntent.CreateParamsPaymentMethodDataBillie"
         ]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataBillingDetails"
@@ -5660,7 +5686,7 @@ class PaymentIntent(
             "PaymentIntent.CreateParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataSamsungPay"
@@ -5672,7 +5698,7 @@ class PaymentIntent(
             "PaymentIntent.CreateParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataSepaDebit"
@@ -5835,6 +5861,10 @@ class PaymentIntent(
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
@@ -6222,6 +6252,12 @@ class PaymentIntent(
         ]
         """
         If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
+        """
+        billie: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
         """
         blik: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBlik"
@@ -6677,6 +6713,16 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsBillie(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class CreateParamsPaymentMethodOptionsBlik(TypedDict):
@@ -8162,7 +8208,7 @@ class PaymentIntent(
             "PaymentIntent.ModifyParamsPaymentMethodDataBillie"
         ]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataBillingDetails"
@@ -8328,7 +8374,7 @@ class PaymentIntent(
             "PaymentIntent.ModifyParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataSamsungPay"
@@ -8340,7 +8386,7 @@ class PaymentIntent(
             "PaymentIntent.ModifyParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataSepaDebit"
@@ -8503,6 +8549,10 @@ class PaymentIntent(
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class ModifyParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
@@ -8890,6 +8940,12 @@ class PaymentIntent(
         ]
         """
         If this is a `bancontact` PaymentMethod, this sub-hash contains details about the Bancontact payment method options.
+        """
+        billie: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
         """
         blik: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBlik"
@@ -9345,6 +9401,16 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsBillie(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class ModifyParamsPaymentMethodOptionsBlik(TypedDict):
