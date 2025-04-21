@@ -3,9 +3,6 @@
   - Serializes boolean query parameter values to `true`/`false` (lower case) before sending to the Stripe API for compatibility with Stripe V2 endpoints
 * [#1401](https://github.com/stripe/stripe-python/pull/1401) Fix type hint for SearchResultObject.data
 * [#1493](https://github.com/stripe/stripe-python/pull/1493) Update readme with clarification on resource based call patterns
-* [#1492](https://github.com/stripe/stripe-python/pull/1492) Remove link for stale youtube video playlist
-* [#1494](https://github.com/stripe/stripe-python/pull/1494) switch build systems
-* [#1485](https://github.com/stripe/stripe-python/pull/1485) Update to 22.04 in CI
 
 ## 12.0.0 - 2025-04-01
 * [#1463](https://github.com/stripe/stripe-python/pull/1463) Support for APIs in the new API version 2025-03-31.basil
