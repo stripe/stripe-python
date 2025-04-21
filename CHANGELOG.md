@@ -1,3 +1,6 @@
+## 12.0.1 - 2025-04-21
+* Serializes boolean query parameter values to `true`/`false` (lower case) before sending to the Stripe API for compatibility with Stripe V2 endpoints
+
 ## 12.0.0 - 2025-04-01
 * [#1463](https://github.com/stripe/stripe-python/pull/1463) Support for APIs in the new API version 2025-03-31.basil
 
