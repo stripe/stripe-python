@@ -877,6 +877,12 @@ class QuoteService(StripeService):
         """
         When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
         """
+        billing_mode: NotRequired[
+            Literal["credits_attributed_to_debits", "legacy_prorations"]
+        ]
+        """
+        The billing mode to create the quote with. Once a quote that creates a subscription or subscription schedule is accepted,all future operations on the subscription or subscription schedule will be processed based on this billing_mode.
+        """
         description: NotRequired[str]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.

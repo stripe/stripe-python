@@ -26,6 +26,9 @@ class ConfirmationTokenService(StripeService):
         payment_method_options: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodOptions"
         ]
+        """
+        Payment-method-specific configuration for this ConfirmationToken.
+        """
         return_url: NotRequired[str]
         """
         Return URL used to confirm the Intent.
@@ -932,13 +935,16 @@ class ConfirmationTokenService(StripeService):
         card: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodOptionsCard"
         ]
+        """
+        Configuration for any card payments confirmed using this ConfirmationToken.
+        """
 
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
         installments: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this PaymentIntent.
+        Installment configuration for payments confirmed using this ConfirmationToken.
         """
 
     class CreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
