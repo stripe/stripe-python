@@ -532,7 +532,7 @@ class ChargeService(StripeService):
         """
         checkin_at: int
         """
-        Loding check-in time. Measured in seconds since the Unix epoch.
+        Lodging check-in time. Measured in seconds since the Unix epoch.
         """
         checkout_at: int
         """
@@ -1467,7 +1467,7 @@ class ChargeService(StripeService):
         """
         checkin_at: int
         """
-        Loding check-in time. Measured in seconds since the Unix epoch.
+        Lodging check-in time. Measured in seconds since the Unix epoch.
         """
         checkout_at: int
         """
