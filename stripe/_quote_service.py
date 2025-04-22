@@ -881,7 +881,7 @@ class QuoteService(StripeService):
             Literal["credits_attributed_to_debits", "legacy_prorations"]
         ]
         """
-        The billing mode to create the quote with. Once a quote that creates a subscription or subscription schedule is accepted,all future operations on the subscription or subscription schedule will be processed based on this billing_mode.
+        Configure billing_mode to opt in improved credit proration behavior.Once a quote that creates a subscription or subscription schedule is accepted,all future operations on the subscription or subscription schedule will be processed based on this billing_mode.
         """
         description: NotRequired[str]
         """

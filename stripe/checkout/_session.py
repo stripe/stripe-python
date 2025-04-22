@@ -5442,7 +5442,7 @@ class Session(
     """
     subscription: Optional[ExpandableField["Subscription"]]
     """
-    The ID of the subscription for Checkout Sessions in `subscription` mode.
+    The ID of the [Subscription](https://stripe.com/docs/api/subscriptions) for Checkout Sessions in `subscription` mode.
     """
     success_url: Optional[str]
     """
