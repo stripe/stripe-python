@@ -6,6 +6,18 @@ from stripe.events._v2_core_account_including_requirements_updated_event import 
 from stripe.events._v2_core_account_link_completed_event import (
     V2CoreAccountLinkCompletedEvent,
 )
+from stripe.events._v2_core_account_closed_event import (
+    V2CoreAccountClosedEvent,
+)
+from stripe.events._v2_core_account_created_event import (
+    V2CoreAccountCreatedEvent,
+)
+from stripe.events._v2_core_account_updated_event import (
+    V2CoreAccountUpdatedEvent,
+)
+from stripe.events._v2_core_account_including_defaults_updated_event import (
+    V2CoreAccountIncludingDefaultsUpdatedEvent,
+)
 from stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event import (
     V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
 )
@@ -36,6 +48,9 @@ from stripe.events._v2_core_account_including_configuration_recipient_capability
 from stripe.events._v2_core_account_including_configuration_recipient_updated_event import (
     V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
 )
+from stripe.events._v2_money_management_adjustment_created_event import (
+    V2MoneyManagementAdjustmentCreatedEvent,
+)
 from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEvent,
 )
@@ -44,6 +59,9 @@ from stripe.events._v1_billing_meter_no_meter_found_event import (
 )
 from stripe.events._v2_money_management_financial_account_created_event import (
     V2MoneyManagementFinancialAccountCreatedEvent,
+)
+from stripe.events._v2_money_management_financial_account_updated_event import (
+    V2MoneyManagementFinancialAccountUpdatedEvent,
 )
 from stripe.events._v2_money_management_financial_address_activated_event import (
     V2MoneyManagementFinancialAddressActivatedEvent,
@@ -69,6 +87,9 @@ from stripe.events._v2_money_management_inbound_transfer_bank_debit_returned_eve
 from stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_event import (
     V2MoneyManagementInboundTransferBankDebitSucceededEvent,
 )
+from stripe.events._v2_core_event_destination_ping_event import (
+    V2CoreEventDestinationPingEvent,
+)
 from stripe.events._v2_money_management_outbound_payment_canceled_event import (
     V2MoneyManagementOutboundPaymentCanceledEvent,
 )
@@ -84,6 +105,9 @@ from stripe.events._v2_money_management_outbound_payment_posted_event import (
 from stripe.events._v2_money_management_outbound_payment_returned_event import (
     V2MoneyManagementOutboundPaymentReturnedEvent,
 )
+from stripe.events._v2_money_management_outbound_payment_updated_event import (
+    V2MoneyManagementOutboundPaymentUpdatedEvent,
+)
 from stripe.events._v2_money_management_outbound_transfer_canceled_event import (
     V2MoneyManagementOutboundTransferCanceledEvent,
 )
@@ -98,6 +122,9 @@ from stripe.events._v2_money_management_outbound_transfer_posted_event import (
 )
 from stripe.events._v2_money_management_outbound_transfer_returned_event import (
     V2MoneyManagementOutboundTransferReturnedEvent,
+)
+from stripe.events._v2_money_management_outbound_transfer_updated_event import (
+    V2MoneyManagementOutboundTransferUpdatedEvent,
 )
 from stripe.events._v2_money_management_received_credit_available_event import (
     V2MoneyManagementReceivedCreditAvailableEvent,
@@ -126,24 +153,37 @@ from stripe.events._v2_money_management_received_debit_succeeded_event import (
 from stripe.events._v2_money_management_received_debit_updated_event import (
     V2MoneyManagementReceivedDebitUpdatedEvent,
 )
+from stripe.events._v2_money_management_transaction_created_event import (
+    V2MoneyManagementTransactionCreatedEvent,
+)
+from stripe.events._v2_money_management_transaction_updated_event import (
+    V2MoneyManagementTransactionUpdatedEvent,
+)
 
 
 THIN_EVENT_CLASSES = {
     V1BillingMeterErrorReportTriggeredEvent.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEvent,
     V1BillingMeterNoMeterFoundEvent.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEvent,
+    V2CoreAccountClosedEvent.LOOKUP_TYPE: V2CoreAccountClosedEvent,
+    V2CoreAccountCreatedEvent.LOOKUP_TYPE: V2CoreAccountCreatedEvent,
     V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
     V2CoreAccountIncludingConfigurationCustomerUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerUpdatedEvent,
     V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent,
     V2CoreAccountIncludingConfigurationMerchantUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationMerchantUpdatedEvent,
     V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
     V2CoreAccountIncludingConfigurationRecipientUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
+    V2CoreAccountIncludingDefaultsUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingDefaultsUpdatedEvent,
     V2CoreAccountIncludingIdentityUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingIdentityUpdatedEvent,
     V2CoreAccountIncludingRequirementsUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingRequirementsUpdatedEvent,
     V2CoreAccountLinkCompletedEvent.LOOKUP_TYPE: V2CoreAccountLinkCompletedEvent,
     V2CoreAccountPersonCreatedEvent.LOOKUP_TYPE: V2CoreAccountPersonCreatedEvent,
     V2CoreAccountPersonDeletedEvent.LOOKUP_TYPE: V2CoreAccountPersonDeletedEvent,
     V2CoreAccountPersonUpdatedEvent.LOOKUP_TYPE: V2CoreAccountPersonUpdatedEvent,
+    V2CoreAccountUpdatedEvent.LOOKUP_TYPE: V2CoreAccountUpdatedEvent,
+    V2CoreEventDestinationPingEvent.LOOKUP_TYPE: V2CoreEventDestinationPingEvent,
+    V2MoneyManagementAdjustmentCreatedEvent.LOOKUP_TYPE: V2MoneyManagementAdjustmentCreatedEvent,
     V2MoneyManagementFinancialAccountCreatedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAccountCreatedEvent,
+    V2MoneyManagementFinancialAccountUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAccountUpdatedEvent,
     V2MoneyManagementFinancialAddressActivatedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAddressActivatedEvent,
     V2MoneyManagementFinancialAddressFailedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAddressFailedEvent,
     V2MoneyManagementInboundTransferAvailableEvent.LOOKUP_TYPE: V2MoneyManagementInboundTransferAvailableEvent,
@@ -157,11 +197,13 @@ THIN_EVENT_CLASSES = {
     V2MoneyManagementOutboundPaymentFailedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentFailedEvent,
     V2MoneyManagementOutboundPaymentPostedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentPostedEvent,
     V2MoneyManagementOutboundPaymentReturnedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentReturnedEvent,
+    V2MoneyManagementOutboundPaymentUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentUpdatedEvent,
     V2MoneyManagementOutboundTransferCanceledEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferCanceledEvent,
     V2MoneyManagementOutboundTransferCreatedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferCreatedEvent,
     V2MoneyManagementOutboundTransferFailedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferFailedEvent,
     V2MoneyManagementOutboundTransferPostedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferPostedEvent,
     V2MoneyManagementOutboundTransferReturnedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferReturnedEvent,
+    V2MoneyManagementOutboundTransferUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferUpdatedEvent,
     V2MoneyManagementReceivedCreditAvailableEvent.LOOKUP_TYPE: V2MoneyManagementReceivedCreditAvailableEvent,
     V2MoneyManagementReceivedCreditFailedEvent.LOOKUP_TYPE: V2MoneyManagementReceivedCreditFailedEvent,
     V2MoneyManagementReceivedCreditReturnedEvent.LOOKUP_TYPE: V2MoneyManagementReceivedCreditReturnedEvent,
@@ -171,4 +213,6 @@ THIN_EVENT_CLASSES = {
     V2MoneyManagementReceivedDebitPendingEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitPendingEvent,
     V2MoneyManagementReceivedDebitSucceededEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitSucceededEvent,
     V2MoneyManagementReceivedDebitUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitUpdatedEvent,
+    V2MoneyManagementTransactionCreatedEvent.LOOKUP_TYPE: V2MoneyManagementTransactionCreatedEvent,
+    V2MoneyManagementTransactionUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementTransactionUpdatedEvent,
 }

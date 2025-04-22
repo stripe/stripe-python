@@ -49,3 +49,7 @@ class UsBankAccount(StripeObject):
     """
     The ACH routing number of the bank account.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """

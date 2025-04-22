@@ -33565,18 +33565,17 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "get",
             "/v2/core/events",
-            "object_id=object_id",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.core.events.list({"object_id": "object_id"})
+        client.v2.core.events.list()
         http_client_mock.assert_requested(
             "get",
             path="/v2/core/events",
-            query_string="object_id=object_id",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -33901,7 +33900,7 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.financial_addresses.create(
             {
-                "currency": "gip",
+                "currency": "stn",
                 "financial_account": "financial_account",
             }
         )
@@ -33910,7 +33909,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_addresses",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"currency":"gip","financial_account":"financial_account"}',
+            post_data='{"currency":"stn","financial_account":"financial_account"}',
             is_json=True,
         )
 
@@ -34158,6 +34157,26 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
             post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"currency","financial_account":"financial_account"},"to":{"currency":"currency","payout_method":"payout_method","recipient":"recipient"}}',
             is_json=True,
+        )
+
+    def test_v2_money_management_outbound_payment_quote_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/outbound_payment_quotes/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.outbound_payment_quotes.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/outbound_payment_quotes/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_v2_money_management_outbound_transfer_post_service(
@@ -34838,7 +34857,7 @@ class TestGeneratedExamples(object):
         try:
             client.v2.money_management.financial_addresses.create(
                 {
-                    "currency": "gip",
+                    "currency": "stn",
                     "financial_account": "financial_account",
                 }
             )
@@ -34849,7 +34868,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_addresses",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"currency":"gip","financial_account":"financial_account"}',
+            post_data='{"currency":"stn","financial_account":"financial_account"}',
             is_json=True,
         )
 

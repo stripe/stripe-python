@@ -132,7 +132,7 @@ class AccountService(StripeService):
             Literal["identity_address", "ip_address", "shipping_address"]
         ]
         """
-        The data source used by Stripe Tax to identify the customer's location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+        The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
         """
 
     class CreateParamsConfigurationCustomerBilling(TypedDict):
@@ -1524,7 +1524,7 @@ class AccountService(StripeService):
             "AccountService.CreateParamsConfigurationRecipientCapabilitiesStripeBalance"
         ]
         """
-        Capabilities that enable the recipient to receive money into their Stripe Balance (/v1/balance).
+        Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
         """
 
     class CreateParamsConfigurationRecipientCapabilitiesBankAccounts(
@@ -1572,7 +1572,7 @@ class AccountService(StripeService):
             "AccountService.CreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers"
         ]
         """
-        Allows the recipient to receive /v1/transfers into their Stripe Balance (/v1/balance).
+        Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
         """
 
     class CreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers(
@@ -1743,6 +1743,7 @@ class AccountService(StripeService):
                 "uah",
                 "ugx",
                 "usd",
+                "usdb",
                 "usdc",
                 "usn",
                 "uyi",
@@ -5358,7 +5359,7 @@ class AccountService(StripeService):
             Literal["identity_address", "ip_address", "shipping_address"]
         ]
         """
-        The data source used by Stripe Tax to identify the customer's location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+        The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
         """
 
     class UpdateParamsConfigurationCustomerBilling(TypedDict):
@@ -6762,7 +6763,7 @@ class AccountService(StripeService):
             "AccountService.UpdateParamsConfigurationRecipientCapabilitiesStripeBalance"
         ]
         """
-        Capabilities that enable the recipient to receive money into their Stripe Balance (/v1/balance).
+        Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
         """
 
     class UpdateParamsConfigurationRecipientCapabilitiesBankAccounts(
@@ -6810,7 +6811,7 @@ class AccountService(StripeService):
             "AccountService.UpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers"
         ]
         """
-        Allows the recipient to receive /v1/transfers into their Stripe Balance (/v1/balance).
+        Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
         """
 
     class UpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers(
@@ -6981,6 +6982,7 @@ class AccountService(StripeService):
                 "uah",
                 "ugx",
                 "usd",
+                "usdb",
                 "usdc",
                 "usn",
                 "uyi",

@@ -17,3 +17,7 @@ class FinancialAddressCreditSimulation(StripeObject):
     """
     The status of the request, signifying whether a simulated credit was initiated.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """

@@ -195,6 +195,7 @@ class FinancialAccount(StripeObject):
                 "uah",
                 "ugx",
                 "usd",
+                "usdb",
                 "usdc",
                 "usn",
                 "uyi",
@@ -499,9 +500,9 @@ class FinancialAccount(StripeObject):
     """
     If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.
     """
-    status: Literal["closed", "open"]
+    status: Literal["closed", "open", "pending"]
     """
-    An enum value that specifies which state the FinancialAccount is in.
+    Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
     """
     storage: Optional[Storage]
     """
@@ -511,6 +512,10 @@ class FinancialAccount(StripeObject):
     """
     Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.
     It contains additional information specific to the FinancialAccount type.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "balance": Balance,

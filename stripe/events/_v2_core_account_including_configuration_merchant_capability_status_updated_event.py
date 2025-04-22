@@ -58,6 +58,7 @@ class V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent(
             "p24_payments",
             "payco_payments",
             "paynow_payments",
+            "stripe_balance.payouts",
             "pay_by_bank_payments",
             "promptpay_payments",
             "revolut_pay_payments",

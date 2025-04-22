@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.v2._amount import AmountParam
 from stripe.v2.money_management._outbound_payment_quote import (
     OutboundPaymentQuote,
@@ -68,6 +69,9 @@ class OutboundPaymentQuoteService(StripeService):
         To which account the OutboundPayment is sent.
         """
 
+    class RetrieveParams(TypedDict):
+        pass
+
     def create(
         self,
         params: "OutboundPaymentQuoteService.CreateParams",
@@ -100,6 +104,50 @@ class OutboundPaymentQuoteService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/money_management/outbound_payment_quotes",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def retrieve(
+        self,
+        id: str,
+        params: "OutboundPaymentQuoteService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundPaymentQuote:
+        """
+        Retrieves the details of an existing OutboundPaymentQuote by passing the unique OutboundPaymentQuote ID.
+        """
+        return cast(
+            OutboundPaymentQuote,
+            self._request(
+                "get",
+                "/v2/money_management/outbound_payment_quotes/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "OutboundPaymentQuoteService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundPaymentQuote:
+        """
+        Retrieves the details of an existing OutboundPaymentQuote by passing the unique OutboundPaymentQuote ID.
+        """
+        return cast(
+            OutboundPaymentQuote,
+            await self._request_async(
+                "get",
+                "/v2/money_management/outbound_payment_quotes/{id}".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,

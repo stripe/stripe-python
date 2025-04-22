@@ -1096,6 +1096,10 @@ class PersonService(StripeService):
         """
 
     class CreateParamsRelationship(TypedDict):
+        authorizer: NotRequired[bool]
+        """
+        Whether the individual is an authorizer of the Account's legal entity.
+        """
         director: NotRequired[bool]
         """
         Indicates whether the person is a director of the associated legal entity.
@@ -2837,6 +2841,10 @@ class PersonService(StripeService):
         """
 
     class UpdateParamsRelationship(TypedDict):
+        authorizer: NotRequired[bool]
+        """
+        Whether the individual is an authorizer of the Account's legal entity.
+        """
         director: NotRequired[bool]
         """
         Indicates whether the person is a director of the associated legal entity.

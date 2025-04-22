@@ -159,7 +159,7 @@ class InboundTransfer(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    receipt_url: str
+    receipt_url: Optional[str]
     """
     A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
     """
@@ -170,6 +170,10 @@ class InboundTransfer(StripeObject):
     transfer_history: List[TransferHistory]
     """
     A list of history objects, representing changes in the state of the InboundTransfer.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "from": From,
