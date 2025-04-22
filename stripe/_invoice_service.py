@@ -1622,7 +1622,7 @@ class InvoiceService(StripeService):
             Literal["credits_attributed_to_debits", "legacy_prorations"]
         ]
         """
-        The billing mode that will be used to create the subscription schedule. When the schedule creates a subscription, the subscription's `billing_mode` will be set to the same value as the schedule's `billing_mode`.
+        Configure billing_mode to opt in improved credit proration behavior.When the schedule creates a subscription, the subscription's `billing_mode` will be set to the same value as the schedule's `billing_mode`.
         """
         end_behavior: NotRequired[Literal["cancel", "release"]]
         """
@@ -2743,7 +2743,7 @@ class InvoiceService(StripeService):
             Literal["credits_attributed_to_debits", "legacy_prorations"]
         ]
         """
-        The billing mode to create the subscription with. Once a subscription has been created with a billing_mode, all future operations on the subscription will be processed based on the billing_mode.
+        Configure billing_mode in each subscription to opt in improved credit proration behavior.
         """
         cancel_at: NotRequired["Literal['']|int"]
         """

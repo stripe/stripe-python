@@ -2563,7 +2563,7 @@ class SessionService(StripeService):
             Literal["credits_attributed_to_debits", "legacy_prorations"]
         ]
         """
-        The billing mode to create the subscription with. Once a subscription has been created with a billing_mode, all future operations on the subscription will be processed based on the billing_mode.
+        Configure billing_mode in each subscription to opt in improved credit proration behavior.
         """
         default_tax_rates: NotRequired[List[str]]
         """
