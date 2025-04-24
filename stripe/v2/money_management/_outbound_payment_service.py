@@ -32,7 +32,7 @@ class OutboundPaymentService(StripeService):
         """
         description: NotRequired[str]
         """
-        An arbitrary string attached to the OutboundPayment. Often useful for displaying to users. The description can not be longer than 100 characters and can only contain basic Latin characters and spaces. The following special characters are not allowed: <>\'"* .
+        An arbitrary string attached to the OutboundPayment. Often useful for displaying to users.
         """
         metadata: NotRequired[Dict[str, str]]
         """

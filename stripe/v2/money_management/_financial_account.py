@@ -500,7 +500,7 @@ class FinancialAccount(StripeObject):
     """
     If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.
     """
-    status: Literal["closed", "open", "pending"]
+    status: Literal["closed", "open"]
     """
     Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
     """

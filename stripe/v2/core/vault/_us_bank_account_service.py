@@ -50,8 +50,8 @@ class UsBankAccountService(StripeService):
         options: RequestOptions = {},
     ) -> UsBankAccount:
         """
-        Archive a UsBankAccount object. UsBankAccount objects will not be automatically archived by Stripe.
-        Archived UsBankAccount objects cannot be used as outbound destinations
+        Archive a USBankAccount object. USBankAccount objects will not be automatically archived by Stripe.
+        Archived USBankAccount objects cannot be used as outbound destinations
         and will not appear in the outbound destination list.
         """
         return cast(
@@ -74,8 +74,8 @@ class UsBankAccountService(StripeService):
         options: RequestOptions = {},
     ) -> UsBankAccount:
         """
-        Archive a UsBankAccount object. UsBankAccount objects will not be automatically archived by Stripe.
-        Archived UsBankAccount objects cannot be used as outbound destinations
+        Archive a USBankAccount object. USBankAccount objects will not be automatically archived by Stripe.
+        Archived USBankAccount objects cannot be used as outbound destinations
         and will not appear in the outbound destination list.
         """
         return cast(
@@ -97,7 +97,7 @@ class UsBankAccountService(StripeService):
         options: RequestOptions = {},
     ) -> UsBankAccount:
         """
-        Create a UsBankAccount object.
+        Create a USBankAccount object.
         """
         return cast(
             UsBankAccount,
@@ -116,7 +116,7 @@ class UsBankAccountService(StripeService):
         options: RequestOptions = {},
     ) -> UsBankAccount:
         """
-        Create a UsBankAccount object.
+        Create a USBankAccount object.
         """
         return cast(
             UsBankAccount,
@@ -136,7 +136,7 @@ class UsBankAccountService(StripeService):
         options: RequestOptions = {},
     ) -> UsBankAccount:
         """
-        Retrieve a UsBankAccount object.
+        Retrieve a USBankAccount object.
         """
         return cast(
             UsBankAccount,
@@ -158,7 +158,7 @@ class UsBankAccountService(StripeService):
         options: RequestOptions = {},
     ) -> UsBankAccount:
         """
-        Retrieve a UsBankAccount object.
+        Retrieve a USBankAccount object.
         """
         return cast(
             UsBankAccount,
@@ -180,7 +180,7 @@ class UsBankAccountService(StripeService):
         options: RequestOptions = {},
     ) -> UsBankAccount:
         """
-        Update a UsBankAccount object. This is limited to supplying a previously empty routing_number field.
+        Update a USBankAccount object. This is limited to supplying a previously empty routing_number field.
         """
         return cast(
             UsBankAccount,
@@ -202,7 +202,7 @@ class UsBankAccountService(StripeService):
         options: RequestOptions = {},
     ) -> UsBankAccount:
         """
-        Update a UsBankAccount object. This is limited to supplying a previously empty routing_number field.
+        Update a USBankAccount object. This is limited to supplying a previously empty routing_number field.
         """
         return cast(
             UsBankAccount,
