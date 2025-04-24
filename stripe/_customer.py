@@ -515,10 +515,15 @@ class Customer(
             "ar_cuit",
             "au_abn",
             "au_arn",
+            "aw_tin",
+            "az_tin",
             "ba_tin",
             "bb_tin",
+            "bd_bin",
+            "bf_ifu",
             "bg_uic",
             "bh_vat",
+            "bj_ifu",
             "bo_tin",
             "br_cnpj",
             "br_cpf",
@@ -534,14 +539,17 @@ class Customer(
             "ch_uid",
             "ch_vat",
             "cl_tin",
+            "cm_niu",
             "cn_tin",
             "co_nit",
             "cr_tin",
+            "cv_nif",
             "de_stn",
             "do_rcn",
             "ec_ruc",
             "eg_tin",
             "es_cif",
+            "et_tin",
             "eu_oss_vat",
             "eu_vat",
             "gb_vat",
@@ -558,9 +566,11 @@ class Customer(
             "jp_rn",
             "jp_trn",
             "ke_pin",
+            "kg_tin",
             "kh_tin",
             "kr_brn",
             "kz_bin",
+            "la_tin",
             "li_uid",
             "li_vat",
             "ma_vat",
@@ -609,7 +619,7 @@ class Customer(
             "zw_tin",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         """
         value: str
         """
@@ -645,10 +655,15 @@ class Customer(
             "ar_cuit",
             "au_abn",
             "au_arn",
+            "aw_tin",
+            "az_tin",
             "ba_tin",
             "bb_tin",
+            "bd_bin",
+            "bf_ifu",
             "bg_uic",
             "bh_vat",
+            "bj_ifu",
             "bo_tin",
             "br_cnpj",
             "br_cpf",
@@ -664,14 +679,17 @@ class Customer(
             "ch_uid",
             "ch_vat",
             "cl_tin",
+            "cm_niu",
             "cn_tin",
             "co_nit",
             "cr_tin",
+            "cv_nif",
             "de_stn",
             "do_rcn",
             "ec_ruc",
             "eg_tin",
             "es_cif",
+            "et_tin",
             "eu_oss_vat",
             "eu_vat",
             "gb_vat",
@@ -688,9 +706,11 @@ class Customer(
             "jp_rn",
             "jp_trn",
             "ke_pin",
+            "kg_tin",
             "kh_tin",
             "kr_brn",
             "kz_bin",
+            "la_tin",
             "li_uid",
             "li_vat",
             "ma_vat",
@@ -739,7 +759,7 @@ class Customer(
             "zw_tin",
         ]
         """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `ba_tin`, `bb_tin`, `bg_uic`, `bh_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kh_tin`, `kr_brn`, `kz_bin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         """
         value: str
         """
@@ -868,7 +888,7 @@ class Customer(
             Literal["always", "limited", "unspecified"]
         ]
         """
-        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
         """
         ending_before: NotRequired[str]
         """
@@ -2261,6 +2281,46 @@ class Customer(
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
     @classmethod
+    def list_balance_transactions(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.ListBalanceTransactionsParams"],
+    ) -> ListObject["CustomerBalanceTransaction"]:
+        """
+        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        """
+        return cast(
+            ListObject["CustomerBalanceTransaction"],
+            cls._static_request(
+                "get",
+                "/v1/customers/{customer}/balance_transactions".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_balance_transactions_async(
+        cls,
+        customer: str,
+        **params: Unpack["Customer.ListBalanceTransactionsParams"],
+    ) -> ListObject["CustomerBalanceTransaction"]:
+        """
+        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        """
+        return cast(
+            ListObject["CustomerBalanceTransaction"],
+            await cls._static_request_async(
+                "get",
+                "/v1/customers/{customer}/balance_transactions".format(
+                    customer=sanitize_id(customer)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create_balance_transaction(
         cls,
         customer: str,
@@ -2389,19 +2449,19 @@ class Customer(
         )
 
     @classmethod
-    def list_balance_transactions(
+    def list_cash_balance_transactions(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListBalanceTransactionsParams"],
-    ) -> ListObject["CustomerBalanceTransaction"]:
+        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
+    ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
-        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
         """
         return cast(
-            ListObject["CustomerBalanceTransaction"],
+            ListObject["CustomerCashBalanceTransaction"],
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/balance_transactions".format(
+                "/v1/customers/{customer}/cash_balance_transactions".format(
                     customer=sanitize_id(customer)
                 ),
                 params=params,
@@ -2409,19 +2469,19 @@ class Customer(
         )
 
     @classmethod
-    async def list_balance_transactions_async(
+    async def list_cash_balance_transactions_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListBalanceTransactionsParams"],
-    ) -> ListObject["CustomerBalanceTransaction"]:
+        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
+    ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
-        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
         """
         return cast(
-            ListObject["CustomerBalanceTransaction"],
+            ListObject["CustomerCashBalanceTransaction"],
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/balance_transactions".format(
+                "/v1/customers/{customer}/cash_balance_transactions".format(
                     customer=sanitize_id(customer)
                 ),
                 params=params,
@@ -2473,19 +2533,17 @@ class Customer(
         )
 
     @classmethod
-    def list_cash_balance_transactions(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
-    ) -> ListObject["CustomerCashBalanceTransaction"]:
+    def list_sources(
+        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
+    ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         """
-        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        List sources for a specified customer.
         """
         return cast(
-            ListObject["CustomerCashBalanceTransaction"],
+            ListObject[Union["Account", "BankAccount", "Card", "Source"]],
             cls._static_request(
                 "get",
-                "/v1/customers/{customer}/cash_balance_transactions".format(
+                "/v1/customers/{customer}/sources".format(
                     customer=sanitize_id(customer)
                 ),
                 params=params,
@@ -2493,19 +2551,17 @@ class Customer(
         )
 
     @classmethod
-    async def list_cash_balance_transactions_async(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
-    ) -> ListObject["CustomerCashBalanceTransaction"]:
+    async def list_sources_async(
+        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
+    ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         """
-        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        List sources for a specified customer.
         """
         return cast(
-            ListObject["CustomerCashBalanceTransaction"],
+            ListObject[Union["Account", "BankAccount", "Card", "Source"]],
             await cls._static_request_async(
                 "get",
-                "/v1/customers/{customer}/cash_balance_transactions".format(
+                "/v1/customers/{customer}/sources".format(
                     customer=sanitize_id(customer)
                 ),
                 params=params,
@@ -2677,42 +2733,6 @@ class Customer(
                 "delete",
                 "/v1/customers/{customer}/sources/{id}".format(
                     customer=sanitize_id(customer), id=sanitize_id(id)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def list_sources(
-        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
-    ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
-        """
-        List sources for a specified customer.
-        """
-        return cast(
-            ListObject[Union["Account", "BankAccount", "Card", "Source"]],
-            cls._static_request(
-                "get",
-                "/v1/customers/{customer}/sources".format(
-                    customer=sanitize_id(customer)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_sources_async(
-        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
-    ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
-        """
-        List sources for a specified customer.
-        """
-        return cast(
-            ListObject[Union["Account", "BankAccount", "Card", "Source"]],
-            await cls._static_request_async(
-                "get",
-                "/v1/customers/{customer}/sources".format(
-                    customer=sanitize_id(customer)
                 ),
                 params=params,
             ),

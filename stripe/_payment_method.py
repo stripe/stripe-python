@@ -152,6 +152,10 @@ class PaymentMethod(
         """
         Billing phone number (including extension).
         """
+        tax_id: Optional[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+        """
         _inner_class_types = {"address": Address}
 
     class Blik(StripeObject):
@@ -1390,7 +1394,7 @@ class PaymentMethod(
         """
         billie: NotRequired["PaymentMethod.CreateParamsBillie"]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "PaymentMethod.CreateParamsBillingDetails"
@@ -1536,7 +1540,7 @@ class PaymentMethod(
         """
         revolut_pay: NotRequired["PaymentMethod.CreateParamsRevolutPay"]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired["PaymentMethod.CreateParamsSamsungPay"]
         """
@@ -1544,7 +1548,7 @@ class PaymentMethod(
         """
         satispay: NotRequired["PaymentMethod.CreateParamsSatispay"]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired["PaymentMethod.CreateParamsSepaDebit"]
         """
@@ -1702,6 +1706,10 @@ class PaymentMethod(
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class CreateParamsBillingDetailsAddress(TypedDict):
@@ -2205,6 +2213,10 @@ class PaymentMethod(
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class ModifyParamsBillingDetailsAddress(TypedDict):

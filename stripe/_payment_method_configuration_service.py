@@ -221,6 +221,10 @@ class PaymentMethodConfigurationService(StripeService):
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
         """
+        pix: NotRequired["PaymentMethodConfigurationService.CreateParamsPix"]
+        """
+        Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
+        """
         promptpay: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsPromptpay"
         ]
@@ -784,6 +788,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsPix(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsPixDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPixDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsPromptpay(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsPromptpayDisplayPreference"
@@ -1162,6 +1180,10 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
+        """
+        pix: NotRequired["PaymentMethodConfigurationService.UpdateParamsPix"]
+        """
+        Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
         """
         promptpay: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsPromptpay"
@@ -1721,6 +1743,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsPaypalDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsPix(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsPixDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsPixDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.

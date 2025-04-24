@@ -64,10 +64,34 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     class PaymentMethodOptions(StripeObject):
         class Card(StripeObject):
+            class Installments(StripeObject):
+                class Plan(StripeObject):
+                    count: Optional[int]
+                    """
+                    For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+                    """
+                    interval: Optional[Literal["month"]]
+                    """
+                    For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
+                    One of `month`.
+                    """
+                    type: Literal["fixed_count"]
+                    """
+                    Type of installment plan, one of `fixed_count`.
+                    """
+
+                plan: Optional[Plan]
+                _inner_class_types = {"plan": Plan}
+
             cvc_token: Optional[str]
             """
             The `cvc_update` Token collected from the Payment Element.
             """
+            installments: Optional[Installments]
+            """
+            Installment configuration for payments.
+            """
+            _inner_class_types = {"installments": Installments}
 
         card: Optional[Card]
         """
@@ -189,6 +213,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             phone: Optional[str]
             """
             Billing phone number (including extension).
+            """
+            tax_id: Optional[str]
+            """
+            Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
             """
             _inner_class_types = {"address": Address}
 
@@ -1590,6 +1618,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If provided, this hash will be used to create a PaymentMethod.
         """
+        payment_method_options: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodOptions"
+        ]
+        """
+        Payment-method-specific configuration for this ConfirmationToken.
+        """
         return_url: NotRequired[str]
         """
         Return URL used to confirm the Intent.
@@ -1670,7 +1704,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "ConfirmationToken.CreateParamsPaymentMethodDataBillie"
         ]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataBillingDetails"
@@ -1846,7 +1880,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "ConfirmationToken.CreateParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataSamsungPay"
@@ -1858,7 +1892,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "ConfirmationToken.CreateParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataSepaDebit"
@@ -2025,6 +2059,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
@@ -2357,6 +2395,44 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     class CreateParamsPaymentMethodDataZip(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodOptions(TypedDict):
+        card: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodOptionsCard"
+        ]
+        """
+        Configuration for any card payments confirmed using this ConfirmationToken.
+        """
+
+    class CreateParamsPaymentMethodOptionsCard(TypedDict):
+        installments: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodOptionsCardInstallments"
+        ]
+        """
+        Installment configuration for payments confirmed using this ConfirmationToken.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
+        plan: "ConfirmationToken.CreateParamsPaymentMethodOptionsCardInstallmentsPlan"
+        """
+        The selected installment plan to use for this payment attempt.
+        This parameter can only be provided during confirmation.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
+        count: NotRequired[int]
+        """
+        For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
+        """
+        interval: NotRequired[Literal["month"]]
+        """
+        For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
+        One of `month`.
+        """
+        type: Literal["fixed_count"]
+        """
+        Type of installment plan, one of `fixed_count`.
+        """
 
     class CreateParamsShipping(TypedDict):
         address: "ConfirmationToken.CreateParamsShippingAddress"

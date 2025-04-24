@@ -117,6 +117,10 @@ class OutboundPaymentService(StripeService):
         """
         Billing phone number (including extension).
         """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
+        """
 
     class CreateParamsDestinationPaymentMethodDataBillingDetailsAddress(
         TypedDict,

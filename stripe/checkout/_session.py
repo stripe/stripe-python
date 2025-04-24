@@ -110,6 +110,10 @@ class Session(
         """
         The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         """
+        provider: Optional[str]
+        """
+        The tax provider powering automatic tax.
+        """
         status: Optional[
             Literal["complete", "failed", "requires_location_inputs"]
         ]
@@ -395,10 +399,15 @@ class Session(
                 "ar_cuit",
                 "au_abn",
                 "au_arn",
+                "aw_tin",
+                "az_tin",
                 "ba_tin",
                 "bb_tin",
+                "bd_bin",
+                "bf_ifu",
                 "bg_uic",
                 "bh_vat",
+                "bj_ifu",
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
@@ -414,14 +423,17 @@ class Session(
                 "ch_uid",
                 "ch_vat",
                 "cl_tin",
+                "cm_niu",
                 "cn_tin",
                 "co_nit",
                 "cr_tin",
+                "cv_nif",
                 "de_stn",
                 "do_rcn",
                 "ec_ruc",
                 "eg_tin",
                 "es_cif",
+                "et_tin",
                 "eu_oss_vat",
                 "eu_vat",
                 "gb_vat",
@@ -438,9 +450,11 @@ class Session(
                 "jp_rn",
                 "jp_trn",
                 "ke_pin",
+                "kg_tin",
                 "kh_tin",
                 "kr_brn",
                 "kz_bin",
+                "la_tin",
                 "li_uid",
                 "li_vat",
                 "ma_vat",
@@ -490,7 +504,7 @@ class Session(
                 "zw_tin",
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
             """
             value: Optional[str]
             """
@@ -1842,6 +1856,16 @@ class Session(
         breakdown: Optional[Breakdown]
         _inner_class_types = {"breakdown": Breakdown}
 
+    class WalletOptions(StripeObject):
+        class Link(StripeObject):
+            display: Optional[Literal["auto", "never"]]
+            """
+            Describes whether Checkout should display Link. Defaults to `auto`.
+            """
+
+        link: Optional[Link]
+        _inner_class_types = {"link": Link}
+
     class CreateParams(RequestOptions):
         adaptive_pricing: NotRequired["Session.CreateParamsAdaptivePricing"]
         """
@@ -2119,9 +2143,9 @@ class Session(
         """
         permissions: NotRequired["Session.CreateParamsPermissions"]
         """
-        This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
+        This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object. Can only be set when creating `embedded` or `custom` sessions.
 
-        For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+        For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
         """
         phone_number_collection: NotRequired[
             "Session.CreateParamsPhoneNumberCollection"
@@ -2194,6 +2218,10 @@ class Session(
         ui_mode: NotRequired[Literal["custom", "embedded", "hosted"]]
         """
         The UI mode of the Session. Defaults to `hosted`.
+        """
+        wallet_options: NotRequired["Session.CreateParamsWalletOptions"]
+        """
+        Wallet-specific configuration.
         """
 
     class CreateParamsAdaptivePricing(TypedDict):
@@ -4282,6 +4310,18 @@ class Session(
         Describes whether a tax ID is required during checkout. Defaults to `never`.
         """
 
+    class CreateParamsWalletOptions(TypedDict):
+        link: NotRequired["Session.CreateParamsWalletOptionsLink"]
+        """
+        contains details about the Link wallet options.
+        """
+
+    class CreateParamsWalletOptionsLink(TypedDict):
+        display: NotRequired[Literal["auto", "never"]]
+        """
+        Specifies whether Checkout should display Link as a payment option. By default, Checkout will display all the supported wallets that the Checkout Session was created with. This is the `auto` behavior, and it is the default choice.
+        """
+
     class ExpireParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -4381,7 +4421,7 @@ class Session(
             "Session.ModifyParamsCollectedInformation"
         ]
         """
-        Information about the customer collected within the Checkout Session.
+        Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         """
         expand: NotRequired[List[str]]
         """
@@ -4608,7 +4648,8 @@ class Session(
     """
     client_secret: Optional[str]
     """
-    The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded`. Client secret to be used when initializing Stripe.js embedded checkout.
+    The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. For `ui_mode: embedded`, the client secret is to be used when initializing Stripe.js embedded checkout.
+     For `ui_mode: custom`, use the client secret with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
     """
     collected_information: Optional[CollectedInformation]
     """
@@ -4791,7 +4832,7 @@ class Session(
     """
     This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
 
-    For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+    For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
     """
     phone_number_collection: Optional[PhoneNumberCollection]
     presentment_details: Optional[PresentmentDetails]
@@ -4805,7 +4846,7 @@ class Session(
     """
     return_url: Optional[str]
     """
-    Applies to Checkout Sessions with `ui_mode: embedded`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
+    Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
     """
     saved_payment_method_options: Optional[SavedPaymentMethodOptions]
     """
@@ -4861,6 +4902,10 @@ class Session(
     """
     The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you're using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it'll use `checkout.stripe.com.`
     This value is only present when the session is active.
+    """
+    wallet_options: Optional[WalletOptions]
+    """
+    Wallet-specific configuration for this Checkout Session.
     """
 
     @classmethod
@@ -5248,4 +5293,5 @@ class Session(
         "shipping_options": ShippingOption,
         "tax_id_collection": TaxIdCollection,
         "total_details": TotalDetails,
+        "wallet_options": WalletOptions,
     }

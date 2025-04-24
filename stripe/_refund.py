@@ -528,6 +528,12 @@ class Refund(
     """
     ID of the PaymentIntent that's refunded.
     """
+    pending_reason: Optional[
+        Literal["charge_pending", "insufficient_funds", "processing"]
+    ]
+    """
+    Provides the reason for why the refund is pending. Possible values are: `processing`, `insufficient_funds`, or `charge_pending`.
+    """
     presentment_details: Optional[PresentmentDetails]
     reason: Optional[
         Literal[

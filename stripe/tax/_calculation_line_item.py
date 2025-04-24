@@ -128,7 +128,7 @@ class CalculationLineItem(StripeObject):
     """
     The number of units of the item being purchased. For reversals, this is the quantity reversed.
     """
-    reference: Optional[str]
+    reference: str
     """
     A custom identifier for this line item.
     """

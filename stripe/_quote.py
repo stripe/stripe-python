@@ -61,6 +61,10 @@ class Quote(
         """
         The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         """
+        provider: Optional[str]
+        """
+        The tax provider powering automatic tax.
+        """
         status: Optional[
             Literal["complete", "failed", "requires_location_inputs"]
         ]
