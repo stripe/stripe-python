@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 class UsBankAccount(StripeObject):
     """
-    Use the UsBankAccounts API to create and manage US bank accounts objects that you can use to receive funds. Note that these are not interchangeable with v1 Tokens.
+    Use the USBankAccounts API to create and manage US bank accounts objects that you can use to receive funds. Note that these are not interchangeable with v1 Tokens.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.core.vault.us_bank_account"]] = (
@@ -15,7 +15,7 @@ class UsBankAccount(StripeObject):
     )
     archived: bool
     """
-    Whether this UsBankAccount object was archived.
+    Whether this USBankAccount object was archived.
     """
     bank_account_type: Literal["checking", "savings"]
     """
@@ -35,7 +35,7 @@ class UsBankAccount(StripeObject):
     """
     id: str
     """
-    The ID of the UsBankAccount object.
+    The ID of the USBankAccount object.
     """
     last4: str
     """

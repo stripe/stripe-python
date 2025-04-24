@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 class AccountLink(StripeObject):
     """
-    AccountLinks are the means by which a Merchant grants an Account permission to access Stripe-hosted application, such as Recipient Onboarding.
+    AccountLinks are the means by which a Merchant grants an Account permission to access Stripe-hosted applications, such as Recipient Onboarding. This API is only available for users enrolled in the public preview for Global Payouts.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.core.account_link"]] = (

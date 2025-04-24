@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 class GbBankAccount(StripeObject):
     """
-    Use the GbBankAccounts API to create and manage GB bank account objects
+    Use the GBBankAccounts API to create and manage GB bank account objects
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.core.vault.gb_bank_account"]] = (
@@ -96,7 +96,7 @@ class GbBankAccount(StripeObject):
     """
     id: str
     """
-    The ID of the GbBankAccount object.
+    The ID of the GBBankAccount object.
     """
     last4: str
     """

@@ -11,12 +11,6 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class FinancialAddressService(StripeService):
     class CreateParams(TypedDict):
-        crypto_properties: NotRequired[
-            "FinancialAddressService.CreateParamsCryptoProperties"
-        ]
-        """
-        Properties needed to create a FinancialAddress for an FA with USDC currency.
-        """
         currency: Literal[
             "aed",
             "afn",
@@ -205,21 +199,6 @@ class FinancialAddressService(StripeService):
         financial_account: str
         """
         The ID of the FinancialAccount the new FinancialAddress should be associated with.
-        """
-
-    class CreateParamsCryptoProperties(TypedDict):
-        network: Literal[
-            "arbitrum",
-            "avalanche_c_chain",
-            "base",
-            "ethereum",
-            "optimism",
-            "polygon",
-            "solana",
-            "stellar",
-        ]
-        """
-        The blockchain network of the crypto wallet.
         """
 
     class ListParams(TypedDict):
