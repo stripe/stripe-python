@@ -39,5 +39,5 @@ class TestCapability(object):
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/acct_123/capabilities/%s" % TEST_RESOURCE_ID,
-            post_data="requested=True",
+            post_data="requested=true",
         )
