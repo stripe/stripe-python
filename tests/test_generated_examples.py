@@ -33283,17 +33283,18 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "get",
             "/v2/core/events",
+            "object_id=object_id",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.core.events.list()
+        client.v2.core.events.list({"object_id": "object_id"})
         http_client_mock.assert_requested(
             "get",
             path="/v2/core/events",
-            query_string="",
+            query_string="object_id=object_id",
             api_base="https://api.stripe.com",
         )
 
