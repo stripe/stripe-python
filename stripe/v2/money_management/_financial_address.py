@@ -15,6 +15,52 @@ class FinancialAddress(StripeObject):
     )
 
     class Credentials(StripeObject):
+        class CryptoWallet(StripeObject):
+            address: str
+            """
+            The blockchain address of the crypto wallet.
+            """
+            memo: Optional[str]
+            """
+            Required if the network supports memos (e.g. Stellar).
+            """
+            network: Literal[
+                "arbitrum",
+                "avalanche_c_chain",
+                "base",
+                "ethereum",
+                "optimism",
+                "polygon",
+                "solana",
+                "stellar",
+            ]
+            """
+            The blockchain network of the crypto wallet.
+            """
+
+        class EuBankAccount(StripeObject):
+            account_holder_name: str
+            """
+            The account holder name to be used during bank transfers.
+            """
+            account_number: Optional[str]
+            """
+            The account number of the EU Bank Account.
+            """
+            bank_name: str
+            """
+            The name of the Bank.
+            """
+            bic: str
+            """
+            The BIC of the EU Bank Account.
+            """
+            last4: str
+            """
+            The last four digits of the EU Bank Account number. This will always be returned.
+            To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
+            """
+
         class GbBankAccount(StripeObject):
             account_holder_name: str
             """
@@ -57,9 +103,22 @@ class FinancialAddress(StripeObject):
             The swift code of the bank or financial institution.
             """
 
-        type: Literal["gb_bank_account", "us_bank_account"]
+        type: Literal[
+            "crypto_wallet",
+            "eu_bank_account",
+            "gb_bank_account",
+            "us_bank_account",
+        ]
         """
         Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
+        """
+        crypto_wallet: Optional[CryptoWallet]
+        """
+        The credentials of the crypto wallet for the Financial Address. This contains unique details such as the blockchain network, wallet address, and memo of a crypto wallet.
+        """
+        eu_bank_account: Optional[EuBankAccount]
+        """
+        The credentials of the EU Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a EU bank account.
         """
         gb_bank_account: Optional[GbBankAccount]
         """
@@ -70,6 +129,8 @@ class FinancialAddress(StripeObject):
         The credentials of the US Bank Account for the FinancialAddress. This contains unique banking details such as the routing number, account number, etc. of a US bank account.
         """
         _inner_class_types = {
+            "crypto_wallet": CryptoWallet,
+            "eu_bank_account": EuBankAccount,
             "gb_bank_account": GbBankAccount,
             "us_bank_account": UsBankAccount,
         }
@@ -242,6 +303,7 @@ class FinancialAddress(StripeObject):
         "uah",
         "ugx",
         "usd",
+        "usdb",
         "usdc",
         "usn",
         "uyi",
@@ -280,8 +342,199 @@ class FinancialAddress(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
+    settlement_currency: Optional[
+        Literal[
+            "aed",
+            "afn",
+            "all",
+            "amd",
+            "ang",
+            "aoa",
+            "ars",
+            "aud",
+            "awg",
+            "azn",
+            "bam",
+            "bbd",
+            "bdt",
+            "bgn",
+            "bhd",
+            "bif",
+            "bmd",
+            "bnd",
+            "bob",
+            "bov",
+            "brl",
+            "bsd",
+            "btn",
+            "bwp",
+            "byn",
+            "byr",
+            "bzd",
+            "cad",
+            "cdf",
+            "che",
+            "chf",
+            "chw",
+            "clf",
+            "clp",
+            "cny",
+            "cop",
+            "cou",
+            "crc",
+            "cuc",
+            "cup",
+            "cve",
+            "czk",
+            "djf",
+            "dkk",
+            "dop",
+            "dzd",
+            "eek",
+            "egp",
+            "ern",
+            "etb",
+            "eur",
+            "fjd",
+            "fkp",
+            "gbp",
+            "gel",
+            "ghc",
+            "ghs",
+            "gip",
+            "gmd",
+            "gnf",
+            "gtq",
+            "gyd",
+            "hkd",
+            "hnl",
+            "hrk",
+            "htg",
+            "huf",
+            "idr",
+            "ils",
+            "inr",
+            "iqd",
+            "irr",
+            "isk",
+            "jmd",
+            "jod",
+            "jpy",
+            "kes",
+            "kgs",
+            "khr",
+            "kmf",
+            "kpw",
+            "krw",
+            "kwd",
+            "kyd",
+            "kzt",
+            "lak",
+            "lbp",
+            "lkr",
+            "lrd",
+            "lsl",
+            "ltl",
+            "lvl",
+            "lyd",
+            "mad",
+            "mdl",
+            "mga",
+            "mkd",
+            "mmk",
+            "mnt",
+            "mop",
+            "mro",
+            "mru",
+            "mur",
+            "mvr",
+            "mwk",
+            "mxn",
+            "mxv",
+            "myr",
+            "mzn",
+            "nad",
+            "ngn",
+            "nio",
+            "nok",
+            "npr",
+            "nzd",
+            "omr",
+            "pab",
+            "pen",
+            "pgk",
+            "php",
+            "pkr",
+            "pln",
+            "pyg",
+            "qar",
+            "ron",
+            "rsd",
+            "rub",
+            "rwf",
+            "sar",
+            "sbd",
+            "scr",
+            "sdg",
+            "sek",
+            "sgd",
+            "shp",
+            "sle",
+            "sll",
+            "sos",
+            "srd",
+            "ssp",
+            "std",
+            "stn",
+            "svc",
+            "syp",
+            "szl",
+            "thb",
+            "tjs",
+            "tmt",
+            "tnd",
+            "top",
+            "try",
+            "ttd",
+            "twd",
+            "tzs",
+            "uah",
+            "ugx",
+            "usd",
+            "usdb",
+            "usdc",
+            "usn",
+            "uyi",
+            "uyu",
+            "uzs",
+            "vef",
+            "ves",
+            "vnd",
+            "vuv",
+            "wst",
+            "xaf",
+            "xcd",
+            "xcg",
+            "xof",
+            "xpf",
+            "yer",
+            "zar",
+            "zmk",
+            "zmw",
+            "zwd",
+            "zwg",
+            "zwl",
+        ]
+    ]
+    """
+    Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
+    """
     status: Literal["active", "archived", "failed", "pending"]
     """
     Closed Enum. An enum representing the status of the FinancialAddress. This indicates whether or not the FinancialAddress can be used for any money movement flows.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {"credentials": Credentials}

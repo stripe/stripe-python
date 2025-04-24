@@ -272,11 +272,11 @@ class Account(StripeObject):
                         ]
                     ]
                     """
-                    The customer's country as identified by Stripe Tax.
+                    The identified tax country of the customer.
                     """
                     state: Optional[str]
                     """
-                    The customer's state, county, province, or region as identified by Stripe Tax.
+                    The identified tax state, county, province, or region of the customer.
                     """
 
                 exempt: Optional[Literal["exempt", "none", "reverse"]]
@@ -289,7 +289,7 @@ class Account(StripeObject):
                 """
                 location: Optional[Location]
                 """
-                The customer's location as identified by Stripe Tax - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
+                The customer's identified tax location - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
                 """
                 location_source: Optional[
                     Literal[
@@ -297,7 +297,7 @@ class Account(StripeObject):
                     ]
                 ]
                 """
-                The data source used by Stripe Tax to identify the customer's location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+                The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 """
                 _inner_class_types = {"location": Location}
 
@@ -2196,6 +2196,51 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
+                class StripeBalance(StripeObject):
+                    class Payouts(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    payouts: Optional[Payouts]
+                    """
+                    Allows the account to do payouts using their Stripe Balance (/v1/balance).
+                    """
+                    _inner_class_types = {"payouts": Payouts}
+
                 class SwishPayments(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
@@ -2500,6 +2545,10 @@ class Account(StripeObject):
                 """
                 Allow the merchant to process SEPA Direct Debit payments.
                 """
+                stripe_balance: Optional[StripeBalance]
+                """
+                Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
+                """
                 swish_payments: Optional[SwishPayments]
                 """
                 Allow the merchant to process Swish payments.
@@ -2557,6 +2606,7 @@ class Account(StripeObject):
                     "samsung_pay_payments": SamsungPayPayments,
                     "sepa_bank_transfer_payments": SepaBankTransferPayments,
                     "sepa_debit_payments": SepaDebitPayments,
+                    "stripe_balance": StripeBalance,
                     "swish_payments": SwishPayments,
                     "twint_payments": TwintPayments,
                     "us_bank_transfer_payments": UsBankTransferPayments,
@@ -3066,6 +3116,44 @@ class Account(StripeObject):
                     _inner_class_types = {"status_details": StatusDetail}
 
                 class StripeBalance(StripeObject):
+                    class Payouts(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
                     class StripeTransfers(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
@@ -3104,11 +3192,18 @@ class Account(StripeObject):
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
+                    payouts: Optional[Payouts]
+                    """
+                    Allows the account to do payouts using their Stripe Balance (/v1/balance).
+                    """
                     stripe_transfers: Optional[StripeTransfers]
                     """
-                    Allows the recipient to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                    Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                     """
-                    _inner_class_types = {"stripe_transfers": StripeTransfers}
+                    _inner_class_types = {
+                        "payouts": Payouts,
+                        "stripe_transfers": StripeTransfers,
+                    }
 
                 bank_accounts: Optional[BankAccounts]
                 """
@@ -3120,7 +3215,7 @@ class Account(StripeObject):
                 """
                 stripe_balance: Optional[StripeBalance]
                 """
-                Capabilities that enable the recipient to receive money into their Stripe Balance (/v1/balance).
+                Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
                 """
                 _inner_class_types = {
                     "bank_accounts": BankAccounts,
@@ -3145,6 +3240,7 @@ class Account(StripeObject):
                     "ca_bank_account",
                     "ch_bank_account",
                     "ci_bank_account",
+                    "crypto_wallet",
                     "cy_bank_account",
                     "cz_bank_account",
                     "de_bank_account",
@@ -3400,6 +3496,7 @@ class Account(StripeObject):
                 "uah",
                 "ugx",
                 "usd",
+                "usdb",
                 "usdc",
                 "usn",
                 "uyi",
@@ -5590,6 +5687,10 @@ class Account(StripeObject):
                 """
 
             class Relationship(StripeObject):
+                authorizer: Optional[bool]
+                """
+                Whether the individual is an authorizer of the Account's legal entity.
+                """
                 director: Optional[bool]
                 """
                 Whether the individual is a director of the Account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
@@ -7032,6 +7133,7 @@ class Account(StripeObject):
                         "samsung_pay_payments",
                         "sepa_bank_transfer_payments",
                         "sepa_debit_payments",
+                        "stripe_balance.payouts",
                         "stripe_balance.stripe_transfers",
                         "swish_payments",
                         "twint_payments",
@@ -7051,32 +7153,12 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"deadline": Deadline}
 
-                class RestrictsPayouts(StripeObject):
-                    class Deadline(StripeObject):
-                        status: Literal[
-                            "currently_due", "eventually_due", "past_due"
-                        ]
-                        """
-                        The current status of the requirement's impact.
-                        """
-
-                    deadline: Deadline
-                    """
-                    Details about when in the Account's lifecycle the requirement must be collected by the avoid the earliest specified impact.
-                    """
-                    _inner_class_types = {"deadline": Deadline}
-
                 restricts_capabilities: Optional[List[RestrictsCapability]]
                 """
                 The Capabilities that will be restricted if the requirement is not collected and satisfactory to Stripe.
                 """
-                restricts_payouts: Optional[RestrictsPayouts]
-                """
-                Details about payouts restrictions that will be enforced if the requirement is not collected and satisfactory to Stripe.
-                """
                 _inner_class_types = {
                     "restricts_capabilities": RestrictsCapability,
-                    "restricts_payouts": RestrictsPayouts,
                 }
 
             class MinimumDeadline(StripeObject):
@@ -7223,6 +7305,10 @@ class Account(StripeObject):
     requirements: Optional[Requirements]
     """
     Information about the requirements for the Account, including what information needs to be collected, and by when.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "configuration": Configuration,

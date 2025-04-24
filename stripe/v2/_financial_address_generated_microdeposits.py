@@ -22,3 +22,7 @@ class FinancialAddressGeneratedMicrodeposits(StripeObject):
     """
     Closed Enum. The status of the request.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """

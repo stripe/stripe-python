@@ -761,6 +761,10 @@ class Person(StripeObject):
         """
 
     class Relationship(StripeObject):
+        authorizer: Optional[bool]
+        """
+        Whether the individual is an authorizer of the Account's legal entity.
+        """
         director: Optional[bool]
         """
         Whether the individual is a director of the Account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
@@ -1744,6 +1748,10 @@ class Person(StripeObject):
     updated: str
     """
     Time at which the object was last updated. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "additional_addresses": AdditionalAddress,

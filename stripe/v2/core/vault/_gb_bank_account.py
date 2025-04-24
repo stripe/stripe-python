@@ -110,4 +110,8 @@ class GbBankAccount(StripeObject):
     """
     The Sort Code of the bank account.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     _inner_class_types = {"confirmation_of_payee": ConfirmationOfPayee}

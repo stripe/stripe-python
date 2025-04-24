@@ -84,4 +84,8 @@ class AccountLink(StripeObject):
     """
     The use case of AccountLink the user is requesting.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     _inner_class_types = {"use_case": UseCase}

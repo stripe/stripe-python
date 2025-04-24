@@ -17,11 +17,11 @@ class PayoutMethod(StripeObject):
     class UsageStatus(StripeObject):
         payments: Literal["eligible", "invalid", "requires_action"]
         """
-        Payments status.
+        Payments status - used when sending OutboundPayments (sending funds to recipients).
         """
         transfers: Literal["eligible", "invalid", "requires_action"]
         """
-        Transfers status.
+        Transfers status - used when making an OutboundTransfer (sending funds to yourself).
         """
 
     class BankAccount(StripeObject):
@@ -103,6 +103,10 @@ class PayoutMethod(StripeObject):
     usage_status: UsageStatus
     """
     Indicates whether the payout method has met the necessary requirements for outbound money movement.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     bank_account: Optional[BankAccount]
     """

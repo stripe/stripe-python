@@ -26,7 +26,13 @@ class OutboundPaymentQuote(StripeObject):
         """
         The fee amount for corresponding fee type.
         """
-        type: Literal["cross_border_fee", "fx_fee", "payout_fee"]
+        type: Literal[
+            "cross_border_payout_fee",
+            "foreign_exchange_fee",
+            "instant_payout_fee",
+            "standard_payout_fee",
+            "wire_payout_fee",
+        ]
         """
         The fee type.
         """
@@ -48,6 +54,18 @@ class OutboundPaymentQuote(StripeObject):
             The exchange rate going from_currency -> to_currency.
             """
 
+        lock_duration: Literal["five_minutes"]
+        """
+        The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes.
+        """
+        lock_expires_at: str
+        """
+        Time at which the rate lock will expire, measured in seconds since the Unix epoch.
+        """
+        lock_status: Literal["active", "expired"]
+        """
+        Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active or expired.
+        """
         rates: Dict[str, Rates]
         """
         Key pair: from currency Value: exchange rate going from_currency -> to_currency.
@@ -109,6 +127,10 @@ class OutboundPaymentQuote(StripeObject):
     to: To
     """
     Details about the recipient of an OutboundPaymentQuote.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "delivery_options": DeliveryOptions,

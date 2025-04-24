@@ -61,16 +61,50 @@ class ReceivedCredit(StripeObject):
         """
 
     class BalanceTransfer(StripeObject):
-        payout_v1: str
+        from_account: Optional[str]
         """
-        The ID of the Stripe Money Movement that originated the ReceivedCredit.
+        The ID of the account that owns the source object originated the ReceivedCredit.
         """
-        type: Literal["payout_v1"]
+        type: Literal["outbound_payment", "outbound_transfer", "payout_v1"]
         """
         Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
         """
+        outbound_payment: Optional[str]
+        """
+        The ID of the outbound payment object that originated the ReceivedCredit.
+        """
+        outbound_transfer: Optional[str]
+        """
+        The ID of the outbound transfer object that originated the ReceivedCredit.
+        """
+        payout_v1: Optional[str]
+        """
+        The ID of the payout object that originated the ReceivedCredit.
+        """
 
     class BankTransfer(StripeObject):
+        class EuBankAccount(StripeObject):
+            account_holder_name: Optional[str]
+            """
+            The account holder name of the bank account the transfer was received from.
+            """
+            bank_name: Optional[str]
+            """
+            The bank name the transfer was received from.
+            """
+            bic: Optional[str]
+            """
+            The bic of the account that originated the transfer.
+            """
+            last4: Optional[str]
+            """
+            The last 4 digits of the account number that originated the transfer.
+            """
+            network: Literal["sepa"]
+            """
+            Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+            """
+
         class GbBankAccount(StripeObject):
             account_holder_name: Optional[str]
             """
@@ -115,13 +149,22 @@ class ReceivedCredit(StripeObject):
         """
         Financial Address on which funds for ReceivedCredit were received.
         """
-        payment_method_type: Literal["gb_bank_account", "us_bank_account"]
+        payment_method_type: Literal[
+            "crypto_wallet",
+            "eu_bank_account",
+            "gb_bank_account",
+            "us_bank_account",
+        ]
         """
         Open Enum. Indicates the type of source via from which external funds originated.
         """
         statement_descriptor: Optional[str]
         """
         Freeform string set by originator of the external ReceivedCredit.
+        """
+        eu_bank_account: Optional[EuBankAccount]
+        """
+        Hash containing the transaction bank details. Present if `payment_method_type` field value is `eu_bank_account`.
         """
         gb_bank_account: Optional[GbBankAccount]
         """
@@ -132,36 +175,57 @@ class ReceivedCredit(StripeObject):
         Hash containing the transaction bank details. Present if `payment_method_type` field value is `us_bank_account`.
         """
         _inner_class_types = {
+            "eu_bank_account": EuBankAccount,
             "gb_bank_account": GbBankAccount,
             "us_bank_account": UsBankAccount,
         }
 
-    class CardSpend(StripeObject):
-        class Dispute(StripeObject):
-            issuing_dispute_v1: str
+    class CryptoWalletTransfer(StripeObject):
+        class CryptoWallet(StripeObject):
+            address: str
             """
-            The reference to the v1 issuing dispute ID.
+            The address of the wallet the crypto was received from.
+            """
+            memo: str
+            """
+            A memo also for identifying the recipient for memo-based blockchains (e.g., Stellar),.
+            """
+            network: Literal[
+                "arbitrum",
+                "avalanche_c_chain",
+                "base",
+                "ethereum",
+                "optimism",
+                "polygon",
+                "solana",
+                "stellar",
+            ]
+            """
+            The network the crypto was received from.
             """
 
-        class Refund(StripeObject):
-            issuing_transaction_v1: str
-            """
-            The reference to the v1 issuing transaction ID.
-            """
-
-        card_v1_id: str
+        crypto_wallet: CryptoWallet
         """
-        The reference to the issuing card object.
+        Hash containing the transaction crypto wallet details.
         """
-        dispute: Optional[Dispute]
+        financial_address: str
         """
-        Hash containing information about the Dispute that triggered this credit.
+        Financial Address on which funds for ReceivedCredit were received.
         """
-        refund: Optional[Refund]
+        payment_method_type: Literal[
+            "crypto_wallet",
+            "eu_bank_account",
+            "gb_bank_account",
+            "us_bank_account",
+        ]
         """
-        Hash containing information about the Refund that triggered this credit.
+        Open Enum. Indicates the type of source via from which external funds originated.
         """
-        _inner_class_types = {"dispute": Dispute, "refund": Refund}
+        statement_descriptor: Optional[str]
+        """
+        Freeform string set by originator of the external ReceivedCredit.
+        """
+        _inner_class_types = {"crypto_wallet": CryptoWallet}
 
     amount: Amount
     """
@@ -205,10 +269,17 @@ class ReceivedCredit(StripeObject):
     Hash containing timestamps of when the object transitioned to a particular status.
     """
     type: Literal[
-        "balance_transfer", "bank_transfer", "card_spend", "external_credit"
+        "balance_transfer",
+        "bank_transfer",
+        "crypto_wallet_transfer",
+        "external_credit",
     ]
     """
     Open Enum. The type of flow that caused the ReceivedCredit.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     balance_transfer: Optional[BalanceTransfer]
     """
@@ -218,14 +289,14 @@ class ReceivedCredit(StripeObject):
     """
     This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `external_credit`.
     """
-    card_spend: Optional[CardSpend]
+    crypto_wallet_transfer: Optional[CryptoWalletTransfer]
     """
-    This object stores details about the originating issuing card spend that resulted in the ReceivedCredit. Present if `type` field value is `card_spend`.
+    This object stores details about the originating crypto transaction that resulted in the ReceivedCredit. Present if `type` field value is `crypto_wallet_transfer`.
     """
     _inner_class_types = {
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
         "balance_transfer": BalanceTransfer,
         "bank_transfer": BankTransfer,
-        "card_spend": CardSpend,
+        "crypto_wallet_transfer": CryptoWalletTransfer,
     }

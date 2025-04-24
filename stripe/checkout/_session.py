@@ -4620,6 +4620,12 @@ class Session(
         """
         A future timestamp to anchor the subscription's billing cycle for new subscriptions.
         """
+        billing_mode: NotRequired[
+            Literal["credits_attributed_to_debits", "legacy_prorations"]
+        ]
+        """
+        Configure billing_mode in each subscription to opt in improved credit proration behavior.
+        """
         default_tax_rates: NotRequired[List[str]]
         """
         The tax rates that will apply to any subscription item that does not have
@@ -5436,7 +5442,7 @@ class Session(
     """
     subscription: Optional[ExpandableField["Subscription"]]
     """
-    The ID of the subscription for Checkout Sessions in `subscription` mode.
+    The ID of the [Subscription](https://stripe.com/docs/api/subscriptions) for Checkout Sessions in `subscription` mode.
     """
     success_url: Optional[str]
     """

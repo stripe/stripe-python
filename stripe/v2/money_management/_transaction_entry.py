@@ -33,7 +33,6 @@ class TransactionEntry(StripeObject):
         class Flow(StripeObject):
             type: Literal[
                 "adjustment",
-                "currency_conversion",
                 "fee_transaction",
                 "inbound_transfer",
                 "outbound_payment",
@@ -123,6 +122,10 @@ class TransactionEntry(StripeObject):
     transaction_details: TransactionDetails
     """
     Details copied from the transaction that this TransactionEntry belongs to.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "balance_impact": BalanceImpact,

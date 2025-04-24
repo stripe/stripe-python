@@ -594,7 +594,7 @@ class Subscription(
             Literal["credits_attributed_to_debits", "legacy_prorations"]
         ]
         """
-        The billing mode to create the subscription with. Once a subscription has been created with a billing_mode, all future operations on the subscription will be processed based on the billing_mode unless the subscription is migrated to a different version.
+        Configure billing_mode in each subscription to opt in improved credit proration behavior.
         """
         cancel_at: NotRequired[int]
         """
@@ -2371,6 +2371,12 @@ class Subscription(
     billing_cycle_anchor_config: Optional[BillingCycleAnchorConfig]
     """
     The fixed values used to calculate the `billing_cycle_anchor`.
+    """
+    billing_mode: Optional[
+        Literal["credits_attributed_to_debits", "legacy_prorations"]
+    ]
+    """
+    Configure billing_mode in each subscription to opt in improved credit proration behavior.
     """
     cancel_at: Optional[int]
     """

@@ -138,6 +138,12 @@ See [SaaS platform payments with subscription billing using Accounts v2](https:/
 * [#1476](https://github.com/stripe/stripe-python/pull/1476) Update add_beta_version logic
   * ⚠️ stripe.add_beta_version` will use the highest version number used for a beta feature instead of raising an `Exception` on a conflict as it had done previously.
 
+## 12.0.1 - 2025-04-21
+* [#1499](https://github.com/stripe/stripe-python/pull/1499) Encode bools with lower case
+  - Serializes boolean query parameter values to `true`/`false` (lower case) before sending to the Stripe API for compatibility with Stripe V2 endpoints
+* [#1401](https://github.com/stripe/stripe-python/pull/1401) Fix type hint for SearchResultObject.data
+* [#1493](https://github.com/stripe/stripe-python/pull/1493) Update readme with clarification on resource based call patterns
+
 ## 12.0.0 - 2025-04-01
 * [#1463](https://github.com/stripe/stripe-python/pull/1463) Support for APIs in the new API version 2025-03-31.basil
 
