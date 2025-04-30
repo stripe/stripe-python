@@ -1,5 +1,33 @@
 # Changelog
 
+## 12.1.0 - 2025-04-30
+
+This release changes the pinned API version to `2025-04-30.basil`.
+
+* [#1496](https://github.com/stripe/stripe-python/pull/1496) Update generated code
+  * Add support for `minority_owned_business_designation` on `Account.BusinessProfile`, `Account.CreateParamsBusinessProfile`, `Account.ModifyParamsBusinessProfile`, `AccountService.CreateParamsBusinessProfile`, and `AccountService.UpdateParamsBusinessProfile`
+  * Add support for `registration_date` on `Account.Company`, `Account.CreateParamsCompany`, `Account.ModifyParamsCompany`, `AccountService.CreateParamsCompany`, `AccountService.UpdateParamsCompany`, `Token.CreateParamsAccountCompany`, and `TokenService.CreateParamsAccountCompany`
+  * Add support for `us_cfpb_data` on `Account.CreateParams`, `Account.ModifyParams`, `AccountPersonService.CreateParams`, `AccountPersonService.UpdateParams`, `Person`, `Token.CreateParamsPerson`, and `TokenService.CreateParamsPerson`
+  * Add support for new value `verification_legal_entity_structure_mismatch` on enums `Account.FutureRequirement.Error.code`, `Account.Requirement.Error.code`, `BankAccount.FutureRequirement.Error.code`, `BankAccount.Requirement.Error.code`, `Capability.FutureRequirement.Error.code`, `Capability.Requirement.Error.code`, `Person.FutureRequirement.Error.code`, and `Person.Requirement.Error.code`
+  * Add support for new value `tax_id_prohibited` on enums `Invoice.LastFinalizationError.code`, `PaymentIntent.LastPaymentError.code`, `SetupAttempt.SetupError.code`, `SetupIntent.LastSetupError.code`, and `StripeError.code`
+  * Add support for `tax_id` on `Charge.BillingDetail`, `ConfirmationToken.CreateParamsPaymentMethodDatumBillingDetail`, `ConfirmationToken.PaymentMethodPreview.BillingDetail`, `PaymentIntent.ConfirmParamsPaymentMethodDatumBillingDetail`, `PaymentIntent.CreateParamsPaymentMethodDatumBillingDetail`, `PaymentIntent.ModifyParamsPaymentMethodDatumBillingDetail`, `PaymentIntentService.ConfirmParamsPaymentMethodDatumBillingDetail`, `PaymentIntentService.CreateParamsPaymentMethodDatumBillingDetail`, `PaymentIntentService.UpdateParamsPaymentMethodDatumBillingDetail`, `PaymentMethod.BillingDetail`, `PaymentMethod.CreateParamsBillingDetail`, `PaymentMethod.ModifyParamsBillingDetail`, `PaymentMethodService.CreateParamsBillingDetail`, `PaymentMethodService.UpdateParamsBillingDetail`, `SetupIntent.ConfirmParamsPaymentMethodDatumBillingDetail`, `SetupIntent.CreateParamsPaymentMethodDatumBillingDetail`, `SetupIntent.ModifyParamsPaymentMethodDatumBillingDetail`, `SetupIntentService.ConfirmParamsPaymentMethodDatumBillingDetail`, `SetupIntentService.CreateParamsPaymentMethodDatumBillingDetail`, `SetupIntentService.UpdateParamsPaymentMethodDatumBillingDetail`, `test_helpers.ConfirmationTokenService.CreateParamsPaymentMethodDatumBillingDetail`, `treasury.OutboundPayment.CreateParamsDestinationPaymentMethodDatumBillingDetail`, and `treasury.OutboundPaymentService.CreateParamsDestinationPaymentMethodDatumBillingDetail`
+  * Add support for `wallet_options` on `Checkout.Session`, `checkout.Session.CreateParams`, and `checkout.SessionService.CreateParams`
+  * Add support for `provider` on `Checkout.Session.AutomaticTax`, `Invoice.AutomaticTax`, and `Quote.AutomaticTax`
+  * Add support for new values `aw_tin`, `az_tin`, `bd_bin`, `bf_ifu`, `bj_ifu`, `cm_niu`, `cv_nif`, `et_tin`, `kg_tin`, and `la_tin` on enums `Checkout.Session.CustomerDetail.TaxId.type`, `Invoice.CustomerTaxId.type`, `Tax.Calculation.CustomerDetail.TaxId.type`, `Tax.Transaction.CustomerDetail.TaxId.type`, and `TaxId.type`
+  * Add support for `payment_method_options` on `ConfirmationToken.CreateParams` and `test_helpers.ConfirmationTokenService.CreateParams`
+  * Add support for `installments` on `ConfirmationToken.PaymentMethodOption.Card`
+  * Add support for new values `aw_tin`, `az_tin`, `bd_bin`, `bf_ifu`, `bj_ifu`, `cm_niu`, `cv_nif`, `et_tin`, `kg_tin`, and `la_tin` on enums `Customer.CreateParams.type`, `Customer.CreateParamsTaxIdDatum.type`, `CustomerService.CreateParamsTaxIdDatum.type`, `CustomerTaxIdService.CreateParams.type`, `Invoice.CreatePreviewParamsCustomerDetailTaxId.type`, `InvoiceService.CreatePreviewParamsCustomerDetailTaxId.type`, `TaxId.CreateParams.type`, `TaxIdService.CreateParams.type`, `tax.Calculation.CreateParamsCustomerDetailTaxId.type`, and `tax.CalculationService.CreateParamsCustomerDetailTaxId.type`
+  * Add support for `context` on `Event`
+  * Add support for new value `affirm` on enums `Invoice.CreateParamsPaymentSetting.payment_method_types`, `Invoice.ModifyParamsPaymentSetting.payment_method_types`, `Invoice.PaymentSetting.payment_method_types`, `InvoiceService.CreateParamsPaymentSetting.payment_method_types`, `InvoiceService.UpdateParamsPaymentSetting.payment_method_types`, `Subscription.CreateParamsPaymentSetting.payment_method_types`, `Subscription.ModifyParamsPaymentSetting.payment_method_types`, `Subscription.PaymentSetting.payment_method_types`, `SubscriptionService.CreateParamsPaymentSetting.payment_method_types`, and `SubscriptionService.UpdateParamsPaymentSetting.payment_method_types`
+  * Change type of `InvoiceLineItem.Parent.SubscriptionItemDetail.subscription` from `string` to `nullable(string)`
+  * Add support for `billie` on `PaymentIntent.ConfirmParamsPaymentMethodOption`, `PaymentIntent.CreateParamsPaymentMethodOption`, `PaymentIntent.ModifyParamsPaymentMethodOption`, `PaymentIntent.PaymentMethodOption`, `PaymentIntentService.ConfirmParamsPaymentMethodOption`, `PaymentIntentService.CreateParamsPaymentMethodOption`, and `PaymentIntentService.UpdateParamsPaymentMethodOption`
+  * Add support for `pix` on `PaymentMethodConfiguration.CreateParams`, `PaymentMethodConfiguration.ModifyParams`, `PaymentMethodConfigurationService.CreateParams`, `PaymentMethodConfigurationService.UpdateParams`, and `PaymentMethodConfiguration`
+  * Add support for `klarna` on `PaymentMethodDomain`
+  * Add support for `pending_reason` on `Refund`
+  * Change type of `Tax.CalculationLineItem.reference` from `nullable(string)` to `string`
+  * Add support for `aw`, `az`, `bd`, `bf`, `bj`, `cm`, `cv`, `et`, `in`, `kg`, `la`, and `ph` on `Tax.Registration.CountryOption`, `tax.Registration.CreateParamsCountryOption`, and `tax.RegistrationService.CreateParamsCountryOption`
+  * Add support for new value `2025-04-30.basil` on enums `WebhookEndpoint.CreateParams.api_version` and `WebhookEndpointService.CreateParams.api_version`
+
 ## 12.1.0b3 - 2025-04-17
 * [#1495](https://github.com/stripe/stripe-python/pull/1495) Update generated code for beta
   * Add support for new resources `FxQuote` and `PaymentIntentAmountDetailsLineItem`
