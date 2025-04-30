@@ -597,9 +597,7 @@ class Quote(
         """
         Whether the subscription will always start a new billing period when the quote is accepted.
         """
-        billing_mode: Optional[
-            Literal["credits_attributed_to_debits", "legacy_prorations"]
-        ]
+        billing_mode: Optional[Literal["classic", "flexible"]]
         """
         The [billing mode](https://stripe.com/api/subscriptions/create#create_subscription-billing_mode) that will be set on the subscription once the quote is accepted.
         """
@@ -1711,9 +1709,7 @@ class Quote(
         """
         When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
         """
-        billing_mode: NotRequired[
-            Literal["credits_attributed_to_debits", "legacy_prorations"]
-        ]
+        billing_mode: NotRequired[Literal["classic", "flexible"]]
         """
         Configure billing_mode to opt in improved credit proration behavior.Once a quote that creates a subscription or subscription schedule is accepted,all future operations on the subscription or subscription schedule will be processed based on this billing_mode.
         """

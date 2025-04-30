@@ -4620,9 +4620,7 @@ class Session(
         """
         A future timestamp to anchor the subscription's billing cycle for new subscriptions.
         """
-        billing_mode: NotRequired[
-            Literal["credits_attributed_to_debits", "legacy_prorations"]
-        ]
+        billing_mode: NotRequired[Literal["classic", "flexible"]]
         """
         Configure billing_mode in each subscription to opt in improved credit proration behavior.
         """

@@ -590,9 +590,7 @@ class Subscription(
         """
         Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
         """
-        billing_mode: NotRequired[
-            Literal["credits_attributed_to_debits", "legacy_prorations"]
-        ]
+        billing_mode: NotRequired[Literal["classic", "flexible"]]
         """
         Configure billing_mode in each subscription to opt in improved credit proration behavior.
         """
@@ -2372,9 +2370,7 @@ class Subscription(
     """
     The fixed values used to calculate the `billing_cycle_anchor`.
     """
-    billing_mode: Optional[
-        Literal["credits_attributed_to_debits", "legacy_prorations"]
-    ]
+    billing_mode: Optional[Literal["classic", "flexible"]]
     """
     Configure billing_mode in each subscription to opt in improved credit proration behavior.
     """

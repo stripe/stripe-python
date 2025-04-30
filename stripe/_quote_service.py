@@ -877,9 +877,7 @@ class QuoteService(StripeService):
         """
         When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
         """
-        billing_mode: NotRequired[
-            Literal["credits_attributed_to_debits", "legacy_prorations"]
-        ]
+        billing_mode: NotRequired[Literal["classic", "flexible"]]
         """
         Configure billing_mode to opt in improved credit proration behavior.Once a quote that creates a subscription or subscription schedule is accepted,all future operations on the subscription or subscription schedule will be processed based on this billing_mode.
         """

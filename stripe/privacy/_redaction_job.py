@@ -5,6 +5,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
@@ -17,9 +18,6 @@ from typing_extensions import (
 )
 
 if TYPE_CHECKING:
-    from stripe.privacy._redaction_job_root_objects import (
-        RedactionJobRootObjects,
-    )
     from stripe.privacy._redaction_job_validation_error import (
         RedactionJobValidationError,
     )
@@ -39,6 +37,17 @@ class RedactionJob(
     OBJECT_NAME: ClassVar[Literal["privacy.redaction_job"]] = (
         "privacy.redaction_job"
     )
+
+    class Objects(StripeObject):
+        charges: Optional[List[str]]
+        checkout_sessions: Optional[List[str]]
+        customers: Optional[List[str]]
+        identity_verification_sessions: Optional[List[str]]
+        invoices: Optional[List[str]]
+        issuing_cardholders: Optional[List[str]]
+        payment_intents: Optional[List[str]]
+        radar_value_list_items: Optional[List[str]]
+        setup_intents: Optional[List[str]]
 
     class CancelParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -136,12 +145,6 @@ class RedactionJob(
         Specifies which fields in the response should be expanded.
         """
 
-    class RetrieveValidationErrorParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     class RunParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -166,7 +169,7 @@ class RedactionJob(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    objects: Optional["RedactionJobRootObjects"]
+    objects: Optional[Objects]
     """
     The objects at the root level that are subject to redaction.
     """
@@ -677,44 +680,4 @@ class RedactionJob(
             ),
         )
 
-    @classmethod
-    def retrieve_validation_error(
-        cls,
-        job: str,
-        error: str,
-        **params: Unpack["RedactionJob.RetrieveValidationErrorParams"],
-    ) -> "RedactionJobValidationError":
-        """
-        Retrieve validation error method
-        """
-        return cast(
-            "RedactionJobValidationError",
-            cls._static_request(
-                "get",
-                "/v1/privacy/redaction_jobs/{job}/validation_errors/{error}".format(
-                    job=sanitize_id(job), error=sanitize_id(error)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def retrieve_validation_error_async(
-        cls,
-        job: str,
-        error: str,
-        **params: Unpack["RedactionJob.RetrieveValidationErrorParams"],
-    ) -> "RedactionJobValidationError":
-        """
-        Retrieve validation error method
-        """
-        return cast(
-            "RedactionJobValidationError",
-            await cls._static_request_async(
-                "get",
-                "/v1/privacy/redaction_jobs/{job}/validation_errors/{error}".format(
-                    job=sanitize_id(job), error=sanitize_id(error)
-                ),
-                params=params,
-            ),
-        )
+    _inner_class_types = {"objects": Objects}

@@ -30,12 +30,6 @@ class RedactionJobValidationErrorService(StripeService):
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
         """
 
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
         job: str,
@@ -73,54 +67,6 @@ class RedactionJobValidationErrorService(StripeService):
                 "get",
                 "/v1/privacy/redaction_jobs/{job}/validation_errors".format(
                     job=sanitize_id(job),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def retrieve(
-        self,
-        job: str,
-        error: str,
-        params: "RedactionJobValidationErrorService.RetrieveParams" = {},
-        options: RequestOptions = {},
-    ) -> RedactionJobValidationError:
-        """
-        Retrieve validation error method
-        """
-        return cast(
-            RedactionJobValidationError,
-            self._request(
-                "get",
-                "/v1/privacy/redaction_jobs/{job}/validation_errors/{error}".format(
-                    job=sanitize_id(job),
-                    error=sanitize_id(error),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def retrieve_async(
-        self,
-        job: str,
-        error: str,
-        params: "RedactionJobValidationErrorService.RetrieveParams" = {},
-        options: RequestOptions = {},
-    ) -> RedactionJobValidationError:
-        """
-        Retrieve validation error method
-        """
-        return cast(
-            RedactionJobValidationError,
-            await self._request_async(
-                "get",
-                "/v1/privacy/redaction_jobs/{job}/validation_errors/{error}".format(
-                    job=sanitize_id(job),
-                    error=sanitize_id(error),
                 ),
                 base_address="api",
                 params=params,

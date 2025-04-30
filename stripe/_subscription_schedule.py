@@ -1158,9 +1158,7 @@ class SubscriptionSchedule(
         """
         Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
         """
-        billing_mode: NotRequired[
-            Literal["credits_attributed_to_debits", "legacy_prorations"]
-        ]
+        billing_mode: NotRequired[Literal["classic", "flexible"]]
         """
         Configure billing_mode to opt in improved credit proration behavior.When the schedule creates a subscription, the subscription's `billing_mode` will be set to the same value as the schedule's `billing_mode`.
         """
@@ -2573,9 +2571,7 @@ class SubscriptionSchedule(
     """
     Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
     """
-    billing_mode: Optional[
-        Literal["credits_attributed_to_debits", "legacy_prorations"]
-    ]
+    billing_mode: Optional[Literal["classic", "flexible"]]
     """
     The [billing mode](https://stripe.com/api/subscriptions/create#create_subscription-billing_mode) that will be used to process all future operations for the subscription schedule.
     """

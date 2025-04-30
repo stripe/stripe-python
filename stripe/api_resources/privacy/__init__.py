@@ -17,9 +17,6 @@ warn(
 )
 if not TYPE_CHECKING:
     from stripe.api_resources.privacy.redaction_job import RedactionJob
-    from stripe.api_resources.privacy.redaction_job_root_objects import (
-        RedactionJobRootObjects,
-    )
     from stripe.api_resources.privacy.redaction_job_validation_error import (
         RedactionJobValidationError,
     )
