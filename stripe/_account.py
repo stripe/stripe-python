@@ -120,6 +120,20 @@ class Account(
         """
         [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         """
+        minority_owned_business_designation: Optional[
+            List[
+                Literal[
+                    "lgbtqi_owned_business",
+                    "minority_owned_business",
+                    "none_of_these_apply",
+                    "prefer_not_to_answer",
+                    "women_owned_business",
+                ]
+            ]
+        ]
+        """
+        Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        """
         monthly_estimated_revenue: Optional[MonthlyEstimatedRevenue]
         name: Optional[str]
         """
@@ -534,6 +548,20 @@ class Account(
             The user-agent string from the browser where the beneficial owner attestation was made.
             """
 
+        class RegistrationDate(StripeObject):
+            day: Optional[int]
+            """
+            The day of registration, between 1 and 31.
+            """
+            month: Optional[int]
+            """
+            The month of registration, between 1 and 12.
+            """
+            year: Optional[int]
+            """
+            The four-digit year of registration.
+            """
+
         class Verification(StripeObject):
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
@@ -618,6 +646,7 @@ class Account(
         """
         The company's phone number (used for verification).
         """
+        registration_date: Optional[RegistrationDate]
         structure: Optional[
             Literal[
                 "free_zone_establishment",
@@ -670,6 +699,7 @@ class Account(
             "address_kanji": AddressKanji,
             "directorship_declaration": DirectorshipDeclaration,
             "ownership_declaration": OwnershipDeclaration,
+            "registration_date": RegistrationDate,
             "verification": Verification,
         }
 
@@ -818,6 +848,7 @@ class Account(
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
+                "verification_legal_entity_structure_mismatch",
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
@@ -996,6 +1027,7 @@ class Account(
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
+                "verification_legal_entity_structure_mismatch",
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
@@ -1327,7 +1359,7 @@ class Account(
         """
         routing_number: NotRequired[str]
         """
-        The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
+        The routing number, sort code, or other country-appropriate institution number for the bank account. For US bank accounts, this is required and should be the ACH routing number, not the wire routing number. If you are providing an IBAN for `account_number`, this field is not required.
         """
 
     class CreateExternalAccountParamsCard(TypedDict):
@@ -1471,7 +1503,7 @@ class Account(
         """
         routing_number: NotRequired[str]
         """
-        The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
+        The routing number, sort code, or other country-appropriate institution number for the bank account. For US bank accounts, this is required and should be the ACH routing number, not the wire routing number. If you are providing an IBAN for `account_number`, this field is not required.
         """
 
     class CreateParamsBusinessProfile(TypedDict):
@@ -1488,6 +1520,20 @@ class Account(
         mcc: NotRequired[str]
         """
         [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        """
+        minority_owned_business_designation: NotRequired[
+            List[
+                Literal[
+                    "lgbtqi_owned_business",
+                    "minority_owned_business",
+                    "none_of_these_apply",
+                    "prefer_not_to_answer",
+                    "women_owned_business",
+                ]
+            ]
+        ]
+        """
+        Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
         """
         monthly_estimated_revenue: NotRequired[
             "Account.CreateParamsBusinessProfileMonthlyEstimatedRevenue"
@@ -2350,6 +2396,9 @@ class Account(
         """
         The company's phone number (used for verification).
         """
+        registration_date: NotRequired[
+            "Literal['']|Account.CreateParamsCompanyRegistrationDate"
+        ]
         registration_number: NotRequired[str]
         """
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -2489,6 +2538,20 @@ class Account(
         user_agent: NotRequired[str]
         """
         The user agent of the browser from which the beneficial owner attestation was made.
+        """
+
+    class CreateParamsCompanyRegistrationDate(TypedDict):
+        day: int
+        """
+        The day of registration, between 1 and 31.
+        """
+        month: int
+        """
+        The month of registration, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of registration.
         """
 
     class CreateParamsCompanyVerification(TypedDict):
@@ -3260,6 +3323,10 @@ class Account(
         """
         The last four digits of the person's Social Security number (U.S. only).
         """
+        us_cfpb_data: NotRequired["Account.CreatePersonParamsUsCfpbData"]
+        """
+        Demographic data related to the person.
+        """
         verification: NotRequired["Account.CreatePersonParamsVerification"]
         """
         The person's verification status.
@@ -3479,6 +3546,85 @@ class Account(
         title: NotRequired[str]
         """
         The person's title (e.g., CEO, Support Engineer).
+        """
+
+    class CreatePersonParamsUsCfpbData(TypedDict):
+        ethnicity_details: NotRequired[
+            "Account.CreatePersonParamsUsCfpbDataEthnicityDetails"
+        ]
+        """
+        The persons ethnicity details
+        """
+        race_details: NotRequired[
+            "Account.CreatePersonParamsUsCfpbDataRaceDetails"
+        ]
+        """
+        The persons race details
+        """
+        self_identified_gender: NotRequired[str]
+        """
+        The persons self-identified gender
+        """
+
+    class CreatePersonParamsUsCfpbDataEthnicityDetails(TypedDict):
+        ethnicity: NotRequired[
+            List[
+                Literal[
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                ]
+            ]
+        ]
+        """
+        The persons ethnicity
+        """
+        ethnicity_other: NotRequired[str]
+        """
+        Please specify your origin, when other is selected.
+        """
+
+    class CreatePersonParamsUsCfpbDataRaceDetails(TypedDict):
+        race: NotRequired[
+            List[
+                Literal[
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                ]
+            ]
+        ]
+        """
+        The persons race.
+        """
+        race_other: NotRequired[str]
+        """
+        Please specify your race, when other is selected.
         """
 
     class CreatePersonParamsVerification(TypedDict):
@@ -3849,6 +3995,10 @@ class Account(
         """
         The last four digits of the person's Social Security number (U.S. only).
         """
+        us_cfpb_data: NotRequired["Account.ModifyPersonParamsUsCfpbData"]
+        """
+        Demographic data related to the person.
+        """
         verification: NotRequired["Account.ModifyPersonParamsVerification"]
         """
         The person's verification status.
@@ -4068,6 +4218,85 @@ class Account(
         title: NotRequired[str]
         """
         The person's title (e.g., CEO, Support Engineer).
+        """
+
+    class ModifyPersonParamsUsCfpbData(TypedDict):
+        ethnicity_details: NotRequired[
+            "Account.ModifyPersonParamsUsCfpbDataEthnicityDetails"
+        ]
+        """
+        The persons ethnicity details
+        """
+        race_details: NotRequired[
+            "Account.ModifyPersonParamsUsCfpbDataRaceDetails"
+        ]
+        """
+        The persons race details
+        """
+        self_identified_gender: NotRequired[str]
+        """
+        The persons self-identified gender
+        """
+
+    class ModifyPersonParamsUsCfpbDataEthnicityDetails(TypedDict):
+        ethnicity: NotRequired[
+            List[
+                Literal[
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                ]
+            ]
+        ]
+        """
+        The persons ethnicity
+        """
+        ethnicity_other: NotRequired[str]
+        """
+        Please specify your origin, when other is selected.
+        """
+
+    class ModifyPersonParamsUsCfpbDataRaceDetails(TypedDict):
+        race: NotRequired[
+            List[
+                Literal[
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                ]
+            ]
+        ]
+        """
+        The persons race.
+        """
+        race_other: NotRequired[str]
+        """
+        Please specify your race, when other is selected.
         """
 
     class ModifyPersonParamsVerification(TypedDict):
@@ -4772,6 +5001,42 @@ class Account(
         return params
 
     @classmethod
+    def list_capabilities(
+        cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
+    ) -> ListObject["Capability"]:
+        """
+        Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
+        """
+        return cast(
+            ListObject["Capability"],
+            cls._static_request(
+                "get",
+                "/v1/accounts/{account}/capabilities".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_capabilities_async(
+        cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
+    ) -> ListObject["Capability"]:
+        """
+        Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
+        """
+        return cast(
+            ListObject["Capability"],
+            await cls._static_request_async(
+                "get",
+                "/v1/accounts/{account}/capabilities".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve_capability(
         cls,
         account: str,
@@ -4860,76 +5125,42 @@ class Account(
         )
 
     @classmethod
-    def list_capabilities(
-        cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
-    ) -> ListObject["Capability"]:
-        """
-        Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
-        """
-        return cast(
-            ListObject["Capability"],
-            cls._static_request(
-                "get",
-                "/v1/accounts/{account}/capabilities".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_capabilities_async(
-        cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
-    ) -> ListObject["Capability"]:
-        """
-        Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
-        """
-        return cast(
-            ListObject["Capability"],
-            await cls._static_request_async(
-                "get",
-                "/v1/accounts/{account}/capabilities".format(
-                    account=sanitize_id(account)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def create_external_account(
+    def delete_external_account(
         cls,
         account: str,
-        **params: Unpack["Account.CreateExternalAccountParams"],
+        id: str,
+        **params: Unpack["Account.DeleteExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
-        Create an external account for a given account.
+        Delete a specified external account for a given account.
         """
         return cast(
             Union["BankAccount", "Card"],
             cls._static_request(
-                "post",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account)
+                "delete",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=sanitize_id(account), id=sanitize_id(id)
                 ),
                 params=params,
             ),
         )
 
     @classmethod
-    async def create_external_account_async(
+    async def delete_external_account_async(
         cls,
         account: str,
-        **params: Unpack["Account.CreateExternalAccountParams"],
+        id: str,
+        **params: Unpack["Account.DeleteExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
-        Create an external account for a given account.
+        Delete a specified external account for a given account.
         """
         return cast(
             Union["BankAccount", "Card"],
             await cls._static_request_async(
-                "post",
-                "/v1/accounts/{account}/external_accounts".format(
-                    account=sanitize_id(account)
+                "delete",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=sanitize_id(account), id=sanitize_id(id)
                 ),
                 params=params,
             ),
@@ -5034,48 +5265,6 @@ class Account(
         )
 
     @classmethod
-    def delete_external_account(
-        cls,
-        account: str,
-        id: str,
-        **params: Unpack["Account.DeleteExternalAccountParams"],
-    ) -> Union["BankAccount", "Card"]:
-        """
-        Delete a specified external account for a given account.
-        """
-        return cast(
-            Union["BankAccount", "Card"],
-            cls._static_request(
-                "delete",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def delete_external_account_async(
-        cls,
-        account: str,
-        id: str,
-        **params: Unpack["Account.DeleteExternalAccountParams"],
-    ) -> Union["BankAccount", "Card"]:
-        """
-        Delete a specified external account for a given account.
-        """
-        return cast(
-            Union["BankAccount", "Card"],
-            await cls._static_request_async(
-                "delete",
-                "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=sanitize_id(account), id=sanitize_id(id)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list_external_accounts(
         cls,
         account: str,
@@ -5108,6 +5297,46 @@ class Account(
             ListObject[Union["BankAccount", "Card"]],
             await cls._static_request_async(
                 "get",
+                "/v1/accounts/{account}/external_accounts".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def create_external_account(
+        cls,
+        account: str,
+        **params: Unpack["Account.CreateExternalAccountParams"],
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Create an external account for a given account.
+        """
+        return cast(
+            Union["BankAccount", "Card"],
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/external_accounts".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_external_account_async(
+        cls,
+        account: str,
+        **params: Unpack["Account.CreateExternalAccountParams"],
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Create an external account for a given account.
+        """
+        return cast(
+            Union["BankAccount", "Card"],
+            await cls._static_request_async(
+                "post",
                 "/v1/accounts/{account}/external_accounts".format(
                     account=sanitize_id(account)
                 ),
@@ -5156,36 +5385,42 @@ class Account(
         )
 
     @classmethod
-    def create_person(
-        cls, account: str, **params: Unpack["Account.CreatePersonParams"]
+    def delete_person(
+        cls,
+        account: str,
+        person: str,
+        **params: Unpack["Account.DeletePersonParams"],
     ) -> "Person":
         """
-        Creates a new person.
+        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
         return cast(
             "Person",
             cls._static_request(
-                "post",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
+                "delete",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=sanitize_id(account), person=sanitize_id(person)
                 ),
                 params=params,
             ),
         )
 
     @classmethod
-    async def create_person_async(
-        cls, account: str, **params: Unpack["Account.CreatePersonParams"]
+    async def delete_person_async(
+        cls,
+        account: str,
+        person: str,
+        **params: Unpack["Account.DeletePersonParams"],
     ) -> "Person":
         """
-        Creates a new person.
+        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
         return cast(
             "Person",
             await cls._static_request_async(
-                "post",
-                "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(account)
+                "delete",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=sanitize_id(account), person=sanitize_id(person)
                 ),
                 params=params,
             ),
@@ -5276,48 +5511,6 @@ class Account(
         )
 
     @classmethod
-    def delete_person(
-        cls,
-        account: str,
-        person: str,
-        **params: Unpack["Account.DeletePersonParams"],
-    ) -> "Person":
-        """
-        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
-        """
-        return cast(
-            "Person",
-            cls._static_request(
-                "delete",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def delete_person_async(
-        cls,
-        account: str,
-        person: str,
-        **params: Unpack["Account.DeletePersonParams"],
-    ) -> "Person":
-        """
-        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
-        """
-        return cast(
-            "Person",
-            await cls._static_request_async(
-                "delete",
-                "/v1/accounts/{account}/persons/{person}".format(
-                    account=sanitize_id(account), person=sanitize_id(person)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def list_persons(
         cls, account: str, **params: Unpack["Account.ListPersonsParams"]
     ) -> ListObject["Person"]:
@@ -5346,6 +5539,42 @@ class Account(
             ListObject["Person"],
             await cls._static_request_async(
                 "get",
+                "/v1/accounts/{account}/persons".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def create_person(
+        cls, account: str, **params: Unpack["Account.CreatePersonParams"]
+    ) -> "Person":
+        """
+        Creates a new person.
+        """
+        return cast(
+            "Person",
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/persons".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_person_async(
+        cls, account: str, **params: Unpack["Account.CreatePersonParams"]
+    ) -> "Person":
+        """
+        Creates a new person.
+        """
+        return cast(
+            "Person",
+            await cls._static_request_async(
+                "post",
                 "/v1/accounts/{account}/persons".format(
                     account=sanitize_id(account)
                 ),

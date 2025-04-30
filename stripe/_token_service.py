@@ -138,6 +138,9 @@ class TokenService(StripeService):
         """
         The company's phone number (used for verification).
         """
+        registration_date: NotRequired[
+            "Literal['']|TokenService.CreateParamsAccountCompanyRegistrationDate"
+        ]
         registration_number: NotRequired[str]
         """
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -279,6 +282,20 @@ class TokenService(StripeService):
         user_agent: NotRequired[str]
         """
         The user agent of the browser from which the beneficial owner attestation was made.
+        """
+
+    class CreateParamsAccountCompanyRegistrationDate(TypedDict):
+        day: int
+        """
+        The day of registration, between 1 and 31.
+        """
+        month: int
+        """
+        The month of registration, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of registration.
         """
 
     class CreateParamsAccountCompanyVerification(TypedDict):
@@ -804,6 +821,10 @@ class TokenService(StripeService):
         """
         The last four digits of the person's Social Security number (U.S. only).
         """
+        us_cfpb_data: NotRequired["TokenService.CreateParamsPersonUsCfpbData"]
+        """
+        Demographic data related to the person.
+        """
         verification: NotRequired[
             "TokenService.CreateParamsPersonVerification"
         ]
@@ -1027,6 +1048,85 @@ class TokenService(StripeService):
         title: NotRequired[str]
         """
         The person's title (e.g., CEO, Support Engineer).
+        """
+
+    class CreateParamsPersonUsCfpbData(TypedDict):
+        ethnicity_details: NotRequired[
+            "TokenService.CreateParamsPersonUsCfpbDataEthnicityDetails"
+        ]
+        """
+        The persons ethnicity details
+        """
+        race_details: NotRequired[
+            "TokenService.CreateParamsPersonUsCfpbDataRaceDetails"
+        ]
+        """
+        The persons race details
+        """
+        self_identified_gender: NotRequired[str]
+        """
+        The persons self-identified gender
+        """
+
+    class CreateParamsPersonUsCfpbDataEthnicityDetails(TypedDict):
+        ethnicity: NotRequired[
+            List[
+                Literal[
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                ]
+            ]
+        ]
+        """
+        The persons ethnicity
+        """
+        ethnicity_other: NotRequired[str]
+        """
+        Please specify your origin, when other is selected.
+        """
+
+    class CreateParamsPersonUsCfpbDataRaceDetails(TypedDict):
+        race: NotRequired[
+            List[
+                Literal[
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                ]
+            ]
+        ]
+        """
+        The persons race.
+        """
+        race_other: NotRequired[str]
+        """
+        Please specify your race, when other is selected.
         """
 
     class CreateParamsPersonVerification(TypedDict):

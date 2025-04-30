@@ -244,6 +244,7 @@ class Person(UpdateableAPIResource["Person"]):
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
+                "verification_legal_entity_structure_mismatch",
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
@@ -450,6 +451,7 @@ class Person(UpdateableAPIResource["Person"]):
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
+                "verification_legal_entity_structure_mismatch",
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
@@ -495,6 +497,85 @@ class Person(UpdateableAPIResource["Person"]):
         Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
+
+    class UsCfpbData(StripeObject):
+        class EthnicityDetails(StripeObject):
+            ethnicity: Optional[
+                List[
+                    Literal[
+                        "cuban",
+                        "hispanic_or_latino",
+                        "mexican",
+                        "not_hispanic_or_latino",
+                        "other_hispanic_or_latino",
+                        "prefer_not_to_answer",
+                        "puerto_rican",
+                    ]
+                ]
+            ]
+            """
+            The persons ethnicity
+            """
+            ethnicity_other: Optional[str]
+            """
+            Please specify your origin, when other is selected.
+            """
+
+        class RaceDetails(StripeObject):
+            race: Optional[
+                List[
+                    Literal[
+                        "african_american",
+                        "american_indian_or_alaska_native",
+                        "asian",
+                        "asian_indian",
+                        "black_or_african_american",
+                        "chinese",
+                        "ethiopian",
+                        "filipino",
+                        "guamanian_or_chamorro",
+                        "haitian",
+                        "jamaican",
+                        "japanese",
+                        "korean",
+                        "native_hawaiian",
+                        "native_hawaiian_or_other_pacific_islander",
+                        "nigerian",
+                        "other_asian",
+                        "other_black_or_african_american",
+                        "other_pacific_islander",
+                        "prefer_not_to_answer",
+                        "samoan",
+                        "somali",
+                        "vietnamese",
+                        "white",
+                    ]
+                ]
+            ]
+            """
+            The persons race.
+            """
+            race_other: Optional[str]
+            """
+            Please specify your race, when other is selected.
+            """
+
+        ethnicity_details: Optional[EthnicityDetails]
+        """
+        The persons ethnicity details
+        """
+        race_details: Optional[RaceDetails]
+        """
+        The persons race details
+        """
+        self_identified_gender: Optional[str]
+        """
+        The persons self-identified gender
+        """
+        _inner_class_types = {
+            "ethnicity_details": EthnicityDetails,
+            "race_details": RaceDetails,
+        }
 
     class Verification(StripeObject):
         class AdditionalDocument(StripeObject):
@@ -548,7 +629,7 @@ class Person(UpdateableAPIResource["Person"]):
         document: Optional[Document]
         status: str
         """
-        The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`.
+        The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`. Please refer [guide](https://stripe.com/docs/connect/handling-api-verification) to handle verification updates.
         """
         _inner_class_types = {
             "additional_document": AdditionalDocument,
@@ -660,6 +741,10 @@ class Person(UpdateableAPIResource["Person"]):
     """
     Whether the last four digits of the person's Social Security number have been provided (U.S. only).
     """
+    us_cfpb_data: Optional[UsCfpbData]
+    """
+    Demographic data related to the person.
+    """
     verification: Optional[Verification]
     deleted: Optional[Literal[True]]
     """
@@ -701,5 +786,6 @@ class Person(UpdateableAPIResource["Person"]):
         "registered_address": RegisteredAddress,
         "relationship": Relationship,
         "requirements": Requirements,
+        "us_cfpb_data": UsCfpbData,
         "verification": Verification,
     }

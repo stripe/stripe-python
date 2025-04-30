@@ -77,10 +77,6 @@ class EventDestination(StripeObject):
     """
     Unique identifier for the object.
     """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-    """
     metadata: Optional[Dict[str, str]]
     """
     Metadata.
@@ -112,6 +108,10 @@ class EventDestination(StripeObject):
     updated: str
     """
     Time at which the object was last updated.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     amazon_eventbridge: Optional[AmazonEventbridge]
     """

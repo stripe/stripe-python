@@ -304,9 +304,9 @@ class SessionService(StripeService):
         """
         permissions: NotRequired["SessionService.CreateParamsPermissions"]
         """
-        This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object.
+        This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object. Can only be set when creating `embedded` or `custom` sessions.
 
-        For specific permissions, please refer to their dedicated subsections, such as `permissions.update.shipping_details`.
+        For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
         """
         phone_number_collection: NotRequired[
             "SessionService.CreateParamsPhoneNumberCollection"
@@ -385,6 +385,10 @@ class SessionService(StripeService):
         ui_mode: NotRequired[Literal["custom", "embedded", "hosted"]]
         """
         The UI mode of the Session. Defaults to `hosted`.
+        """
+        wallet_options: NotRequired["SessionService.CreateParamsWalletOptions"]
+        """
+        Wallet-specific configuration.
         """
 
     class CreateParamsAdaptivePricing(TypedDict):
@@ -2515,6 +2519,18 @@ class SessionService(StripeService):
         Describes whether a tax ID is required during checkout. Defaults to `never`.
         """
 
+    class CreateParamsWalletOptions(TypedDict):
+        link: NotRequired["SessionService.CreateParamsWalletOptionsLink"]
+        """
+        contains details about the Link wallet options.
+        """
+
+    class CreateParamsWalletOptionsLink(TypedDict):
+        display: NotRequired[Literal["auto", "never"]]
+        """
+        Specifies whether Checkout should display Link as a payment option. By default, Checkout will display all the supported wallets that the Checkout Session was created with. This is the `auto` behavior, and it is the default choice.
+        """
+
     class ExpireParams(TypedDict):
         expand: NotRequired[List[str]]
         """
@@ -2604,7 +2620,7 @@ class SessionService(StripeService):
             "SessionService.UpdateParamsCollectedInformation"
         ]
         """
-        Information about the customer collected within the Checkout Session.
+        Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         """
         expand: NotRequired[List[str]]
         """

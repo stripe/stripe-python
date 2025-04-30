@@ -914,6 +914,48 @@ class Product(
         )
 
     @classmethod
+    def retrieve_feature(
+        cls,
+        product: str,
+        id: str,
+        **params: Unpack["Product.RetrieveFeatureParams"],
+    ) -> "ProductFeature":
+        """
+        Retrieves a product_feature, which represents a feature attachment to a product
+        """
+        return cast(
+            "ProductFeature",
+            cls._static_request(
+                "get",
+                "/v1/products/{product}/features/{id}".format(
+                    product=sanitize_id(product), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def retrieve_feature_async(
+        cls,
+        product: str,
+        id: str,
+        **params: Unpack["Product.RetrieveFeatureParams"],
+    ) -> "ProductFeature":
+        """
+        Retrieves a product_feature, which represents a feature attachment to a product
+        """
+        return cast(
+            "ProductFeature",
+            await cls._static_request_async(
+                "get",
+                "/v1/products/{product}/features/{id}".format(
+                    product=sanitize_id(product), id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def list_features(
         cls, product: str, **params: Unpack["Product.ListFeaturesParams"]
     ) -> ListObject["ProductFeature"]:
@@ -980,48 +1022,6 @@ class Product(
                 "post",
                 "/v1/products/{product}/features".format(
                     product=sanitize_id(product)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def retrieve_feature(
-        cls,
-        product: str,
-        id: str,
-        **params: Unpack["Product.RetrieveFeatureParams"],
-    ) -> "ProductFeature":
-        """
-        Retrieves a product_feature, which represents a feature attachment to a product
-        """
-        return cast(
-            "ProductFeature",
-            cls._static_request(
-                "get",
-                "/v1/products/{product}/features/{id}".format(
-                    product=sanitize_id(product), id=sanitize_id(id)
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def retrieve_feature_async(
-        cls,
-        product: str,
-        id: str,
-        **params: Unpack["Product.RetrieveFeatureParams"],
-    ) -> "ProductFeature":
-        """
-        Retrieves a product_feature, which represents a feature attachment to a product
-        """
-        return cast(
-            "ProductFeature",
-            await cls._static_request_async(
-                "get",
-                "/v1/products/{product}/features/{id}".format(
-                    product=sanitize_id(product), id=sanitize_id(id)
                 ),
                 params=params,
             ),

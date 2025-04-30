@@ -130,6 +130,7 @@ class Event(ListableAPIResource["Event"]):
     """
     The Stripe API version used to render `data`. This property is populated only for events on or after October 31, 2014.
     """
+    context: Optional[str]
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.

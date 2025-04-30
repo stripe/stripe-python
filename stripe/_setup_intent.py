@@ -242,6 +242,7 @@ class SetupIntent(
                 "status_transition_invalid",
                 "stripe_tax_inactive",
                 "tax_id_invalid",
+                "tax_id_prohibited",
                 "taxes_calculation_failed",
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",
@@ -816,7 +817,7 @@ class SetupIntent(
         """
         billie: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataBillie"]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataBillingDetails"
@@ -974,7 +975,7 @@ class SetupIntent(
             "SetupIntent.ConfirmParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataSamsungPay"
@@ -986,7 +987,7 @@ class SetupIntent(
             "SetupIntent.ConfirmParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataSepaDebit"
@@ -1147,6 +1148,10 @@ class SetupIntent(
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class ConfirmParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
@@ -2078,7 +2083,7 @@ class SetupIntent(
         """
         billie: NotRequired["SetupIntent.CreateParamsPaymentMethodDataBillie"]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataBillingDetails"
@@ -2234,7 +2239,7 @@ class SetupIntent(
             "SetupIntent.CreateParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataSamsungPay"
@@ -2246,7 +2251,7 @@ class SetupIntent(
             "SetupIntent.CreateParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataSepaDebit"
@@ -2407,6 +2412,10 @@ class SetupIntent(
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
@@ -3303,7 +3312,7 @@ class SetupIntent(
         """
         billie: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataBillie"]
         """
-        If this is a `billie` PaymentMethod, this hash contains details about the billie payment method.
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
         """
         billing_details: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataBillingDetails"
@@ -3459,7 +3468,7 @@ class SetupIntent(
             "SetupIntent.ModifyParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataSamsungPay"
@@ -3471,7 +3480,7 @@ class SetupIntent(
             "SetupIntent.ModifyParamsPaymentMethodDataSatispay"
         ]
         """
-        If this is a `satispay` PaymentMethod, this hash contains details about the satispay payment method.
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataSepaDebit"
@@ -3632,6 +3641,10 @@ class SetupIntent(
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class ModifyParamsPaymentMethodDataBillingDetailsAddress(TypedDict):

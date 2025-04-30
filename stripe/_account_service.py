@@ -136,7 +136,7 @@ class AccountService(StripeService):
         """
         routing_number: NotRequired[str]
         """
-        The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
+        The routing number, sort code, or other country-appropriate institution number for the bank account. For US bank accounts, this is required and should be the ACH routing number, not the wire routing number. If you are providing an IBAN for `account_number`, this field is not required.
         """
 
     class CreateParamsBusinessProfile(TypedDict):
@@ -153,6 +153,20 @@ class AccountService(StripeService):
         mcc: NotRequired[str]
         """
         [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        """
+        minority_owned_business_designation: NotRequired[
+            List[
+                Literal[
+                    "lgbtqi_owned_business",
+                    "minority_owned_business",
+                    "none_of_these_apply",
+                    "prefer_not_to_answer",
+                    "women_owned_business",
+                ]
+            ]
+        ]
+        """
+        Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
         """
         monthly_estimated_revenue: NotRequired[
             "AccountService.CreateParamsBusinessProfileMonthlyEstimatedRevenue"
@@ -1023,6 +1037,9 @@ class AccountService(StripeService):
         """
         The company's phone number (used for verification).
         """
+        registration_date: NotRequired[
+            "Literal['']|AccountService.CreateParamsCompanyRegistrationDate"
+        ]
         registration_number: NotRequired[str]
         """
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -1164,6 +1181,20 @@ class AccountService(StripeService):
         user_agent: NotRequired[str]
         """
         The user agent of the browser from which the beneficial owner attestation was made.
+        """
+
+    class CreateParamsCompanyRegistrationDate(TypedDict):
+        day: int
+        """
+        The day of registration, between 1 and 31.
+        """
+        month: int
+        """
+        The month of registration, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of registration.
         """
 
     class CreateParamsCompanyVerification(TypedDict):
@@ -2002,7 +2033,7 @@ class AccountService(StripeService):
         """
         routing_number: NotRequired[str]
         """
-        The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
+        The routing number, sort code, or other country-appropriate institution number for the bank account. For US bank accounts, this is required and should be the ACH routing number, not the wire routing number. If you are providing an IBAN for `account_number`, this field is not required.
         """
 
     class UpdateParamsBusinessProfile(TypedDict):
@@ -2019,6 +2050,20 @@ class AccountService(StripeService):
         mcc: NotRequired[str]
         """
         [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        """
+        minority_owned_business_designation: NotRequired[
+            List[
+                Literal[
+                    "lgbtqi_owned_business",
+                    "minority_owned_business",
+                    "none_of_these_apply",
+                    "prefer_not_to_answer",
+                    "women_owned_business",
+                ]
+            ]
+        ]
+        """
+        Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
         """
         monthly_estimated_revenue: NotRequired[
             "AccountService.UpdateParamsBusinessProfileMonthlyEstimatedRevenue"
@@ -2889,6 +2934,9 @@ class AccountService(StripeService):
         """
         The company's phone number (used for verification).
         """
+        registration_date: NotRequired[
+            "Literal['']|AccountService.UpdateParamsCompanyRegistrationDate"
+        ]
         registration_number: NotRequired[str]
         """
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -3030,6 +3078,20 @@ class AccountService(StripeService):
         user_agent: NotRequired[str]
         """
         The user agent of the browser from which the beneficial owner attestation was made.
+        """
+
+    class UpdateParamsCompanyRegistrationDate(TypedDict):
+        day: int
+        """
+        The day of registration, between 1 and 31.
+        """
+        month: int
+        """
+        The month of registration, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of registration.
         """
 
     class UpdateParamsCompanyVerification(TypedDict):
