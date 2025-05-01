@@ -26,9 +26,6 @@ if not TYPE_CHECKING:
     )
     from stripe.api_resources.billing.credit_grant import CreditGrant
     from stripe.api_resources.billing.meter import Meter
-    from stripe.api_resources.billing.meter_error_report import (
-        MeterErrorReport,
-    )
     from stripe.api_resources.billing.meter_event import MeterEvent
     from stripe.api_resources.billing.meter_event_adjustment import (
         MeterEventAdjustment,

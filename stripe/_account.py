@@ -388,6 +388,10 @@ class Account(
         """
         The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
         """
+        pix_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the pix payments capability of the account, or whether the account can directly process pix charges.
+        """
         promptpay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
@@ -2072,6 +2076,12 @@ class Account(
         """
         The payto_payments capability.
         """
+        pix_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesPixPayments"
+        ]
+        """
+        The pix_payments capability.
+        """
         promptpay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesPromptpayPayments"
         ]
@@ -2490,6 +2500,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesPaytoPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPixPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

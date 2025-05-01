@@ -474,9 +474,6 @@ class Invoice(
                 "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
-                "gift_card_balance_insufficient",
-                "gift_card_code_exists",
-                "gift_card_inactive",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
@@ -2832,7 +2829,7 @@ class Invoice(
         """
         billing_mode: NotRequired[Literal["classic", "flexible"]]
         """
-        Configure billing_mode to opt in improved credit proration behavior.When the schedule creates a subscription, the subscription's `billing_mode` will be set to the same value as the schedule's `billing_mode`.
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
         end_behavior: NotRequired[Literal["cancel", "release"]]
         """
@@ -3951,7 +3948,7 @@ class Invoice(
         """
         billing_mode: NotRequired[Literal["classic", "flexible"]]
         """
-        Configure billing_mode in each subscription to opt in improved credit proration behavior.
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
         cancel_at: NotRequired["Literal['']|int"]
         """

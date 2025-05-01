@@ -63,10 +63,6 @@ class ProductService(StripeService):
         """
         The dimensions of this product for shipping purposes.
         """
-        provisioning: NotRequired["ProductService.CreateParamsProvisioning"]
-        """
-        Provisioning configuration for this product.
-        """
         shippable: NotRequired[bool]
         """
         Whether this product is shipped (i.e., physical goods).
@@ -263,31 +259,6 @@ class ProductService(StripeService):
         """
         Width, in inches. Maximum precision is 2 decimal places.
         """
-
-    class CreateParamsProvisioning(TypedDict):
-        gift_card: NotRequired[
-            "ProductService.CreateParamsProvisioningGiftCard"
-        ]
-        type: Literal["gift_card"]
-        """
-        The type of provisioning, only `gift_card` currently supported.
-        """
-
-    class CreateParamsProvisioningGiftCard(TypedDict):
-        fixed_amount: NotRequired[
-            "ProductService.CreateParamsProvisioningGiftCardFixedAmount"
-        ]
-        type: Literal["fixed_amount"]
-        """
-        The specific type of gift_card provisioning, only `fixed_amount` currently supported.
-        """
-
-    class CreateParamsProvisioningGiftCardFixedAmount(TypedDict):
-        amount: int
-        """
-        The initial amount with which the provisioned gift card will be created.
-        """
-        currency: str
 
     class DeleteParams(TypedDict):
         pass

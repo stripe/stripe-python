@@ -32,12 +32,6 @@ class OrderService(StripeService):
         """
         Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
         """
-        credits: NotRequired[
-            "Literal['']|List[OrderService.CreateParamsCredit]"
-        ]
-        """
-        The credits to apply to the order, only `gift_card` currently supported.
-        """
         currency: str
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -141,16 +135,6 @@ class OrderService(StripeService):
         state: NotRequired[str]
         """
         State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
-        """
-
-    class CreateParamsCredit(TypedDict):
-        gift_card: NotRequired[str]
-        """
-        The gift card to apply to the order.
-        """
-        type: Literal["gift_card"]
-        """
-        The type of credit to apply to the order, only `gift_card` currently supported.
         """
 
     class CreateParamsDiscount(TypedDict):
@@ -1397,12 +1381,6 @@ class OrderService(StripeService):
         """
         Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
         """
-        credits: NotRequired[
-            "Literal['']|List[OrderService.UpdateParamsCredit]"
-        ]
-        """
-        The credits to apply to the order, only `gift_card` currently supported. Pass the empty string `""` to unset this field.
-        """
         currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -1506,16 +1484,6 @@ class OrderService(StripeService):
         state: NotRequired[str]
         """
         State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
-        """
-
-    class UpdateParamsCredit(TypedDict):
-        gift_card: NotRequired[str]
-        """
-        The gift card to apply to the order.
-        """
-        type: Literal["gift_card"]
-        """
-        The type of credit to apply to the order, only `gift_card` currently supported.
         """
 
     class UpdateParamsDiscount(TypedDict):

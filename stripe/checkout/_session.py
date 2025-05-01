@@ -4622,7 +4622,7 @@ class Session(
         """
         billing_mode: NotRequired[Literal["classic", "flexible"]]
         """
-        Configure billing_mode in each subscription to opt in improved credit proration behavior.
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
         default_tax_rates: NotRequired[List[str]]
         """
@@ -4861,7 +4861,7 @@ class Session(
 
         To update an existing line item, specify its `id` along with the new values of the fields to update.
 
-        To add a new line item, specify a `price` and `quantity`.
+        To add a new line item, specify one of `price` or `price_data` and `quantity`.
 
         To remove an existing line item, omit the line item's ID from the retransmitted array.
 
@@ -4949,7 +4949,7 @@ class Session(
         """
         quantity: NotRequired["Literal['']|int"]
         """
-        The quantity of the line item being purchased.
+        The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
         """
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
@@ -5776,6 +5776,8 @@ class Session(
     ) -> "Session":
         """
         Updates a Checkout Session object.
+
+        Related guide: [Dynamically update Checkout](https://stripe.com/payments/checkout/dynamic-updates)
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -5793,6 +5795,8 @@ class Session(
     ) -> "Session":
         """
         Updates a Checkout Session object.
+
+        Related guide: [Dynamically update Checkout](https://stripe.com/payments/checkout/dynamic-updates)
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(

@@ -176,6 +176,9 @@ class Event(ListableAPIResource["Event"]):
     The Stripe API version used to render `data`. This property is populated only for events on or after October 31, 2014.
     """
     context: Optional[str]
+    """
+    Authentication context needed to fetch the event or related object.
+    """
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -220,7 +223,6 @@ class Event(ListableAPIResource["Event"]):
         "balance.available",
         "balance_settings.updated",
         "billing.alert.triggered",
-        "billing.meter_error_report.triggered",
         "billing_portal.configuration.created",
         "billing_portal.configuration.updated",
         "billing_portal.session.created",

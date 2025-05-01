@@ -202,9 +202,6 @@ class PaymentIntent(
                 "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
-                "gift_card_balance_insufficient",
-                "gift_card_code_exists",
-                "gift_card_inactive",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
@@ -1356,7 +1353,7 @@ class PaymentIntent(
         ]
         type: str
         """
-        Type of the next action to perform, one of `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
+        Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
         """
         use_stripe_sdk: Optional[Dict[str, Any]]
         """
@@ -4041,6 +4038,7 @@ class PaymentIntent(
         payment_method: NotRequired[str]
         """
         ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
+        If the payment method is attached to a Customer, it must match the [customer](https://stripe.com/docs/api#create_payment_intent-customer) that is set on this PaymentIntent.
         """
         payment_method_data: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodData"
@@ -5795,7 +5793,7 @@ class PaymentIntent(
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsGopay"
         ]
         """
-        If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        If this is a `gopay` PaymentMethod, this sub-hash contains details about the Gopay payment method options.
         """
         grabpay: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsGrabpay"
@@ -7890,6 +7888,8 @@ class PaymentIntent(
         ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
 
         If you don't provide the `payment_method` parameter or the `source` parameter with `confirm=true`, `source` automatically populates with `customer.default_source` to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward.
+        If the payment method is attached to a Customer, you must also provide the ID of that Customer as the [customer](https://stripe.com/docs/api#create_payment_intent-customer) parameter of this PaymentIntent.
+        end
         """
         payment_method_configuration: NotRequired[str]
         """
@@ -9669,7 +9669,7 @@ class PaymentIntent(
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsGopay"
         ]
         """
-        If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        If this is a `gopay` PaymentMethod, this sub-hash contains details about the Gopay payment method options.
         """
         grabpay: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsGrabpay"
@@ -13697,7 +13697,7 @@ class PaymentIntent(
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsGopay"
         ]
         """
-        If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        If this is a `gopay` PaymentMethod, this sub-hash contains details about the Gopay payment method options.
         """
         grabpay: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsGrabpay"

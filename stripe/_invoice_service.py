@@ -1620,7 +1620,7 @@ class InvoiceService(StripeService):
         """
         billing_mode: NotRequired[Literal["classic", "flexible"]]
         """
-        Configure billing_mode to opt in improved credit proration behavior.When the schedule creates a subscription, the subscription's `billing_mode` will be set to the same value as the schedule's `billing_mode`.
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
         end_behavior: NotRequired[Literal["cancel", "release"]]
         """
@@ -2739,7 +2739,7 @@ class InvoiceService(StripeService):
         """
         billing_mode: NotRequired[Literal["classic", "flexible"]]
         """
-        Configure billing_mode in each subscription to opt in improved credit proration behavior.
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
         cancel_at: NotRequired["Literal['']|int"]
         """

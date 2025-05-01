@@ -13,7 +13,13 @@ class RedactionJobValidationError(StripeObject):
     OBJECT_NAME: ClassVar[
         Literal["privacy.redaction_job_validation_error"]
     ] = "privacy.redaction_job_validation_error"
-    code: str
+    code: Literal[
+        "invalid_cascading_source",
+        "invalid_file_purpose",
+        "invalid_state",
+        "locked_by_other_job",
+        "too_many_objects",
+    ]
     erroring_object: Optional[Dict[str, str]]
     id: str
     """

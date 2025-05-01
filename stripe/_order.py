@@ -100,31 +100,6 @@ class Order(
         """
         _inner_class_types = {"address": Address}
 
-    class Credit(StripeObject):
-        class GiftCard(StripeObject):
-            card: str
-            """
-            The token of the gift card applied to the order
-            """
-
-        amount: int
-        """
-        The amount of this credit to apply to the order.
-        """
-        gift_card: Optional[GiftCard]
-        """
-        Details for a gift card.
-        """
-        ineligible_line_items: Optional[List[str]]
-        """
-        Line items on this order that are ineligible for this credit
-        """
-        type: Literal["gift_card"]
-        """
-        The type of credit to apply to the order, only `gift_card` currently supported.
-        """
-        _inner_class_types = {"gift_card": GiftCard}
-
     class Payment(StripeObject):
         class Settings(StripeObject):
             class AutomaticPaymentMethods(StripeObject):
@@ -983,7 +958,6 @@ class Order(
             """
             _inner_class_types = {"discounts": Discount, "taxes": Tax}
 
-        amount_credit: Optional[int]
         amount_discount: int
         """
         This is the sum of all the discounts.
@@ -1015,10 +989,6 @@ class Order(
         ]
         """
         Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
-        """
-        credits: NotRequired["Literal['']|List[Order.CreateParamsCredit]"]
-        """
-        The credits to apply to the order, only `gift_card` currently supported.
         """
         currency: str
         """
@@ -1121,16 +1091,6 @@ class Order(
         state: NotRequired[str]
         """
         State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
-        """
-
-    class CreateParamsCredit(TypedDict):
-        gift_card: NotRequired[str]
-        """
-        The gift card to apply to the order.
-        """
-        type: Literal["gift_card"]
-        """
-        The type of credit to apply to the order, only `gift_card` currently supported.
         """
 
     class CreateParamsDiscount(TypedDict):
@@ -2371,10 +2331,6 @@ class Order(
         """
         Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
         """
-        credits: NotRequired["Literal['']|List[Order.ModifyParamsCredit]"]
-        """
-        The credits to apply to the order, only `gift_card` currently supported. Pass the empty string `""` to unset this field.
-        """
         currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -2476,16 +2432,6 @@ class Order(
         state: NotRequired[str]
         """
         State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
-        """
-
-    class ModifyParamsCredit(TypedDict):
-        gift_card: NotRequired[str]
-        """
-        The gift card to apply to the order.
-        """
-        type: Literal["gift_card"]
-        """
-        The type of credit to apply to the order, only `gift_card` currently supported.
         """
 
     class ModifyParamsDiscount(TypedDict):
@@ -3701,7 +3647,6 @@ class Order(
         `expected_total` should always be set to the order's `amount_total` field. If they don't match, submitting the order will fail. This helps detect race conditions where something else concurrently modifies the order.
         """
 
-    amount_remaining: Optional[int]
     amount_subtotal: int
     """
     Order cost before any discounts or taxes are applied. A positive integer representing the subtotal of the order in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency).
@@ -3730,10 +3675,6 @@ class Order(
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
-    """
-    credits: Optional[List[Credit]]
-    """
-    The credits applied to the Order. At most 10 credits can be applied to an Order.
     """
     currency: str
     """
@@ -4330,7 +4271,6 @@ class Order(
     _inner_class_types = {
         "automatic_tax": AutomaticTax,
         "billing_details": BillingDetails,
-        "credits": Credit,
         "payment": Payment,
         "shipping_cost": ShippingCost,
         "shipping_details": ShippingDetails,
