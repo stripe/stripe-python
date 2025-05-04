@@ -1897,7 +1897,10 @@ class PaymentIntent(
             """
 
         class Billie(StripeObject):
-            pass
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
 
         class Blik(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
