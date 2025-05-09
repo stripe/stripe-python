@@ -1415,7 +1415,25 @@ class PaymentIntent(
                 recipient: Optional[Recipient]
                 _inner_class_types = {"recipient": Recipient}
 
+            class Distance(StripeObject):
+                amount: Optional[int]
+                """
+                Distance traveled.
+                """
+                unit: Optional[str]
+                """
+                Unit of measurement for the distance traveled. One of `miles` or `kilometers`
+                """
+
             class Driver(StripeObject):
+                driver_identification_number: Optional[str]
+                """
+                Driver's identification number.
+                """
+                driver_tax_number: Optional[str]
+                """
+                Driver's tax number.
+                """
                 name: Optional[str]
                 """
                 Full name of the driver on the reservation.
@@ -1503,6 +1521,7 @@ class PaymentIntent(
             Number of days the car is being rented.
             """
             delivery: Optional[Delivery]
+            distance: Optional[Distance]
             drivers: Optional[List[Driver]]
             """
             The details of the drivers associated with the trip.
@@ -1530,6 +1549,10 @@ class PaymentIntent(
             """
             Car pick-up time. Measured in seconds since the Unix epoch.
             """
+            pickup_location_name: Optional[str]
+            """
+            Name of the pickup location.
+            """
             rate_amount: Optional[int]
             """
             Rental rate.
@@ -1547,13 +1570,22 @@ class PaymentIntent(
             """
             Car return time. Measured in seconds since the Unix epoch.
             """
+            return_location_name: Optional[str]
+            """
+            Name of the return location.
+            """
             tax_exempt: Optional[bool]
             """
             Indicates whether the goods or services are tax-exempt or tax is not collected.
             """
+            vehicle_identification_number: Optional[str]
+            """
+            The vehicle identification number of the car.
+            """
             _inner_class_types = {
                 "affiliate": Affiliate,
                 "delivery": Delivery,
+                "distance": Distance,
                 "drivers": Driver,
                 "pickup_address": PickupAddress,
                 "return_address": ReturnAddress,
@@ -3404,6 +3436,12 @@ class PaymentIntent(
         """
         Delivery details for this purchase.
         """
+        distance: NotRequired[
+            "PaymentIntent.CaptureParamsPaymentDetailsCarRentalDistance"
+        ]
+        """
+        The details of the distance traveled during the rental period.
+        """
         drivers: NotRequired[
             List["PaymentIntent.CaptureParamsPaymentDetailsCarRentalDriver"]
         ]
@@ -3438,6 +3476,10 @@ class PaymentIntent(
         """
         Car pick-up time. Measured in seconds since the Unix epoch.
         """
+        pickup_location_name: NotRequired[str]
+        """
+        Name of the pickup location.
+        """
         rate_amount: NotRequired[int]
         """
         Rental rate.
@@ -3460,9 +3502,17 @@ class PaymentIntent(
         """
         Car return time. Measured in seconds since the Unix epoch.
         """
+        return_location_name: NotRequired[str]
+        """
+        Name of the return location.
+        """
         tax_exempt: NotRequired[bool]
         """
         Indicates whether the goods or services are tax-exempt or tax is not collected.
+        """
+        vehicle_identification_number: NotRequired[str]
+        """
+        The vehicle identification number.
         """
 
     class CaptureParamsPaymentDetailsCarRentalAffiliate(TypedDict):
@@ -3497,7 +3547,25 @@ class PaymentIntent(
         The phone number of the recipient the ticket is delivered to.
         """
 
+    class CaptureParamsPaymentDetailsCarRentalDistance(TypedDict):
+        amount: NotRequired[int]
+        """
+        Distance traveled.
+        """
+        unit: NotRequired[Literal["kilometers", "miles"]]
+        """
+        Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
+        """
+
     class CaptureParamsPaymentDetailsCarRentalDriver(TypedDict):
+        driver_identification_number: NotRequired[str]
+        """
+        Driver's identification number.
+        """
+        driver_tax_number: NotRequired[str]
+        """
+        Driver's tax number.
+        """
         name: str
         """
         Full name of the person or entity on the car reservation.
@@ -4248,6 +4316,12 @@ class PaymentIntent(
         """
         Delivery details for this purchase.
         """
+        distance: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentDetailsCarRentalDistance"
+        ]
+        """
+        The details of the distance traveled during the rental period.
+        """
         drivers: NotRequired[
             List["PaymentIntent.ConfirmParamsPaymentDetailsCarRentalDriver"]
         ]
@@ -4282,6 +4356,10 @@ class PaymentIntent(
         """
         Car pick-up time. Measured in seconds since the Unix epoch.
         """
+        pickup_location_name: NotRequired[str]
+        """
+        Name of the pickup location.
+        """
         rate_amount: NotRequired[int]
         """
         Rental rate.
@@ -4304,9 +4382,17 @@ class PaymentIntent(
         """
         Car return time. Measured in seconds since the Unix epoch.
         """
+        return_location_name: NotRequired[str]
+        """
+        Name of the return location.
+        """
         tax_exempt: NotRequired[bool]
         """
         Indicates whether the goods or services are tax-exempt or tax is not collected.
+        """
+        vehicle_identification_number: NotRequired[str]
+        """
+        The vehicle identification number.
         """
 
     class ConfirmParamsPaymentDetailsCarRentalAffiliate(TypedDict):
@@ -4341,7 +4427,25 @@ class PaymentIntent(
         The phone number of the recipient the ticket is delivered to.
         """
 
+    class ConfirmParamsPaymentDetailsCarRentalDistance(TypedDict):
+        amount: NotRequired[int]
+        """
+        Distance traveled.
+        """
+        unit: NotRequired[Literal["kilometers", "miles"]]
+        """
+        Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
+        """
+
     class ConfirmParamsPaymentDetailsCarRentalDriver(TypedDict):
+        driver_identification_number: NotRequired[str]
+        """
+        Driver's identification number.
+        """
+        driver_tax_number: NotRequired[str]
+        """
+        Driver's tax number.
+        """
         name: str
         """
         Full name of the person or entity on the car reservation.
@@ -8144,6 +8248,12 @@ class PaymentIntent(
         """
         Delivery details for this purchase.
         """
+        distance: NotRequired[
+            "PaymentIntent.CreateParamsPaymentDetailsCarRentalDistance"
+        ]
+        """
+        The details of the distance traveled during the rental period.
+        """
         drivers: NotRequired[
             List["PaymentIntent.CreateParamsPaymentDetailsCarRentalDriver"]
         ]
@@ -8178,6 +8288,10 @@ class PaymentIntent(
         """
         Car pick-up time. Measured in seconds since the Unix epoch.
         """
+        pickup_location_name: NotRequired[str]
+        """
+        Name of the pickup location.
+        """
         rate_amount: NotRequired[int]
         """
         Rental rate.
@@ -8200,9 +8314,17 @@ class PaymentIntent(
         """
         Car return time. Measured in seconds since the Unix epoch.
         """
+        return_location_name: NotRequired[str]
+        """
+        Name of the return location.
+        """
         tax_exempt: NotRequired[bool]
         """
         Indicates whether the goods or services are tax-exempt or tax is not collected.
+        """
+        vehicle_identification_number: NotRequired[str]
+        """
+        The vehicle identification number.
         """
 
     class CreateParamsPaymentDetailsCarRentalAffiliate(TypedDict):
@@ -8237,7 +8359,25 @@ class PaymentIntent(
         The phone number of the recipient the ticket is delivered to.
         """
 
+    class CreateParamsPaymentDetailsCarRentalDistance(TypedDict):
+        amount: NotRequired[int]
+        """
+        Distance traveled.
+        """
+        unit: NotRequired[Literal["kilometers", "miles"]]
+        """
+        Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
+        """
+
     class CreateParamsPaymentDetailsCarRentalDriver(TypedDict):
+        driver_identification_number: NotRequired[str]
+        """
+        Driver's identification number.
+        """
+        driver_tax_number: NotRequired[str]
+        """
+        Driver's tax number.
+        """
         name: str
         """
         Full name of the person or entity on the car reservation.
@@ -12188,6 +12328,12 @@ class PaymentIntent(
         """
         Delivery details for this purchase.
         """
+        distance: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentDetailsCarRentalDistance"
+        ]
+        """
+        The details of the distance traveled during the rental period.
+        """
         drivers: NotRequired[
             List["PaymentIntent.ModifyParamsPaymentDetailsCarRentalDriver"]
         ]
@@ -12222,6 +12368,10 @@ class PaymentIntent(
         """
         Car pick-up time. Measured in seconds since the Unix epoch.
         """
+        pickup_location_name: NotRequired[str]
+        """
+        Name of the pickup location.
+        """
         rate_amount: NotRequired[int]
         """
         Rental rate.
@@ -12244,9 +12394,17 @@ class PaymentIntent(
         """
         Car return time. Measured in seconds since the Unix epoch.
         """
+        return_location_name: NotRequired[str]
+        """
+        Name of the return location.
+        """
         tax_exempt: NotRequired[bool]
         """
         Indicates whether the goods or services are tax-exempt or tax is not collected.
+        """
+        vehicle_identification_number: NotRequired[str]
+        """
+        The vehicle identification number.
         """
 
     class ModifyParamsPaymentDetailsCarRentalAffiliate(TypedDict):
@@ -12281,7 +12439,25 @@ class PaymentIntent(
         The phone number of the recipient the ticket is delivered to.
         """
 
+    class ModifyParamsPaymentDetailsCarRentalDistance(TypedDict):
+        amount: NotRequired[int]
+        """
+        Distance traveled.
+        """
+        unit: NotRequired[Literal["kilometers", "miles"]]
+        """
+        Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
+        """
+
     class ModifyParamsPaymentDetailsCarRentalDriver(TypedDict):
+        driver_identification_number: NotRequired[str]
+        """
+        Driver's identification number.
+        """
+        driver_tax_number: NotRequired[str]
+        """
+        Driver's tax number.
+        """
         name: str
         """
         Full name of the person or entity on the car reservation.
