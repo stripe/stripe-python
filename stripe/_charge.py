@@ -2339,12 +2339,6 @@ class Charge(
         """
         Delivery details for this purchase.
         """
-        distance: NotRequired[
-            "Charge.CaptureParamsPaymentDetailsCarRentalDistance"
-        ]
-        """
-        The details of the distance traveled during the rental period.
-        """
         drivers: NotRequired[
             List["Charge.CaptureParamsPaymentDetailsCarRentalDriver"]
         ]
@@ -2379,10 +2373,6 @@ class Charge(
         """
         Car pick-up time. Measured in seconds since the Unix epoch.
         """
-        pickup_location_name: NotRequired[str]
-        """
-        Name of the pickup location.
-        """
         rate_amount: NotRequired[int]
         """
         Rental rate.
@@ -2405,17 +2395,9 @@ class Charge(
         """
         Car return time. Measured in seconds since the Unix epoch.
         """
-        return_location_name: NotRequired[str]
-        """
-        Name of the return location.
-        """
         tax_exempt: NotRequired[bool]
         """
         Indicates whether the goods or services are tax-exempt or tax is not collected.
-        """
-        vehicle_identification_number: NotRequired[str]
-        """
-        The vehicle identification number.
         """
 
     class CaptureParamsPaymentDetailsCarRentalAffiliate(TypedDict):
@@ -2450,25 +2432,7 @@ class Charge(
         The phone number of the recipient the ticket is delivered to.
         """
 
-    class CaptureParamsPaymentDetailsCarRentalDistance(TypedDict):
-        amount: NotRequired[int]
-        """
-        Distance traveled.
-        """
-        unit: NotRequired[Literal["kilometers", "miles"]]
-        """
-        Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
-        """
-
     class CaptureParamsPaymentDetailsCarRentalDriver(TypedDict):
-        driver_identification_number: NotRequired[str]
-        """
-        Driver's identification number.
-        """
-        driver_tax_number: NotRequired[str]
-        """
-        Driver's tax number.
-        """
         name: str
         """
         Full name of the person or entity on the car reservation.
@@ -3300,12 +3264,6 @@ class Charge(
         """
         Delivery details for this purchase.
         """
-        distance: NotRequired[
-            "Charge.ModifyParamsPaymentDetailsCarRentalDistance"
-        ]
-        """
-        The details of the distance traveled during the rental period.
-        """
         drivers: NotRequired[
             List["Charge.ModifyParamsPaymentDetailsCarRentalDriver"]
         ]
@@ -3340,10 +3298,6 @@ class Charge(
         """
         Car pick-up time. Measured in seconds since the Unix epoch.
         """
-        pickup_location_name: NotRequired[str]
-        """
-        Name of the pickup location.
-        """
         rate_amount: NotRequired[int]
         """
         Rental rate.
@@ -3366,17 +3320,9 @@ class Charge(
         """
         Car return time. Measured in seconds since the Unix epoch.
         """
-        return_location_name: NotRequired[str]
-        """
-        Name of the return location.
-        """
         tax_exempt: NotRequired[bool]
         """
         Indicates whether the goods or services are tax-exempt or tax is not collected.
-        """
-        vehicle_identification_number: NotRequired[str]
-        """
-        The vehicle identification number.
         """
 
     class ModifyParamsPaymentDetailsCarRentalAffiliate(TypedDict):
@@ -3411,25 +3357,7 @@ class Charge(
         The phone number of the recipient the ticket is delivered to.
         """
 
-    class ModifyParamsPaymentDetailsCarRentalDistance(TypedDict):
-        amount: NotRequired[int]
-        """
-        Distance traveled.
-        """
-        unit: NotRequired[Literal["kilometers", "miles"]]
-        """
-        Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
-        """
-
     class ModifyParamsPaymentDetailsCarRentalDriver(TypedDict):
-        driver_identification_number: NotRequired[str]
-        """
-        Driver's identification number.
-        """
-        driver_tax_number: NotRequired[str]
-        """
-        Driver's tax number.
-        """
         name: str
         """
         Full name of the person or entity on the car reservation.
