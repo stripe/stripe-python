@@ -663,6 +663,7 @@ class Reader(
                 "bbpos_wisepad3",
                 "bbpos_wisepos_e",
                 "mobile_phone_reader",
+                "simulated_stripe_s700",
                 "simulated_wisepos_e",
                 "stripe_m2",
                 "stripe_s700",
@@ -946,13 +947,14 @@ class Reader(
         "bbpos_wisepad3",
         "bbpos_wisepos_e",
         "mobile_phone_reader",
+        "simulated_stripe_s700",
         "simulated_wisepos_e",
         "stripe_m2",
         "stripe_s700",
         "verifone_P400",
     ]
     """
-    Type of reader, one of `bbpos_wisepad3`, `stripe_m2`, `stripe_s700`, `bbpos_chipper2x`, `bbpos_wisepos_e`, `verifone_P400`, `simulated_wisepos_e`, or `mobile_phone_reader`.
+    Device type of the reader.
     """
     id: str
     """

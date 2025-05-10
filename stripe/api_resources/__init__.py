@@ -26,7 +26,6 @@ if not TYPE_CHECKING:
         entitlements,
         financial_connections,
         forwarding,
-        gift_cards,
         identity,
         issuing,
         privacy,

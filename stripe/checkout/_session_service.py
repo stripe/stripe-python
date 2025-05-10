@@ -2162,6 +2162,10 @@ class SessionService(StripeService):
         """
         Uses the `allow_redisplay` value of each saved payment method to filter the set presented to a returning customer. By default, only saved payment methods with 'allow_redisplay: ‘always' are shown in Checkout.
         """
+        payment_method_remove: NotRequired[Literal["disabled", "enabled"]]
+        """
+        Enable customers to choose if they wish to remove their saved payment methods. Disabled by default.
+        """
         payment_method_save: NotRequired[Literal["disabled", "enabled"]]
         """
         Enable customers to choose if they wish to save their payment method for future use. Disabled by default.
@@ -2561,7 +2565,7 @@ class SessionService(StripeService):
         """
         billing_mode: NotRequired[Literal["classic", "flexible"]]
         """
-        Configure billing_mode in each subscription to opt in improved credit proration behavior.
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
         default_tax_rates: NotRequired[List[str]]
         """
@@ -2788,7 +2792,7 @@ class SessionService(StripeService):
 
         To update an existing line item, specify its `id` along with the new values of the fields to update.
 
-        To add a new line item, specify a `price` and `quantity`.
+        To add a new line item, specify one of `price` or `price_data` and `quantity`.
 
         To remove an existing line item, omit the line item's ID from the retransmitted array.
 
@@ -2874,7 +2878,7 @@ class SessionService(StripeService):
         """
         quantity: NotRequired["Literal['']|int"]
         """
-        The quantity of the line item being purchased.
+        The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
         """
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
@@ -3212,6 +3216,8 @@ class SessionService(StripeService):
     ) -> Session:
         """
         Updates a Checkout Session object.
+
+        Related guide: [Dynamically update Checkout](https://stripe.com/payments/checkout/dynamic-updates)
         """
         return cast(
             Session,
@@ -3234,6 +3240,8 @@ class SessionService(StripeService):
     ) -> Session:
         """
         Updates a Checkout Session object.
+
+        Related guide: [Dynamically update Checkout](https://stripe.com/payments/checkout/dynamic-updates)
         """
         return cast(
             Session,

@@ -859,6 +859,7 @@ class PaymentIntentService(StripeService):
         payment_method: NotRequired[str]
         """
         ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
+        If the payment method is attached to a Customer, it must match the [customer](https://stripe.com/docs/api#create_payment_intent-customer) that is set on this PaymentIntent.
         """
         payment_method_data: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodData"
@@ -2659,7 +2660,7 @@ class PaymentIntentService(StripeService):
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsGopay"
         ]
         """
-        If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        If this is a `gopay` PaymentMethod, this sub-hash contains details about the Gopay payment method options.
         """
         grabpay: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsGrabpay"
@@ -2822,6 +2823,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
+        """
+        satispay: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsSatispay"
+        ]
+        """
+        If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsSepaDebit"
@@ -4309,6 +4316,16 @@ class PaymentIntentService(StripeService):
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
+    class ConfirmParamsPaymentMethodOptionsSatispay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class ConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
         mandate_options: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions"
@@ -4754,6 +4771,8 @@ class PaymentIntentService(StripeService):
         ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
 
         If you don't provide the `payment_method` parameter or the `source` parameter with `confirm=true`, `source` automatically populates with `customer.default_source` to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward.
+        If the payment method is attached to a Customer, you must also provide the ID of that Customer as the [customer](https://stripe.com/docs/api#create_payment_intent-customer) parameter of this PaymentIntent.
+        end
         """
         payment_method_configuration: NotRequired[str]
         """
@@ -6587,7 +6606,7 @@ class PaymentIntentService(StripeService):
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsGopay"
         ]
         """
-        If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        If this is a `gopay` PaymentMethod, this sub-hash contains details about the Gopay payment method options.
         """
         grabpay: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsGrabpay"
@@ -6750,6 +6769,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
+        """
+        satispay: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsSatispay"
+        ]
+        """
+        If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsSepaDebit"
@@ -8228,6 +8253,16 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
+    class CreateParamsPaymentMethodOptionsSatispay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
         Controls when the funds are captured from the customer's account.
@@ -10703,7 +10738,7 @@ class PaymentIntentService(StripeService):
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsGopay"
         ]
         """
-        If this is a `gopay` PaymentMethod, this sub-hash contains details about the GoPay payment method options.
+        If this is a `gopay` PaymentMethod, this sub-hash contains details about the Gopay payment method options.
         """
         grabpay: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsGrabpay"
@@ -10866,6 +10901,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
+        """
+        satispay: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsSatispay"
+        ]
+        """
+        If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsSepaDebit"
@@ -12344,6 +12385,16 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsSamsungPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
+    class UpdateParamsPaymentMethodOptionsSatispay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
         Controls when the funds are captured from the customer's account.

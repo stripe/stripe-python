@@ -14,6 +14,9 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
         class Card(StripeObject):
             commodity_code: Optional[str]
 
+        class CardPresent(StripeObject):
+            commodity_code: Optional[str]
+
         class Klarna(StripeObject):
             image_url: Optional[str]
             product_url: Optional[str]
@@ -35,9 +38,15 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
             """
 
         card: Optional[Card]
+        card_present: Optional[CardPresent]
         klarna: Optional[Klarna]
         paypal: Optional[Paypal]
-        _inner_class_types = {"card": Card, "klarna": Klarna, "paypal": Paypal}
+        _inner_class_types = {
+            "card": Card,
+            "card_present": CardPresent,
+            "klarna": Klarna,
+            "paypal": Paypal,
+        }
 
     class Tax(StripeObject):
         total_tax_amount: int

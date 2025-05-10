@@ -77,6 +77,10 @@ class Institution(ListableAPIResource["Institution"]):
         Specifies which fields in the response should be expanded.
         """
 
+    countries: List[str]
+    """
+    The list of countries supported by this institution, formatted as ISO country codes.
+    """
     features: Features
     id: str
     """

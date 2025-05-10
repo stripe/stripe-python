@@ -165,6 +165,10 @@ class RedactionJob(
     """
     Unique identifier for the object.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["privacy.redaction_job"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -173,11 +177,20 @@ class RedactionJob(
     """
     The objects at the root level that are subject to redaction.
     """
-    status: str
+    status: Literal[
+        "canceled",
+        "canceling",
+        "created",
+        "failed",
+        "ready",
+        "redacting",
+        "succeeded",
+        "validating",
+    ]
     """
     The status field represents the current state of the redaction job. It can take on any of the following values: VALIDATING, READY, REDACTING, SUCCEEDED, CANCELED, FAILED.
     """
-    validation_behavior: Optional[str]
+    validation_behavior: Optional[Literal["error", "fix"]]
     """
     Default is "error". If "error", we will make sure all objects in the graph are redactable in the 1st traversal, otherwise error. If "fix", where possible, we will auto-fix any validation errors (e.g. by auto-transitioning objects to a terminal state, etc.) in the 2nd traversal before redacting
     """

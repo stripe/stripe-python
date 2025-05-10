@@ -458,9 +458,6 @@ class QuotePreviewInvoice(StripeObject):
                 "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
-                "gift_card_balance_insufficient",
-                "gift_card_code_exists",
-                "gift_card_inactive",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
@@ -1408,7 +1405,7 @@ class QuotePreviewInvoice(StripeObject):
     """
     id: str
     """
-    Unique identifier for the object. This property is always present unless the invoice is an upcoming invoice. See [Retrieve an upcoming invoice](https://stripe.com/docs/api/invoices/upcoming) for more details.
+    Unique identifier for the object. For preview invoices created using the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint, this id will be prefixed with `upcoming_in`.
     """
     issuer: Issuer
     last_finalization_error: Optional[LastFinalizationError]
