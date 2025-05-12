@@ -37,7 +37,7 @@ class RedactionJobValidationErrorService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[RedactionJobValidationError]:
         """
-        List validation errors method
+        Returns a list of validation errors for the specified redaction job.
         """
         return cast(
             ListObject[RedactionJobValidationError],
@@ -59,7 +59,7 @@ class RedactionJobValidationErrorService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[RedactionJobValidationError]:
         """
-        List validation errors method
+        Returns a list of validation errors for the specified redaction job.
         """
         return cast(
             ListObject[RedactionJobValidationError],

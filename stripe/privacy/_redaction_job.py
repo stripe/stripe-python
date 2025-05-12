@@ -30,8 +30,10 @@ class RedactionJob(
     UpdateableAPIResource["RedactionJob"],
 ):
     """
-    Redaction Jobs store the status of a redaction request. They are created
-    when a redaction request is made and track the redaction validation and execution.
+    The Redaction Job object is used to redact Stripe objects. It is used
+    to coordinate the removal of personal information from selected
+    objects, making them permanently inaccessible in the Stripe Dashboard
+    and API.
     """
 
     OBJECT_NAME: ClassVar[Literal["privacy.redaction_job"]] = (
@@ -40,14 +42,41 @@ class RedactionJob(
 
     class Objects(StripeObject):
         charges: Optional[List[str]]
+        """
+        Charge object identifiers usually starting with `ch_`
+        """
         checkout_sessions: Optional[List[str]]
+        """
+        CheckoutSession object identifiers starting with `cs_`
+        """
         customers: Optional[List[str]]
+        """
+        Customer object identifiers starting with `cus_`
+        """
         identity_verification_sessions: Optional[List[str]]
+        """
+        Identity VerificationSessions object identifiers starting with `vs_`
+        """
         invoices: Optional[List[str]]
+        """
+        Invoice object identifiers starting with `in_`
+        """
         issuing_cardholders: Optional[List[str]]
+        """
+        Issuing Cardholder object identifiers starting with `ich_`
+        """
         payment_intents: Optional[List[str]]
+        """
+        PaymentIntent object identifiers starting with `pi_`
+        """
         radar_value_list_items: Optional[List[str]]
+        """
+        Fraud ValueListItem object identifiers starting with `rsli_`
+        """
         setup_intents: Optional[List[str]]
+        """
+        SetupIntent object identifiers starting with `seti_`
+        """
 
     class CancelParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -62,14 +91,11 @@ class RedactionJob(
         """
         objects: "RedactionJob.CreateParamsObjects"
         """
-        The objects at the root level that are subject to redaction.
+        The objects to redact. These root objects and their related ones will be validated for redaction.
         """
         validation_behavior: NotRequired[Literal["error", "fix"]]
         """
-        Default is "error". If "error", we will make sure all objects in the graph are
-        redactable in the 1st traversal, otherwise error. If "fix", where possible, we will
-        auto-fix any validation errors (e.g. by auto-transitioning objects to a terminal
-        state, etc.) in the 2nd traversal before redacting
+        Determines the validation behavior of the job. Default is `error`.
         """
 
     class CreateParamsObjects(TypedDict):
@@ -138,6 +164,9 @@ class RedactionJob(
         Specifies which fields in the response should be expanded.
         """
         validation_behavior: NotRequired[Literal["error", "fix"]]
+        """
+        Determines the validation behavior of the job. Default is `error`.
+        """
 
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
@@ -175,7 +204,7 @@ class RedactionJob(
     """
     objects: Optional[Objects]
     """
-    The objects at the root level that are subject to redaction.
+    The objects to redact in this job.
     """
     status: Literal[
         "canceled",
@@ -188,11 +217,11 @@ class RedactionJob(
         "validating",
     ]
     """
-    The status field represents the current state of the redaction job. It can take on any of the following values: VALIDATING, READY, REDACTING, SUCCEEDED, CANCELED, FAILED.
+    The status of the job.
     """
     validation_behavior: Optional[Literal["error", "fix"]]
     """
-    Default is "error". If "error", we will make sure all objects in the graph are redactable in the 1st traversal, otherwise error. If "fix", where possible, we will auto-fix any validation errors (e.g. by auto-transitioning objects to a terminal state, etc.) in the 2nd traversal before redacting
+    Validation behavior determines how a job validates objects for redaction eligibility. Default is `error`.
     """
 
     @classmethod
@@ -200,7 +229,9 @@ class RedactionJob(
         cls, job: str, **params: Unpack["RedactionJob.CancelParams"]
     ) -> "RedactionJob":
         """
-        Cancel redaction job method
+        You can cancel a redaction job when it's in one of these statuses: ready, failed.
+
+        Canceling the redaction job will abandon its attempt to redact the configured objects. A canceled job cannot be used again.
         """
         return cast(
             "RedactionJob",
@@ -219,7 +250,9 @@ class RedactionJob(
         job: str, **params: Unpack["RedactionJob.CancelParams"]
     ) -> "RedactionJob":
         """
-        Cancel redaction job method
+        You can cancel a redaction job when it's in one of these statuses: ready, failed.
+
+        Canceling the redaction job will abandon its attempt to redact the configured objects. A canceled job cannot be used again.
         """
         ...
 
@@ -228,7 +261,9 @@ class RedactionJob(
         self, **params: Unpack["RedactionJob.CancelParams"]
     ) -> "RedactionJob":
         """
-        Cancel redaction job method
+        You can cancel a redaction job when it's in one of these statuses: ready, failed.
+
+        Canceling the redaction job will abandon its attempt to redact the configured objects. A canceled job cannot be used again.
         """
         ...
 
@@ -237,7 +272,9 @@ class RedactionJob(
         self, **params: Unpack["RedactionJob.CancelParams"]
     ) -> "RedactionJob":
         """
-        Cancel redaction job method
+        You can cancel a redaction job when it's in one of these statuses: ready, failed.
+
+        Canceling the redaction job will abandon its attempt to redact the configured objects. A canceled job cannot be used again.
         """
         return cast(
             "RedactionJob",
@@ -255,7 +292,9 @@ class RedactionJob(
         cls, job: str, **params: Unpack["RedactionJob.CancelParams"]
     ) -> "RedactionJob":
         """
-        Cancel redaction job method
+        You can cancel a redaction job when it's in one of these statuses: ready, failed.
+
+        Canceling the redaction job will abandon its attempt to redact the configured objects. A canceled job cannot be used again.
         """
         return cast(
             "RedactionJob",
@@ -274,7 +313,9 @@ class RedactionJob(
         job: str, **params: Unpack["RedactionJob.CancelParams"]
     ) -> "RedactionJob":
         """
-        Cancel redaction job method
+        You can cancel a redaction job when it's in one of these statuses: ready, failed.
+
+        Canceling the redaction job will abandon its attempt to redact the configured objects. A canceled job cannot be used again.
         """
         ...
 
@@ -283,7 +324,9 @@ class RedactionJob(
         self, **params: Unpack["RedactionJob.CancelParams"]
     ) -> "RedactionJob":
         """
-        Cancel redaction job method
+        You can cancel a redaction job when it's in one of these statuses: ready, failed.
+
+        Canceling the redaction job will abandon its attempt to redact the configured objects. A canceled job cannot be used again.
         """
         ...
 
@@ -292,7 +335,9 @@ class RedactionJob(
         self, **params: Unpack["RedactionJob.CancelParams"]
     ) -> "RedactionJob":
         """
-        Cancel redaction job method
+        You can cancel a redaction job when it's in one of these statuses: ready, failed.
+
+        Canceling the redaction job will abandon its attempt to redact the configured objects. A canceled job cannot be used again.
         """
         return cast(
             "RedactionJob",
@@ -310,7 +355,7 @@ class RedactionJob(
         cls, **params: Unpack["RedactionJob.CreateParams"]
     ) -> "RedactionJob":
         """
-        Create redaction job method
+        Creates a redaction job. When a job is created, it will start to validate.
         """
         return cast(
             "RedactionJob",
@@ -326,7 +371,7 @@ class RedactionJob(
         cls, **params: Unpack["RedactionJob.CreateParams"]
     ) -> "RedactionJob":
         """
-        Create redaction job method
+        Creates a redaction job. When a job is created, it will start to validate.
         """
         return cast(
             "RedactionJob",
@@ -342,7 +387,7 @@ class RedactionJob(
         cls, **params: Unpack["RedactionJob.ListParams"]
     ) -> ListObject["RedactionJob"]:
         """
-        List redaction jobs method...
+        Returns a list of redaction jobs.
         """
         result = cls._static_request(
             "get",
@@ -362,7 +407,7 @@ class RedactionJob(
         cls, **params: Unpack["RedactionJob.ListParams"]
     ) -> ListObject["RedactionJob"]:
         """
-        List redaction jobs method...
+        Returns a list of redaction jobs.
         """
         result = await cls._static_request_async(
             "get",
@@ -382,7 +427,9 @@ class RedactionJob(
         cls, id: str, **params: Unpack["RedactionJob.ModifyParams"]
     ) -> "RedactionJob":
         """
-        Update redaction job method
+        Updates the properties of a redaction job without running or canceling the job.
+
+        If the job to update is in a failed status, it will not automatically start to validate. Once you applied all of the changes, use the validate API to start validation again.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -399,7 +446,9 @@ class RedactionJob(
         cls, id: str, **params: Unpack["RedactionJob.ModifyParams"]
     ) -> "RedactionJob":
         """
-        Update redaction job method
+        Updates the properties of a redaction job without running or canceling the job.
+
+        If the job to update is in a failed status, it will not automatically start to validate. Once you applied all of the changes, use the validate API to start validation again.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -416,7 +465,7 @@ class RedactionJob(
         cls, id: str, **params: Unpack["RedactionJob.RetrieveParams"]
     ) -> "RedactionJob":
         """
-        Retrieve redaction job method
+        Retrieves the details of a previously created redaction job.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -427,7 +476,7 @@ class RedactionJob(
         cls, id: str, **params: Unpack["RedactionJob.RetrieveParams"]
     ) -> "RedactionJob":
         """
-        Retrieve redaction job method
+        Retrieves the details of a previously created redaction job.
         """
         instance = cls(id, **params)
         await instance.refresh_async()
@@ -438,7 +487,11 @@ class RedactionJob(
         cls, job: str, **params: Unpack["RedactionJob.RunParams"]
     ) -> "RedactionJob":
         """
-        Run redaction job method
+        Run a redaction job in a ready status.
+
+        When you run a job, the configured objects will be redacted asynchronously. This action is irreversible and cannot be canceled once started.
+
+        The status of the job will move to redacting. Once all of the objects are redacted, the status will become succeeded. If the job's validation_behavior is set to fix, the automatic fixes will be applied to objects at this step.
         """
         return cast(
             "RedactionJob",
@@ -457,7 +510,11 @@ class RedactionJob(
         job: str, **params: Unpack["RedactionJob.RunParams"]
     ) -> "RedactionJob":
         """
-        Run redaction job method
+        Run a redaction job in a ready status.
+
+        When you run a job, the configured objects will be redacted asynchronously. This action is irreversible and cannot be canceled once started.
+
+        The status of the job will move to redacting. Once all of the objects are redacted, the status will become succeeded. If the job's validation_behavior is set to fix, the automatic fixes will be applied to objects at this step.
         """
         ...
 
@@ -466,7 +523,11 @@ class RedactionJob(
         self, **params: Unpack["RedactionJob.RunParams"]
     ) -> "RedactionJob":
         """
-        Run redaction job method
+        Run a redaction job in a ready status.
+
+        When you run a job, the configured objects will be redacted asynchronously. This action is irreversible and cannot be canceled once started.
+
+        The status of the job will move to redacting. Once all of the objects are redacted, the status will become succeeded. If the job's validation_behavior is set to fix, the automatic fixes will be applied to objects at this step.
         """
         ...
 
@@ -475,7 +536,11 @@ class RedactionJob(
         self, **params: Unpack["RedactionJob.RunParams"]
     ) -> "RedactionJob":
         """
-        Run redaction job method
+        Run a redaction job in a ready status.
+
+        When you run a job, the configured objects will be redacted asynchronously. This action is irreversible and cannot be canceled once started.
+
+        The status of the job will move to redacting. Once all of the objects are redacted, the status will become succeeded. If the job's validation_behavior is set to fix, the automatic fixes will be applied to objects at this step.
         """
         return cast(
             "RedactionJob",
@@ -493,7 +558,11 @@ class RedactionJob(
         cls, job: str, **params: Unpack["RedactionJob.RunParams"]
     ) -> "RedactionJob":
         """
-        Run redaction job method
+        Run a redaction job in a ready status.
+
+        When you run a job, the configured objects will be redacted asynchronously. This action is irreversible and cannot be canceled once started.
+
+        The status of the job will move to redacting. Once all of the objects are redacted, the status will become succeeded. If the job's validation_behavior is set to fix, the automatic fixes will be applied to objects at this step.
         """
         return cast(
             "RedactionJob",
@@ -512,7 +581,11 @@ class RedactionJob(
         job: str, **params: Unpack["RedactionJob.RunParams"]
     ) -> "RedactionJob":
         """
-        Run redaction job method
+        Run a redaction job in a ready status.
+
+        When you run a job, the configured objects will be redacted asynchronously. This action is irreversible and cannot be canceled once started.
+
+        The status of the job will move to redacting. Once all of the objects are redacted, the status will become succeeded. If the job's validation_behavior is set to fix, the automatic fixes will be applied to objects at this step.
         """
         ...
 
@@ -521,7 +594,11 @@ class RedactionJob(
         self, **params: Unpack["RedactionJob.RunParams"]
     ) -> "RedactionJob":
         """
-        Run redaction job method
+        Run a redaction job in a ready status.
+
+        When you run a job, the configured objects will be redacted asynchronously. This action is irreversible and cannot be canceled once started.
+
+        The status of the job will move to redacting. Once all of the objects are redacted, the status will become succeeded. If the job's validation_behavior is set to fix, the automatic fixes will be applied to objects at this step.
         """
         ...
 
@@ -530,7 +607,11 @@ class RedactionJob(
         self, **params: Unpack["RedactionJob.RunParams"]
     ) -> "RedactionJob":
         """
-        Run redaction job method
+        Run a redaction job in a ready status.
+
+        When you run a job, the configured objects will be redacted asynchronously. This action is irreversible and cannot be canceled once started.
+
+        The status of the job will move to redacting. Once all of the objects are redacted, the status will become succeeded. If the job's validation_behavior is set to fix, the automatic fixes will be applied to objects at this step.
         """
         return cast(
             "RedactionJob",
@@ -548,7 +629,11 @@ class RedactionJob(
         cls, job: str, **params: Unpack["RedactionJob.ValidateParams"]
     ) -> "RedactionJob":
         """
-        Validate redaction job method
+        Validate a redaction job when it is in a failed status.
+
+        When a job is created, it automatically begins to validate on the configured objects' eligibility for redaction. Use this to validate the job again after its validation errors are resolved or the job's validation_behavior is changed.
+
+        The status of the job will move to validating. Once all of the objects are validated, the status of the job will become ready. If there are any validation errors preventing the job from running, the status will become failed.
         """
         return cast(
             "RedactionJob",
@@ -567,7 +652,11 @@ class RedactionJob(
         job: str, **params: Unpack["RedactionJob.ValidateParams"]
     ) -> "RedactionJob":
         """
-        Validate redaction job method
+        Validate a redaction job when it is in a failed status.
+
+        When a job is created, it automatically begins to validate on the configured objects' eligibility for redaction. Use this to validate the job again after its validation errors are resolved or the job's validation_behavior is changed.
+
+        The status of the job will move to validating. Once all of the objects are validated, the status of the job will become ready. If there are any validation errors preventing the job from running, the status will become failed.
         """
         ...
 
@@ -576,7 +665,11 @@ class RedactionJob(
         self, **params: Unpack["RedactionJob.ValidateParams"]
     ) -> "RedactionJob":
         """
-        Validate redaction job method
+        Validate a redaction job when it is in a failed status.
+
+        When a job is created, it automatically begins to validate on the configured objects' eligibility for redaction. Use this to validate the job again after its validation errors are resolved or the job's validation_behavior is changed.
+
+        The status of the job will move to validating. Once all of the objects are validated, the status of the job will become ready. If there are any validation errors preventing the job from running, the status will become failed.
         """
         ...
 
@@ -585,7 +678,11 @@ class RedactionJob(
         self, **params: Unpack["RedactionJob.ValidateParams"]
     ) -> "RedactionJob":
         """
-        Validate redaction job method
+        Validate a redaction job when it is in a failed status.
+
+        When a job is created, it automatically begins to validate on the configured objects' eligibility for redaction. Use this to validate the job again after its validation errors are resolved or the job's validation_behavior is changed.
+
+        The status of the job will move to validating. Once all of the objects are validated, the status of the job will become ready. If there are any validation errors preventing the job from running, the status will become failed.
         """
         return cast(
             "RedactionJob",
@@ -603,7 +700,11 @@ class RedactionJob(
         cls, job: str, **params: Unpack["RedactionJob.ValidateParams"]
     ) -> "RedactionJob":
         """
-        Validate redaction job method
+        Validate a redaction job when it is in a failed status.
+
+        When a job is created, it automatically begins to validate on the configured objects' eligibility for redaction. Use this to validate the job again after its validation errors are resolved or the job's validation_behavior is changed.
+
+        The status of the job will move to validating. Once all of the objects are validated, the status of the job will become ready. If there are any validation errors preventing the job from running, the status will become failed.
         """
         return cast(
             "RedactionJob",
@@ -622,7 +723,11 @@ class RedactionJob(
         job: str, **params: Unpack["RedactionJob.ValidateParams"]
     ) -> "RedactionJob":
         """
-        Validate redaction job method
+        Validate a redaction job when it is in a failed status.
+
+        When a job is created, it automatically begins to validate on the configured objects' eligibility for redaction. Use this to validate the job again after its validation errors are resolved or the job's validation_behavior is changed.
+
+        The status of the job will move to validating. Once all of the objects are validated, the status of the job will become ready. If there are any validation errors preventing the job from running, the status will become failed.
         """
         ...
 
@@ -631,7 +736,11 @@ class RedactionJob(
         self, **params: Unpack["RedactionJob.ValidateParams"]
     ) -> "RedactionJob":
         """
-        Validate redaction job method
+        Validate a redaction job when it is in a failed status.
+
+        When a job is created, it automatically begins to validate on the configured objects' eligibility for redaction. Use this to validate the job again after its validation errors are resolved or the job's validation_behavior is changed.
+
+        The status of the job will move to validating. Once all of the objects are validated, the status of the job will become ready. If there are any validation errors preventing the job from running, the status will become failed.
         """
         ...
 
@@ -640,7 +749,11 @@ class RedactionJob(
         self, **params: Unpack["RedactionJob.ValidateParams"]
     ) -> "RedactionJob":
         """
-        Validate redaction job method
+        Validate a redaction job when it is in a failed status.
+
+        When a job is created, it automatically begins to validate on the configured objects' eligibility for redaction. Use this to validate the job again after its validation errors are resolved or the job's validation_behavior is changed.
+
+        The status of the job will move to validating. Once all of the objects are validated, the status of the job will become ready. If there are any validation errors preventing the job from running, the status will become failed.
         """
         return cast(
             "RedactionJob",
@@ -660,7 +773,7 @@ class RedactionJob(
         **params: Unpack["RedactionJob.ListValidationErrorsParams"],
     ) -> ListObject["RedactionJobValidationError"]:
         """
-        List validation errors method
+        Returns a list of validation errors for the specified redaction job.
         """
         return cast(
             ListObject["RedactionJobValidationError"],
@@ -680,7 +793,7 @@ class RedactionJob(
         **params: Unpack["RedactionJob.ListValidationErrorsParams"],
     ) -> ListObject["RedactionJobValidationError"]:
         """
-        List validation errors method
+        Returns a list of validation errors for the specified redaction job.
         """
         return cast(
             ListObject["RedactionJobValidationError"],
