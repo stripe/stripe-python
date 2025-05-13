@@ -602,7 +602,7 @@ class Subscription(
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -1545,7 +1545,7 @@ class Subscription(
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
         """
         cancellation_details: NotRequired[
             "Subscription.ModifyParamsCancellationDetails"
@@ -2384,7 +2384,7 @@ class Subscription(
     """
     cancel_at_period_end: bool
     """
-    Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period.
+    Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period. This field will be removed in a future API version. Please use `cancel_at` instead.
     """
     canceled_at: Optional[int]
     """

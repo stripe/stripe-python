@@ -87,7 +87,7 @@ class SubscriptionService(StripeService):
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -1088,7 +1088,7 @@ class SubscriptionService(StripeService):
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
         """
         cancellation_details: NotRequired[
             "SubscriptionService.UpdateParamsCancellationDetails"
