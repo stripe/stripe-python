@@ -2876,7 +2876,7 @@ class SessionService(StripeService):
         """
         Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
         """
-        quantity: NotRequired["Literal['']|int"]
+        quantity: NotRequired[int]
         """
         The quantity of the line item being purchased. Quantity should not be defined when `recurring.usage_type=metered`.
         """
