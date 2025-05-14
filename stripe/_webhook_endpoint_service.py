@@ -124,6 +124,7 @@ class WebhookEndpointService(StripeService):
                 "2025-03-01.dashboard",
                 "2025-03-31.basil",
                 "2025-04-30.basil",
+                "2025-05-28.basil",
             ]
         ]
         """
