@@ -258,14 +258,25 @@ class Reader(
             _inner_class_types = {"collect_config": CollectConfig}
 
         class ConfirmPaymentIntent(StripeObject):
+            class ConfirmConfig(StripeObject):
+                return_url: Optional[str]
+                """
+                If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+                """
+
             account: Optional[str]
             """
             Account the payment intent belongs to.
+            """
+            confirm_config: Optional[ConfirmConfig]
+            """
+            Represents a per-transaction override of a reader configuration
             """
             payment_intent: ExpandableField["PaymentIntent"]
             """
             Most recent PaymentIntent processed by the reader.
             """
+            _inner_class_types = {"confirm_config": ConfirmConfig}
 
         class ProcessPaymentIntent(StripeObject):
             class ProcessConfig(StripeObject):
@@ -278,6 +289,10 @@ class Reader(
                 enable_customer_cancellation: Optional[bool]
                 """
                 Enable customer initiated cancellation when processing this payment.
+                """
+                return_url: Optional[str]
+                """
+                If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
                 """
                 skip_tipping: Optional[bool]
                 """
@@ -622,6 +637,12 @@ class Reader(
         """
 
     class ConfirmPaymentIntentParams(RequestOptions):
+        confirm_config: NotRequired[
+            "Reader.ConfirmPaymentIntentParamsConfirmConfig"
+        ]
+        """
+        Configuration overrides
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -629,6 +650,12 @@ class Reader(
         payment_intent: str
         """
         PaymentIntent ID
+        """
+
+    class ConfirmPaymentIntentParamsConfirmConfig(TypedDict):
+        return_url: NotRequired[str]
+        """
+        The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
         """
 
     class CreateParams(RequestOptions):
@@ -780,6 +807,10 @@ class Reader(
         enable_customer_cancellation: NotRequired[bool]
         """
         Enables cancel button on transaction screens.
+        """
+        return_url: NotRequired[str]
+        """
+        The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
         """
         skip_tipping: NotRequired[bool]
         """
