@@ -474,6 +474,7 @@ class Invoice(
                 "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
+                "forwarding_api_upstream_error",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
@@ -5776,9 +5777,6 @@ class Invoice(
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
 
-        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
-        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
-
         For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
         to the invoice, increasing its amount_paid. When the invoice is fully paid, the
         invoice's status becomes paid.
@@ -5786,7 +5784,7 @@ class Invoice(
         If the PaymentIntent's status is already succeeded when it's attached, it's
         credited to the invoice immediately.
 
-        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
         """
         return cast(
             "Invoice",
@@ -5807,9 +5805,6 @@ class Invoice(
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
 
-        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
-        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
-
         For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
         to the invoice, increasing its amount_paid. When the invoice is fully paid, the
         invoice's status becomes paid.
@@ -5817,7 +5812,7 @@ class Invoice(
         If the PaymentIntent's status is already succeeded when it's attached, it's
         credited to the invoice immediately.
 
-        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
         """
         ...
 
@@ -5828,9 +5823,6 @@ class Invoice(
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
 
-        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
-        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
-
         For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
         to the invoice, increasing its amount_paid. When the invoice is fully paid, the
         invoice's status becomes paid.
@@ -5838,7 +5830,7 @@ class Invoice(
         If the PaymentIntent's status is already succeeded when it's attached, it's
         credited to the invoice immediately.
 
-        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
         """
         ...
 
@@ -5849,9 +5841,6 @@ class Invoice(
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
 
-        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
-        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
-
         For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
         to the invoice, increasing its amount_paid. When the invoice is fully paid, the
         invoice's status becomes paid.
@@ -5859,7 +5848,7 @@ class Invoice(
         If the PaymentIntent's status is already succeeded when it's attached, it's
         credited to the invoice immediately.
 
-        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
         """
         return cast(
             "Invoice",
@@ -5879,9 +5868,6 @@ class Invoice(
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
 
-        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
-        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
-
         For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
         to the invoice, increasing its amount_paid. When the invoice is fully paid, the
         invoice's status becomes paid.
@@ -5889,7 +5875,7 @@ class Invoice(
         If the PaymentIntent's status is already succeeded when it's attached, it's
         credited to the invoice immediately.
 
-        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
         """
         return cast(
             "Invoice",
@@ -5910,9 +5896,6 @@ class Invoice(
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
 
-        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
-        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
-
         For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
         to the invoice, increasing its amount_paid. When the invoice is fully paid, the
         invoice's status becomes paid.
@@ -5920,7 +5903,7 @@ class Invoice(
         If the PaymentIntent's status is already succeeded when it's attached, it's
         credited to the invoice immediately.
 
-        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
         """
         ...
 
@@ -5931,9 +5914,6 @@ class Invoice(
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
 
-        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
-        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
-
         For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
         to the invoice, increasing its amount_paid. When the invoice is fully paid, the
         invoice's status becomes paid.
@@ -5941,7 +5921,7 @@ class Invoice(
         If the PaymentIntent's status is already succeeded when it's attached, it's
         credited to the invoice immediately.
 
-        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
         """
         ...
 
@@ -5952,9 +5932,6 @@ class Invoice(
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
 
-        For Out of Band Payment, the payment is credited to the invoice immediately, increasing the amount_paid
-        of the invoice and subsequently transitioning the status of the invoice to paid if necessary.
-
         For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
         to the invoice, increasing its amount_paid. When the invoice is fully paid, the
         invoice's status becomes paid.
@@ -5962,7 +5939,7 @@ class Invoice(
         If the PaymentIntent's status is already succeeded when it's attached, it's
         credited to the invoice immediately.
 
-        See: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create) to learn more.
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
         """
         return cast(
             "Invoice",
