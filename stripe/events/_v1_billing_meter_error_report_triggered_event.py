@@ -68,21 +68,21 @@ class V1BillingMeterErrorReportTriggeredEvent(Event):
             """
             _inner_class_types = {"error_types": ErrorType}
 
-        developer_message_summary: str
-        """
-        Extra field included in the event's `data` when fetched from /v2/events.
-        """
         reason: Reason
         """
         This contains information about why meter error happens.
         """
-        validation_end: str
+        developer_message_summary: str
         """
-        The end of the window that is encapsulated by this summary.
+        Extra field included in the event's `data` when fetched from /v2/events.
         """
         validation_start: str
         """
         The start of the window that is encapsulated by this summary.
+        """
+        validation_end: str
+        """
+        The end of the window that is encapsulated by this summary.
         """
         _inner_class_types = {"reason": Reason}
 

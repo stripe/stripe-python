@@ -189,7 +189,25 @@ class SignatureVerificationError(StripeError):
 
 # classDefinitions: The beginning of the section generated from our OpenAPI spec
 class TemporarySessionExpiredError(StripeError):
-    pass
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        error=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.error = error
 
 
 # classDefinitions: The end of the section generated from our OpenAPI spec

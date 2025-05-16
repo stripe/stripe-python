@@ -367,7 +367,10 @@ class _APIRequestor(object):
             )
         # switchCases: The beginning of the section generated from our OpenAPI spec
         elif type == "temporary_session_expired":
-            return error.TemporarySessionExpiredError(**error_args)
+            return error.TemporarySessionExpiredError(
+                **error_args,
+                error=error_data.get("error"),
+            )
         # switchCases: The end of the section generated from our OpenAPI spec
 
         return self.specific_v1_api_error(

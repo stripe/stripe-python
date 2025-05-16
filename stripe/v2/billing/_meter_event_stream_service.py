@@ -49,7 +49,7 @@ class MeterEventStreamService(StripeService):
         self._request(
             "post",
             "/v2/billing/meter_event_stream",
-            base_address="meter_events",
+            base_address="api",
             params=params,
             options=options,
         )
@@ -65,7 +65,7 @@ class MeterEventStreamService(StripeService):
         await self._request_async(
             "post",
             "/v2/billing/meter_event_stream",
-            base_address="meter_events",
+            base_address="api",
             params=params,
             options=options,
         )
