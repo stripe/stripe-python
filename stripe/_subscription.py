@@ -1518,6 +1518,16 @@ class Subscription(
         Maximum value to filter by (inclusive)
         """
 
+    class MigrateParams(RequestOptions):
+        billing_mode: Literal["flexible"]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class ModifyParams(RequestOptions):
         add_invoice_items: NotRequired[
             List["Subscription.ModifyParamsAddInvoiceItem"]
@@ -2914,6 +2924,116 @@ class Subscription(
             )
 
         return result
+
+    @classmethod
+    def _cls_migrate(
+        cls, subscription: str, **params: Unpack["Subscription.MigrateParams"]
+    ) -> "Subscription":
+        """
+        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        """
+        return cast(
+            "Subscription",
+            cls._static_request(
+                "post",
+                "/v1/subscriptions/{subscription}/migrate".format(
+                    subscription=sanitize_id(subscription)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def migrate(
+        subscription: str, **params: Unpack["Subscription.MigrateParams"]
+    ) -> "Subscription":
+        """
+        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        """
+        ...
+
+    @overload
+    def migrate(
+        self, **params: Unpack["Subscription.MigrateParams"]
+    ) -> "Subscription":
+        """
+        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        """
+        ...
+
+    @class_method_variant("_cls_migrate")
+    def migrate(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Subscription.MigrateParams"]
+    ) -> "Subscription":
+        """
+        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        """
+        return cast(
+            "Subscription",
+            self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/migrate".format(
+                    subscription=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_migrate_async(
+        cls, subscription: str, **params: Unpack["Subscription.MigrateParams"]
+    ) -> "Subscription":
+        """
+        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        """
+        return cast(
+            "Subscription",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/migrate".format(
+                    subscription=sanitize_id(subscription)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def migrate_async(
+        subscription: str, **params: Unpack["Subscription.MigrateParams"]
+    ) -> "Subscription":
+        """
+        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        """
+        ...
+
+    @overload
+    async def migrate_async(
+        self, **params: Unpack["Subscription.MigrateParams"]
+    ) -> "Subscription":
+        """
+        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        """
+        ...
+
+    @class_method_variant("_cls_migrate_async")
+    async def migrate_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Subscription.MigrateParams"]
+    ) -> "Subscription":
+        """
+        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        """
+        return cast(
+            "Subscription",
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/migrate".format(
+                    subscription=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def modify(

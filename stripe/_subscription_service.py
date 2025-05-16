@@ -1015,6 +1015,16 @@ class SubscriptionService(StripeService):
         Maximum value to filter by (inclusive)
         """
 
+    class MigrateParams(TypedDict):
+        billing_mode: Literal["flexible"]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class ResumeParams(TypedDict):
         billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
         """
@@ -2230,6 +2240,50 @@ class SubscriptionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/subscriptions/search",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def migrate(
+        self,
+        subscription: str,
+        params: "SubscriptionService.MigrateParams",
+        options: RequestOptions = {},
+    ) -> Subscription:
+        """
+        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        """
+        return cast(
+            Subscription,
+            self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/migrate".format(
+                    subscription=sanitize_id(subscription),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def migrate_async(
+        self,
+        subscription: str,
+        params: "SubscriptionService.MigrateParams",
+        options: RequestOptions = {},
+    ) -> Subscription:
+        """
+        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        """
+        return cast(
+            Subscription,
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/migrate".format(
+                    subscription=sanitize_id(subscription),
+                ),
                 base_address="api",
                 params=params,
                 options=options,
