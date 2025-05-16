@@ -466,7 +466,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
             "always_invoice", "create_prorations", "none"
         ]
         """
-        If the subscription schedule will prorate when transitioning to this phase. Possible values are `create_prorations` and `none`.
+        When transitioning phases, controls how prorations are handled (if any). Possible values are `create_prorations`, `none`, and `always_invoice`.
         """
         start_date: int
         """
