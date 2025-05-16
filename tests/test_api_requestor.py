@@ -11,6 +11,7 @@ import urllib3
 import stripe
 from stripe import util
 from stripe._api_requestor import _api_encode, _APIRequestor
+from stripe._customer import Customer
 from stripe._request_options import RequestOptions
 from stripe._requestor_options import (
     RequestorOptions,
@@ -21,6 +22,7 @@ from stripe._stripe_response import (
     StripeStreamResponse,
     StripeStreamResponseAsync,
 )
+from stripe.v2._deleted_object import DeletedObject
 from tests.http_client_mock import HTTPClientMock
 
 VALID_API_METHODS = ("get", "post", "delete")
@@ -317,6 +319,61 @@ class TestAPIRequestor(object):
 
             http_client_mock.assert_requested(meth, post_data=post_data)
             assert isinstance(resp, StripeObject)
+
+            assert resp == {}
+
+    def test_delete_methods(self, requestor, http_client_mock):
+        for path in [self.v1_path, self.v2_path]:
+            method = "delete"
+            http_client_mock.stub_request(
+                method,
+                path=path,
+                rbody="{'id': 'abc_123', 'object': 'customer'}",
+                rcode=200,
+            )
+
+            resp = requestor.request(
+                method, self.v2_path, {}, base_address="api"
+            )
+
+            post_data = None
+
+            http_client_mock.assert_requested(method, post_data=post_data)
+            if path == self.v1_path:
+                assert isinstance(resp, Customer)
+            else:
+                assert isinstance(resp, DeletedObject)
+            assert resp.id == "abc_123"
+            assert resp.object == "customer"
+
+            assert resp == {}
+
+    @pytest.mark.anyio
+    async def test_delete_methods_async(self, requestor, http_client_mock):
+        for path in [self.v1_path, self.v2_path]:
+            method = "delete"
+            http_client_mock.stub_request(
+                method,
+                path=self.v2_path,
+                rbody="{'id': 'abc_123', 'object': 'customer'}",
+                rcode=200,
+            )
+
+            resp = await requestor.request_async(
+                method, self.v2_path, {}, base_address="api"
+            )
+
+            post_data = None
+
+            http_client_mock.assert_requested(method, post_data=post_data)
+
+            if path == self.v1_path:
+                assert isinstance(resp, Customer)
+            else:
+                assert isinstance(resp, DeletedObject)
+
+            assert resp.id == "abc_123"
+            assert resp.object == "customer"
 
             assert resp == {}
 

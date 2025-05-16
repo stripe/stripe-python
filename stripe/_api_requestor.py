@@ -201,6 +201,7 @@ class _APIRequestor(object):
             params=params,
             requestor=requestor,
             api_mode=api_mode,
+            v2_deleted_object=method == "delete" and api_mode == "V2",
         )
 
         return obj
@@ -234,6 +235,7 @@ class _APIRequestor(object):
             params=params,
             requestor=requestor,
             api_mode=api_mode,
+            v2_deleted_object=method == "delete" and api_mode == "V2",
         )
 
         return obj
