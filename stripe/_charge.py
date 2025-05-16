@@ -270,6 +270,14 @@ class Charge(
             """
 
         class Affirm(StripeObject):
+            location: Optional[str]
+            """
+            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            """
             transaction_id: Optional[str]
             """
             The Affirm transaction ID associated with this payment.
@@ -1830,6 +1838,14 @@ class Charge(
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
+            """
+            location: Optional[str]
+            """
+            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
             """
             transaction_id: Optional[str]
             """

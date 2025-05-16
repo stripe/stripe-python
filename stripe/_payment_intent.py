@@ -152,6 +152,7 @@ class PaymentIntent(
                 "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
+                "forwarding_api_upstream_error",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
@@ -1299,7 +1300,7 @@ class PaymentIntent(
         ]
         type: str
         """
-        Type of the next action to perform, one of `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
+        Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
         """
         use_stripe_sdk: Optional[Dict[str, Any]]
         """
@@ -1524,7 +1525,10 @@ class PaymentIntent(
             """
 
         class Billie(StripeObject):
-            pass
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
 
         class Blik(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
@@ -2180,6 +2184,12 @@ class PaymentIntent(
             Controls when the funds will be captured from the customer's account.
             """
 
+        class Satispay(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
                 reference_prefix: Optional[str]
@@ -2402,6 +2412,7 @@ class PaymentIntent(
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
+        satispay: Optional[Satispay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
@@ -2451,6 +2462,7 @@ class PaymentIntent(
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
+            "satispay": Satispay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "swish": Swish,
@@ -2662,6 +2674,7 @@ class PaymentIntent(
         payment_method: NotRequired[str]
         """
         ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
+        If the payment method is attached to a Customer, it must match the [customer](https://stripe.com/docs/api#create_payment_intent-customer) that is set on this PaymentIntent.
         """
         payment_method_data: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodData"
@@ -3750,6 +3763,12 @@ class PaymentIntent(
         ]
         """
         If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
+        """
+        satispay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSatispay"
+        ]
+        """
+        If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebit"
@@ -4963,6 +4982,16 @@ class PaymentIntent(
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
+    class ConfirmParamsPaymentMethodOptionsSatispay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class ConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
         mandate_options: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions"
@@ -5329,6 +5358,8 @@ class PaymentIntent(
         ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
 
         If you don't provide the `payment_method` parameter or the `source` parameter with `confirm=true`, `source` automatically populates with `customer.default_source` to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward.
+        If the payment method is attached to a Customer, you must also provide the ID of that Customer as the [customer](https://stripe.com/docs/api#create_payment_intent-customer) parameter of this PaymentIntent.
+        end
         """
         payment_method_configuration: NotRequired[str]
         """
@@ -6444,6 +6475,12 @@ class PaymentIntent(
         ]
         """
         If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
+        """
+        satispay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSatispay"
+        ]
+        """
+        If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
         """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSepaDebit"
@@ -7648,6 +7685,16 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
+    class CreateParamsPaymentMethodOptionsSatispay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
         Controls when the funds are captured from the customer's account.
@@ -9133,6 +9180,12 @@ class PaymentIntent(
         """
         If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
         """
+        satispay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSatispay"
+        ]
+        """
+        If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
+        """
         sepa_debit: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSepaDebit"
         ]
@@ -10336,6 +10389,16 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsSamsungPay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
+    class ModifyParamsPaymentMethodOptionsSatispay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
         Controls when the funds are captured from the customer's account.

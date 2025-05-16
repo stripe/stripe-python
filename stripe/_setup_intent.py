@@ -138,6 +138,7 @@ class SetupIntent(
                 "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
+                "forwarding_api_upstream_error",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
@@ -412,7 +413,7 @@ class SetupIntent(
         redirect_to_url: Optional[RedirectToUrl]
         type: str
         """
-        Type of the next action to perform, one of `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
+        Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
         """
         use_stripe_sdk: Optional[Dict[str, Any]]
         """

@@ -143,6 +143,7 @@ class WebhookEndpoint(
                 "2025-03-01.dashboard",
                 "2025-03-31.basil",
                 "2025-04-30.basil",
+                "2025-05-28.basil",
             ]
         ]
         """
@@ -250,6 +251,7 @@ class WebhookEndpoint(
                 "invoice.overdue",
                 "invoice.overpaid",
                 "invoice.paid",
+                "invoice.payment.paid",
                 "invoice.payment_action_required",
                 "invoice.payment_failed",
                 "invoice.payment_succeeded",
@@ -549,6 +551,7 @@ class WebhookEndpoint(
                     "invoice.overdue",
                     "invoice.overpaid",
                     "invoice.paid",
+                    "invoice.payment.paid",
                     "invoice.payment_action_required",
                     "invoice.payment_failed",
                     "invoice.payment_succeeded",

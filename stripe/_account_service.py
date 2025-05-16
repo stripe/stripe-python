@@ -502,6 +502,12 @@ class AccountService(StripeService):
         """
         The paynow_payments capability.
         """
+        pix_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesPixPayments"
+        ]
+        """
+        The pix_payments capability.
+        """
         promptpay_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesPromptpayPayments"
         ]
@@ -840,6 +846,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesPaynowPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPixPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2399,6 +2411,12 @@ class AccountService(StripeService):
         """
         The paynow_payments capability.
         """
+        pix_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesPixPayments"
+        ]
+        """
+        The pix_payments capability.
+        """
         promptpay_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesPromptpayPayments"
         ]
@@ -2737,6 +2755,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesPaynowPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesPixPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

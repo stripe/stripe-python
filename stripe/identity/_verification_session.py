@@ -212,6 +212,18 @@ class VerificationSession(
         """
         The user's verified phone number
         """
+        sex: Optional[Literal["[redacted]", "female", "male", "unknown"]]
+        """
+        The user's verified sex.
+        """
+        unparsed_place_of_birth: Optional[str]
+        """
+        The user's verified place of birth as it appears in the document.
+        """
+        unparsed_sex: Optional[str]
+        """
+        The user's verified sex as it appears in the document.
+        """
         _inner_class_types = {"address": Address, "dob": Dob}
 
     class CancelParams(RequestOptions):

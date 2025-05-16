@@ -81,7 +81,7 @@ class SubscriptionService(StripeService):
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -872,7 +872,7 @@ class SubscriptionService(StripeService):
         """
         proration_date: NotRequired[int]
         """
-        If set, the proration will be calculated as though the subscription was resumed at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#retrieve_customer_invoice) endpoint.
+        If set, prorations will be calculated as though the subscription was resumed at the given time. This can be used to apply exactly the same prorations that were previewed with the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint.
         """
 
     class RetrieveParams(TypedDict):
@@ -926,7 +926,7 @@ class SubscriptionService(StripeService):
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
         """
         cancellation_details: NotRequired[
             "SubscriptionService.UpdateParamsCancellationDetails"
@@ -1035,7 +1035,7 @@ class SubscriptionService(StripeService):
         """
         proration_date: NotRequired[int]
         """
-        If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same proration that was previewed with [upcoming invoice](https://stripe.com/docs/api#upcoming_invoice) endpoint. It can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
+        If set, prorations will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same prorations that were previewed with the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint. `proration_date` can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
         """
         transfer_data: NotRequired[
             "Literal['']|SubscriptionService.UpdateParamsTransferData"

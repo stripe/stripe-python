@@ -438,6 +438,7 @@ class Invoice(
                 "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
+                "forwarding_api_upstream_error",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
@@ -1393,6 +1394,16 @@ class Invoice(
         ]
         """
         The high-level tax type, such as `vat` or `sales_tax`.
+        """
+
+    class AttachPaymentParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        payment_intent: NotRequired[str]
+        """
+        The ID of the PaymentIntent to attach to the invoice.
         """
 
     class CreateParams(RequestOptions):
@@ -2582,7 +2593,7 @@ class Invoice(
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
+        Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         """
         start_date: NotRequired["int|Literal['now']"]
         """
@@ -2848,7 +2859,7 @@ class Invoice(
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
         """
         cancel_now: NotRequired[bool]
         """
@@ -4226,7 +4237,7 @@ class Invoice(
     """
     id: Optional[str]
     """
-    Unique identifier for the object. This property is always present unless the invoice is an upcoming invoice. See [Retrieve an upcoming invoice](https://stripe.com/docs/api/invoices/upcoming) for more details.
+    Unique identifier for the object. For preview invoices created using the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint, this id will be prefixed with `upcoming_in`.
     """
     invoice_pdf: Optional[str]
     """
@@ -4476,6 +4487,188 @@ class Invoice(
         )
 
     @classmethod
+    def _cls_attach_payment(
+        cls, invoice: str, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
+        """
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "post",
+                "/v1/invoices/{invoice}/attach_payment".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def attach_payment(
+        invoice: str, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
+        """
+        ...
+
+    @overload
+    def attach_payment(
+        self, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
+        """
+        ...
+
+    @class_method_variant("_cls_attach_payment")
+    def attach_payment(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
+        """
+        return cast(
+            "Invoice",
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/attach_payment".format(
+                    invoice=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_attach_payment_async(
+        cls, invoice: str, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
+        """
+        return cast(
+            "Invoice",
+            await cls._static_request_async(
+                "post",
+                "/v1/invoices/{invoice}/attach_payment".format(
+                    invoice=sanitize_id(invoice)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def attach_payment_async(
+        invoice: str, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
+        """
+        ...
+
+    @overload
+    async def attach_payment_async(
+        self, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
+        """
+        ...
+
+    @class_method_variant("_cls_attach_payment_async")
+    async def attach_payment_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.AttachPaymentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Partial payments](https://stripe.com/docs/invoicing/partial-payments) to learn more.
+        """
+        return cast(
+            "Invoice",
+            await self._request_async(
+                "post",
+                "/v1/invoices/{invoice}/attach_payment".format(
+                    invoice=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def create(cls, **params: Unpack["Invoice.CreateParams"]) -> "Invoice":
         """
         This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://stripe.com/docs/api#finalize_invoice) the invoice to your customers.
@@ -4512,9 +4705,9 @@ class Invoice(
         """
         At any time, you can preview the upcoming invoice for a subscription or subscription schedule. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
 
-        Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
+        You can also preview the effects of creating or updating a subscription or subscription schedule, including a preview of any prorations that will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
 
-        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
+        Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
 
         Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
         """
@@ -4534,9 +4727,9 @@ class Invoice(
         """
         At any time, you can preview the upcoming invoice for a subscription or subscription schedule. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
 
-        Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
+        You can also preview the effects of creating or updating a subscription or subscription schedule, including a preview of any prorations that will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
 
-        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
+        Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
 
         Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
         """
