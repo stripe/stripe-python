@@ -2253,7 +2253,7 @@ class SubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> Subscription:
         """
-        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        Upgrade the billing_mode of an existing subscription.
         """
         return cast(
             Subscription,
@@ -2275,7 +2275,7 @@ class SubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> Subscription:
         """
-        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        Upgrade the billing_mode of an existing subscription.
         """
         return cast(
             Subscription,

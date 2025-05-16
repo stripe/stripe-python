@@ -110,6 +110,12 @@ class Subscription(
         The second of the minute of the billing_cycle_anchor.
         """
 
+    class BillingModeDetails(StripeObject):
+        updated_at: Optional[int]
+        """
+        Details on when the current billing_mode was adopted.
+        """
+
     class CancellationDetails(StripeObject):
         comment: Optional[str]
         """
@@ -2388,6 +2394,10 @@ class Subscription(
     """
     Controls how prorations and invoices for subscriptions are calculated and orchestrated.
     """
+    billing_mode_details: Optional[BillingModeDetails]
+    """
+    Details about when the current billing_mode was updated.
+    """
     cancel_at: Optional[int]
     """
     A date in the future at which the subscription will automatically get canceled
@@ -2930,7 +2940,7 @@ class Subscription(
         cls, subscription: str, **params: Unpack["Subscription.MigrateParams"]
     ) -> "Subscription":
         """
-        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        Upgrade the billing_mode of an existing subscription.
         """
         return cast(
             "Subscription",
@@ -2949,7 +2959,7 @@ class Subscription(
         subscription: str, **params: Unpack["Subscription.MigrateParams"]
     ) -> "Subscription":
         """
-        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        Upgrade the billing_mode of an existing subscription.
         """
         ...
 
@@ -2958,7 +2968,7 @@ class Subscription(
         self, **params: Unpack["Subscription.MigrateParams"]
     ) -> "Subscription":
         """
-        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        Upgrade the billing_mode of an existing subscription.
         """
         ...
 
@@ -2967,7 +2977,7 @@ class Subscription(
         self, **params: Unpack["Subscription.MigrateParams"]
     ) -> "Subscription":
         """
-        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        Upgrade the billing_mode of an existing subscription.
         """
         return cast(
             "Subscription",
@@ -2985,7 +2995,7 @@ class Subscription(
         cls, subscription: str, **params: Unpack["Subscription.MigrateParams"]
     ) -> "Subscription":
         """
-        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        Upgrade the billing_mode of an existing subscription.
         """
         return cast(
             "Subscription",
@@ -3004,7 +3014,7 @@ class Subscription(
         subscription: str, **params: Unpack["Subscription.MigrateParams"]
     ) -> "Subscription":
         """
-        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        Upgrade the billing_mode of an existing subscription.
         """
         ...
 
@@ -3013,7 +3023,7 @@ class Subscription(
         self, **params: Unpack["Subscription.MigrateParams"]
     ) -> "Subscription":
         """
-        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        Upgrade the billing_mode of an existing subscription.
         """
         ...
 
@@ -3022,7 +3032,7 @@ class Subscription(
         self, **params: Unpack["Subscription.MigrateParams"]
     ) -> "Subscription":
         """
-        This endpoint allows merchants to upgrade the billing_mode on their existing subscriptions.
+        Upgrade the billing_mode of an existing subscription.
         """
         return cast(
             "Subscription",
@@ -3284,6 +3294,7 @@ class Subscription(
     _inner_class_types = {
         "automatic_tax": AutomaticTax,
         "billing_cycle_anchor_config": BillingCycleAnchorConfig,
+        "billing_mode_details": BillingModeDetails,
         "cancellation_details": CancellationDetails,
         "invoice_settings": InvoiceSettings,
         "last_price_migration_error": LastPriceMigrationError,
