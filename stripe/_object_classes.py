@@ -200,5 +200,6 @@ V2_OBJECT_CLASSES = {
     stripe.v2.money_management.ReceivedDebit.OBJECT_NAME: stripe.v2.money_management.ReceivedDebit,
     stripe.v2.money_management.Transaction.OBJECT_NAME: stripe.v2.money_management.Transaction,
     stripe.v2.money_management.TransactionEntry.OBJECT_NAME: stripe.v2.money_management.TransactionEntry,
+    stripe.v2.payments.OffSessionPayment.OBJECT_NAME: stripe.v2.payments.OffSessionPayment,
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }

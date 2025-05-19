@@ -34805,6 +34805,98 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_payments_off_session_payment_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/payments/off_session_payments/id_123/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.off_session_payments.cancel("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/payments/off_session_payments/id_123/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_payments_off_session_payment_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/payments/off_session_payments",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.off_session_payments.create(
+            {
+                "amount": {"currency": "USD", "value": 96},
+                "cadence": "unscheduled",
+                "customer": "customer",
+                "metadata": {"undefined": "metadata"},
+                "payment_method": "payment_method",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/payments/off_session_payments",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"amount":{"currency":"USD","value":96},"cadence":"unscheduled","customer":"customer","metadata":{"undefined":"metadata"},"payment_method":"payment_method"}',
+            is_json=True,
+        )
+
+    def test_v2_payments_off_session_payment_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/payments/off_session_payments",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.off_session_payments.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/payments/off_session_payments",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_payments_off_session_payment_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/payments/off_session_payments/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.off_session_payments.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/payments/off_session_payments/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_temporary_session_expired_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:

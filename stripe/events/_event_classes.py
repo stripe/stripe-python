@@ -90,6 +90,27 @@ from stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_ev
 from stripe.events._v2_core_event_destination_ping_event import (
     V2CoreEventDestinationPingEvent,
 )
+from stripe.events._v2_off_session_payment_requires_capture_event import (
+    V2OffSessionPaymentRequiresCaptureEvent,
+)
+from stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event import (
+    V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,
+)
+from stripe.events._v2_payments_off_session_payment_authorization_attempt_started_event import (
+    V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent,
+)
+from stripe.events._v2_payments_off_session_payment_canceled_event import (
+    V2PaymentsOffSessionPaymentCanceledEvent,
+)
+from stripe.events._v2_payments_off_session_payment_created_event import (
+    V2PaymentsOffSessionPaymentCreatedEvent,
+)
+from stripe.events._v2_payments_off_session_payment_failed_event import (
+    V2PaymentsOffSessionPaymentFailedEvent,
+)
+from stripe.events._v2_payments_off_session_payment_succeeded_event import (
+    V2PaymentsOffSessionPaymentSucceededEvent,
+)
 from stripe.events._v2_money_management_outbound_payment_canceled_event import (
     V2MoneyManagementOutboundPaymentCanceledEvent,
 )
@@ -215,4 +236,11 @@ THIN_EVENT_CLASSES = {
     V2MoneyManagementReceivedDebitUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitUpdatedEvent,
     V2MoneyManagementTransactionCreatedEvent.LOOKUP_TYPE: V2MoneyManagementTransactionCreatedEvent,
     V2MoneyManagementTransactionUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementTransactionUpdatedEvent,
+    V2OffSessionPaymentRequiresCaptureEvent.LOOKUP_TYPE: V2OffSessionPaymentRequiresCaptureEvent,
+    V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,
+    V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent,
+    V2PaymentsOffSessionPaymentCanceledEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentCanceledEvent,
+    V2PaymentsOffSessionPaymentCreatedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentCreatedEvent,
+    V2PaymentsOffSessionPaymentFailedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentFailedEvent,
+    V2PaymentsOffSessionPaymentSucceededEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentSucceededEvent,
 }
