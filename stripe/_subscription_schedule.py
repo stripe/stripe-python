@@ -2573,7 +2573,7 @@ class SubscriptionSchedule(
     """
     billing_mode: Optional[Literal["classic", "flexible"]]
     """
-    The [billing mode](https://stripe.com/api/subscriptions/create#create_subscription-billing_mode) that will be used to process all future operations for the subscription schedule.
+    The [billing mode](https://docs.stripe.com/api/subscriptions/create#create_subscription-billing_mode) that will be used to process all future operations for the subscription schedule.
     """
     canceled_at: Optional[int]
     """

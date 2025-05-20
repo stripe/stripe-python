@@ -269,7 +269,7 @@ class Balance(SingletonAPIResource["Balance"]):
     """
     connect_reserved: Optional[List[ConnectReserved]]
     """
-    Funds held due to negative balances on connected accounts where [account.controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. You can find the connect reserve balance for each currency and payment type in the `source_types` property.
+    Funds held due to negative balances on connected accounts where [account.controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. You can find the connect reserve balance for each currency and payment type in the `source_types` property.
     """
     instant_available: Optional[List[InstantAvailable]]
     """
@@ -294,7 +294,7 @@ class Balance(SingletonAPIResource["Balance"]):
     def retrieve(cls, **params: Unpack["Balance.RetrieveParams"]) -> "Balance":
         """
         Retrieves the current account balance, based on the authentication that was used to make the request.
-         For a sample request, see [Accounting for negative balances](https://stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
+         For a sample request, see [Accounting for negative balances](https://docs.stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
         """
         instance = cls(None, **params)
         instance.refresh()
@@ -306,7 +306,7 @@ class Balance(SingletonAPIResource["Balance"]):
     ) -> "Balance":
         """
         Retrieves the current account balance, based on the authentication that was used to make the request.
-         For a sample request, see [Accounting for negative balances](https://stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
+         For a sample request, see [Accounting for negative balances](https://docs.stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
         """
         instance = cls(None, **params)
         await instance.refresh_async()

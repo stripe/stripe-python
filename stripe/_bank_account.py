@@ -25,11 +25,11 @@ class BankAccount(
     """
     These bank accounts are payment methods on `Customer` objects.
 
-    On the other hand [External Accounts](https://stripe.com/api#external_accounts) are transfer
+    On the other hand [External Accounts](https://docs.stripe.com/api#external_accounts) are transfer
     destinations on `Account` objects for connected accounts.
     They can be bank accounts or debit cards as well, and are documented in the links above.
 
-    Related guide: [Bank debits and transfers](https://stripe.com/payments/bank-debits-transfers)
+    Related guide: [Bank debits and transfers](https://docs.stripe.com/payments/bank-debits-transfers)
     """
 
     OBJECT_NAME: ClassVar[Literal["bank_account"]] = "bank_account"
@@ -297,7 +297,7 @@ class BankAccount(
 
     account: Optional[ExpandableField["Account"]]
     """
-    The account this bank account belongs to. Only applicable on Accounts (not customers or recipients) This property is only available when returned as an [External Account](https://stripe.com/api/external_account_bank_accounts/object) where [controller.is_controller](https://stripe.com/api/accounts/object#account_object-controller-is_controller) is `true`.
+    The account this bank account belongs to. Only applicable on Accounts (not customers or recipients) This property is only available when returned as an [External Account](https://docs.stripe.com/api/external_account_bank_accounts/object) where [controller.is_controller](https://docs.stripe.com/api/accounts/object#account_object-controller-is_controller) is `true`.
     """
     account_holder_name: Optional[str]
     """

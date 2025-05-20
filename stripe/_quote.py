@@ -133,9 +133,9 @@ class Quote(
                         """
                         rate: "TaxRate"
                         """
-                        Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
+                        Tax rates can be applied to [invoices](https://docs.stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://docs.stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://docs.stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-                        Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
+                        Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                         """
                         taxability_reason: Optional[
                             Literal[
@@ -231,9 +231,9 @@ class Quote(
                         """
                         rate: "TaxRate"
                         """
-                        Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
+                        Tax rates can be applied to [invoices](https://docs.stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://docs.stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://docs.stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-                        Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
+                        Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                         """
                         taxability_reason: Optional[
                             Literal[
@@ -599,7 +599,7 @@ class Quote(
         """
         billing_mode: Optional[Literal["classic", "flexible"]]
         """
-        The [billing mode](https://stripe.com/api/subscriptions/create#create_subscription-billing_mode) that will be set on the subscription once the quote is accepted.
+        The [billing mode](https://docs.stripe.com/api/subscriptions/create#create_subscription-billing_mode) that will be set on the subscription once the quote is accepted.
         """
         description: Optional[str]
         """
@@ -826,9 +826,9 @@ class Quote(
                 """
                 rate: "TaxRate"
                 """
-                Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
+                Tax rates can be applied to [invoices](https://docs.stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://docs.stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://docs.stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-                Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
+                Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                 """
                 taxability_reason: Optional[
                     Literal[
