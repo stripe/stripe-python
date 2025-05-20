@@ -94,9 +94,9 @@ class CreditNote(
             """
             rate: "TaxRate"
             """
-            Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
+            Tax rates can be applied to [invoices](https://docs.stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://docs.stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://docs.stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-            Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
+            Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
             """
             taxability_reason: Optional[
                 Literal[
@@ -1063,7 +1063,7 @@ class CreditNote(
         cls, id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             "CreditNote",
@@ -1080,7 +1080,7 @@ class CreditNote(
         id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         ...
 
@@ -1089,7 +1089,7 @@ class CreditNote(
         self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         ...
 
@@ -1098,7 +1098,7 @@ class CreditNote(
         self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             "CreditNote",
@@ -1116,7 +1116,7 @@ class CreditNote(
         cls, id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             "CreditNote",
@@ -1133,7 +1133,7 @@ class CreditNote(
         id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         ...
 
@@ -1142,7 +1142,7 @@ class CreditNote(
         self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         ...
 
@@ -1151,7 +1151,7 @@ class CreditNote(
         self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             "CreditNote",

@@ -46,7 +46,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
         meter: ExpandableField["Meter"]
         """
-        The [Billing Meter](https://stripe.com/api/billing/meter) ID whose usage is monitored.
+        The [Billing Meter](https://docs.stripe.com/api/billing/meter) ID whose usage is monitored.
         """
         recurrence: Literal["one_time"]
         """
@@ -95,7 +95,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
         meter: str
         """
-        The [Billing Meter](https://stripe.com/api/billing/meter) ID whose usage is monitored.
+        The [Billing Meter](https://docs.stripe.com/api/billing/meter) ID whose usage is monitored.
         """
         recurrence: Literal["one_time"]
         """

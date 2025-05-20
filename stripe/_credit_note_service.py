@@ -592,7 +592,7 @@ class CreditNoteService(StripeService):
         options: RequestOptions = {},
     ) -> CreditNote:
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             CreditNote,
@@ -612,7 +612,7 @@ class CreditNoteService(StripeService):
         options: RequestOptions = {},
     ) -> CreditNote:
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             CreditNote,
