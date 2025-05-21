@@ -33095,7 +33095,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v2/billing/meter_event_stream",
             query_string="",
-            api_base="https://api.stripe.com",
+            api_base="https://meter-events.stripe.com",
             post_data='{"events":[{"event_name":"event_name","identifier":"identifier","payload":{"undefined":"payload"},"timestamp":"1970-01-01T15:18:46.294Z"}]}',
             is_json=True,
         )
@@ -33349,7 +33349,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v2/billing/meter_event_stream",
             query_string="",
-            api_base="https://api.stripe.com",
+            api_base="https://meter-events.stripe.com",
             post_data='{"events":[{"event_name":"event_name","payload":{"undefined":"payload"}}]}',
             is_json=True,
         )

@@ -14,11 +14,11 @@ class MeterEventSession(StripeObject):
     The authentication token for this session.  Use this token when calling the
     high-throughput meter event API.
     """
-    created: int
+    created: str
     """
     The creation time of this session.
     """
-    expires_at: int
+    expires_at: str
     """
     The time at which this session will expire.
     """

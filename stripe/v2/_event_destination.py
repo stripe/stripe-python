@@ -53,7 +53,7 @@ class EventDestination(StripeObject):
         The URL of the webhook endpoint, includable.
         """
 
-    created: int
+    created: str
     """
     Time at which the object was created.
     """
@@ -105,7 +105,7 @@ class EventDestination(StripeObject):
     """
     Event destination type.
     """
-    updated: int
+    updated: str
     """
     Time at which the object was last updated.
     """
@@ -121,11 +121,6 @@ class EventDestination(StripeObject):
     """
     Webhook endpoint configuration.
     """
-
-    @classmethod
-    def class_url(cls):
-        return "/v2/core/event_destinations"
-
     _inner_class_types = {
         "status_details": StatusDetails,
         "amazon_eventbridge": AmazonEventbridge,

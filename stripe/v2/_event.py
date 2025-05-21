@@ -40,25 +40,11 @@ class Event(StripeObject):
         """
         _inner_class_types = {"request": Request}
 
-    class RelatedObject(StripeObject):
-        id: str
-        """
-        Unique identifier for the object relevant to the event.
-        """
-        type: str
-        """
-        Object tag of the resource relevant to the event.
-        """
-        url: str
-        """
-        URL to retrieve the resource.
-        """
-
     context: Optional[str]
     """
     Authentication context needed to fetch the event or related object.
     """
-    created: int
+    created: str
     """
     Time at which the object was created.
     """
@@ -74,10 +60,6 @@ class Event(StripeObject):
     """
     Reason for the event.
     """
-    related_object: Optional[RelatedObject]
-    """
-    Object containing the reference to API resource relevant to the event.
-    """
     type: str
     """
     The type of the event.
@@ -86,12 +68,7 @@ class Event(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-
-    @classmethod
-    def class_url(cls):
-        return "/v2/core/events"
-
-    _inner_class_types = {"reason": Reason, "related_object": RelatedObject}
+    _inner_class_types = {"reason": Reason}
 
 
 # The end of the section generated from our OpenAPI spec

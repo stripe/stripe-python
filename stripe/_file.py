@@ -22,8 +22,8 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
     This object represents files hosted on Stripe's servers. You can upload
     files with the [create file](https://stripe.com/docs/api#create_file) request
     (for example, when uploading dispute evidence). Stripe also
-    creates files independently (for example, the results of a [Sigma scheduled
-    query](https://stripe.com/docs/api#scheduled_queries)).
+    creates files independently (for example, the results of a [scheduled_queries)](https://stripe.com/docs/api#Sigma scheduled
+    query).
 
     Related guide: [File upload guide](https://stripe.com/docs/file-upload)
     """
