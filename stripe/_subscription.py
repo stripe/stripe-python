@@ -116,6 +116,16 @@ class Subscription(
         Details on when the current billing_mode was adopted.
         """
 
+    class BillingThresholds(StripeObject):
+        amount_gte: Optional[int]
+        """
+        Monetary threshold that triggers the subscription to create an invoice
+        """
+        reset_billing_cycle_anchor: Optional[bool]
+        """
+        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
+        """
+
     class CancellationDetails(StripeObject):
         comment: Optional[str]
         """
@@ -600,6 +610,12 @@ class Subscription(
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
+        billing_thresholds: NotRequired[
+            "Literal['']|Subscription.CreateParamsBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        """
         cancel_at: NotRequired[
             "int|Literal['max_period_end', 'min_period_end']"
         ]
@@ -884,6 +900,16 @@ class Subscription(
         The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
         """
 
+    class CreateParamsBillingThresholds(TypedDict):
+        amount_gte: NotRequired[int]
+        """
+        Monetary threshold that triggers the subscription to advance to a new billing period
+        """
+        reset_billing_cycle_anchor: NotRequired[bool]
+        """
+        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+        """
+
     class CreateParamsDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -951,6 +977,12 @@ class Subscription(
         """
 
     class CreateParamsItem(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|Subscription.CreateParamsItemBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         discounts: NotRequired[
             "Literal['']|List[Subscription.CreateParamsItemDiscount]"
         ]
@@ -984,6 +1016,12 @@ class Subscription(
         trial: NotRequired["Subscription.CreateParamsItemTrial"]
         """
         Define options to configure the trial on the subscription item.
+        """
+
+    class CreateParamsItemBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class CreateParamsItemDiscount(TypedDict):
@@ -1553,6 +1591,12 @@ class Subscription(
         """
         Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
+        billing_thresholds: NotRequired[
+            "Literal['']|Subscription.ModifyParamsBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        """
         cancel_at: NotRequired[
             "Literal['']|int|Literal['max_period_end', 'min_period_end']"
         ]
@@ -1684,7 +1728,7 @@ class Subscription(
         """
         trial_end: NotRequired["Literal['now']|int"]
         """
-        Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
+        Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, `trial_end` will override the default trial period of the plan the customer is being subscribed to. The `billing_cycle_anchor` will be updated to the `trial_end` value. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
         """
         trial_from_plan: NotRequired[bool]
         """
@@ -1813,6 +1857,16 @@ class Subscription(
         Type of the account referenced in the request.
         """
 
+    class ModifyParamsBillingThresholds(TypedDict):
+        amount_gte: NotRequired[int]
+        """
+        Monetary threshold that triggers the subscription to advance to a new billing period
+        """
+        reset_billing_cycle_anchor: NotRequired[bool]
+        """
+        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+        """
+
     class ModifyParamsCancellationDetails(TypedDict):
         comment: NotRequired["Literal['']|str"]
         """
@@ -1892,6 +1946,12 @@ class Subscription(
         """
 
     class ModifyParamsItem(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|Subscription.ModifyParamsItemBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         clear_usage: NotRequired[bool]
         """
         Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
@@ -1933,6 +1993,12 @@ class Subscription(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class ModifyParamsItemBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class ModifyParamsItemDiscount(TypedDict):
@@ -2398,6 +2464,10 @@ class Subscription(
     """
     Details about when the current billing_mode was updated.
     """
+    billing_thresholds: Optional[BillingThresholds]
+    """
+    Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
+    """
     cancel_at: Optional[int]
     """
     A date in the future at which the subscription will automatically get canceled
@@ -2576,7 +2646,7 @@ class Subscription(
     """
     trial_start: Optional[int]
     """
-    If the subscription has a trial, the beginning of that trial.
+    If the subscription has a trial, the beginning of that trial. For subsequent trials, this date remains as the start of the first ever trial on the subscription.
     """
 
     @classmethod
@@ -3295,6 +3365,7 @@ class Subscription(
         "automatic_tax": AutomaticTax,
         "billing_cycle_anchor_config": BillingCycleAnchorConfig,
         "billing_mode_details": BillingModeDetails,
+        "billing_thresholds": BillingThresholds,
         "cancellation_details": CancellationDetails,
         "invoice_settings": InvoiceSettings,
         "last_price_migration_error": LastPriceMigrationError,

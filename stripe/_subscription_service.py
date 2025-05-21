@@ -79,6 +79,12 @@ class SubscriptionService(StripeService):
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionService.CreateParamsBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        """
         cancel_at: NotRequired[
             "int|Literal['max_period_end', 'min_period_end']"
         ]
@@ -367,6 +373,16 @@ class SubscriptionService(StripeService):
         The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
         """
 
+    class CreateParamsBillingThresholds(TypedDict):
+        amount_gte: NotRequired[int]
+        """
+        Monetary threshold that triggers the subscription to advance to a new billing period
+        """
+        reset_billing_cycle_anchor: NotRequired[bool]
+        """
+        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+        """
+
     class CreateParamsDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -436,6 +452,12 @@ class SubscriptionService(StripeService):
         """
 
     class CreateParamsItem(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionService.CreateParamsItemBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionService.CreateParamsItemDiscount]"
         ]
@@ -471,6 +493,12 @@ class SubscriptionService(StripeService):
         trial: NotRequired["SubscriptionService.CreateParamsItemTrial"]
         """
         Define options to configure the trial on the subscription item.
+        """
+
+    class CreateParamsItemBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class CreateParamsItemDiscount(TypedDict):
@@ -1090,6 +1118,12 @@ class SubscriptionService(StripeService):
         """
         Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionService.UpdateParamsBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        """
         cancel_at: NotRequired[
             "Literal['']|int|Literal['max_period_end', 'min_period_end']"
         ]
@@ -1221,7 +1255,7 @@ class SubscriptionService(StripeService):
         """
         trial_end: NotRequired["Literal['now']|int"]
         """
-        Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
+        Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, `trial_end` will override the default trial period of the plan the customer is being subscribed to. The `billing_cycle_anchor` will be updated to the `trial_end` value. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
         """
         trial_from_plan: NotRequired[bool]
         """
@@ -1352,6 +1386,16 @@ class SubscriptionService(StripeService):
         Type of the account referenced in the request.
         """
 
+    class UpdateParamsBillingThresholds(TypedDict):
+        amount_gte: NotRequired[int]
+        """
+        Monetary threshold that triggers the subscription to advance to a new billing period
+        """
+        reset_billing_cycle_anchor: NotRequired[bool]
+        """
+        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+        """
+
     class UpdateParamsCancellationDetails(TypedDict):
         comment: NotRequired["Literal['']|str"]
         """
@@ -1433,6 +1477,12 @@ class SubscriptionService(StripeService):
         """
 
     class UpdateParamsItem(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionService.UpdateParamsItemBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         clear_usage: NotRequired[bool]
         """
         Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
@@ -1476,6 +1526,12 @@ class SubscriptionService(StripeService):
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class UpdateParamsItemBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class UpdateParamsItemDiscount(TypedDict):

@@ -77,6 +77,16 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
             """
             _inner_class_types = {"liability": Liability}
 
+        class BillingThresholds(StripeObject):
+            amount_gte: Optional[int]
+            """
+            Monetary threshold that triggers the subscription to create an invoice
+            """
+            reset_billing_cycle_anchor: Optional[bool]
+            """
+            Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
+            """
+
         class InvoiceSettings(StripeObject):
             class Issuer(StripeObject):
                 account: Optional[ExpandableField["Account"]]
@@ -118,6 +128,10 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         """
         Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
+        billing_thresholds: Optional[BillingThresholds]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
+        """
         collection_method: Optional[
             Literal["charge_automatically", "send_invoice"]
         ]
@@ -143,6 +157,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         """
         _inner_class_types = {
             "automatic_tax": AutomaticTax,
+            "billing_thresholds": BillingThresholds,
             "invoice_settings": InvoiceSettings,
             "transfer_data": TransferData,
         }
@@ -246,6 +261,16 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
             """
             _inner_class_types = {"liability": Liability}
 
+        class BillingThresholds(StripeObject):
+            amount_gte: Optional[int]
+            """
+            Monetary threshold that triggers the subscription to create an invoice
+            """
+            reset_billing_cycle_anchor: Optional[bool]
+            """
+            Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
+            """
+
         class Discount(StripeObject):
             class DiscountEnd(StripeObject):
                 timestamp: Optional[int]
@@ -301,6 +326,12 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
             _inner_class_types = {"issuer": Issuer}
 
         class Item(StripeObject):
+            class BillingThresholds(StripeObject):
+                usage_gte: Optional[int]
+                """
+                Usage threshold that triggers the subscription to create an invoice
+                """
+
             class Discount(StripeObject):
                 class DiscountEnd(StripeObject):
                     timestamp: Optional[int]
@@ -340,6 +371,10 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 Determines the type of trial for this item.
                 """
 
+            billing_thresholds: Optional[BillingThresholds]
+            """
+            Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
+            """
             discounts: List[Discount]
             """
             The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
@@ -368,7 +403,11 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
             """
             Options that configure the trial on the subscription item.
             """
-            _inner_class_types = {"discounts": Discount, "trial": Trial}
+            _inner_class_types = {
+                "billing_thresholds": BillingThresholds,
+                "discounts": Discount,
+                "trial": Trial,
+            }
 
         class PauseCollection(StripeObject):
             behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
@@ -411,6 +450,10 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         billing_cycle_anchor: Optional[Literal["automatic", "phase_start"]]
         """
         Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+        """
+        billing_thresholds: Optional[BillingThresholds]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
         """
         collection_method: Optional[
             Literal["charge_automatically", "send_invoice"]
@@ -491,6 +534,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         _inner_class_types = {
             "add_invoice_items": AddInvoiceItem,
             "automatic_tax": AutomaticTax,
+            "billing_thresholds": BillingThresholds,
             "discounts": Discount,
             "invoice_settings": InvoiceSettings,
             "items": Item,

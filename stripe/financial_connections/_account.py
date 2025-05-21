@@ -26,6 +26,7 @@ if TYPE_CHECKING:
     from stripe.financial_connections._account_ownership import (
         AccountOwnership,
     )
+    from stripe.financial_connections._institution import Institution
 
 
 @nested_resource_class_methods("inferred_balance")
@@ -311,6 +312,10 @@ class Account(ListableAPIResource["Account"]):
     inferred_balances_refresh: Optional[InferredBalancesRefresh]
     """
     The state of the most recent attempt to refresh the account's inferred balance history.
+    """
+    institution: Optional[ExpandableField["Institution"]]
+    """
+    The ID of the Financial Connections Institution this account belongs to. Note that this relationship may sometimes change in rare circumstances (e.g. institution mergers).
     """
     institution_name: str
     """
