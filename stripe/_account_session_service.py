@@ -41,6 +41,12 @@ class AccountSessionService(StripeService):
         """
         Configuration for the balances embedded component.
         """
+        disputes_list: NotRequired[
+            "AccountSessionService.CreateParamsComponentsDisputesList"
+        ]
+        """
+        Configuration for the disputes list embedded component.
+        """
         documents: NotRequired[
             "AccountSessionService.CreateParamsComponentsDocuments"
         ]
@@ -82,6 +88,12 @@ class AccountSessionService(StripeService):
         ]
         """
         Configuration for the payment details embedded component.
+        """
+        payment_disputes: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPaymentDisputes"
+        ]
+        """
+        Configuration for the payment disputes embedded component.
         """
         payments: NotRequired[
             "AccountSessionService.CreateParamsComponentsPayments"
@@ -190,6 +202,36 @@ class AccountSessionService(StripeService):
         standard_payouts: NotRequired[bool]
         """
         Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        """
+
+    class CreateParamsComponentsDisputesList(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsDisputesListFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsDisputesListFeatures(TypedDict):
+        capture_payments: NotRequired[bool]
+        """
+        Whether to allow capturing and cancelling payment intents. This is `true` by default.
+        """
+        destination_on_behalf_of_charge_management: NotRequired[bool]
+        """
+        Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+        """
+        dispute_management: NotRequired[bool]
+        """
+        Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+        """
+        refund_management: NotRequired[bool]
+        """
+        Whether to allow sending refunds. This is `true` by default.
         """
 
     class CreateParamsComponentsDocuments(TypedDict):
@@ -360,6 +402,32 @@ class AccountSessionService(StripeService):
         """
         Whether to allow capturing and cancelling payment intents. This is `true` by default.
         """
+        destination_on_behalf_of_charge_management: NotRequired[bool]
+        """
+        Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+        """
+        dispute_management: NotRequired[bool]
+        """
+        Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+        """
+        refund_management: NotRequired[bool]
+        """
+        Whether to allow sending refunds. This is `true` by default.
+        """
+
+    class CreateParamsComponentsPaymentDisputes(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPaymentDisputesFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsPaymentDisputesFeatures(TypedDict):
         destination_on_behalf_of_charge_management: NotRequired[bool]
         """
         Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
