@@ -1194,7 +1194,7 @@ class PaymentMethodConfiguration(
             "PaymentMethodConfiguration.CreateParamsApplePay"
         ]
         """
-        Stripe users can accept [Apple Pay](https://docs.stripe.com/payments/apple-pay) in iOS applications in iOS 9 and later, and on the web in Safari starting with iOS 10 or macOS Sierra. There are no additional fees to process Apple Pay payments, and the [pricing](https://docs.stripe.com/pricing) is the same as other card transactions. Check this [page](https://stripe.com/docs/apple-pay) for more details.
+        Stripe users can accept [Apple Pay](https://stripe.com/payments/apple-pay) in iOS applications in iOS 9 and later, and on the web in Safari starting with iOS 10 or macOS Sierra. There are no additional fees to process Apple Pay payments, and the [pricing](https://stripe.com/pricing) is the same as other card transactions. Check this [page](https://stripe.com/docs/apple-pay) for more details.
         """
         apple_pay_later: NotRequired[
             "PaymentMethodConfiguration.CreateParamsApplePayLater"
@@ -2218,7 +2218,7 @@ class PaymentMethodConfiguration(
             "PaymentMethodConfiguration.ModifyParamsApplePay"
         ]
         """
-        Stripe users can accept [Apple Pay](https://docs.stripe.com/payments/apple-pay) in iOS applications in iOS 9 and later, and on the web in Safari starting with iOS 10 or macOS Sierra. There are no additional fees to process Apple Pay payments, and the [pricing](https://docs.stripe.com/pricing) is the same as other card transactions. Check this [page](https://stripe.com/docs/apple-pay) for more details.
+        Stripe users can accept [Apple Pay](https://stripe.com/payments/apple-pay) in iOS applications in iOS 9 and later, and on the web in Safari starting with iOS 10 or macOS Sierra. There are no additional fees to process Apple Pay payments, and the [pricing](https://stripe.com/pricing) is the same as other card transactions. Check this [page](https://stripe.com/docs/apple-pay) for more details.
         """
         apple_pay_later: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsApplePayLater"
