@@ -120,6 +120,32 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class DisputesList(StripeObject):
+            class Features(StripeObject):
+                capture_payments: bool
+                """
+                Whether to allow capturing and cancelling payment intents. This is `true` by default.
+                """
+                destination_on_behalf_of_charge_management: bool
+                """
+                Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+                """
+                dispute_management: bool
+                """
+                Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+                """
+                refund_management: bool
+                """
+                Whether to allow sending refunds. This is `true` by default.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class Documents(StripeObject):
             class Features(StripeObject):
                 pass
@@ -271,6 +297,28 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class PaymentDisputes(StripeObject):
+            class Features(StripeObject):
+                destination_on_behalf_of_charge_management: bool
+                """
+                Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+                """
+                dispute_management: bool
+                """
+                Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+                """
+                refund_management: bool
+                """
+                Whether to allow sending refunds. This is `true` by default.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class Payments(StripeObject):
             class Features(StripeObject):
                 capture_payments: bool
@@ -366,6 +414,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         capital_financing: Optional[CapitalFinancing]
         capital_financing_application: Optional[CapitalFinancingApplication]
         capital_financing_promotion: Optional[CapitalFinancingPromotion]
+        disputes_list: DisputesList
         documents: Documents
         financial_account: FinancialAccount
         financial_account_transactions: FinancialAccountTransactions
@@ -373,6 +422,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         issuing_cards_list: IssuingCardsList
         notification_banner: NotificationBanner
         payment_details: PaymentDetails
+        payment_disputes: PaymentDisputes
         payments: Payments
         payouts: Payouts
         payouts_list: PayoutsList
@@ -385,6 +435,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "capital_financing": CapitalFinancing,
             "capital_financing_application": CapitalFinancingApplication,
             "capital_financing_promotion": CapitalFinancingPromotion,
+            "disputes_list": DisputesList,
             "documents": Documents,
             "financial_account": FinancialAccount,
             "financial_account_transactions": FinancialAccountTransactions,
@@ -392,6 +443,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "issuing_cards_list": IssuingCardsList,
             "notification_banner": NotificationBanner,
             "payment_details": PaymentDetails,
+            "payment_disputes": PaymentDisputes,
             "payments": Payments,
             "payouts": Payouts,
             "payouts_list": PayoutsList,
@@ -465,6 +517,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         ]
         """
         Configuration for the capital overview embedded component.
+        """
+        disputes_list: NotRequired[
+            "AccountSession.CreateParamsComponentsDisputesList"
+        ]
+        """
+        Configuration for the disputes list embedded component.
         """
         documents: NotRequired[
             "AccountSession.CreateParamsComponentsDocuments"
@@ -750,6 +808,36 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
     class CreateParamsComponentsCapitalOverviewFeatures(TypedDict):
         pass
+
+    class CreateParamsComponentsDisputesList(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsDisputesListFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsDisputesListFeatures(TypedDict):
+        capture_payments: NotRequired[bool]
+        """
+        Whether to allow capturing and cancelling payment intents. This is `true` by default.
+        """
+        destination_on_behalf_of_charge_management: NotRequired[bool]
+        """
+        Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+        """
+        dispute_management: NotRequired[bool]
+        """
+        Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+        """
+        refund_management: NotRequired[bool]
+        """
+        Whether to allow sending refunds. This is `true` by default.
+        """
 
     class CreateParamsComponentsDocuments(TypedDict):
         enabled: bool

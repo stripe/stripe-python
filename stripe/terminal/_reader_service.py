@@ -155,6 +155,12 @@ class ReaderService(StripeService):
         """
 
     class ConfirmPaymentIntentParams(TypedDict):
+        confirm_config: NotRequired[
+            "ReaderService.ConfirmPaymentIntentParamsConfirmConfig"
+        ]
+        """
+        Configuration overrides
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -162,6 +168,12 @@ class ReaderService(StripeService):
         payment_intent: str
         """
         PaymentIntent ID
+        """
+
+    class ConfirmPaymentIntentParamsConfirmConfig(TypedDict):
+        return_url: NotRequired[str]
+        """
+        The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
         """
 
     class CreateParams(TypedDict):
@@ -196,6 +208,7 @@ class ReaderService(StripeService):
                 "bbpos_wisepad3",
                 "bbpos_wisepos_e",
                 "mobile_phone_reader",
+                "simulated_stripe_s700",
                 "simulated_wisepos_e",
                 "stripe_m2",
                 "stripe_s700",
@@ -260,6 +273,10 @@ class ReaderService(StripeService):
         enable_customer_cancellation: NotRequired[bool]
         """
         Enables cancel button on transaction screens.
+        """
+        return_url: NotRequired[str]
+        """
+        The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
         """
         skip_tipping: NotRequired[bool]
         """

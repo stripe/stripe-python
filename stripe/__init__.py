@@ -297,7 +297,6 @@ from stripe import (
     events as events,
     financial_connections as financial_connections,
     forwarding as forwarding,
-    gift_cards as gift_cards,
     identity as identity,
     issuing as issuing,
     privacy as privacy,
@@ -480,7 +479,6 @@ from stripe._funding_instructions import (
 )
 from stripe._fx_quote import FxQuote as FxQuote
 from stripe._fx_quote_service import FxQuoteService as FxQuoteService
-from stripe._gift_cards_service import GiftCardsService as GiftCardsService
 from stripe._identity_service import IdentityService as IdentityService
 from stripe._invoice import Invoice as Invoice
 from stripe._invoice_item import InvoiceItem as InvoiceItem

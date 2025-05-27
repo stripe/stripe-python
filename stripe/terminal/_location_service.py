@@ -310,7 +310,7 @@ class LocationService(StripeService):
     ) -> Location:
         """
         Creates a new Location object.
-        For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+        For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
         """
         return cast(
             Location,
@@ -330,7 +330,7 @@ class LocationService(StripeService):
     ) -> Location:
         """
         Creates a new Location object.
-        For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+        For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
         """
         return cast(
             Location,

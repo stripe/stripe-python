@@ -28,7 +28,6 @@ OBJECT_CLASSES = {
     stripe.billing.CreditBalanceTransaction.OBJECT_NAME: stripe.billing.CreditBalanceTransaction,
     stripe.billing.CreditGrant.OBJECT_NAME: stripe.billing.CreditGrant,
     stripe.billing.Meter.OBJECT_NAME: stripe.billing.Meter,
-    stripe.billing.MeterErrorReport.OBJECT_NAME: stripe.billing.MeterErrorReport,
     stripe.billing.MeterEvent.OBJECT_NAME: stripe.billing.MeterEvent,
     stripe.billing.MeterEventAdjustment.OBJECT_NAME: stripe.billing.MeterEventAdjustment,
     stripe.billing.MeterEventSummary.OBJECT_NAME: stripe.billing.MeterEventSummary,
@@ -73,8 +72,6 @@ OBJECT_CLASSES = {
     stripe.forwarding.Request.OBJECT_NAME: stripe.forwarding.Request,
     stripe.FundingInstructions.OBJECT_NAME: stripe.FundingInstructions,
     stripe.FxQuote.OBJECT_NAME: stripe.FxQuote,
-    stripe.gift_cards.Card.OBJECT_NAME: stripe.gift_cards.Card,
-    stripe.gift_cards.Transaction.OBJECT_NAME: stripe.gift_cards.Transaction,
     stripe.identity.VerificationReport.OBJECT_NAME: stripe.identity.VerificationReport,
     stripe.identity.VerificationSession.OBJECT_NAME: stripe.identity.VerificationSession,
     stripe.Invoice.OBJECT_NAME: stripe.Invoice,
@@ -203,5 +200,6 @@ V2_OBJECT_CLASSES = {
     stripe.v2.money_management.ReceivedDebit.OBJECT_NAME: stripe.v2.money_management.ReceivedDebit,
     stripe.v2.money_management.Transaction.OBJECT_NAME: stripe.v2.money_management.Transaction,
     stripe.v2.money_management.TransactionEntry.OBJECT_NAME: stripe.v2.money_management.TransactionEntry,
+    stripe.v2.payments.OffSessionPayment.OBJECT_NAME: stripe.v2.payments.OffSessionPayment,
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }

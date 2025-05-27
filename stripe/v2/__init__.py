@@ -7,6 +7,7 @@ from stripe.v2 import (
     billing as billing,
     core as core,
     money_management as money_management,
+    payments as payments,
     test_helpers as test_helpers,
 )
 from stripe.v2._billing_service import BillingService as BillingService
@@ -22,6 +23,7 @@ from stripe.v2._financial_address_generated_microdeposits import (
 from stripe.v2._money_management_service import (
     MoneyManagementService as MoneyManagementService,
 )
+from stripe.v2._payment_service import PaymentService as PaymentService
 from stripe.v2._test_helper_service import (
     TestHelperService as TestHelperService,
 )

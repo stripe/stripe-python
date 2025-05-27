@@ -143,6 +143,7 @@ class WebhookEndpoint(
                 "2025-03-01.dashboard",
                 "2025-03-31.basil",
                 "2025-04-30.basil",
+                "2025-05-28.basil",
             ]
         ]
         """
@@ -173,7 +174,6 @@ class WebhookEndpoint(
                 "balance.available",
                 "balance_settings.updated",
                 "billing.alert.triggered",
-                "billing.meter_error_report.triggered",
                 "billing_portal.configuration.created",
                 "billing_portal.configuration.updated",
                 "billing_portal.session.created",
@@ -280,6 +280,7 @@ class WebhookEndpoint(
                 "invoice.updated",
                 "invoice.voided",
                 "invoice.will_be_due",
+                "invoice_payment.paid",
                 "invoiceitem.created",
                 "invoiceitem.deleted",
                 "issuing_authorization.created",
@@ -513,7 +514,6 @@ class WebhookEndpoint(
                     "balance.available",
                     "balance_settings.updated",
                     "billing.alert.triggered",
-                    "billing.meter_error_report.triggered",
                     "billing_portal.configuration.created",
                     "billing_portal.configuration.updated",
                     "billing_portal.session.created",
@@ -620,6 +620,7 @@ class WebhookEndpoint(
                     "invoice.updated",
                     "invoice.voided",
                     "invoice.will_be_due",
+                    "invoice_payment.paid",
                     "invoiceitem.created",
                     "invoiceitem.deleted",
                     "issuing_authorization.created",

@@ -159,3 +159,24 @@ from stripe.events._v2_money_management_transaction_created_event import (
 from stripe.events._v2_money_management_transaction_updated_event import (
     V2MoneyManagementTransactionUpdatedEvent as V2MoneyManagementTransactionUpdatedEvent,
 )
+from stripe.events._v2_off_session_payment_requires_capture_event import (
+    V2OffSessionPaymentRequiresCaptureEvent as V2OffSessionPaymentRequiresCaptureEvent,
+)
+from stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event import (
+    V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent as V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,
+)
+from stripe.events._v2_payments_off_session_payment_authorization_attempt_started_event import (
+    V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent as V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent,
+)
+from stripe.events._v2_payments_off_session_payment_canceled_event import (
+    V2PaymentsOffSessionPaymentCanceledEvent as V2PaymentsOffSessionPaymentCanceledEvent,
+)
+from stripe.events._v2_payments_off_session_payment_created_event import (
+    V2PaymentsOffSessionPaymentCreatedEvent as V2PaymentsOffSessionPaymentCreatedEvent,
+)
+from stripe.events._v2_payments_off_session_payment_failed_event import (
+    V2PaymentsOffSessionPaymentFailedEvent as V2PaymentsOffSessionPaymentFailedEvent,
+)
+from stripe.events._v2_payments_off_session_payment_succeeded_event import (
+    V2PaymentsOffSessionPaymentSucceededEvent as V2PaymentsOffSessionPaymentSucceededEvent,
+)

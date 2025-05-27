@@ -155,6 +155,14 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
 
         class Affirm(StripeObject):
+            location: Optional[str]
+            """
+            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            """
             transaction_id: Optional[str]
             """
             The Affirm transaction ID associated with this payment.
@@ -1614,6 +1622,14 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
             """
+            location: Optional[str]
+            """
+            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            """
             transaction_id: Optional[str]
             """
             Transaction ID of this particular WeChat Pay transaction.
@@ -1871,7 +1887,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Dict[str, str]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

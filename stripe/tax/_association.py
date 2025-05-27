@@ -14,66 +14,35 @@ class Association(APIResource["Association"]):
 
     OBJECT_NAME: ClassVar[Literal["tax.association"]] = "tax.association"
 
-    class StatusDetails(StripeObject):
+    class TaxTransactionAttempt(StripeObject):
         class Committed(StripeObject):
-            class Reversal(StripeObject):
-                class StatusDetails(StripeObject):
-                    class Committed(StripeObject):
-                        transaction: str
-                        """
-                        The [Tax Transaction](https://stripe.com/docs/api/tax/transaction/object)
-                        """
-
-                    class Errored(StripeObject):
-                        reason: Literal[
-                            "original_transaction_voided",
-                            "unique_reference_violation",
-                        ]
-                        """
-                        Details on why we could not commit the reversal Tax Transaction
-                        """
-                        refund_id: str
-                        """
-                        The [Refund](https://stripe.com/docs/api/refunds/object) ID that should have created a tax reversal.
-                        """
-
-                    committed: Optional[Committed]
-                    errored: Optional[Errored]
-                    _inner_class_types = {
-                        "committed": Committed,
-                        "errored": Errored,
-                    }
-
-                status: Literal["committed", "errored"]
-                """
-                Status of the attempted Tax Transaction reversal.
-                """
-                status_details: StatusDetails
-                _inner_class_types = {"status_details": StatusDetails}
-
-            reversals: List[Reversal]
-            """
-            Attempts to create Tax Transaction reversals
-            """
             transaction: str
             """
             The [Tax Transaction](https://stripe.com/docs/api/tax/transaction/object)
             """
-            _inner_class_types = {"reversals": Reversal}
 
         class Errored(StripeObject):
             reason: Literal[
                 "another_payment_associated_with_calculation",
                 "calculation_expired",
                 "currency_mismatch",
+                "original_transaction_voided",
                 "unique_reference_violation",
             ]
             """
-            Details on why we could not commit the Tax Transaction
+            Details on why we couldn't commit the tax transaction.
             """
 
         committed: Optional[Committed]
         errored: Optional[Errored]
+        source: str
+        """
+        The source of the tax transaction attempt. This is either a refund or a payment intent.
+        """
+        status: str
+        """
+        The status of the transaction attempt. This can be `errored` or `committed`.
+        """
         _inner_class_types = {"committed": Committed, "errored": Errored}
 
     class FindParams(RequestOptions):
@@ -102,11 +71,10 @@ class Association(APIResource["Association"]):
     """
     The [PaymentIntent](https://stripe.com/docs/api/payment_intents/object) that this Tax Association is tracking.
     """
-    status: Literal["committed", "errored"]
+    tax_transaction_attempts: Optional[List[TaxTransactionAttempt]]
     """
-    Status of the Tax Association.
+    Information about the tax transactions linked to this payment intent
     """
-    status_details: StatusDetails
 
     @classmethod
     def find(cls, **params: Unpack["Association.FindParams"]) -> "Association":
@@ -138,4 +106,4 @@ class Association(APIResource["Association"]):
             ),
         )
 
-    _inner_class_types = {"status_details": StatusDetails}
+    _inner_class_types = {"tax_transaction_attempts": TaxTransactionAttempt}

@@ -60,7 +60,7 @@ class Transfer(
         """
         destination: str
         """
-        The ID of a connected Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+        The ID of a connected Stripe account. [See the Connect documentation](https://docs.stripe.com/docs/connect/separate-charges-and-transfers) for details.
         """
         expand: NotRequired[List[str]]
         """
@@ -287,7 +287,7 @@ class Transfer(
     @classmethod
     def create(cls, **params: Unpack["Transfer.CreateParams"]) -> "Transfer":
         """
-        To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://stripe.com/docs/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
+        To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
         """
         return cast(
             "Transfer",
@@ -303,7 +303,7 @@ class Transfer(
         cls, **params: Unpack["Transfer.CreateParams"]
     ) -> "Transfer":
         """
-        To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://stripe.com/docs/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
+        To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
         """
         return cast(
             "Transfer",

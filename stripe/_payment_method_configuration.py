@@ -609,6 +609,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class KakaoPay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Klarna(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -632,6 +654,28 @@ class PaymentMethodConfiguration(
         _inner_class_types = {"display_preference": DisplayPreference}
 
     class Konbini(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class KrCard(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
             """
@@ -698,6 +742,28 @@ class PaymentMethodConfiguration(
         _inner_class_types = {"display_preference": DisplayPreference}
 
     class Multibanco(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class NaverPay(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
             """
@@ -786,6 +852,28 @@ class PaymentMethodConfiguration(
         _inner_class_types = {"display_preference": DisplayPreference}
 
     class PayByBank(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class Payco(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
             """
@@ -940,6 +1028,28 @@ class PaymentMethodConfiguration(
         _inner_class_types = {"display_preference": DisplayPreference}
 
     class RevolutPay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class SamsungPay(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
             """
@@ -1222,7 +1332,7 @@ class PaymentMethodConfiguration(
         """
         billie: NotRequired["PaymentMethodConfiguration.CreateParamsBillie"]
         """
-        Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+        Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
         """
         blik: NotRequired["PaymentMethodConfiguration.CreateParamsBlik"]
         """
@@ -1296,6 +1406,12 @@ class PaymentMethodConfiguration(
         """
         JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in Australia, Canada, Hong Kong, Japan, New Zealand, Singapore, Switzerland, United Kingdom, United States, and all countries in the European Economic Area except Iceland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
         """
+        kakao_pay: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsKakaoPay"
+        ]
+        """
+        Kakao Pay is a popular local wallet available in South Korea.
+        """
         klarna: NotRequired["PaymentMethodConfiguration.CreateParamsKlarna"]
         """
         Klarna gives customers a range of [payment options](https://stripe.com/docs/payments/klarna#payment-options) during checkout. Available payment options vary depending on the customer's billing address and the transaction amount. These payment options make it convenient for customers to purchase items in all price ranges. Check this [page](https://stripe.com/docs/payments/klarna) for more details.
@@ -1303,6 +1419,10 @@ class PaymentMethodConfiguration(
         konbini: NotRequired["PaymentMethodConfiguration.CreateParamsKonbini"]
         """
         Konbini allows customers in Japan to pay for bills and online purchases at convenience stores with cash. Check this [page](https://stripe.com/docs/payments/konbini) for more details.
+        """
+        kr_card: NotRequired["PaymentMethodConfiguration.CreateParamsKrCard"]
+        """
+        Korean cards let users pay using locally issued cards from South Korea.
         """
         link: NotRequired["PaymentMethodConfiguration.CreateParamsLink"]
         """
@@ -1323,6 +1443,12 @@ class PaymentMethodConfiguration(
         name: NotRequired[str]
         """
         Configuration name.
+        """
+        naver_pay: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsNaverPay"
+        ]
+        """
+        Naver Pay is a popular local wallet available in South Korea.
         """
         nz_bank_account: NotRequired[
             "PaymentMethodConfiguration.CreateParamsNzBankAccount"
@@ -1347,6 +1473,10 @@ class PaymentMethodConfiguration(
         ]
         """
         Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
+        """
+        payco: NotRequired["PaymentMethodConfiguration.CreateParamsPayco"]
+        """
+        PAYCO is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
         """
         paynow: NotRequired["PaymentMethodConfiguration.CreateParamsPaynow"]
         """
@@ -1380,11 +1510,17 @@ class PaymentMethodConfiguration(
         """
         Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer's stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
         """
+        samsung_pay: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsSamsungPay"
+        ]
+        """
+        Samsung Pay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
+        """
         satispay: NotRequired[
             "PaymentMethodConfiguration.CreateParamsSatispay"
         ]
         """
-        Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+        Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://docs.stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
         """
         sepa_debit: NotRequired[
             "PaymentMethodConfiguration.CreateParamsSepaDebit"
@@ -1805,6 +1941,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsKakaoPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsKakaoPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsKakaoPayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsKlarna(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsKlarnaDisplayPreference"
@@ -1828,6 +1978,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsKonbiniDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsKrCard(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsKrCardDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsKrCardDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1870,6 +2034,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsMultibancoDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsNaverPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsNaverPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsNaverPayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1926,6 +2104,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsPayByBankDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsPayco(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsPaycoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPaycoDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -2024,6 +2216,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsRevolutPayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsSamsungPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsSamsungPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsSamsungPayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -2244,7 +2450,7 @@ class PaymentMethodConfiguration(
         """
         billie: NotRequired["PaymentMethodConfiguration.ModifyParamsBillie"]
         """
-        Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+        Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
         """
         blik: NotRequired["PaymentMethodConfiguration.ModifyParamsBlik"]
         """
@@ -2318,6 +2524,12 @@ class PaymentMethodConfiguration(
         """
         JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in Australia, Canada, Hong Kong, Japan, New Zealand, Singapore, Switzerland, United Kingdom, United States, and all countries in the European Economic Area except Iceland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
         """
+        kakao_pay: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsKakaoPay"
+        ]
+        """
+        Kakao Pay is a popular local wallet available in South Korea.
+        """
         klarna: NotRequired["PaymentMethodConfiguration.ModifyParamsKlarna"]
         """
         Klarna gives customers a range of [payment options](https://stripe.com/docs/payments/klarna#payment-options) during checkout. Available payment options vary depending on the customer's billing address and the transaction amount. These payment options make it convenient for customers to purchase items in all price ranges. Check this [page](https://stripe.com/docs/payments/klarna) for more details.
@@ -2325,6 +2537,10 @@ class PaymentMethodConfiguration(
         konbini: NotRequired["PaymentMethodConfiguration.ModifyParamsKonbini"]
         """
         Konbini allows customers in Japan to pay for bills and online purchases at convenience stores with cash. Check this [page](https://stripe.com/docs/payments/konbini) for more details.
+        """
+        kr_card: NotRequired["PaymentMethodConfiguration.ModifyParamsKrCard"]
+        """
+        Korean cards let users pay using locally issued cards from South Korea.
         """
         link: NotRequired["PaymentMethodConfiguration.ModifyParamsLink"]
         """
@@ -2346,6 +2562,12 @@ class PaymentMethodConfiguration(
         """
         Configuration name.
         """
+        naver_pay: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsNaverPay"
+        ]
+        """
+        Naver Pay is a popular local wallet available in South Korea.
+        """
         nz_bank_account: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsNzBankAccount"
         ]
@@ -2365,6 +2587,10 @@ class PaymentMethodConfiguration(
         ]
         """
         Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
+        """
+        payco: NotRequired["PaymentMethodConfiguration.ModifyParamsPayco"]
+        """
+        PAYCO is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
         """
         paynow: NotRequired["PaymentMethodConfiguration.ModifyParamsPaynow"]
         """
@@ -2398,11 +2624,17 @@ class PaymentMethodConfiguration(
         """
         Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer's stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
         """
+        samsung_pay: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsSamsungPay"
+        ]
+        """
+        Samsung Pay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
+        """
         satispay: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsSatispay"
         ]
         """
-        Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+        Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://docs.stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
         """
         sepa_debit: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsSepaDebit"
@@ -2823,6 +3055,20 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
+    class ModifyParamsKakaoPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsKakaoPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsKakaoPayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class ModifyParamsKlarna(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsKlarnaDisplayPreference"
@@ -2846,6 +3092,20 @@ class PaymentMethodConfiguration(
         """
 
     class ModifyParamsKonbiniDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsKrCard(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsKrCardDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsKrCardDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -2888,6 +3148,20 @@ class PaymentMethodConfiguration(
         """
 
     class ModifyParamsMultibancoDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsNaverPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsNaverPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsNaverPayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -2944,6 +3218,20 @@ class PaymentMethodConfiguration(
         """
 
     class ModifyParamsPayByBankDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsPayco(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsPaycoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsPaycoDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -3042,6 +3330,20 @@ class PaymentMethodConfiguration(
         """
 
     class ModifyParamsRevolutPayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsSamsungPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsSamsungPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsSamsungPayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -3221,8 +3523,10 @@ class PaymentMethodConfiguration(
     The default configuration is used whenever a payment method configuration is not specified.
     """
     jcb: Optional[Jcb]
+    kakao_pay: Optional[KakaoPay]
     klarna: Optional[Klarna]
     konbini: Optional[Konbini]
+    kr_card: Optional[KrCard]
     link: Optional[Link]
     livemode: bool
     """
@@ -3234,6 +3538,7 @@ class PaymentMethodConfiguration(
     """
     The configuration's name.
     """
+    naver_pay: Optional[NaverPay]
     nz_bank_account: Optional[NzBankAccount]
     object: Literal["payment_method_configuration"]
     """
@@ -3246,6 +3551,7 @@ class PaymentMethodConfiguration(
     For child configs, the configuration's parent configuration.
     """
     pay_by_bank: Optional[PayByBank]
+    payco: Optional[Payco]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
     payto: Optional[Payto]
@@ -3253,6 +3559,7 @@ class PaymentMethodConfiguration(
     promptpay: Optional[Promptpay]
     qris: Optional[Qris]
     revolut_pay: Optional[RevolutPay]
+    samsung_pay: Optional[SamsungPay]
     satispay: Optional[Satispay]
     sepa_debit: Optional[SepaDebit]
     shopeepay: Optional[Shopeepay]
@@ -3426,15 +3733,19 @@ class PaymentMethodConfiguration(
         "id_bank_transfer": IdBankTransfer,
         "ideal": Ideal,
         "jcb": Jcb,
+        "kakao_pay": KakaoPay,
         "klarna": Klarna,
         "konbini": Konbini,
+        "kr_card": KrCard,
         "link": Link,
         "mobilepay": Mobilepay,
         "multibanco": Multibanco,
+        "naver_pay": NaverPay,
         "nz_bank_account": NzBankAccount,
         "oxxo": Oxxo,
         "p24": P24,
         "pay_by_bank": PayByBank,
+        "payco": Payco,
         "paynow": Paynow,
         "paypal": Paypal,
         "payto": Payto,
@@ -3442,6 +3753,7 @@ class PaymentMethodConfiguration(
         "promptpay": Promptpay,
         "qris": Qris,
         "revolut_pay": RevolutPay,
+        "samsung_pay": SamsungPay,
         "satispay": Satispay,
         "sepa_debit": SepaDebit,
         "shopeepay": Shopeepay,

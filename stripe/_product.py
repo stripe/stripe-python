@@ -82,32 +82,6 @@ class Product(
         Width, in inches.
         """
 
-    class Provisioning(StripeObject):
-        class GiftCard(StripeObject):
-            class FixedAmount(StripeObject):
-                amount: int
-                """
-                The initial amount with which the provisioned gift card will be created.
-                """
-                currency: str
-                """
-                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                """
-
-            fixed_amount: Optional[FixedAmount]
-            type: Literal["fixed_amount"]
-            """
-            The specific type of gift_card provisioning, only `fixed_amount` currently supported.
-            """
-            _inner_class_types = {"fixed_amount": FixedAmount}
-
-        gift_card: Optional[GiftCard]
-        type: Literal["gift_card"]
-        """
-        The type of provisioning, only `gift_card` currently supported.
-        """
-        _inner_class_types = {"gift_card": GiftCard}
-
     class CreateFeatureParams(RequestOptions):
         entitlement_feature: str
         """
@@ -162,10 +136,6 @@ class Product(
         ]
         """
         The dimensions of this product for shipping purposes.
-        """
-        provisioning: NotRequired["Product.CreateParamsProvisioning"]
-        """
-        Provisioning configuration for this product.
         """
         shippable: NotRequired[bool]
         """
@@ -356,29 +326,6 @@ class Product(
         """
         Width, in inches. Maximum precision is 2 decimal places.
         """
-
-    class CreateParamsProvisioning(TypedDict):
-        gift_card: NotRequired["Product.CreateParamsProvisioningGiftCard"]
-        type: Literal["gift_card"]
-        """
-        The type of provisioning, only `gift_card` currently supported.
-        """
-
-    class CreateParamsProvisioningGiftCard(TypedDict):
-        fixed_amount: NotRequired[
-            "Product.CreateParamsProvisioningGiftCardFixedAmount"
-        ]
-        type: Literal["fixed_amount"]
-        """
-        The specific type of gift_card provisioning, only `fixed_amount` currently supported.
-        """
-
-    class CreateParamsProvisioningGiftCardFixedAmount(TypedDict):
-        amount: int
-        """
-        The initial amount with which the provisioned gift card will be created.
-        """
-        currency: str
 
     class DeleteFeatureParams(RequestOptions):
         pass
@@ -630,10 +577,6 @@ class Product(
     package_dimensions: Optional[PackageDimensions]
     """
     The dimensions of this product for shipping purposes.
-    """
-    provisioning: Optional[Provisioning]
-    """
-    Provisioning configuration for this product.
     """
     shippable: Optional[bool]
     """
@@ -895,7 +838,7 @@ class Product(
         cls, *args, **kwargs: Unpack["Product.SearchParams"]
     ) -> SearchResultObject["Product"]:
         """
-        Search for products you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for products you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -907,7 +850,7 @@ class Product(
         cls, *args, **kwargs: Unpack["Product.SearchParams"]
     ) -> SearchResultObject["Product"]:
         """
-        Search for products you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for products you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -1087,5 +1030,4 @@ class Product(
     _inner_class_types = {
         "marketing_features": MarketingFeature,
         "package_dimensions": PackageDimensions,
-        "provisioning": Provisioning,
     }

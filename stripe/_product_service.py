@@ -63,10 +63,6 @@ class ProductService(StripeService):
         """
         The dimensions of this product for shipping purposes.
         """
-        provisioning: NotRequired["ProductService.CreateParamsProvisioning"]
-        """
-        Provisioning configuration for this product.
-        """
         shippable: NotRequired[bool]
         """
         Whether this product is shipped (i.e., physical goods).
@@ -263,31 +259,6 @@ class ProductService(StripeService):
         """
         Width, in inches. Maximum precision is 2 decimal places.
         """
-
-    class CreateParamsProvisioning(TypedDict):
-        gift_card: NotRequired[
-            "ProductService.CreateParamsProvisioningGiftCard"
-        ]
-        type: Literal["gift_card"]
-        """
-        The type of provisioning, only `gift_card` currently supported.
-        """
-
-    class CreateParamsProvisioningGiftCard(TypedDict):
-        fixed_amount: NotRequired[
-            "ProductService.CreateParamsProvisioningGiftCardFixedAmount"
-        ]
-        type: Literal["fixed_amount"]
-        """
-        The specific type of gift_card provisioning, only `fixed_amount` currently supported.
-        """
-
-    class CreateParamsProvisioningGiftCardFixedAmount(TypedDict):
-        amount: int
-        """
-        The initial amount with which the provisioned gift card will be created.
-        """
-        currency: str
 
     class DeleteParams(TypedDict):
         pass
@@ -667,7 +638,7 @@ class ProductService(StripeService):
         options: RequestOptions = {},
     ) -> SearchResultObject[Product]:
         """
-        Search for products you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for products you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -689,7 +660,7 @@ class ProductService(StripeService):
         options: RequestOptions = {},
     ) -> SearchResultObject[Product]:
         """
-        Search for products you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for products you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.

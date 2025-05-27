@@ -136,6 +136,12 @@ class ChargeService(StripeService):
         """
         Delivery details for this purchase.
         """
+        distance: NotRequired[
+            "ChargeService.CaptureParamsPaymentDetailsCarRentalDistance"
+        ]
+        """
+        The details of the distance traveled during the rental period.
+        """
         drivers: NotRequired[
             List["ChargeService.CaptureParamsPaymentDetailsCarRentalDriver"]
         ]
@@ -170,6 +176,10 @@ class ChargeService(StripeService):
         """
         Car pick-up time. Measured in seconds since the Unix epoch.
         """
+        pickup_location_name: NotRequired[str]
+        """
+        Name of the pickup location.
+        """
         rate_amount: NotRequired[int]
         """
         Rental rate.
@@ -192,9 +202,17 @@ class ChargeService(StripeService):
         """
         Car return time. Measured in seconds since the Unix epoch.
         """
+        return_location_name: NotRequired[str]
+        """
+        Name of the return location.
+        """
         tax_exempt: NotRequired[bool]
         """
         Indicates whether the goods or services are tax-exempt or tax is not collected.
+        """
+        vehicle_identification_number: NotRequired[str]
+        """
+        The vehicle identification number.
         """
 
     class CaptureParamsPaymentDetailsCarRentalAffiliate(TypedDict):
@@ -229,7 +247,25 @@ class ChargeService(StripeService):
         The phone number of the recipient the ticket is delivered to.
         """
 
+    class CaptureParamsPaymentDetailsCarRentalDistance(TypedDict):
+        amount: NotRequired[int]
+        """
+        Distance traveled.
+        """
+        unit: NotRequired[Literal["kilometers", "miles"]]
+        """
+        Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
+        """
+
     class CaptureParamsPaymentDetailsCarRentalDriver(TypedDict):
+        driver_identification_number: NotRequired[str]
+        """
+        Driver's identification number.
+        """
+        driver_tax_number: NotRequired[str]
+        """
+        Driver's tax number.
+        """
         name: str
         """
         Full name of the person or entity on the car reservation.
@@ -1073,6 +1109,12 @@ class ChargeService(StripeService):
         """
         Delivery details for this purchase.
         """
+        distance: NotRequired[
+            "ChargeService.UpdateParamsPaymentDetailsCarRentalDistance"
+        ]
+        """
+        The details of the distance traveled during the rental period.
+        """
         drivers: NotRequired[
             List["ChargeService.UpdateParamsPaymentDetailsCarRentalDriver"]
         ]
@@ -1107,6 +1149,10 @@ class ChargeService(StripeService):
         """
         Car pick-up time. Measured in seconds since the Unix epoch.
         """
+        pickup_location_name: NotRequired[str]
+        """
+        Name of the pickup location.
+        """
         rate_amount: NotRequired[int]
         """
         Rental rate.
@@ -1129,9 +1175,17 @@ class ChargeService(StripeService):
         """
         Car return time. Measured in seconds since the Unix epoch.
         """
+        return_location_name: NotRequired[str]
+        """
+        Name of the return location.
+        """
         tax_exempt: NotRequired[bool]
         """
         Indicates whether the goods or services are tax-exempt or tax is not collected.
+        """
+        vehicle_identification_number: NotRequired[str]
+        """
+        The vehicle identification number.
         """
 
     class UpdateParamsPaymentDetailsCarRentalAffiliate(TypedDict):
@@ -1166,7 +1220,25 @@ class ChargeService(StripeService):
         The phone number of the recipient the ticket is delivered to.
         """
 
+    class UpdateParamsPaymentDetailsCarRentalDistance(TypedDict):
+        amount: NotRequired[int]
+        """
+        Distance traveled.
+        """
+        unit: NotRequired[Literal["kilometers", "miles"]]
+        """
+        Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
+        """
+
     class UpdateParamsPaymentDetailsCarRentalDriver(TypedDict):
+        driver_identification_number: NotRequired[str]
+        """
+        Driver's identification number.
+        """
+        driver_tax_number: NotRequired[str]
+        """
+        Driver's tax number.
+        """
         name: str
         """
         Full name of the person or entity on the car reservation.
@@ -1747,7 +1819,7 @@ class ChargeService(StripeService):
         options: RequestOptions = {},
     ) -> Charge:
         """
-        This method is no longer recommended—use the [Payment Intents API](https://stripe.com/docs/api/payment_intents)
+        This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
         to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
         object used to request payment.
         """
@@ -1768,7 +1840,7 @@ class ChargeService(StripeService):
         options: RequestOptions = {},
     ) -> Charge:
         """
-        This method is no longer recommended—use the [Payment Intents API](https://stripe.com/docs/api/payment_intents)
+        This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
         to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
         object used to request payment.
         """
@@ -1869,7 +1941,7 @@ class ChargeService(StripeService):
         options: RequestOptions = {},
     ) -> SearchResultObject[Charge]:
         """
-        Search for charges you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -1891,7 +1963,7 @@ class ChargeService(StripeService):
         options: RequestOptions = {},
     ) -> SearchResultObject[Charge]:
         """
-        Search for charges you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -1916,9 +1988,9 @@ class ChargeService(StripeService):
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         return cast(
             Charge,
@@ -1942,9 +2014,9 @@ class ChargeService(StripeService):
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         return cast(
             Charge,

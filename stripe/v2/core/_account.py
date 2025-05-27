@@ -272,11 +272,11 @@ class Account(StripeObject):
                         ]
                     ]
                     """
-                    The customer's country as identified by Stripe Tax.
+                    The identified tax country of the customer.
                     """
                     state: Optional[str]
                     """
-                    The customer's state, county, province, or region as identified by Stripe Tax.
+                    The identified tax state, county, province, or region of the customer.
                     """
 
                 exempt: Optional[Literal["exempt", "none", "reverse"]]
@@ -289,7 +289,7 @@ class Account(StripeObject):
                 """
                 location: Optional[Location]
                 """
-                The customer's location as identified by Stripe Tax - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
+                The customer's identified tax location - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
                 """
                 location_source: Optional[
                     Literal[
@@ -297,7 +297,7 @@ class Account(StripeObject):
                     ]
                 ]
                 """
-                The data source used by Stripe Tax to identify the customer's location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+                The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 """
                 _inner_class_types = {"location": Location}
 
@@ -2547,7 +2547,7 @@ class Account(StripeObject):
                 """
                 stripe_balance: Optional[StripeBalance]
                 """
-                Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
+                Capabilities that enable the merchant to manage their Stripe Balance (/v1/balance).
                 """
                 swish_payments: Optional[SwishPayments]
                 """

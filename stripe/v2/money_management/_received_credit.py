@@ -136,33 +136,6 @@ class ReceivedCredit(StripeObject):
             "us_bank_account": UsBankAccount,
         }
 
-    class CardSpend(StripeObject):
-        class Dispute(StripeObject):
-            issuing_dispute_v1: str
-            """
-            The reference to the v1 issuing dispute ID.
-            """
-
-        class Refund(StripeObject):
-            issuing_transaction_v1: str
-            """
-            The reference to the v1 issuing transaction ID.
-            """
-
-        card_v1_id: str
-        """
-        The reference to the issuing card object.
-        """
-        dispute: Optional[Dispute]
-        """
-        Hash containing information about the Dispute that triggered this credit.
-        """
-        refund: Optional[Refund]
-        """
-        Hash containing information about the Refund that triggered this credit.
-        """
-        _inner_class_types = {"dispute": Dispute, "refund": Refund}
-
     amount: Amount
     """
     The amount and currency of the ReceivedCredit.
@@ -204,9 +177,7 @@ class ReceivedCredit(StripeObject):
     """
     Hash containing timestamps of when the object transitioned to a particular status.
     """
-    type: Literal[
-        "balance_transfer", "bank_transfer", "card_spend", "external_credit"
-    ]
+    type: Literal["balance_transfer", "bank_transfer", "external_credit"]
     """
     Open Enum. The type of flow that caused the ReceivedCredit.
     """
@@ -222,14 +193,9 @@ class ReceivedCredit(StripeObject):
     """
     This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `external_credit`.
     """
-    card_spend: Optional[CardSpend]
-    """
-    This object stores details about the originating issuing card spend that resulted in the ReceivedCredit. Present if `type` field value is `card_spend`.
-    """
     _inner_class_types = {
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
         "balance_transfer": BalanceTransfer,
         "bank_transfer": BankTransfer,
-        "card_spend": CardSpend,
     }

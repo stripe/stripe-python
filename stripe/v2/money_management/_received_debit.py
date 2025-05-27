@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, List, Optional
+from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 
@@ -83,44 +83,6 @@ class ReceivedDebit(StripeObject):
         """
         _inner_class_types = {"us_bank_account": UsBankAccount}
 
-    class CardSpend(StripeObject):
-        class Authorization(StripeObject):
-            amount: Amount
-            """
-            Amount associated with this issuing authorization.
-            """
-            issuing_authorization_v1: str
-            """
-            The reference to the v1 issuing authorization ID.
-            """
-
-        class CardTransaction(StripeObject):
-            amount: Amount
-            """
-            Amount associated with this issuing transaction.
-            """
-            issuing_transaction_v1: str
-            """
-            The reference to the v1 issuing transaction ID.
-            """
-
-        authorization: Optional[Authorization]
-        """
-        The Issuing Authorization for this card_spend. Contains the reference id and the amount.
-        """
-        card_transactions: List[CardTransaction]
-        """
-        The list of card spend transactions. These contain the transaction reference ID and the amount.
-        """
-        card_v1_id: str
-        """
-        The reference to the card object that resulted in the debit.
-        """
-        _inner_class_types = {
-            "authorization": Authorization,
-            "card_transactions": CardTransaction,
-        }
-
     amount: Amount
     """
     Amount and currency of the ReceivedDebit.
@@ -162,7 +124,7 @@ class ReceivedDebit(StripeObject):
     """
     The time at which the ReceivedDebit transitioned to a particular status.
     """
-    type: Literal["bank_transfer", "card_spend", "external_debit"]
+    type: Literal["bank_transfer", "external_debit"]
     """
     Open Enum. The type of the ReceivedDebit.
     """
@@ -174,13 +136,8 @@ class ReceivedDebit(StripeObject):
     """
     This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
     """
-    card_spend: Optional[CardSpend]
-    """
-    This object stores details about the issuing transactions that resulted in the ReceivedDebit. Present if `type` field value is `card_spend`.
-    """
     _inner_class_types = {
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
         "bank_transfer": BankTransfer,
-        "card_spend": CardSpend,
     }

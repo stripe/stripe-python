@@ -7,7 +7,7 @@ from stripe.tax._calculation import Calculation
 from stripe.tax._calculation_line_item_service import (
     CalculationLineItemService,
 )
-from typing import List, cast
+from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -236,6 +236,10 @@ class CalculationService(StripeService):
         """
         A positive integer representing the line item's total price in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         product: NotRequired[str]
         """

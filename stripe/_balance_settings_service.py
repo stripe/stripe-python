@@ -17,7 +17,7 @@ class BalanceSettingsService(StripeService):
     class UpdateParams(TypedDict):
         debit_negative_balances: NotRequired[bool]
         """
-        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://stripe.com/connect/account-balances).
+        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://docs.stripe.com/connect/account-balances).
         """
         expand: NotRequired[List[str]]
         """
@@ -39,7 +39,7 @@ class BalanceSettingsService(StripeService):
             "BalanceSettingsService.UpdateParamsPayoutsSchedule"
         ]
         """
-        Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://stripe.com/connect/bank-transfers#payout-information) documentation.
+        Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://docs.stripe.com/connect/bank-transfers#payout-information) documentation.
         """
         statement_descriptor: NotRequired[str]
         """
@@ -65,7 +65,7 @@ class BalanceSettingsService(StripeService):
     class UpdateParamsSettlementTiming(TypedDict):
         delay_days: NotRequired[int]
         """
-        The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](https://stripe.com/connect/manage-payout-schedule).
+        The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
         """
 
     def retrieve(
@@ -75,7 +75,7 @@ class BalanceSettingsService(StripeService):
     ) -> BalanceSettings:
         """
         Retrieves balance settings for a given connected account.
-         Related guide: [Making API calls for connected accounts](https://stripe.com/connect/authentication)
+         Related guide: [Making API calls for connected accounts](https://docs.stripe.com/connect/authentication)
         """
         return cast(
             BalanceSettings,
@@ -95,7 +95,7 @@ class BalanceSettingsService(StripeService):
     ) -> BalanceSettings:
         """
         Retrieves balance settings for a given connected account.
-         Related guide: [Making API calls for connected accounts](https://stripe.com/connect/authentication)
+         Related guide: [Making API calls for connected accounts](https://docs.stripe.com/connect/authentication)
         """
         return cast(
             BalanceSettings,
@@ -115,7 +115,7 @@ class BalanceSettingsService(StripeService):
     ) -> BalanceSettings:
         """
         Updates balance settings for a given connected account.
-         Related guide: [Making API calls for connected accounts](https://stripe.com/connect/authentication)
+         Related guide: [Making API calls for connected accounts](https://docs.stripe.com/connect/authentication)
         """
         return cast(
             BalanceSettings,
@@ -135,7 +135,7 @@ class BalanceSettingsService(StripeService):
     ) -> BalanceSettings:
         """
         Updates balance settings for a given connected account.
-         Related guide: [Making API calls for connected accounts](https://stripe.com/connect/authentication)
+         Related guide: [Making API calls for connected accounts](https://docs.stripe.com/connect/authentication)
         """
         return cast(
             BalanceSettings,
