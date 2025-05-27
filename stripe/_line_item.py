@@ -37,9 +37,9 @@ class LineItem(StripeObject):
         """
         rate: "TaxRate"
         """
-        Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
+        Tax rates can be applied to [invoices](https://docs.stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://docs.stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://docs.stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-        Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
+        Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
         """
         taxability_reason: Optional[
             Literal[

@@ -21,7 +21,7 @@ class BalanceService(StripeService):
     ) -> Balance:
         """
         Retrieves the current account balance, based on the authentication that was used to make the request.
-         For a sample request, see [Accounting for negative balances](https://stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
+         For a sample request, see [Accounting for negative balances](https://docs.stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
         """
         return cast(
             Balance,
@@ -41,7 +41,7 @@ class BalanceService(StripeService):
     ) -> Balance:
         """
         Retrieves the current account balance, based on the authentication that was used to make the request.
-         For a sample request, see [Accounting for negative balances](https://stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
+         For a sample request, see [Accounting for negative balances](https://docs.stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
         """
         return cast(
             Balance,

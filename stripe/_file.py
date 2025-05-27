@@ -23,7 +23,7 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
     files with the [create file](https://stripe.com/docs/api#create_file) request
     (for example, when uploading dispute evidence). Stripe also
     creates files independently (for example, the results of a [Sigma scheduled
-    query](https://stripe.com/docs/api#scheduled_queries)).
+    query](https://docs.stripe.com/api#scheduled_queries)).
 
     Related guide: [File upload guide](https://stripe.com/docs/file-upload)
     """
@@ -290,7 +290,7 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
         cls, id: str, **params: Unpack["File.RetrieveParams"]
     ) -> "File":
         """
-        Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://stripe.com/docs/file-upload#download-file-contents).
+        Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://docs.stripe.com/docs/file-upload#download-file-contents).
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -301,7 +301,7 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
         cls, id: str, **params: Unpack["File.RetrieveParams"]
     ) -> "File":
         """
-        Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://stripe.com/docs/file-upload#download-file-contents).
+        Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://docs.stripe.com/docs/file-upload#download-file-contents).
         """
         instance = cls(id, **params)
         await instance.refresh_async()

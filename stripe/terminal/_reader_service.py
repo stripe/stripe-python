@@ -16,6 +16,100 @@ class ReaderService(StripeService):
         Specifies which fields in the response should be expanded.
         """
 
+    class CollectInputsParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        inputs: List["ReaderService.CollectInputsParamsInput"]
+        """
+        List of inputs to be collected using the Reader
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+
+    class CollectInputsParamsInput(TypedDict):
+        custom_text: "ReaderService.CollectInputsParamsInputCustomText"
+        """
+        Customize the text which will be displayed while collecting this input
+        """
+        required: NotRequired[bool]
+        """
+        Indicate that this input is required, disabling the skip button
+        """
+        selection: NotRequired[
+            "ReaderService.CollectInputsParamsInputSelection"
+        ]
+        """
+        Options for the `selection` input
+        """
+        toggles: NotRequired[
+            List["ReaderService.CollectInputsParamsInputToggle"]
+        ]
+        """
+        List of toggles to be displayed and customization for the toggles
+        """
+        type: Literal[
+            "email", "numeric", "phone", "selection", "signature", "text"
+        ]
+        """
+        The type of input to collect
+        """
+
+    class CollectInputsParamsInputCustomText(TypedDict):
+        description: NotRequired[str]
+        """
+        The description which will be displayed when collecting this input
+        """
+        skip_button: NotRequired[str]
+        """
+        The skip button text
+        """
+        submit_button: NotRequired[str]
+        """
+        The submit button text
+        """
+        title: str
+        """
+        The title which will be displayed when collecting this input
+        """
+
+    class CollectInputsParamsInputSelection(TypedDict):
+        choices: List["ReaderService.CollectInputsParamsInputSelectionChoice"]
+        """
+        List of choices for the `selection` input
+        """
+
+    class CollectInputsParamsInputSelectionChoice(TypedDict):
+        id: str
+        """
+        The unique identifier for this choice
+        """
+        style: NotRequired[Literal["primary", "secondary"]]
+        """
+        The style of the button which will be shown for this choice
+        """
+        text: str
+        """
+        The text which will be shown on the button for this choice
+        """
+
+    class CollectInputsParamsInputToggle(TypedDict):
+        default_value: NotRequired[Literal["disabled", "enabled"]]
+        """
+        The default value of the toggle
+        """
+        description: NotRequired[str]
+        """
+        The description which will be displayed for the toggle
+        """
+        title: NotRequired[str]
+        """
+        The title which will be displayed for the toggle
+        """
+
     class CreateParams(TypedDict):
         expand: NotRequired[List[str]]
         """
@@ -48,6 +142,7 @@ class ReaderService(StripeService):
                 "bbpos_wisepad3",
                 "bbpos_wisepos_e",
                 "mobile_phone_reader",
+                "simulated_stripe_s700",
                 "simulated_wisepos_e",
                 "stripe_m2",
                 "stripe_s700",
@@ -112,6 +207,10 @@ class ReaderService(StripeService):
         enable_customer_cancellation: NotRequired[bool]
         """
         Enables cancel button on transaction screens.
+        """
+        return_url: NotRequired[str]
+        """
+        The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
         """
         skip_tipping: NotRequired[bool]
         """
@@ -508,6 +607,50 @@ class ReaderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def collect_inputs(
+        self,
+        reader: str,
+        params: "ReaderService.CollectInputsParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        return cast(
+            Reader,
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_inputs".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def collect_inputs_async(
+        self,
+        reader: str,
+        params: "ReaderService.CollectInputsParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_inputs".format(
                     reader=sanitize_id(reader),
                 ),
                 base_address="api",

@@ -111,7 +111,7 @@ class EarlyFraudWarningService(StripeService):
         """
         Retrieves the details of an early fraud warning that has previously been created.
 
-        Please refer to the [early fraud warning](https://stripe.com/docs/api#early_fraud_warning_object) object reference for more details.
+        Please refer to the [early fraud warning](https://docs.stripe.com/api#early_fraud_warning_object) object reference for more details.
         """
         return cast(
             EarlyFraudWarning,
@@ -135,7 +135,7 @@ class EarlyFraudWarningService(StripeService):
         """
         Retrieves the details of an early fraud warning that has previously been created.
 
-        Please refer to the [early fraud warning](https://stripe.com/docs/api#early_fraud_warning_object) object reference for more details.
+        Please refer to the [early fraud warning](https://docs.stripe.com/api#early_fraud_warning_object) object reference for more details.
         """
         return cast(
             EarlyFraudWarning,

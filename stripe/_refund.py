@@ -187,7 +187,10 @@ class Refund(
             pass
 
         class Paypal(StripeObject):
-            pass
+            network_decline_code: Optional[str]
+            """
+            For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
+            """
 
         class Pix(StripeObject):
             pass

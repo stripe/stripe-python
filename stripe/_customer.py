@@ -2247,7 +2247,7 @@ class Customer(
         cls, *args, **kwargs: Unpack["Customer.SearchParams"]
     ) -> SearchResultObject["Customer"]:
         """
-        Search for customers you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -2259,7 +2259,7 @@ class Customer(
         cls, *args, **kwargs: Unpack["Customer.SearchParams"]
     ) -> SearchResultObject["Customer"]:
         """
-        Search for customers you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -2287,7 +2287,7 @@ class Customer(
         **params: Unpack["Customer.ListBalanceTransactionsParams"],
     ) -> ListObject["CustomerBalanceTransaction"]:
         """
-        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             ListObject["CustomerBalanceTransaction"],
@@ -2307,7 +2307,7 @@ class Customer(
         **params: Unpack["Customer.ListBalanceTransactionsParams"],
     ) -> ListObject["CustomerBalanceTransaction"]:
         """
-        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             ListObject["CustomerBalanceTransaction"],
@@ -2327,7 +2327,7 @@ class Customer(
         **params: Unpack["Customer.CreateBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
-        Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
+        Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             "CustomerBalanceTransaction",
@@ -2347,7 +2347,7 @@ class Customer(
         **params: Unpack["Customer.CreateBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
-        Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
+        Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             "CustomerBalanceTransaction",
@@ -2368,7 +2368,7 @@ class Customer(
         **params: Unpack["Customer.RetrieveBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
-        Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             "CustomerBalanceTransaction",
@@ -2390,7 +2390,7 @@ class Customer(
         **params: Unpack["Customer.RetrieveBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
-        Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             "CustomerBalanceTransaction",
@@ -2455,7 +2455,7 @@ class Customer(
         **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
-        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
         return cast(
             ListObject["CustomerCashBalanceTransaction"],
@@ -2475,7 +2475,7 @@ class Customer(
         **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
-        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
         return cast(
             ListObject["CustomerCashBalanceTransaction"],
@@ -2496,7 +2496,7 @@ class Customer(
         **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"],
     ) -> "CustomerCashBalanceTransaction":
         """
-        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
         return cast(
             "CustomerCashBalanceTransaction",
@@ -2518,7 +2518,7 @@ class Customer(
         **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"],
     ) -> "CustomerCashBalanceTransaction":
         """
-        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
         return cast(
             "CustomerCashBalanceTransaction",
@@ -2577,7 +2577,7 @@ class Customer(
 
         If the card's owner has no default card, then the new card will become the default.
         However, if the owner already has a default, then it will not change.
-        To change the default, you should [update the customer](https://stripe.com/docs/api#update_customer) to have a new default_source.
+        To change the default, you should [update the customer](https://docs.stripe.com/docs/api#update_customer) to have a new default_source.
         """
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],
@@ -2599,7 +2599,7 @@ class Customer(
 
         If the card's owner has no default card, then the new card will become the default.
         However, if the owner already has a default, then it will not change.
-        To change the default, you should [update the customer](https://stripe.com/docs/api#update_customer) to have a new default_source.
+        To change the default, you should [update the customer](https://docs.stripe.com/docs/api#update_customer) to have a new default_source.
         """
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],

@@ -45,14 +45,14 @@ class Account(
     properties on the account like its current requirements or if the account is
     enabled to make live charges or receive payouts.
 
-    For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+    For accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection)
     is `application`, which includes Custom accounts, the properties below are always
     returned.
 
-    For accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection)
+    For accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection)
     is `stripe`, which includes Standard and Express accounts, some properties are only returned
-    until you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions)
-    to start Connect Onboarding. Learn about the [differences between accounts](https://stripe.com/connect/accounts).
+    until you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions)
+    to start Connect Onboarding. Learn about the [differences between accounts](https://docs.stripe.com/connect/accounts).
     """
 
     OBJECT_NAME: ClassVar[Literal["account"]] = "account"
@@ -61,7 +61,7 @@ class Account(
         class AnnualRevenue(StripeObject):
             amount: Optional[int]
             """
-            A non-negative integer representing the amount in the [smallest currency unit](https://stripe.com/currencies#zero-decimal).
+            A non-negative integer representing the amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
             """
             currency: Optional[str]
             """
@@ -75,7 +75,7 @@ class Account(
         class MonthlyEstimatedRevenue(StripeObject):
             amount: int
             """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://stripe.com/currencies#zero-decimal).
+            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
             """
             currency: str
             """
@@ -118,7 +118,7 @@ class Account(
         """
         mcc: Optional[str]
         """
-        [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        [The merchant category code for the account](https://docs.stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         """
         minority_owned_business_designation: Optional[
             List[
@@ -353,6 +353,10 @@ class Account(
         paynow_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
+        """
+        pix_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the pix payments capability of the account, or whether the account can directly process pix charges.
         """
         promptpay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -615,15 +619,15 @@ class Account(
         """
         name: Optional[str]
         """
-        The company's legal name. Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
+        The company's legal name. Also available for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
         """
         name_kana: Optional[str]
         """
-        The Kana variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
+        The Kana variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
         """
         name_kanji: Optional[str]
         """
-        The Kanji variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
+        The Kanji variation of the company's legal name (Japan only). Also available for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
         """
         owners_provided: Optional[bool]
         """
@@ -675,7 +679,7 @@ class Account(
             ]
         ]
         """
-        The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
+        The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
         """
         tax_id_provided: Optional[bool]
         """
@@ -1238,7 +1242,7 @@ class Account(
 
             debit_negative_balances: bool
             """
-            A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See [Understanding Connect account balances](https://stripe.com/connect/account-balances) for details. The default value is `false` when [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, otherwise `true`.
+            A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See [Understanding Connect account balances](https://docs.stripe.com/connect/account-balances) for details. The default value is `false` when [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, otherwise `true`.
             """
             schedule: Schedule
             statement_descriptor: Optional[str]
@@ -1405,7 +1409,7 @@ class Account(
             Literal["company", "government_entity", "individual", "non_profit"]
         ]
         """
-        The business type. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+        The business type. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         capabilities: NotRequired["Account.CreateParamsCapabilities"]
         """
@@ -1415,12 +1419,12 @@ class Account(
         requirements and Stripe has verified them. An account might have some
         of its requested capabilities be active and some be inactive.
 
-        Required when [account.controller.stripe_dashboard.type](https://stripe.com/api/accounts/create#create_account-controller-dashboard-type)
+        Required when [account.controller.stripe_dashboard.type](https://docs.stripe.com/api/accounts/create#create_account-controller-dashboard-type)
         is `none`, which includes Custom accounts.
         """
         company: NotRequired["Account.CreateParamsCompany"]
         """
-        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+        Information about the company or business. This field is available for any `business_type`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         controller: NotRequired["Account.CreateParamsController"]
         """
@@ -1440,7 +1444,7 @@ class Account(
         """
         email: NotRequired[str]
         """
-        The email address of the account holder. This is only to make the account easier to identify to you. If [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, Stripe doesn't email the account without your consent.
+        The email address of the account holder. This is only to make the account easier to identify to you. If [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, Stripe doesn't email the account without your consent.
         """
         expand: NotRequired[List[str]]
         """
@@ -1450,9 +1454,9 @@ class Account(
             "str|Account.CreateParamsBankAccount|Account.CreateParamsCard|Account.CreateParamsCardToken"
         ]
         """
-        A card or bank account to attach to the account for receiving [payouts](https://stripe.com/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://stripe.com/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://stripe.com/api#account_create_bank_account) creation.
+        A card or bank account to attach to the account for receiving [payouts](https://docs.stripe.com/connect/bank-debit-card-payouts) (you won't be able to use it for top-ups). You can provide either a token, like the ones returned by [Stripe.js](https://docs.stripe.com/js), or a dictionary, as documented in the `external_account` parameter for [bank account](https://docs.stripe.com/api#account_create_bank_account) creation.
 
-        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://stripe.com/api#account_create_bank_account) or [card creation](https://stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+        By default, providing an external account sets it as the new default external account for its currency, and deletes the old default if one exists. To add additional external accounts without replacing the existing default for the currency, use the [bank account](https://docs.stripe.com/api#account_create_bank_account) or [card creation](https://docs.stripe.com/api#account_create_card) APIs. After you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         groups: NotRequired["Account.CreateParamsGroups"]
         """
@@ -1460,7 +1464,7 @@ class Account(
         """
         individual: NotRequired["Account.CreateParamsIndividual"]
         """
-        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://stripe.com/api/account_links) or [Account Session](https://stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+        Information about the person represented by the account. This field is null unless `business_type` is set to `individual`. Once you create an [Account Link](https://docs.stripe.com/api/account_links) or [Account Session](https://docs.stripe.com/api/account_sessions), this property can only be updated for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
@@ -1472,7 +1476,7 @@ class Account(
         """
         tos_acceptance: NotRequired["Account.CreateParamsTosAcceptance"]
         """
-        Details on the account's acceptance of the [Stripe Services Agreement](https://stripe.com/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. This property defaults to a `full` service agreement when empty.
+        Details on the account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. This property defaults to a `full` service agreement when empty.
         """
         type: NotRequired[Literal["custom", "express", "standard"]]
         """
@@ -1519,7 +1523,7 @@ class Account(
         """
         mcc: NotRequired[str]
         """
-        [The merchant category code for the account](https://stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        [The merchant category code for the account](https://docs.stripe.com/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
         """
         minority_owned_business_designation: NotRequired[
             List[
@@ -1575,7 +1579,7 @@ class Account(
     class CreateParamsBusinessProfileAnnualRevenue(TypedDict):
         amount: int
         """
-        A non-negative integer representing the amount in the [smallest currency unit](https://stripe.com/currencies#zero-decimal).
+        A non-negative integer representing the amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         currency: str
         """
@@ -1589,7 +1593,7 @@ class Account(
     class CreateParamsBusinessProfileMonthlyEstimatedRevenue(TypedDict):
         amount: int
         """
-        A non-negative integer representing how much to charge in the [smallest currency unit](https://stripe.com/currencies#zero-decimal).
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         currency: str
         """
@@ -1868,6 +1872,12 @@ class Account(
         ]
         """
         The paynow_payments capability.
+        """
+        pix_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesPixPayments"
+        ]
+        """
+        The pix_payments capability.
         """
         promptpay_payments: NotRequired[
             "Account.CreateParamsCapabilitiesPromptpayPayments"
@@ -2208,6 +2218,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesPixPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesPromptpayPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2344,7 +2360,7 @@ class Account(
         """
         directors_provided: NotRequired[bool]
         """
-        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
+        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
         directorship_declaration: NotRequired[
             "Account.CreateParamsCompanyDirectorshipDeclaration"
@@ -2354,7 +2370,7 @@ class Account(
         """
         executives_provided: NotRequired[bool]
         """
-        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
+        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
         """
         export_license_id: NotRequired[str]
         """
@@ -2378,7 +2394,7 @@ class Account(
         """
         owners_provided: NotRequired[bool]
         """
-        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
+        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
         """
         ownership_declaration: NotRequired[
             "Account.CreateParamsCompanyOwnershipDeclaration"
@@ -2407,7 +2423,7 @@ class Account(
             "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
         ]
         """
-        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
+        The category identifying the legal structure of the company or legal entity. See [Business structure](https://docs.stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
         """
         tax_id: NotRequired[str]
         """
@@ -2759,11 +2775,11 @@ class Account(
         """
         id_number: NotRequired[str]
         """
-        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/js/tokens/create_token?type=pii).
+        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         id_number_secondary: NotRequired[str]
         """
-        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/js/tokens/create_token?type=pii).
+        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         last_name: NotRequired[str]
         """
@@ -3059,7 +3075,7 @@ class Account(
             "Account.CreateParamsSettingsCardIssuingTosAcceptance"
         ]
         """
-        Details on the account's acceptance of the [Stripe Issuing Terms and Disclosures](https://stripe.com/issuing/connect/tos_acceptance).
+        Details on the account's acceptance of the [Stripe Issuing Terms and Disclosures](https://docs.stripe.com/issuing/connect/tos_acceptance).
         """
 
     class CreateParamsSettingsCardIssuingTosAcceptance(TypedDict):
@@ -3131,11 +3147,11 @@ class Account(
     class CreateParamsSettingsPayouts(TypedDict):
         debit_negative_balances: NotRequired[bool]
         """
-        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://stripe.com/connect/account-balances).
+        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://docs.stripe.com/connect/account-balances).
         """
         schedule: NotRequired["Account.CreateParamsSettingsPayoutsSchedule"]
         """
-        Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://stripe.com/connect/bank-transfers#payout-information) documentation.
+        Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://docs.stripe.com/connect/bank-transfers#payout-information) documentation.
         """
         statement_descriptor: NotRequired[str]
         """
@@ -3145,7 +3161,7 @@ class Account(
     class CreateParamsSettingsPayoutsSchedule(TypedDict):
         delay_days: NotRequired["Literal['minimum']|int"]
         """
-        The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://stripe.com/connect/manage-payout-schedule).
+        The number of days charge funds are held before being paid out. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
         """
         interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
         """
@@ -4438,7 +4454,7 @@ class Account(
     """
     details_submitted: Optional[bool]
     """
-    Whether account details have been submitted. Accounts with Stripe Dashboard access, which includes Standard accounts, cannot receive payouts before this is true. Accounts where this is false should be directed to [an onboarding flow](https://stripe.com/connect/onboarding) to finish submitting account details.
+    Whether account details have been submitted. Accounts with Stripe Dashboard access, which includes Standard accounts, cannot receive payouts before this is true. Accounts where this is false should be directed to [an onboarding flow](https://docs.stripe.com/connect/onboarding) to finish submitting account details.
     """
     email: Optional[str]
     """
@@ -4461,9 +4477,9 @@ class Account(
     """
     This is an object representing a person associated with a Stripe account.
 
-    A platform can only access a subset of data in a person for an account where [account.controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
+    A platform can only access a subset of data in a person for an account where [account.controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`, which includes Standard and Express accounts, after creating an Account Link or Account Session to start Connect onboarding.
 
-    See the [Standard onboarding](https://stripe.com/connect/standard-accounts) or [Express onboarding](https://stripe.com/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](https://stripe.com/connect/handling-api-verification#person-information).
+    See the [Standard onboarding](https://docs.stripe.com/connect/standard-accounts) or [Express onboarding](https://docs.stripe.com/connect/express-accounts) documentation for information about prefilling information and account onboarding steps. Learn more about [handling identity verification with the API](https://docs.stripe.com/connect/handling-api-verification#person-information).
     """
     metadata: Optional[Dict[str, str]]
     """
@@ -4495,10 +4511,10 @@ class Account(
     @classmethod
     def create(cls, **params: Unpack["Account.CreateParams"]) -> "Account":
         """
-        With [Connect](https://stripe.com/docs/connect), you can create Stripe accounts for your users.
+        With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
         To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
 
-        If you've already collected information for your connected accounts, you [can prefill that information](https://stripe.com/docs/connect/best-practices#onboarding) when
+        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
         creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
         You can prefill any information on the account.
         """
@@ -4516,10 +4532,10 @@ class Account(
         cls, **params: Unpack["Account.CreateParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/docs/connect), you can create Stripe accounts for your users.
+        With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
         To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
 
-        If you've already collected information for your connected accounts, you [can prefill that information](https://stripe.com/docs/connect/best-practices#onboarding) when
+        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
         creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
         You can prefill any information on the account.
         """
@@ -4537,11 +4553,11 @@ class Account(
         cls, sid: str, **params: Unpack["Account.DeleteParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can delete accounts you manage.
+        With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
         Test-mode accounts can be deleted at any time.
 
-        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balance_object) are zero.
+        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://docs.stripe.com/api/balance/balance_object) are zero.
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
@@ -4561,11 +4577,11 @@ class Account(
         sid: str, **params: Unpack["Account.DeleteParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can delete accounts you manage.
+        With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
         Test-mode accounts can be deleted at any time.
 
-        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balance_object) are zero.
+        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://docs.stripe.com/api/balance/balance_object) are zero.
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
@@ -4574,11 +4590,11 @@ class Account(
     @overload
     def delete(self, **params: Unpack["Account.DeleteParams"]) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can delete accounts you manage.
+        With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
         Test-mode accounts can be deleted at any time.
 
-        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balance_object) are zero.
+        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://docs.stripe.com/api/balance/balance_object) are zero.
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
@@ -4589,11 +4605,11 @@ class Account(
         self, **params: Unpack["Account.DeleteParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can delete accounts you manage.
+        With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
         Test-mode accounts can be deleted at any time.
 
-        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balance_object) are zero.
+        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://docs.stripe.com/api/balance/balance_object) are zero.
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
@@ -4608,11 +4624,11 @@ class Account(
         cls, sid: str, **params: Unpack["Account.DeleteParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can delete accounts you manage.
+        With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
         Test-mode accounts can be deleted at any time.
 
-        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balance_object) are zero.
+        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://docs.stripe.com/api/balance/balance_object) are zero.
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
@@ -4632,11 +4648,11 @@ class Account(
         sid: str, **params: Unpack["Account.DeleteParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can delete accounts you manage.
+        With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
         Test-mode accounts can be deleted at any time.
 
-        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balance_object) are zero.
+        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://docs.stripe.com/api/balance/balance_object) are zero.
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
@@ -4647,11 +4663,11 @@ class Account(
         self, **params: Unpack["Account.DeleteParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can delete accounts you manage.
+        With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
         Test-mode accounts can be deleted at any time.
 
-        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balance_object) are zero.
+        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://docs.stripe.com/api/balance/balance_object) are zero.
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
@@ -4662,11 +4678,11 @@ class Account(
         self, **params: Unpack["Account.DeleteParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can delete accounts you manage.
+        With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
         Test-mode accounts can be deleted at any time.
 
-        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://stripe.com/api/balance/balance_object) are zero.
+        Live-mode accounts where Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. Live-mode accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be deleted when all [balances](https://docs.stripe.com/api/balance/balance_object) are zero.
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
@@ -4681,7 +4697,7 @@ class Account(
         cls, **params: Unpack["Account.ListParams"]
     ) -> ListObject["Account"]:
         """
-        Returns a list of accounts connected to your platform via [Connect](https://stripe.com/docs/connect). If you're not a platform, the list is empty.
+        Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
         """
         result = cls._static_request(
             "get",
@@ -4701,7 +4717,7 @@ class Account(
         cls, **params: Unpack["Account.ListParams"]
     ) -> ListObject["Account"]:
         """
-        Returns a list of accounts connected to your platform via [Connect](https://stripe.com/docs/connect). If you're not a platform, the list is empty.
+        Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
         """
         result = await cls._static_request_async(
             "get",
@@ -4831,7 +4847,7 @@ class Account(
         cls, account: str, **params: Unpack["Account.RejectParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
+        With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
@@ -4852,7 +4868,7 @@ class Account(
         account: str, **params: Unpack["Account.RejectParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
+        With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
@@ -4861,7 +4877,7 @@ class Account(
     @overload
     def reject(self, **params: Unpack["Account.RejectParams"]) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
+        With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
@@ -4872,7 +4888,7 @@ class Account(
         self, **params: Unpack["Account.RejectParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
+        With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
@@ -4892,7 +4908,7 @@ class Account(
         cls, account: str, **params: Unpack["Account.RejectParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
+        With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
@@ -4913,7 +4929,7 @@ class Account(
         account: str, **params: Unpack["Account.RejectParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
+        With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
@@ -4924,7 +4940,7 @@ class Account(
         self, **params: Unpack["Account.RejectParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
+        With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
@@ -4935,7 +4951,7 @@ class Account(
         self, **params: Unpack["Account.RejectParams"]
     ) -> "Account":
         """
-        With [Connect](https://stripe.com/connect), you can reject accounts that you have flagged as suspicious.
+        With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
@@ -5220,7 +5236,7 @@ class Account(
         a connected account and optionally sets it as the default for its currency. Other bank account
         details are not editable by design.
 
-        You can only update bank accounts when [account.controller.requirement_collection is application, which includes <a href="/connect/custom-accounts">Custom accounts](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection).
+        You can only update bank accounts when [account.controller.requirement_collection is application, which includes <a href="/connect/custom-accounts">Custom accounts](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection).
 
         You can re-enable a disabled bank account by performing an update call without providing any
         arguments or changes.
@@ -5248,7 +5264,7 @@ class Account(
         a connected account and optionally sets it as the default for its currency. Other bank account
         details are not editable by design.
 
-        You can only update bank accounts when [account.controller.requirement_collection is application, which includes <a href="/connect/custom-accounts">Custom accounts](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection).
+        You can only update bank accounts when [account.controller.requirement_collection is application, which includes <a href="/connect/custom-accounts">Custom accounts](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection).
 
         You can re-enable a disabled bank account by performing an update call without providing any
         arguments or changes.
@@ -5351,7 +5367,7 @@ class Account(
         """
         Creates a login link for a connected account to access the Express Dashboard.
 
-        You can only create login links for accounts that use the [Express Dashboard](https://stripe.com/connect/express-dashboard) and are connected to your platform.
+        You can only create login links for accounts that use the [Express Dashboard](https://docs.stripe.com/connect/express-dashboard) and are connected to your platform.
         """
         return cast(
             "LoginLink",
@@ -5371,7 +5387,7 @@ class Account(
         """
         Creates a login link for a connected account to access the Express Dashboard.
 
-        You can only create login links for accounts that use the [Express Dashboard](https://stripe.com/connect/express-dashboard) and are connected to your platform.
+        You can only create login links for accounts that use the [Express Dashboard](https://docs.stripe.com/connect/express-dashboard) and are connected to your platform.
         """
         return cast(
             "LoginLink",

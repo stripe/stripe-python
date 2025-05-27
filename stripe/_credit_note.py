@@ -94,9 +94,9 @@ class CreditNote(
             """
             rate: "TaxRate"
             """
-            Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
+            Tax rates can be applied to [invoices](https://docs.stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://docs.stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://docs.stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-            Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
+            Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
             """
             taxability_reason: Optional[
                 Literal[
@@ -781,6 +781,14 @@ class CreditNote(
     """
     The link to download the PDF of the credit note.
     """
+    post_payment_amount: int
+    """
+    The amount of the credit note that was refunded to the customer, credited to the customer's balance, credited outside of Stripe, or any combination thereof.
+    """
+    pre_payment_amount: int
+    """
+    The amount of the credit note by which the invoice's `amount_remaining` and `amount_due` were reduced.
+    """
     pretax_credit_amounts: List[PretaxCreditAmount]
     """
     The pretax credit amounts (ex: discount, credit grants, etc) for all line items.
@@ -825,7 +833,7 @@ class CreditNote(
     """
     The aggregate tax information for all line items.
     """
-    type: Literal["post_payment", "pre_payment"]
+    type: Literal["mixed", "post_payment", "pre_payment"]
     """
     Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid.
     """
@@ -839,20 +847,19 @@ class CreditNote(
         cls, **params: Unpack["CreditNote.CreateParams"]
     ) -> "CreditNote":
         """
-        Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
-        its amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result
-        in any combination of the following:
+        Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
+        This amount is indicated by the credit note's pre_payment_amount. The excess amount is indicated by post_payment_amount, and it can result in any combination of the following:
 
 
-        Refund: create a new refund (using refund_amount) or link an existing refund (using refund).
+        Refunds: create a new refund (using refund_amount) or link existing refunds (using refunds).
         Customer balance credit: credit the customer's balance (using credit_amount) which will be automatically applied to their next invoice when it's finalized.
         Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).
 
 
-        For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.
+        The sum of refunds, customer balance credits, and outside of Stripe credits must equal the post_payment_amount.
 
-        You may issue multiple credit notes for an invoice. Each credit note will increment the invoice's pre_payment_credit_notes_amount
-        or post_payment_credit_notes_amount depending on its status at the time of credit note creation.
+        You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
+        post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
         """
         return cast(
             "CreditNote",
@@ -868,20 +875,19 @@ class CreditNote(
         cls, **params: Unpack["CreditNote.CreateParams"]
     ) -> "CreditNote":
         """
-        Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
-        its amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result
-        in any combination of the following:
+        Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
+        This amount is indicated by the credit note's pre_payment_amount. The excess amount is indicated by post_payment_amount, and it can result in any combination of the following:
 
 
-        Refund: create a new refund (using refund_amount) or link an existing refund (using refund).
+        Refunds: create a new refund (using refund_amount) or link existing refunds (using refunds).
         Customer balance credit: credit the customer's balance (using credit_amount) which will be automatically applied to their next invoice when it's finalized.
         Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).
 
 
-        For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.
+        The sum of refunds, customer balance credits, and outside of Stripe credits must equal the post_payment_amount.
 
-        You may issue multiple credit notes for an invoice. Each credit note will increment the invoice's pre_payment_credit_notes_amount
-        or post_payment_credit_notes_amount depending on its status at the time of credit note creation.
+        You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
+        post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
         """
         return cast(
             "CreditNote",
@@ -1057,7 +1063,7 @@ class CreditNote(
         cls, id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             "CreditNote",
@@ -1074,7 +1080,7 @@ class CreditNote(
         id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         ...
 
@@ -1083,7 +1089,7 @@ class CreditNote(
         self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         ...
 
@@ -1092,7 +1098,7 @@ class CreditNote(
         self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             "CreditNote",
@@ -1110,7 +1116,7 @@ class CreditNote(
         cls, id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             "CreditNote",
@@ -1127,7 +1133,7 @@ class CreditNote(
         id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         ...
 
@@ -1136,7 +1142,7 @@ class CreditNote(
         self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         ...
 
@@ -1145,7 +1151,7 @@ class CreditNote(
         self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             "CreditNote",

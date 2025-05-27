@@ -124,6 +124,7 @@ class WebhookEndpointService(StripeService):
                 "2025-03-01.dashboard",
                 "2025-03-31.basil",
                 "2025-04-30.basil",
+                "2025-05-28.basil",
             ]
         ]
         """
@@ -239,6 +240,7 @@ class WebhookEndpointService(StripeService):
                 "invoice.updated",
                 "invoice.voided",
                 "invoice.will_be_due",
+                "invoice_payment.paid",
                 "invoiceitem.created",
                 "invoiceitem.deleted",
                 "issuing_authorization.created",
@@ -544,6 +546,7 @@ class WebhookEndpointService(StripeService):
                     "invoice.updated",
                     "invoice.voided",
                     "invoice.will_be_due",
+                    "invoice_payment.paid",
                     "invoiceitem.created",
                     "invoiceitem.deleted",
                     "issuing_authorization.created",
