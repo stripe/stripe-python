@@ -1268,7 +1268,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         """
         Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
-        This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
+        This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://docs.stripe.com/docs/sources) for more detail.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -1287,7 +1287,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         """
         Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
-        This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
+        This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://docs.stripe.com/docs/sources) for more detail.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(

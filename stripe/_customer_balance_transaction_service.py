@@ -77,7 +77,7 @@ class CustomerBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[CustomerBalanceTransaction]:
         """
-        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             ListObject[CustomerBalanceTransaction],
@@ -99,7 +99,7 @@ class CustomerBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[CustomerBalanceTransaction]:
         """
-        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             ListObject[CustomerBalanceTransaction],
@@ -121,7 +121,7 @@ class CustomerBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> CustomerBalanceTransaction:
         """
-        Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
+        Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             CustomerBalanceTransaction,
@@ -143,7 +143,7 @@ class CustomerBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> CustomerBalanceTransaction:
         """
-        Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
+        Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             CustomerBalanceTransaction,
@@ -166,7 +166,7 @@ class CustomerBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> CustomerBalanceTransaction:
         """
-        Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             CustomerBalanceTransaction,
@@ -190,7 +190,7 @@ class CustomerBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> CustomerBalanceTransaction:
         """
-        Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             CustomerBalanceTransaction,

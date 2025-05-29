@@ -513,7 +513,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     parent: Optional[Parent]
     """
-    The parent that generated this invoice
+    The parent that generated this line item.
     """
     period: Period
     pretax_credit_amounts: Optional[List[PretaxCreditAmount]]

@@ -270,6 +270,14 @@ class Charge(
             """
 
         class Affirm(StripeObject):
+            location: Optional[str]
+            """
+            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            """
             transaction_id: Optional[str]
             """
             The Affirm transaction ID associated with this payment.
@@ -1831,6 +1839,14 @@ class Charge(
             """
             Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
             """
+            location: Optional[str]
+            """
+            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            """
             transaction_id: Optional[str]
             """
             Transaction ID of this particular WeChat Pay transaction.
@@ -2605,9 +2621,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         return cast(
             "Charge",
@@ -2628,9 +2644,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         ...
 
@@ -2639,9 +2655,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         ...
 
@@ -2652,9 +2668,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         return cast(
             "Charge",
@@ -2674,9 +2690,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         return cast(
             "Charge",
@@ -2697,9 +2713,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         ...
 
@@ -2710,9 +2726,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         ...
 
@@ -2723,9 +2739,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         return cast(
             "Charge",
@@ -2741,7 +2757,7 @@ class Charge(
     @classmethod
     def create(cls, **params: Unpack["Charge.CreateParams"]) -> "Charge":
         """
-        This method is no longer recommended—use the [Payment Intents API](https://stripe.com/docs/api/payment_intents)
+        This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
         to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
         object used to request payment.
         """
@@ -2759,7 +2775,7 @@ class Charge(
         cls, **params: Unpack["Charge.CreateParams"]
     ) -> "Charge":
         """
-        This method is no longer recommended—use the [Payment Intents API](https://stripe.com/docs/api/payment_intents)
+        This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
         to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
         object used to request payment.
         """
@@ -2873,7 +2889,7 @@ class Charge(
         cls, *args, **kwargs: Unpack["Charge.SearchParams"]
     ) -> SearchResultObject["Charge"]:
         """
-        Search for charges you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -2885,7 +2901,7 @@ class Charge(
         cls, *args, **kwargs: Unpack["Charge.SearchParams"]
     ) -> SearchResultObject["Charge"]:
         """
-        Search for charges you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.

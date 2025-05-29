@@ -460,7 +460,7 @@ class InvoiceItem(
     """
     parent: Optional[Parent]
     """
-    The parent that generated this invoice
+    The parent that generated this invoice item.
     """
     period: Period
     pricing: Optional[Pricing]

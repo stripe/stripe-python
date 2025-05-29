@@ -6,6 +6,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
@@ -37,7 +38,19 @@ class SubscriptionItem(
 
     OBJECT_NAME: ClassVar[Literal["subscription_item"]] = "subscription_item"
 
+    class BillingThresholds(StripeObject):
+        usage_gte: Optional[int]
+        """
+        Usage threshold that triggers the subscription to create an invoice
+        """
+
     class CreateParams(RequestOptions):
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionItem.CreateParamsBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionItem.CreateParamsDiscount]"
         ]
@@ -102,6 +115,12 @@ class SubscriptionItem(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class CreateParamsBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class CreateParamsDiscount(TypedDict):
@@ -195,6 +214,12 @@ class SubscriptionItem(
         """
 
     class ModifyParams(RequestOptions):
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionItem.ModifyParamsBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionItem.ModifyParamsDiscount]"
         ]
@@ -261,6 +286,12 @@ class SubscriptionItem(
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
         """
 
+    class ModifyParamsBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
     class ModifyParamsDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -319,6 +350,10 @@ class SubscriptionItem(
         Specifies which fields in the response should be expanded.
         """
 
+    billing_thresholds: Optional[BillingThresholds]
+    """
+    Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
+    """
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -609,3 +644,5 @@ class SubscriptionItem(
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    _inner_class_types = {"billing_thresholds": BillingThresholds}
