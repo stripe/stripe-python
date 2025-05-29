@@ -34,7 +34,3 @@ class MeterEventSession(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-
-    @classmethod
-    def class_url(cls):
-        return "/v2/billing/meter_event_session"
