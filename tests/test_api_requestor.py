@@ -328,13 +328,11 @@ class TestAPIRequestor(object):
             http_client_mock.stub_request(
                 method,
                 path=path,
-                rbody="{'id': 'abc_123', 'object': 'customer'}",
+                rbody=json.dumps({"id": "abc_123", "object": "customer"}),
                 rcode=200,
             )
 
-            resp = requestor.request(
-                method, self.v2_path, {}, base_address="api"
-            )
+            resp = requestor.request(method, path, {}, base_address="api")
 
             post_data = None
 
@@ -345,8 +343,6 @@ class TestAPIRequestor(object):
                 assert isinstance(resp, DeletedObject)
             assert resp.id == "abc_123"
             assert resp.object == "customer"
-
-            assert resp == {}
 
     @pytest.mark.anyio
     async def test_delete_methods_async(self, requestor, http_client_mock):
@@ -354,13 +350,13 @@ class TestAPIRequestor(object):
             method = "delete"
             http_client_mock.stub_request(
                 method,
-                path=self.v2_path,
-                rbody="{'id': 'abc_123', 'object': 'customer'}",
+                path=path,
+                rbody=json.dumps({"id": "abc_123", "object": "customer"}),
                 rcode=200,
             )
 
             resp = await requestor.request_async(
-                method, self.v2_path, {}, base_address="api"
+                method, path, {}, base_address="api"
             )
 
             post_data = None
@@ -374,8 +370,6 @@ class TestAPIRequestor(object):
 
             assert resp.id == "abc_123"
             assert resp.object == "customer"
-
-            assert resp == {}
 
     @pytest.mark.anyio
     async def test_empty_methods_streaming_response_async(

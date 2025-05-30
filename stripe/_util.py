@@ -198,6 +198,12 @@ def get_thin_event_classes():
     return THIN_EVENT_CLASSES
 
 
+def get_deleted_object():
+    from stripe.v2._deleted_object import DeletedObject
+
+    return DeletedObject
+
+
 def get_object_classes(api_mode):
     # This is here to avoid a circular dependency
     if api_mode == "V2":
@@ -327,7 +333,7 @@ def _convert_to_stripe_object(
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
             if v2_deleted_object:
-                klass = stripe.v2.DeletedObject
+                klass = get_deleted_object()
             elif api_mode == "V2" and klass_name == "v2.core.event":
                 event_name = resp.get("type", "")
                 klass = get_thin_event_classes().get(
