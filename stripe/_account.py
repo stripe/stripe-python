@@ -3023,6 +3023,12 @@ class Account(
         """
         One or more documents that demonstrate proof of a company's tax ID.
         """
+        proof_of_address: NotRequired[
+            "Account.CreateParamsDocumentsProofOfAddress"
+        ]
+        """
+        One or more documents that demonstrate proof of address.
+        """
         proof_of_registration: NotRequired[
             "Account.CreateParamsDocumentsProofOfRegistration"
         ]
@@ -3067,6 +3073,12 @@ class Account(
         """
 
     class CreateParamsDocumentsCompanyTaxIdVerification(TypedDict):
+        files: NotRequired[List[str]]
+        """
+        One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class CreateParamsDocumentsProofOfAddress(TypedDict):
         files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
