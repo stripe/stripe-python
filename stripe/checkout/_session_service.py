@@ -2605,14 +2605,11 @@ class SessionService(StripeService):
         """
         trial_end: NotRequired[int]
         """
-        Unix timestamp representing the end of the trial period the customer
-        will get before being charged for the first time. Has to be at least
-        48 hours in the future.
+        Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
         """
         trial_period_days: NotRequired[int]
         """
-        Integer representing the number of trial period days before the
-        customer is charged for the first time. Has to be at least 1.
+        Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         """
         trial_settings: NotRequired[
             "SessionService.CreateParamsSubscriptionDataTrialSettings"
