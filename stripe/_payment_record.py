@@ -1585,22 +1585,8 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             pass
 
         class UsBankAccount(StripeObject):
-            class AchReturnAmount(StripeObject):
-                currency: str
-                """
-                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                """
-                value: int
-                """
-                A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
-                """
-
             account_holder_type: Optional[Literal["company", "individual"]]
             account_type: Optional[Literal["checking", "savings"]]
-            ach_return_amount: Optional[AchReturnAmount]
-            """
-            Amount of the ACH return to the bank account.
-            """
             bank_name: Optional[str]
             """
             Name of the bank associated with the bank account.
@@ -1625,7 +1611,6 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             Routing number of the bank account.
             """
-            _inner_class_types = {"ach_return_amount": AchReturnAmount}
 
         class Wechat(StripeObject):
             pass
