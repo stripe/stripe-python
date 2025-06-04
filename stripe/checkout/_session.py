@@ -4888,6 +4888,10 @@ class Session(
         """
         The shipping rate options to apply to this Session. Up to a maximum of 5.
         """
+        subscription_data: NotRequired["Session.ModifyParamsSubscriptionData"]
+        """
+        A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
+        """
 
     class ModifyParamsCollectedInformation(TypedDict):
         shipping_details: NotRequired[
@@ -5168,6 +5172,16 @@ class Session(
         ]
         """
         Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
+        """
+
+    class ModifyParamsSubscriptionData(TypedDict):
+        trial_end: NotRequired[int]
+        """
+        Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
+        """
+        trial_period_days: NotRequired[int]
+        """
+        Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         """
 
     class RetrieveParams(RequestOptions):
