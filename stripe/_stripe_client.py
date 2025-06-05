@@ -370,3 +370,6 @@ class StripeClient(object):
             requestor=self._requestor,
             api_mode=api_mode,
         )
+
+    # deprecated v1 services: The beginning of the section generated from our OpenAPI spec
+    # deprecated v1 services: The end of the section generated from our OpenAPI spec
