@@ -47,6 +47,12 @@ class VerificationSessionService(StripeService):
         """
         Token referencing a Customer Account resource.
         """
+        related_person: NotRequired[
+            "VerificationSessionService.CreateParamsRelatedPerson"
+        ]
+        """
+        Tokens referencing a Person resource and it's associated account.
+        """
         return_url: NotRequired[str]
         """
         The URL that the user will be redirected to upon completing the verification flow.
@@ -96,6 +102,16 @@ class VerificationSessionService(StripeService):
         phone: NotRequired[str]
         """
         Phone number of user being verified
+        """
+
+    class CreateParamsRelatedPerson(TypedDict):
+        account: str
+        """
+        A token representing a connected account. If provided, the person parameter is also required and must be associated with the account.
+        """
+        person: str
+        """
+        A token referencing a Person resource that this verification is being used to verify.
         """
 
     class ListParams(TypedDict):

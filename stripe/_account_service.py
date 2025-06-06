@@ -1224,6 +1224,9 @@ class AccountService(StripeService):
         registration_date: NotRequired[
             "Literal['']|AccountService.CreateParamsCompanyRegistrationDate"
         ]
+        """
+        When the business was incorporated or registered.
+        """
         registration_number: NotRequired[str]
         """
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -1506,6 +1509,12 @@ class AccountService(StripeService):
         """
         One or more documents that demonstrate proof of a company's tax ID.
         """
+        proof_of_address: NotRequired[
+            "AccountService.CreateParamsDocumentsProofOfAddress"
+        ]
+        """
+        One or more documents that demonstrate proof of address.
+        """
         proof_of_registration: NotRequired[
             "AccountService.CreateParamsDocumentsProofOfRegistration"
         ]
@@ -1550,6 +1559,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsDocumentsCompanyTaxIdVerification(TypedDict):
+        files: NotRequired[List[str]]
+        """
+        One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class CreateParamsDocumentsProofOfAddress(TypedDict):
         files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
@@ -3613,6 +3628,12 @@ class AccountService(StripeService):
         """
         One or more documents that demonstrate proof of a company's tax ID.
         """
+        proof_of_address: NotRequired[
+            "AccountService.UpdateParamsDocumentsProofOfAddress"
+        ]
+        """
+        One or more documents that demonstrate proof of address.
+        """
         proof_of_registration: NotRequired[
             "AccountService.UpdateParamsDocumentsProofOfRegistration"
         ]
@@ -3657,6 +3678,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsDocumentsCompanyTaxIdVerification(TypedDict):
+        files: NotRequired[List[str]]
+        """
+        One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class UpdateParamsDocumentsProofOfAddress(TypedDict):
         files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
