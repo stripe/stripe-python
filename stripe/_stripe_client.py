@@ -24,7 +24,7 @@ from stripe._http_client import (
 from stripe._api_version import _ApiVersion
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
-from stripe._util import _convert_to_stripe_object, get_api_mode
+from stripe._util import _convert_to_stripe_object, get_api_mode, deprecated
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
 from stripe.v2._event import ThinEvent
@@ -390,3 +390,6 @@ class StripeClient(object):
             requestor=self._requestor,
             api_mode=api_mode,
         )
+
+    # deprecated v1 services: The beginning of the section generated from our OpenAPI spec
+    # deprecated v1 services: The end of the section generated from our OpenAPI spec
