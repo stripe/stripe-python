@@ -51,13 +51,13 @@ from stripe import StripeClient
 client = StripeClient("sk_test_...")
 
 # list customers
-customers = client.customers.list()
+customers = client.v1.customers.list()
 
 # print the first customer's email
 print(customers.data[0].email)
 
 # retrieve specific Customer
-customer = client.customers.retrieve("cus_123456789")
+customer = client.v1.customers.retrieve("cus_123456789")
 
 # print that customer's email
 print(customer.email)
@@ -89,7 +89,7 @@ from stripe import StripeClient
 client = StripeClient("sk_test_...")
 
 # list customers
-client.customers.list(
+client.v1.customers.list(
     options={
         "api_key": "sk_test_...",
         "stripe_account": "acct_...",
@@ -98,7 +98,7 @@ client.customers.list(
 )
 
 # retrieve single customer
-client.customers.retrieve(
+client.v1.customers.retrieve(
     "cus_123456789",
     options={
         "api_key": "sk_test_...",
@@ -181,7 +181,7 @@ There are a few options for enabling it:
 You can access the HTTP response code and headers using the `last_response` property of the returned resource.
 
 ```python
-customer = client.customers.retrieve(
+customer = client.v1.customers.retrieve(
     "cus_123456789"
 )
 
@@ -288,7 +288,7 @@ with `_async`.
 ```python
 # With StripeClient
 client = StripeClient("sk_test_...")
-customer = await client.customers.retrieve_async("cus_xyz")
+customer = await client.v1.customers.retrieve_async("cus_xyz")
 
 # With global client
 stripe.api_key = "sk_test_..."
