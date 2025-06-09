@@ -35,8 +35,6 @@ from typing import Any, Dict, Optional, Union, cast
 from stripe._oauth_service import OAuthService
 
 # services: The beginning of the section generated from our OpenAPI spec
-from stripe._v1_services import V1Services
-from stripe._v2_services import V2Services
 from stripe._account_service import AccountService
 from stripe._account_link_service import AccountLinkService
 from stripe._account_session_service import AccountSessionService
@@ -110,6 +108,7 @@ from stripe._topup_service import TopupService
 from stripe._transfer_service import TransferService
 from stripe._treasury_service import TreasuryService
 from stripe._webhook_endpoint_service import WebhookEndpointService
+from stripe._v2_services import V2Services
 # services: The end of the section generated from our OpenAPI spec
 
 
@@ -187,7 +186,85 @@ class StripeClient(object):
         self.oauth = OAuthService(self._requestor, self._options)
 
         # top-level services: The beginning of the section generated from our OpenAPI spec
-        self.v1 = V1Services(self._requestor)
+        self.accounts = AccountService(self._requestor)
+        self.account_links = AccountLinkService(self._requestor)
+        self.account_sessions = AccountSessionService(self._requestor)
+        self.apple_pay_domains = ApplePayDomainService(self._requestor)
+        self.application_fees = ApplicationFeeService(self._requestor)
+        self.apps = AppsService(self._requestor)
+        self.balance = BalanceService(self._requestor)
+        self.balance_transactions = BalanceTransactionService(self._requestor)
+        self.billing = BillingService(self._requestor)
+        self.billing_portal = BillingPortalService(self._requestor)
+        self.charges = ChargeService(self._requestor)
+        self.checkout = CheckoutService(self._requestor)
+        self.climate = ClimateService(self._requestor)
+        self.confirmation_tokens = ConfirmationTokenService(self._requestor)
+        self.test_helpers = TestHelpersService(self._requestor)
+        self.country_specs = CountrySpecService(self._requestor)
+        self.coupons = CouponService(self._requestor)
+        self.credit_notes = CreditNoteService(self._requestor)
+        self.customers = CustomerService(self._requestor)
+        self.customer_sessions = CustomerSessionService(self._requestor)
+        self.disputes = DisputeService(self._requestor)
+        self.entitlements = EntitlementsService(self._requestor)
+        self.ephemeral_keys = EphemeralKeyService(self._requestor)
+        self.events = EventService(self._requestor)
+        self.exchange_rates = ExchangeRateService(self._requestor)
+        self.files = FileService(self._requestor)
+        self.file_links = FileLinkService(self._requestor)
+        self.financial_connections = FinancialConnectionsService(
+            self._requestor
+        )
+        self.forwarding = ForwardingService(self._requestor)
+        self.identity = IdentityService(self._requestor)
+        self.invoices = InvoiceService(self._requestor)
+        self.invoice_payments = InvoicePaymentService(self._requestor)
+        self.invoice_rendering_templates = InvoiceRenderingTemplateService(
+            self._requestor,
+        )
+        self.invoice_items = InvoiceItemService(self._requestor)
+        self.issuing = IssuingService(self._requestor)
+        self.mandates = MandateService(self._requestor)
+        self.payment_intents = PaymentIntentService(self._requestor)
+        self.payment_links = PaymentLinkService(self._requestor)
+        self.payment_methods = PaymentMethodService(self._requestor)
+        self.payment_method_configurations = PaymentMethodConfigurationService(
+            self._requestor,
+        )
+        self.payment_method_domains = PaymentMethodDomainService(
+            self._requestor
+        )
+        self.payouts = PayoutService(self._requestor)
+        self.plans = PlanService(self._requestor)
+        self.prices = PriceService(self._requestor)
+        self.products = ProductService(self._requestor)
+        self.promotion_codes = PromotionCodeService(self._requestor)
+        self.quotes = QuoteService(self._requestor)
+        self.radar = RadarService(self._requestor)
+        self.refunds = RefundService(self._requestor)
+        self.reporting = ReportingService(self._requestor)
+        self.reviews = ReviewService(self._requestor)
+        self.sigma = SigmaService(self._requestor)
+        self.setup_attempts = SetupAttemptService(self._requestor)
+        self.setup_intents = SetupIntentService(self._requestor)
+        self.shipping_rates = ShippingRateService(self._requestor)
+        self.sources = SourceService(self._requestor)
+        self.subscriptions = SubscriptionService(self._requestor)
+        self.subscription_items = SubscriptionItemService(self._requestor)
+        self.subscription_schedules = SubscriptionScheduleService(
+            self._requestor
+        )
+        self.tax = TaxService(self._requestor)
+        self.tax_codes = TaxCodeService(self._requestor)
+        self.tax_ids = TaxIdService(self._requestor)
+        self.tax_rates = TaxRateService(self._requestor)
+        self.terminal = TerminalService(self._requestor)
+        self.tokens = TokenService(self._requestor)
+        self.topups = TopupService(self._requestor)
+        self.transfers = TransferService(self._requestor)
+        self.treasury = TreasuryService(self._requestor)
+        self.webhook_endpoints = WebhookEndpointService(self._requestor)
         self.v2 = V2Services(self._requestor)
         # top-level services: The end of the section generated from our OpenAPI spec
 
