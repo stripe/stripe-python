@@ -1582,13 +1582,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
 
         class UsBankAccount(StripeObject):
             account_holder_type: Optional[Literal["company", "individual"]]
-            """
-            Account holder type: individual or company.
-            """
             account_type: Optional[Literal["checking", "savings"]]
-            """
-            Account type: checkings or savings. Defaults to checking if omitted.
-            """
             bank_name: Optional[str]
             """
             Name of the bank associated with the bank account.
@@ -1720,6 +1714,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         It contains information specific to the payment method.
         """
         us_bank_account: Optional[UsBankAccount]
+        """
+        Details of the US Bank Account used for this payment attempt.
+        """
         wechat: Optional[Wechat]
         wechat_pay: Optional[WechatPay]
         zip: Optional[Zip]

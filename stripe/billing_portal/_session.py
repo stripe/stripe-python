@@ -131,7 +131,7 @@ class Session(CreateableAPIResource["Session"]):
 
             discounts: Optional[List[Discount]]
             """
-            The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
+            The coupon or promotion code to apply to this subscription update.
             """
             items: List[Item]
             """
@@ -364,7 +364,7 @@ class Session(CreateableAPIResource["Session"]):
             ]
         ]
         """
-        The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
+        The coupon or promotion code to apply to this subscription update.
         """
         items: List[
             "Session.CreateParamsFlowDataSubscriptionUpdateConfirmItem"
