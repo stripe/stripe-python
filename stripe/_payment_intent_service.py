@@ -3698,7 +3698,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsGopay(TypedDict):
-        setup_future_usage: NotRequired[Literal["none"]]
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -7674,7 +7674,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsGopay(TypedDict):
-        setup_future_usage: NotRequired[Literal["none"]]
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -11836,7 +11836,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsGopay(TypedDict):
-        setup_future_usage: NotRequired[Literal["none"]]
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
