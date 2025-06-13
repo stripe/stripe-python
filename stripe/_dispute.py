@@ -354,6 +354,9 @@ class Dispute(
         """
         The number of times evidence has been submitted. Typically, you may only submit evidence once.
         """
+        submission_method: Optional[
+            Literal["manual", "not_submitted", "smart_disputes"]
+        ]
         _inner_class_types = {"enhanced_eligibility": EnhancedEligibility}
 
     class PaymentMethodDetails(StripeObject):
