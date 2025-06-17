@@ -3,4 +3,3 @@
 class _ApiVersion:
     CURRENT = "2025-06-30.preview"
     CURRENT_MAJOR = "preview"
-    CURRENT_MONTHLY = "2025-06-30"
