@@ -606,7 +606,7 @@ class Subscription(
         """
         Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
         """
-        billing_mode: NotRequired[Literal["classic", "flexible"]]
+        billing_mode: NotRequired["Subscription.CreateParamsBillingMode"]
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
@@ -899,6 +899,9 @@ class Subscription(
         """
         The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
         """
+
+    class CreateParamsBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
 
     class CreateParamsBillingThresholds(TypedDict):
         amount_gte: NotRequired[int]
@@ -1563,7 +1566,7 @@ class Subscription(
         """
 
     class MigrateParams(RequestOptions):
-        billing_mode: Literal["flexible"]
+        billing_mode: "Subscription.MigrateParamsBillingMode"
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
@@ -1571,6 +1574,9 @@ class Subscription(
         """
         Specifies which fields in the response should be expanded.
         """
+
+    class MigrateParamsBillingMode(TypedDict):
+        type: Literal["flexible"]
 
     class ModifyParams(RequestOptions):
         add_invoice_items: NotRequired[

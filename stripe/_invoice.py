@@ -2828,7 +2828,9 @@ class Invoice(
         """
         Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
         """
-        billing_mode: NotRequired[Literal["classic", "flexible"]]
+        billing_mode: NotRequired[
+            "Invoice.CreatePreviewParamsScheduleDetailsBillingMode"
+        ]
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
@@ -3389,6 +3391,9 @@ class Invoice(
         """
         Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
         """
+
+    class CreatePreviewParamsScheduleDetailsBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
 
     class CreatePreviewParamsScheduleDetailsPhase(TypedDict):
         add_invoice_items: NotRequired[
@@ -3977,7 +3982,9 @@ class Invoice(
         """
         For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
         """
-        billing_mode: NotRequired[Literal["classic", "flexible"]]
+        billing_mode: NotRequired[
+            "Invoice.CreatePreviewParamsSubscriptionDetailsBillingMode"
+        ]
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
@@ -4033,6 +4040,9 @@ class Invoice(
         """
         If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_details.items` or `subscription` is required.
         """
+
+    class CreatePreviewParamsSubscriptionDetailsBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
 
     class CreatePreviewParamsSubscriptionDetailsItem(TypedDict):
         billing_thresholds: NotRequired[

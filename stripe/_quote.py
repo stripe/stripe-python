@@ -1709,7 +1709,9 @@ class Quote(
         """
         When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
         """
-        billing_mode: NotRequired[Literal["classic", "flexible"]]
+        billing_mode: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillingMode"
+        ]
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
@@ -1857,6 +1859,9 @@ class Quote(
         """
         The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
         """
+
+    class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
 
     class CreateParamsSubscriptionDataOverride(TypedDict):
         applies_to: "Quote.CreateParamsSubscriptionDataOverrideAppliesTo"

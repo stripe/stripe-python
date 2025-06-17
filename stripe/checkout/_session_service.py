@@ -2563,7 +2563,9 @@ class SessionService(StripeService):
         """
         A future timestamp to anchor the subscription's billing cycle for new subscriptions.
         """
-        billing_mode: NotRequired[Literal["classic", "flexible"]]
+        billing_mode: NotRequired[
+            "SessionService.CreateParamsSubscriptionDataBillingMode"
+        ]
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
@@ -2617,6 +2619,9 @@ class SessionService(StripeService):
         """
         Settings related to subscription trials.
         """
+
+    class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
 
     class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
         issuer: NotRequired[
