@@ -49,6 +49,16 @@ class SubscriptionSchedule(
         "subscription_schedule"
     )
 
+    class BillingMode(StripeObject):
+        type: Literal["classic", "flexible"]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
+        updated_at: Optional[int]
+        """
+        Details on when the current billing_mode was adopted.
+        """
+
     class CurrentPhase(StripeObject):
         end_date: int
         """
@@ -2708,9 +2718,9 @@ class SubscriptionSchedule(
     """
     Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
     """
-    billing_mode: Optional[Literal["classic", "flexible"]]
+    billing_mode: Optional[BillingMode]
     """
-    The [billing mode](https://docs.stripe.com/api/subscriptions/create#create_subscription-billing_mode) that will be used to process all future operations for the subscription schedule.
+    The billing mode of the subscription.
     """
     canceled_at: Optional[int]
     """
@@ -3263,6 +3273,7 @@ class SubscriptionSchedule(
         return instance
 
     _inner_class_types = {
+        "billing_mode": BillingMode,
         "current_phase": CurrentPhase,
         "default_settings": DefaultSettings,
         "last_price_migration_error": LastPriceMigrationError,

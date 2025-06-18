@@ -580,6 +580,12 @@ class Quote(
                 "bill_until": BillUntil,
             }
 
+        class BillingMode(StripeObject):
+            type: Literal["classic", "flexible"]
+            """
+            Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+            """
+
         class Prebilling(StripeObject):
             iterations: int
 
@@ -597,9 +603,9 @@ class Quote(
         """
         Whether the subscription will always start a new billing period when the quote is accepted.
         """
-        billing_mode: Optional[Literal["classic", "flexible"]]
+        billing_mode: Optional[BillingMode]
         """
-        The [billing mode](https://docs.stripe.com/api/subscriptions/create#create_subscription-billing_mode) that will be set on the subscription once the quote is accepted.
+        The billing mode of the quote.
         """
         description: Optional[str]
         """
@@ -637,6 +643,7 @@ class Quote(
         """
         _inner_class_types = {
             "bill_on_acceptance": BillOnAcceptance,
+            "billing_mode": BillingMode,
             "prebilling": Prebilling,
         }
 

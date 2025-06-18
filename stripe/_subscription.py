@@ -110,7 +110,11 @@ class Subscription(
         The second of the minute of the billing_cycle_anchor.
         """
 
-    class BillingModeDetails(StripeObject):
+    class BillingMode(StripeObject):
+        type: Literal["classic", "flexible"]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         updated_at: Optional[int]
         """
         Details on when the current billing_mode was adopted.
@@ -594,7 +598,7 @@ class Subscription(
         """
         backdate_start_date: NotRequired[int]
         """
-        For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
+        A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
         """
         billing_cycle_anchor: NotRequired[int]
         """
@@ -2462,13 +2466,9 @@ class Subscription(
     """
     The fixed values used to calculate the `billing_cycle_anchor`.
     """
-    billing_mode: Optional[Literal["classic", "flexible"]]
+    billing_mode: Optional[BillingMode]
     """
-    Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-    """
-    billing_mode_details: Optional[BillingModeDetails]
-    """
-    Details about when the current billing_mode was updated.
+    The billing mode of the subscription.
     """
     billing_thresholds: Optional[BillingThresholds]
     """
@@ -3370,7 +3370,7 @@ class Subscription(
     _inner_class_types = {
         "automatic_tax": AutomaticTax,
         "billing_cycle_anchor_config": BillingCycleAnchorConfig,
-        "billing_mode_details": BillingModeDetails,
+        "billing_mode": BillingMode,
         "billing_thresholds": BillingThresholds,
         "cancellation_details": CancellationDetails,
         "invoice_settings": InvoiceSettings,
