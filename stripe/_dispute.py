@@ -357,6 +357,9 @@ class Dispute(
         submission_method: Optional[
             Literal["manual", "not_submitted", "smart_disputes"]
         ]
+        """
+        Whether the dispute was submitted manually, with Smart Disputes, or not submitted.
+        """
         _inner_class_types = {"enhanced_eligibility": EnhancedEligibility}
 
     class PaymentMethodDetails(StripeObject):
