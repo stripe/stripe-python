@@ -61,13 +61,25 @@ class ReceivedCredit(StripeObject):
         """
 
     class BalanceTransfer(StripeObject):
-        payout_v1: str
+        from_account: Optional[str]
         """
-        The ID of the Stripe Money Movement that originated the ReceivedCredit.
+        The ID of the account that owns the source object originated the ReceivedCredit.
         """
-        type: Literal["payout_v1"]
+        type: Literal["outbound_payment", "outbound_transfer", "payout_v1"]
         """
         Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.
+        """
+        outbound_payment: Optional[str]
+        """
+        The ID of the outbound payment object that originated the ReceivedCredit.
+        """
+        outbound_transfer: Optional[str]
+        """
+        The ID of the outbound transfer object that originated the ReceivedCredit.
+        """
+        payout_v1: Optional[str]
+        """
+        The ID of the payout object that originated the ReceivedCredit.
         """
 
     class BankTransfer(StripeObject):

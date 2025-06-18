@@ -166,7 +166,7 @@ class OutboundTransfer(StripeObject):
     """
     statement_descriptor: str
     """
-    The description that appears on the receiving end for an OutboundTransfer (for example, bank statement for external bank transfer).
+    The description that appears on the receiving end for an OutboundTransfer (for example, bank statement for external bank transfer). It will default to `STRIPE` if not set on the account settings.
     """
     status: Literal["canceled", "failed", "posted", "processing", "returned"]
     """

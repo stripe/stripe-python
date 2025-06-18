@@ -35,6 +35,13 @@ class FinancialAccount(StripeObject):
         The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
         """
 
+    class StatusDetails(StripeObject):
+        class Closed(StripeObject):
+            reason: Literal["account_closed", "closed_by_platform", "other"]
+
+        closed: Optional[Closed]
+        _inner_class_types = {"closed": Closed}
+
     class Storage(StripeObject):
         holds_currencies: List[
             Literal[
@@ -474,6 +481,7 @@ class FinancialAccount(StripeObject):
         "vu",
         "wf",
         "ws",
+        "xx",
         "ye",
         "yt",
         "za",
@@ -487,10 +495,13 @@ class FinancialAccount(StripeObject):
     """
     Time at which the object was created.
     """
-    description: Optional[str]
     id: str
     """
     Unique identifier for the object.
+    """
+    metadata: Optional[Dict[str, str]]
+    """
+    Metadata associated with the FinancialAccount
     """
     object: Literal["v2.money_management.financial_account"]
     """
@@ -500,10 +511,11 @@ class FinancialAccount(StripeObject):
     """
     If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.
     """
-    status: Literal["closed", "open"]
+    status: Literal["closed", "open", "pending"]
     """
     Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
     """
+    status_details: Optional[StatusDetails]
     storage: Optional[Storage]
     """
     If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
@@ -520,5 +532,6 @@ class FinancialAccount(StripeObject):
     _inner_class_types = {
         "balance": Balance,
         "other": Other,
+        "status_details": StatusDetails,
         "storage": Storage,
     }

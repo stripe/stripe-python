@@ -71,7 +71,7 @@ class OffSessionPaymentService(StripeService):
         """
 
     class CreateParamsTransferData(TypedDict):
-        amount: int
+        amount: NotRequired[int]
         """
         Amount in minor units that you want to transfer.
         """

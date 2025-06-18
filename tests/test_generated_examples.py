@@ -35056,7 +35056,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/money_management/outbound_payments",
-            rbody='{"error":{"type":"insufficient_funds","code":"outbound_payment_insufficient_funds"}}',
+            rbody='{"error":{"type":"insufficient_funds","code":"insufficient_funds"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -35092,7 +35092,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/core/vault/us_bank_accounts",
-            rbody='{"error":{"type":"quota_exceeded","code":"outbound_payment_recipient_amount_limit_exceeded"}}',
+            rbody='{"error":{"type":"quota_exceeded","code":"recipient_amount_limit_exceeded"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -35123,7 +35123,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/money_management/outbound_payments",
-            rbody='{"error":{"type":"recipient_not_notifiable","code":"outbound_payment_recipient_email_does_not_exist"}}',
+            rbody='{"error":{"type":"recipient_not_notifiable","code":"recipient_email_does_not_exist"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -35159,7 +35159,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/money_management/outbound_payments",
-            rbody='{"error":{"type":"feature_not_enabled","code":"outbound_payment_recipient_feature_not_active"}}',
+            rbody='{"error":{"type":"feature_not_enabled","code":"recipient_feature_not_active"}}',
             rcode=400,
         )
         client = StripeClient(

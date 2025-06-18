@@ -26,7 +26,7 @@ class OffSessionPayment(StripeObject):
         """
 
     class TransferData(StripeObject):
-        amount: int
+        amount: Optional[int]
         """
         Amount in minor units that you want to transfer.
         """
@@ -38,10 +38,6 @@ class OffSessionPayment(StripeObject):
     amount_requested: Amount
     """
     The amount you requested to be collected on the OSP upon creation.
-    """
-    attempts: int
-    """
-    Number of authorization attempts.
     """
     cadence: Literal["recurring", "unscheduled"]
     """
