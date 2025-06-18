@@ -607,6 +607,7 @@ class PaymentMethodService(StripeService):
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
