@@ -603,7 +603,7 @@ class Quote(
         """
         Whether the subscription will always start a new billing period when the quote is accepted.
         """
-        billing_mode: Optional[BillingMode]
+        billing_mode: BillingMode
         """
         The billing mode of the quote.
         """

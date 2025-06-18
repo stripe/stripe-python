@@ -2466,7 +2466,7 @@ class Subscription(
     """
     The fixed values used to calculate the `billing_cycle_anchor`.
     """
-    billing_mode: Optional[BillingMode]
+    billing_mode: BillingMode
     """
     The billing mode of the subscription.
     """
