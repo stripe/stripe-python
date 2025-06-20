@@ -135,6 +135,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer_balance: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataCustomerBalance"
         ]
@@ -393,6 +399,7 @@ class ConfirmationTokenService(StripeService):
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -572,6 +579,9 @@ class ConfirmationTokenService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataCrypto(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):

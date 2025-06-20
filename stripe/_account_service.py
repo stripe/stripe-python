@@ -362,6 +362,12 @@ class AccountService(StripeService):
         """
         The cashapp_payments capability.
         """
+        crypto_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesCryptoPayments"
+        ]
+        """
+        The crypto_payments capability.
+        """
         eps_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesEpsPayments"
         ]
@@ -790,6 +796,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesCashappPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesCryptoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2574,6 +2586,12 @@ class AccountService(StripeService):
         """
         The cashapp_payments capability.
         """
+        crypto_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesCryptoPayments"
+        ]
+        """
+        The crypto_payments capability.
+        """
         eps_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesEpsPayments"
         ]
@@ -3002,6 +3020,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesCashappPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesCryptoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

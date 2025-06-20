@@ -685,6 +685,24 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             A public identifier for buyers using Cash App.
             """
 
+        class Crypto(StripeObject):
+            buyer_address: Optional[str]
+            """
+            The wallet address of the customer.
+            """
+            network: Optional[Literal["base", "ethereum", "polygon"]]
+            """
+            The blockchain network that the transaction was sent on.
+            """
+            token_currency: Optional[Literal["usdc", "usdg", "usdp"]]
+            """
+            The token currency that the transaction was sent with.
+            """
+            transaction_hash: Optional[str]
+            """
+            The blockchain transaction hash of the crypto payment.
+            """
+
         class Custom(StripeObject):
             display_name: str
             """
@@ -1658,6 +1676,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
+        crypto: Optional[Crypto]
         custom: Optional[Custom]
         """
         Custom Payment Methods represent Payment Method types not modeled directly in
@@ -1741,6 +1760,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "card": Card,
             "card_present": CardPresent,
             "cashapp": Cashapp,
+            "crypto": Crypto,
             "custom": Custom,
             "customer_balance": CustomerBalance,
             "eps": Eps,

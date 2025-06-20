@@ -792,6 +792,9 @@ class PaymentMethod(
         A public identifier for buyers using Cash App.
         """
 
+    class Crypto(StripeObject):
+        pass
+
     class CustomerBalance(StripeObject):
         pass
 
@@ -1501,6 +1504,10 @@ class PaymentMethod(
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired["PaymentMethod.CreateParamsCrypto"]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer: NotRequired[str]
         """
         The `Customer` to whom the original PaymentMethod is attached.
@@ -1699,6 +1706,7 @@ class PaymentMethod(
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",
@@ -1907,6 +1915,9 @@ class PaymentMethod(
         """
 
     class CreateParamsCashapp(TypedDict):
+        pass
+
+    class CreateParamsCrypto(TypedDict):
         pass
 
     class CreateParamsCustomerBalance(TypedDict):
@@ -2306,6 +2317,7 @@ class PaymentMethod(
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",
@@ -2527,6 +2539,7 @@ class PaymentMethod(
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    crypto: Optional[Crypto]
     customer: Optional[ExpandableField["Customer"]]
     """
     The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
@@ -2607,6 +2620,7 @@ class PaymentMethod(
         "card",
         "card_present",
         "cashapp",
+        "crypto",
         "customer_balance",
         "eps",
         "fpx",
@@ -3130,6 +3144,7 @@ class PaymentMethod(
         "card": Card,
         "card_present": CardPresent,
         "cashapp": Cashapp,
+        "crypto": Crypto,
         "customer_balance": CustomerBalance,
         "eps": Eps,
         "fpx": Fpx,

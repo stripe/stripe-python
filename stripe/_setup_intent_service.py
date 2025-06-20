@@ -198,6 +198,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer_balance: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataCustomerBalance"
         ]
@@ -456,6 +462,7 @@ class SetupIntentService(StripeService):
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -635,6 +642,9 @@ class SetupIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataCrypto(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataCustomerBalance(TypedDict):
@@ -1869,6 +1879,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer_balance: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodDataCustomerBalance"
         ]
@@ -2119,6 +2135,7 @@ class SetupIntentService(StripeService):
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -2296,6 +2313,9 @@ class SetupIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataCrypto(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):
@@ -3509,6 +3529,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer_balance: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodDataCustomerBalance"
         ]
@@ -3759,6 +3785,7 @@ class SetupIntentService(StripeService):
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -3936,6 +3963,9 @@ class SetupIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataCrypto(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataCustomerBalance(TypedDict):

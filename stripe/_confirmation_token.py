@@ -861,6 +861,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             A public identifier for buyers using Cash App.
             """
 
+        class Crypto(StripeObject):
+            pass
+
         class CustomerBalance(StripeObject):
             pass
 
@@ -1499,6 +1502,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         card: Optional[Card]
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
+        crypto: Optional[Crypto]
         customer: Optional[ExpandableField["Customer"]]
         """
         The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
@@ -1559,6 +1563,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "card",
             "card_present",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -1625,6 +1630,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "card": Card,
             "card_present": CardPresent,
             "cashapp": Cashapp,
+            "crypto": Crypto,
             "customer_balance": CustomerBalance,
             "eps": Eps,
             "fpx": Fpx,
@@ -1833,6 +1839,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         ]
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
+        """
+        crypto: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
         """
         customer_balance: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataCustomerBalance"
@@ -2084,6 +2096,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -2261,6 +2274,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
 
     class CreateParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataCrypto(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):

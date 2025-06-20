@@ -248,6 +248,10 @@ class Account(
         """
         The status of the Cash App Pay capability of the account, or whether the account can directly process Cash App Pay payments.
         """
+        crypto_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Crypto capability of the account, or whether the account can directly process Crypto payments.
+        """
         eps_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the EPS payments capability of the account, or whether the account can directly process EPS charges.
@@ -1910,6 +1914,12 @@ class Account(
         """
         The cashapp_payments capability.
         """
+        crypto_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesCryptoPayments"
+        ]
+        """
+        The crypto_payments capability.
+        """
         eps_payments: NotRequired[
             "Account.CreateParamsCapabilitiesEpsPayments"
         ]
@@ -2334,6 +2344,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesCashappPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesCryptoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
