@@ -94,7 +94,7 @@ class LocationService(StripeService):
         """
         The ID of a configuration that will be used to customize all readers in this location.
         """
-        display_name: NotRequired[str]
+        display_name: NotRequired["Literal['']|str"]
         """
         A name for the location.
         """

@@ -368,7 +368,7 @@ class Dispute(
             """
             Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
-            case_type: Literal["chargeback", "inquiry"]
+            case_type: Literal["chargeback", "compliance", "inquiry"]
             """
             The type of dispute opened. Different case types may have varying fees and financial impact.
             """
@@ -794,7 +794,9 @@ class Dispute(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    enhanced_eligibility_types: List[Literal["visa_compelling_evidence_3"]]
+    enhanced_eligibility_types: List[
+        Literal["visa_compelling_evidence_3", "visa_compliance"]
+    ]
     """
     List of eligibility types that are included in `enhanced_evidence`.
     """

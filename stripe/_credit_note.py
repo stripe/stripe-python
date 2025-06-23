@@ -197,7 +197,7 @@ class CreditNote(
     class CreateParams(RequestOptions):
         amount: NotRequired[int]
         """
-        The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+        The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         credit_amount: NotRequired[int]
         """
@@ -221,7 +221,7 @@ class CreditNote(
         """
         lines: NotRequired[List["CreditNote.CreateParamsLine"]]
         """
-        Line items that make up the credit note.
+        Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         memo: NotRequired[str]
         """
@@ -256,7 +256,7 @@ class CreditNote(
         """
         shipping_cost: NotRequired["CreditNote.CreateParamsShippingCost"]
         """
-        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
 
     class CreateParamsLine(TypedDict):
@@ -412,7 +412,7 @@ class CreditNote(
     class PreviewLinesParams(RequestOptions):
         amount: NotRequired[int]
         """
-        The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+        The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         credit_amount: NotRequired[int]
         """
@@ -444,7 +444,7 @@ class CreditNote(
         """
         lines: NotRequired[List["CreditNote.PreviewLinesParamsLine"]]
         """
-        Line items that make up the credit note.
+        Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         memo: NotRequired[str]
         """
@@ -479,7 +479,7 @@ class CreditNote(
         """
         shipping_cost: NotRequired["CreditNote.PreviewLinesParamsShippingCost"]
         """
-        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         starting_after: NotRequired[str]
         """
@@ -559,7 +559,7 @@ class CreditNote(
     class PreviewParams(RequestOptions):
         amount: NotRequired[int]
         """
-        The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+        The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         credit_amount: NotRequired[int]
         """
@@ -583,7 +583,7 @@ class CreditNote(
         """
         lines: NotRequired[List["CreditNote.PreviewParamsLine"]]
         """
-        Line items that make up the credit note.
+        Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         memo: NotRequired[str]
         """
@@ -618,7 +618,7 @@ class CreditNote(
         """
         shipping_cost: NotRequired["CreditNote.PreviewParamsShippingCost"]
         """
-        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
 
     class PreviewParamsLine(TypedDict):

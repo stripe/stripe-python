@@ -244,6 +244,10 @@ class FinancialAccountService(StripeService):
         """
         An object ID cursor for use in pagination.
         """
+        status: NotRequired[Literal["closed", "open"]]
+        """
+        Only return FinancialAccounts that have the given status: `open` or `closed`
+        """
 
     class ListParamsCreated(TypedDict):
         gt: NotRequired[int]

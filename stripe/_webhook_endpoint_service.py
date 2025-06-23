@@ -125,6 +125,7 @@ class WebhookEndpointService(StripeService):
                 "2025-03-31.basil",
                 "2025-04-30.basil",
                 "2025-05-28.basil",
+                "2025-06-30.basil",
             ]
         ]
         """
@@ -339,6 +340,7 @@ class WebhookEndpointService(StripeService):
                 "tax_rate.updated",
                 "terminal.reader.action_failed",
                 "terminal.reader.action_succeeded",
+                "terminal.reader.action_updated",
                 "test_helpers.test_clock.advancing",
                 "test_helpers.test_clock.created",
                 "test_helpers.test_clock.deleted",
@@ -645,6 +647,7 @@ class WebhookEndpointService(StripeService):
                     "tax_rate.updated",
                     "terminal.reader.action_failed",
                     "terminal.reader.action_succeeded",
+                    "terminal.reader.action_updated",
                     "test_helpers.test_clock.advancing",
                     "test_helpers.test_clock.created",
                     "test_helpers.test_clock.deleted",
