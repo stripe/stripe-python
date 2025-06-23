@@ -22,7 +22,7 @@ class FinancialAccount(StripeObject):
         """
         inbound_pending: Dict[str, Amount]
         """
-        Balance of inbound funds that will later transition to the `cash` balance.
+        Balance of inbound funds that will later transition to the `available` balance.
         """
         outbound_pending: Dict[str, Amount]
         """
@@ -34,13 +34,6 @@ class FinancialAccount(StripeObject):
         """
         The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
         """
-
-    class StatusDetails(StripeObject):
-        class Closed(StripeObject):
-            reason: Literal["account_closed", "closed_by_platform", "other"]
-
-        closed: Optional[Closed]
-        _inner_class_types = {"closed": Closed}
 
     class Storage(StripeObject):
         holds_currencies: List[
@@ -515,7 +508,6 @@ class FinancialAccount(StripeObject):
     """
     Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
     """
-    status_details: Optional[StatusDetails]
     storage: Optional[Storage]
     """
     If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
@@ -532,6 +524,5 @@ class FinancialAccount(StripeObject):
     _inner_class_types = {
         "balance": Balance,
         "other": Other,
-        "status_details": StatusDetails,
         "storage": Storage,
     }

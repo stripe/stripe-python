@@ -34965,6 +34965,38 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_feature_not_enabled_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/financial_addresses",
+            rbody='{"error":{"type":"feature_not_enabled","code":"storer_capability_missing"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.money_management.financial_addresses.create(
+                {
+                    "currency": "stn",
+                    "financial_account": "financial_account",
+                }
+            )
+        except _error.FeatureNotEnabledError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/financial_addresses",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"currency":"stn","financial_account":"financial_account"}',
+            is_json=True,
+        )
+
     def test_blocked_by_stripe_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -35143,42 +35175,6 @@ class TestGeneratedExamples(object):
                 }
             )
         except _error.RecipientNotNotifiableError:
-            pass
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/money_management/outbound_payments",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"currency","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
-            is_json=True,
-        )
-
-    def test_feature_not_enabled_error_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/money_management/outbound_payments",
-            rbody='{"error":{"type":"feature_not_enabled","code":"recipient_feature_not_active"}}',
-            rcode=400,
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        try:
-            client.v2.money_management.outbound_payments.create(
-                {
-                    "amount": {"currency": "USD", "value": 96},
-                    "from": {
-                        "currency": "currency",
-                        "financial_account": "financial_account",
-                    },
-                    "to": {"recipient": "recipient"},
-                }
-            )
-        except _error.FeatureNotEnabledError:
             pass
         http_client_mock.assert_requested(
             "post",

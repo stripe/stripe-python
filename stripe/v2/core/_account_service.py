@@ -2703,6 +2703,12 @@ class AccountService(StripeService):
         """
         A document verifying the business.
         """
+        proof_of_address: NotRequired[
+            "AccountService.CreateParamsIdentityBusinessDetailsDocumentsProofOfAddress"
+        ]
+        """
+        One or more documents that demonstrate proof of address.
+        """
         proof_of_registration: NotRequired[
             "AccountService.CreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration"
         ]
@@ -2810,6 +2816,18 @@ class AccountService(StripeService):
         front: str
         """
         A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+        """
+
+    class CreateParamsIdentityBusinessDetailsDocumentsProofOfAddress(
+        TypedDict
+    ):
+        files: List[str]
+        """
+        One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+        """
+        type: Literal["files"]
+        """
+        The format of the document. Currently supports `files` only.
         """
 
     class CreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration(
@@ -8000,6 +8018,12 @@ class AccountService(StripeService):
         """
         A document verifying the business.
         """
+        proof_of_address: NotRequired[
+            "AccountService.UpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress"
+        ]
+        """
+        One or more documents that demonstrate proof of address.
+        """
         proof_of_registration: NotRequired[
             Optional[
                 "AccountService.UpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration"
@@ -8109,6 +8133,18 @@ class AccountService(StripeService):
         front: NotRequired[str]
         """
         A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+        """
+
+    class UpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress(
+        TypedDict
+    ):
+        files: List[str]
+        """
+        One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+        """
+        type: Literal["files"]
+        """
+        The format of the document. Currently supports `files` only.
         """
 
     class UpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration(
