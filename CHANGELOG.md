@@ -857,7 +857,7 @@ See [SaaS platform payments with subscription billing using Accounts v2](https:/
 ## 11.0.0 - 2024-10-01
 * [#1404](https://github.com/stripe/stripe-python/pull/1404) Support for APIs in the new API version 2024-09-30.acacia
 
-  This release changes the pinned API version to `2024-09-30.acacia`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-09-30.acacia) and carefully review the API changes before upgrading.
+  This release changes the pinned API version to `2024-09-30.acacia`. Please read the [API Changelog](https://docs.stripe.com/changelog/acacia#2024-09-30.acacia) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes due to changes in the API
 
@@ -1137,7 +1137,7 @@ See [SaaS platform payments with subscription billing using Accounts v2](https:/
 ## 10.0.0 - 2024-06-24
 * [#1350](https://github.com/stripe/stripe-python/pull/1350) Update generated code
 
-  This release changes the pinned API version to 2024-06-20. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-06-20) and carefully review the API changes before upgrading.
+  This release changes the pinned API version to 2024-06-20. Please read the [API Changelog](https://docs.stripe.com/changelog/2024-06-20) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes
 
@@ -1394,7 +1394,7 @@ See [SaaS platform payments with subscription billing using Accounts v2](https:/
 ## 9.0.0 - 2024-04-10
 * [#1286](https://github.com/stripe/stripe-python/pull/1286)
 
-  * This release changes the pinned API version to `2024-04-10`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-04-10) and carefully review the API changes before upgrading.
+  * This release changes the pinned API version to `2024-04-10`. Please read the [API Changelog](https://docs.stripe.com/changelog/2024-04-10) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes
 
@@ -2014,7 +2014,7 @@ See [SaaS platform payments with subscription billing using Accounts v2](https:/
 * [#1083](https://github.com/stripe/stripe-python/pull/1083) Update generated code for beta
 
 ## 7.0.0 - 2023-10-16
-* This release changes the pinned API version to `2023-10-16`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2023-10-16) and carefully review the API changes before upgrading `stripe-python`.
+* This release changes the pinned API version to `2023-10-16`. Please read the [API Changelog](https://docs.stripe.com/changelog/2023-10-16) and carefully review the API changes before upgrading `stripe-python`.
 * [#1085](https://github.com/stripe/stripe-python/pull/1085) Update generated code
   - Updated pinned API version
 
@@ -2304,7 +2304,7 @@ See [SaaS platform payments with subscription billing using Accounts v2](https:/
 
 ## 5.0.0 - 2022-11-16
 
-Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-11-15.
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://docs.stripe.com/changelog/2022-11-15.
 
 "⚠️" symbol highlights breaking changes.
 
@@ -2368,7 +2368,7 @@ Breaking changes that arose during code generation of the library that we postpo
 
 ## 4.0.0 - 2022-08-02
 
-Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v4. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-08-01.
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v4. For changes to the Stripe products, read more at https://docs.stripe.com/changelog/2022-08-01.
 
 "⚠️" symbol highlights breaking changes.
 
