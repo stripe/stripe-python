@@ -1458,6 +1458,10 @@ class Person(StripeObject):
     """
     The person's gender (International regulations require either "male" or "female").
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     metadata: Optional[Dict[str, str]]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -1753,10 +1757,6 @@ class Person(StripeObject):
     updated: str
     """
     Time at which the object was last updated. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "additional_addresses": AdditionalAddress,

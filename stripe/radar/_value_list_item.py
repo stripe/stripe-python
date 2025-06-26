@@ -104,6 +104,10 @@ class ValueListItem(
     """
     The name or email address of the user who added this item to the value list.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     id: str
     """
     Unique identifier for the object.
@@ -123,10 +127,6 @@ class ValueListItem(
     value_list: str
     """
     The identifier of the value list this item belongs to.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

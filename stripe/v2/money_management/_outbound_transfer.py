@@ -152,6 +152,10 @@ class OutboundTransfer(StripeObject):
     """
     Unique identifier for the OutboundTransfer.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     metadata: Optional[Dict[str, str]]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -190,10 +194,6 @@ class OutboundTransfer(StripeObject):
     trace_id: TraceId
     """
     A unique identifier that can be used to track this OutboundTransfer with recipient bank. Banks might call this a “reference number” or something similar.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "delivery_options": DeliveryOptions,

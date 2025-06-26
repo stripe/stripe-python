@@ -826,6 +826,10 @@ class WebhookEndpoint(
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     description: Optional[str]
     """
     An optional description of what the webhook is used for.
@@ -861,10 +865,6 @@ class WebhookEndpoint(
     url: str
     """
     The URL of the webhook endpoint.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

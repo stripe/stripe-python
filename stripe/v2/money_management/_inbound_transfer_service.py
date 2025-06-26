@@ -85,44 +85,6 @@ class InboundTransferService(StripeService):
     class RetrieveParams(TypedDict):
         pass
 
-    def create(
-        self,
-        params: "InboundTransferService.CreateParams",
-        options: RequestOptions = {},
-    ) -> InboundTransfer:
-        """
-        InboundTransfers APIs are used to create, retrieve or list InboundTransfers.
-        """
-        return cast(
-            InboundTransfer,
-            self._request(
-                "post",
-                "/v2/money_management/inbound_transfers",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def create_async(
-        self,
-        params: "InboundTransferService.CreateParams",
-        options: RequestOptions = {},
-    ) -> InboundTransfer:
-        """
-        InboundTransfers APIs are used to create, retrieve or list InboundTransfers.
-        """
-        return cast(
-            InboundTransfer,
-            await self._request_async(
-                "post",
-                "/v2/money_management/inbound_transfers",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
     def list(
         self,
         params: "InboundTransferService.ListParams" = {},
@@ -154,6 +116,44 @@ class InboundTransferService(StripeService):
             ListObject[InboundTransfer],
             await self._request_async(
                 "get",
+                "/v2/money_management/inbound_transfers",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def create(
+        self,
+        params: "InboundTransferService.CreateParams",
+        options: RequestOptions = {},
+    ) -> InboundTransfer:
+        """
+        InboundTransfers APIs are used to create, retrieve or list InboundTransfers.
+        """
+        return cast(
+            InboundTransfer,
+            self._request(
+                "post",
+                "/v2/money_management/inbound_transfers",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "InboundTransferService.CreateParams",
+        options: RequestOptions = {},
+    ) -> InboundTransfer:
+        """
+        InboundTransfers APIs are used to create, retrieve or list InboundTransfers.
+        """
+        return cast(
+            InboundTransfer,
+            await self._request_async(
+                "post",
                 "/v2/money_management/inbound_transfers",
                 base_address="api",
                 params=params,

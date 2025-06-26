@@ -144,44 +144,38 @@ class OutboundPaymentService(StripeService):
     class RetrieveParams(TypedDict):
         pass
 
-    def cancel(
+    def list(
         self,
-        id: str,
-        params: "OutboundPaymentService.CancelParams" = {},
+        params: "OutboundPaymentService.ListParams" = {},
         options: RequestOptions = {},
-    ) -> OutboundPayment:
+    ) -> ListObject[OutboundPayment]:
         """
-        Cancels an OutboundPayment. Only processing OutboundPayments can be canceled.
+        Returns a list of OutboundPayments that match the provided filters.
         """
         return cast(
-            OutboundPayment,
+            ListObject[OutboundPayment],
             self._request(
-                "post",
-                "/v2/money_management/outbound_payments/{id}/cancel".format(
-                    id=sanitize_id(id),
-                ),
+                "get",
+                "/v2/money_management/outbound_payments",
                 base_address="api",
                 params=params,
                 options=options,
             ),
         )
 
-    async def cancel_async(
+    async def list_async(
         self,
-        id: str,
-        params: "OutboundPaymentService.CancelParams" = {},
+        params: "OutboundPaymentService.ListParams" = {},
         options: RequestOptions = {},
-    ) -> OutboundPayment:
+    ) -> ListObject[OutboundPayment]:
         """
-        Cancels an OutboundPayment. Only processing OutboundPayments can be canceled.
+        Returns a list of OutboundPayments that match the provided filters.
         """
         return cast(
-            OutboundPayment,
+            ListObject[OutboundPayment],
             await self._request_async(
-                "post",
-                "/v2/money_management/outbound_payments/{id}/cancel".format(
-                    id=sanitize_id(id),
-                ),
+                "get",
+                "/v2/money_management/outbound_payments",
                 base_address="api",
                 params=params,
                 options=options,
@@ -226,44 +220,6 @@ class OutboundPaymentService(StripeService):
             ),
         )
 
-    def list(
-        self,
-        params: "OutboundPaymentService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[OutboundPayment]:
-        """
-        Returns a list of OutboundPayments that match the provided filters.
-        """
-        return cast(
-            ListObject[OutboundPayment],
-            self._request(
-                "get",
-                "/v2/money_management/outbound_payments",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def list_async(
-        self,
-        params: "OutboundPaymentService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[OutboundPayment]:
-        """
-        Returns a list of OutboundPayments that match the provided filters.
-        """
-        return cast(
-            ListObject[OutboundPayment],
-            await self._request_async(
-                "get",
-                "/v2/money_management/outbound_payments",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
     def retrieve(
         self,
         id: str,
@@ -300,6 +256,50 @@ class OutboundPaymentService(StripeService):
             await self._request_async(
                 "get",
                 "/v2/money_management/outbound_payments/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def cancel(
+        self,
+        id: str,
+        params: "OutboundPaymentService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundPayment:
+        """
+        Cancels an OutboundPayment. Only processing OutboundPayments can be canceled.
+        """
+        return cast(
+            OutboundPayment,
+            self._request(
+                "post",
+                "/v2/money_management/outbound_payments/{id}/cancel".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        id: str,
+        params: "OutboundPaymentService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundPayment:
+        """
+        Cancels an OutboundPayment. Only processing OutboundPayments can be canceled.
+        """
+        return cast(
+            OutboundPayment,
+            await self._request_async(
+                "post",
+                "/v2/money_management/outbound_payments/{id}/cancel".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

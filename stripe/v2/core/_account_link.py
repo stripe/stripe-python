@@ -43,10 +43,6 @@ class AccountLink(StripeObject):
             The URL that the user will be redirected to upon completing the linked flow.
             """
 
-        type: Literal["account_onboarding", "account_update"]
-        """
-        Open Enum. The type of AccountLink the user is requesting.
-        """
         account_onboarding: Optional[AccountOnboarding]
         """
         Indicates that the AccountLink provided should onboard an account.
@@ -54,6 +50,10 @@ class AccountLink(StripeObject):
         account_update: Optional[AccountUpdate]
         """
         Indicates that the AccountLink provided should update a previously onboarded account.
+        """
+        type: Literal["account_onboarding", "account_update"]
+        """
+        Open Enum. The type of AccountLink the user is requesting.
         """
         _inner_class_types = {
             "account_onboarding": AccountOnboarding,
@@ -72,6 +72,10 @@ class AccountLink(StripeObject):
     """
     The timestamp at which this AccountLink will expire.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["v2.core.account_link"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
@@ -83,9 +87,5 @@ class AccountLink(StripeObject):
     use_case: UseCase
     """
     The use case of AccountLink the user is requesting.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {"use_case": UseCase}

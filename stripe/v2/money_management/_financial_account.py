@@ -492,6 +492,10 @@ class FinancialAccount(StripeObject):
     """
     Unique identifier for the object.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     metadata: Optional[Dict[str, str]]
     """
     Metadata associated with the FinancialAccount
@@ -516,10 +520,6 @@ class FinancialAccount(StripeObject):
     """
     Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.
     It contains additional information specific to the FinancialAccount type.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "balance": Balance,

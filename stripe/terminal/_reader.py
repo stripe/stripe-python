@@ -969,6 +969,10 @@ class Reader(
     """
     The most recent action performed by the reader.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     device_sw_version: Optional[str]
     """
     The current software version of the reader.
@@ -1022,10 +1026,6 @@ class Reader(
     status: Optional[Literal["offline", "online"]]
     """
     The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

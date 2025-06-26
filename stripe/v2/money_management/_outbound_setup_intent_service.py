@@ -172,44 +172,38 @@ class OutboundSetupIntentService(StripeService):
         The card number. This can only be passed when creating a new credential on an outbound setup intent in the requires_payout_method state.
         """
 
-    def cancel(
+    def list(
         self,
-        id: str,
-        params: "OutboundSetupIntentService.CancelParams" = {},
+        params: "OutboundSetupIntentService.ListParams" = {},
         options: RequestOptions = {},
-    ) -> OutboundSetupIntent:
+    ) -> ListObject[OutboundSetupIntent]:
         """
-        Cancel an OutboundSetupIntent object.
+        List the OutboundSetupIntent objects.
         """
         return cast(
-            OutboundSetupIntent,
+            ListObject[OutboundSetupIntent],
             self._request(
-                "post",
-                "/v2/money_management/outbound_setup_intents/{id}/cancel".format(
-                    id=sanitize_id(id),
-                ),
+                "get",
+                "/v2/money_management/outbound_setup_intents",
                 base_address="api",
                 params=params,
                 options=options,
             ),
         )
 
-    async def cancel_async(
+    async def list_async(
         self,
-        id: str,
-        params: "OutboundSetupIntentService.CancelParams" = {},
+        params: "OutboundSetupIntentService.ListParams" = {},
         options: RequestOptions = {},
-    ) -> OutboundSetupIntent:
+    ) -> ListObject[OutboundSetupIntent]:
         """
-        Cancel an OutboundSetupIntent object.
+        List the OutboundSetupIntent objects.
         """
         return cast(
-            OutboundSetupIntent,
+            ListObject[OutboundSetupIntent],
             await self._request_async(
-                "post",
-                "/v2/money_management/outbound_setup_intents/{id}/cancel".format(
-                    id=sanitize_id(id),
-                ),
+                "get",
+                "/v2/money_management/outbound_setup_intents",
                 base_address="api",
                 params=params,
                 options=options,
@@ -247,44 +241,6 @@ class OutboundSetupIntentService(StripeService):
             OutboundSetupIntent,
             await self._request_async(
                 "post",
-                "/v2/money_management/outbound_setup_intents",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def list(
-        self,
-        params: "OutboundSetupIntentService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[OutboundSetupIntent]:
-        """
-        List the OutboundSetupIntent objects.
-        """
-        return cast(
-            ListObject[OutboundSetupIntent],
-            self._request(
-                "get",
-                "/v2/money_management/outbound_setup_intents",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def list_async(
-        self,
-        params: "OutboundSetupIntentService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[OutboundSetupIntent]:
-        """
-        List the OutboundSetupIntent objects.
-        """
-        return cast(
-            ListObject[OutboundSetupIntent],
-            await self._request_async(
-                "get",
                 "/v2/money_management/outbound_setup_intents",
                 base_address="api",
                 params=params,
@@ -372,6 +328,50 @@ class OutboundSetupIntentService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/money_management/outbound_setup_intents/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def cancel(
+        self,
+        id: str,
+        params: "OutboundSetupIntentService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundSetupIntent:
+        """
+        Cancel an OutboundSetupIntent object.
+        """
+        return cast(
+            OutboundSetupIntent,
+            self._request(
+                "post",
+                "/v2/money_management/outbound_setup_intents/{id}/cancel".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        id: str,
+        params: "OutboundSetupIntentService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundSetupIntent:
+        """
+        Cancel an OutboundSetupIntent object.
+        """
+        return cast(
+            OutboundSetupIntent,
+            await self._request_async(
+                "post",
+                "/v2/money_management/outbound_setup_intents/{id}/cancel".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

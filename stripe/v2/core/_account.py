@@ -7376,6 +7376,10 @@ class Account(StripeObject):
     """
     Information about the company, individual, and business represented by the Account.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     metadata: Optional[Dict[str, str]]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -7387,10 +7391,6 @@ class Account(StripeObject):
     requirements: Optional[Requirements]
     """
     Information about the requirements for the Account, including what information needs to be collected, and by when.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "configuration": Configuration,

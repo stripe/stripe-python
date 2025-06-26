@@ -119,44 +119,38 @@ class OutboundTransferService(StripeService):
     class RetrieveParams(TypedDict):
         pass
 
-    def cancel(
+    def list(
         self,
-        id: str,
-        params: "OutboundTransferService.CancelParams" = {},
+        params: "OutboundTransferService.ListParams" = {},
         options: RequestOptions = {},
-    ) -> OutboundTransfer:
+    ) -> ListObject[OutboundTransfer]:
         """
-        Cancels an OutboundTransfer. Only processing OutboundTransfers can be canceled.
+        Returns a list of OutboundTransfers that match the provided filters.
         """
         return cast(
-            OutboundTransfer,
+            ListObject[OutboundTransfer],
             self._request(
-                "post",
-                "/v2/money_management/outbound_transfers/{id}/cancel".format(
-                    id=sanitize_id(id),
-                ),
+                "get",
+                "/v2/money_management/outbound_transfers",
                 base_address="api",
                 params=params,
                 options=options,
             ),
         )
 
-    async def cancel_async(
+    async def list_async(
         self,
-        id: str,
-        params: "OutboundTransferService.CancelParams" = {},
+        params: "OutboundTransferService.ListParams" = {},
         options: RequestOptions = {},
-    ) -> OutboundTransfer:
+    ) -> ListObject[OutboundTransfer]:
         """
-        Cancels an OutboundTransfer. Only processing OutboundTransfers can be canceled.
+        Returns a list of OutboundTransfers that match the provided filters.
         """
         return cast(
-            OutboundTransfer,
+            ListObject[OutboundTransfer],
             await self._request_async(
-                "post",
-                "/v2/money_management/outbound_transfers/{id}/cancel".format(
-                    id=sanitize_id(id),
-                ),
+                "get",
+                "/v2/money_management/outbound_transfers",
                 base_address="api",
                 params=params,
                 options=options,
@@ -201,44 +195,6 @@ class OutboundTransferService(StripeService):
             ),
         )
 
-    def list(
-        self,
-        params: "OutboundTransferService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[OutboundTransfer]:
-        """
-        Returns a list of OutboundTransfers that match the provided filters.
-        """
-        return cast(
-            ListObject[OutboundTransfer],
-            self._request(
-                "get",
-                "/v2/money_management/outbound_transfers",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def list_async(
-        self,
-        params: "OutboundTransferService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[OutboundTransfer]:
-        """
-        Returns a list of OutboundTransfers that match the provided filters.
-        """
-        return cast(
-            ListObject[OutboundTransfer],
-            await self._request_async(
-                "get",
-                "/v2/money_management/outbound_transfers",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
     def retrieve(
         self,
         id: str,
@@ -275,6 +231,50 @@ class OutboundTransferService(StripeService):
             await self._request_async(
                 "get",
                 "/v2/money_management/outbound_transfers/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def cancel(
+        self,
+        id: str,
+        params: "OutboundTransferService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundTransfer:
+        """
+        Cancels an OutboundTransfer. Only processing OutboundTransfers can be canceled.
+        """
+        return cast(
+            OutboundTransfer,
+            self._request(
+                "post",
+                "/v2/money_management/outbound_transfers/{id}/cancel".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        id: str,
+        params: "OutboundTransferService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> OutboundTransfer:
+        """
+        Cancels an OutboundTransfer. Only processing OutboundTransfers can be canceled.
+        """
+        return cast(
+            OutboundTransfer,
+            await self._request_async(
+                "post",
+                "/v2/money_management/outbound_transfers/{id}/cancel".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

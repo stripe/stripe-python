@@ -120,6 +120,10 @@ class OutboundPaymentQuote(StripeObject):
     """
     Unique identifier for the OutboundPaymentQuote.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["v2.money_management.outbound_payment_quote"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
@@ -127,10 +131,6 @@ class OutboundPaymentQuote(StripeObject):
     to: To
     """
     Details about the recipient of an OutboundPaymentQuote.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "delivery_options": DeliveryOptions,

@@ -10635,40 +10635,38 @@ class AccountService(StripeService):
         The person's last or family name.
         """
 
-    def close(
+    def list(
         self,
-        id: str,
-        params: "AccountService.CloseParams" = {},
+        params: "AccountService.ListParams" = {},
         options: RequestOptions = {},
-    ) -> Account:
+    ) -> ListObject[Account]:
         """
-        Removes access to the Account and its associated resources.
+        Returns a list of Accounts.
         """
         return cast(
-            Account,
+            ListObject[Account],
             self._request(
-                "post",
-                "/v2/core/accounts/{id}/close".format(id=sanitize_id(id)),
+                "get",
+                "/v2/core/accounts",
                 base_address="api",
                 params=params,
                 options=options,
             ),
         )
 
-    async def close_async(
+    async def list_async(
         self,
-        id: str,
-        params: "AccountService.CloseParams" = {},
+        params: "AccountService.ListParams" = {},
         options: RequestOptions = {},
-    ) -> Account:
+    ) -> ListObject[Account]:
         """
-        Removes access to the Account and its associated resources.
+        Returns a list of Accounts.
         """
         return cast(
-            Account,
+            ListObject[Account],
             await self._request_async(
-                "post",
-                "/v2/core/accounts/{id}/close".format(id=sanitize_id(id)),
+                "get",
+                "/v2/core/accounts",
                 base_address="api",
                 params=params,
                 options=options,
@@ -10706,44 +10704,6 @@ class AccountService(StripeService):
             Account,
             await self._request_async(
                 "post",
-                "/v2/core/accounts",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def list(
-        self,
-        params: "AccountService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[Account]:
-        """
-        Returns a list of Accounts.
-        """
-        return cast(
-            ListObject[Account],
-            self._request(
-                "get",
-                "/v2/core/accounts",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def list_async(
-        self,
-        params: "AccountService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[Account]:
-        """
-        Returns a list of Accounts.
-        """
-        return cast(
-            ListObject[Account],
-            await self._request_async(
-                "get",
                 "/v2/core/accounts",
                 base_address="api",
                 params=params,
@@ -10825,6 +10785,46 @@ class AccountService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/core/accounts/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def close(
+        self,
+        id: str,
+        params: "AccountService.CloseParams" = {},
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        Removes access to the Account and its associated resources.
+        """
+        return cast(
+            Account,
+            self._request(
+                "post",
+                "/v2/core/accounts/{id}/close".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def close_async(
+        self,
+        id: str,
+        params: "AccountService.CloseParams" = {},
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        Removes access to the Account and its associated resources.
+        """
+        return cast(
+            Account,
+            await self._request_async(
+                "post",
+                "/v2/core/accounts/{id}/close".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,
