@@ -93,6 +93,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired["PaymentMethodService.CreateParamsCrypto"]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer: NotRequired[str]
         """
         The `Customer` to whom the original PaymentMethod is attached.
@@ -261,6 +265,7 @@ class PaymentMethodService(StripeService):
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",
@@ -465,6 +470,9 @@ class PaymentMethodService(StripeService):
     class CreateParamsCashapp(TypedDict):
         pass
 
+    class CreateParamsCrypto(TypedDict):
+        pass
+
     class CreateParamsCustomerBalance(TypedDict):
         pass
 
@@ -550,6 +558,7 @@ class PaymentMethodService(StripeService):
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -799,6 +808,7 @@ class PaymentMethodService(StripeService):
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",

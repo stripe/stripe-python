@@ -33,10 +33,7 @@ class InvoiceItem(
     UpdateableAPIResource["InvoiceItem"],
 ):
     """
-    Invoice Items represent the component lines of an [invoice](https://stripe.com/docs/api/invoices). An invoice item is added to an
-    invoice by creating or updating it with an `invoice` field, at which point it will be included as
-    [an invoice line item](https://stripe.com/docs/api/invoices/line_item) within
-    [invoice.lines](https://stripe.com/docs/api/invoices/object#invoice_object-lines).
+    Invoice Items represent the component lines of an [invoice](https://stripe.com/docs/api/invoices). When you create an invoice item with an `invoice` field, it is attached to the specified invoice and included as [an invoice line item](https://stripe.com/docs/api/invoices/line_item) within [invoice.lines](https://stripe.com/docs/api/invoices/object#invoice_object-lines).
 
     Invoice Items can be created before you are ready to actually send the invoice. This can be particularly useful when combined
     with a [subscription](https://stripe.com/docs/api/subscriptions). Sometimes you want to add a charge or credit to a customer, but actually charge
@@ -426,6 +423,10 @@ class InvoiceItem(
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
@@ -482,10 +483,6 @@ class InvoiceItem(
     test_clock: Optional[ExpandableField["TestClock"]]
     """
     ID of the test clock this invoice item belongs to.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

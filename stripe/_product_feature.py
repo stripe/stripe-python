@@ -15,6 +15,10 @@ class ProductFeature(StripeObject):
     """
 
     OBJECT_NAME: ClassVar[Literal["product_feature"]] = "product_feature"
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     entitlement_feature: "Feature"
     """
     A feature represents a monetizable ability or functionality in your system.
@@ -31,8 +35,4 @@ class ProductFeature(StripeObject):
     object: Literal["product_feature"]
     """
     String representing the object's type. Objects of the same type share the same value.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """

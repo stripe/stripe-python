@@ -272,6 +272,12 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsSubscriptionData(TypedDict):
+        billing_mode: NotRequired[
+            "QuoteService.CreateParamsSubscriptionDataBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         description: NotRequired[str]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
@@ -280,7 +286,7 @@ class QuoteService(StripeService):
             "Literal['']|Literal['current_period_end']|int"
         ]
         """
-        When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
+        When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -290,6 +296,9 @@ class QuoteService(StripeService):
         """
         Integer representing the number of trial period days before the customer is charged for the first time.
         """
+
+    class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
 
     class CreateParamsTransferData(TypedDict):
         amount: NotRequired[int]
@@ -588,7 +597,7 @@ class QuoteService(StripeService):
             "Literal['']|Literal['current_period_end']|int"
         ]
         """
-        When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
+        When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
         """
         metadata: NotRequired[Dict[str, str]]
         """

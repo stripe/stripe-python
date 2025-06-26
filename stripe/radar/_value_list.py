@@ -156,6 +156,10 @@ class ValueList(
     """
     The name or email address of the user who created this value list.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     id: str
     """
     Unique identifier for the object.
@@ -194,10 +198,6 @@ class ValueList(
     object: Literal["radar.value_list"]
     """
     String representing the object's type. Objects of the same type share the same value.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

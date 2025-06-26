@@ -397,6 +397,10 @@ class RegistrationService(StripeService):
         """
         Options for the registration in TZ.
         """
+        ua: NotRequired["RegistrationService.CreateParamsCountryOptionsUa"]
+        """
+        Options for the registration in UA.
+        """
         ug: NotRequired["RegistrationService.CreateParamsCountryOptionsUg"]
         """
         Options for the registration in UG.
@@ -1301,6 +1305,12 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsTz(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsUa(TypedDict):
         type: Literal["simplified"]
         """
         Type of registration to be created in `country`.

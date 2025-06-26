@@ -128,7 +128,7 @@ class Event(ListableAPIResource["Event"]):
     """
     api_version: Optional[str]
     """
-    The Stripe API version used to render `data`. This property is populated only for events on or after October 31, 2014.
+    The Stripe API version used to render `data` when the event was created. The contents of `data` never change, so this value remains static regardless of the API version currently in use. This property is populated only for events created on or after October 31, 2014.
     """
     context: Optional[str]
     """
@@ -358,6 +358,7 @@ class Event(ListableAPIResource["Event"]):
         "tax_rate.updated",
         "terminal.reader.action_failed",
         "terminal.reader.action_succeeded",
+        "terminal.reader.action_updated",
         "test_helpers.test_clock.advancing",
         "test_helpers.test_clock.created",
         "test_helpers.test_clock.deleted",

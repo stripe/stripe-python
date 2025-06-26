@@ -32990,28 +32990,6 @@ class TestGeneratedExamples(object):
             post_data="url=https%3A%2F%2Fexample.com%2Fnew_endpoint",
         )
 
-    def test_v2_billing_meter_event_session_post_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/billing/meter_event_session",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.meter_event_session.create()
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/billing/meter_event_session",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
     def test_v2_billing_meter_event_adjustment_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -33037,6 +33015,28 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data='{"cancel":{"identifier":"identifier"},"event_name":"event_name","type":"cancel"}',
+            is_json=True,
+        )
+
+    def test_v2_billing_meter_event_session_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/meter_event_session",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.meter_event_session.create()
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/meter_event_session",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
             is_json=True,
         )
 
@@ -33100,6 +33100,26 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_core_event_destination_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/event_destinations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/event_destinations",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_core_event_destination_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -33149,7 +33169,49 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_v2_core_event_destination_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/event_destinations/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/event_destinations/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_core_event_destination_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/event_destinations/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.update("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/event_destinations/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_event_destination_post_3_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
@@ -33171,7 +33233,7 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_v2_core_event_destination_post_3_service(
+    def test_v2_core_event_destination_post_4_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
@@ -33193,27 +33255,7 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_v2_core_event_destination_get_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/core/event_destinations",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.core.event_destinations.list()
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/core/event_destinations",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_core_event_destination_post_4_service(
+    def test_v2_core_event_destination_post_5_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
@@ -33229,48 +33271,6 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "post",
             path="/v2/core/event_destinations/id_123/ping",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_v2_core_event_destination_get_2_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/core/event_destinations/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.core.event_destinations.retrieve("id_123")
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/core/event_destinations/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_core_event_destination_post_5_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/core/event_destinations/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.core.event_destinations.update("id_123")
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/core/event_destinations/id_123",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",

@@ -110,6 +110,72 @@ class ReaderService(StripeService):
         The title which will be displayed for the toggle
         """
 
+    class CollectPaymentMethodParams(TypedDict):
+        collect_config: NotRequired[
+            "ReaderService.CollectPaymentMethodParamsCollectConfig"
+        ]
+        """
+        Configuration overrides.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        payment_intent: str
+        """
+        PaymentIntent ID.
+        """
+
+    class CollectPaymentMethodParamsCollectConfig(TypedDict):
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
+        """
+        enable_customer_cancellation: NotRequired[bool]
+        """
+        Enables cancel button on transaction screens.
+        """
+        skip_tipping: NotRequired[bool]
+        """
+        Override showing a tipping selection screen on this transaction.
+        """
+        tipping: NotRequired[
+            "ReaderService.CollectPaymentMethodParamsCollectConfigTipping"
+        ]
+        """
+        Tipping configuration for this transaction.
+        """
+
+    class CollectPaymentMethodParamsCollectConfigTipping(TypedDict):
+        amount_eligible: NotRequired[int]
+        """
+        Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+        """
+
+    class ConfirmPaymentIntentParams(TypedDict):
+        confirm_config: NotRequired[
+            "ReaderService.ConfirmPaymentIntentParamsConfirmConfig"
+        ]
+        """
+        Configuration overrides.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        payment_intent: str
+        """
+        PaymentIntent ID.
+        """
+
+    class ConfirmPaymentIntentParamsConfirmConfig(TypedDict):
+        return_url: NotRequired[str]
+        """
+        The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
+        """
+
     class CreateParams(TypedDict):
         expand: NotRequired[List[str]]
         """
@@ -651,6 +717,94 @@ class ReaderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def collect_payment_method(
+        self,
+        reader: str,
+        params: "ReaderService.CollectPaymentMethodParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            Reader,
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def collect_payment_method_async(
+        self,
+        reader: str,
+        params: "ReaderService.CollectPaymentMethodParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def confirm_payment_intent(
+        self,
+        reader: str,
+        params: "ReaderService.ConfirmPaymentIntentParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            Reader,
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def confirm_payment_intent_async(
+        self,
+        reader: str,
+        params: "ReaderService.ConfirmPaymentIntentParams",
+        options: RequestOptions = {},
+    ) -> Reader:
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            Reader,
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
                     reader=sanitize_id(reader),
                 ),
                 base_address="api",

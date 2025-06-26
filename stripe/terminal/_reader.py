@@ -23,6 +23,7 @@ from typing_extensions import (
 if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._payment_intent import PaymentIntent
+    from stripe._payment_method import PaymentMethod
     from stripe._refund import Refund
     from stripe._setup_intent import SetupIntent
     from stripe.terminal._location import Location
@@ -212,6 +213,63 @@ class Reader(
             """
             _inner_class_types = {"inputs": Input}
 
+        class CollectPaymentMethod(StripeObject):
+            class CollectConfig(StripeObject):
+                class Tipping(StripeObject):
+                    amount_eligible: Optional[int]
+                    """
+                    Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+                    """
+
+                enable_customer_cancellation: Optional[bool]
+                """
+                Enable customer-initiated cancellation when processing this payment.
+                """
+                skip_tipping: Optional[bool]
+                """
+                Override showing a tipping selection screen on this transaction.
+                """
+                tipping: Optional[Tipping]
+                """
+                Represents a per-transaction tipping configuration
+                """
+                _inner_class_types = {"tipping": Tipping}
+
+            collect_config: Optional[CollectConfig]
+            """
+            Represents a per-transaction override of a reader configuration
+            """
+            payment_intent: ExpandableField["PaymentIntent"]
+            """
+            Most recent PaymentIntent processed by the reader.
+            """
+            payment_method: Optional["PaymentMethod"]
+            """
+            PaymentMethod objects represent your customer's payment instruments.
+            You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+            Customer objects to store instrument details for future payments.
+
+            Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+            """
+            _inner_class_types = {"collect_config": CollectConfig}
+
+        class ConfirmPaymentIntent(StripeObject):
+            class ConfirmConfig(StripeObject):
+                return_url: Optional[str]
+                """
+                If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
+                """
+
+            confirm_config: Optional[ConfirmConfig]
+            """
+            Represents a per-transaction override of a reader configuration
+            """
+            payment_intent: ExpandableField["PaymentIntent"]
+            """
+            Most recent PaymentIntent processed by the reader.
+            """
+            _inner_class_types = {"confirm_config": ConfirmConfig}
+
         class ProcessPaymentIntent(StripeObject):
             class ProcessConfig(StripeObject):
                 class Tipping(StripeObject):
@@ -222,11 +280,11 @@ class Reader(
 
                 enable_customer_cancellation: Optional[bool]
                 """
-                Enable customer initiated cancellation when processing this payment.
+                Enable customer-initiated cancellation when processing this payment.
                 """
                 return_url: Optional[str]
                 """
-                If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+                If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
                 """
                 skip_tipping: Optional[bool]
                 """
@@ -252,7 +310,7 @@ class Reader(
             class ProcessConfig(StripeObject):
                 enable_customer_cancellation: Optional[bool]
                 """
-                Enable customer initiated cancellation when processing this SetupIntent.
+                Enable customer-initiated cancellation when processing this SetupIntent.
                 """
 
             generated_card: Optional[str]
@@ -273,7 +331,7 @@ class Reader(
             class RefundPaymentConfig(StripeObject):
                 enable_customer_cancellation: Optional[bool]
                 """
-                Enable customer initiated cancellation when refunding this payment.
+                Enable customer-initiated cancellation when refunding this payment.
                 """
 
             amount: Optional[int]
@@ -364,6 +422,14 @@ class Reader(
         """
         Represents a reader action to collect customer inputs
         """
+        collect_payment_method: Optional[CollectPaymentMethod]
+        """
+        Represents a reader action to collect a payment method
+        """
+        confirm_payment_intent: Optional[ConfirmPaymentIntent]
+        """
+        Represents a reader action to confirm a payment
+        """
         failure_code: Optional[str]
         """
         Failure code, only set if status is `failed`.
@@ -394,6 +460,8 @@ class Reader(
         """
         type: Literal[
             "collect_inputs",
+            "collect_payment_method",
+            "confirm_payment_intent",
             "process_payment_intent",
             "process_setup_intent",
             "refund_payment",
@@ -404,6 +472,8 @@ class Reader(
         """
         _inner_class_types = {
             "collect_inputs": CollectInputs,
+            "collect_payment_method": CollectPaymentMethod,
+            "confirm_payment_intent": ConfirmPaymentIntent,
             "process_payment_intent": ProcessPaymentIntent,
             "process_setup_intent": ProcessSetupIntent,
             "refund_payment": RefundPayment,
@@ -504,6 +574,72 @@ class Reader(
         title: NotRequired[str]
         """
         The title which will be displayed for the toggle
+        """
+
+    class CollectPaymentMethodParams(RequestOptions):
+        collect_config: NotRequired[
+            "Reader.CollectPaymentMethodParamsCollectConfig"
+        ]
+        """
+        Configuration overrides.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        payment_intent: str
+        """
+        PaymentIntent ID.
+        """
+
+    class CollectPaymentMethodParamsCollectConfig(TypedDict):
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
+        """
+        enable_customer_cancellation: NotRequired[bool]
+        """
+        Enables cancel button on transaction screens.
+        """
+        skip_tipping: NotRequired[bool]
+        """
+        Override showing a tipping selection screen on this transaction.
+        """
+        tipping: NotRequired[
+            "Reader.CollectPaymentMethodParamsCollectConfigTipping"
+        ]
+        """
+        Tipping configuration for this transaction.
+        """
+
+    class CollectPaymentMethodParamsCollectConfigTipping(TypedDict):
+        amount_eligible: NotRequired[int]
+        """
+        Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+        """
+
+    class ConfirmPaymentIntentParams(RequestOptions):
+        confirm_config: NotRequired[
+            "Reader.ConfirmPaymentIntentParamsConfirmConfig"
+        ]
+        """
+        Configuration overrides.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        payment_intent: str
+        """
+        PaymentIntent ID.
+        """
+
+    class ConfirmPaymentIntentParamsConfirmConfig(TypedDict):
+        return_url: NotRequired[str]
+        """
+        The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
         """
 
     class CreateParams(RequestOptions):
@@ -817,6 +953,10 @@ class Reader(
     """
     The most recent action performed by the reader.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     device_sw_version: Optional[str]
     """
     The current software version of the reader.
@@ -870,10 +1010,6 @@ class Reader(
     status: Optional[Literal["offline", "online"]]
     """
     The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod
@@ -1090,6 +1226,226 @@ class Reader(
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_collect_payment_method(
+        cls, reader: str, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def collect_payment_method(
+        reader: str, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        ...
+
+    @overload
+    def collect_payment_method(
+        self, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        ...
+
+    @class_method_variant("_cls_collect_payment_method")
+    def collect_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_collect_payment_method_async(
+        cls, reader: str, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def collect_payment_method_async(
+        reader: str, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        ...
+
+    @overload
+    async def collect_payment_method_async(
+        self, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        ...
+
+    @class_method_variant("_cls_collect_payment_method_async")
+    async def collect_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_confirm_payment_intent(
+        cls, reader: str, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def confirm_payment_intent(
+        reader: str, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        ...
+
+    @overload
+    def confirm_payment_intent(
+        self, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        ...
+
+    @class_method_variant("_cls_confirm_payment_intent")
+    def confirm_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_confirm_payment_intent_async(
+        cls, reader: str, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def confirm_payment_intent_async(
+        reader: str, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        ...
+
+    @overload
+    async def confirm_payment_intent_async(
+        self, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        ...
+
+    @class_method_variant("_cls_confirm_payment_intent_async")
+    async def confirm_payment_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
                     reader=sanitize_id(self.get("id"))
                 ),
                 params=params,

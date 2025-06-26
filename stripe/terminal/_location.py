@@ -130,7 +130,7 @@ class Location(
         """
         The ID of a configuration that will be used to customize all readers in this location.
         """
-        display_name: NotRequired[str]
+        display_name: NotRequired["Literal['']|str"]
         """
         A name for the location.
         """
@@ -180,6 +180,10 @@ class Location(
     """
     The ID of a configuration that will be used to customize all readers in this location.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     display_name: str
     """
     The display name of the location.
@@ -199,10 +203,6 @@ class Location(
     object: Literal["terminal.location"]
     """
     String representing the object's type. Objects of the same type share the same value.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

@@ -34,6 +34,10 @@ class Discount(StripeObject):
     """
     The ID of the customer associated with this discount.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     end: Optional[int]
     """
     If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
@@ -69,8 +73,4 @@ class Discount(StripeObject):
     subscription_item: Optional[str]
     """
     The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """

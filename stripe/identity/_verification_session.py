@@ -106,6 +106,16 @@ class VerificationSession(
         class IdNumber(StripeObject):
             pass
 
+        class Matching(StripeObject):
+            dob: Optional[Literal["none", "similar"]]
+            """
+            Strictness of the DOB matching policy to apply.
+            """
+            name: Optional[Literal["none", "similar"]]
+            """
+            Strictness of the name matching policy to apply.
+            """
+
         class Phone(StripeObject):
             require_verification: Optional[bool]
             """
@@ -115,11 +125,13 @@ class VerificationSession(
         document: Optional[Document]
         email: Optional[Email]
         id_number: Optional[IdNumber]
+        matching: Optional[Matching]
         phone: Optional[Phone]
         _inner_class_types = {
             "document": Document,
             "email": Email,
             "id_number": IdNumber,
+            "matching": Matching,
             "phone": Phone,
         }
 
@@ -137,6 +149,16 @@ class VerificationSession(
         status: Literal["processing", "redacted"]
         """
         Indicates whether this object and its related objects have been redacted or not.
+        """
+
+    class RelatedPerson(StripeObject):
+        account: Optional[str]
+        """
+        Token referencing the associated Account of the related Person resource.
+        """
+        person: Optional[str]
+        """
+        Token referencing the related Person resource.
         """
 
     class VerifiedOutputs(StripeObject):
@@ -259,6 +281,12 @@ class VerificationSession(
         """
         Customer ID
         """
+        related_person: NotRequired[
+            "VerificationSession.CreateParamsRelatedPerson"
+        ]
+        """
+        Tokens referencing a Person resource and it's associated account.
+        """
         return_url: NotRequired[str]
         """
         The URL that the user will be redirected to upon completing the verification flow.
@@ -308,6 +336,16 @@ class VerificationSession(
         phone: NotRequired[str]
         """
         Phone number of user being verified
+        """
+
+    class CreateParamsRelatedPerson(TypedDict):
+        account: str
+        """
+        A token representing a connected account. If provided, the person parameter is also required and must be associated with the account.
+        """
+        person: str
+        """
+        A token referencing a Person resource that this verification is being used to verify.
         """
 
     class ListParams(RequestOptions):
@@ -487,6 +525,7 @@ class VerificationSession(
     """
     Customer ID
     """
+    related_person: Optional[RelatedPerson]
     status: Literal["canceled", "processing", "requires_input", "verified"]
     """
     Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
@@ -1045,5 +1084,6 @@ class VerificationSession(
         "options": Options,
         "provided_details": ProvidedDetails,
         "redaction": Redaction,
+        "related_person": RelatedPerson,
         "verified_outputs": VerifiedOutputs,
     }

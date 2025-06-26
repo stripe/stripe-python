@@ -48,6 +48,16 @@ class SubscriptionSchedule(
         "subscription_schedule"
     )
 
+    class BillingMode(StripeObject):
+        type: Literal["classic", "flexible"]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
+        updated_at: Optional[int]
+        """
+        Details on when the current billing_mode was adopted.
+        """
+
     class CurrentPhase(StripeObject):
         end_date: int
         """
@@ -447,6 +457,12 @@ class SubscriptionSchedule(
         """
 
     class CreateParams(RequestOptions):
+        billing_mode: NotRequired[
+            "SubscriptionSchedule.CreateParamsBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         customer: NotRequired[str]
         """
         The identifier of the customer to create the subscription schedule for.
@@ -483,6 +499,9 @@ class SubscriptionSchedule(
         """
         When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
         """
+
+    class CreateParamsBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
 
     class CreateParamsDefaultSettings(TypedDict):
         application_fee_percent: NotRequired[float]
@@ -1600,6 +1619,10 @@ class SubscriptionSchedule(
     """
     ID of the Connect Application that created the schedule.
     """
+    billing_mode: BillingMode
+    """
+    The billing mode of the subscription.
+    """
     canceled_at: Optional[int]
     """
     Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
@@ -2025,6 +2048,7 @@ class SubscriptionSchedule(
         return instance
 
     _inner_class_types = {
+        "billing_mode": BillingMode,
         "current_phase": CurrentPhase,
         "default_settings": DefaultSettings,
         "phases": Phase,
