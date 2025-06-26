@@ -1,5 +1,8 @@
 # Changelog
 
+## 12.3.0b2 - 2025-06-26
+* [#1531](https://github.com/stripe/stripe-python/pull/1531) Pull in OffSessionPayment changes for the May release
+
 ## 12.3.0b1 - 2025-05-29
 This release changes the pinned API version to `2025-05-28.preview`.
 
