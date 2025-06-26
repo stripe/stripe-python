@@ -423,6 +423,10 @@ class InvoiceItem(
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
@@ -479,10 +483,6 @@ class InvoiceItem(
     test_clock: Optional[ExpandableField["TestClock"]]
     """
     ID of the test clock this invoice item belongs to.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

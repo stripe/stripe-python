@@ -4523,6 +4523,10 @@ class Account(
     """
     Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     details_submitted: Optional[bool]
     """
     Whether account details have been submitted. Accounts with Stripe Dashboard access, which includes Standard accounts, cannot receive payouts before this is true. Accounts where this is false should be directed to [an onboarding flow](https://docs.stripe.com/connect/onboarding) to finish submitting account details.
@@ -4573,10 +4577,6 @@ class Account(
     type: Optional[Literal["custom", "express", "none", "standard"]]
     """
     The Stripe account type. Can be `standard`, `express`, `custom`, or `none`.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

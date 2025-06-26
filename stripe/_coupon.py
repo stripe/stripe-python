@@ -198,6 +198,10 @@ class Coupon(
     """
     Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     duration: Literal["forever", "once", "repeating"]
     """
     One of `forever`, `once`, or `repeating`. Describes how long a customer who applies this coupon will get the discount.
@@ -245,10 +249,6 @@ class Coupon(
     valid: bool
     """
     Taking account of the above properties, whether this coupon can still be applied to a customer.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

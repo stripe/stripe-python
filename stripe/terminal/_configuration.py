@@ -1309,6 +1309,10 @@ class Configuration(
         """
 
     bbpos_wisepos_e: Optional[BbposWiseposE]
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     id: str
     """
     Unique identifier for the object.
@@ -1335,10 +1339,6 @@ class Configuration(
     tipping: Optional[Tipping]
     verifone_p400: Optional[VerifoneP400]
     wifi: Optional[Wifi]
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
-    """
 
     @classmethod
     def create(
