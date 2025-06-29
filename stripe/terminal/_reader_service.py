@@ -115,7 +115,7 @@ class ReaderService(StripeService):
             "ReaderService.CollectPaymentMethodParamsCollectConfig"
         ]
         """
-        Configuration overrides
+        Configuration overrides.
         """
         expand: NotRequired[List[str]]
         """
@@ -123,7 +123,7 @@ class ReaderService(StripeService):
         """
         payment_intent: str
         """
-        PaymentIntent ID
+        PaymentIntent ID.
         """
 
     class CollectPaymentMethodParamsCollectConfig(TypedDict):
@@ -159,7 +159,7 @@ class ReaderService(StripeService):
             "ReaderService.ConfirmPaymentIntentParamsConfirmConfig"
         ]
         """
-        Configuration overrides
+        Configuration overrides.
         """
         expand: NotRequired[List[str]]
         """
@@ -167,7 +167,7 @@ class ReaderService(StripeService):
         """
         payment_intent: str
         """
-        PaymentIntent ID
+        PaymentIntent ID.
         """
 
     class ConfirmPaymentIntentParamsConfirmConfig(TypedDict):

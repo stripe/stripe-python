@@ -30,6 +30,7 @@ class Configuration(
 ):
     """
     A Configurations object represents how features should be configured for terminal readers.
+    For information about how to use it, see the [Terminal configurations documentation](https://docs.stripe.com/terminal/fleet/configurations-overview).
     """
 
     OBJECT_NAME: ClassVar[Literal["terminal.configuration"]] = (
@@ -1308,6 +1309,10 @@ class Configuration(
         """
 
     bbpos_wisepos_e: Optional[BbposWiseposE]
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     id: str
     """
     Unique identifier for the object.
@@ -1334,10 +1339,6 @@ class Configuration(
     tipping: Optional[Tipping]
     verifone_p400: Optional[VerifoneP400]
     wifi: Optional[Wifi]
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
-    """
 
     @classmethod
     def create(

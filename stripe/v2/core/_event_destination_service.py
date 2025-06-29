@@ -145,6 +145,44 @@ class EventDestinationService(StripeService):
         The URL of the webhook endpoint.
         """
 
+    def list(
+        self,
+        params: "EventDestinationService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[EventDestination]:
+        """
+        Lists all event destinations.
+        """
+        return cast(
+            ListObject[EventDestination],
+            self._request(
+                "get",
+                "/v2/core/event_destinations",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "EventDestinationService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[EventDestination]:
+        """
+        Lists all event destinations.
+        """
+        return cast(
+            ListObject[EventDestination],
+            await self._request_async(
+                "get",
+                "/v2/core/event_destinations",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "EventDestinationService.CreateParams",
@@ -216,6 +254,86 @@ class EventDestinationService(StripeService):
             EventDestination,
             await self._request_async(
                 "delete",
+                "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def retrieve(
+        self,
+        id: str,
+        params: "EventDestinationService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> EventDestination:
+        """
+        Retrieves the details of an event destination.
+        """
+        return cast(
+            EventDestination,
+            self._request(
+                "get",
+                "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "EventDestinationService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> EventDestination:
+        """
+        Retrieves the details of an event destination.
+        """
+        return cast(
+            EventDestination,
+            await self._request_async(
+                "get",
+                "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def update(
+        self,
+        id: str,
+        params: "EventDestinationService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> EventDestination:
+        """
+        Update the details of an event destination.
+        """
+        return cast(
+            EventDestination,
+            self._request(
+                "post",
+                "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        params: "EventDestinationService.UpdateParams" = {},
+        options: RequestOptions = {},
+    ) -> EventDestination:
+        """
+        Update the details of an event destination.
+        """
+        return cast(
+            EventDestination,
+            await self._request_async(
+                "post",
                 "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
@@ -311,44 +429,6 @@ class EventDestinationService(StripeService):
             ),
         )
 
-    def list(
-        self,
-        params: "EventDestinationService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[EventDestination]:
-        """
-        Lists all event destinations.
-        """
-        return cast(
-            ListObject[EventDestination],
-            self._request(
-                "get",
-                "/v2/core/event_destinations",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def list_async(
-        self,
-        params: "EventDestinationService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[EventDestination]:
-        """
-        Lists all event destinations.
-        """
-        return cast(
-            ListObject[EventDestination],
-            await self._request_async(
-                "get",
-                "/v2/core/event_destinations",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
     def ping(
         self,
         id: str,
@@ -387,86 +467,6 @@ class EventDestinationService(StripeService):
                 "/v2/core/event_destinations/{id}/ping".format(
                     id=sanitize_id(id),
                 ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def retrieve(
-        self,
-        id: str,
-        params: "EventDestinationService.RetrieveParams" = {},
-        options: RequestOptions = {},
-    ) -> EventDestination:
-        """
-        Retrieves the details of an event destination.
-        """
-        return cast(
-            EventDestination,
-            self._request(
-                "get",
-                "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def retrieve_async(
-        self,
-        id: str,
-        params: "EventDestinationService.RetrieveParams" = {},
-        options: RequestOptions = {},
-    ) -> EventDestination:
-        """
-        Retrieves the details of an event destination.
-        """
-        return cast(
-            EventDestination,
-            await self._request_async(
-                "get",
-                "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def update(
-        self,
-        id: str,
-        params: "EventDestinationService.UpdateParams" = {},
-        options: RequestOptions = {},
-    ) -> EventDestination:
-        """
-        Update the details of an event destination.
-        """
-        return cast(
-            EventDestination,
-            self._request(
-                "post",
-                "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def update_async(
-        self,
-        id: str,
-        params: "EventDestinationService.UpdateParams" = {},
-        options: RequestOptions = {},
-    ) -> EventDestination:
-        """
-        Update the details of an event destination.
-        """
-        return cast(
-            EventDestination,
-            await self._request_async(
-                "post",
-                "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

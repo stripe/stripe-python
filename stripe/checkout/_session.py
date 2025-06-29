@@ -2259,7 +2259,7 @@ class Session(
         """
         line_items: NotRequired[List["Session.CreateParamsLineItem"]]
         """
-        A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+        A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices). The parameter is required for `payment` and `subscription` mode.
 
         For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
 
@@ -2381,6 +2381,7 @@ class Session(
                     "boleto",
                     "card",
                     "cashapp",
+                    "crypto",
                     "customer_balance",
                     "eps",
                     "fpx",
@@ -3754,6 +3755,46 @@ class Session(
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
+        subscriptions: NotRequired[
+            "Literal['']|List[Session.CreateParamsPaymentMethodOptionsKlarnaSubscription]"
+        ]
+        """
+        Subscription details if the Checkout Session sets up a future subscription.
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Unit of time between subscription charges.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+        """
+        name: NotRequired[str]
+        """
+        Name for subscription.
+        """
+        next_billing: "Session.CreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling"
+        """
+        Describes the upcoming charge for this subscription.
+        """
+        reference: str
+        """
+        A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The amount of the next charge for the subscription.
+        """
+        date: str
+        """
+        The date of the next charge for the subscription in YYYY-MM-DD format.
+        """
 
     class CreateParamsPaymentMethodOptionsKonbini(TypedDict):
         expires_after_days: NotRequired[int]
@@ -4634,7 +4675,9 @@ class Session(
         """
         A future timestamp to anchor the subscription's billing cycle for new subscriptions.
         """
-        billing_mode: NotRequired[Literal["classic", "flexible"]]
+        billing_mode: NotRequired[
+            "Session.CreateParamsSubscriptionDataBillingMode"
+        ]
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
@@ -4676,14 +4719,11 @@ class Session(
         """
         trial_end: NotRequired[int]
         """
-        Unix timestamp representing the end of the trial period the customer
-        will get before being charged for the first time. Has to be at least
-        48 hours in the future.
+        Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
         """
         trial_period_days: NotRequired[int]
         """
-        Integer representing the number of trial period days before the
-        customer is charged for the first time. Has to be at least 1.
+        Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         """
         trial_settings: NotRequired[
             "Session.CreateParamsSubscriptionDataTrialSettings"
@@ -4691,6 +4731,9 @@ class Session(
         """
         Settings related to subscription trials.
         """
+
+    class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
 
     class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
         issuer: NotRequired[

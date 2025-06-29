@@ -30,18 +30,6 @@ class Transaction(StripeObject):
         """
 
     class Flow(StripeObject):
-        type: Literal[
-            "adjustment",
-            "fee_transaction",
-            "inbound_transfer",
-            "outbound_payment",
-            "outbound_transfer",
-            "received_credit",
-            "received_debit",
-        ]
-        """
-        Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
-        """
         adjustment: Optional[str]
         """
         If applicable, the ID of the Adjustment that created this Transaction.
@@ -69,6 +57,18 @@ class Transaction(StripeObject):
         received_debit: Optional[str]
         """
         If applicable, the ID of the ReceivedDebit that created this Transaction.
+        """
+        type: Literal[
+            "adjustment",
+            "fee_transaction",
+            "inbound_transfer",
+            "outbound_payment",
+            "outbound_transfer",
+            "received_credit",
+            "received_debit",
+        ]
+        """
+        Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
         """
 
     class StatusTransitions(StripeObject):
@@ -119,6 +119,10 @@ class Transaction(StripeObject):
     """
     Unique identifier for the object.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["v2.money_management.transaction"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
@@ -134,10 +138,6 @@ class Transaction(StripeObject):
     status_transitions: StatusTransitions
     """
     Timestamps for when the Transaction transitioned to a particular status.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "balance_impact": BalanceImpact,

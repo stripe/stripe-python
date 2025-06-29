@@ -14,16 +14,6 @@ class PayoutMethod(StripeObject):
         "v2.money_management.payout_method"
     )
 
-    class UsageStatus(StripeObject):
-        payments: Literal["eligible", "invalid", "requires_action"]
-        """
-        Payments status - used when sending OutboundPayments (sending funds to recipients).
-        """
-        transfers: Literal["eligible", "invalid", "requires_action"]
-        """
-        Transfers status - used when making an OutboundTransfer (sending funds to yourself).
-        """
-
     class BankAccount(StripeObject):
         archived: bool
         """
@@ -76,9 +66,27 @@ class PayoutMethod(StripeObject):
         The last 4 digits of the card number.
         """
 
+    class UsageStatus(StripeObject):
+        payments: Literal["eligible", "invalid", "requires_action"]
+        """
+        Payments status - used when sending OutboundPayments (sending funds to recipients).
+        """
+        transfers: Literal["eligible", "invalid", "requires_action"]
+        """
+        Transfers status - used when making an OutboundTransfer (sending funds to yourself).
+        """
+
     available_payout_speeds: List[Literal["instant", "standard"]]
     """
     A set of available payout speeds for this payout method.
+    """
+    bank_account: Optional[BankAccount]
+    """
+    The PayoutMethodBankAccount object details.
+    """
+    card: Optional[Card]
+    """
+    The PayoutMethodCard object details.
     """
     created: str
     """
@@ -92,6 +100,10 @@ class PayoutMethod(StripeObject):
     """
     ID of the underlying active OutboundSetupIntent object, if any.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["v2.money_management.payout_method"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
@@ -104,20 +116,8 @@ class PayoutMethod(StripeObject):
     """
     Indicates whether the payout method has met the necessary requirements for outbound money movement.
     """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-    """
-    bank_account: Optional[BankAccount]
-    """
-    The PayoutMethodBankAccount object details.
-    """
-    card: Optional[Card]
-    """
-    The PayoutMethodCard object details.
-    """
     _inner_class_types = {
-        "usage_status": UsageStatus,
         "bank_account": BankAccount,
         "card": Card,
+        "usage_status": UsageStatus,
     }

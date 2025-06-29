@@ -49,6 +49,7 @@ class CustomerPaymentMethodService(StripeService):
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",

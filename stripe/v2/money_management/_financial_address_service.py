@@ -235,44 +235,6 @@ class FinancialAddressService(StripeService):
         Open Enum. A list of fields to reveal in the FinancialAddresses returned.
         """
 
-    def create(
-        self,
-        params: "FinancialAddressService.CreateParams",
-        options: RequestOptions = {},
-    ) -> FinancialAddress:
-        """
-        Create a new FinancialAddress for a FinancialAccount.
-        """
-        return cast(
-            FinancialAddress,
-            self._request(
-                "post",
-                "/v2/money_management/financial_addresses",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def create_async(
-        self,
-        params: "FinancialAddressService.CreateParams",
-        options: RequestOptions = {},
-    ) -> FinancialAddress:
-        """
-        Create a new FinancialAddress for a FinancialAccount.
-        """
-        return cast(
-            FinancialAddress,
-            await self._request_async(
-                "post",
-                "/v2/money_management/financial_addresses",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
     def list(
         self,
         params: "FinancialAddressService.ListParams" = {},
@@ -304,6 +266,44 @@ class FinancialAddressService(StripeService):
             ListObject[FinancialAddress],
             await self._request_async(
                 "get",
+                "/v2/money_management/financial_addresses",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def create(
+        self,
+        params: "FinancialAddressService.CreateParams",
+        options: RequestOptions = {},
+    ) -> FinancialAddress:
+        """
+        Create a new FinancialAddress for a FinancialAccount.
+        """
+        return cast(
+            FinancialAddress,
+            self._request(
+                "post",
+                "/v2/money_management/financial_addresses",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "FinancialAddressService.CreateParams",
+        options: RequestOptions = {},
+    ) -> FinancialAddress:
+        """
+        Create a new FinancialAddress for a FinancialAccount.
+        """
+        return cast(
+            FinancialAddress,
+            await self._request_async(
+                "post",
                 "/v2/money_management/financial_addresses",
                 base_address="api",
                 params=params,

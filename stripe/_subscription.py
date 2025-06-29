@@ -110,7 +110,11 @@ class Subscription(
         The second of the minute of the billing_cycle_anchor.
         """
 
-    class BillingModeDetails(StripeObject):
+    class BillingMode(StripeObject):
+        type: Literal["classic", "flexible"]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         updated_at: Optional[int]
         """
         Details on when the current billing_mode was adopted.
@@ -422,6 +426,7 @@ class Subscription(
                     "boleto",
                     "card",
                     "cashapp",
+                    "crypto",
                     "custom",
                     "customer_balance",
                     "eps",
@@ -590,11 +595,11 @@ class Subscription(
         """
         automatic_tax: NotRequired["Subscription.CreateParamsAutomaticTax"]
         """
-        Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
+        Automatic tax settings for this subscription.
         """
         backdate_start_date: NotRequired[int]
         """
-        For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
+        A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
         """
         billing_cycle_anchor: NotRequired[int]
         """
@@ -606,7 +611,7 @@ class Subscription(
         """
         Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
         """
-        billing_mode: NotRequired[Literal["classic", "flexible"]]
+        billing_mode: NotRequired["Subscription.CreateParamsBillingMode"]
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
@@ -624,7 +629,7 @@ class Subscription(
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -900,6 +905,9 @@ class Subscription(
         The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
         """
 
+    class CreateParamsBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
+
     class CreateParamsBillingThresholds(TypedDict):
         amount_gte: NotRequired[int]
         """
@@ -1126,7 +1134,7 @@ class Subscription(
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -1563,7 +1571,7 @@ class Subscription(
         """
 
     class MigrateParams(RequestOptions):
-        billing_mode: Literal["flexible"]
+        billing_mode: "Subscription.MigrateParamsBillingMode"
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
@@ -1571,6 +1579,9 @@ class Subscription(
         """
         Specifies which fields in the response should be expanded.
         """
+
+    class MigrateParamsBillingMode(TypedDict):
+        type: Literal["flexible"]
 
     class ModifyParams(RequestOptions):
         add_invoice_items: NotRequired[
@@ -1605,7 +1616,7 @@ class Subscription(
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         """
         cancellation_details: NotRequired[
             "Subscription.ModifyParamsCancellationDetails"
@@ -2103,7 +2114,7 @@ class Subscription(
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -2456,13 +2467,9 @@ class Subscription(
     """
     The fixed values used to calculate the `billing_cycle_anchor`.
     """
-    billing_mode: Optional[Literal["classic", "flexible"]]
+    billing_mode: BillingMode
     """
-    Controls how prorations and invoices for subscriptions are calculated and orchestrated.
-    """
-    billing_mode_details: Optional[BillingModeDetails]
-    """
-    Details about when the current billing_mode was updated.
+    The billing mode of the subscription.
     """
     billing_thresholds: Optional[BillingThresholds]
     """
@@ -2474,7 +2481,7 @@ class Subscription(
     """
     cancel_at_period_end: bool
     """
-    Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period. This field will be removed in a future API version. Please use `cancel_at` instead.
+    Whether this subscription will (if `status=active`) or did (if `status=canceled`) cancel at the end of the current billing period.
     """
     canceled_at: Optional[int]
     """
@@ -2646,7 +2653,7 @@ class Subscription(
     """
     trial_start: Optional[int]
     """
-    If the subscription has a trial, the beginning of that trial. For subsequent trials, this date remains as the start of the first ever trial on the subscription.
+    If the subscription has a trial, the beginning of that trial.
     """
 
     @classmethod
@@ -3364,7 +3371,7 @@ class Subscription(
     _inner_class_types = {
         "automatic_tax": AutomaticTax,
         "billing_cycle_anchor_config": BillingCycleAnchorConfig,
-        "billing_mode_details": BillingModeDetails,
+        "billing_mode": BillingMode,
         "billing_thresholds": BillingThresholds,
         "cancellation_details": CancellationDetails,
         "invoice_settings": InvoiceSettings,

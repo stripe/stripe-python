@@ -81,6 +81,26 @@ class InboundTransfer(StripeObject):
         class BankDebitSucceeded(StripeObject):
             pass
 
+        bank_debit_failed: Optional[BankDebitFailed]
+        """
+        The history entry for a failed InboundTransfer.
+        """
+        bank_debit_processing: Optional[BankDebitProcessing]
+        """
+        The history entry for a processing InboundTransfer.
+        """
+        bank_debit_queued: Optional[BankDebitQueued]
+        """
+        The history entry for a queued InboundTransfer.
+        """
+        bank_debit_returned: Optional[BankDebitReturned]
+        """
+        The history entry for a returned InboundTransfer.
+        """
+        bank_debit_succeeded: Optional[BankDebitSucceeded]
+        """
+        The history entry for a succeeded InboundTransfer.
+        """
         created: str
         """
         Creation time of the HistoryEntry in RFC 3339 format and UTC.
@@ -106,26 +126,6 @@ class InboundTransfer(StripeObject):
         ]
         """
         Open Enum. The type of the HistoryEntry.
-        """
-        bank_debit_failed: Optional[BankDebitFailed]
-        """
-        The history entry for a failed InboundTransfer.
-        """
-        bank_debit_processing: Optional[BankDebitProcessing]
-        """
-        The history entry for a processing InboundTransfer.
-        """
-        bank_debit_queued: Optional[BankDebitQueued]
-        """
-        The history entry for a queued InboundTransfer.
-        """
-        bank_debit_returned: Optional[BankDebitReturned]
-        """
-        The history entry for a returned InboundTransfer.
-        """
-        bank_debit_succeeded: Optional[BankDebitSucceeded]
-        """
-        The history entry for a succeeded InboundTransfer.
         """
         _inner_class_types = {
             "bank_debit_failed": BankDebitFailed,
@@ -155,6 +155,10 @@ class InboundTransfer(StripeObject):
     """
     Unique identifier for the InboundTransfer.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["v2.money_management.inbound_transfer"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
@@ -170,10 +174,6 @@ class InboundTransfer(StripeObject):
     transfer_history: List[TransferHistory]
     """
     A list of history objects, representing changes in the state of the InboundTransfer.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "from": From,

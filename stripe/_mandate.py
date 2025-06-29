@@ -112,6 +112,9 @@ class Mandate(APIResource["Mandate"]):
         class KakaoPay(StripeObject):
             pass
 
+        class Klarna(StripeObject):
+            pass
+
         class KrCard(StripeObject):
             pass
 
@@ -222,6 +225,7 @@ class Mandate(APIResource["Mandate"]):
         card: Optional[Card]
         cashapp: Optional[Cashapp]
         kakao_pay: Optional[KakaoPay]
+        klarna: Optional[Klarna]
         kr_card: Optional[KrCard]
         link: Optional[Link]
         naver_pay: Optional[NaverPay]
@@ -243,6 +247,7 @@ class Mandate(APIResource["Mandate"]):
             "card": Card,
             "cashapp": Cashapp,
             "kakao_pay": KakaoPay,
+            "klarna": Klarna,
             "kr_card": KrCard,
             "link": Link,
             "naver_pay": NaverPay,

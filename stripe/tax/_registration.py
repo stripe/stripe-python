@@ -791,6 +791,12 @@ class Registration(
             Type of registration in `country`.
             """
 
+        class Ua(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Ug(StripeObject):
             type: Literal["simplified"]
             """
@@ -980,6 +986,7 @@ class Registration(
         tj: Optional[Tj]
         tr: Optional[Tr]
         tz: Optional[Tz]
+        ua: Optional[Ua]
         ug: Optional[Ug]
         us: Optional[Us]
         uy: Optional[Uy]
@@ -1079,6 +1086,7 @@ class Registration(
             "tj": Tj,
             "tr": Tr,
             "tz": Tz,
+            "ua": Ua,
             "ug": Ug,
             "us": Us,
             "uy": Uy,
@@ -1472,6 +1480,10 @@ class Registration(
         tz: NotRequired["Registration.CreateParamsCountryOptionsTz"]
         """
         Options for the registration in TZ.
+        """
+        ua: NotRequired["Registration.CreateParamsCountryOptionsUa"]
+        """
+        Options for the registration in UA.
         """
         ug: NotRequired["Registration.CreateParamsCountryOptionsUg"]
         """
@@ -2377,6 +2389,12 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsTz(TypedDict):
+        type: Literal["simplified"]
+        """
+        Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsUa(TypedDict):
         type: Literal["simplified"]
         """
         Type of registration to be created in `country`.

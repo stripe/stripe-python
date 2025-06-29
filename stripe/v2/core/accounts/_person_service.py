@@ -309,6 +309,7 @@ class PersonService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -598,6 +599,7 @@ class PersonService(StripeService):
             "vu",
             "wf",
             "ws",
+            "xx",
             "ye",
             "yt",
             "za",
@@ -923,6 +925,7 @@ class PersonService(StripeService):
             "vu",
             "wf",
             "ws",
+            "xx",
             "ye",
             "yt",
             "za",
@@ -1390,6 +1393,7 @@ class PersonService(StripeService):
             "vu",
             "wf",
             "ws",
+            "xx",
             "ye",
             "yt",
             "za",
@@ -1671,6 +1675,7 @@ class PersonService(StripeService):
             "vu",
             "wf",
             "ws",
+            "xx",
             "ye",
             "yt",
             "za",
@@ -2042,6 +2047,7 @@ class PersonService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -2335,6 +2341,7 @@ class PersonService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -2664,6 +2671,7 @@ class PersonService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -3141,6 +3149,7 @@ class PersonService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -3426,6 +3435,7 @@ class PersonService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -3491,6 +3501,50 @@ class PersonService(StripeService):
         """
         The person's last or family name.
         """
+
+    def list(
+        self,
+        account_id: str,
+        params: "PersonService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Person]:
+        """
+        Returns a list of Persons associated with an Account.
+        """
+        return cast(
+            ListObject[Person],
+            self._request(
+                "get",
+                "/v2/core/accounts/{account_id}/persons".format(
+                    account_id=sanitize_id(account_id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        account_id: str,
+        params: "PersonService.ListParams" = {},
+        options: RequestOptions = {},
+    ) -> ListObject[Person]:
+        """
+        Returns a list of Persons associated with an Account.
+        """
+        return cast(
+            ListObject[Person],
+            await self._request_async(
+                "get",
+                "/v2/core/accounts/{account_id}/persons".format(
+                    account_id=sanitize_id(account_id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
 
     def create(
         self,
@@ -3577,50 +3631,6 @@ class PersonService(StripeService):
                 "/v2/core/accounts/{account_id}/persons/{id}".format(
                     account_id=sanitize_id(account_id),
                     id=sanitize_id(id),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def list(
-        self,
-        account_id: str,
-        params: "PersonService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[Person]:
-        """
-        Returns a list of Persons associated with an Account.
-        """
-        return cast(
-            ListObject[Person],
-            self._request(
-                "get",
-                "/v2/core/accounts/{account_id}/persons".format(
-                    account_id=sanitize_id(account_id),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def list_async(
-        self,
-        account_id: str,
-        params: "PersonService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[Person]:
-        """
-        Returns a list of Persons associated with an Account.
-        """
-        return cast(
-            ListObject[Person],
-            await self._request_async(
-                "get",
-                "/v2/core/accounts/{account_id}/persons".format(
-                    account_id=sanitize_id(account_id),
                 ),
                 base_address="api",
                 params=params,

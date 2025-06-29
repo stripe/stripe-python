@@ -264,6 +264,7 @@ class Account(StripeObject):
                             "vu",
                             "wf",
                             "ws",
+                            "xx",
                             "ye",
                             "yt",
                             "za",
@@ -370,6 +371,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -658,6 +660,7 @@ class Account(StripeObject):
                             "vu",
                             "wf",
                             "ws",
+                            "xx",
                             "ye",
                             "yt",
                             "za",
@@ -765,6 +768,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -801,6 +805,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -837,6 +842,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -873,6 +879,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -909,6 +916,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -945,6 +953,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -981,6 +990,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1017,6 +1027,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1053,6 +1064,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1089,6 +1101,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1125,6 +1138,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1161,6 +1175,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1197,6 +1212,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1233,6 +1249,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1269,6 +1286,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1305,6 +1323,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1341,6 +1360,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1377,6 +1397,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1413,6 +1434,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1449,6 +1471,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1485,6 +1508,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1521,6 +1545,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1557,6 +1582,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1593,6 +1619,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1629,6 +1656,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1665,6 +1693,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1701,6 +1730,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1737,6 +1767,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1773,6 +1804,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1809,6 +1841,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1845,6 +1878,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1881,6 +1915,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1917,6 +1952,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1953,6 +1989,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1989,6 +2026,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2025,6 +2063,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2061,6 +2100,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2097,6 +2137,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2133,6 +2174,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2169,6 +2211,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2206,6 +2249,7 @@ class Account(StripeObject):
                                 "restricted_other",
                                 "unsupported_business",
                                 "unsupported_country",
+                                "unsupported_entity_type",
                             ]
                             """
                             Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2250,6 +2294,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2286,6 +2331,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2322,6 +2368,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2358,6 +2405,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -2899,6 +2947,7 @@ class Account(StripeObject):
                             "vu",
                             "wf",
                             "ws",
+                            "xx",
                             "ye",
                             "yt",
                             "za",
@@ -3002,6 +3051,7 @@ class Account(StripeObject):
                                 "restricted_other",
                                 "unsupported_business",
                                 "unsupported_country",
+                                "unsupported_entity_type",
                             ]
                             """
                             Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -3040,6 +3090,7 @@ class Account(StripeObject):
                                 "restricted_other",
                                 "unsupported_business",
                                 "unsupported_country",
+                                "unsupported_entity_type",
                             ]
                             """
                             Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -3088,6 +3139,7 @@ class Account(StripeObject):
                             "restricted_other",
                             "unsupported_business",
                             "unsupported_country",
+                            "unsupported_entity_type",
                         ]
                         """
                         Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -3125,6 +3177,7 @@ class Account(StripeObject):
                                 "restricted_other",
                                 "unsupported_business",
                                 "unsupported_country",
+                                "unsupported_entity_type",
                             ]
                             """
                             Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -3163,6 +3216,7 @@ class Account(StripeObject):
                                 "restricted_other",
                                 "unsupported_business",
                                 "unsupported_country",
+                                "unsupported_entity_type",
                             ]
                             """
                             Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -3972,6 +4026,7 @@ class Account(StripeObject):
                         "vu",
                         "wf",
                         "ws",
+                        "xx",
                         "ye",
                         "yt",
                         "za",
@@ -4095,6 +4150,16 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"front_back": FrontBack}
 
+                class ProofOfAddress(StripeObject):
+                    files: List[str]
+                    """
+                    One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    """
+                    type: Literal["files"]
+                    """
+                    The format of the document. Currently supports `files` only.
+                    """
+
                 class ProofOfRegistration(StripeObject):
                     files: List[str]
                     """
@@ -4149,6 +4214,10 @@ class Account(StripeObject):
                 """
                 A document verifying the business.
                 """
+                proof_of_address: Optional[ProofOfAddress]
+                """
+                One or more documents that demonstrate proof of address.
+                """
                 proof_of_registration: Optional[ProofOfRegistration]
                 """
                 One or more documents showing the company's proof of registration with the national business registry.
@@ -4167,6 +4236,7 @@ class Account(StripeObject):
                     "company_registration_verification": CompanyRegistrationVerification,
                     "company_tax_id_verification": CompanyTaxIdVerification,
                     "primary_verification": PrimaryVerification,
+                    "proof_of_address": ProofOfAddress,
                     "proof_of_registration": ProofOfRegistration,
                     "proof_of_ultimate_beneficial_ownership": ProofOfUltimateBeneficialOwnership,
                 }
@@ -4500,6 +4570,7 @@ class Account(StripeObject):
                             "vu",
                             "wf",
                             "ws",
+                            "xx",
                             "ye",
                             "yt",
                             "za",
@@ -4783,6 +4854,7 @@ class Account(StripeObject):
                             "vu",
                             "wf",
                             "ws",
+                            "xx",
                             "ye",
                             "yt",
                             "za",
@@ -5196,6 +5268,7 @@ class Account(StripeObject):
                         "vu",
                         "wf",
                         "ws",
+                        "xx",
                         "ye",
                         "yt",
                         "za",
@@ -5522,6 +5595,7 @@ class Account(StripeObject):
                         "vu",
                         "wf",
                         "ws",
+                        "xx",
                         "ye",
                         "yt",
                         "za",
@@ -5977,6 +6051,7 @@ class Account(StripeObject):
                             "vu",
                             "wf",
                             "ws",
+                            "xx",
                             "ye",
                             "yt",
                             "za",
@@ -6260,6 +6335,7 @@ class Account(StripeObject):
                             "vu",
                             "wf",
                             "ws",
+                            "xx",
                             "ye",
                             "yt",
                             "za",
@@ -6636,6 +6712,7 @@ class Account(StripeObject):
                         "vu",
                         "wf",
                         "ws",
+                        "xx",
                         "ye",
                         "yt",
                         "za",
@@ -6947,6 +7024,7 @@ class Account(StripeObject):
                 "vu",
                 "wf",
                 "ws",
+                "xx",
                 "ye",
                 "yt",
                 "za",
@@ -7298,6 +7376,10 @@ class Account(StripeObject):
     """
     Information about the company, individual, and business represented by the Account.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     metadata: Optional[Dict[str, str]]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -7309,10 +7391,6 @@ class Account(StripeObject):
     requirements: Optional[Requirements]
     """
     Information about the requirements for the Account, including what information needs to be collected, and by when.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "configuration": Configuration,

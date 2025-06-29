@@ -15,6 +15,39 @@ class ReceivedDebit(StripeObject):
         "v2.money_management.received_debit"
     )
 
+    class BankTransfer(StripeObject):
+        class UsBankAccount(StripeObject):
+            bank_name: Optional[str]
+            """
+            The name of the bank the debit originated from.
+            """
+            network: Literal["ach"]
+            """
+            Open Enum. The bank network the debit was originated on.
+            """
+            routing_number: Optional[str]
+            """
+            The routing number of the bank that originated the debit.
+            """
+
+        financial_address: str
+        """
+        The Financial Address that was debited.
+        """
+        payment_method_type: Literal["us_bank_account"]
+        """
+        Open Enum. The type of the payment method used to originate the debit.
+        """
+        statement_descriptor: Optional[str]
+        """
+        The statement descriptor set by the originator of the debit.
+        """
+        us_bank_account: UsBankAccount
+        """
+        The payment method used to originate the debit.
+        """
+        _inner_class_types = {"us_bank_account": UsBankAccount}
+
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
             reason: Literal[
@@ -50,42 +83,13 @@ class ReceivedDebit(StripeObject):
         Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
         """
 
-    class BankTransfer(StripeObject):
-        class UsBankAccount(StripeObject):
-            bank_name: Optional[str]
-            """
-            The name of the bank the debit originated from.
-            """
-            network: Literal["ach"]
-            """
-            Open Enum. The bank network the debit was originated on.
-            """
-            routing_number: Optional[str]
-            """
-            The routing number of the bank that originated the debit.
-            """
-
-        financial_address: str
-        """
-        The Financial Address that was debited.
-        """
-        payment_method_type: Literal["us_bank_account"]
-        """
-        Open Enum. The type of the payment method used to originate the debit.
-        """
-        statement_descriptor: Optional[str]
-        """
-        The statement descriptor set by the originator of the debit.
-        """
-        us_bank_account: UsBankAccount
-        """
-        The payment method used to originate the debit.
-        """
-        _inner_class_types = {"us_bank_account": UsBankAccount}
-
     amount: Amount
     """
     Amount and currency of the ReceivedDebit.
+    """
+    bank_transfer: Optional[BankTransfer]
+    """
+    This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
     """
     created: str
     """
@@ -103,6 +107,10 @@ class ReceivedDebit(StripeObject):
     id: str
     """
     Unique identifier for the ReceivedDebit.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     object: Literal["v2.money_management.received_debit"]
     """
@@ -128,16 +136,8 @@ class ReceivedDebit(StripeObject):
     """
     Open Enum. The type of the ReceivedDebit.
     """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-    """
-    bank_transfer: Optional[BankTransfer]
-    """
-    This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
-    """
     _inner_class_types = {
+        "bank_transfer": BankTransfer,
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
-        "bank_transfer": BankTransfer,
     }

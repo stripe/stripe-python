@@ -22,7 +22,7 @@ class FinancialAccount(StripeObject):
         """
         inbound_pending: Dict[str, Amount]
         """
-        Balance of inbound funds that will later transition to the `cash` balance.
+        Balance of inbound funds that will later transition to the `available` balance.
         """
         outbound_pending: Dict[str, Amount]
         """
@@ -474,6 +474,7 @@ class FinancialAccount(StripeObject):
         "vu",
         "wf",
         "ws",
+        "xx",
         "ye",
         "yt",
         "za",
@@ -487,10 +488,17 @@ class FinancialAccount(StripeObject):
     """
     Time at which the object was created.
     """
-    description: Optional[str]
     id: str
     """
     Unique identifier for the object.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
+    metadata: Optional[Dict[str, str]]
+    """
+    Metadata associated with the FinancialAccount
     """
     object: Literal["v2.money_management.financial_account"]
     """
@@ -500,7 +508,7 @@ class FinancialAccount(StripeObject):
     """
     If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.
     """
-    status: Literal["closed", "open"]
+    status: Literal["closed", "open", "pending"]
     """
     Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
     """
@@ -512,10 +520,6 @@ class FinancialAccount(StripeObject):
     """
     Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.
     It contains additional information specific to the FinancialAccount type.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "balance": Balance,

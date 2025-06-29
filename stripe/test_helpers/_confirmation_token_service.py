@@ -135,6 +135,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer_balance: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataCustomerBalance"
         ]
@@ -393,6 +399,7 @@ class ConfirmationTokenService(StripeService):
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -574,6 +581,9 @@ class ConfirmationTokenService(StripeService):
     class CreateParamsPaymentMethodDataCashapp(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataCrypto(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):
         pass
 
@@ -668,6 +678,7 @@ class ConfirmationTokenService(StripeService):
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -964,9 +975,9 @@ class ConfirmationTokenService(StripeService):
         For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
-        type: Literal["fixed_count"]
+        type: Literal["bonus", "fixed_count", "revolving"]
         """
-        Type of installment plan, one of `fixed_count`.
+        Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
         """
 
     class CreateParamsShipping(TypedDict):

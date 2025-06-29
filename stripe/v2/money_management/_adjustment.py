@@ -16,19 +16,6 @@ class Adjustment(StripeObject):
     )
 
     class AdjustedFlow(StripeObject):
-        type: Literal[
-            "adjustment",
-            "balance_exchange",
-            "inbound_payment",
-            "inbound_transfer",
-            "outbound_payment",
-            "outbound_transfer",
-            "received_credit",
-            "received_debit",
-        ]
-        """
-        Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
-        """
         adjustment: Optional[str]
         """
         If applicable, the ID of the Adjustment linked to this Adjustment.
@@ -52,6 +39,19 @@ class Adjustment(StripeObject):
         received_debit: Optional[str]
         """
         If applicable, the ID of the ReceivedDebit linked to this Adjustment.
+        """
+        type: Literal[
+            "adjustment",
+            "balance_exchange",
+            "inbound_payment",
+            "inbound_transfer",
+            "outbound_payment",
+            "outbound_transfer",
+            "received_credit",
+            "received_debit",
+        ]
+        """
+        Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
         """
 
     adjusted_flow: Optional[AdjustedFlow]
@@ -78,6 +78,10 @@ class Adjustment(StripeObject):
     """
     Unique identifier for the object.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["v2.money_management.adjustment"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
@@ -85,9 +89,5 @@ class Adjustment(StripeObject):
     receipt_url: Optional[str]
     """
     A link to the Stripe-hosted receipt that is provided when money movement is considered regulated under Stripe's money transmission licenses. The receipt link remains active for 60 days from the Adjustment creation date. After this period, the link will expire and the receipt url value will be null.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {"adjusted_flow": AdjustedFlow}

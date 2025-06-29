@@ -43,54 +43,6 @@ class UsBankAccountService(StripeService):
         The bank account's ACH routing number can be provided for update if it was empty previously.
         """
 
-    def archive(
-        self,
-        id: str,
-        params: "UsBankAccountService.ArchiveParams" = {},
-        options: RequestOptions = {},
-    ) -> UsBankAccount:
-        """
-        Archive a USBankAccount object. USBankAccount objects will not be automatically archived by Stripe.
-        Archived USBankAccount objects cannot be used as outbound destinations
-        and will not appear in the outbound destination list.
-        """
-        return cast(
-            UsBankAccount,
-            self._request(
-                "post",
-                "/v2/core/vault/us_bank_accounts/{id}/archive".format(
-                    id=sanitize_id(id),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def archive_async(
-        self,
-        id: str,
-        params: "UsBankAccountService.ArchiveParams" = {},
-        options: RequestOptions = {},
-    ) -> UsBankAccount:
-        """
-        Archive a USBankAccount object. USBankAccount objects will not be automatically archived by Stripe.
-        Archived USBankAccount objects cannot be used as outbound destinations
-        and will not appear in the outbound destination list.
-        """
-        return cast(
-            UsBankAccount,
-            await self._request_async(
-                "post",
-                "/v2/core/vault/us_bank_accounts/{id}/archive".format(
-                    id=sanitize_id(id),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
     def create(
         self,
         params: "UsBankAccountService.CreateParams",
@@ -209,6 +161,54 @@ class UsBankAccountService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/core/vault/us_bank_accounts/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def archive(
+        self,
+        id: str,
+        params: "UsBankAccountService.ArchiveParams" = {},
+        options: RequestOptions = {},
+    ) -> UsBankAccount:
+        """
+        Archive a USBankAccount object. USBankAccount objects will not be automatically archived by Stripe.
+        Archived USBankAccount objects cannot be used as outbound destinations
+        and will not appear in the outbound destination list.
+        """
+        return cast(
+            UsBankAccount,
+            self._request(
+                "post",
+                "/v2/core/vault/us_bank_accounts/{id}/archive".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def archive_async(
+        self,
+        id: str,
+        params: "UsBankAccountService.ArchiveParams" = {},
+        options: RequestOptions = {},
+    ) -> UsBankAccount:
+        """
+        Archive a USBankAccount object. USBankAccount objects will not be automatically archived by Stripe.
+        Archived USBankAccount objects cannot be used as outbound destinations
+        and will not appear in the outbound destination list.
+        """
+        return cast(
+            UsBankAccount,
+            await self._request_async(
+                "post",
+                "/v2/core/vault/us_bank_accounts/{id}/archive".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",
