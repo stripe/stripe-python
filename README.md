@@ -251,7 +251,7 @@ be aware that the data you see at runtime may not match the types.
 Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `-beta.X` suffix like `12.2.0-beta.2`.
 We would love for you to try these as we incrementally release new features and improve them based on your feedback.
 
-The public preview SDKs are different versions of the same package as the stable SDKs. They are appended with `b.X` such as `10.1.0b1`. To install, choose the version that includes support for the preview feature you are interested in by reviewing the [releases page](https://github.com/stripe/stripe-dotnet/releases/) and then use it in the `pip install` command:
+The public preview SDKs are different versions of the same package as the stable SDKs. They are appended with `b.X` such as `10.1.0b1`. To install, choose the version that includes support for the preview feature you are interested in by reviewing the [releases page](https://github.com/stripe/stripe-python/releases/) and then use it in the `pip install` command:
 
 ```
 pip install stripe==<replace-with-the-version-of-your-choice>
