@@ -101,6 +101,10 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     Whether this card is the default external account for its currency. This property is only available for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     description: Optional[str]
     """
     A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
@@ -167,10 +171,6 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     tokenization_method: Optional[str]
     """
     If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

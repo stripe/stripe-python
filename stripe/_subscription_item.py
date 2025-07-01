@@ -366,6 +366,10 @@ class SubscriptionItem(
     """
     The start time of this subscription item's current billing period.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     discounts: List[ExpandableField["Discount"]]
     """
     The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
@@ -413,10 +417,6 @@ class SubscriptionItem(
     tax_rates: Optional[List["TaxRate"]]
     """
     The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

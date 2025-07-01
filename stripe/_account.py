@@ -242,6 +242,10 @@ class Account(
         """
         The status of the Cash App Pay capability of the account, or whether the account can directly process Cash App Pay payments.
         """
+        crypto_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Crypto capability of the account, or whether the account can directly process Crypto payments.
+        """
         eps_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the EPS payments capability of the account, or whether the account can directly process EPS charges.
@@ -1235,9 +1239,29 @@ class Account(
                 """
                 The day of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
                 """
+                monthly_payout_days: Optional[List[int]]
+                """
+                The days of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
+                """
                 weekly_anchor: Optional[str]
                 """
                 The day of the week funds will be paid out, of the style 'monday', 'tuesday', etc. Only shown if `interval` is weekly.
+                """
+                weekly_payout_days: Optional[
+                    List[
+                        Literal[
+                            "friday",
+                            "monday",
+                            "saturday",
+                            "sunday",
+                            "thursday",
+                            "tuesday",
+                            "wednesday",
+                        ]
+                    ]
+                ]
+                """
+                The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
                 """
 
             debit_negative_balances: bool
@@ -1723,6 +1747,12 @@ class Account(
         """
         The cashapp_payments capability.
         """
+        crypto_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesCryptoPayments"
+        ]
+        """
+        The crypto_payments capability.
+        """
         eps_payments: NotRequired[
             "Account.CreateParamsCapabilitiesEpsPayments"
         ]
@@ -2063,6 +2093,12 @@ class Account(
         """
 
     class CreateParamsCapabilitiesCashappPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesCryptoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2415,6 +2451,9 @@ class Account(
         registration_date: NotRequired[
             "Literal['']|Account.CreateParamsCompanyRegistrationDate"
         ]
+        """
+        When the business was incorporated or registered.
+        """
         registration_number: NotRequired[str]
         """
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -2663,6 +2702,12 @@ class Account(
         """
         One or more documents that demonstrate proof of a company's tax ID.
         """
+        proof_of_address: NotRequired[
+            "Account.CreateParamsDocumentsProofOfAddress"
+        ]
+        """
+        One or more documents that demonstrate proof of address.
+        """
         proof_of_registration: NotRequired[
             "Account.CreateParamsDocumentsProofOfRegistration"
         ]
@@ -2707,6 +2752,12 @@ class Account(
         """
 
     class CreateParamsDocumentsCompanyTaxIdVerification(TypedDict):
+        files: NotRequired[List[str]]
+        """
+        One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class CreateParamsDocumentsProofOfAddress(TypedDict):
         files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
@@ -3171,6 +3222,10 @@ class Account(
         """
         The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
         """
+        monthly_payout_days: NotRequired[List[int]]
+        """
+        The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
+        """
         weekly_anchor: NotRequired[
             Literal[
                 "friday",
@@ -3184,6 +3239,22 @@ class Account(
         ]
         """
         The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        """
+        weekly_payout_days: NotRequired[
+            List[
+                Literal[
+                    "friday",
+                    "monday",
+                    "saturday",
+                    "sunday",
+                    "thursday",
+                    "tuesday",
+                    "wednesday",
+                ]
+            ]
+        ]
+        """
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
         """
 
     class CreateParamsSettingsTreasury(TypedDict):
@@ -4452,6 +4523,10 @@ class Account(
     """
     Three-letter ISO currency code representing the default currency for the account. This must be a currency that [Stripe supports in the account's country](https://stripe.com/docs/payouts).
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     details_submitted: Optional[bool]
     """
     Whether account details have been submitted. Accounts with Stripe Dashboard access, which includes Standard accounts, cannot receive payouts before this is true. Accounts where this is false should be directed to [an onboarding flow](https://docs.stripe.com/connect/onboarding) to finish submitting account details.
@@ -4502,10 +4577,6 @@ class Account(
     type: Optional[Literal["custom", "express", "none", "standard"]]
     """
     The Stripe account type. Can be `standard`, `express`, `custom`, or `none`.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

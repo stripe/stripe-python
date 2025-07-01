@@ -352,6 +352,12 @@ class AccountService(StripeService):
         """
         The cashapp_payments capability.
         """
+        crypto_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesCryptoPayments"
+        ]
+        """
+        The crypto_payments capability.
+        """
         eps_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesEpsPayments"
         ]
@@ -696,6 +702,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesCashappPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesCryptoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1052,6 +1064,9 @@ class AccountService(StripeService):
         registration_date: NotRequired[
             "Literal['']|AccountService.CreateParamsCompanyRegistrationDate"
         ]
+        """
+        When the business was incorporated or registered.
+        """
         registration_number: NotRequired[str]
         """
         The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -1302,6 +1317,12 @@ class AccountService(StripeService):
         """
         One or more documents that demonstrate proof of a company's tax ID.
         """
+        proof_of_address: NotRequired[
+            "AccountService.CreateParamsDocumentsProofOfAddress"
+        ]
+        """
+        One or more documents that demonstrate proof of address.
+        """
         proof_of_registration: NotRequired[
             "AccountService.CreateParamsDocumentsProofOfRegistration"
         ]
@@ -1346,6 +1367,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsDocumentsCompanyTaxIdVerification(TypedDict):
+        files: NotRequired[List[str]]
+        """
+        One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class CreateParamsDocumentsProofOfAddress(TypedDict):
         files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
@@ -1824,6 +1851,10 @@ class AccountService(StripeService):
         """
         The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
         """
+        monthly_payout_days: NotRequired[List[int]]
+        """
+        The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
+        """
         weekly_anchor: NotRequired[
             Literal[
                 "friday",
@@ -1837,6 +1868,22 @@ class AccountService(StripeService):
         ]
         """
         The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        """
+        weekly_payout_days: NotRequired[
+            List[
+                Literal[
+                    "friday",
+                    "monday",
+                    "saturday",
+                    "sunday",
+                    "thursday",
+                    "tuesday",
+                    "wednesday",
+                ]
+            ]
+        ]
+        """
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
         """
 
     class CreateParamsSettingsTreasury(TypedDict):
@@ -2261,6 +2308,12 @@ class AccountService(StripeService):
         """
         The cashapp_payments capability.
         """
+        crypto_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesCryptoPayments"
+        ]
+        """
+        The crypto_payments capability.
+        """
         eps_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesEpsPayments"
         ]
@@ -2605,6 +2658,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesCashappPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesCryptoPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -3173,6 +3232,12 @@ class AccountService(StripeService):
         """
         One or more documents that demonstrate proof of a company's tax ID.
         """
+        proof_of_address: NotRequired[
+            "AccountService.UpdateParamsDocumentsProofOfAddress"
+        ]
+        """
+        One or more documents that demonstrate proof of address.
+        """
         proof_of_registration: NotRequired[
             "AccountService.UpdateParamsDocumentsProofOfRegistration"
         ]
@@ -3217,6 +3282,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsDocumentsCompanyTaxIdVerification(TypedDict):
+        files: NotRequired[List[str]]
+        """
+        One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+        """
+
+    class UpdateParamsDocumentsProofOfAddress(TypedDict):
         files: NotRequired[List[str]]
         """
         One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
@@ -3699,6 +3770,10 @@ class AccountService(StripeService):
         """
         The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
         """
+        monthly_payout_days: NotRequired[List[int]]
+        """
+        The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly` and `monthly_anchor` is not set.
+        """
         weekly_anchor: NotRequired[
             Literal[
                 "friday",
@@ -3712,6 +3787,22 @@ class AccountService(StripeService):
         ]
         """
         The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        """
+        weekly_payout_days: NotRequired[
+            List[
+                Literal[
+                    "friday",
+                    "monday",
+                    "saturday",
+                    "sunday",
+                    "thursday",
+                    "tuesday",
+                    "wednesday",
+                ]
+            ]
+        ]
+        """
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
         """
 
     class UpdateParamsSettingsTreasury(TypedDict):

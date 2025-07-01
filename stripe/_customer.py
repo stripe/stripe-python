@@ -922,6 +922,7 @@ class Customer(
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",
@@ -1435,6 +1436,10 @@ class Customer(
 
     If you use payment methods created through the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     delinquent: Optional[bool]
     """
     Tracks the most recent state change on any invoice belonging to the customer. Paying an invoice or marking it uncollectible via the API will set this field to false. An automatic payment failure or passing the `invoice.due_date` will set this field to `true`.
@@ -1522,10 +1527,6 @@ class Customer(
     test_clock: Optional[ExpandableField["TestClock"]]
     """
     ID of the test clock that this customer belongs to.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

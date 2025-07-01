@@ -654,6 +654,10 @@ class Person(UpdateableAPIResource["Person"]):
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     dob: Optional[Dob]
     email: Optional[str]
     """
@@ -746,10 +750,6 @@ class Person(UpdateableAPIResource["Person"]):
     Demographic data related to the person.
     """
     verification: Optional[Verification]
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
-    """
 
     def instance_url(self):
         token = self.id

@@ -25,6 +25,12 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParams(TypedDict):
+        billing_mode: NotRequired[
+            "SubscriptionScheduleService.CreateParamsBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         customer: NotRequired[str]
         """
         The identifier of the customer to create the subscription schedule for.
@@ -63,6 +69,9 @@ class SubscriptionScheduleService(StripeService):
         """
         When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
         """
+
+    class CreateParamsBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
 
     class CreateParamsDefaultSettings(TypedDict):
         application_fee_percent: NotRequired[float]
