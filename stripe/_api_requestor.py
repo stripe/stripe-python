@@ -373,6 +373,8 @@ class _APIRequestor(object):
             return error.TemporarySessionExpiredError(**error_args)
         elif type == "financial_account_not_open":
             return error.FinancialAccountNotOpenError(**error_args)
+        elif type == "feature_not_enabled":
+            return error.FeatureNotEnabledError(**error_args)
         elif type == "blocked_by_stripe":
             return error.BlockedByStripeError(**error_args)
         elif type == "already_canceled":
@@ -385,8 +387,6 @@ class _APIRequestor(object):
             return error.QuotaExceededError(**error_args)
         elif type == "recipient_not_notifiable":
             return error.RecipientNotNotifiableError(**error_args)
-        elif type == "feature_not_enabled":
-            return error.FeatureNotEnabledError(**error_args)
         elif type == "invalid_payout_method":
             return error.InvalidPayoutMethodError(**error_args)
         elif type == "controlled_by_dashboard":

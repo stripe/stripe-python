@@ -266,6 +266,7 @@ class Person(StripeObject):
                 "vu",
                 "wf",
                 "ws",
+                "xx",
                 "ye",
                 "yt",
                 "za",
@@ -592,6 +593,7 @@ class Person(StripeObject):
                 "vu",
                 "wf",
                 "ws",
+                "xx",
                 "ye",
                 "yt",
                 "za",
@@ -1047,6 +1049,7 @@ class Person(StripeObject):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -1330,6 +1333,7 @@ class Person(StripeObject):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -1453,6 +1457,10 @@ class Person(StripeObject):
     legal_gender: Optional[Literal["female", "male"]]
     """
     The person's gender (International regulations require either "male" or "female").
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     metadata: Optional[Dict[str, str]]
     """
@@ -1706,6 +1714,7 @@ class Person(StripeObject):
                 "vu",
                 "wf",
                 "ws",
+                "xx",
                 "ye",
                 "yt",
                 "za",
@@ -1748,10 +1757,6 @@ class Person(StripeObject):
     updated: str
     """
     Time at which the object was last updated. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {
         "additional_addresses": AdditionalAddress,

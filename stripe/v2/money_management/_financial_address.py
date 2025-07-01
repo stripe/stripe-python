@@ -57,13 +57,13 @@ class FinancialAddress(StripeObject):
             The swift code of the bank or financial institution.
             """
 
-        type: Literal["gb_bank_account", "us_bank_account"]
-        """
-        Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
-        """
         gb_bank_account: Optional[GbBankAccount]
         """
         The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
+        """
+        type: Literal["gb_bank_account", "us_bank_account"]
+        """
+        Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
         """
         us_bank_account: Optional[UsBankAccount]
         """
@@ -277,6 +277,10 @@ class FinancialAddress(StripeObject):
     """
     The ID of a FinancialAddress.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["v2.money_management.financial_address"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
@@ -284,9 +288,5 @@ class FinancialAddress(StripeObject):
     status: Literal["active", "archived", "failed", "pending"]
     """
     Closed Enum. An enum representing the status of the FinancialAddress. This indicates whether or not the FinancialAddress can be used for any money movement flows.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {"credentials": Credentials}

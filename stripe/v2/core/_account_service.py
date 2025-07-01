@@ -479,6 +479,7 @@ class AccountService(StripeService):
                 "vu",
                 "wf",
                 "ws",
+                "xx",
                 "ye",
                 "yt",
                 "za",
@@ -1469,6 +1470,7 @@ class AccountService(StripeService):
             "vu",
             "wf",
             "ws",
+            "xx",
             "ye",
             "yt",
             "za",
@@ -2141,6 +2143,7 @@ class AccountService(StripeService):
                 "vu",
                 "wf",
                 "ws",
+                "xx",
                 "ye",
                 "yt",
                 "za",
@@ -2616,6 +2619,7 @@ class AccountService(StripeService):
             "vu",
             "wf",
             "ws",
+            "xx",
             "ye",
             "yt",
             "za",
@@ -2698,6 +2702,12 @@ class AccountService(StripeService):
         ]
         """
         A document verifying the business.
+        """
+        proof_of_address: NotRequired[
+            "AccountService.CreateParamsIdentityBusinessDetailsDocumentsProofOfAddress"
+        ]
+        """
+        One or more documents that demonstrate proof of address.
         """
         proof_of_registration: NotRequired[
             "AccountService.CreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration"
@@ -2806,6 +2816,18 @@ class AccountService(StripeService):
         front: str
         """
         A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+        """
+
+    class CreateParamsIdentityBusinessDetailsDocumentsProofOfAddress(
+        TypedDict
+    ):
+        files: List[str]
+        """
+        One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+        """
+        type: Literal["files"]
+        """
+        The format of the document. Currently supports `files` only.
         """
 
     class CreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration(
@@ -3179,6 +3201,7 @@ class AccountService(StripeService):
             "vu",
             "wf",
             "ws",
+            "xx",
             "ye",
             "yt",
             "za",
@@ -3460,6 +3483,7 @@ class AccountService(StripeService):
             "vu",
             "wf",
             "ws",
+            "xx",
             "ye",
             "yt",
             "za",
@@ -3819,6 +3843,7 @@ class AccountService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -4112,6 +4137,7 @@ class AccountService(StripeService):
             "vu",
             "wf",
             "ws",
+            "xx",
             "ye",
             "yt",
             "za",
@@ -4415,6 +4441,7 @@ class AccountService(StripeService):
             "vu",
             "wf",
             "ws",
+            "xx",
             "ye",
             "yt",
             "za",
@@ -4884,6 +4911,7 @@ class AccountService(StripeService):
             "vu",
             "wf",
             "ws",
+            "xx",
             "ye",
             "yt",
             "za",
@@ -5165,6 +5193,7 @@ class AccountService(StripeService):
             "vu",
             "wf",
             "ws",
+            "xx",
             "ye",
             "yt",
             "za",
@@ -5721,6 +5750,7 @@ class AccountService(StripeService):
                 "vu",
                 "wf",
                 "ws",
+                "xx",
                 "ye",
                 "yt",
                 "za",
@@ -6713,6 +6743,7 @@ class AccountService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -7391,6 +7422,7 @@ class AccountService(StripeService):
                 "vu",
                 "wf",
                 "ws",
+                "xx",
                 "ye",
                 "yt",
                 "za",
@@ -7886,6 +7918,7 @@ class AccountService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -7984,6 +8017,12 @@ class AccountService(StripeService):
         ]
         """
         A document verifying the business.
+        """
+        proof_of_address: NotRequired[
+            "AccountService.UpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress"
+        ]
+        """
+        One or more documents that demonstrate proof of address.
         """
         proof_of_registration: NotRequired[
             Optional[
@@ -8094,6 +8133,18 @@ class AccountService(StripeService):
         front: NotRequired[str]
         """
         A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+        """
+
+    class UpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress(
+        TypedDict
+    ):
+        files: List[str]
+        """
+        One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+        """
+        type: Literal["files"]
+        """
+        The format of the document. Currently supports `files` only.
         """
 
     class UpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration(
@@ -8473,6 +8524,7 @@ class AccountService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -8758,6 +8810,7 @@ class AccountService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -9133,6 +9186,7 @@ class AccountService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -9434,6 +9488,7 @@ class AccountService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -9741,6 +9796,7 @@ class AccountService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -10222,6 +10278,7 @@ class AccountService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -10507,6 +10564,7 @@ class AccountService(StripeService):
                     "vu",
                     "wf",
                     "ws",
+                    "xx",
                     "ye",
                     "yt",
                     "za",
@@ -10577,40 +10635,38 @@ class AccountService(StripeService):
         The person's last or family name.
         """
 
-    def close(
+    def list(
         self,
-        id: str,
-        params: "AccountService.CloseParams" = {},
+        params: "AccountService.ListParams" = {},
         options: RequestOptions = {},
-    ) -> Account:
+    ) -> ListObject[Account]:
         """
-        Removes access to the Account and its associated resources.
+        Returns a list of Accounts.
         """
         return cast(
-            Account,
+            ListObject[Account],
             self._request(
-                "post",
-                "/v2/core/accounts/{id}/close".format(id=sanitize_id(id)),
+                "get",
+                "/v2/core/accounts",
                 base_address="api",
                 params=params,
                 options=options,
             ),
         )
 
-    async def close_async(
+    async def list_async(
         self,
-        id: str,
-        params: "AccountService.CloseParams" = {},
+        params: "AccountService.ListParams" = {},
         options: RequestOptions = {},
-    ) -> Account:
+    ) -> ListObject[Account]:
         """
-        Removes access to the Account and its associated resources.
+        Returns a list of Accounts.
         """
         return cast(
-            Account,
+            ListObject[Account],
             await self._request_async(
-                "post",
-                "/v2/core/accounts/{id}/close".format(id=sanitize_id(id)),
+                "get",
+                "/v2/core/accounts",
                 base_address="api",
                 params=params,
                 options=options,
@@ -10648,44 +10704,6 @@ class AccountService(StripeService):
             Account,
             await self._request_async(
                 "post",
-                "/v2/core/accounts",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def list(
-        self,
-        params: "AccountService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[Account]:
-        """
-        Returns a list of Accounts.
-        """
-        return cast(
-            ListObject[Account],
-            self._request(
-                "get",
-                "/v2/core/accounts",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def list_async(
-        self,
-        params: "AccountService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[Account]:
-        """
-        Returns a list of Accounts.
-        """
-        return cast(
-            ListObject[Account],
-            await self._request_async(
-                "get",
                 "/v2/core/accounts",
                 base_address="api",
                 params=params,
@@ -10767,6 +10785,46 @@ class AccountService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/core/accounts/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def close(
+        self,
+        id: str,
+        params: "AccountService.CloseParams" = {},
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        Removes access to the Account and its associated resources.
+        """
+        return cast(
+            Account,
+            self._request(
+                "post",
+                "/v2/core/accounts/{id}/close".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def close_async(
+        self,
+        id: str,
+        params: "AccountService.CloseParams" = {},
+        options: RequestOptions = {},
+    ) -> Account:
+        """
+        Removes access to the Account and its associated resources.
+        """
+        return cast(
+            Account,
+            await self._request_async(
+                "post",
+                "/v2/core/accounts/{id}/close".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

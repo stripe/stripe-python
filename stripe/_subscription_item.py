@@ -454,6 +454,10 @@ class SubscriptionItem(
     """
     The start time of this subscription item's current billing period.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     discounts: List[ExpandableField["Discount"]]
     """
     The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
@@ -505,10 +509,6 @@ class SubscriptionItem(
     trial: Optional[Trial]
     """
     Options that configure the trial on the subscription item.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

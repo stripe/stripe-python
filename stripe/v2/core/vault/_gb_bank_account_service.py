@@ -65,6 +65,88 @@ class GbBankAccountService(StripeService):
     class RetrieveParams(TypedDict):
         pass
 
+    def create(
+        self,
+        params: "GbBankAccountService.CreateParams",
+        options: RequestOptions = {},
+    ) -> GbBankAccount:
+        """
+        Create a GB bank account.
+        """
+        return cast(
+            GbBankAccount,
+            self._request(
+                "post",
+                "/v2/core/vault/gb_bank_accounts",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        params: "GbBankAccountService.CreateParams",
+        options: RequestOptions = {},
+    ) -> GbBankAccount:
+        """
+        Create a GB bank account.
+        """
+        return cast(
+            GbBankAccount,
+            await self._request_async(
+                "post",
+                "/v2/core/vault/gb_bank_accounts",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def retrieve(
+        self,
+        id: str,
+        params: "GbBankAccountService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> GbBankAccount:
+        """
+        Retrieve a GB bank account.
+        """
+        return cast(
+            GbBankAccount,
+            self._request(
+                "get",
+                "/v2/core/vault/gb_bank_accounts/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: "GbBankAccountService.RetrieveParams" = {},
+        options: RequestOptions = {},
+    ) -> GbBankAccount:
+        """
+        Retrieve a GB bank account.
+        """
+        return cast(
+            GbBankAccount,
+            await self._request_async(
+                "get",
+                "/v2/core/vault/gb_bank_accounts/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def acknowledge_confirmation_of_payee(
         self,
         id: str,
@@ -161,44 +243,6 @@ class GbBankAccountService(StripeService):
             ),
         )
 
-    def create(
-        self,
-        params: "GbBankAccountService.CreateParams",
-        options: RequestOptions = {},
-    ) -> GbBankAccount:
-        """
-        Create a GB bank account.
-        """
-        return cast(
-            GbBankAccount,
-            self._request(
-                "post",
-                "/v2/core/vault/gb_bank_accounts",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def create_async(
-        self,
-        params: "GbBankAccountService.CreateParams",
-        options: RequestOptions = {},
-    ) -> GbBankAccount:
-        """
-        Create a GB bank account.
-        """
-        return cast(
-            GbBankAccount,
-            await self._request_async(
-                "post",
-                "/v2/core/vault/gb_bank_accounts",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
     def initiate_confirmation_of_payee(
         self,
         id: str,
@@ -241,50 +285,6 @@ class GbBankAccountService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/core/vault/gb_bank_accounts/{id}/initiate_confirmation_of_payee".format(
-                    id=sanitize_id(id),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def retrieve(
-        self,
-        id: str,
-        params: "GbBankAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
-    ) -> GbBankAccount:
-        """
-        Retrieve a GB bank account.
-        """
-        return cast(
-            GbBankAccount,
-            self._request(
-                "get",
-                "/v2/core/vault/gb_bank_accounts/{id}".format(
-                    id=sanitize_id(id),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def retrieve_async(
-        self,
-        id: str,
-        params: "GbBankAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
-    ) -> GbBankAccount:
-        """
-        Retrieve a GB bank account.
-        """
-        return cast(
-            GbBankAccount,
-            await self._request_async(
-                "get",
-                "/v2/core/vault/gb_bank_accounts/{id}".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

@@ -56,6 +56,10 @@ class ApplePayDomain(
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     domain_name: str
     id: str
     """
@@ -68,10 +72,6 @@ class ApplePayDomain(
     object: Literal["apple_pay_domain"]
     """
     String representing the object's type. Objects of the same type share the same value.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

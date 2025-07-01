@@ -315,6 +315,10 @@ class Plan(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     id: str
     """
     Unique identifier for the object.
@@ -370,10 +374,6 @@ class Plan(
     usage_type: Literal["licensed", "metered"]
     """
     Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

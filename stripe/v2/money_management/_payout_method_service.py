@@ -43,52 +43,6 @@ class PayoutMethodService(StripeService):
     class UnarchiveParams(TypedDict):
         pass
 
-    def archive(
-        self,
-        id: str,
-        params: "PayoutMethodService.ArchiveParams" = {},
-        options: RequestOptions = {},
-    ) -> PayoutMethod:
-        """
-        Archive a PayoutMethod object. Archived objects cannot be used as payout methods
-        and will not appear in the payout method list.
-        """
-        return cast(
-            PayoutMethod,
-            self._request(
-                "post",
-                "/v2/money_management/payout_methods/{id}/archive".format(
-                    id=sanitize_id(id),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def archive_async(
-        self,
-        id: str,
-        params: "PayoutMethodService.ArchiveParams" = {},
-        options: RequestOptions = {},
-    ) -> PayoutMethod:
-        """
-        Archive a PayoutMethod object. Archived objects cannot be used as payout methods
-        and will not appear in the payout method list.
-        """
-        return cast(
-            PayoutMethod,
-            await self._request_async(
-                "post",
-                "/v2/money_management/payout_methods/{id}/archive".format(
-                    id=sanitize_id(id),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
     def list(
         self,
         params: "PayoutMethodService.ListParams" = {},
@@ -163,6 +117,52 @@ class PayoutMethodService(StripeService):
             await self._request_async(
                 "get",
                 "/v2/money_management/payout_methods/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def archive(
+        self,
+        id: str,
+        params: "PayoutMethodService.ArchiveParams" = {},
+        options: RequestOptions = {},
+    ) -> PayoutMethod:
+        """
+        Archive a PayoutMethod object. Archived objects cannot be used as payout methods
+        and will not appear in the payout method list.
+        """
+        return cast(
+            PayoutMethod,
+            self._request(
+                "post",
+                "/v2/money_management/payout_methods/{id}/archive".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def archive_async(
+        self,
+        id: str,
+        params: "PayoutMethodService.ArchiveParams" = {},
+        options: RequestOptions = {},
+    ) -> PayoutMethod:
+        """
+        Archive a PayoutMethod object. Archived objects cannot be used as payout methods
+        and will not appear in the payout method list.
+        """
+        return cast(
+            PayoutMethod,
+            await self._request_async(
+                "post",
+                "/v2/money_management/payout_methods/{id}/archive".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

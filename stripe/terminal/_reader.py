@@ -223,7 +223,7 @@ class Reader(
 
                 enable_customer_cancellation: Optional[bool]
                 """
-                Enable customer initiated cancellation when processing this payment.
+                Enable customer-initiated cancellation when processing this payment.
                 """
                 skip_tipping: Optional[bool]
                 """
@@ -261,7 +261,7 @@ class Reader(
             class ConfirmConfig(StripeObject):
                 return_url: Optional[str]
                 """
-                If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+                If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
                 """
 
             account: Optional[str]
@@ -288,11 +288,11 @@ class Reader(
 
                 enable_customer_cancellation: Optional[bool]
                 """
-                Enable customer initiated cancellation when processing this payment.
+                Enable customer-initiated cancellation when processing this payment.
                 """
                 return_url: Optional[str]
                 """
-                If the customer does not abandon authenticating the payment, they will be redirected to this specified URL after completion.
+                If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
                 """
                 skip_tipping: Optional[bool]
                 """
@@ -322,7 +322,7 @@ class Reader(
             class ProcessConfig(StripeObject):
                 enable_customer_cancellation: Optional[bool]
                 """
-                Enable customer initiated cancellation when processing this SetupIntent.
+                Enable customer-initiated cancellation when processing this SetupIntent.
                 """
 
             generated_card: Optional[str]
@@ -343,7 +343,7 @@ class Reader(
             class RefundPaymentConfig(StripeObject):
                 enable_customer_cancellation: Optional[bool]
                 """
-                Enable customer initiated cancellation when refunding this payment.
+                Enable customer-initiated cancellation when refunding this payment.
                 """
 
             account: Optional[str]
@@ -597,7 +597,7 @@ class Reader(
             "Reader.CollectPaymentMethodParamsCollectConfig"
         ]
         """
-        Configuration overrides
+        Configuration overrides.
         """
         expand: NotRequired[List[str]]
         """
@@ -605,7 +605,7 @@ class Reader(
         """
         payment_intent: str
         """
-        PaymentIntent ID
+        PaymentIntent ID.
         """
 
     class CollectPaymentMethodParamsCollectConfig(TypedDict):
@@ -641,7 +641,7 @@ class Reader(
             "Reader.ConfirmPaymentIntentParamsConfirmConfig"
         ]
         """
-        Configuration overrides
+        Configuration overrides.
         """
         expand: NotRequired[List[str]]
         """
@@ -649,7 +649,7 @@ class Reader(
         """
         payment_intent: str
         """
-        PaymentIntent ID
+        PaymentIntent ID.
         """
 
     class ConfirmPaymentIntentParamsConfirmConfig(TypedDict):
@@ -969,6 +969,10 @@ class Reader(
     """
     The most recent action performed by the reader.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     device_sw_version: Optional[str]
     """
     The current software version of the reader.
@@ -1022,10 +1026,6 @@ class Reader(
     status: Optional[Literal["offline", "online"]]
     """
     The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

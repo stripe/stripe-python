@@ -196,6 +196,10 @@ class FinancialAccountNotOpenError(StripeError):
     pass
 
 
+class FeatureNotEnabledError(StripeError):
+    pass
+
+
 class BlockedByStripeError(StripeError):
     pass
 
@@ -217,10 +221,6 @@ class QuotaExceededError(StripeError):
 
 
 class RecipientNotNotifiableError(StripeError):
-    pass
-
-
-class FeatureNotEnabledError(StripeError):
     pass
 
 

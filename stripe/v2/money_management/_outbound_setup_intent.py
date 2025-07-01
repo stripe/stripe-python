@@ -30,13 +30,13 @@ class OutboundSetupIntent(StripeObject):
             The Confirmation of Payee status.
             """
 
-        type: Literal["confirmation_of_payee"]
-        """
-        The type of next action.
-        """
         confirmation_of_payee: Optional[ConfirmationOfPayee]
         """
         Confirmation of Payee details.
+        """
+        type: Literal["confirmation_of_payee"]
+        """
+        The type of next action.
         """
         _inner_class_types = {"confirmation_of_payee": ConfirmationOfPayee}
 
@@ -47,6 +47,10 @@ class OutboundSetupIntent(StripeObject):
     id: str
     """
     ID of the outbound setup intent.
+    """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     next_action: Optional[NextAction]
     """
@@ -69,9 +73,5 @@ class OutboundSetupIntent(StripeObject):
     usage_intent: Literal["payment", "transfer"]
     """
     The intended money movement flow this payout method should be set up for, specified in params.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {"next_action": NextAction}

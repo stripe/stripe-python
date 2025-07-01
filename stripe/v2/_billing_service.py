@@ -16,9 +16,9 @@ from stripe.v2.billing._meter_event_stream_service import (
 class BillingService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.meter_event_session = MeterEventSessionService(self._requestor)
         self.meter_event_adjustments = MeterEventAdjustmentService(
             self._requestor,
         )
+        self.meter_event_session = MeterEventSessionService(self._requestor)
         self.meter_event_stream = MeterEventStreamService(self._requestor)
         self.meter_events = MeterEventService(self._requestor)

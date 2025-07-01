@@ -89,44 +89,38 @@ class OffSessionPaymentService(StripeService):
     class RetrieveParams(TypedDict):
         pass
 
-    def cancel(
+    def list(
         self,
-        id: str,
-        params: "OffSessionPaymentService.CancelParams" = {},
+        params: "OffSessionPaymentService.ListParams" = {},
         options: RequestOptions = {},
-    ) -> OffSessionPayment:
+    ) -> ListObject[OffSessionPayment]:
         """
-        Cancel OSP.
+        List OSPs matching filter.
         """
         return cast(
-            OffSessionPayment,
+            ListObject[OffSessionPayment],
             self._request(
-                "post",
-                "/v2/payments/off_session_payments/{id}/cancel".format(
-                    id=sanitize_id(id),
-                ),
+                "get",
+                "/v2/payments/off_session_payments",
                 base_address="api",
                 params=params,
                 options=options,
             ),
         )
 
-    async def cancel_async(
+    async def list_async(
         self,
-        id: str,
-        params: "OffSessionPaymentService.CancelParams" = {},
+        params: "OffSessionPaymentService.ListParams" = {},
         options: RequestOptions = {},
-    ) -> OffSessionPayment:
+    ) -> ListObject[OffSessionPayment]:
         """
-        Cancel OSP.
+        List OSPs matching filter.
         """
         return cast(
-            OffSessionPayment,
+            ListObject[OffSessionPayment],
             await self._request_async(
-                "post",
-                "/v2/payments/off_session_payments/{id}/cancel".format(
-                    id=sanitize_id(id),
-                ),
+                "get",
+                "/v2/payments/off_session_payments",
                 base_address="api",
                 params=params,
                 options=options,
@@ -171,44 +165,6 @@ class OffSessionPaymentService(StripeService):
             ),
         )
 
-    def list(
-        self,
-        params: "OffSessionPaymentService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[OffSessionPayment]:
-        """
-        List OSPs matching filter.
-        """
-        return cast(
-            ListObject[OffSessionPayment],
-            self._request(
-                "get",
-                "/v2/payments/off_session_payments",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def list_async(
-        self,
-        params: "OffSessionPaymentService.ListParams" = {},
-        options: RequestOptions = {},
-    ) -> ListObject[OffSessionPayment]:
-        """
-        List OSPs matching filter.
-        """
-        return cast(
-            ListObject[OffSessionPayment],
-            await self._request_async(
-                "get",
-                "/v2/payments/off_session_payments",
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
     def retrieve(
         self,
         id: str,
@@ -245,6 +201,50 @@ class OffSessionPaymentService(StripeService):
             await self._request_async(
                 "get",
                 "/v2/payments/off_session_payments/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def cancel(
+        self,
+        id: str,
+        params: "OffSessionPaymentService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> OffSessionPayment:
+        """
+        Cancel OSP.
+        """
+        return cast(
+            OffSessionPayment,
+            self._request(
+                "post",
+                "/v2/payments/off_session_payments/{id}/cancel".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cancel_async(
+        self,
+        id: str,
+        params: "OffSessionPaymentService.CancelParams" = {},
+        options: RequestOptions = {},
+    ) -> OffSessionPayment:
+        """
+        Cancel OSP.
+        """
+        return cast(
+            OffSessionPayment,
+            await self._request_async(
+                "post",
+                "/v2/payments/off_session_payments/{id}/cancel".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

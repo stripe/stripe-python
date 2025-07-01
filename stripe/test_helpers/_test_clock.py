@@ -91,6 +91,10 @@ class TestClock(
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     deletes_after: int
     """
     Time at which this clock is scheduled to auto delete.
@@ -120,10 +124,6 @@ class TestClock(
     The status of the Test Clock.
     """
     status_details: StatusDetails
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
-    """
 
     @classmethod
     def _cls_advance(

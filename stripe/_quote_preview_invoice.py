@@ -926,6 +926,7 @@ class QuotePreviewInvoice(StripeObject):
                     "boleto",
                     "card",
                     "cashapp",
+                    "crypto",
                     "custom",
                     "customer_balance",
                     "eps",

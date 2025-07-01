@@ -905,7 +905,7 @@ class PaymentIntentService(StripeService):
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, a card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        The list of payment method types (for example, a card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
         """
         radar_options: NotRequired[
             "PaymentIntentService.ConfirmParamsRadarOptions"
@@ -1807,6 +1807,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer_balance: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataCustomerBalance"
         ]
@@ -2065,6 +2071,7 @@ class PaymentIntentService(StripeService):
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -2246,6 +2253,9 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataCashapp(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataCrypto(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataCustomerBalance(TypedDict):
         pass
 
@@ -2340,6 +2350,7 @@ class PaymentIntentService(StripeService):
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -2691,6 +2702,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
+        """
+        crypto: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsCrypto"
+        ]
+        """
+        If this is a `crypto` PaymentMethod, this sub-hash contains details about the Crypto payment method options.
         """
         customer_balance: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsCustomerBalance"
@@ -3376,9 +3393,9 @@ class PaymentIntentService(StripeService):
         For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
-        type: Literal["fixed_count"]
+        type: Literal["bonus", "fixed_count", "revolving"]
         """
-        Type of installment plan, one of `fixed_count`.
+        Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
         """
 
     class ConfirmParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
@@ -3585,6 +3602,20 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsCrypto(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class ConfirmParamsPaymentMethodOptionsCustomerBalance(TypedDict):
         bank_transfer: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
@@ -3698,7 +3729,7 @@ class PaymentIntentService(StripeService):
         """
 
     class ConfirmParamsPaymentMethodOptionsGopay(TypedDict):
-        setup_future_usage: NotRequired[Literal["none"]]
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3797,6 +3828,12 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
+        on_demand: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodOptionsKlarnaOnDemand"
+        ]
+        """
+        On-demand details if setting up or charging an on-demand payment.
+        """
         preferred_locale: NotRequired[
             Literal[
                 "cs-CZ",
@@ -3850,7 +3887,9 @@ class PaymentIntentService(StripeService):
         """
         Preferred language of the Klarna authorization page that the customer is redirected to
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        setup_future_usage: NotRequired[
+            Literal["none", "off_session", "on_session"]
+        ]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3861,6 +3900,70 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+        subscriptions: NotRequired[
+            "Literal['']|List[PaymentIntentService.ConfirmParamsPaymentMethodOptionsKlarnaSubscription]"
+        ]
+        """
+        Subscription details if setting up or charging a subscription.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
+        average_amount: NotRequired[int]
+        """
+        Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        maximum_amount: NotRequired[int]
+        """
+        The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        minimum_amount: NotRequired[int]
+        """
+        The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        purchase_interval: NotRequired[Literal["day", "month", "week", "year"]]
+        """
+        Interval at which the customer is making purchases
+        """
+        purchase_interval_count: NotRequired[int]
+        """
+        The number of `purchase_interval` between charges
+        """
+
+    class ConfirmParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Unit of time between subscription charges.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+        """
+        name: NotRequired[str]
+        """
+        Name for subscription.
+        """
+        next_billing: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling"
+        ]
+        """
+        Describes the upcoming charge for this subscription.
+        """
+        reference: str
+        """
+        A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The amount of the next charge for the subscription.
+        """
+        date: str
+        """
+        The date of the next charge for the subscription in YYYY-MM-DD format.
         """
 
     class ConfirmParamsPaymentMethodOptionsKonbini(TypedDict):
@@ -4852,7 +4955,7 @@ class PaymentIntentService(StripeService):
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
+        The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
         """
         radar_options: NotRequired[
             "PaymentIntentService.CreateParamsRadarOptions"
@@ -5783,6 +5886,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer_balance: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataCustomerBalance"
         ]
@@ -6041,6 +6150,7 @@ class PaymentIntentService(StripeService):
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -6222,6 +6332,9 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodDataCashapp(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataCrypto(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):
         pass
 
@@ -6316,6 +6429,7 @@ class PaymentIntentService(StripeService):
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -6667,6 +6781,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
+        """
+        crypto: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsCrypto"
+        ]
+        """
+        If this is a `crypto` PaymentMethod, this sub-hash contains details about the Crypto payment method options.
         """
         customer_balance: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsCustomerBalance"
@@ -7352,9 +7472,9 @@ class PaymentIntentService(StripeService):
         For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
-        type: Literal["fixed_count"]
+        type: Literal["bonus", "fixed_count", "revolving"]
         """
-        Type of installment plan, one of `fixed_count`.
+        Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
         """
 
     class CreateParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
@@ -7561,6 +7681,20 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsCrypto(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class CreateParamsPaymentMethodOptionsCustomerBalance(TypedDict):
         bank_transfer: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
@@ -7674,7 +7808,7 @@ class PaymentIntentService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsGopay(TypedDict):
-        setup_future_usage: NotRequired[Literal["none"]]
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -7773,6 +7907,12 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
+        on_demand: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodOptionsKlarnaOnDemand"
+        ]
+        """
+        On-demand details if setting up or charging an on-demand payment.
+        """
         preferred_locale: NotRequired[
             Literal[
                 "cs-CZ",
@@ -7826,7 +7966,9 @@ class PaymentIntentService(StripeService):
         """
         Preferred language of the Klarna authorization page that the customer is redirected to
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        setup_future_usage: NotRequired[
+            Literal["none", "off_session", "on_session"]
+        ]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -7837,6 +7979,70 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+        subscriptions: NotRequired[
+            "Literal['']|List[PaymentIntentService.CreateParamsPaymentMethodOptionsKlarnaSubscription]"
+        ]
+        """
+        Subscription details if setting up or charging a subscription.
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
+        average_amount: NotRequired[int]
+        """
+        Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        maximum_amount: NotRequired[int]
+        """
+        The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        minimum_amount: NotRequired[int]
+        """
+        The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        purchase_interval: NotRequired[Literal["day", "month", "week", "year"]]
+        """
+        Interval at which the customer is making purchases
+        """
+        purchase_interval_count: NotRequired[int]
+        """
+        The number of `purchase_interval` between charges
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Unit of time between subscription charges.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+        """
+        name: NotRequired[str]
+        """
+        Name for subscription.
+        """
+        next_billing: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling"
+        ]
+        """
+        Describes the upcoming charge for this subscription.
+        """
+        reference: str
+        """
+        A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The amount of the next charge for the subscription.
+        """
+        date: str
+        """
+        The date of the next charge for the subscription in YYYY-MM-DD format.
         """
 
     class CreateParamsPaymentMethodOptionsKonbini(TypedDict):
@@ -9054,7 +9260,7 @@ class PaymentIntentService(StripeService):
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
         """
         receipt_email: NotRequired["Literal['']|str"]
         """
@@ -9945,6 +10151,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer_balance: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataCustomerBalance"
         ]
@@ -10203,6 +10415,7 @@ class PaymentIntentService(StripeService):
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -10384,6 +10597,9 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodDataCashapp(TypedDict):
         pass
 
+    class UpdateParamsPaymentMethodDataCrypto(TypedDict):
+        pass
+
     class UpdateParamsPaymentMethodDataCustomerBalance(TypedDict):
         pass
 
@@ -10478,6 +10694,7 @@ class PaymentIntentService(StripeService):
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -10829,6 +11046,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
+        """
+        crypto: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsCrypto"
+        ]
+        """
+        If this is a `crypto` PaymentMethod, this sub-hash contains details about the Crypto payment method options.
         """
         customer_balance: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsCustomerBalance"
@@ -11514,9 +11737,9 @@ class PaymentIntentService(StripeService):
         For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
-        type: Literal["fixed_count"]
+        type: Literal["bonus", "fixed_count", "revolving"]
         """
-        Type of installment plan, one of `fixed_count`.
+        Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
         """
 
     class UpdateParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
@@ -11723,6 +11946,20 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class UpdateParamsPaymentMethodOptionsCrypto(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class UpdateParamsPaymentMethodOptionsCustomerBalance(TypedDict):
         bank_transfer: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
@@ -11836,7 +12073,7 @@ class PaymentIntentService(StripeService):
         """
 
     class UpdateParamsPaymentMethodOptionsGopay(TypedDict):
-        setup_future_usage: NotRequired[Literal["none"]]
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -11935,6 +12172,12 @@ class PaymentIntentService(StripeService):
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
+        on_demand: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodOptionsKlarnaOnDemand"
+        ]
+        """
+        On-demand details if setting up or charging an on-demand payment.
+        """
         preferred_locale: NotRequired[
             Literal[
                 "cs-CZ",
@@ -11988,7 +12231,9 @@ class PaymentIntentService(StripeService):
         """
         Preferred language of the Klarna authorization page that the customer is redirected to
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        setup_future_usage: NotRequired[
+            Literal["none", "off_session", "on_session"]
+        ]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -11999,6 +12244,70 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+        subscriptions: NotRequired[
+            "Literal['']|List[PaymentIntentService.UpdateParamsPaymentMethodOptionsKlarnaSubscription]"
+        ]
+        """
+        Subscription details if setting up or charging a subscription.
+        """
+
+    class UpdateParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
+        average_amount: NotRequired[int]
+        """
+        Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        maximum_amount: NotRequired[int]
+        """
+        The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        minimum_amount: NotRequired[int]
+        """
+        The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        purchase_interval: NotRequired[Literal["day", "month", "week", "year"]]
+        """
+        Interval at which the customer is making purchases
+        """
+        purchase_interval_count: NotRequired[int]
+        """
+        The number of `purchase_interval` between charges
+        """
+
+    class UpdateParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Unit of time between subscription charges.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+        """
+        name: NotRequired[str]
+        """
+        Name for subscription.
+        """
+        next_billing: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling"
+        ]
+        """
+        Describes the upcoming charge for this subscription.
+        """
+        reference: str
+        """
+        A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+        """
+
+    class UpdateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The amount of the next charge for the subscription.
+        """
+        date: str
+        """
+        The date of the next charge for the subscription in YYYY-MM-DD format.
         """
 
     class UpdateParamsPaymentMethodOptionsKonbini(TypedDict):
