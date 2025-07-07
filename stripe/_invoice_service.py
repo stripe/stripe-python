@@ -366,7 +366,7 @@ class InvoiceService(StripeService):
         """
         auto_advance: NotRequired[bool]
         """
-        Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
+        Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. Defaults to false.
         """
         automatic_tax: NotRequired["InvoiceService.CreateParamsAutomaticTax"]
         """
@@ -722,7 +722,7 @@ class InvoiceService(StripeService):
             "InvoiceService.CreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this invoice (Mexico Only).
+        Installment configuration for payments attempted on this invoice.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -2182,6 +2182,9 @@ class InvoiceService(StripeService):
 
     class CreatePreviewParamsScheduleDetailsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreatePreviewParamsScheduleDetailsPhase(TypedDict):
         add_invoice_items: NotRequired[
@@ -2833,6 +2836,9 @@ class InvoiceService(StripeService):
 
     class CreatePreviewParamsSubscriptionDetailsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreatePreviewParamsSubscriptionDetailsItem(TypedDict):
         billing_thresholds: NotRequired[
@@ -3806,7 +3812,7 @@ class InvoiceService(StripeService):
             "InvoiceService.UpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this invoice (Mexico Only).
+        Installment configuration for payments attempted on this invoice.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """

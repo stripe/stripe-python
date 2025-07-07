@@ -907,6 +907,9 @@ class Subscription(
 
     class CreateParamsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreateParamsBillingThresholds(TypedDict):
         amount_gte: NotRequired[int]

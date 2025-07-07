@@ -1265,6 +1265,9 @@ class SubscriptionSchedule(
 
     class CreateParamsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreateParamsDefaultSettings(TypedDict):
         application_fee_percent: NotRequired[float]

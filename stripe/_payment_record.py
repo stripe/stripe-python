@@ -204,7 +204,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 class Card(StripeObject):
                     brand: Optional[str]
                     """
-                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
                     """
                     brand_product: Optional[str]
                     """
@@ -430,7 +430,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 "visa",
             ]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
             capture_before: Optional[int]
             """
@@ -572,7 +572,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             brand: Optional[str]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
             brand_product: Optional[str]
             """
@@ -687,6 +687,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             cashtag: Optional[str]
             """
             A public identifier for buyers using Cash App.
+            """
+            transaction_id: Optional[str]
+            """
+            A unique and immutable identifier of payments assigned by Cash App
             """
 
         class Crypto(StripeObject):
@@ -1443,7 +1447,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 class Card(StripeObject):
                     brand: Optional[str]
                     """
-                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
                     """
                     brand_product: Optional[str]
                     """
