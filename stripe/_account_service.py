@@ -170,7 +170,7 @@ class AccountService(StripeService):
             ]
         ]
         """
-        Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        Whether the business is a minority-owned, women-owned, and/or LGBTQI+ -owned business.
         """
         monthly_estimated_revenue: NotRequired[
             "AccountService.CreateParamsBusinessProfileMonthlyEstimatedRevenue"
@@ -2394,7 +2394,7 @@ class AccountService(StripeService):
             ]
         ]
         """
-        Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        Whether the business is a minority-owned, women-owned, and/or LGBTQI+ -owned business.
         """
         monthly_estimated_revenue: NotRequired[
             "AccountService.UpdateParamsBusinessProfileMonthlyEstimatedRevenue"

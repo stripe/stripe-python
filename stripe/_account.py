@@ -132,7 +132,7 @@ class Account(
             ]
         ]
         """
-        Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        Whether the business is a minority-owned, women-owned, and/or LGBTQI+ -owned business.
         """
         monthly_estimated_revenue: Optional[MonthlyEstimatedRevenue]
         name: Optional[str]
@@ -1722,7 +1722,7 @@ class Account(
             ]
         ]
         """
-        Whether the business is a minority-owned, women-owned, and/or LGBTQI+-owned business.
+        Whether the business is a minority-owned, women-owned, and/or LGBTQI+ -owned business.
         """
         monthly_estimated_revenue: NotRequired[
             "Account.CreateParamsBusinessProfileMonthlyEstimatedRevenue"
