@@ -371,10 +371,14 @@ class _APIRequestor(object):
         # switchCases: The beginning of the section generated from our OpenAPI spec
         elif type == "temporary_session_expired":
             return error.TemporarySessionExpiredError(**error_args)
-        elif type == "financial_account_not_open":
-            return error.FinancialAccountNotOpenError(**error_args)
+        elif type == "non_zero_balance":
+            return error.NonZeroBalanceError(**error_args)
+        elif type == "already_exists":
+            return error.AlreadyExistsError(**error_args)
         elif type == "feature_not_enabled":
             return error.FeatureNotEnabledError(**error_args)
+        elif type == "financial_account_not_open":
+            return error.FinancialAccountNotOpenError(**error_args)
         elif type == "blocked_by_stripe":
             return error.BlockedByStripeError(**error_args)
         elif type == "already_canceled":

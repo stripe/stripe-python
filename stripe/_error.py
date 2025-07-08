@@ -192,11 +192,19 @@ class TemporarySessionExpiredError(StripeError):
     pass
 
 
-class FinancialAccountNotOpenError(StripeError):
+class NonZeroBalanceError(StripeError):
+    pass
+
+
+class AlreadyExistsError(StripeError):
     pass
 
 
 class FeatureNotEnabledError(StripeError):
+    pass
+
+
+class FinancialAccountNotOpenError(StripeError):
     pass
 
 
