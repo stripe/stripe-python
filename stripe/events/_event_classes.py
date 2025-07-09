@@ -48,6 +48,12 @@ from stripe.events._v2_core_account_including_configuration_recipient_capability
 from stripe.events._v2_core_account_including_configuration_recipient_updated_event import (
     V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
 )
+from stripe.events._v2_core_account_including_configuration_storer_capability_status_updated_event import (
+    V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent,
+)
+from stripe.events._v2_core_account_including_configuration_storer_updated_event import (
+    V2CoreAccountIncludingConfigurationStorerUpdatedEvent,
+)
 from stripe.events._v2_money_management_adjustment_created_event import (
     V2MoneyManagementAdjustmentCreatedEvent,
 )
@@ -193,6 +199,8 @@ THIN_EVENT_CLASSES = {
     V2CoreAccountIncludingConfigurationMerchantUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationMerchantUpdatedEvent,
     V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
     V2CoreAccountIncludingConfigurationRecipientUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
+    V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent,
+    V2CoreAccountIncludingConfigurationStorerUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationStorerUpdatedEvent,
     V2CoreAccountIncludingDefaultsUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingDefaultsUpdatedEvent,
     V2CoreAccountIncludingIdentityUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingIdentityUpdatedEvent,
     V2CoreAccountIncludingRequirementsUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingRequirementsUpdatedEvent,

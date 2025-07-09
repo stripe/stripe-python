@@ -3361,6 +3361,408 @@ class Account(StripeObject):
                 "default_outbound_destination": DefaultOutboundDestination,
             }
 
+        class Storer(StripeObject):
+            class Capabilities(StripeObject):
+                class FinancialAddresses(StripeObject):
+                    class BankAccounts(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    bank_accounts: Optional[BankAccounts]
+                    """
+                    Can provision a bank-account like financial address (VBAN) to credit/debit a FinancialAccount.
+                    """
+                    _inner_class_types = {"bank_accounts": BankAccounts}
+
+                class HoldsCurrencies(StripeObject):
+                    class Gbp(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    gbp: Optional[Gbp]
+                    """
+                    Can hold storage-type funds on Stripe in GBP.
+                    """
+                    _inner_class_types = {"gbp": Gbp}
+
+                class InboundTransfers(StripeObject):
+                    class BankAccounts(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    bank_accounts: Optional[BankAccounts]
+                    """
+                    Can pull funds from an external bank account, owned by yourself, to a FinancialAccount.
+                    """
+                    _inner_class_types = {"bank_accounts": BankAccounts}
+
+                class OutboundPayments(StripeObject):
+                    class BankAccounts(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    class Cards(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    class FinancialAccounts(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    bank_accounts: Optional[BankAccounts]
+                    """
+                    Can send funds from a FinancialAccount to a bank account, owned by someone else.
+                    """
+                    cards: Optional[Cards]
+                    """
+                    Can send funds from a FinancialAccount to a debit card, owned by someone else.
+                    """
+                    financial_accounts: Optional[FinancialAccounts]
+                    """
+                    Can send funds from a FinancialAccount to another FinancialAccount, owned by someone else.
+                    """
+                    _inner_class_types = {
+                        "bank_accounts": BankAccounts,
+                        "cards": Cards,
+                        "financial_accounts": FinancialAccounts,
+                    }
+
+                class OutboundTransfers(StripeObject):
+                    class BankAccounts(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    class FinancialAccounts(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    bank_accounts: Optional[BankAccounts]
+                    """
+                    Can send funds from a FinancialAccount, to a bank account, owned by yourself.
+                    """
+                    financial_accounts: Optional[FinancialAccounts]
+                    """
+                    Can send funds from a FinancialAccount to another FinancialAccount, owned by yourself.
+                    """
+                    _inner_class_types = {
+                        "bank_accounts": BankAccounts,
+                        "financial_accounts": FinancialAccounts,
+                    }
+
+                financial_addresses: Optional[FinancialAddresses]
+                """
+                Can provision a financial address to credit/debit a FinancialAccount.
+                """
+                holds_currencies: Optional[HoldsCurrencies]
+                """
+                Can hold storage-type funds on Stripe.
+                """
+                inbound_transfers: Optional[InboundTransfers]
+                """
+                Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+                """
+                outbound_payments: Optional[OutboundPayments]
+                """
+                Can send funds from a FinancialAccount to a destination owned by someone else.
+                """
+                outbound_transfers: Optional[OutboundTransfers]
+                """
+                Can send funds from a FinancialAccount to a destination owned by yourself.
+                """
+                _inner_class_types = {
+                    "financial_addresses": FinancialAddresses,
+                    "holds_currencies": HoldsCurrencies,
+                    "inbound_transfers": InboundTransfers,
+                    "outbound_payments": OutboundPayments,
+                    "outbound_transfers": OutboundTransfers,
+                }
+
+            capabilities: Optional[Capabilities]
+            """
+            Capabilities that have been requested on the Storer Configuration.
+            """
+            _inner_class_types = {"capabilities": Capabilities}
+
         customer: Optional[Customer]
         """
         The Customer Configuration allows the Account to be used in inbound payment flows.
@@ -3373,10 +3775,15 @@ class Account(StripeObject):
         """
         The Recipient Configuration allows the Account to receive funds.
         """
+        storer: Optional[Storer]
+        """
+        The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
+        """
         _inner_class_types = {
             "customer": Customer,
             "merchant": Merchant,
             "recipient": Recipient,
+            "storer": Storer,
         }
 
     class Defaults(StripeObject):
@@ -7190,10 +7597,13 @@ class Account(StripeObject):
                         "cartes_bancaires_payments",
                         "cashapp_payments",
                         "eps_payments",
+                        "financial_addresses.bank_accounts",
                         "fpx_payments",
                         "gb_bank_transfer_payments",
                         "grabpay_payments",
+                        "holds_currencies.gbp",
                         "ideal_payments",
+                        "inbound_transfers.financial_accounts",
                         "jcb_payments",
                         "jp_bank_transfer_payments",
                         "kakao_pay_payments",
@@ -7205,6 +7615,11 @@ class Account(StripeObject):
                         "multibanco_payments",
                         "mx_bank_transfer_payments",
                         "naver_pay_payments",
+                        "outbound_payments.bank_accounts",
+                        "outbound_payments.cards",
+                        "outbound_payments.financial_accounts",
+                        "outbound_transfers.bank_accounts",
+                        "outbound_transfers.financial_accounts",
                         "oxxo_payments",
                         "p24_payments",
                         "payco_payments",
@@ -7225,7 +7640,9 @@ class Account(StripeObject):
                     """
                     The name of the Capability which will be restricted.
                     """
-                    configuration: Literal["customer", "merchant", "recipient"]
+                    configuration: Literal[
+                        "customer", "merchant", "recipient", "storer"
+                    ]
                     """
                     The configuration which specifies the Capability which will be restricted.
                     """
@@ -7340,7 +7757,9 @@ class Account(StripeObject):
         """
         _inner_class_types = {"entries": Entry, "summary": Summary}
 
-    applied_configurations: List[Literal["customer", "merchant", "recipient"]]
+    applied_configurations: List[
+        Literal["customer", "merchant", "recipient", "storer"]
+    ]
     """
     Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
     """
