@@ -414,6 +414,18 @@ class Dispute(
             "paypal": Paypal,
         }
 
+    class SmartDisputes(StripeObject):
+        recommended_evidence: Optional[List[str]]
+        """
+        Evidence that could be provided to improve the SmartDisputes packet
+        """
+        status: Literal[
+            "available", "processing", "requires_evidence", "unavailable"
+        ]
+        """
+        Smart Disputes auto representment packet availability status.
+        """
+
     class CloseParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -841,6 +853,7 @@ class Dispute(
     """
     Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `noncompliant`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://stripe.com/docs/disputes/categories).
     """
+    smart_disputes: Optional[SmartDisputes]
     status: Literal[
         "lost",
         "needs_response",
@@ -1082,4 +1095,5 @@ class Dispute(
         "evidence": Evidence,
         "evidence_details": EvidenceDetails,
         "payment_method_details": PaymentMethodDetails,
+        "smart_disputes": SmartDisputes,
     }

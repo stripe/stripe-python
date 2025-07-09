@@ -208,6 +208,10 @@ class SessionService(StripeService):
 
         For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
         """
+        origin_context: NotRequired[Literal["mobile_app", "web"]]
+        """
+        Where the user is coming from. This informs the optimizations that are applied to the session. For example, a session originating from a mobile app may behave more like a native app, depending on the platform. This parameter is currently not allowed if `ui_mode` is `embedded` or `custom`.
+        """
         payment_intent_data: NotRequired[
             "SessionService.CreateParamsPaymentIntentData"
         ]
