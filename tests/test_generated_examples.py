@@ -33977,6 +33977,32 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_v2_money_management_financial_account_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/financial_accounts",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.financial_accounts.create(
+            {
+                "type": "storage",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/financial_accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"type":"storage"}',
+            is_json=True,
+        )
+
     def test_v2_money_management_financial_account_get_2_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -33995,6 +34021,28 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_accounts/id_123",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_financial_account_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/financial_accounts/id_123/close",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.financial_accounts.close("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/financial_accounts/id_123/close",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
         )
 
     def test_v2_money_management_financial_address_get_service(
@@ -34930,6 +34978,95 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_non_zero_balance_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/financial_accounts/id_123/close",
+            rbody='{"error":{"type":"non_zero_balance","code":"closing_financial_account_with_non_zero_balances"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.money_management.financial_accounts.close("id_123")
+        except _error.NonZeroBalanceError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/financial_accounts/id_123/close",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_already_exists_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/financial_accounts",
+            rbody='{"error":{"type":"already_exists","code":"already_exists"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.money_management.financial_accounts.create(
+                {
+                    "type": "storage",
+                }
+            )
+        except _error.AlreadyExistsError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/financial_accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"type":"storage"}',
+            is_json=True,
+        )
+
+    def test_feature_not_enabled_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/financial_accounts",
+            rbody='{"error":{"type":"feature_not_enabled","code":"storer_capability_missing"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.money_management.financial_accounts.create(
+                {
+                    "type": "storage",
+                }
+            )
+        except _error.FeatureNotEnabledError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/financial_accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"type":"storage"}',
+            is_json=True,
+        )
+
     def test_financial_account_not_open_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -34952,38 +35089,6 @@ class TestGeneratedExamples(object):
                 }
             )
         except _error.FinancialAccountNotOpenError:
-            pass
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/money_management/financial_addresses",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data='{"currency":"stn","financial_account":"financial_account"}',
-            is_json=True,
-        )
-
-    def test_feature_not_enabled_error_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/money_management/financial_addresses",
-            rbody='{"error":{"type":"feature_not_enabled","code":"storer_capability_missing"}}',
-            rcode=400,
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        try:
-            client.v2.money_management.financial_addresses.create(
-                {
-                    "currency": "stn",
-                    "financial_account": "financial_account",
-                }
-            )
-        except _error.FeatureNotEnabledError:
             pass
         http_client_mock.assert_requested(
             "post",

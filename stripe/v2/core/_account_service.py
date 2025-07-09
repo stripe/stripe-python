@@ -18,7 +18,7 @@ class AccountService(StripeService):
 
     class CloseParams(TypedDict):
         applied_configurations: NotRequired[
-            List[Literal["customer", "merchant", "recipient"]]
+            List[Literal["customer", "merchant", "recipient", "storer"]]
         ]
         """
         Configurations on the Account to be closed. All configurations on the Account must be passed in for this request to succeed.
@@ -55,6 +55,7 @@ class AccountService(StripeService):
                     "configuration.customer",
                     "configuration.merchant",
                     "configuration.recipient",
+                    "configuration.storer",
                     "defaults",
                     "identity",
                     "requirements",
@@ -87,6 +88,10 @@ class AccountService(StripeService):
         ]
         """
         The Recipient Configuration allows the Account to receive funds.
+        """
+        storer: NotRequired["AccountService.CreateParamsConfigurationStorer"]
+        """
+        The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
         """
 
     class CreateParamsConfigurationCustomer(TypedDict):
@@ -1578,6 +1583,178 @@ class AccountService(StripeService):
         """
 
     class CreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers(
+        TypedDict,
+    ):
+        requested: bool
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class CreateParamsConfigurationStorer(TypedDict):
+        capabilities: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilities"
+        ]
+        """
+        Capabilities to request on the Storer Configuration.
+        """
+
+    class CreateParamsConfigurationStorerCapabilities(TypedDict):
+        financial_addresses: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesFinancialAddresses"
+        ]
+        """
+        Can provision a financial address to credit/debit a FinancialAccount.
+        """
+        holds_currencies: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesHoldsCurrencies"
+        ]
+        """
+        Can hold storage-type funds on Stripe.
+        """
+        inbound_transfers: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesInboundTransfers"
+        ]
+        """
+        Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+        """
+        outbound_payments: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesOutboundPayments"
+        ]
+        """
+        Can send funds from a FinancialAccount to a destination owned by someone else.
+        """
+        outbound_transfers: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesOutboundTransfers"
+        ]
+        """
+        Can send funds from a FinancialAccount to a destination owned by yourself.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesFinancialAddresses(
+        TypedDict,
+    ):
+        bank_accounts: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts"
+        ]
+        """
+        Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts(
+        TypedDict,
+    ):
+        requested: bool
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesHoldsCurrencies(
+        TypedDict
+    ):
+        gbp: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp"
+        ]
+        """
+        Can hold storage-type funds on Stripe in GBP.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp(
+        TypedDict,
+    ):
+        requested: bool
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesInboundTransfers(
+        TypedDict,
+    ):
+        bank_accounts: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts"
+        ]
+        """
+        Can pull funds from an external bank account owned by yourself to a FinancialAccount.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts(
+        TypedDict,
+    ):
+        requested: bool
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesOutboundPayments(
+        TypedDict,
+    ):
+        bank_accounts: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts"
+        ]
+        """
+        Can send funds from a FinancialAccount to a bank account owned by someone else.
+        """
+        cards: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards"
+        ]
+        """
+        Can send funds from a FinancialAccount to a debit card owned by someone else.
+        """
+        financial_accounts: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts"
+        ]
+        """
+        Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts(
+        TypedDict,
+    ):
+        requested: bool
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards(
+        TypedDict,
+    ):
+        requested: bool
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts(
+        TypedDict,
+    ):
+        requested: bool
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesOutboundTransfers(
+        TypedDict,
+    ):
+        bank_accounts: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts"
+        ]
+        """
+        Can send funds from a FinancialAccount to a bank account owned by yourself.
+        """
+        financial_accounts: NotRequired[
+            "AccountService.CreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts"
+        ]
+        """
+        Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts(
+        TypedDict,
+    ):
+        requested: bool
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class CreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts(
         TypedDict,
     ):
         requested: bool
@@ -5275,6 +5452,7 @@ class AccountService(StripeService):
                     "configuration.customer",
                     "configuration.merchant",
                     "configuration.recipient",
+                    "configuration.storer",
                     "defaults",
                     "identity",
                     "requirements",
@@ -5316,6 +5494,7 @@ class AccountService(StripeService):
                     "configuration.customer",
                     "configuration.merchant",
                     "configuration.recipient",
+                    "configuration.storer",
                     "defaults",
                     "identity",
                     "requirements",
@@ -5348,6 +5527,10 @@ class AccountService(StripeService):
         ]
         """
         The Recipient Configuration allows the Account to receive funds.
+        """
+        storer: NotRequired["AccountService.UpdateParamsConfigurationStorer"]
+        """
+        The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
         """
 
     class UpdateParamsConfigurationCustomer(TypedDict):
@@ -6857,6 +7040,178 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers(
+        TypedDict,
+    ):
+        requested: NotRequired[bool]
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class UpdateParamsConfigurationStorer(TypedDict):
+        capabilities: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilities"
+        ]
+        """
+        Capabilities to request on the Storer Configuration.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilities(TypedDict):
+        financial_addresses: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesFinancialAddresses"
+        ]
+        """
+        Can provision a financial address to credit/debit a FinancialAccount.
+        """
+        holds_currencies: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies"
+        ]
+        """
+        Can hold storage-type funds on Stripe.
+        """
+        inbound_transfers: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesInboundTransfers"
+        ]
+        """
+        Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+        """
+        outbound_payments: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesOutboundPayments"
+        ]
+        """
+        Can send funds from a FinancialAccount to a destination owned by someone else.
+        """
+        outbound_transfers: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesOutboundTransfers"
+        ]
+        """
+        Can send funds from a FinancialAccount to a destination owned by yourself.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesFinancialAddresses(
+        TypedDict,
+    ):
+        bank_accounts: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts"
+        ]
+        """
+        Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts(
+        TypedDict,
+    ):
+        requested: NotRequired[bool]
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies(
+        TypedDict
+    ):
+        gbp: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp"
+        ]
+        """
+        Can hold storage-type funds on Stripe in GBP.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp(
+        TypedDict,
+    ):
+        requested: NotRequired[bool]
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesInboundTransfers(
+        TypedDict,
+    ):
+        bank_accounts: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts"
+        ]
+        """
+        Can pull funds from an external bank account owned by yourself to a FinancialAccount.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts(
+        TypedDict,
+    ):
+        requested: NotRequired[bool]
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesOutboundPayments(
+        TypedDict,
+    ):
+        bank_accounts: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts"
+        ]
+        """
+        Can send funds from a FinancialAccount to a bank account owned by someone else.
+        """
+        cards: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards"
+        ]
+        """
+        Can send funds from a FinancialAccount to a debit card owned by someone else.
+        """
+        financial_accounts: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts"
+        ]
+        """
+        Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts(
+        TypedDict,
+    ):
+        requested: NotRequired[bool]
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards(
+        TypedDict,
+    ):
+        requested: NotRequired[bool]
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts(
+        TypedDict,
+    ):
+        requested: NotRequired[bool]
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesOutboundTransfers(
+        TypedDict,
+    ):
+        bank_accounts: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts"
+        ]
+        """
+        Can send funds from a FinancialAccount to a bank account owned by yourself.
+        """
+        financial_accounts: NotRequired[
+            "AccountService.UpdateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts"
+        ]
+        """
+        Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts(
+        TypedDict,
+    ):
+        requested: NotRequired[bool]
+        """
+        To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+        """
+
+    class UpdateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts(
         TypedDict,
     ):
         requested: NotRequired[bool]

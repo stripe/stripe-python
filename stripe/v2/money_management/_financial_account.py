@@ -35,6 +35,25 @@ class FinancialAccount(StripeObject):
         The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
         """
 
+    class StatusDetails(StripeObject):
+        class Closed(StripeObject):
+            class ForwardingSettings(StripeObject):
+                payment_method: Optional[str]
+                """
+                The address to send forwarded payments to.
+                """
+                payout_method: Optional[str]
+                """
+                The address to send forwarded payouts to.
+                """
+
+            forwarding_settings: Optional[ForwardingSettings]
+            reason: Literal["account_closed", "closed_by_platform", "other"]
+            _inner_class_types = {"forwarding_settings": ForwardingSettings}
+
+        closed: Optional[Closed]
+        _inner_class_types = {"closed": Closed}
+
     class Storage(StripeObject):
         holds_currencies: List[
             Literal[
@@ -512,6 +531,7 @@ class FinancialAccount(StripeObject):
     """
     Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
     """
+    status_details: Optional[StatusDetails]
     storage: Optional[Storage]
     """
     If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
@@ -524,5 +544,6 @@ class FinancialAccount(StripeObject):
     _inner_class_types = {
         "balance": Balance,
         "other": Other,
+        "status_details": StatusDetails,
         "storage": Storage,
     }

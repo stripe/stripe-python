@@ -445,6 +445,7 @@ from stripe._ephemeral_key_service import (
 )
 from stripe._error import (
     AlreadyCanceledError as AlreadyCanceledError,
+    AlreadyExistsError as AlreadyExistsError,
     BlockedByStripeError as BlockedByStripeError,
     ControlledByDashboardError as ControlledByDashboardError,
     FeatureNotEnabledError as FeatureNotEnabledError,
@@ -452,6 +453,7 @@ from stripe._error import (
     InsufficientFundsError as InsufficientFundsError,
     InvalidPaymentMethodError as InvalidPaymentMethodError,
     InvalidPayoutMethodError as InvalidPayoutMethodError,
+    NonZeroBalanceError as NonZeroBalanceError,
     NotCancelableError as NotCancelableError,
     QuotaExceededError as QuotaExceededError,
     RecipientNotNotifiableError as RecipientNotNotifiableError,
