@@ -152,11 +152,11 @@ class VerificationSession(
         """
 
     class RelatedPerson(StripeObject):
-        account: Optional[str]
+        account: str
         """
         Token referencing the associated Account of the related Person resource.
         """
-        person: Optional[str]
+        person: str
         """
         Token referencing the related Person resource.
         """

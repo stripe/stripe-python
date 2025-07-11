@@ -1249,7 +1249,7 @@ class PaymentMethodService(StripeService):
         options: RequestOptions = {},
     ) -> PaymentMethod:
         """
-        Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
+        Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
         """
         return cast(
             PaymentMethod,
@@ -1271,7 +1271,7 @@ class PaymentMethodService(StripeService):
         options: RequestOptions = {},
     ) -> PaymentMethod:
         """
-        Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
+        Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
         """
         return cast(
             PaymentMethod,

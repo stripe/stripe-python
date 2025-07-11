@@ -200,7 +200,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 class Card(StripeObject):
                     brand: Optional[str]
                     """
-                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
                     """
                     brand_product: Optional[str]
                     """
@@ -426,7 +426,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 "visa",
             ]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
             capture_before: Optional[int]
             """
@@ -568,7 +568,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             brand: Optional[str]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
             brand_product: Optional[str]
             """
@@ -683,6 +683,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             cashtag: Optional[str]
             """
             A public identifier for buyers using Cash App.
+            """
+            transaction_id: Optional[str]
+            """
+            A unique and immutable identifier of payments assigned by Cash App
             """
 
         class Crypto(StripeObject):
@@ -1439,7 +1443,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 class Card(StripeObject):
                     brand: Optional[str]
                     """
-                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
                     """
                     brand_product: Optional[str]
                     """

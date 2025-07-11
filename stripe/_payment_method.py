@@ -253,7 +253,7 @@ class PaymentMethod(
                     """
                     brand: Optional[str]
                     """
-                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
                     """
                     brand_product: Optional[str]
                     """
@@ -598,7 +598,7 @@ class PaymentMethod(
 
         brand: str
         """
-        Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         """
         checks: Optional[Checks]
         """
@@ -703,7 +703,7 @@ class PaymentMethod(
 
         brand: Optional[str]
         """
-        Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         """
         brand_product: Optional[str]
         """
@@ -3076,7 +3076,7 @@ class PaymentMethod(
         cls, id: str, **params: Unpack["PaymentMethod.ModifyParams"]
     ) -> "PaymentMethod":
         """
-        Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
+        Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -3093,7 +3093,7 @@ class PaymentMethod(
         cls, id: str, **params: Unpack["PaymentMethod.ModifyParams"]
     ) -> "PaymentMethod":
         """
-        Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
+        Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(

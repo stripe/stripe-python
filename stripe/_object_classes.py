@@ -130,6 +130,7 @@ OBJECT_CLASSES = {
     stripe.SetupIntent.OBJECT_NAME: stripe.SetupIntent,
     stripe.ShippingRate.OBJECT_NAME: stripe.ShippingRate,
     stripe.sigma.ScheduledQueryRun.OBJECT_NAME: stripe.sigma.ScheduledQueryRun,
+    stripe.sigma.Schema.OBJECT_NAME: stripe.sigma.Schema,
     stripe.Source.OBJECT_NAME: stripe.Source,
     stripe.SourceMandateNotification.OBJECT_NAME: stripe.SourceMandateNotification,
     stripe.SourceTransaction.OBJECT_NAME: stripe.SourceTransaction,
