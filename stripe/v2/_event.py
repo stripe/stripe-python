@@ -5,6 +5,7 @@ from typing import ClassVar, Optional
 
 from typing_extensions import Literal
 
+from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
 
 # This describes the common format for the pull payload of a V2 ThinEvent
@@ -115,26 +116,26 @@ class ThinEvent:
     """
     created: str
     """
-    Livemode indicates if the event is from a production(true) or test(false) account.
+    Time at which the object was created.
     """
     livemode: bool
     """
-    Time at which the object was created.
+    Livemode indicates if the event is from a production(true) or test(false) account.
     """
     context: Optional[str] = None
     """
     [Optional] Authentication context needed to fetch the event or related object.
     """
-    related_object: Optional[RelatedObject] = None
-    """
-    [Optional] Object containing the reference to API resource relevant to the event.
-    """
+    # related_object: Optional[RelatedObject] = None
+    # """
+    # [Optional] Object containing the reference to API resource relevant to the event.
+    # """
     reason: Optional[Reason] = None
     """
     [Optional] Reason for the event.
     """
 
-    def __init__(self, payload: str) -> None:
+    def __init__(self, payload: str, client: StripeClient) -> None:
         parsed = json.loads(payload)
 
         self.id = parsed["id"]
@@ -142,10 +143,21 @@ class ThinEvent:
         self.created = parsed["created"]
         self.livemode = parsed.get("livemode")
         self.context = parsed.get("context")
-        if parsed.get("related_object"):
-            self.related_object = RelatedObject(parsed["related_object"])
+        # if parsed.get("related_object"):
+        #     self.related_object = RelatedObject(parsed["related_object"])
         if parsed.get("reason"):
             self.reason = Reason(parsed["reason"])
 
+        self.client = client
+
     def __repr__(self) -> str:
-        return f"<ThinEvent id={self.id} type={self.type} created={self.created} context={self.context} related_object={self.related_object} reason={self.reason}>"
+        return f"<ThinEvent id={self.id} type={self.type} created={self.created} context={self.context} reason={self.reason}>"
+
+    def pull(self):  # TODO: general return type?
+        response = self.client.raw_request(
+            "get",
+            f"/v2/core/events/{self.id}",
+            stripe_context=self.context,
+            usage=["pushed_event_pull"],
+        )
+        return self.client.deserialize(response, api_mode="V2")

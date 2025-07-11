@@ -1,10 +1,24 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._event import Event
+from stripe.v2._event import Event, ThinEvent
 from stripe.v2._event_destination import EventDestination
 from typing import cast
 from typing_extensions import Literal
+
+
+class PushedV2CoreEventDestinationPingEvent(ThinEvent):
+    LOOKUP_TYPE = "v2.core.event_destination.ping"
+    type: Literal["v2.core.event_destination.ping"]
+
+    def pull(self) -> V2CoreEventDestinationPingEvent:
+        return super()
+
+    def fetch_related_object(self) -> "EventDestination":
+        return super()
+
+    async def fetch_related_object_async(self) -> EventDestination:
+        pass
 
 
 class V2CoreEventDestinationPingEvent(Event):
