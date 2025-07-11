@@ -5,9 +5,23 @@ from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.billing._meter import Meter
-from stripe.v2._event import Event
+from stripe.v2._event import Event, ThinEvent
 from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
+
+
+class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
+    LOOKUP_TYPE = "v1.billing.meter.error_report_triggered"
+    type: Literal["v1.billing.meter.error_report_triggered"]
+
+    def pull(self) -> V1BillingMeterErrorReportTriggeredEvent:
+        return super()
+
+    def fetch_related_object(self) -> Meter:
+        return super()
+
+    async def fetch_related_object_async(self) -> Meter:
+        pass
 
 
 class V1BillingMeterErrorReportTriggeredEvent(Event):

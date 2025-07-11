@@ -283,7 +283,7 @@ class StripeClient(object):
 
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
-        return ThinEvent(payload)
+        return ThinEvent(payload, self)
 
     def construct_event(
         self,
@@ -314,6 +314,8 @@ class StripeClient(object):
 
         stripe_context = params.pop("stripe_context", None)
 
+        usage = params.pop("usage", None)
+
         # stripe-context goes *here* and not in api_requestor. Properties
         # go on api_requestor when you want them to persist onto requests
         # made when you call instance methods on APIResources that come from
@@ -330,7 +332,8 @@ class StripeClient(object):
             options=options,
             base_address=base_address,
             api_mode=api_mode,
-            usage=["raw_request"],
+            # we manually pass usage in event internals, so use those if available
+            usage=usage or ["raw_request"],
         )
 
         return self._requestor._interpret_response(
@@ -364,6 +367,9 @@ class StripeClient(object):
         *,
         api_mode: ApiMode,
     ) -> StripeObject:
+        """
+        Used to translate the result of a `raw_request` into a StripeObject.
+        """
         return _convert_to_stripe_object(
             resp=resp,
             params=params,
