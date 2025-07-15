@@ -883,6 +883,12 @@ class SubscriptionScheduleService(StripeService):
         """
         The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
+        duration: NotRequired[
+            "SubscriptionScheduleService.CreateParamsPhaseDuration"
+        ]
+        """
+        The number of intervals the phase should last. If set, `end_date` must not be set.
+        """
         end_date: NotRequired[int]
         """
         The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
@@ -1122,6 +1128,16 @@ class SubscriptionScheduleService(StripeService):
         interval_count: int
         """
         The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class CreateParamsPhaseDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies phase duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class CreateParamsPhaseInvoiceSettings(TypedDict):
@@ -1699,6 +1715,12 @@ class SubscriptionScheduleService(StripeService):
         """
         The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
+        duration: NotRequired[
+            "SubscriptionScheduleService.UpdateParamsPhaseDuration"
+        ]
+        """
+        The number of intervals the phase should last. If set, `end_date` must not be set.
+        """
         end_date: NotRequired["int|Literal['now']"]
         """
         The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
@@ -1942,6 +1964,16 @@ class SubscriptionScheduleService(StripeService):
         interval_count: int
         """
         The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class UpdateParamsPhaseDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies phase duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class UpdateParamsPhaseInvoiceSettings(TypedDict):
