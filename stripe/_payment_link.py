@@ -1208,7 +1208,7 @@ class PaymentLink(
         """
         When set, provides configuration for this item's quantity to be adjusted by the customer during checkout.
         """
-        price: str
+        price: NotRequired[str]
         """
         The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
         """
@@ -1228,7 +1228,7 @@ class PaymentLink(
         """
         maximum: NotRequired[int]
         """
-        The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
+        The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999999.
         """
         minimum: NotRequired[int]
         """
@@ -2181,7 +2181,7 @@ class PaymentLink(
         """
         maximum: NotRequired[int]
         """
-        The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
+        The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999999.
         """
         minimum: NotRequired[int]
         """
