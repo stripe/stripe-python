@@ -2,14 +2,14 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._event import Event
-from stripe.v2.payments._off_session_payment import OffSessionPayment
+from stripe.v2.money_management._payout_method import PayoutMethod
 from typing import cast
 from typing_extensions import Literal
 
 
-class V2OffSessionPaymentRequiresCaptureEvent(Event):
-    LOOKUP_TYPE = "v2.off_session_payment.requires_capture"
-    type: Literal["v2.off_session_payment.requires_capture"]
+class V2MoneyManagementPayoutMethodUpdatedEvent(Event):
+    LOOKUP_TYPE = "v2.money_management.payout_method.updated"
+    type: Literal["v2.money_management.payout_method.updated"]
 
     class RelatedObject(StripeObject):
         id: str
@@ -30,12 +30,12 @@ class V2OffSessionPaymentRequiresCaptureEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> OffSessionPayment:
+    def fetch_related_object(self) -> PayoutMethod:
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            OffSessionPayment,
+            PayoutMethod,
             self._requestor.request(
                 "get",
                 self.related_object.url,
