@@ -152,6 +152,7 @@ OBJECT_CLASSES = {
     stripe.terminal.Configuration.OBJECT_NAME: stripe.terminal.Configuration,
     stripe.terminal.ConnectionToken.OBJECT_NAME: stripe.terminal.ConnectionToken,
     stripe.terminal.Location.OBJECT_NAME: stripe.terminal.Location,
+    stripe.terminal.OnboardingLink.OBJECT_NAME: stripe.terminal.OnboardingLink,
     stripe.terminal.Reader.OBJECT_NAME: stripe.terminal.Reader,
     stripe.terminal.ReaderCollectedData.OBJECT_NAME: stripe.terminal.ReaderCollectedData,
     stripe.test_helpers.TestClock.OBJECT_NAME: stripe.test_helpers.TestClock,
