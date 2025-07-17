@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, cast
 
 from typing_extensions import Literal
 
@@ -153,11 +153,20 @@ class ThinEvent:
     def __repr__(self) -> str:
         return f"<ThinEvent id={self.id} type={self.type} created={self.created} context={self.context} reason={self.reason}>"
 
-    def pull(self):  # TODO: general return type?
+    def pull(self) -> Event:
         response = self.client.raw_request(
             "get",
             f"/v2/core/events/{self.id}",
             stripe_context=self.context,
             usage=["pushed_event_pull"],
         )
-        return self.client.deserialize(response, api_mode="V2")
+        return cast(Event, self.client.deserialize(response, api_mode="V2"))
+
+    async def pull_async(self) -> Event:
+        response = await self.client.raw_request_async(
+            "get",
+            f"/v2/core/events/{self.id}",
+            stripe_context=self.context,
+            usage=["pushed_event_pull", "pushed_event_pull_async"],
+        )
+        return cast(Event, self.client.deserialize(response, api_mode="V2"))

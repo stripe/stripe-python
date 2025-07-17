@@ -1,24 +1,44 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+import json
+from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
-from stripe.v2._event import Event, ThinEvent
+from stripe.v2._event import Event, RelatedObject, ThinEvent
 from stripe.v2._event_destination import EventDestination
-from typing import cast
 from typing_extensions import Literal
 
 
 class PushedV2CoreEventDestinationPingEvent(ThinEvent):
     LOOKUP_TYPE = "v2.core.event_destination.ping"
     type: Literal["v2.core.event_destination.ping"]
+    related_object: RelatedObject
 
-    def pull(self) -> V2CoreEventDestinationPingEvent:
-        return super()
+    def __init__(self, payload: str, client: StripeClient) -> None:
+        super().__init__(
+            payload,
+            client,
+        )
+        # don't love the double json parse here, but it's fine
+        parsed = json.loads(payload)
+        self.related_object = RelatedObject(parsed["related_object"])
+
+    def pull(self) -> "V2CoreEventDestinationPingEvent":
+        return cast(
+            "V2CoreEventDestinationPingEvent",
+            super().pull(),
+        )
 
     def fetch_related_object(self) -> "EventDestination":
-        return super()
+        raise NotImplementedError()  # TODO
 
-    async def fetch_related_object_async(self) -> EventDestination:
-        pass
+    async def pull_async(self) -> "V2CoreEventDestinationPingEvent":
+        return cast(
+            "V2CoreEventDestinationPingEvent",
+            await super().pull_async(),
+        )
+
+    def fetch_related_object_async(self) -> "EventDestination":
+        raise NotImplementedError()  # TODO
 
 
 class V2CoreEventDestinationPingEvent(Event):

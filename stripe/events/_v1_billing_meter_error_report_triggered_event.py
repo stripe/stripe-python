@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+import json
 from stripe._api_mode import ApiMode
 from stripe._api_requestor import _APIRequestor
+from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.billing._meter import Meter
-from stripe.v2._event import Event, ThinEvent
+from stripe.v2._event import Event, RelatedObject, ThinEvent
 from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
 
@@ -13,15 +15,34 @@ from typing_extensions import Literal
 class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
     LOOKUP_TYPE = "v1.billing.meter.error_report_triggered"
     type: Literal["v1.billing.meter.error_report_triggered"]
+    related_object: RelatedObject
 
-    def pull(self) -> V1BillingMeterErrorReportTriggeredEvent:
-        return super()
+    def __init__(self, payload: str, client: StripeClient) -> None:
+        super().__init__(
+            payload,
+            client,
+        )
+        # don't love the double json parse here, but it's fine
+        parsed = json.loads(payload)
+        self.related_object = RelatedObject(parsed["related_object"])
 
-    def fetch_related_object(self) -> Meter:
-        return super()
+    def pull(self) -> "V1BillingMeterErrorReportTriggeredEvent":
+        return cast(
+            "V1BillingMeterErrorReportTriggeredEvent",
+            super().pull(),
+        )
 
-    async def fetch_related_object_async(self) -> Meter:
-        pass
+    def fetch_related_object(self) -> "Meter":
+        raise NotImplementedError()  # TODO
+
+    async def pull_async(self) -> "V1BillingMeterErrorReportTriggeredEvent":
+        return cast(
+            "V1BillingMeterErrorReportTriggeredEvent",
+            await super().pull_async(),
+        )
+
+    def fetch_related_object_async(self) -> "Meter":
+        raise NotImplementedError()  # TODO
 
 
 class V1BillingMeterErrorReportTriggeredEvent(Event):

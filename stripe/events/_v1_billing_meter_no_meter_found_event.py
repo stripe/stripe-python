@@ -5,7 +5,7 @@ from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2._event import Event, ThinEvent
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
 
 
@@ -13,8 +13,17 @@ class PushedV1BillingMeterNoMeterFoundEvent(ThinEvent):
     LOOKUP_TYPE = "v1.billing.meter.no_meter_found"
     type: Literal["v1.billing.meter.no_meter_found"]
 
-    def pull(self) -> V1BillingMeterNoMeterFoundEvent:
-        return super()
+    def pull(self) -> "V1BillingMeterNoMeterFoundEvent":
+        return cast(
+            "V1BillingMeterNoMeterFoundEvent",
+            super().pull(),
+        )
+
+    async def pull_async(self) -> "V1BillingMeterNoMeterFoundEvent":
+        return cast(
+            "V1BillingMeterNoMeterFoundEvent",
+            await super().pull_async(),
+        )
 
 
 class V1BillingMeterNoMeterFoundEvent(Event):
