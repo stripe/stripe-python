@@ -33,3 +33,5 @@ if not TYPE_CHECKING:
     from stripe.api_resources.billing.meter_event_summary import (
         MeterEventSummary,
     )
+    from stripe.api_resources.billing.meter_usage import MeterUsage
+    from stripe.api_resources.billing.meter_usage_row import MeterUsageRow

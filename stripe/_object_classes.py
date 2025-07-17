@@ -31,6 +31,8 @@ OBJECT_CLASSES = {
     stripe.billing.MeterEvent.OBJECT_NAME: stripe.billing.MeterEvent,
     stripe.billing.MeterEventAdjustment.OBJECT_NAME: stripe.billing.MeterEventAdjustment,
     stripe.billing.MeterEventSummary.OBJECT_NAME: stripe.billing.MeterEventSummary,
+    stripe.billing.MeterUsage.OBJECT_NAME: stripe.billing.MeterUsage,
+    stripe.billing.MeterUsageRow.OBJECT_NAME: stripe.billing.MeterUsageRow,
     stripe.Capability.OBJECT_NAME: stripe.Capability,
     stripe.capital.FinancingOffer.OBJECT_NAME: stripe.capital.FinancingOffer,
     stripe.capital.FinancingSummary.OBJECT_NAME: stripe.capital.FinancingSummary,
