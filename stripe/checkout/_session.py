@@ -716,6 +716,10 @@ class Session(
                 """
                 How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
                 """
+                template: Optional[str]
+                """
+                ID of the invoice rendering template to be used for the generated invoice.
+                """
 
             account_tax_ids: Optional[List[ExpandableField["TaxIdResource"]]]
             """
@@ -1720,7 +1724,7 @@ class Session(
     class PresentmentDetails(StripeObject):
         presentment_amount: int
         """
-        Amount intended to be collected by this payment, denominated in presentment_currency.
+        Amount intended to be collected by this payment, denominated in `presentment_currency`.
         """
         presentment_currency: str
         """
@@ -2841,6 +2845,10 @@ class Session(
         ]
         """
         How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+        """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for this invoice.
         """
 
     class CreateParamsLineItem(TypedDict):

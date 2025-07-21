@@ -721,6 +721,10 @@ class SessionService(StripeService):
         """
         How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
         """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for this invoice.
+        """
 
     class CreateParamsLineItem(TypedDict):
         adjustable_quantity: NotRequired[

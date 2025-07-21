@@ -19,4 +19,3 @@ if not TYPE_CHECKING:
     from stripe.api_resources.sigma.scheduled_query_run import (
         ScheduledQueryRun,
     )
-    from stripe.api_resources.sigma.schema import Schema

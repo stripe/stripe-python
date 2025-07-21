@@ -51,15 +51,25 @@ class BalanceSettingsService(StripeService):
         """
         How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
         """
-        monthly_anchor: NotRequired[int]
+        monthly_payout_days: NotRequired[List[int]]
         """
-        The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
+        The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
         """
-        weekly_anchor: NotRequired[
-            Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
+        weekly_payout_days: NotRequired[
+            List[
+                Literal[
+                    "friday",
+                    "monday",
+                    "saturday",
+                    "sunday",
+                    "thursday",
+                    "tuesday",
+                    "wednesday",
+                ]
+            ]
         ]
         """
-        The day of the week when available funds are paid out (required and applicable only if `interval` is `weekly`.)
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
         """
 
     class UpdateParamsSettlementTiming(TypedDict):
