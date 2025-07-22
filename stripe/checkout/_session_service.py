@@ -279,6 +279,7 @@ class SessionService(StripeService):
                     "mobilepay",
                     "multibanco",
                     "naver_pay",
+                    "nz_bank_account",
                     "oxxo",
                     "p24",
                     "pay_by_bank",
