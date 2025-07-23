@@ -3,8 +3,8 @@
 from stripe.events._v2_core_account_including_requirements_updated_event import (
     V2CoreAccountIncludingRequirementsUpdatedEvent,
 )
-from stripe.events._v2_core_account_link_completed_event import (
-    V2CoreAccountLinkCompletedEvent,
+from stripe.events._v2_core_account_link_returned_event import (
+    V2CoreAccountLinkReturnedEvent,
 )
 from stripe.events._v2_core_account_closed_event import (
     V2CoreAccountClosedEvent,
@@ -204,7 +204,7 @@ THIN_EVENT_CLASSES = {
     V2CoreAccountIncludingDefaultsUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingDefaultsUpdatedEvent,
     V2CoreAccountIncludingIdentityUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingIdentityUpdatedEvent,
     V2CoreAccountIncludingRequirementsUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingRequirementsUpdatedEvent,
-    V2CoreAccountLinkCompletedEvent.LOOKUP_TYPE: V2CoreAccountLinkCompletedEvent,
+    V2CoreAccountLinkReturnedEvent.LOOKUP_TYPE: V2CoreAccountLinkReturnedEvent,
     V2CoreAccountPersonCreatedEvent.LOOKUP_TYPE: V2CoreAccountPersonCreatedEvent,
     V2CoreAccountPersonDeletedEvent.LOOKUP_TYPE: V2CoreAccountPersonDeletedEvent,
     V2CoreAccountPersonUpdatedEvent.LOOKUP_TYPE: V2CoreAccountPersonUpdatedEvent,

@@ -45,8 +45,8 @@ from stripe.events._v2_core_account_including_identity_updated_event import (
 from stripe.events._v2_core_account_including_requirements_updated_event import (
     V2CoreAccountIncludingRequirementsUpdatedEvent as V2CoreAccountIncludingRequirementsUpdatedEvent,
 )
-from stripe.events._v2_core_account_link_completed_event import (
-    V2CoreAccountLinkCompletedEvent as V2CoreAccountLinkCompletedEvent,
+from stripe.events._v2_core_account_link_returned_event import (
+    V2CoreAccountLinkReturnedEvent as V2CoreAccountLinkReturnedEvent,
 )
 from stripe.events._v2_core_account_person_created_event import (
     V2CoreAccountPersonCreatedEvent as V2CoreAccountPersonCreatedEvent,

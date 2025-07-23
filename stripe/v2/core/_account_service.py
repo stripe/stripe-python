@@ -2428,8 +2428,28 @@ class AccountService(StripeService):
         """
         Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
         """
+        storer: NotRequired[
+            "AccountService.CreateParamsIdentityAttestationsTermsOfServiceStorer"
+        ]
+        """
+        Details on the Account's acceptance of Treasury-specific terms of service.
+        """
 
     class CreateParamsIdentityAttestationsTermsOfServiceAccount(TypedDict):
+        date: str
+        """
+        The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+        """
+        ip: str
+        """
+        The IP address from which the Account's representative accepted the terms of service.
+        """
+        user_agent: NotRequired[str]
+        """
+        The user agent of the browser from which the Account's representative accepted the terms of service.
+        """
+
+    class CreateParamsIdentityAttestationsTermsOfServiceStorer(TypedDict):
         date: str
         """
         The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
@@ -7885,8 +7905,28 @@ class AccountService(StripeService):
         """
         Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
         """
+        storer: NotRequired[
+            "AccountService.UpdateParamsIdentityAttestationsTermsOfServiceStorer"
+        ]
+        """
+        Details on the Account's acceptance of Treasury-specific terms of service.
+        """
 
     class UpdateParamsIdentityAttestationsTermsOfServiceAccount(TypedDict):
+        date: NotRequired[str]
+        """
+        The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+        """
+        ip: NotRequired[str]
+        """
+        The IP address from which the Account's representative accepted the terms of service.
+        """
+        user_agent: NotRequired[str]
+        """
+        The user agent of the browser from which the Account's representative accepted the terms of service.
+        """
+
+    class UpdateParamsIdentityAttestationsTermsOfServiceStorer(TypedDict):
         date: NotRequired[str]
         """
         The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
