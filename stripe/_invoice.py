@@ -1418,7 +1418,7 @@ class Invoice(
         """
         auto_advance: NotRequired[bool]
         """
-        Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
+        Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. Defaults to false.
         """
         automatic_tax: NotRequired["Invoice.CreateParamsAutomaticTax"]
         """
@@ -1426,7 +1426,7 @@ class Invoice(
         """
         automatically_finalizes_at: NotRequired[int]
         """
-        The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state.
+        The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -1704,7 +1704,7 @@ class Invoice(
             "Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this invoice (Mexico Only).
+        Installment configuration for payments attempted on this invoice.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -2521,6 +2521,9 @@ class Invoice(
 
     class CreatePreviewParamsScheduleDetailsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreatePreviewParamsScheduleDetailsPhase(TypedDict):
         add_invoice_items: NotRequired[
@@ -2579,6 +2582,12 @@ class Invoice(
         """
         The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
+        duration: NotRequired[
+            "Invoice.CreatePreviewParamsScheduleDetailsPhaseDuration"
+        ]
+        """
+        The number of intervals the phase should last. If set, `end_date` must not be set.
+        """
         end_date: NotRequired["int|Literal['now']"]
         """
         The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
@@ -2595,7 +2604,7 @@ class Invoice(
         """
         iterations: NotRequired[int]
         """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
+        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -2746,6 +2755,16 @@ class Invoice(
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies phase duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseInvoiceSettings(TypedDict):
@@ -2899,7 +2918,9 @@ class Invoice(
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
-        cancel_at: NotRequired["Literal['']|int"]
+        cancel_at: NotRequired[
+            "Literal['']|int|Literal['max_period_end', 'min_period_end']"
+        ]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -2946,6 +2967,9 @@ class Invoice(
 
     class CreatePreviewParamsSubscriptionDetailsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreatePreviewParamsSubscriptionDetailsItem(TypedDict):
         billing_thresholds: NotRequired[
@@ -3196,7 +3220,7 @@ class Invoice(
         """
         automatically_finalizes_at: NotRequired[int]
         """
-        The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state. To turn off automatic finalization, set `auto_advance` to false.
+        The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state. To turn off automatic finalization, set `auto_advance` to false.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -3448,7 +3472,7 @@ class Invoice(
             "Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this invoice (Mexico Only).
+        Installment configuration for payments attempted on this invoice.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
