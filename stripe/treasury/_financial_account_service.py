@@ -244,6 +244,10 @@ class FinancialAccountService(StripeService):
         """
         An object ID cursor for use in pagination.
         """
+        status: NotRequired[Literal["closed", "open"]]
+        """
+        Only return FinancialAccounts that have the given status: `open` or `closed`
+        """
 
     class ListParamsCreated(TypedDict):
         gt: NotRequired[int]
@@ -509,7 +513,7 @@ class FinancialAccountService(StripeService):
         options: RequestOptions = {},
     ) -> FinancialAccount:
         """
-        Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
+        Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
         """
         return cast(
             FinancialAccount,
@@ -528,7 +532,7 @@ class FinancialAccountService(StripeService):
         options: RequestOptions = {},
     ) -> FinancialAccount:
         """
-        Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
+        Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
         """
         return cast(
             FinancialAccount,

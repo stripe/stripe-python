@@ -5,17 +5,17 @@ from warnings import warn
 
 warn(
     """
-    The stripe.api_resources.usage_record package is deprecated, please change your
+    The stripe.api_resources.invoice_payment package is deprecated, please change your
     imports to import from stripe directly.
     From:
-      from stripe.api_resources.usage_record import UsageRecord
+      from stripe.api_resources.invoice_payment import InvoicePayment
     To:
-      from stripe import UsageRecord
+      from stripe import InvoicePayment
     """,
     DeprecationWarning,
     stacklevel=2,
 )
 if not TYPE_CHECKING:
-    from stripe._usage_record import (  # noqa
-        UsageRecord,
+    from stripe._invoice_payment import (  # noqa
+        InvoicePayment,
     )

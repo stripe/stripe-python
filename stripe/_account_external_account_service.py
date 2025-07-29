@@ -27,7 +27,7 @@ class AccountExternalAccountService(StripeService):
             "AccountExternalAccountService.CreateParamsCardToken",
         ]
         """
-        Please refer to full [documentation](https://stripe.com/docs/api) instead.
+        A token, like the ones returned by [Stripe.js](https://stripe.com/docs/js) or a dictionary containing a user's external account details (with the options shown below). Please refer to full [documentation](https://stripe.com/docs/api/external_accounts) instead.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -58,7 +58,7 @@ class AccountExternalAccountService(StripeService):
         """
         routing_number: NotRequired[str]
         """
-        The routing number, sort code, or other country-appropriateinstitution number for the bank account. For US bank accounts, this is required and should bethe ACH routing number, not the wire routing number. If you are providing an IBAN for`account_number`, this field is not required.
+        The routing number, sort code, or other country-appropriate institution number for the bank account. For US bank accounts, this is required and should be the ACH routing number, not the wire routing number. If you are providing an IBAN for `account_number`, this field is not required.
         """
 
     class CreateParamsCard(TypedDict):
@@ -310,7 +310,7 @@ class AccountExternalAccountService(StripeService):
         a connected account and optionally sets it as the default for its currency. Other bank account
         details are not editable by design.
 
-        You can only update bank accounts when [account.controller.requirement_collection is application, which includes <a href="/connect/custom-accounts">Custom accounts](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection).
+        You can only update bank accounts when [account.controller.requirement_collection is application, which includes <a href="/connect/custom-accounts">Custom accounts](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection).
 
         You can re-enable a disabled bank account by performing an update call without providing any
         arguments or changes.
@@ -341,7 +341,7 @@ class AccountExternalAccountService(StripeService):
         a connected account and optionally sets it as the default for its currency. Other bank account
         details are not editable by design.
 
-        You can only update bank accounts when [account.controller.requirement_collection is application, which includes <a href="/connect/custom-accounts">Custom accounts](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection).
+        You can only update bank accounts when [account.controller.requirement_collection is application, which includes <a href="/connect/custom-accounts">Custom accounts](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection).
 
         You can re-enable a disabled bank account by performing an update call without providing any
         arguments or changes.

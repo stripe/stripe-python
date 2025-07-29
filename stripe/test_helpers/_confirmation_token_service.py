@@ -23,6 +23,12 @@ class ConfirmationTokenService(StripeService):
         """
         If provided, this hash will be used to create a PaymentMethod.
         """
+        payment_method_options: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodOptions"
+        ]
+        """
+        Payment-method-specific configuration for this ConfirmationToken.
+        """
         return_url: NotRequired[str]
         """
         Return URL used to confirm the Intent.
@@ -99,6 +105,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataBillie"
+        ]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
+        """
         billing_details: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataBillingDetails"
         ]
@@ -122,6 +134,12 @@ class ConfirmationTokenService(StripeService):
         ]
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
+        """
+        crypto: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
         """
         customer_balance: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataCustomerBalance"
@@ -217,6 +235,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataOxxo"
         ]
@@ -275,13 +299,19 @@ class ConfirmationTokenService(StripeService):
             "ConfirmationTokenService.CreateParamsPaymentMethodDataRevolutPay"
         ]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataSamsungPay"
         ]
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
+        """
+        satispay: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataSatispay"
+        ]
+        """
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataSepaDebit"
@@ -317,9 +347,11 @@ class ConfirmationTokenService(StripeService):
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -334,6 +366,7 @@ class ConfirmationTokenService(StripeService):
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -344,6 +377,7 @@ class ConfirmationTokenService(StripeService):
             "promptpay",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -426,6 +460,9 @@ class ConfirmationTokenService(StripeService):
     class CreateParamsPaymentMethodDataBancontact(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataBillie(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
         address: NotRequired[
             "Literal['']|ConfirmationTokenService.CreateParamsPaymentMethodDataBillingDetailsAddress"
@@ -444,6 +481,10 @@ class ConfirmationTokenService(StripeService):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
@@ -482,6 +523,9 @@ class ConfirmationTokenService(StripeService):
         """
 
     class CreateParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataCrypto(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):
@@ -569,6 +613,7 @@ class ConfirmationTokenService(StripeService):
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -635,6 +680,29 @@ class ConfirmationTokenService(StripeService):
         funding: NotRequired[Literal["card", "points"]]
         """
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
+
+    class CreateParamsPaymentMethodDataNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
         """
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
@@ -705,6 +773,9 @@ class ConfirmationTokenService(StripeService):
     class CreateParamsPaymentMethodDataSamsungPay(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataSatispay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataSepaDebit(TypedDict):
         iban: str
         """
@@ -750,6 +821,44 @@ class ConfirmationTokenService(StripeService):
 
     class CreateParamsPaymentMethodDataZip(TypedDict):
         pass
+
+    class CreateParamsPaymentMethodOptions(TypedDict):
+        card: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodOptionsCard"
+        ]
+        """
+        Configuration for any card payments confirmed using this ConfirmationToken.
+        """
+
+    class CreateParamsPaymentMethodOptionsCard(TypedDict):
+        installments: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodOptionsCardInstallments"
+        ]
+        """
+        Installment configuration for payments confirmed using this ConfirmationToken.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
+        plan: "ConfirmationTokenService.CreateParamsPaymentMethodOptionsCardInstallmentsPlan"
+        """
+        The selected installment plan to use for this payment attempt.
+        This parameter can only be provided during confirmation.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
+        count: NotRequired[int]
+        """
+        For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
+        """
+        interval: NotRequired[Literal["month"]]
+        """
+        For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
+        One of `month`.
+        """
+        type: Literal["bonus", "fixed_count", "revolving"]
+        """
+        Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
+        """
 
     class CreateParamsShipping(TypedDict):
         address: "ConfirmationTokenService.CreateParamsShippingAddress"

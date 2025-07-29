@@ -24,7 +24,7 @@ if TYPE_CHECKING:
     from stripe._customer_balance_transaction import CustomerBalanceTransaction
     from stripe._discount import Discount
     from stripe._invoice import Invoice
-    from stripe._refund import Refund
+    from stripe._refund import Refund as RefundResource
     from stripe._shipping_rate import ShippingRate
     from stripe._tax_rate import TaxRate
     from stripe.billing._credit_balance_transaction import (
@@ -76,6 +76,16 @@ class CreditNote(
         Type of the pretax credit amount referenced.
         """
 
+    class Refund(StripeObject):
+        amount_refunded: int
+        """
+        Amount of the refund that applies to this credit note, in cents (or local equivalent).
+        """
+        refund: ExpandableField["RefundResource"]
+        """
+        ID of the refund.
+        """
+
     class ShippingCost(StripeObject):
         class Tax(StripeObject):
             amount: int
@@ -84,9 +94,9 @@ class CreditNote(
             """
             rate: "TaxRate"
             """
-            Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
+            Tax rates can be applied to [invoices](https://docs.stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://docs.stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://docs.stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-            Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
+            Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
             """
             taxability_reason: Optional[
                 Literal[
@@ -137,37 +147,39 @@ class CreditNote(
         """
         _inner_class_types = {"taxes": Tax}
 
-    class TaxAmount(StripeObject):
+    class TotalTax(StripeObject):
+        class TaxRateDetails(StripeObject):
+            tax_rate: str
+
         amount: int
         """
-        The amount, in cents (or local equivalent), of the tax.
+        The amount of the tax, in cents (or local equivalent).
         """
-        inclusive: bool
+        tax_behavior: Literal["exclusive", "inclusive"]
         """
-        Whether this tax amount is inclusive or exclusive.
+        Whether this tax is inclusive or exclusive.
         """
-        tax_rate: ExpandableField["TaxRate"]
+        tax_rate_details: Optional[TaxRateDetails]
         """
-        The tax rate that was applied to get this tax amount.
+        Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
         """
-        taxability_reason: Optional[
-            Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
-            ]
+        taxability_reason: Literal[
+            "customer_exempt",
+            "not_available",
+            "not_collecting",
+            "not_subject_to_tax",
+            "not_supported",
+            "portion_product_exempt",
+            "portion_reduced_rated",
+            "portion_standard_rated",
+            "product_exempt",
+            "product_exempt_holiday",
+            "proportionally_rated",
+            "reduced_rated",
+            "reverse_charge",
+            "standard_rated",
+            "taxable_basis_reduced",
+            "zero_rated",
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -176,11 +188,16 @@ class CreditNote(
         """
         The amount on which tax is calculated, in cents (or local equivalent).
         """
+        type: Literal["tax_rate_details"]
+        """
+        The type of tax information.
+        """
+        _inner_class_types = {"tax_rate_details": TaxRateDetails}
 
     class CreateParams(RequestOptions):
         amount: NotRequired[int]
         """
-        The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+        The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         credit_amount: NotRequired[int]
         """
@@ -204,7 +221,7 @@ class CreditNote(
         """
         lines: NotRequired[List["CreditNote.CreateParamsLine"]]
         """
-        Line items that make up the credit note.
+        Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         memo: NotRequired[str]
         """
@@ -229,17 +246,17 @@ class CreditNote(
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
         """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
-        """
         refund_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
         """
+        refunds: NotRequired[List["CreditNote.CreateParamsRefund"]]
+        """
+        Refunds to link to this credit note.
+        """
         shipping_cost: NotRequired["CreditNote.CreateParamsShippingCost"]
         """
-        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
 
     class CreateParamsLine(TypedDict):
@@ -294,6 +311,16 @@ class CreditNote(
         taxable_amount: int
         """
         The amount on which tax is calculated, in cents (or local equivalent).
+        """
+
+    class CreateParamsRefund(TypedDict):
+        amount_refunded: NotRequired[int]
+        """
+        Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
+        """
+        refund: NotRequired[str]
+        """
+        ID of an existing refund to link this credit note to.
         """
 
     class CreateParamsShippingCost(TypedDict):
@@ -385,7 +412,7 @@ class CreditNote(
     class PreviewLinesParams(RequestOptions):
         amount: NotRequired[int]
         """
-        The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+        The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         credit_amount: NotRequired[int]
         """
@@ -417,7 +444,7 @@ class CreditNote(
         """
         lines: NotRequired[List["CreditNote.PreviewLinesParamsLine"]]
         """
-        Line items that make up the credit note.
+        Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         memo: NotRequired[str]
         """
@@ -442,17 +469,17 @@ class CreditNote(
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
         """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
-        """
         refund_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
         """
+        refunds: NotRequired[List["CreditNote.PreviewLinesParamsRefund"]]
+        """
+        Refunds to link to this credit note.
+        """
         shipping_cost: NotRequired["CreditNote.PreviewLinesParamsShippingCost"]
         """
-        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         starting_after: NotRequired[str]
         """
@@ -513,6 +540,16 @@ class CreditNote(
         The amount on which tax is calculated, in cents (or local equivalent).
         """
 
+    class PreviewLinesParamsRefund(TypedDict):
+        amount_refunded: NotRequired[int]
+        """
+        Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
+        """
+        refund: NotRequired[str]
+        """
+        ID of an existing refund to link this credit note to.
+        """
+
     class PreviewLinesParamsShippingCost(TypedDict):
         shipping_rate: NotRequired[str]
         """
@@ -522,7 +559,7 @@ class CreditNote(
     class PreviewParams(RequestOptions):
         amount: NotRequired[int]
         """
-        The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+        The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         credit_amount: NotRequired[int]
         """
@@ -546,7 +583,7 @@ class CreditNote(
         """
         lines: NotRequired[List["CreditNote.PreviewParamsLine"]]
         """
-        Line items that make up the credit note.
+        Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         memo: NotRequired[str]
         """
@@ -571,17 +608,17 @@ class CreditNote(
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
         """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
-        """
         refund_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
         """
+        refunds: NotRequired[List["CreditNote.PreviewParamsRefund"]]
+        """
+        Refunds to link to this credit note.
+        """
         shipping_cost: NotRequired["CreditNote.PreviewParamsShippingCost"]
         """
-        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
 
     class PreviewParamsLine(TypedDict):
@@ -636,6 +673,16 @@ class CreditNote(
         taxable_amount: int
         """
         The amount on which tax is calculated, in cents (or local equivalent).
+        """
+
+    class PreviewParamsRefund(TypedDict):
+        amount_refunded: NotRequired[int]
+        """
+        Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
+        """
+        refund: NotRequired[str]
+        """
+        ID of an existing refund to link this credit note to.
         """
 
     class PreviewParamsShippingCost(TypedDict):
@@ -734,6 +781,14 @@ class CreditNote(
     """
     The link to download the PDF of the credit note.
     """
+    post_payment_amount: int
+    """
+    The amount of the credit note that was refunded to the customer, credited to the customer's balance, credited outside of Stripe, or any combination thereof.
+    """
+    pre_payment_amount: int
+    """
+    The amount of the credit note by which the invoice's `amount_remaining` and `amount_due` were reduced.
+    """
     pretax_credit_amounts: List[PretaxCreditAmount]
     """
     The pretax credit amounts (ex: discount, credit grants, etc) for all line items.
@@ -746,9 +801,9 @@ class CreditNote(
     """
     Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
     """
-    refund: Optional[ExpandableField["Refund"]]
+    refunds: List[Refund]
     """
-    Refund related to this credit note.
+    Refunds related to this credit note.
     """
     shipping_cost: Optional[ShippingCost]
     """
@@ -766,10 +821,6 @@ class CreditNote(
     """
     The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding all tax and invoice level discounts.
     """
-    tax_amounts: List[TaxAmount]
-    """
-    The aggregate amounts calculated per tax rate for all line items.
-    """
     total: int
     """
     The integer amount in cents (or local equivalent) representing the total amount of the credit note, including tax and all discount.
@@ -778,7 +829,11 @@ class CreditNote(
     """
     The integer amount in cents (or local equivalent) representing the total amount of the credit note, excluding tax, but including discounts.
     """
-    type: Literal["post_payment", "pre_payment"]
+    total_taxes: Optional[List[TotalTax]]
+    """
+    The aggregate tax information for all line items.
+    """
+    type: Literal["mixed", "post_payment", "pre_payment"]
     """
     Type of this credit note, one of `pre_payment` or `post_payment`. A `pre_payment` credit note means it was issued when the invoice was open. A `post_payment` credit note means it was issued when the invoice was paid.
     """
@@ -792,20 +847,19 @@ class CreditNote(
         cls, **params: Unpack["CreditNote.CreateParams"]
     ) -> "CreditNote":
         """
-        Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
-        its amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result
-        in any combination of the following:
+        Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
+        This amount is indicated by the credit note's pre_payment_amount. The excess amount is indicated by post_payment_amount, and it can result in any combination of the following:
 
 
-        Refund: create a new refund (using refund_amount) or link an existing refund (using refund).
+        Refunds: create a new refund (using refund_amount) or link existing refunds (using refunds).
         Customer balance credit: credit the customer's balance (using credit_amount) which will be automatically applied to their next invoice when it's finalized.
         Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).
 
 
-        For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.
+        The sum of refunds, customer balance credits, and outside of Stripe credits must equal the post_payment_amount.
 
-        You may issue multiple credit notes for an invoice. Each credit note will increment the invoice's pre_payment_credit_notes_amount
-        or post_payment_credit_notes_amount depending on its status at the time of credit note creation.
+        You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
+        post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
         """
         return cast(
             "CreditNote",
@@ -821,20 +875,19 @@ class CreditNote(
         cls, **params: Unpack["CreditNote.CreateParams"]
     ) -> "CreditNote":
         """
-        Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
-        its amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result
-        in any combination of the following:
+        Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
+        This amount is indicated by the credit note's pre_payment_amount. The excess amount is indicated by post_payment_amount, and it can result in any combination of the following:
 
 
-        Refund: create a new refund (using refund_amount) or link an existing refund (using refund).
+        Refunds: create a new refund (using refund_amount) or link existing refunds (using refunds).
         Customer balance credit: credit the customer's balance (using credit_amount) which will be automatically applied to their next invoice when it's finalized.
         Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).
 
 
-        For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.
+        The sum of refunds, customer balance credits, and outside of Stripe credits must equal the post_payment_amount.
 
-        You may issue multiple credit notes for an invoice. Each credit note will increment the invoice's pre_payment_credit_notes_amount
-        or post_payment_credit_notes_amount depending on its status at the time of credit note creation.
+        You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
+        post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
         """
         return cast(
             "CreditNote",
@@ -1010,7 +1063,7 @@ class CreditNote(
         cls, id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             "CreditNote",
@@ -1027,7 +1080,7 @@ class CreditNote(
         id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         ...
 
@@ -1036,7 +1089,7 @@ class CreditNote(
         self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         ...
 
@@ -1045,7 +1098,7 @@ class CreditNote(
         self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             "CreditNote",
@@ -1063,7 +1116,7 @@ class CreditNote(
         cls, id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             "CreditNote",
@@ -1080,7 +1133,7 @@ class CreditNote(
         id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         ...
 
@@ -1089,7 +1142,7 @@ class CreditNote(
         self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         ...
 
@@ -1098,7 +1151,7 @@ class CreditNote(
         self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             "CreditNote",
@@ -1150,6 +1203,7 @@ class CreditNote(
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
         "pretax_credit_amounts": PretaxCreditAmount,
+        "refunds": Refund,
         "shipping_cost": ShippingCost,
-        "tax_amounts": TaxAmount,
+        "total_taxes": TotalTax,
     }

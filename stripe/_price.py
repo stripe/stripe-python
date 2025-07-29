@@ -128,12 +128,6 @@ class Price(
         """
 
     class Recurring(StripeObject):
-        aggregate_usage: Optional[
-            Literal["last_during_period", "last_ever", "max", "sum"]
-        ]
-        """
-        Specifies a usage aggregation strategy for prices of `usage_type=metered`. Defaults to `sum`.
-        """
         interval: Literal["day", "month", "week", "year"]
         """
         The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
@@ -228,7 +222,7 @@ class Price(
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         product_data: NotRequired["Price.CreateParamsProductData"]
         """
@@ -386,12 +380,6 @@ class Price(
         """
 
     class CreateParamsRecurring(TypedDict):
-        aggregate_usage: NotRequired[
-            Literal["last_during_period", "last_ever", "max", "sum"]
-        ]
-        """
-        Specifies a usage aggregation strategy for prices of `usage_type=metered`. Defaults to `sum`.
-        """
         interval: Literal["day", "month", "week", "year"]
         """
         Specifies billing frequency. Either `day`, `week`, `month` or `year`.
@@ -675,6 +663,10 @@ class Price(
     """
     When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     id: str
     """
     Unique identifier for the object.
@@ -735,15 +727,11 @@ class Price(
     """
     The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
     """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
-    """
 
     @classmethod
     def create(cls, **params: Unpack["Price.CreateParams"]) -> "Price":
         """
-        Creates a new price for an existing product. The price can be recurring or one-time.
+        Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
         """
         return cast(
             "Price",
@@ -759,7 +747,7 @@ class Price(
         cls, **params: Unpack["Price.CreateParams"]
     ) -> "Price":
         """
-        Creates a new price for an existing product. The price can be recurring or one-time.
+        Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
         """
         return cast(
             "Price",
@@ -773,7 +761,7 @@ class Price(
     @classmethod
     def list(cls, **params: Unpack["Price.ListParams"]) -> ListObject["Price"]:
         """
-        Returns a list of your active prices, excluding [inline prices](https://stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
+        Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
         """
         result = cls._static_request(
             "get",
@@ -793,7 +781,7 @@ class Price(
         cls, **params: Unpack["Price.ListParams"]
     ) -> ListObject["Price"]:
         """
-        Returns a list of your active prices, excluding [inline prices](https://stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
+        Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
         """
         result = await cls._static_request_async(
             "get",
@@ -869,7 +857,7 @@ class Price(
         cls, *args, **kwargs: Unpack["Price.SearchParams"]
     ) -> SearchResultObject["Price"]:
         """
-        Search for prices you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for prices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -881,7 +869,7 @@ class Price(
         cls, *args, **kwargs: Unpack["Price.SearchParams"]
     ) -> SearchResultObject["Price"]:
         """
-        Search for prices you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for prices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.

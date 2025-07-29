@@ -140,6 +140,11 @@ class WebhookEndpoint(
                 "2024-12-18.acacia",
                 "2025-01-27.acacia",
                 "2025-02-24.acacia",
+                "2025-03-01.dashboard",
+                "2025-03-31.basil",
+                "2025-04-30.basil",
+                "2025-05-28.basil",
+                "2025-06-30.basil",
             ]
         ]
         """
@@ -245,6 +250,7 @@ class WebhookEndpoint(
                 "invoice.finalized",
                 "invoice.marked_uncollectible",
                 "invoice.overdue",
+                "invoice.overpaid",
                 "invoice.paid",
                 "invoice.payment_action_required",
                 "invoice.payment_failed",
@@ -254,6 +260,7 @@ class WebhookEndpoint(
                 "invoice.updated",
                 "invoice.voided",
                 "invoice.will_be_due",
+                "invoice_payment.paid",
                 "invoiceitem.created",
                 "invoiceitem.deleted",
                 "issuing_authorization.created",
@@ -352,6 +359,7 @@ class WebhookEndpoint(
                 "tax_rate.updated",
                 "terminal.reader.action_failed",
                 "terminal.reader.action_succeeded",
+                "terminal.reader.action_updated",
                 "test_helpers.test_clock.advancing",
                 "test_helpers.test_clock.created",
                 "test_helpers.test_clock.deleted",
@@ -395,6 +403,13 @@ class WebhookEndpoint(
                 "treasury.received_credit.failed",
                 "treasury.received_credit.succeeded",
                 "treasury.received_debit.created",
+                "billing.credit_balance_transaction.created",
+                "billing.credit_grant.created",
+                "billing.credit_grant.updated",
+                "billing.meter.created",
+                "billing.meter.deactivated",
+                "billing.meter.reactivated",
+                "billing.meter.updated",
             ]
         ]
         """
@@ -536,6 +551,7 @@ class WebhookEndpoint(
                     "invoice.finalized",
                     "invoice.marked_uncollectible",
                     "invoice.overdue",
+                    "invoice.overpaid",
                     "invoice.paid",
                     "invoice.payment_action_required",
                     "invoice.payment_failed",
@@ -545,6 +561,7 @@ class WebhookEndpoint(
                     "invoice.updated",
                     "invoice.voided",
                     "invoice.will_be_due",
+                    "invoice_payment.paid",
                     "invoiceitem.created",
                     "invoiceitem.deleted",
                     "issuing_authorization.created",
@@ -643,6 +660,7 @@ class WebhookEndpoint(
                     "tax_rate.updated",
                     "terminal.reader.action_failed",
                     "terminal.reader.action_succeeded",
+                    "terminal.reader.action_updated",
                     "test_helpers.test_clock.advancing",
                     "test_helpers.test_clock.created",
                     "test_helpers.test_clock.deleted",
@@ -686,6 +704,13 @@ class WebhookEndpoint(
                     "treasury.received_credit.failed",
                     "treasury.received_credit.succeeded",
                     "treasury.received_debit.created",
+                    "billing.credit_balance_transaction.created",
+                    "billing.credit_grant.created",
+                    "billing.credit_grant.updated",
+                    "billing.meter.created",
+                    "billing.meter.deactivated",
+                    "billing.meter.reactivated",
+                    "billing.meter.updated",
                 ]
             ]
         ]
@@ -723,6 +748,10 @@ class WebhookEndpoint(
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     description: Optional[str]
     """
     An optional description of what the webhook is used for.
@@ -758,10 +787,6 @@ class WebhookEndpoint(
     url: str
     """
     The URL of the webhook endpoint.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

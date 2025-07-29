@@ -78,12 +78,6 @@ class Plan(
         """
         Whether the plan is currently available for new subscriptions. Defaults to `true`.
         """
-        aggregate_usage: NotRequired[
-            Literal["last_during_period", "last_ever", "max", "sum"]
-        ]
-        """
-        Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
-        """
         amount: NotRequired[int]
         """
         A positive integer in cents (or local equivalent) (or 0 for a free plan) representing how much to charge on a recurring basis.
@@ -301,12 +295,6 @@ class Plan(
     """
     Whether the plan can be used for new purchases.
     """
-    aggregate_usage: Optional[
-        Literal["last_during_period", "last_ever", "max", "sum"]
-    ]
-    """
-    Specifies a usage aggregation strategy for plans of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
-    """
     amount: Optional[int]
     """
     The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`.
@@ -326,6 +314,10 @@ class Plan(
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
     """
     id: str
     """
@@ -383,15 +375,11 @@ class Plan(
     """
     Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
     """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
-    """
 
     @classmethod
     def create(cls, **params: Unpack["Plan.CreateParams"]) -> "Plan":
         """
-        You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+        You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
         """
         return cast(
             "Plan",
@@ -407,7 +395,7 @@ class Plan(
         cls, **params: Unpack["Plan.CreateParams"]
     ) -> "Plan":
         """
-        You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+        You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
         """
         return cast(
             "Plan",

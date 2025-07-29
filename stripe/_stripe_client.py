@@ -24,7 +24,7 @@ from stripe._http_client import (
 from stripe._api_version import _ApiVersion
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
-from stripe._util import _convert_to_stripe_object, get_api_mode
+from stripe._util import _convert_to_stripe_object, get_api_mode, deprecated  # noqa: F401
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
 from stripe.v2._event import ThinEvent
@@ -66,6 +66,7 @@ from stripe._financial_connections_service import FinancialConnectionsService
 from stripe._forwarding_service import ForwardingService
 from stripe._identity_service import IdentityService
 from stripe._invoice_service import InvoiceService
+from stripe._invoice_payment_service import InvoicePaymentService
 from stripe._invoice_rendering_template_service import (
     InvoiceRenderingTemplateService,
 )
@@ -218,6 +219,7 @@ class StripeClient(object):
         self.forwarding = ForwardingService(self._requestor)
         self.identity = IdentityService(self._requestor)
         self.invoices = InvoiceService(self._requestor)
+        self.invoice_payments = InvoicePaymentService(self._requestor)
         self.invoice_rendering_templates = InvoiceRenderingTemplateService(
             self._requestor,
         )
@@ -368,3 +370,6 @@ class StripeClient(object):
             requestor=self._requestor,
             api_mode=api_mode,
         )
+
+    # deprecated v1 services: The beginning of the section generated from our OpenAPI spec
+    # deprecated v1 services: The end of the section generated from our OpenAPI spec

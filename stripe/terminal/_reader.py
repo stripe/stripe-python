@@ -23,6 +23,7 @@ from typing_extensions import (
 if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._payment_intent import PaymentIntent
+    from stripe._payment_method import PaymentMethod
     from stripe._refund import Refund
     from stripe._setup_intent import SetupIntent
     from stripe.terminal._location import Location
@@ -43,6 +44,232 @@ class Reader(
     OBJECT_NAME: ClassVar[Literal["terminal.reader"]] = "terminal.reader"
 
     class Action(StripeObject):
+        class CollectInputs(StripeObject):
+            class Input(StripeObject):
+                class CustomText(StripeObject):
+                    description: Optional[str]
+                    """
+                    Customize the default description for this input
+                    """
+                    skip_button: Optional[str]
+                    """
+                    Customize the default label for this input's skip button
+                    """
+                    submit_button: Optional[str]
+                    """
+                    Customize the default label for this input's submit button
+                    """
+                    title: Optional[str]
+                    """
+                    Customize the default title for this input
+                    """
+
+                class Email(StripeObject):
+                    value: Optional[str]
+                    """
+                    The collected email address
+                    """
+
+                class Numeric(StripeObject):
+                    value: Optional[str]
+                    """
+                    The collected number
+                    """
+
+                class Phone(StripeObject):
+                    value: Optional[str]
+                    """
+                    The collected phone number
+                    """
+
+                class Selection(StripeObject):
+                    class Choice(StripeObject):
+                        id: Optional[str]
+                        """
+                        The id to be selected
+                        """
+                        style: Optional[Literal["primary", "secondary"]]
+                        """
+                        The button style for the choice
+                        """
+                        text: str
+                        """
+                        The text to be selected
+                        """
+
+                    choices: List[Choice]
+                    """
+                    List of possible choices to be selected
+                    """
+                    id: Optional[str]
+                    """
+                    The id of the selected choice
+                    """
+                    text: Optional[str]
+                    """
+                    The text of the selected choice
+                    """
+                    _inner_class_types = {"choices": Choice}
+
+                class Signature(StripeObject):
+                    value: Optional[str]
+                    """
+                    The File ID of a collected signature image
+                    """
+
+                class Text(StripeObject):
+                    value: Optional[str]
+                    """
+                    The collected text value
+                    """
+
+                class Toggle(StripeObject):
+                    default_value: Optional[Literal["disabled", "enabled"]]
+                    """
+                    The toggle's default value
+                    """
+                    description: Optional[str]
+                    """
+                    The toggle's description text
+                    """
+                    title: Optional[str]
+                    """
+                    The toggle's title text
+                    """
+                    value: Optional[Literal["disabled", "enabled"]]
+                    """
+                    The toggle's collected value
+                    """
+
+                custom_text: Optional[CustomText]
+                """
+                Default text of input being collected.
+                """
+                email: Optional[Email]
+                """
+                Information about a email being collected using a reader
+                """
+                numeric: Optional[Numeric]
+                """
+                Information about a number being collected using a reader
+                """
+                phone: Optional[Phone]
+                """
+                Information about a phone number being collected using a reader
+                """
+                required: Optional[bool]
+                """
+                Indicate that this input is required, disabling the skip button.
+                """
+                selection: Optional[Selection]
+                """
+                Information about a selection being collected using a reader
+                """
+                signature: Optional[Signature]
+                """
+                Information about a signature being collected using a reader
+                """
+                skipped: Optional[bool]
+                """
+                Indicate that this input was skipped by the user.
+                """
+                text: Optional[Text]
+                """
+                Information about text being collected using a reader
+                """
+                toggles: Optional[List[Toggle]]
+                """
+                List of toggles being collected. Values are present if collection is complete.
+                """
+                type: Literal[
+                    "email",
+                    "numeric",
+                    "phone",
+                    "selection",
+                    "signature",
+                    "text",
+                ]
+                """
+                Type of input being collected.
+                """
+                _inner_class_types = {
+                    "custom_text": CustomText,
+                    "email": Email,
+                    "numeric": Numeric,
+                    "phone": Phone,
+                    "selection": Selection,
+                    "signature": Signature,
+                    "text": Text,
+                    "toggles": Toggle,
+                }
+
+            inputs: List[Input]
+            """
+            List of inputs to be collected.
+            """
+            metadata: Optional[Dict[str, str]]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            """
+            _inner_class_types = {"inputs": Input}
+
+        class CollectPaymentMethod(StripeObject):
+            class CollectConfig(StripeObject):
+                class Tipping(StripeObject):
+                    amount_eligible: Optional[int]
+                    """
+                    Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+                    """
+
+                enable_customer_cancellation: Optional[bool]
+                """
+                Enable customer-initiated cancellation when processing this payment.
+                """
+                skip_tipping: Optional[bool]
+                """
+                Override showing a tipping selection screen on this transaction.
+                """
+                tipping: Optional[Tipping]
+                """
+                Represents a per-transaction tipping configuration
+                """
+                _inner_class_types = {"tipping": Tipping}
+
+            collect_config: Optional[CollectConfig]
+            """
+            Represents a per-transaction override of a reader configuration
+            """
+            payment_intent: ExpandableField["PaymentIntent"]
+            """
+            Most recent PaymentIntent processed by the reader.
+            """
+            payment_method: Optional["PaymentMethod"]
+            """
+            PaymentMethod objects represent your customer's payment instruments.
+            You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+            Customer objects to store instrument details for future payments.
+
+            Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+            """
+            _inner_class_types = {"collect_config": CollectConfig}
+
+        class ConfirmPaymentIntent(StripeObject):
+            class ConfirmConfig(StripeObject):
+                return_url: Optional[str]
+                """
+                If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
+                """
+
+            confirm_config: Optional[ConfirmConfig]
+            """
+            Represents a per-transaction override of a reader configuration
+            """
+            payment_intent: ExpandableField["PaymentIntent"]
+            """
+            Most recent PaymentIntent processed by the reader.
+            """
+            _inner_class_types = {"confirm_config": ConfirmConfig}
+
         class ProcessPaymentIntent(StripeObject):
             class ProcessConfig(StripeObject):
                 class Tipping(StripeObject):
@@ -53,7 +280,11 @@ class Reader(
 
                 enable_customer_cancellation: Optional[bool]
                 """
-                Enable customer initiated cancellation when processing this payment.
+                Enable customer-initiated cancellation when processing this payment.
+                """
+                return_url: Optional[str]
+                """
+                If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
                 """
                 skip_tipping: Optional[bool]
                 """
@@ -79,7 +310,7 @@ class Reader(
             class ProcessConfig(StripeObject):
                 enable_customer_cancellation: Optional[bool]
                 """
-                Enable customer initiated cancellation when processing this SetupIntent.
+                Enable customer-initiated cancellation when processing this SetupIntent.
                 """
 
             generated_card: Optional[str]
@@ -100,7 +331,7 @@ class Reader(
             class RefundPaymentConfig(StripeObject):
                 enable_customer_cancellation: Optional[bool]
                 """
-                Enable customer initiated cancellation when refunding this payment.
+                Enable customer-initiated cancellation when refunding this payment.
                 """
 
             amount: Optional[int]
@@ -187,6 +418,18 @@ class Reader(
             """
             _inner_class_types = {"cart": Cart}
 
+        collect_inputs: Optional[CollectInputs]
+        """
+        Represents a reader action to collect customer inputs
+        """
+        collect_payment_method: Optional[CollectPaymentMethod]
+        """
+        Represents a reader action to collect a payment method
+        """
+        confirm_payment_intent: Optional[ConfirmPaymentIntent]
+        """
+        Represents a reader action to confirm a payment
+        """
         failure_code: Optional[str]
         """
         Failure code, only set if status is `failed`.
@@ -216,6 +459,9 @@ class Reader(
         Status of the action performed by the reader.
         """
         type: Literal[
+            "collect_inputs",
+            "collect_payment_method",
+            "confirm_payment_intent",
             "process_payment_intent",
             "process_setup_intent",
             "refund_payment",
@@ -225,6 +471,9 @@ class Reader(
         Type of action performed by the reader.
         """
         _inner_class_types = {
+            "collect_inputs": CollectInputs,
+            "collect_payment_method": CollectPaymentMethod,
+            "confirm_payment_intent": ConfirmPaymentIntent,
             "process_payment_intent": ProcessPaymentIntent,
             "process_setup_intent": ProcessSetupIntent,
             "refund_payment": RefundPayment,
@@ -235,6 +484,162 @@ class Reader(
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+
+    class CollectInputsParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        inputs: List["Reader.CollectInputsParamsInput"]
+        """
+        List of inputs to be collected using the Reader
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+
+    class CollectInputsParamsInput(TypedDict):
+        custom_text: "Reader.CollectInputsParamsInputCustomText"
+        """
+        Customize the text which will be displayed while collecting this input
+        """
+        required: NotRequired[bool]
+        """
+        Indicate that this input is required, disabling the skip button
+        """
+        selection: NotRequired["Reader.CollectInputsParamsInputSelection"]
+        """
+        Options for the `selection` input
+        """
+        toggles: NotRequired[List["Reader.CollectInputsParamsInputToggle"]]
+        """
+        List of toggles to be displayed and customization for the toggles
+        """
+        type: Literal[
+            "email", "numeric", "phone", "selection", "signature", "text"
+        ]
+        """
+        The type of input to collect
+        """
+
+    class CollectInputsParamsInputCustomText(TypedDict):
+        description: NotRequired[str]
+        """
+        The description which will be displayed when collecting this input
+        """
+        skip_button: NotRequired[str]
+        """
+        The skip button text
+        """
+        submit_button: NotRequired[str]
+        """
+        The submit button text
+        """
+        title: str
+        """
+        The title which will be displayed when collecting this input
+        """
+
+    class CollectInputsParamsInputSelection(TypedDict):
+        choices: List["Reader.CollectInputsParamsInputSelectionChoice"]
+        """
+        List of choices for the `selection` input
+        """
+
+    class CollectInputsParamsInputSelectionChoice(TypedDict):
+        id: str
+        """
+        The unique identifier for this choice
+        """
+        style: NotRequired[Literal["primary", "secondary"]]
+        """
+        The style of the button which will be shown for this choice
+        """
+        text: str
+        """
+        The text which will be shown on the button for this choice
+        """
+
+    class CollectInputsParamsInputToggle(TypedDict):
+        default_value: NotRequired[Literal["disabled", "enabled"]]
+        """
+        The default value of the toggle
+        """
+        description: NotRequired[str]
+        """
+        The description which will be displayed for the toggle
+        """
+        title: NotRequired[str]
+        """
+        The title which will be displayed for the toggle
+        """
+
+    class CollectPaymentMethodParams(RequestOptions):
+        collect_config: NotRequired[
+            "Reader.CollectPaymentMethodParamsCollectConfig"
+        ]
+        """
+        Configuration overrides.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        payment_intent: str
+        """
+        PaymentIntent ID.
+        """
+
+    class CollectPaymentMethodParamsCollectConfig(TypedDict):
+        allow_redisplay: NotRequired[
+            Literal["always", "limited", "unspecified"]
+        ]
+        """
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
+        """
+        enable_customer_cancellation: NotRequired[bool]
+        """
+        Enables cancel button on transaction screens.
+        """
+        skip_tipping: NotRequired[bool]
+        """
+        Override showing a tipping selection screen on this transaction.
+        """
+        tipping: NotRequired[
+            "Reader.CollectPaymentMethodParamsCollectConfigTipping"
+        ]
+        """
+        Tipping configuration for this transaction.
+        """
+
+    class CollectPaymentMethodParamsCollectConfigTipping(TypedDict):
+        amount_eligible: NotRequired[int]
+        """
+        Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+        """
+
+    class ConfirmPaymentIntentParams(RequestOptions):
+        confirm_config: NotRequired[
+            "Reader.ConfirmPaymentIntentParamsConfirmConfig"
+        ]
+        """
+        Configuration overrides.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        payment_intent: str
+        """
+        PaymentIntent ID.
+        """
+
+    class ConfirmPaymentIntentParamsConfirmConfig(TypedDict):
+        return_url: NotRequired[str]
+        """
+        The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
         """
 
     class CreateParams(RequestOptions):
@@ -269,6 +674,7 @@ class Reader(
                 "bbpos_wisepad3",
                 "bbpos_wisepos_e",
                 "mobile_phone_reader",
+                "simulated_stripe_s700",
                 "simulated_wisepos_e",
                 "stripe_m2",
                 "stripe_s700",
@@ -385,6 +791,10 @@ class Reader(
         enable_customer_cancellation: NotRequired[bool]
         """
         Enables cancel button on transaction screens.
+        """
+        return_url: NotRequired[str]
+        """
+        The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
         """
         skip_tipping: NotRequired[bool]
         """
@@ -523,9 +933,29 @@ class Reader(
         The quantity of the line item being purchased.
         """
 
+    class SucceedInputCollectionParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        skip_non_required_inputs: NotRequired[Literal["all", "none"]]
+        """
+        This parameter defines the skip behavior for input collection.
+        """
+
+    class TimeoutInputCollectionParams(RequestOptions):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     action: Optional[Action]
     """
     The most recent action performed by the reader.
+    """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
     """
     device_sw_version: Optional[str]
     """
@@ -536,13 +966,14 @@ class Reader(
         "bbpos_wisepad3",
         "bbpos_wisepos_e",
         "mobile_phone_reader",
+        "simulated_stripe_s700",
         "simulated_wisepos_e",
         "stripe_m2",
         "stripe_s700",
         "verifone_P400",
     ]
     """
-    Type of reader, one of `bbpos_wisepad3`, `stripe_m2`, `stripe_s700`, `bbpos_chipper2x`, `bbpos_wisepos_e`, `verifone_P400`, `simulated_wisepos_e`, or `mobile_phone_reader`.
+    Device type of the reader.
     """
     id: str
     """
@@ -579,10 +1010,6 @@ class Reader(
     status: Optional[Literal["offline", "online"]]
     """
     The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod
@@ -689,6 +1116,336 @@ class Reader(
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_collect_inputs(
+        cls, reader: str, **params: Unpack["Reader.CollectInputsParams"]
+    ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_inputs".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def collect_inputs(
+        reader: str, **params: Unpack["Reader.CollectInputsParams"]
+    ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        ...
+
+    @overload
+    def collect_inputs(
+        self, **params: Unpack["Reader.CollectInputsParams"]
+    ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        ...
+
+    @class_method_variant("_cls_collect_inputs")
+    def collect_inputs(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.CollectInputsParams"]
+    ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_inputs".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_collect_inputs_async(
+        cls, reader: str, **params: Unpack["Reader.CollectInputsParams"]
+    ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_inputs".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def collect_inputs_async(
+        reader: str, **params: Unpack["Reader.CollectInputsParams"]
+    ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        ...
+
+    @overload
+    async def collect_inputs_async(
+        self, **params: Unpack["Reader.CollectInputsParams"]
+    ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        ...
+
+    @class_method_variant("_cls_collect_inputs_async")
+    async def collect_inputs_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.CollectInputsParams"]
+    ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_inputs".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_collect_payment_method(
+        cls, reader: str, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def collect_payment_method(
+        reader: str, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        ...
+
+    @overload
+    def collect_payment_method(
+        self, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        ...
+
+    @class_method_variant("_cls_collect_payment_method")
+    def collect_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_collect_payment_method_async(
+        cls, reader: str, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def collect_payment_method_async(
+        reader: str, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        ...
+
+    @overload
+    async def collect_payment_method_async(
+        self, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        ...
+
+    @class_method_variant("_cls_collect_payment_method_async")
+    async def collect_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.CollectPaymentMethodParams"]
+    ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_confirm_payment_intent(
+        cls, reader: str, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def confirm_payment_intent(
+        reader: str, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        ...
+
+    @overload
+    def confirm_payment_intent(
+        self, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        ...
+
+    @class_method_variant("_cls_confirm_payment_intent")
+    def confirm_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                    reader=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_confirm_payment_intent_async(
+        cls, reader: str, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def confirm_payment_intent_async(
+        reader: str, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        ...
+
+    @overload
+    async def confirm_payment_intent_async(
+        self, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        ...
+
+    @class_method_variant("_cls_confirm_payment_intent_async")
+    async def confirm_payment_intent_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+    ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
                     reader=sanitize_id(self.get("id"))
                 ),
                 params=params,
@@ -1466,6 +2223,238 @@ class Reader(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
+                        reader=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        def _cls_succeed_input_collection(
+            cls,
+            reader: str,
+            **params: Unpack["Reader.SucceedInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Use this endpoint to trigger a successful input collection on a simulated reader.
+            """
+            return cast(
+                "Reader",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
+                        reader=sanitize_id(reader)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def succeed_input_collection(
+            reader: str,
+            **params: Unpack["Reader.SucceedInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Use this endpoint to trigger a successful input collection on a simulated reader.
+            """
+            ...
+
+        @overload
+        def succeed_input_collection(
+            self, **params: Unpack["Reader.SucceedInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Use this endpoint to trigger a successful input collection on a simulated reader.
+            """
+            ...
+
+        @class_method_variant("_cls_succeed_input_collection")
+        def succeed_input_collection(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Reader.SucceedInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Use this endpoint to trigger a successful input collection on a simulated reader.
+            """
+            return cast(
+                "Reader",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
+                        reader=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_succeed_input_collection_async(
+            cls,
+            reader: str,
+            **params: Unpack["Reader.SucceedInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Use this endpoint to trigger a successful input collection on a simulated reader.
+            """
+            return cast(
+                "Reader",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
+                        reader=sanitize_id(reader)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def succeed_input_collection_async(
+            reader: str,
+            **params: Unpack["Reader.SucceedInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Use this endpoint to trigger a successful input collection on a simulated reader.
+            """
+            ...
+
+        @overload
+        async def succeed_input_collection_async(
+            self, **params: Unpack["Reader.SucceedInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Use this endpoint to trigger a successful input collection on a simulated reader.
+            """
+            ...
+
+        @class_method_variant("_cls_succeed_input_collection_async")
+        async def succeed_input_collection_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Reader.SucceedInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Use this endpoint to trigger a successful input collection on a simulated reader.
+            """
+            return cast(
+                "Reader",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
+                        reader=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        def _cls_timeout_input_collection(
+            cls,
+            reader: str,
+            **params: Unpack["Reader.TimeoutInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+            """
+            return cast(
+                "Reader",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
+                        reader=sanitize_id(reader)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def timeout_input_collection(
+            reader: str,
+            **params: Unpack["Reader.TimeoutInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+            """
+            ...
+
+        @overload
+        def timeout_input_collection(
+            self, **params: Unpack["Reader.TimeoutInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+            """
+            ...
+
+        @class_method_variant("_cls_timeout_input_collection")
+        def timeout_input_collection(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Reader.TimeoutInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+            """
+            return cast(
+                "Reader",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
+                        reader=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_timeout_input_collection_async(
+            cls,
+            reader: str,
+            **params: Unpack["Reader.TimeoutInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+            """
+            return cast(
+                "Reader",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
+                        reader=sanitize_id(reader)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def timeout_input_collection_async(
+            reader: str,
+            **params: Unpack["Reader.TimeoutInputCollectionParams"],
+        ) -> "Reader":
+            """
+            Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+            """
+            ...
+
+        @overload
+        async def timeout_input_collection_async(
+            self, **params: Unpack["Reader.TimeoutInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+            """
+            ...
+
+        @class_method_variant("_cls_timeout_input_collection_async")
+        async def timeout_input_collection_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["Reader.TimeoutInputCollectionParams"]
+        ) -> "Reader":
+            """
+            Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+            """
+            return cast(
+                "Reader",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
                         reader=sanitize_id(self.resource.get("id"))
                     ),
                     params=params,

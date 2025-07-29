@@ -17,9 +17,9 @@ class TaxRate(
     UpdateableAPIResource["TaxRate"],
 ):
     """
-    Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
+    Tax rates can be applied to [invoices](https://docs.stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://docs.stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://docs.stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-    Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
+    Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
     """
 
     OBJECT_NAME: ClassVar[Literal["tax_rate"]] = "tax_rate"
@@ -272,7 +272,7 @@ class TaxRate(
     """
     rate_type: Optional[Literal["flat_amount", "percentage"]]
     """
-    Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location.
+    Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location. This field is only present for TaxRates created by Stripe Tax.
     """
     state: Optional[str]
     """

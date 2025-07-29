@@ -25,6 +25,12 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParams(TypedDict):
+        billing_mode: NotRequired[
+            "SubscriptionScheduleService.CreateParamsBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         customer: NotRequired[str]
         """
         The identifier of the customer to create the subscription schedule for.
@@ -63,6 +69,9 @@ class SubscriptionScheduleService(StripeService):
         """
         When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
         """
+
+    class CreateParamsBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
 
     class CreateParamsDefaultSettings(TypedDict):
         application_fee_percent: NotRequired[float]
@@ -217,10 +226,6 @@ class SubscriptionScheduleService(StripeService):
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -273,7 +278,7 @@ class SubscriptionScheduleService(StripeService):
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
+        Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         """
         transfer_data: NotRequired[
             "SubscriptionScheduleService.CreateParamsPhaseTransferData"
@@ -339,7 +344,7 @@ class SubscriptionScheduleService(StripeService):
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -433,7 +438,7 @@ class SubscriptionScheduleService(StripeService):
             "Literal['']|SubscriptionScheduleService.CreateParamsPhaseItemBillingThresholds"
         ]
         """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionScheduleService.CreateParamsPhaseItemDiscount]"
@@ -495,7 +500,7 @@ class SubscriptionScheduleService(StripeService):
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: "SubscriptionScheduleService.CreateParamsPhaseItemPriceDataRecurring"
         """
@@ -705,7 +710,7 @@ class SubscriptionScheduleService(StripeService):
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        If the update changes the current phase, indicates whether the changes should be prorated. The default value is `create_prorations`.
+        If the update changes the billing configuration (item price, quantity, etc.) of the current phase, indicates how prorations from this change should be handled. The default value is `create_prorations`.
         """
 
     class UpdateParamsDefaultSettings(TypedDict):
@@ -861,10 +866,6 @@ class SubscriptionScheduleService(StripeService):
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically` on creation.
         """
-        coupon: NotRequired[str]
-        """
-        The ID of the coupon to apply to this phase of the subscription schedule. This field has been deprecated and will be removed in a future API version. Use `discounts` instead.
-        """
         currency: NotRequired[str]
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -917,7 +918,7 @@ class SubscriptionScheduleService(StripeService):
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
+        Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         """
         start_date: NotRequired["int|Literal['now']"]
         """
@@ -987,7 +988,7 @@ class SubscriptionScheduleService(StripeService):
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -1081,7 +1082,7 @@ class SubscriptionScheduleService(StripeService):
             "Literal['']|SubscriptionScheduleService.UpdateParamsPhaseItemBillingThresholds"
         ]
         """
-        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionScheduleService.UpdateParamsPhaseItemDiscount]"
@@ -1143,7 +1144,7 @@ class SubscriptionScheduleService(StripeService):
         """
         product: str
         """
-        The ID of the product that this price will belong to.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
         """
         recurring: "SubscriptionScheduleService.UpdateParamsPhaseItemPriceDataRecurring"
         """

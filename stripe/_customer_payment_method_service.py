@@ -15,7 +15,7 @@ class CustomerPaymentMethodService(StripeService):
             Literal["always", "limited", "unspecified"]
         ]
         """
-        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
+        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
         """
         ending_before: NotRequired[str]
         """
@@ -44,10 +44,12 @@ class CustomerPaymentMethodService(StripeService):
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
+                "billie",
                 "blik",
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",
@@ -62,6 +64,7 @@ class CustomerPaymentMethodService(StripeService):
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
+                "nz_bank_account",
                 "oxxo",
                 "p24",
                 "pay_by_bank",
@@ -72,6 +75,7 @@ class CustomerPaymentMethodService(StripeService):
                 "promptpay",
                 "revolut_pay",
                 "samsung_pay",
+                "satispay",
                 "sepa_debit",
                 "sofort",
                 "swish",

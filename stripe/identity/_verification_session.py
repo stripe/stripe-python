@@ -29,11 +29,11 @@ class VerificationSession(
     """
     A VerificationSession guides you through the process of collecting and verifying the identities
     of your users. It contains details about the type of verification, such as what [verification
-    check](https://stripe.com/docs/identity/verification-checks) to perform. Only create one VerificationSession for
+    check](https://docs.stripe.com/docs/identity/verification-checks) to perform. Only create one VerificationSession for
     each verification in your system.
 
     A VerificationSession transitions through [multiple
-    statuses](https://stripe.com/docs/identity/how-sessions-work) throughout its lifetime as it progresses through
+    statuses](https://docs.stripe.com/docs/identity/how-sessions-work) throughout its lifetime as it progresses through
     the verification flow. The VerificationSession contains the user's verified data after
     verification checks are complete.
 
@@ -106,6 +106,16 @@ class VerificationSession(
         class IdNumber(StripeObject):
             pass
 
+        class Matching(StripeObject):
+            dob: Optional[Literal["none", "similar"]]
+            """
+            Strictness of the DOB matching policy to apply.
+            """
+            name: Optional[Literal["none", "similar"]]
+            """
+            Strictness of the name matching policy to apply.
+            """
+
         class Phone(StripeObject):
             require_verification: Optional[bool]
             """
@@ -115,11 +125,13 @@ class VerificationSession(
         document: Optional[Document]
         email: Optional[Email]
         id_number: Optional[IdNumber]
+        matching: Optional[Matching]
         phone: Optional[Phone]
         _inner_class_types = {
             "document": Document,
             "email": Email,
             "id_number": IdNumber,
+            "matching": Matching,
             "phone": Phone,
         }
 
@@ -137,6 +149,16 @@ class VerificationSession(
         status: Literal["processing", "redacted"]
         """
         Indicates whether this object and its related objects have been redacted or not.
+        """
+
+    class RelatedPerson(StripeObject):
+        account: Optional[str]
+        """
+        Token referencing the associated Account of the related Person resource.
+        """
+        person: Optional[str]
+        """
+        Token referencing the related Person resource.
         """
 
     class VerifiedOutputs(StripeObject):
@@ -212,6 +234,18 @@ class VerificationSession(
         """
         The user's verified phone number
         """
+        sex: Optional[Literal["[redacted]", "female", "male", "unknown"]]
+        """
+        The user's verified sex.
+        """
+        unparsed_place_of_birth: Optional[str]
+        """
+        The user's verified place of birth as it appears in the document.
+        """
+        unparsed_sex: Optional[str]
+        """
+        The user's verified sex as it appears in the document.
+        """
         _inner_class_types = {"address": Address, "dob": Dob}
 
     class CancelParams(RequestOptions):
@@ -245,7 +279,13 @@ class VerificationSession(
         """
         related_customer: NotRequired[str]
         """
-        Token referencing a Customer resource.
+        Customer ID
+        """
+        related_person: NotRequired[
+            "VerificationSession.CreateParamsRelatedPerson"
+        ]
+        """
+        Tokens referencing a Person resource and it's associated account.
         """
         return_url: NotRequired[str]
         """
@@ -296,6 +336,16 @@ class VerificationSession(
         phone: NotRequired[str]
         """
         Phone number of user being verified
+        """
+
+    class CreateParamsRelatedPerson(TypedDict):
+        account: str
+        """
+        A token representing a connected account. If provided, the person parameter is also required and must be associated with the account.
+        """
+        person: str
+        """
+        A token referencing a Person resource that this verification is being used to verify.
         """
 
     class ListParams(RequestOptions):
@@ -473,8 +523,9 @@ class VerificationSession(
     """
     related_customer: Optional[str]
     """
-    Token referencing a Customer resource.
+    Customer ID
     """
+    related_person: Optional[RelatedPerson]
     status: Literal["canceled", "processing", "requires_input", "verified"]
     """
     Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
@@ -501,9 +552,9 @@ class VerificationSession(
         cls, session: str, **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
         """
-        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+        A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
 
-        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
         return cast(
             "VerificationSession",
@@ -522,9 +573,9 @@ class VerificationSession(
         session: str, **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
         """
-        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+        A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
 
-        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
         ...
 
@@ -533,9 +584,9 @@ class VerificationSession(
         self, **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
         """
-        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+        A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
 
-        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
         ...
 
@@ -544,9 +595,9 @@ class VerificationSession(
         self, **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
         """
-        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+        A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
 
-        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
         return cast(
             "VerificationSession",
@@ -564,9 +615,9 @@ class VerificationSession(
         cls, session: str, **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
         """
-        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+        A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
 
-        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
         return cast(
             "VerificationSession",
@@ -585,9 +636,9 @@ class VerificationSession(
         session: str, **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
         """
-        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+        A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
 
-        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
         ...
 
@@ -596,9 +647,9 @@ class VerificationSession(
         self, **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
         """
-        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+        A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
 
-        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
         ...
 
@@ -607,9 +658,9 @@ class VerificationSession(
         self, **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
         """
-        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+        A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
 
-        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
         return cast(
             "VerificationSession",
@@ -633,7 +684,7 @@ class VerificationSession(
 
         If your API key is in test mode, verification checks won't actually process, though everything else will occur as if in live mode.
 
-        Related guide: [Verify your users' identity documents](https://stripe.com/docs/identity/verify-identity-documents)
+        Related guide: [Verify your users' identity documents](https://docs.stripe.com/docs/identity/verify-identity-documents)
         """
         return cast(
             "VerificationSession",
@@ -655,7 +706,7 @@ class VerificationSession(
 
         If your API key is in test mode, verification checks won't actually process, though everything else will occur as if in live mode.
 
-        Related guide: [Verify your users' identity documents](https://stripe.com/docs/identity/verify-identity-documents)
+        Related guide: [Verify your users' identity documents](https://docs.stripe.com/docs/identity/verify-identity-documents)
         """
         return cast(
             "VerificationSession",
@@ -756,7 +807,7 @@ class VerificationSession(
         request logs, etc.
 
         A VerificationSession object can be redacted when it is in requires_input or verified
-        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        [status](https://docs.stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
         state will automatically cancel it.
 
         The redaction process may take up to four days. When the redaction process is in progress, the
@@ -769,7 +820,7 @@ class VerificationSession(
         placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
         used for any purpose.
 
-        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
         return cast(
             "VerificationSession",
@@ -793,7 +844,7 @@ class VerificationSession(
         request logs, etc.
 
         A VerificationSession object can be redacted when it is in requires_input or verified
-        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        [status](https://docs.stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
         state will automatically cancel it.
 
         The redaction process may take up to four days. When the redaction process is in progress, the
@@ -806,7 +857,7 @@ class VerificationSession(
         placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
         used for any purpose.
 
-        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
         ...
 
@@ -820,7 +871,7 @@ class VerificationSession(
         request logs, etc.
 
         A VerificationSession object can be redacted when it is in requires_input or verified
-        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        [status](https://docs.stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
         state will automatically cancel it.
 
         The redaction process may take up to four days. When the redaction process is in progress, the
@@ -833,7 +884,7 @@ class VerificationSession(
         placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
         used for any purpose.
 
-        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
         ...
 
@@ -847,7 +898,7 @@ class VerificationSession(
         request logs, etc.
 
         A VerificationSession object can be redacted when it is in requires_input or verified
-        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        [status](https://docs.stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
         state will automatically cancel it.
 
         The redaction process may take up to four days. When the redaction process is in progress, the
@@ -860,7 +911,7 @@ class VerificationSession(
         placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
         used for any purpose.
 
-        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
         return cast(
             "VerificationSession",
@@ -883,7 +934,7 @@ class VerificationSession(
         request logs, etc.
 
         A VerificationSession object can be redacted when it is in requires_input or verified
-        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        [status](https://docs.stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
         state will automatically cancel it.
 
         The redaction process may take up to four days. When the redaction process is in progress, the
@@ -896,7 +947,7 @@ class VerificationSession(
         placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
         used for any purpose.
 
-        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
         return cast(
             "VerificationSession",
@@ -920,7 +971,7 @@ class VerificationSession(
         request logs, etc.
 
         A VerificationSession object can be redacted when it is in requires_input or verified
-        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        [status](https://docs.stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
         state will automatically cancel it.
 
         The redaction process may take up to four days. When the redaction process is in progress, the
@@ -933,7 +984,7 @@ class VerificationSession(
         placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
         used for any purpose.
 
-        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
         ...
 
@@ -947,7 +998,7 @@ class VerificationSession(
         request logs, etc.
 
         A VerificationSession object can be redacted when it is in requires_input or verified
-        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        [status](https://docs.stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
         state will automatically cancel it.
 
         The redaction process may take up to four days. When the redaction process is in progress, the
@@ -960,7 +1011,7 @@ class VerificationSession(
         placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
         used for any purpose.
 
-        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
         ...
 
@@ -974,7 +1025,7 @@ class VerificationSession(
         request logs, etc.
 
         A VerificationSession object can be redacted when it is in requires_input or verified
-        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        [status](https://docs.stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
         state will automatically cancel it.
 
         The redaction process may take up to four days. When the redaction process is in progress, the
@@ -987,7 +1038,7 @@ class VerificationSession(
         placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
         used for any purpose.
 
-        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
         return cast(
             "VerificationSession",
@@ -1033,5 +1084,6 @@ class VerificationSession(
         "options": Options,
         "provided_details": ProvidedDetails,
         "redaction": Redaction,
+        "related_person": RelatedPerson,
         "verified_outputs": VerifiedOutputs,
     }

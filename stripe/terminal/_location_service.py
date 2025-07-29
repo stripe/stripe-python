@@ -94,7 +94,7 @@ class LocationService(StripeService):
         """
         The ID of a configuration that will be used to customize all readers in this location.
         """
-        display_name: NotRequired[str]
+        display_name: NotRequired["Literal['']|str"]
         """
         A name for the location.
         """
@@ -310,7 +310,7 @@ class LocationService(StripeService):
     ) -> Location:
         """
         Creates a new Location object.
-        For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+        For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
         """
         return cast(
             Location,
@@ -330,7 +330,7 @@ class LocationService(StripeService):
     ) -> Location:
         """
         Creates a new Location object.
-        For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+        For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
         """
         return cast(
             Location,

@@ -31,6 +31,7 @@ class Capability(UpdateableAPIResource["Capability"]):
 
         class Error(StripeObject):
             code: Literal[
+                "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
@@ -43,6 +44,7 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "invalid_product_description_length",
                 "invalid_product_description_url_match",
                 "invalid_representative_country",
+                "invalid_signator",
                 "invalid_statement_descriptor_business_mismatch",
                 "invalid_statement_descriptor_denylisted",
                 "invalid_statement_descriptor_length",
@@ -104,6 +106,7 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "verification_document_type_not_supported",
                 "verification_extraneous_directors",
                 "verification_failed_address_match",
+                "verification_failed_authorizer_authority",
                 "verification_failed_business_iec_number",
                 "verification_failed_document_match",
                 "verification_failed_id_number_match",
@@ -115,9 +118,11 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
+                "verification_legal_entity_structure_mismatch",
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
+                "verification_rejected_ownership_exemption_reason",
                 "verification_requires_additional_memorandum_of_associations",
                 "verification_requires_additional_proof_of_registration",
                 "verification_supportability",
@@ -194,6 +199,7 @@ class Capability(UpdateableAPIResource["Capability"]):
 
         class Error(StripeObject):
             code: Literal[
+                "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
@@ -206,6 +212,7 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "invalid_product_description_length",
                 "invalid_product_description_url_match",
                 "invalid_representative_country",
+                "invalid_signator",
                 "invalid_statement_descriptor_business_mismatch",
                 "invalid_statement_descriptor_denylisted",
                 "invalid_statement_descriptor_length",
@@ -267,6 +274,7 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "verification_document_type_not_supported",
                 "verification_extraneous_directors",
                 "verification_failed_address_match",
+                "verification_failed_authorizer_authority",
                 "verification_failed_business_iec_number",
                 "verification_failed_document_match",
                 "verification_failed_id_number_match",
@@ -278,9 +286,11 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
+                "verification_legal_entity_structure_mismatch",
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
+                "verification_rejected_ownership_exemption_reason",
                 "verification_requires_additional_memorandum_of_associations",
                 "verification_requires_additional_proof_of_registration",
                 "verification_supportability",
@@ -303,7 +313,7 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         current_deadline: Optional[int]
         """
-        Date by which the fields in `currently_due` must be collected to keep the capability enabled for the account. These fields may disable the capability sooner if the next threshold is reached before they are collected.
+        The date by which all required account information must be both submitted and verified. This includes fields listed in `currently_due` as well as those in `pending_verification`. If any required information is missing or unverified by this date, the account may be disabled. Note that `current_deadline` may change if additional `currently_due` requirements are requested.
         """
         currently_due: List[str]
         """

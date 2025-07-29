@@ -130,7 +130,7 @@ class Location(
         """
         The ID of a configuration that will be used to customize all readers in this location.
         """
-        display_name: NotRequired[str]
+        display_name: NotRequired["Literal['']|str"]
         """
         A name for the location.
         """
@@ -180,6 +180,10 @@ class Location(
     """
     The ID of a configuration that will be used to customize all readers in this location.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     display_name: str
     """
     The display name of the location.
@@ -200,16 +204,12 @@ class Location(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
-    """
 
     @classmethod
     def create(cls, **params: Unpack["Location.CreateParams"]) -> "Location":
         """
         Creates a new Location object.
-        For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+        For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
         """
         return cast(
             "Location",
@@ -226,7 +226,7 @@ class Location(
     ) -> "Location":
         """
         Creates a new Location object.
-        For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+        For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
         """
         return cast(
             "Location",

@@ -60,9 +60,9 @@ class MeterService(StripeService):
         """
 
     class CreateParamsDefaultAggregation(TypedDict):
-        formula: Literal["count", "sum"]
+        formula: Literal["count", "last", "sum"]
         """
-        Specifies how events are aggregated. Allowed values are `count` to count the number of events and `sum` to sum each event's value.
+        Specifies how events are aggregated. Allowed values are `count` to count the number of events, `sum` to sum each event's value and `last` to take the last event's value in the window.
         """
 
     class CreateParamsValueSettings(TypedDict):

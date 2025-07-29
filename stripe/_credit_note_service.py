@@ -22,7 +22,7 @@ class CreditNoteService(StripeService):
     class CreateParams(TypedDict):
         amount: NotRequired[int]
         """
-        The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+        The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         credit_amount: NotRequired[int]
         """
@@ -46,7 +46,7 @@ class CreditNoteService(StripeService):
         """
         lines: NotRequired[List["CreditNoteService.CreateParamsLine"]]
         """
-        Line items that make up the credit note.
+        Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         memo: NotRequired[str]
         """
@@ -71,19 +71,19 @@ class CreditNoteService(StripeService):
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
         """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
-        """
         refund_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
+        """
+        refunds: NotRequired[List["CreditNoteService.CreateParamsRefund"]]
+        """
+        Refunds to link to this credit note.
         """
         shipping_cost: NotRequired[
             "CreditNoteService.CreateParamsShippingCost"
         ]
         """
-        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
 
     class CreateParamsLine(TypedDict):
@@ -138,6 +138,16 @@ class CreditNoteService(StripeService):
         taxable_amount: int
         """
         The amount on which tax is calculated, in cents (or local equivalent).
+        """
+
+    class CreateParamsRefund(TypedDict):
+        amount_refunded: NotRequired[int]
+        """
+        Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
+        """
+        refund: NotRequired[str]
+        """
+        ID of an existing refund to link this credit note to.
         """
 
     class CreateParamsShippingCost(TypedDict):
@@ -197,7 +207,7 @@ class CreditNoteService(StripeService):
     class PreviewParams(TypedDict):
         amount: NotRequired[int]
         """
-        The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+        The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         credit_amount: NotRequired[int]
         """
@@ -221,7 +231,7 @@ class CreditNoteService(StripeService):
         """
         lines: NotRequired[List["CreditNoteService.PreviewParamsLine"]]
         """
-        Line items that make up the credit note.
+        Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         memo: NotRequired[str]
         """
@@ -246,19 +256,19 @@ class CreditNoteService(StripeService):
         """
         Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
         """
-        refund: NotRequired[str]
-        """
-        ID of an existing refund to link this credit note to.
-        """
         refund_amount: NotRequired[int]
         """
         The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
+        """
+        refunds: NotRequired[List["CreditNoteService.PreviewParamsRefund"]]
+        """
+        Refunds to link to this credit note.
         """
         shipping_cost: NotRequired[
             "CreditNoteService.PreviewParamsShippingCost"
         ]
         """
-        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
 
     class PreviewParamsLine(TypedDict):
@@ -313,6 +323,16 @@ class CreditNoteService(StripeService):
         taxable_amount: int
         """
         The amount on which tax is calculated, in cents (or local equivalent).
+        """
+
+    class PreviewParamsRefund(TypedDict):
+        amount_refunded: NotRequired[int]
+        """
+        Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
+        """
+        refund: NotRequired[str]
+        """
+        ID of an existing refund to link this credit note to.
         """
 
     class PreviewParamsShippingCost(TypedDict):
@@ -391,20 +411,19 @@ class CreditNoteService(StripeService):
         options: RequestOptions = {},
     ) -> CreditNote:
         """
-        Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
-        its amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result
-        in any combination of the following:
+        Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
+        This amount is indicated by the credit note's pre_payment_amount. The excess amount is indicated by post_payment_amount, and it can result in any combination of the following:
 
 
-        Refund: create a new refund (using refund_amount) or link an existing refund (using refund).
+        Refunds: create a new refund (using refund_amount) or link existing refunds (using refunds).
         Customer balance credit: credit the customer's balance (using credit_amount) which will be automatically applied to their next invoice when it's finalized.
         Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).
 
 
-        For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.
+        The sum of refunds, customer balance credits, and outside of Stripe credits must equal the post_payment_amount.
 
-        You may issue multiple credit notes for an invoice. Each credit note will increment the invoice's pre_payment_credit_notes_amount
-        or post_payment_credit_notes_amount depending on its status at the time of credit note creation.
+        You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
+        post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
         """
         return cast(
             CreditNote,
@@ -423,20 +442,19 @@ class CreditNoteService(StripeService):
         options: RequestOptions = {},
     ) -> CreditNote:
         """
-        Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
-        its amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result
-        in any combination of the following:
+        Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
+        This amount is indicated by the credit note's pre_payment_amount. The excess amount is indicated by post_payment_amount, and it can result in any combination of the following:
 
 
-        Refund: create a new refund (using refund_amount) or link an existing refund (using refund).
+        Refunds: create a new refund (using refund_amount) or link existing refunds (using refunds).
         Customer balance credit: credit the customer's balance (using credit_amount) which will be automatically applied to their next invoice when it's finalized.
         Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).
 
 
-        For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.
+        The sum of refunds, customer balance credits, and outside of Stripe credits must equal the post_payment_amount.
 
-        You may issue multiple credit notes for an invoice. Each credit note will increment the invoice's pre_payment_credit_notes_amount
-        or post_payment_credit_notes_amount depending on its status at the time of credit note creation.
+        You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
+        post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
         """
         return cast(
             CreditNote,
@@ -574,7 +592,7 @@ class CreditNoteService(StripeService):
         options: RequestOptions = {},
     ) -> CreditNote:
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             CreditNote,
@@ -594,7 +612,7 @@ class CreditNoteService(StripeService):
         options: RequestOptions = {},
     ) -> CreditNote:
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             CreditNote,

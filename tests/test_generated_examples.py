@@ -5,7 +5,7 @@ import stripe
 
 from tests.http_client_mock import HTTPClientMock
 import io
-from stripe import StripeClient
+from stripe import StripeClient, _error
 import pytest
 
 
@@ -248,7 +248,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
-            post_data="requested=True",
+            post_data="requested=true",
         )
 
     def test_accounts_capabilities_post_service(
@@ -273,7 +273,7 @@ class TestGeneratedExamples(object):
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="requested=True",
+            post_data="requested=true",
         )
 
     @pytest.mark.anyio
@@ -289,7 +289,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
-            post_data="requested=True",
+            post_data="requested=true",
         )
 
     @pytest.mark.anyio
@@ -315,7 +315,7 @@ class TestGeneratedExamples(object):
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="requested=True",
+            post_data="requested=true",
         )
 
     def test_accounts_delete(self, http_client_mock: HTTPClientMock) -> None:
@@ -1810,7 +1810,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/accounts",
             query_string="",
-            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=True&capabilities[transfers][requested]=True",
+            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=true&capabilities[transfers][requested]=true",
         )
 
     def test_accounts_post_service(
@@ -1841,7 +1841,7 @@ class TestGeneratedExamples(object):
             path="/v1/accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=True&capabilities[transfers][requested]=True",
+            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=true&capabilities[transfers][requested]=true",
         )
 
     @pytest.mark.anyio
@@ -1861,7 +1861,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/accounts",
             query_string="",
-            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=True&capabilities[transfers][requested]=True",
+            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=true&capabilities[transfers][requested]=true",
         )
 
     @pytest.mark.anyio
@@ -1893,7 +1893,7 @@ class TestGeneratedExamples(object):
             path="/v1/accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=True&capabilities[transfers][requested]=True",
+            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=true&capabilities[transfers][requested]=true",
         )
 
     def test_accounts_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -3226,7 +3226,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/billing_portal/configurations",
             query_string="",
-            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=True&features[invoice_history][enabled]=True&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
+            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=true&features[invoice_history][enabled]=true&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
         )
 
     def test_billing_portal_configurations_post_service(
@@ -3261,7 +3261,7 @@ class TestGeneratedExamples(object):
             path="/v1/billing_portal/configurations",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=True&features[invoice_history][enabled]=True&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
+            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=true&features[invoice_history][enabled]=true&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
         )
 
     @pytest.mark.anyio
@@ -3285,7 +3285,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/billing_portal/configurations",
             query_string="",
-            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=True&features[invoice_history][enabled]=True&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
+            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=true&features[invoice_history][enabled]=true&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
         )
 
     @pytest.mark.anyio
@@ -3321,7 +3321,7 @@ class TestGeneratedExamples(object):
             path="/v1/billing_portal/configurations",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=True&features[invoice_history][enabled]=True&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
+            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=true&features[invoice_history][enabled]=true&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
         )
 
     def test_billing_portal_configurations_post_2(
@@ -4789,14 +4789,13 @@ class TestGeneratedExamples(object):
     def test_coupons_post(self, http_client_mock: HTTPClientMock) -> None:
         stripe.Coupon.create(
             percent_off=25.5,
-            duration="repeating",
-            duration_in_months=3,
+            duration="once",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/coupons",
             query_string="",
-            post_data="percent_off=25.5&duration=repeating&duration_in_months=3",
+            post_data="percent_off=25.5&duration=once",
         )
 
     def test_coupons_post_service(
@@ -4811,19 +4810,13 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.coupons.create(
-            {
-                "percent_off": 25.5,
-                "duration": "repeating",
-                "duration_in_months": 3,
-            }
-        )
+        client.coupons.create({"percent_off": 25.5, "duration": "once"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/coupons",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="percent_off=25.5&duration=repeating&duration_in_months=3",
+            post_data="percent_off=25.5&duration=once",
         )
 
     @pytest.mark.anyio
@@ -4832,14 +4825,13 @@ class TestGeneratedExamples(object):
     ) -> None:
         await stripe.Coupon.create_async(
             percent_off=25.5,
-            duration="repeating",
-            duration_in_months=3,
+            duration="once",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/coupons",
             query_string="",
-            post_data="percent_off=25.5&duration=repeating&duration_in_months=3",
+            post_data="percent_off=25.5&duration=once",
         )
 
     @pytest.mark.anyio
@@ -4858,8 +4850,7 @@ class TestGeneratedExamples(object):
         await client.coupons.create_async(
             {
                 "percent_off": 25.5,
-                "duration": "repeating",
-                "duration_in_months": 3,
+                "duration": "once",
             }
         )
         http_client_mock.assert_requested(
@@ -4867,7 +4858,7 @@ class TestGeneratedExamples(object):
             path="/v1/coupons",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="percent_off=25.5&duration=repeating&duration_in_months=3",
+            post_data="percent_off=25.5&duration=once",
         )
 
     def test_coupons_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -5445,7 +5436,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/customer_sessions",
             query_string="",
-            post_data="customer=cus_123&components[buy_button][enabled]=True",
+            post_data="customer=cus_123&components[buy_button][enabled]=true",
         )
 
     def test_customer_sessions_post_service(
@@ -5471,7 +5462,7 @@ class TestGeneratedExamples(object):
             path="/v1/customer_sessions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_123&components[buy_button][enabled]=True",
+            post_data="customer=cus_123&components[buy_button][enabled]=true",
         )
 
     @pytest.mark.anyio
@@ -5486,7 +5477,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/customer_sessions",
             query_string="",
-            post_data="customer=cus_123&components[buy_button][enabled]=True",
+            post_data="customer=cus_123&components[buy_button][enabled]=true",
         )
 
     @pytest.mark.anyio
@@ -5513,7 +5504,7 @@ class TestGeneratedExamples(object):
             path="/v1/customer_sessions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_123&components[buy_button][enabled]=True",
+            post_data="customer=cus_123&components[buy_button][enabled]=true",
         )
 
     def test_customers_balance_transactions_get(
@@ -10797,15 +10788,12 @@ class TestGeneratedExamples(object):
         )
 
     def test_invoiceitems_post(self, http_client_mock: HTTPClientMock) -> None:
-        stripe.InvoiceItem.create(
-            customer="cus_xxxxxxxxxxxxx",
-            price="price_xxxxxxxxxxxxx",
-        )
+        stripe.InvoiceItem.create(customer="cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoiceitems",
             query_string="",
-            post_data="customer=cus_xxxxxxxxxxxxx&price=price_xxxxxxxxxxxxx",
+            post_data="customer=cus_xxxxxxxxxxxxx",
         )
 
     def test_invoiceitems_post_service(
@@ -10820,33 +10808,25 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoice_items.create(
-            {
-                "customer": "cus_xxxxxxxxxxxxx",
-                "price": "price_xxxxxxxxxxxxx",
-            }
-        )
+        client.invoice_items.create({"customer": "cus_xxxxxxxxxxxxx"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoiceitems",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&price=price_xxxxxxxxxxxxx",
+            post_data="customer=cus_xxxxxxxxxxxxx",
         )
 
     @pytest.mark.anyio
     async def test_invoiceitems_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
-        await stripe.InvoiceItem.create_async(
-            customer="cus_xxxxxxxxxxxxx",
-            price="price_xxxxxxxxxxxxx",
-        )
+        await stripe.InvoiceItem.create_async(customer="cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoiceitems",
             query_string="",
-            post_data="customer=cus_xxxxxxxxxxxxx&price=price_xxxxxxxxxxxxx",
+            post_data="customer=cus_xxxxxxxxxxxxx",
         )
 
     @pytest.mark.anyio
@@ -10865,7 +10845,6 @@ class TestGeneratedExamples(object):
         await client.invoice_items.create_async(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
-                "price": "price_xxxxxxxxxxxxx",
             }
         )
         http_client_mock.assert_requested(
@@ -10873,7 +10852,7 @@ class TestGeneratedExamples(object):
             path="/v1/invoiceitems",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&price=price_xxxxxxxxxxxxx",
+            post_data="customer=cus_xxxxxxxxxxxxx",
         )
 
     def test_invoiceitems_post_2(
@@ -11669,72 +11648,6 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/send",
             query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_invoices_upcoming_get(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        stripe.Invoice.upcoming(customer="cus_9utnxg47pWjV1e")
-        http_client_mock.assert_requested(
-            "get",
-            path="/v1/invoices/upcoming",
-            query_string="customer=cus_9utnxg47pWjV1e",
-        )
-
-    def test_invoices_upcoming_get_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v1/invoices/upcoming",
-            "customer=cus_9utnxg47pWjV1e",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.invoices.upcoming({"customer": "cus_9utnxg47pWjV1e"})
-        http_client_mock.assert_requested(
-            "get",
-            path="/v1/invoices/upcoming",
-            query_string="customer=cus_9utnxg47pWjV1e",
-            api_base="https://api.stripe.com",
-        )
-
-    @pytest.mark.anyio
-    async def test_invoices_upcoming_get_async(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        await stripe.Invoice.upcoming_async(customer="cus_9utnxg47pWjV1e")
-        http_client_mock.assert_requested(
-            "get",
-            path="/v1/invoices/upcoming",
-            query_string="customer=cus_9utnxg47pWjV1e",
-        )
-
-    @pytest.mark.anyio
-    async def test_invoices_upcoming_get_service_async(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v1/invoices/upcoming",
-            "customer=cus_9utnxg47pWjV1e",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        await client.invoices.upcoming_async(
-            {"customer": "cus_9utnxg47pWjV1e"}
-        )
-        http_client_mock.assert_requested(
-            "get",
-            path="/v1/invoices/upcoming",
-            query_string="customer=cus_9utnxg47pWjV1e",
             api_base="https://api.stripe.com",
         )
 
@@ -14174,7 +14087,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/payment_intents",
             query_string="",
-            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=True",
+            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=true",
         )
 
     def test_payment_intents_post_service(
@@ -14201,7 +14114,7 @@ class TestGeneratedExamples(object):
             path="/v1/payment_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=True",
+            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=true",
         )
 
     @pytest.mark.anyio
@@ -14217,7 +14130,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/payment_intents",
             query_string="",
-            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=True",
+            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=true",
         )
 
     @pytest.mark.anyio
@@ -14245,7 +14158,7 @@ class TestGeneratedExamples(object):
             path="/v1/payment_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=True",
+            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=true",
         )
 
     def test_payment_intents_post_2(
@@ -14260,7 +14173,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/payment_intents",
             query_string="",
-            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=True",
+            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=true",
         )
 
     def test_payment_intents_post_2_service(
@@ -14287,7 +14200,7 @@ class TestGeneratedExamples(object):
             path="/v1/payment_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=True",
+            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=true",
         )
 
     @pytest.mark.anyio
@@ -14303,7 +14216,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/payment_intents",
             query_string="",
-            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=True",
+            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=true",
         )
 
     @pytest.mark.anyio
@@ -14331,7 +14244,7 @@ class TestGeneratedExamples(object):
             path="/v1/payment_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=True",
+            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=true",
         )
 
     def test_payment_intents_post_3(
@@ -15147,7 +15060,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
             query_string="",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     def test_payment_links_post_3_service(
@@ -15171,7 +15084,7 @@ class TestGeneratedExamples(object):
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     @pytest.mark.anyio
@@ -15186,7 +15099,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
             query_string="",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     @pytest.mark.anyio
@@ -15211,7 +15124,7 @@ class TestGeneratedExamples(object):
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     def test_payment_method_configurations_get(
@@ -21887,162 +21800,6 @@ class TestGeneratedExamples(object):
             post_data="metadata[order_id]=6735",
         )
 
-    def test_subscription_items_usage_record_summaries_get(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        stripe.SubscriptionItem.list_usage_record_summaries(
-            "si_xxxxxxxxxxxxx",
-            limit=3,
-        )
-        http_client_mock.assert_requested(
-            "get",
-            path="/v1/subscription_items/si_xxxxxxxxxxxxx/usage_record_summaries",
-            query_string="limit=3",
-        )
-
-    def test_subscription_items_usage_record_summaries_get_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v1/subscription_items/si_xxxxxxxxxxxxx/usage_record_summaries",
-            "limit=3",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.subscription_items.usage_record_summaries.list(
-            "si_xxxxxxxxxxxxx",
-            {"limit": 3},
-        )
-        http_client_mock.assert_requested(
-            "get",
-            path="/v1/subscription_items/si_xxxxxxxxxxxxx/usage_record_summaries",
-            query_string="limit=3",
-            api_base="https://api.stripe.com",
-        )
-
-    @pytest.mark.anyio
-    async def test_subscription_items_usage_record_summaries_get_async(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        await stripe.SubscriptionItem.list_usage_record_summaries_async(
-            "si_xxxxxxxxxxxxx",
-            limit=3,
-        )
-        http_client_mock.assert_requested(
-            "get",
-            path="/v1/subscription_items/si_xxxxxxxxxxxxx/usage_record_summaries",
-            query_string="limit=3",
-        )
-
-    @pytest.mark.anyio
-    async def test_subscription_items_usage_record_summaries_get_service_async(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v1/subscription_items/si_xxxxxxxxxxxxx/usage_record_summaries",
-            "limit=3",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        await client.subscription_items.usage_record_summaries.list_async(
-            "si_xxxxxxxxxxxxx",
-            {"limit": 3},
-        )
-        http_client_mock.assert_requested(
-            "get",
-            path="/v1/subscription_items/si_xxxxxxxxxxxxx/usage_record_summaries",
-            query_string="limit=3",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_subscription_items_usage_records_post(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        stripe.SubscriptionItem.create_usage_record(
-            "si_xxxxxxxxxxxxx",
-            quantity=100,
-            timestamp=1571252444,
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/subscription_items/si_xxxxxxxxxxxxx/usage_records",
-            query_string="",
-            post_data="quantity=100&timestamp=1571252444",
-        )
-
-    def test_subscription_items_usage_records_post_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v1/subscription_items/si_xxxxxxxxxxxxx/usage_records",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.subscription_items.usage_records.create(
-            "si_xxxxxxxxxxxxx",
-            {"quantity": 100, "timestamp": 1571252444},
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/subscription_items/si_xxxxxxxxxxxxx/usage_records",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="quantity=100&timestamp=1571252444",
-        )
-
-    @pytest.mark.anyio
-    async def test_subscription_items_usage_records_post_async(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        await stripe.SubscriptionItem.create_usage_record_async(
-            "si_xxxxxxxxxxxxx",
-            quantity=100,
-            timestamp=1571252444,
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/subscription_items/si_xxxxxxxxxxxxx/usage_records",
-            query_string="",
-            post_data="quantity=100&timestamp=1571252444",
-        )
-
-    @pytest.mark.anyio
-    async def test_subscription_items_usage_records_post_service_async(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v1/subscription_items/si_xxxxxxxxxxxxx/usage_records",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        await client.subscription_items.usage_records.create_async(
-            "si_xxxxxxxxxxxxx",
-            {"quantity": 100, "timestamp": 1571252444},
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/subscription_items/si_xxxxxxxxxxxxx/usage_records",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="quantity=100&timestamp=1571252444",
-        )
-
     def test_subscription_schedules_cancel_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -23671,7 +23428,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tax_rates",
             query_string="",
-            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=False",
+            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=false",
         )
 
     def test_tax_rates_post_service(
@@ -23700,7 +23457,7 @@ class TestGeneratedExamples(object):
             path="/v1/tax_rates",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=False",
+            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=false",
         )
 
     @pytest.mark.anyio
@@ -23718,7 +23475,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tax_rates",
             query_string="",
-            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=False",
+            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=false",
         )
 
     @pytest.mark.anyio
@@ -23748,7 +23505,7 @@ class TestGeneratedExamples(object):
             path="/v1/tax_rates",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=False",
+            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=false",
         )
 
     def test_tax_rates_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -23760,7 +23517,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     def test_tax_rates_post_2_service(
@@ -23784,7 +23541,7 @@ class TestGeneratedExamples(object):
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     @pytest.mark.anyio
@@ -23799,7 +23556,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     @pytest.mark.anyio
@@ -23824,7 +23581,7 @@ class TestGeneratedExamples(object):
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="active=False",
+            post_data="active=false",
         )
 
     def test_tax_registrations_get(
@@ -26077,7 +25834,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
-            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="capture_amount=100&close_authorization=true&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_authorizations_capture_post_service(
@@ -26138,7 +25895,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="capture_amount=100&close_authorization=true&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -26188,7 +25945,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
-            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="capture_amount=100&close_authorization=true&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -26250,7 +26007,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="capture_amount=100&close_authorization=True&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="capture_amount=100&close_authorization=true&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_authorizations_expire_post(
@@ -26335,7 +26092,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/increment",
             query_string="",
-            post_data="increment_amount=50&is_amount_controllable=True",
+            post_data="increment_amount=50&is_amount_controllable=true",
         )
 
     def test_test_helpers_issuing_authorizations_increment_post_service(
@@ -26359,7 +26116,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations/example_authorization/increment",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="increment_amount=50&is_amount_controllable=True",
+            post_data="increment_amount=50&is_amount_controllable=true",
         )
 
     @pytest.mark.anyio
@@ -26375,7 +26132,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations/example_authorization/increment",
             query_string="",
-            post_data="increment_amount=50&is_amount_controllable=True",
+            post_data="increment_amount=50&is_amount_controllable=true",
         )
 
     @pytest.mark.anyio
@@ -26400,7 +26157,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations/example_authorization/increment",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="increment_amount=50&is_amount_controllable=True",
+            post_data="increment_amount=50&is_amount_controllable=true",
         )
 
     def test_test_helpers_issuing_authorizations_post(
@@ -26436,7 +26193,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations",
             query_string="",
-            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=True&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
+            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=true&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
         )
 
     def test_test_helpers_issuing_authorizations_post_service(
@@ -26484,7 +26241,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=True&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
+            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=true&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
         )
 
     @pytest.mark.anyio
@@ -26521,7 +26278,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/authorizations",
             query_string="",
-            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=True&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
+            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=true&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
         )
 
     @pytest.mark.anyio
@@ -26570,7 +26327,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=True&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
+            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=true&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
         )
 
     def test_test_helpers_issuing_authorizations_reverse_post(
@@ -27171,7 +26928,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_create_force_capture_post_service(
@@ -27242,7 +26999,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -27304,7 +27061,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -27376,7 +27133,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/transactions/create_force_capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_create_unlinked_refund_post(
@@ -27435,7 +27192,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_create_unlinked_refund_post_service(
@@ -27506,7 +27263,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -27566,7 +27323,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     @pytest.mark.anyio
@@ -27638,7 +27395,7 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=True&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=True&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_refund_post(
@@ -29410,7 +29167,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tokens",
             query_string="",
-            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=True",
+            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=true",
         )
 
     def test_tokens_post_4_service(
@@ -29438,7 +29195,7 @@ class TestGeneratedExamples(object):
             path="/v1/tokens",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=True",
+            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=true",
         )
 
     @pytest.mark.anyio
@@ -29455,7 +29212,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tokens",
             query_string="",
-            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=True",
+            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=true",
         )
 
     @pytest.mark.anyio
@@ -29484,7 +29241,7 @@ class TestGeneratedExamples(object):
             path="/v1/tokens",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=True",
+            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=true",
         )
 
     def test_tokens_post_5(self, http_client_mock: HTTPClientMock) -> None:
@@ -29499,7 +29256,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tokens",
             query_string="",
-            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=True",
+            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=true",
         )
 
     def test_tokens_post_5_service(
@@ -29528,7 +29285,7 @@ class TestGeneratedExamples(object):
             path="/v1/tokens",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=True",
+            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=true",
         )
 
     @pytest.mark.anyio
@@ -29546,7 +29303,7 @@ class TestGeneratedExamples(object):
             "post",
             path="/v1/tokens",
             query_string="",
-            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=True",
+            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=true",
         )
 
     @pytest.mark.anyio
@@ -29576,7 +29333,7 @@ class TestGeneratedExamples(object):
             path="/v1/tokens",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=True",
+            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=true",
         )
 
     def test_tokens_post_6(self, http_client_mock: HTTPClientMock) -> None:
@@ -33231,4 +32988,368 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="url=https%3A%2F%2Fexample.com%2Fnew_endpoint",
+        )
+
+    def test_v2_billing_meter_event_adjustment_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/meter_event_adjustments",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.meter_event_adjustments.create(
+            {
+                "cancel": {"identifier": "identifier"},
+                "event_name": "event_name",
+                "type": "cancel",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/meter_event_adjustments",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"cancel":{"identifier":"identifier"},"event_name":"event_name","type":"cancel"}',
+            is_json=True,
+        )
+
+    def test_v2_billing_meter_event_session_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/meter_event_session",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.meter_event_session.create()
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/meter_event_session",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_billing_meter_event_stream_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/meter_event_stream",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.meter_event_stream.create(
+            {
+                "events": [
+                    {
+                        "event_name": "event_name",
+                        "identifier": "identifier",
+                        "payload": {"undefined": "payload"},
+                        "timestamp": "1970-01-01T15:18:46.294Z",
+                    },
+                ],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/meter_event_stream",
+            query_string="",
+            api_base="https://meter-events.stripe.com",
+            post_data='{"events":[{"event_name":"event_name","identifier":"identifier","payload":{"undefined":"payload"},"timestamp":"1970-01-01T15:18:46.294Z"}]}',
+            is_json=True,
+        )
+
+    def test_v2_billing_meter_event_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/meter_events",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.meter_events.create(
+            {
+                "event_name": "event_name",
+                "payload": {"undefined": "payload"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/meter_events",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"event_name":"event_name","payload":{"undefined":"payload"}}',
+            is_json=True,
+        )
+
+    def test_v2_core_event_destination_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/event_destinations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/event_destinations",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_event_destination_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/event_destinations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.create(
+            {
+                "enabled_events": ["enabled_events"],
+                "event_payload": "thin",
+                "name": "name",
+                "type": "amazon_eventbridge",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/event_destinations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"enabled_events":["enabled_events"],"event_payload":"thin","name":"name","type":"amazon_eventbridge"}',
+            is_json=True,
+        )
+
+    def test_v2_core_event_destination_delete_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v2/core/event_destinations/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.delete("id_123")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v2/core/event_destinations/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_event_destination_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/event_destinations/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/event_destinations/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_event_destination_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/event_destinations/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.update("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/event_destinations/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_event_destination_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/event_destinations/id_123/disable",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.disable("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/event_destinations/id_123/disable",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_event_destination_post_4_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/event_destinations/id_123/enable",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.enable("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/event_destinations/id_123/enable",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_event_destination_post_5_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/event_destinations/id_123/ping",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.event_destinations.ping("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/event_destinations/id_123/ping",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_event_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/events",
+            "object_id=object_id",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.events.list({"object_id": "object_id"})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/events",
+            query_string="object_id=object_id",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_event_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/events/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.events.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/events/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_temporary_session_expired_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/meter_event_stream",
+            rbody='{"error":{"type":"temporary_session_expired","code":"billing_meter_event_session_expired"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.billing.meter_event_stream.create(
+                {
+                    "events": [
+                        {
+                            "event_name": "event_name",
+                            "payload": {"undefined": "payload"},
+                        },
+                    ],
+                }
+            )
+        except _error.TemporarySessionExpiredError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/meter_event_stream",
+            query_string="",
+            api_base="https://meter-events.stripe.com",
+            post_data='{"events":[{"event_name":"event_name","payload":{"undefined":"payload"}}]}',
+            is_json=True,
         )

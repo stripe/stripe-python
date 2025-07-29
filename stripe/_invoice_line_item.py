@@ -16,12 +16,7 @@ from typing_extensions import (
 
 if TYPE_CHECKING:
     from stripe._discount import Discount
-    from stripe._invoice_item import InvoiceItem
-    from stripe._plan import Plan
-    from stripe._price import Price
     from stripe._subscription import Subscription
-    from stripe._subscription_item import SubscriptionItem
-    from stripe._tax_rate import TaxRate
     from stripe.billing._credit_balance_transaction import (
         CreditBalanceTransaction,
     )
@@ -45,6 +40,100 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         The discount that was applied to get this discount amount.
         """
+
+    class Parent(StripeObject):
+        class InvoiceItemDetails(StripeObject):
+            class ProrationDetails(StripeObject):
+                class CreditedItems(StripeObject):
+                    invoice: str
+                    """
+                    Invoice containing the credited invoice line items
+                    """
+                    invoice_line_items: List[str]
+                    """
+                    Credited invoice line items
+                    """
+
+                credited_items: Optional[CreditedItems]
+                """
+                For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+                """
+                _inner_class_types = {"credited_items": CreditedItems}
+
+            invoice_item: str
+            """
+            The invoice item that generated this line item
+            """
+            proration: bool
+            """
+            Whether this is a proration
+            """
+            proration_details: Optional[ProrationDetails]
+            """
+            Additional details for proration line items
+            """
+            subscription: Optional[str]
+            """
+            The subscription that the invoice item belongs to
+            """
+            _inner_class_types = {"proration_details": ProrationDetails}
+
+        class SubscriptionItemDetails(StripeObject):
+            class ProrationDetails(StripeObject):
+                class CreditedItems(StripeObject):
+                    invoice: str
+                    """
+                    Invoice containing the credited invoice line items
+                    """
+                    invoice_line_items: List[str]
+                    """
+                    Credited invoice line items
+                    """
+
+                credited_items: Optional[CreditedItems]
+                """
+                For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+                """
+                _inner_class_types = {"credited_items": CreditedItems}
+
+            invoice_item: Optional[str]
+            """
+            The invoice item that generated this line item
+            """
+            proration: bool
+            """
+            Whether this is a proration
+            """
+            proration_details: Optional[ProrationDetails]
+            """
+            Additional details for proration line items
+            """
+            subscription: Optional[str]
+            """
+            The subscription that the subscription item belongs to
+            """
+            subscription_item: str
+            """
+            The subscription item that generated this line item
+            """
+            _inner_class_types = {"proration_details": ProrationDetails}
+
+        invoice_item_details: Optional[InvoiceItemDetails]
+        """
+        Details about the invoice item that generated this line item
+        """
+        subscription_item_details: Optional[SubscriptionItemDetails]
+        """
+        Details about the subscription item that generated this line item
+        """
+        type: Literal["invoice_item_details", "subscription_item_details"]
+        """
+        The type of parent that generated this line item
+        """
+        _inner_class_types = {
+            "invoice_item_details": InvoiceItemDetails,
+            "subscription_item_details": SubscriptionItemDetails,
+        }
 
     class Period(StripeObject):
         end: int
@@ -76,54 +165,61 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         Type of the pretax credit amount referenced.
         """
 
-    class ProrationDetails(StripeObject):
-        class CreditedItems(StripeObject):
-            invoice: str
+    class Pricing(StripeObject):
+        class PriceDetails(StripeObject):
+            price: str
             """
-            Invoice containing the credited invoice line items
+            The ID of the price this item is associated with.
             """
-            invoice_line_items: List[str]
+            product: str
             """
-            Credited invoice line items
+            The ID of the product this item is associated with.
             """
 
-        credited_items: Optional[CreditedItems]
+        price_details: Optional[PriceDetails]
+        type: Literal["price_details"]
         """
-        For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+        The type of the pricing details.
         """
-        _inner_class_types = {"credited_items": CreditedItems}
+        unit_amount_decimal: Optional[str]
+        """
+        The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
+        """
+        _inner_class_types = {"price_details": PriceDetails}
 
-    class TaxAmount(StripeObject):
+    class Tax(StripeObject):
+        class TaxRateDetails(StripeObject):
+            tax_rate: str
+
         amount: int
         """
-        The amount, in cents (or local equivalent), of the tax.
+        The amount of the tax, in cents (or local equivalent).
         """
-        inclusive: bool
+        tax_behavior: Literal["exclusive", "inclusive"]
         """
-        Whether this tax amount is inclusive or exclusive.
+        Whether this tax is inclusive or exclusive.
         """
-        tax_rate: ExpandableField["TaxRate"]
+        tax_rate_details: Optional[TaxRateDetails]
         """
-        The tax rate that was applied to get this tax amount.
+        Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
         """
-        taxability_reason: Optional[
-            Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
-            ]
+        taxability_reason: Literal[
+            "customer_exempt",
+            "not_available",
+            "not_collecting",
+            "not_subject_to_tax",
+            "not_supported",
+            "portion_product_exempt",
+            "portion_reduced_rated",
+            "portion_standard_rated",
+            "product_exempt",
+            "product_exempt_holiday",
+            "proportionally_rated",
+            "reduced_rated",
+            "reverse_charge",
+            "standard_rated",
+            "taxable_basis_reduced",
+            "zero_rated",
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -132,6 +228,11 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         The amount on which tax is calculated, in cents (or local equivalent).
         """
+        type: Literal["tax_rate_details"]
+        """
+        The type of tax information.
+        """
+        _inner_class_types = {"tax_rate_details": TaxRateDetails}
 
     class ModifyParams(RequestOptions):
         amount: NotRequired[int]
@@ -164,13 +265,13 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
         """
-        price: NotRequired[str]
-        """
-        The ID of the price object. One of `price` or `price_data` is required.
-        """
         price_data: NotRequired["InvoiceLineItem.ModifyParamsPriceData"]
         """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        """
+        pricing: NotRequired["InvoiceLineItem.ModifyParamsPricing"]
+        """
+        The pricing information for the invoice item.
         """
         quantity: NotRequired[int]
         """
@@ -218,13 +319,13 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         product: NotRequired[str]
         """
-        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
         """
         product_data: NotRequired[
             "InvoiceLineItem.ModifyParamsPriceDataProductData"
         ]
         """
-        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
         """
         tax_behavior: NotRequired[
             Literal["exclusive", "inclusive", "unspecified"]
@@ -263,6 +364,12 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
 
+    class ModifyParamsPricing(TypedDict):
+        price: NotRequired[str]
+        """
+        The ID of the price object.
+        """
+
     class ModifyParamsTaxAmount(TypedDict):
         amount: int
         """
@@ -273,6 +380,28 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         Data to find or create a TaxRate object.
 
         Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item's `tax_rates`, and cannot be directly added to invoices, payments, or line items.
+        """
+        taxability_reason: NotRequired[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ]
+        ]
+        """
+        The reasoning behind this tax, for example, if the product is tax exempt.
         """
         taxable_amount: int
         """
@@ -299,6 +428,14 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         jurisdiction: NotRequired[str]
         """
         The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
+        """
+        jurisdiction_level: NotRequired[
+            Literal[
+                "city", "country", "county", "district", "multiple", "state"
+            ]
+        ]
+        """
+        The level of the jurisdiction that imposes this tax rate.
         """
         percentage: float
         """
@@ -334,10 +471,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     The amount, in cents (or local equivalent).
     """
-    amount_excluding_tax: Optional[int]
-    """
-    The integer amount in cents (or local equivalent) representing the amount for this line item, excluding all tax and discounts.
-    """
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -366,10 +499,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     The ID of the invoice that contains this line item.
     """
-    invoice_item: Optional[ExpandableField["InvoiceItem"]]
-    """
-    The ID of the [invoice item](https://stripe.com/docs/api/invoiceitems) associated with this line item if any.
-    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -382,54 +511,27 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    parent: Optional[Parent]
+    """
+    The parent that generated this line item.
+    """
     period: Period
-    plan: Optional["Plan"]
-    """
-    The plan of the subscription, if the line item is a subscription or a proration.
-    """
     pretax_credit_amounts: Optional[List[PretaxCreditAmount]]
     """
     Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this line item.
     """
-    price: Optional["Price"]
+    pricing: Optional[Pricing]
     """
-    The price of the line item.
-    """
-    proration: bool
-    """
-    Whether this is a proration.
-    """
-    proration_details: Optional[ProrationDetails]
-    """
-    Additional details for proration line items
+    The pricing information of the line item.
     """
     quantity: Optional[int]
     """
     The quantity of the subscription, if the line item is a subscription or a proration.
     """
     subscription: Optional[ExpandableField["Subscription"]]
+    taxes: Optional[List[Tax]]
     """
-    The subscription that the invoice item pertains to, if any.
-    """
-    subscription_item: Optional[ExpandableField["SubscriptionItem"]]
-    """
-    The subscription item that generated this line item. Left empty if the line item is not an explicit result of a subscription.
-    """
-    tax_amounts: List[TaxAmount]
-    """
-    The amount of tax calculated per tax rate for this line item
-    """
-    tax_rates: List["TaxRate"]
-    """
-    The tax rates which apply to the line item.
-    """
-    type: Literal["invoiceitem", "subscription"]
-    """
-    A string identifying the type of the source of this line item, either an `invoiceitem` or a `subscription`.
-    """
-    unit_amount_excluding_tax: Optional[str]
-    """
-    The amount in cents (or local equivalent) representing the unit amount for this line item, excluding all tax and discounts.
+    The tax information of the line item.
     """
 
     @classmethod
@@ -474,8 +576,9 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
 
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
+        "parent": Parent,
         "period": Period,
         "pretax_credit_amounts": PretaxCreditAmount,
-        "proration_details": ProrationDetails,
-        "tax_amounts": TaxAmount,
+        "pricing": Pricing,
+        "taxes": Tax,
     }

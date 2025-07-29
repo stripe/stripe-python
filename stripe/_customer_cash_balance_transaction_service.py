@@ -43,7 +43,7 @@ class CustomerCashBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[CustomerCashBalanceTransaction]:
         """
-        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
         return cast(
             ListObject[CustomerCashBalanceTransaction],
@@ -65,7 +65,7 @@ class CustomerCashBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[CustomerCashBalanceTransaction]:
         """
-        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
         return cast(
             ListObject[CustomerCashBalanceTransaction],
@@ -88,7 +88,7 @@ class CustomerCashBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> CustomerCashBalanceTransaction:
         """
-        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
         return cast(
             CustomerCashBalanceTransaction,
@@ -112,7 +112,7 @@ class CustomerCashBalanceTransactionService(StripeService):
         options: RequestOptions = {},
     ) -> CustomerCashBalanceTransaction:
         """
-        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
         return cast(
             CustomerCashBalanceTransaction,

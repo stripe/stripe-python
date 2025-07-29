@@ -6,22 +6,13 @@ from typing_extensions import Literal
 
 
 class EventDestination(StripeObject):
+    """
+    Set up an event destination to receive events from Stripe across multiple destination types, including [webhook endpoints](https://docs.stripe.com/webhooks) and [Amazon EventBridge](https://docs.stripe.com/event-destinations/eventbridge). Event destinations support receiving [thin events](https://docs.stripe.com/api/v2/events) and [snapshot events](https://docs.stripe.com/api/events).
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.core.event_destination"]] = (
         "v2.core.event_destination"
     )
-
-    class StatusDetails(StripeObject):
-        class Disabled(StripeObject):
-            reason: Literal["no_aws_event_source_exists", "user"]
-            """
-            Reason event destination has been disabled.
-            """
-
-        disabled: Optional[Disabled]
-        """
-        Details about why the event destination has been disabled.
-        """
-        _inner_class_types = {"disabled": Disabled}
 
     class AmazonEventbridge(StripeObject):
         aws_account_id: str
@@ -39,6 +30,19 @@ class EventDestination(StripeObject):
         The state of the AWS event source.
         """
 
+    class StatusDetails(StripeObject):
+        class Disabled(StripeObject):
+            reason: Literal["no_aws_event_source_exists", "user"]
+            """
+            Reason event destination has been disabled.
+            """
+
+        disabled: Optional[Disabled]
+        """
+        Details about why the event destination has been disabled.
+        """
+        _inner_class_types = {"disabled": Disabled}
+
     class WebhookEndpoint(StripeObject):
         signing_secret: Optional[str]
         """
@@ -49,6 +53,10 @@ class EventDestination(StripeObject):
         The URL of the webhook endpoint, includable.
         """
 
+    amazon_eventbridge: Optional[AmazonEventbridge]
+    """
+    Amazon EventBridge configuration.
+    """
     created: str
     """
     Time at which the object was created.
@@ -109,16 +117,12 @@ class EventDestination(StripeObject):
     """
     Time at which the object was last updated.
     """
-    amazon_eventbridge: Optional[AmazonEventbridge]
-    """
-    Amazon EventBridge configuration.
-    """
     webhook_endpoint: Optional[WebhookEndpoint]
     """
     Webhook endpoint configuration.
     """
     _inner_class_types = {
-        "status_details": StatusDetails,
         "amazon_eventbridge": AmazonEventbridge,
+        "status_details": StatusDetails,
         "webhook_endpoint": WebhookEndpoint,
     }

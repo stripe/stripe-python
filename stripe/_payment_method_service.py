@@ -67,6 +67,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
         """
+        billie: NotRequired["PaymentMethodService.CreateParamsBillie"]
+        """
+        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
+        """
         billing_details: NotRequired[
             "PaymentMethodService.CreateParamsBillingDetails"
         ]
@@ -88,6 +92,10 @@ class PaymentMethodService(StripeService):
         cashapp: NotRequired["PaymentMethodService.CreateParamsCashapp"]
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
+        """
+        crypto: NotRequired["PaymentMethodService.CreateParamsCrypto"]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
         """
         customer: NotRequired[str]
         """
@@ -165,6 +173,12 @@ class PaymentMethodService(StripeService):
         """
         If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
         """
+        nz_bank_account: NotRequired[
+            "PaymentMethodService.CreateParamsNzBankAccount"
+        ]
+        """
+        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
+        """
         oxxo: NotRequired["PaymentMethodService.CreateParamsOxxo"]
         """
         If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
@@ -209,11 +223,15 @@ class PaymentMethodService(StripeService):
         """
         revolut_pay: NotRequired["PaymentMethodService.CreateParamsRevolutPay"]
         """
-        If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         """
         samsung_pay: NotRequired["PaymentMethodService.CreateParamsSamsungPay"]
         """
         If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
+        """
+        satispay: NotRequired["PaymentMethodService.CreateParamsSatispay"]
+        """
+        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
         """
         sepa_debit: NotRequired["PaymentMethodService.CreateParamsSepaDebit"]
         """
@@ -242,10 +260,12 @@ class PaymentMethodService(StripeService):
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
+                "billie",
                 "blik",
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",
@@ -260,6 +280,7 @@ class PaymentMethodService(StripeService):
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
+                "nz_bank_account",
                 "oxxo",
                 "p24",
                 "pay_by_bank",
@@ -270,6 +291,7 @@ class PaymentMethodService(StripeService):
                 "promptpay",
                 "revolut_pay",
                 "samsung_pay",
+                "satispay",
                 "sepa_debit",
                 "sofort",
                 "swish",
@@ -349,6 +371,9 @@ class PaymentMethodService(StripeService):
     class CreateParamsBancontact(TypedDict):
         pass
 
+    class CreateParamsBillie(TypedDict):
+        pass
+
     class CreateParamsBillingDetails(TypedDict):
         address: NotRequired[
             "Literal['']|PaymentMethodService.CreateParamsBillingDetailsAddress"
@@ -367,6 +392,10 @@ class PaymentMethodService(StripeService):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class CreateParamsBillingDetailsAddress(TypedDict):
@@ -439,6 +468,9 @@ class PaymentMethodService(StripeService):
         """
 
     class CreateParamsCashapp(TypedDict):
+        pass
+
+    class CreateParamsCrypto(TypedDict):
         pass
 
     class CreateParamsCustomerBalance(TypedDict):
@@ -526,6 +558,7 @@ class PaymentMethodService(StripeService):
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -590,6 +623,29 @@ class PaymentMethodService(StripeService):
         funding: NotRequired[Literal["card", "points"]]
         """
         Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
+        """
+
+    class CreateParamsNzBankAccount(TypedDict):
+        account_holder_name: NotRequired[str]
+        """
+        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
+        """
+        account_number: str
+        """
+        The account number for the bank account.
+        """
+        bank_code: str
+        """
+        The numeric code for the bank account's bank.
+        """
+        branch_code: str
+        """
+        The numeric code for the bank account's bank branch.
+        """
+        reference: NotRequired[str]
+        suffix: str
+        """
+        The suffix of the bank account number.
         """
 
     class CreateParamsOxxo(TypedDict):
@@ -658,6 +714,9 @@ class PaymentMethodService(StripeService):
         pass
 
     class CreateParamsSamsungPay(TypedDict):
+        pass
+
+    class CreateParamsSatispay(TypedDict):
         pass
 
     class CreateParamsSepaDebit(TypedDict):
@@ -744,10 +803,12 @@ class PaymentMethodService(StripeService):
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
+                "billie",
                 "blik",
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",
@@ -762,6 +823,7 @@ class PaymentMethodService(StripeService):
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
+                "nz_bank_account",
                 "oxxo",
                 "p24",
                 "pay_by_bank",
@@ -772,6 +834,7 @@ class PaymentMethodService(StripeService):
                 "promptpay",
                 "revolut_pay",
                 "samsung_pay",
+                "satispay",
                 "sepa_debit",
                 "sofort",
                 "swish",
@@ -820,10 +883,6 @@ class PaymentMethodService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
-        naver_pay: NotRequired["PaymentMethodService.UpdateParamsNaverPay"]
-        """
-        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
-        """
         pay_by_bank: NotRequired["PaymentMethodService.UpdateParamsPayByBank"]
         """
         If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
@@ -853,6 +912,10 @@ class PaymentMethodService(StripeService):
         phone: NotRequired["Literal['']|str"]
         """
         Billing phone number (including extension).
+        """
+        tax_id: NotRequired[str]
+        """
+        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
         """
 
     class UpdateParamsBillingDetailsAddress(TypedDict):
@@ -906,12 +969,6 @@ class PaymentMethodService(StripeService):
     class UpdateParamsLink(TypedDict):
         pass
 
-    class UpdateParamsNaverPay(TypedDict):
-        funding: NotRequired[Literal["card", "points"]]
-        """
-        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
-        """
-
     class UpdateParamsPayByBank(TypedDict):
         pass
 
@@ -931,7 +988,7 @@ class PaymentMethodService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[PaymentMethod]:
         """
-        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer_list) API instead.
+        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
         """
         return cast(
             ListObject[PaymentMethod],
@@ -950,7 +1007,7 @@ class PaymentMethodService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[PaymentMethod]:
         """
-        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer_list) API instead.
+        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
         """
         return cast(
             ListObject[PaymentMethod],
@@ -969,9 +1026,9 @@ class PaymentMethodService(StripeService):
         options: RequestOptions = {},
     ) -> PaymentMethod:
         """
-        Creates a PaymentMethod object. Read the [Stripe.js reference](https://stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
+        Creates a PaymentMethod object. Read the [Stripe.js reference](https://docs.stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
 
-        Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
+        Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://docs.stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
         """
         return cast(
             PaymentMethod,
@@ -990,9 +1047,9 @@ class PaymentMethodService(StripeService):
         options: RequestOptions = {},
     ) -> PaymentMethod:
         """
-        Creates a PaymentMethod object. Read the [Stripe.js reference](https://stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
+        Creates a PaymentMethod object. Read the [Stripe.js reference](https://docs.stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
 
-        Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
+        Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://docs.stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
         """
         return cast(
             PaymentMethod,
@@ -1012,7 +1069,7 @@ class PaymentMethodService(StripeService):
         options: RequestOptions = {},
     ) -> PaymentMethod:
         """
-        Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer)
+        Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer)
         """
         return cast(
             PaymentMethod,
@@ -1034,7 +1091,7 @@ class PaymentMethodService(StripeService):
         options: RequestOptions = {},
     ) -> PaymentMethod:
         """
-        Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer)
+        Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer)
         """
         return cast(
             PaymentMethod,
@@ -1102,16 +1159,16 @@ class PaymentMethodService(StripeService):
         """
         Attaches a PaymentMethod object to a Customer.
 
-        To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://stripe.com/docs/api/setup_intents)
-        or a PaymentIntent with [setup_future_usage](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
+        To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://docs.stripe.com/docs/api/setup_intents)
+        or a PaymentIntent with [setup_future_usage](https://docs.stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
         These approaches will perform any necessary steps to set up the PaymentMethod for future payments. Using the /v1/payment_methods/:id/attach
         endpoint without first using a SetupIntent or PaymentIntent with setup_future_usage does not optimize the PaymentMethod for
         future use, which makes later declines and payment friction more likely.
-        See [Optimizing cards for future payments](https://stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
+        See [Optimizing cards for future payments](https://docs.stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
         future payments.
 
         To use this PaymentMethod as the default for invoice or subscription payments,
-        set [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
+        set [invoice_settings.default_payment_method](https://docs.stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
         on the Customer to the PaymentMethod's ID.
         """
         return cast(
@@ -1136,16 +1193,16 @@ class PaymentMethodService(StripeService):
         """
         Attaches a PaymentMethod object to a Customer.
 
-        To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://stripe.com/docs/api/setup_intents)
-        or a PaymentIntent with [setup_future_usage](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
+        To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://docs.stripe.com/docs/api/setup_intents)
+        or a PaymentIntent with [setup_future_usage](https://docs.stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
         These approaches will perform any necessary steps to set up the PaymentMethod for future payments. Using the /v1/payment_methods/:id/attach
         endpoint without first using a SetupIntent or PaymentIntent with setup_future_usage does not optimize the PaymentMethod for
         future use, which makes later declines and payment friction more likely.
-        See [Optimizing cards for future payments](https://stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
+        See [Optimizing cards for future payments](https://docs.stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
         future payments.
 
         To use this PaymentMethod as the default for invoice or subscription payments,
-        set [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
+        set [invoice_settings.default_payment_method](https://docs.stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
         on the Customer to the PaymentMethod's ID.
         """
         return cast(

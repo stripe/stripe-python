@@ -269,6 +269,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                     "abn_amro",
                     "asn_bank",
                     "bunq",
+                    "buut",
                     "handelsbanken",
                     "ing",
                     "knab",
@@ -285,7 +286,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 ]
             ]
             """
-            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
             """
             bic: Optional[
                 Literal[
@@ -293,6 +294,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                     "ASNBNL21",
                     "BITSNL2A",
                     "BUNQNL2A",
+                    "BUUTNL2A",
                     "FVLBNL22",
                     "HANDNL2A",
                     "INGBNL2A",
@@ -339,6 +341,15 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             pass
 
         class Link(StripeObject):
+            pass
+
+        class NaverPay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
+            """
+
+        class NzBankAccount(StripeObject):
             pass
 
         class Paypal(StripeObject):
@@ -403,6 +414,8 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         klarna: Optional[Klarna]
         kr_card: Optional[KrCard]
         link: Optional[Link]
+        naver_pay: Optional[NaverPay]
+        nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
@@ -427,6 +440,8 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "klarna": Klarna,
             "kr_card": KrCard,
             "link": Link,
+            "naver_pay": NaverPay,
+            "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
@@ -496,8 +511,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
+                "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
+                "forwarding_api_upstream_error",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
@@ -592,6 +609,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "setup_intent_authentication_failure",
                 "setup_intent_invalid_parameter",
                 "setup_intent_mandate_invalid",
+                "setup_intent_mobile_wallet_unsupported",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
                 "shipping_address_invalid",
@@ -601,6 +619,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "status_transition_invalid",
                 "stripe_tax_inactive",
                 "tax_id_invalid",
+                "tax_id_prohibited",
                 "taxes_calculation_failed",
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",

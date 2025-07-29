@@ -35,7 +35,7 @@ class Token(CreateableAPIResource["Token"]):
 
     You can't store or use tokens more than once. To store card or bank account
     information for later use, create [Customer](https://stripe.com/docs/api#customers)
-    objects or [External accounts](https://stripe.com/api#external_accounts).
+    objects or [External accounts](https://docs.stripe.com/api#external_accounts).
     [Radar](https://stripe.com/docs/radar), our integrated solution for automatic fraud protection,
     performs best with integrations that use client-side tokenization.
     """
@@ -93,7 +93,7 @@ class Token(CreateableAPIResource["Token"]):
         """
         tos_shown_and_accepted: NotRequired[bool]
         """
-        Whether the user described by the data in the token has been shown [the Stripe Connected Account Agreement](https://stripe.com/connect/account-tokens#stripe-connected-account-agreement). When creating an account token to create a new Connect account, this value must be `true`.
+        Whether the user described by the data in the token has been shown [the Stripe Connected Account Agreement](https://docs.stripe.com/connect/account-tokens#stripe-connected-account-agreement). When creating an account token to create a new Connect account, this value must be `true`.
         """
 
     class CreateParamsAccountCompany(TypedDict):
@@ -115,7 +115,7 @@ class Token(CreateableAPIResource["Token"]):
         """
         directors_provided: NotRequired[bool]
         """
-        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
+        Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         """
         directorship_declaration: NotRequired[
             "Token.CreateParamsAccountCompanyDirectorshipDeclaration"
@@ -125,7 +125,7 @@ class Token(CreateableAPIResource["Token"]):
         """
         executives_provided: NotRequired[bool]
         """
-        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
+        Whether the company's executives have been provided. Set this Boolean to `true` after creating all the company's executives with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.executive` requirement.
         """
         export_license_id: NotRequired[str]
         """
@@ -149,7 +149,7 @@ class Token(CreateableAPIResource["Token"]):
         """
         owners_provided: NotRequired[bool]
         """
-        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
+        Whether the company's owners have been provided. Set this Boolean to `true` after creating all the company's owners with [the Persons API](https://docs.stripe.com/api/persons) for accounts with a `relationship.owner` requirement.
         """
         ownership_declaration: NotRequired[
             "Token.CreateParamsAccountCompanyOwnershipDeclaration"
@@ -164,9 +164,18 @@ class Token(CreateableAPIResource["Token"]):
         ownership_exemption_reason: NotRequired[
             "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
         ]
+        """
+        This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
+        """
         phone: NotRequired[str]
         """
         The company's phone number (used for verification).
+        """
+        registration_date: NotRequired[
+            "Literal['']|Token.CreateParamsAccountCompanyRegistrationDate"
+        ]
+        """
+        When the business was incorporated or registered.
         """
         registration_number: NotRequired[str]
         """
@@ -176,7 +185,7 @@ class Token(CreateableAPIResource["Token"]):
             "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
         ]
         """
-        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
+        The category identifying the legal structure of the company or legal entity. See [Business structure](https://docs.stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
         """
         tax_id: NotRequired[str]
         """
@@ -311,6 +320,20 @@ class Token(CreateableAPIResource["Token"]):
         The user agent of the browser from which the beneficial owner attestation was made.
         """
 
+    class CreateParamsAccountCompanyRegistrationDate(TypedDict):
+        day: int
+        """
+        The day of registration, between 1 and 31.
+        """
+        month: int
+        """
+        The month of registration, between 1 and 12.
+        """
+        year: int
+        """
+        The four-digit year of registration.
+        """
+
     class CreateParamsAccountCompanyVerification(TypedDict):
         document: NotRequired[
             "Token.CreateParamsAccountCompanyVerificationDocument"
@@ -376,11 +399,11 @@ class Token(CreateableAPIResource["Token"]):
         """
         id_number: NotRequired[str]
         """
-        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/js/tokens/create_token?type=pii).
+        The government-issued ID number of the individual, as appropriate for the representative's country. (Examples are a Social Security Number in the U.S., or a Social Insurance Number in Canada). Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         id_number_secondary: NotRequired[str]
         """
-        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://stripe.com/js/tokens/create_token?type=pii).
+        The government-issued secondary ID number of the individual, as appropriate for the representative's country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token created with Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
         """
         last_name: NotRequired[str]
         """
@@ -808,7 +831,7 @@ class Token(CreateableAPIResource["Token"]):
         """
         The person's phone number.
         """
-        political_exposure: NotRequired[str]
+        political_exposure: NotRequired[Literal["existing", "none"]]
         """
         Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
         """
@@ -825,6 +848,10 @@ class Token(CreateableAPIResource["Token"]):
         ssn_last_4: NotRequired[str]
         """
         The last four digits of the person's Social Security number (U.S. only).
+        """
+        us_cfpb_data: NotRequired["Token.CreateParamsPersonUsCfpbData"]
+        """
+        Demographic data related to the person.
         """
         verification: NotRequired["Token.CreateParamsPersonVerification"]
         """
@@ -1047,6 +1074,85 @@ class Token(CreateableAPIResource["Token"]):
         The person's title (e.g., CEO, Support Engineer).
         """
 
+    class CreateParamsPersonUsCfpbData(TypedDict):
+        ethnicity_details: NotRequired[
+            "Token.CreateParamsPersonUsCfpbDataEthnicityDetails"
+        ]
+        """
+        The persons ethnicity details
+        """
+        race_details: NotRequired[
+            "Token.CreateParamsPersonUsCfpbDataRaceDetails"
+        ]
+        """
+        The persons race details
+        """
+        self_identified_gender: NotRequired[str]
+        """
+        The persons self-identified gender
+        """
+
+    class CreateParamsPersonUsCfpbDataEthnicityDetails(TypedDict):
+        ethnicity: NotRequired[
+            List[
+                Literal[
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                ]
+            ]
+        ]
+        """
+        The persons ethnicity
+        """
+        ethnicity_other: NotRequired[str]
+        """
+        Please specify your origin, when other is selected.
+        """
+
+    class CreateParamsPersonUsCfpbDataRaceDetails(TypedDict):
+        race: NotRequired[
+            List[
+                Literal[
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                ]
+            ]
+        ]
+        """
+        The persons race.
+        """
+        race_other: NotRequired[str]
+        """
+        Please specify your race, when other is selected.
+        """
+
     class CreateParamsPersonVerification(TypedDict):
         additional_document: NotRequired[
             "Token.CreateParamsPersonVerificationAdditionalDocument"
@@ -1095,11 +1201,11 @@ class Token(CreateableAPIResource["Token"]):
     """
     These bank accounts are payment methods on `Customer` objects.
 
-    On the other hand [External Accounts](https://stripe.com/api#external_accounts) are transfer
+    On the other hand [External Accounts](https://docs.stripe.com/api#external_accounts) are transfer
     destinations on `Account` objects for connected accounts.
     They can be bank accounts or debit cards as well, and are documented in the links above.
 
-    Related guide: [Bank debits and transfers](https://stripe.com/payments/bank-debits-transfers)
+    Related guide: [Bank debits and transfers](https://docs.stripe.com/payments/bank-debits-transfers)
     """
     card: Optional["Card"]
     """
@@ -1142,7 +1248,7 @@ class Token(CreateableAPIResource["Token"]):
     def create(cls, **params: Unpack["Token.CreateParams"]) -> "Token":
         """
         Creates a single-use token that represents a bank account's details.
-        You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
+        You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://docs.stripe.com/api#accounts) where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
         """
         return cast(
             "Token",
@@ -1159,7 +1265,7 @@ class Token(CreateableAPIResource["Token"]):
     ) -> "Token":
         """
         Creates a single-use token that represents a bank account's details.
-        You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://stripe.com/docs/api#accounts) where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
+        You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://docs.stripe.com/api#accounts) where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
         """
         return cast(
             "Token",

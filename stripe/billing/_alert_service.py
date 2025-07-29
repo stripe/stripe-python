@@ -51,9 +51,9 @@ class AlertService(StripeService):
         """
         Defines at which value the alert will fire.
         """
-        meter: NotRequired[str]
+        meter: str
         """
-        The [Billing Meter](https://stripe.com/api/billing/meter) ID whose usage is monitored.
+        The [Billing Meter](https://docs.stripe.com/api/billing/meter) ID whose usage is monitored.
         """
         recurrence: Literal["one_time"]
         """

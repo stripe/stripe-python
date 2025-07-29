@@ -128,7 +128,11 @@ class Event(ListableAPIResource["Event"]):
     """
     api_version: Optional[str]
     """
-    The Stripe API version used to render `data`. This property is populated only for events on or after October 31, 2014.
+    The Stripe API version used to render `data` when the event was created. The contents of `data` never change, so this value remains static regardless of the API version currently in use. This property is populated only for events created on or after October 31, 2014.
+    """
+    context: Optional[str]
+    """
+    Authentication context needed to fetch the event or related object.
     """
     created: int
     """
@@ -245,6 +249,7 @@ class Event(ListableAPIResource["Event"]):
         "invoice.finalized",
         "invoice.marked_uncollectible",
         "invoice.overdue",
+        "invoice.overpaid",
         "invoice.paid",
         "invoice.payment_action_required",
         "invoice.payment_failed",
@@ -254,6 +259,7 @@ class Event(ListableAPIResource["Event"]):
         "invoice.updated",
         "invoice.voided",
         "invoice.will_be_due",
+        "invoice_payment.paid",
         "invoiceitem.created",
         "invoiceitem.deleted",
         "issuing_authorization.created",
@@ -352,6 +358,7 @@ class Event(ListableAPIResource["Event"]):
         "tax_rate.updated",
         "terminal.reader.action_failed",
         "terminal.reader.action_succeeded",
+        "terminal.reader.action_updated",
         "test_helpers.test_clock.advancing",
         "test_helpers.test_clock.created",
         "test_helpers.test_clock.deleted",
@@ -395,6 +402,13 @@ class Event(ListableAPIResource["Event"]):
         "treasury.received_credit.failed",
         "treasury.received_credit.succeeded",
         "treasury.received_debit.created",
+        "billing.credit_balance_transaction.created",
+        "billing.credit_grant.created",
+        "billing.credit_grant.updated",
+        "billing.meter.created",
+        "billing.meter.deactivated",
+        "billing.meter.reactivated",
+        "billing.meter.updated",
     ]
     """
     Description of the event (for example, `invoice.created` or `charge.refunded`).

@@ -60,7 +60,7 @@ class Transfer(
         """
         destination: str
         """
-        The ID of a connected Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+        The ID of a connected Stripe account. [See the Connect documentation](https://docs.stripe.com/docs/connect/separate-charges-and-transfers) for details.
         """
         expand: NotRequired[List[str]]
         """
@@ -279,7 +279,7 @@ class Transfer(
     @classmethod
     def create(cls, **params: Unpack["Transfer.CreateParams"]) -> "Transfer":
         """
-        To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://stripe.com/docs/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
+        To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
         """
         return cast(
             "Transfer",
@@ -295,7 +295,7 @@ class Transfer(
         cls, **params: Unpack["Transfer.CreateParams"]
     ) -> "Transfer":
         """
-        To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://stripe.com/docs/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
+        To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
         """
         return cast(
             "Transfer",
@@ -405,6 +405,38 @@ class Transfer(
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    @classmethod
+    def list_reversals(
+        cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
+    ) -> ListObject["Reversal"]:
+        """
+        You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
+        """
+        return cast(
+            ListObject["Reversal"],
+            cls._static_request(
+                "get",
+                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_reversals_async(
+        cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
+    ) -> ListObject["Reversal"]:
+        """
+        You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
+        """
+        return cast(
+            ListObject["Reversal"],
+            await cls._static_request_async(
+                "get",
+                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
+                params=params,
+            ),
+        )
 
     @classmethod
     def create_reversal(
@@ -530,38 +562,6 @@ class Transfer(
                 "/v1/transfers/{transfer}/reversals/{id}".format(
                     transfer=sanitize_id(transfer), id=sanitize_id(id)
                 ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def list_reversals(
-        cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
-    ) -> ListObject["Reversal"]:
-        """
-        You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
-        """
-        return cast(
-            ListObject["Reversal"],
-            cls._static_request(
-                "get",
-                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def list_reversals_async(
-        cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
-    ) -> ListObject["Reversal"]:
-        """
-        You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
-        """
-        return cast(
-            ListObject["Reversal"],
-            await cls._static_request_async(
-                "get",
-                "/v1/transfers/{id}/reversals".format(id=sanitize_id(id)),
                 params=params,
             ),
         )

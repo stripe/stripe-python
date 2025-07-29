@@ -13,8 +13,6 @@ API.
 
 See the [Python API docs](https://stripe.com/docs/api?lang=python).
 
-See [video demonstrations][youtube-playlist] covering how to use the library.
-
 ## Installation
 
 You don't need this source code unless you want to modify the package. If you just
@@ -64,6 +62,12 @@ customer = client.customers.retrieve("cus_123456789")
 # print that customer's email
 print(customer.email)
 ```
+
+### StripeClient vs legacy pattern
+
+We introduced the `StripeClient` class in v8 of the Python SDK. The legacy pattern used prior to that version is still available to use but will be marked as deprecated soon. Review the [migration guide to use StripeClient](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v8-(StripeClient)) to move from the legacy pattern.
+
+Once the legacy pattern is deprecated, new API endpoints will only be accessible in the StripeClient. While there are no current plans to remove the legacy pattern for existing API endpoints, this may change in the future.
 
 ### Handling exceptions
 
@@ -242,22 +246,21 @@ sends by default. If you are overriding `stripe.api_version` / `stripe_version` 
 [webhook endpoint](https://stripe.com/docs/webhooks#api-versions) tied to an older version,
 be aware that the data you see at runtime may not match the types.
 
-## Beta SDKs
+### Public Preview SDKs
 
-Stripe has features in the beta phase that can be accessed via the beta version of this package.
-We would love for you to try these and share feedback with us before these features reach the stable phase.
-To install a beta version use `pip install` with the exact version you'd like to use:
+Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `-bX` suffix like `12.2.0b2`.
+We would love for you to try these as we incrementally release new features and improve them based on your feedback.
+
+To install, choose the version that includes support for the preview feature you are interested in by reviewing the [releases page](https://github.com/stripe/stripe-python/releases/) and then use it in the `pip install` command:
 
 ```
-pip install --pre stripe
+pip install stripe==<replace-with-the-version-of-your-choice>
 ```
 
 > **Note**
-> There can be breaking changes between beta versions. Therefore we recommend pinning the package version to a specific beta version in your [requirements file](https://pip.pypa.io/en/stable/user_guide/#requirements-files) or `setup.py`. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest beta version.
+> There can be breaking changes between two versions of the public preview SDKs without a bump in the major version. Therefore we recommend pinning the package version to a specific version in your [requirements file](https://pip.pypa.io/en/stable/user_guide/#requirements-files) or `setup.py`. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest public preview SDK.
 
-We highly recommend keeping an eye on when the beta feature you are interested in goes from beta to stable so that you can move from using a beta version of the SDK to the stable version.
-
-If your beta feature requires a `Stripe-Version` header to be sent, set the `stripe.api_version` field using the `stripe.add_beta_version` function:
+Some preview features require a name and version to be set in the `Stripe-Version` header like `feature_beta=v3`. If your preview feature has this requirement, use the `stripe.add_beta_version` function (available only in the public preview SDKs):
 
 ```python
 stripe.add_beta_version("feature_beta", "v3")
@@ -401,7 +404,6 @@ just format
 [poetry]: https://github.com/sdispater/poetry
 [stripe-mock]: https://github.com/stripe/stripe-mock
 [idempotency-keys]: https://stripe.com/docs/api/idempotent_requests?lang=python
-[youtube-playlist]: https://www.youtube.com/playlist?list=PLy1nL-pvL2M55YVn0mGoQ5r-39A1-ZypO
 
 <!--
 # vim: set tw=79:

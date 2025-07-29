@@ -78,6 +78,23 @@ class PaymentMethodDomain(
         """
         _inner_class_types = {"status_details": StatusDetails}
 
+    class Klarna(StripeObject):
+        class StatusDetails(StripeObject):
+            error_message: str
+            """
+            The error message associated with the status of the payment method on the domain.
+            """
+
+        status: Literal["active", "inactive"]
+        """
+        The status of the payment method on the domain.
+        """
+        status_details: Optional[StatusDetails]
+        """
+        Contains additional details about the status of a payment method for a specific payment method domain.
+        """
+        _inner_class_types = {"status_details": StatusDetails}
+
     class Link(StripeObject):
         class StatusDetails(StripeObject):
             error_message: str
@@ -119,7 +136,7 @@ class PaymentMethodDomain(
         """
         enabled: NotRequired[bool]
         """
-        Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
+        Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements or Embedded Checkout.
         """
         expand: NotRequired[List[str]]
         """
@@ -133,7 +150,7 @@ class PaymentMethodDomain(
         """
         enabled: NotRequired[bool]
         """
-        Whether this payment method domain is enabled. If the domain is not enabled, payment methods will not appear in Elements
+        Whether this payment method domain is enabled. If the domain is not enabled, payment methods will not appear in Elements or Embedded Checkout
         """
         ending_before: NotRequired[str]
         """
@@ -155,7 +172,7 @@ class PaymentMethodDomain(
     class ModifyParams(RequestOptions):
         enabled: NotRequired[bool]
         """
-        Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
+        Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements or Embedded Checkout.
         """
         expand: NotRequired[List[str]]
         """
@@ -201,6 +218,10 @@ class PaymentMethodDomain(
     id: str
     """
     Unique identifier for the object.
+    """
+    klarna: Klarna
+    """
+    Indicates the status of a specific payment method on a payment method domain.
     """
     link: Link
     """
@@ -354,12 +375,12 @@ class PaymentMethodDomain(
         **params: Unpack["PaymentMethodDomain.ValidateParams"],
     ) -> "PaymentMethodDomain":
         """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
+        Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
+        The payment method doesn't appear in Elements or Embedded Checkout for this domain until it is active.
 
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
+        To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
 
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+        Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
         """
         return cast(
             "PaymentMethodDomain",
@@ -379,12 +400,12 @@ class PaymentMethodDomain(
         **params: Unpack["PaymentMethodDomain.ValidateParams"],
     ) -> "PaymentMethodDomain":
         """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
+        Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
+        The payment method doesn't appear in Elements or Embedded Checkout for this domain until it is active.
 
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
+        To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
 
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+        Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
         """
         ...
 
@@ -393,12 +414,12 @@ class PaymentMethodDomain(
         self, **params: Unpack["PaymentMethodDomain.ValidateParams"]
     ) -> "PaymentMethodDomain":
         """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
+        Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
+        The payment method doesn't appear in Elements or Embedded Checkout for this domain until it is active.
 
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
+        To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
 
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+        Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
         """
         ...
 
@@ -407,12 +428,12 @@ class PaymentMethodDomain(
         self, **params: Unpack["PaymentMethodDomain.ValidateParams"]
     ) -> "PaymentMethodDomain":
         """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
+        Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
+        The payment method doesn't appear in Elements or Embedded Checkout for this domain until it is active.
 
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
+        To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
 
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+        Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
         """
         return cast(
             "PaymentMethodDomain",
@@ -432,12 +453,12 @@ class PaymentMethodDomain(
         **params: Unpack["PaymentMethodDomain.ValidateParams"],
     ) -> "PaymentMethodDomain":
         """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
+        Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
+        The payment method doesn't appear in Elements or Embedded Checkout for this domain until it is active.
 
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
+        To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
 
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+        Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
         """
         return cast(
             "PaymentMethodDomain",
@@ -457,12 +478,12 @@ class PaymentMethodDomain(
         **params: Unpack["PaymentMethodDomain.ValidateParams"],
     ) -> "PaymentMethodDomain":
         """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
+        Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
+        The payment method doesn't appear in Elements or Embedded Checkout for this domain until it is active.
 
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
+        To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
 
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+        Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
         """
         ...
 
@@ -471,12 +492,12 @@ class PaymentMethodDomain(
         self, **params: Unpack["PaymentMethodDomain.ValidateParams"]
     ) -> "PaymentMethodDomain":
         """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
+        Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
+        The payment method doesn't appear in Elements or Embedded Checkout for this domain until it is active.
 
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
+        To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
 
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+        Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
         """
         ...
 
@@ -485,12 +506,12 @@ class PaymentMethodDomain(
         self, **params: Unpack["PaymentMethodDomain.ValidateParams"]
     ) -> "PaymentMethodDomain":
         """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
+        Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
+        The payment method doesn't appear in Elements or Embedded Checkout for this domain until it is active.
 
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
+        To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
 
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
+        Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
         """
         return cast(
             "PaymentMethodDomain",
@@ -507,6 +528,7 @@ class PaymentMethodDomain(
         "amazon_pay": AmazonPay,
         "apple_pay": ApplePay,
         "google_pay": GooglePay,
+        "klarna": Klarna,
         "link": Link,
         "paypal": Paypal,
     }

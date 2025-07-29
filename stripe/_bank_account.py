@@ -25,11 +25,11 @@ class BankAccount(
     """
     These bank accounts are payment methods on `Customer` objects.
 
-    On the other hand [External Accounts](https://stripe.com/api#external_accounts) are transfer
+    On the other hand [External Accounts](https://docs.stripe.com/api#external_accounts) are transfer
     destinations on `Account` objects for connected accounts.
     They can be bank accounts or debit cards as well, and are documented in the links above.
 
-    Related guide: [Bank debits and transfers](https://stripe.com/payments/bank-debits-transfers)
+    Related guide: [Bank debits and transfers](https://docs.stripe.com/payments/bank-debits-transfers)
     """
 
     OBJECT_NAME: ClassVar[Literal["bank_account"]] = "bank_account"
@@ -37,6 +37,7 @@ class BankAccount(
     class FutureRequirements(StripeObject):
         class Error(StripeObject):
             code: Literal[
+                "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
@@ -49,6 +50,7 @@ class BankAccount(
                 "invalid_product_description_length",
                 "invalid_product_description_url_match",
                 "invalid_representative_country",
+                "invalid_signator",
                 "invalid_statement_descriptor_business_mismatch",
                 "invalid_statement_descriptor_denylisted",
                 "invalid_statement_descriptor_length",
@@ -110,6 +112,7 @@ class BankAccount(
                 "verification_document_type_not_supported",
                 "verification_extraneous_directors",
                 "verification_failed_address_match",
+                "verification_failed_authorizer_authority",
                 "verification_failed_business_iec_number",
                 "verification_failed_document_match",
                 "verification_failed_id_number_match",
@@ -121,9 +124,11 @@ class BankAccount(
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
+                "verification_legal_entity_structure_mismatch",
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
+                "verification_rejected_ownership_exemption_reason",
                 "verification_requires_additional_memorandum_of_associations",
                 "verification_requires_additional_proof_of_registration",
                 "verification_supportability",
@@ -161,6 +166,7 @@ class BankAccount(
     class Requirements(StripeObject):
         class Error(StripeObject):
             code: Literal[
+                "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
                 "invalid_address_private_mailbox",
@@ -173,6 +179,7 @@ class BankAccount(
                 "invalid_product_description_length",
                 "invalid_product_description_url_match",
                 "invalid_representative_country",
+                "invalid_signator",
                 "invalid_statement_descriptor_business_mismatch",
                 "invalid_statement_descriptor_denylisted",
                 "invalid_statement_descriptor_length",
@@ -234,6 +241,7 @@ class BankAccount(
                 "verification_document_type_not_supported",
                 "verification_extraneous_directors",
                 "verification_failed_address_match",
+                "verification_failed_authorizer_authority",
                 "verification_failed_business_iec_number",
                 "verification_failed_document_match",
                 "verification_failed_id_number_match",
@@ -245,9 +253,11 @@ class BankAccount(
                 "verification_failed_residential_address",
                 "verification_failed_tax_id_match",
                 "verification_failed_tax_id_not_issued",
+                "verification_legal_entity_structure_mismatch",
                 "verification_missing_directors",
                 "verification_missing_executives",
                 "verification_missing_owners",
+                "verification_rejected_ownership_exemption_reason",
                 "verification_requires_additional_memorandum_of_associations",
                 "verification_requires_additional_proof_of_registration",
                 "verification_supportability",
@@ -287,7 +297,7 @@ class BankAccount(
 
     account: Optional[ExpandableField["Account"]]
     """
-    The ID of the account that the bank account is associated with.
+    The account this bank account belongs to. Only applicable on Accounts (not customers or recipients) This property is only available when returned as an [External Account](https://docs.stripe.com/api/external_account_bank_accounts/object) where [controller.is_controller](https://docs.stripe.com/api/accounts/object#account_object-controller-is_controller) is `true`.
     """
     account_holder_name: Optional[str]
     """
@@ -324,6 +334,10 @@ class BankAccount(
     default_for_currency: Optional[bool]
     """
     Whether this bank account is the default external account for its currency.
+    """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
     """
     fingerprint: Optional[str]
     """
@@ -362,10 +376,6 @@ class BankAccount(
     For bank accounts, possible values are `new`, `validated`, `verified`, `verification_failed`, or `errored`. A bank account that hasn't had any activity or validation performed is `new`. If Stripe can determine that the bank account exists, its status will be `validated`. Note that there often isn't enough information to know (e.g., for smaller credit unions), and the validation is not always run. If customer bank account verification has succeeded, the bank account status will be `verified`. If the verification failed for any reason, such as microdeposit failure, the status will be `verification_failed`. If a payout sent to this bank account fails, we'll set the status to `errored` and will not continue to send [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) until the bank details are updated.
 
     For external accounts, possible values are `new`, `errored` and `verification_failed`. If a payout fails, the status is set to `errored` and scheduled payouts are stopped until account details are updated. In the US and India, if we can't [verify the owner of the bank account](https://support.stripe.com/questions/bank-account-ownership-verification), we'll set the status to `verification_failed`. Other validations aren't run against external accounts because they're only used for payouts. This means the other statuses don't apply.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod
