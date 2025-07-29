@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-import json
 from stripe._api_mode import ApiMode
 from stripe._api_requestor import _APIRequestor
 from stripe._stripe_client import StripeClient

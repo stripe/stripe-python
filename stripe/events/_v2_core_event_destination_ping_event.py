@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-import json
 from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
 from stripe.v2._event import Event, RelatedObject, ThinEvent
