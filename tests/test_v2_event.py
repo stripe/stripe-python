@@ -6,8 +6,10 @@ import pytest
 import stripe
 from stripe import ThinEvent
 from stripe.events._v1_billing_meter_error_report_triggered_event import (
+    PushedV1BillingMeterErrorReportTriggeredEvent,
     V1BillingMeterErrorReportTriggeredEvent,
 )
+from stripe.v2._event import UnknownThinEvent
 from tests.test_webhook import DUMMY_WEBHOOK_SECRET, generate_header
 
 EventParser = Callable[[str], ThinEvent]
@@ -88,7 +90,7 @@ class TestV2Event(object):
     ):
         event = parse_thin_event(v2_payload_no_data)
 
-        assert isinstance(event, ThinEvent)
+        assert isinstance(event, PushedV1BillingMeterErrorReportTriggeredEvent)
         assert event.id == "evt_234"
 
         assert event.related_object
@@ -102,9 +104,36 @@ class TestV2Event(object):
     ):
         event = parse_thin_event(v2_payload_with_data)
 
-        assert isinstance(event, ThinEvent)
+        assert isinstance(event, PushedV1BillingMeterErrorReportTriggeredEvent)
+        # this isn't for constructing events, it's for parsing thin ones
         assert not hasattr(event, "data")
         assert event.reason is None
+
+    def test_parses_unknown_thin_event(self, parse_thin_event: EventParser):
+        event = parse_thin_event(
+            json.dumps(
+                {
+                    "id": "evt_234",
+                    "object": "v2.core.event",
+                    "type": "uknown.event.type",
+                    "livemode": True,
+                    "created": "2022-02-15T00:27:45.330Z",
+                    "related_object": {
+                        "id": "mtr_123",
+                        "type": "billing.meter",
+                        "url": "/v1/billing/meters/mtr_123",
+                        "stripe_context": "acct_123",
+                    },
+                    "reason": {
+                        "id": "foo",
+                        "idempotency_key": "bar",
+                    },
+                }
+            )
+        )
+
+        assert type(event) is UnknownThinEvent
+        assert event.related_object
 
     def test_validates_signature(
         self, stripe_client: stripe.StripeClient, v2_payload_no_data

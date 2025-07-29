@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import json
-from typing import ClassVar, Optional, cast
+from typing import Any, ClassVar, Dict, Optional, cast
 
-from typing_extensions import Literal
+from typing_extensions import Literal, TYPE_CHECKING
 
-from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
+
+if TYPE_CHECKING:
+    from stripe._stripe_client import StripeClient
 
 # This describes the common format for the pull payload of a V2 ThinEvent
 # more specific classes will add `data` and `fetch_related_objects()` as needed
@@ -126,27 +127,22 @@ class ThinEvent:
     """
     [Optional] Authentication context needed to fetch the event or related object.
     """
-    # related_object: Optional[RelatedObject] = None
-    # """
-    # [Optional] Object containing the reference to API resource relevant to the event.
-    # """
     reason: Optional[Reason] = None
     """
     [Optional] Reason for the event.
     """
 
-    def __init__(self, payload: str, client: StripeClient) -> None:
-        parsed = json.loads(payload)
+    def __init__(
+        self, parsed_body: Dict[str, Any], client: "StripeClient"
+    ) -> None:
+        self.id = parsed_body["id"]
+        self.type = parsed_body["type"]
+        self.created = parsed_body["created"]
+        self.livemode = bool(parsed_body.get("livemode"))
+        self.context = parsed_body.get("context")
 
-        self.id = parsed["id"]
-        self.type = parsed["type"]
-        self.created = parsed["created"]
-        self.livemode = parsed.get("livemode")
-        self.context = parsed.get("context")
-        # if parsed.get("related_object"):
-        #     self.related_object = RelatedObject(parsed["related_object"])
-        if parsed.get("reason"):
-            self.reason = Reason(parsed["reason"])
+        if parsed_body.get("reason"):
+            self.reason = Reason(parsed_body["reason"])
 
         self.client = client
 
@@ -170,3 +166,22 @@ class ThinEvent:
             usage=["pushed_event_pull", "pushed_event_pull_async"],
         )
         return cast(Event, self.client.deserialize(response, api_mode="V2"))
+
+
+class UnknownThinEvent(ThinEvent):
+    """
+    Represents a Thin Event payload that the SDK doesn't have types for. May have a related object.
+    """
+
+    related_object: Optional[RelatedObject] = None
+    """
+    [Optional] Object containing the reference to API resource relevant to the event.
+    """
+
+    def __init__(
+        self, parsed_body: Dict[str, Any], client: "StripeClient"
+    ) -> None:
+        super().__init__(parsed_body, client)
+
+        if parsed_body.get("related_object"):
+            self.related_object = RelatedObject(parsed_body["related_object"])

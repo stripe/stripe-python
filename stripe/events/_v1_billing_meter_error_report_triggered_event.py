@@ -17,14 +17,14 @@ class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
     type: Literal["v1.billing.meter.error_report_triggered"]
     related_object: RelatedObject
 
-    def __init__(self, payload: str, client: StripeClient) -> None:
+    def __init__(
+        self, parsed_body: Dict[str, Any], client: StripeClient
+    ) -> None:
         super().__init__(
-            payload,
+            parsed_body,
             client,
         )
-        # don't love the double json parse here, but it's fine
-        parsed = json.loads(payload)
-        self.related_object = RelatedObject(parsed["related_object"])
+        self.related_object = RelatedObject(parsed_body["related_object"])
 
     def pull(self) -> "V1BillingMeterErrorReportTriggeredEvent":
         return cast(

@@ -5,7 +5,7 @@ from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
 from stripe.v2._event import Event, RelatedObject, ThinEvent
 from stripe.v2._event_destination import EventDestination
-from typing import cast
+from typing import Any, Dict, cast
 from typing_extensions import Literal
 
 
@@ -14,14 +14,14 @@ class PushedV2CoreEventDestinationPingEvent(ThinEvent):
     type: Literal["v2.core.event_destination.ping"]
     related_object: RelatedObject
 
-    def __init__(self, payload: str, client: StripeClient) -> None:
+    def __init__(
+        self, parsed_body: Dict[str, Any], client: StripeClient
+    ) -> None:
         super().__init__(
-            payload,
+            parsed_body,
             client,
         )
-        # don't love the double json parse here, but it's fine
-        parsed = json.loads(payload)
-        self.related_object = RelatedObject(parsed["related_object"])
+        self.related_object = RelatedObject(parsed_body["related_object"])
 
     def pull(self) -> "V2CoreEventDestinationPingEvent":
         return cast(
