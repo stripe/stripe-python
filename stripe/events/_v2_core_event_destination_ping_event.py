@@ -5,6 +5,7 @@ from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
 from stripe.v2._event import Event, RelatedObject, ThinEvent
 from stripe.v2._event_destination import EventDestination
+from typing import cast
 from typing_extensions import Literal
 
 
@@ -29,7 +30,15 @@ class PushedV2CoreEventDestinationPingEvent(ThinEvent):
         )
 
     def fetch_related_object(self) -> "EventDestination":
-        raise NotImplementedError()  # TODO
+        return cast(
+            "EventDestination",
+            self.client.raw_request(
+                "get",
+                self.related_object.url,
+                stripe_context=self.context,
+                usage=["fetch_related_object"],
+            ),
+        )
 
     async def pull_async(self) -> "V2CoreEventDestinationPingEvent":
         return cast(
@@ -37,8 +46,16 @@ class PushedV2CoreEventDestinationPingEvent(ThinEvent):
             await super().pull_async(),
         )
 
-    def fetch_related_object_async(self) -> "EventDestination":
-        raise NotImplementedError()  # TODO
+    async def fetch_related_object_async(self) -> "EventDestination":
+        return cast(
+            "EventDestination",
+            await self.client.raw_request_async(
+                "get",
+                self.related_object.url,
+                stripe_context=self.context,
+                usage=["fetch_related_object"],
+            ),
+        )
 
 
 class V2CoreEventDestinationPingEvent(Event):

@@ -33,7 +33,15 @@ class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
         )
 
     def fetch_related_object(self) -> "Meter":
-        raise NotImplementedError()  # TODO
+        return cast(
+            "Meter",
+            self.client.raw_request(
+                "get",
+                self.related_object.url,
+                stripe_context=self.context,
+                usage=["fetch_related_object"],
+            ),
+        )
 
     async def pull_async(self) -> "V1BillingMeterErrorReportTriggeredEvent":
         return cast(
@@ -41,8 +49,16 @@ class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
             await super().pull_async(),
         )
 
-    def fetch_related_object_async(self) -> "Meter":
-        raise NotImplementedError()  # TODO
+    async def fetch_related_object_async(self) -> "Meter":
+        return cast(
+            "Meter",
+            await self.client.raw_request_async(
+                "get",
+                self.related_object.url,
+                stripe_context=self.context,
+                usage=["fetch_related_object"],
+            ),
+        )
 
 
 class V1BillingMeterErrorReportTriggeredEvent(Event):
