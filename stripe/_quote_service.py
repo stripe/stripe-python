@@ -1030,6 +1030,9 @@ class QuoteService(StripeService):
 
     class CreateParamsSubscriptionDataBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreateParamsSubscriptionDataOverride(TypedDict):
         applies_to: (

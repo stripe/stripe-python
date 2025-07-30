@@ -3,8 +3,8 @@
 from stripe.events._v2_core_account_including_requirements_updated_event import (
     V2CoreAccountIncludingRequirementsUpdatedEvent,
 )
-from stripe.events._v2_core_account_link_completed_event import (
-    V2CoreAccountLinkCompletedEvent,
+from stripe.events._v2_core_account_link_returned_event import (
+    V2CoreAccountLinkReturnedEvent,
 )
 from stripe.events._v2_core_account_closed_event import (
     V2CoreAccountClosedEvent,
@@ -96,9 +96,6 @@ from stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_ev
 from stripe.events._v2_core_event_destination_ping_event import (
     V2CoreEventDestinationPingEvent,
 )
-from stripe.events._v2_off_session_payment_requires_capture_event import (
-    V2OffSessionPaymentRequiresCaptureEvent,
-)
 from stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event import (
     V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,
 )
@@ -153,6 +150,9 @@ from stripe.events._v2_money_management_outbound_transfer_returned_event import 
 from stripe.events._v2_money_management_outbound_transfer_updated_event import (
     V2MoneyManagementOutboundTransferUpdatedEvent,
 )
+from stripe.events._v2_money_management_payout_method_updated_event import (
+    V2MoneyManagementPayoutMethodUpdatedEvent,
+)
 from stripe.events._v2_money_management_received_credit_available_event import (
     V2MoneyManagementReceivedCreditAvailableEvent,
 )
@@ -204,7 +204,7 @@ THIN_EVENT_CLASSES = {
     V2CoreAccountIncludingDefaultsUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingDefaultsUpdatedEvent,
     V2CoreAccountIncludingIdentityUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingIdentityUpdatedEvent,
     V2CoreAccountIncludingRequirementsUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingRequirementsUpdatedEvent,
-    V2CoreAccountLinkCompletedEvent.LOOKUP_TYPE: V2CoreAccountLinkCompletedEvent,
+    V2CoreAccountLinkReturnedEvent.LOOKUP_TYPE: V2CoreAccountLinkReturnedEvent,
     V2CoreAccountPersonCreatedEvent.LOOKUP_TYPE: V2CoreAccountPersonCreatedEvent,
     V2CoreAccountPersonDeletedEvent.LOOKUP_TYPE: V2CoreAccountPersonDeletedEvent,
     V2CoreAccountPersonUpdatedEvent.LOOKUP_TYPE: V2CoreAccountPersonUpdatedEvent,
@@ -233,6 +233,7 @@ THIN_EVENT_CLASSES = {
     V2MoneyManagementOutboundTransferPostedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferPostedEvent,
     V2MoneyManagementOutboundTransferReturnedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferReturnedEvent,
     V2MoneyManagementOutboundTransferUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferUpdatedEvent,
+    V2MoneyManagementPayoutMethodUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementPayoutMethodUpdatedEvent,
     V2MoneyManagementReceivedCreditAvailableEvent.LOOKUP_TYPE: V2MoneyManagementReceivedCreditAvailableEvent,
     V2MoneyManagementReceivedCreditFailedEvent.LOOKUP_TYPE: V2MoneyManagementReceivedCreditFailedEvent,
     V2MoneyManagementReceivedCreditReturnedEvent.LOOKUP_TYPE: V2MoneyManagementReceivedCreditReturnedEvent,
@@ -244,7 +245,6 @@ THIN_EVENT_CLASSES = {
     V2MoneyManagementReceivedDebitUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitUpdatedEvent,
     V2MoneyManagementTransactionCreatedEvent.LOOKUP_TYPE: V2MoneyManagementTransactionCreatedEvent,
     V2MoneyManagementTransactionUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementTransactionUpdatedEvent,
-    V2OffSessionPaymentRequiresCaptureEvent.LOOKUP_TYPE: V2OffSessionPaymentRequiresCaptureEvent,
     V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,
     V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent,
     V2PaymentsOffSessionPaymentCanceledEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentCanceledEvent,

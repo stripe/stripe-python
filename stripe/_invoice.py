@@ -823,6 +823,28 @@ class Invoice(
             class SepaDebit(StripeObject):
                 pass
 
+            class Upi(StripeObject):
+                class MandateOptions(StripeObject):
+                    amount: Optional[int]
+                    """
+                    Amount to be charged for future payments.
+                    """
+                    amount_type: Optional[Literal["fixed", "maximum"]]
+                    """
+                    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+                    """
+                    description: Optional[str]
+                    """
+                    A description of the mandate or subscription that is meant to be displayed to the customer.
+                    """
+                    end_date: Optional[int]
+                    """
+                    End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                _inner_class_types = {"mandate_options": MandateOptions}
+
             class UsBankAccount(StripeObject):
                 class FinancialConnections(StripeObject):
                     class Filters(StripeObject):
@@ -905,6 +927,10 @@ class Invoice(
             """
             If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
             """
+            upi: Optional[Upi]
+            """
+            If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice's PaymentIntent.
+            """
             us_bank_account: Optional[UsBankAccount]
             """
             If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice's PaymentIntent.
@@ -917,6 +943,7 @@ class Invoice(
                 "id_bank_transfer": IdBankTransfer,
                 "konbini": Konbini,
                 "sepa_debit": SepaDebit,
+                "upi": Upi,
                 "us_bank_account": UsBankAccount,
             }
 
@@ -971,6 +998,7 @@ class Invoice(
                     "sofort",
                     "stripe_balance",
                     "swish",
+                    "upi",
                     "us_bank_account",
                     "wechat_pay",
                 ]
@@ -1593,7 +1621,7 @@ class Invoice(
         """
         auto_advance: NotRequired[bool]
         """
-        Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
+        Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. Defaults to false.
         """
         automatic_tax: NotRequired["Invoice.CreateParamsAutomaticTax"]
         """
@@ -1601,7 +1629,7 @@ class Invoice(
         """
         automatically_finalizes_at: NotRequired[int]
         """
-        The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state.
+        The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -1852,7 +1880,7 @@ class Invoice(
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -1901,6 +1929,12 @@ class Invoice(
         """
         If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
         """
+        upi: NotRequired[
+            "Literal['']|Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsUpi"
+        ]
+        """
+        If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice's PaymentIntent.
+        """
         us_bank_account: NotRequired[
             "Literal['']|Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount"
         ]
@@ -1941,7 +1975,7 @@ class Invoice(
             "Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this invoice (Mexico Only).
+        Installment configuration for payments attempted on this invoice.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -2030,6 +2064,34 @@ class Invoice(
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsUpi(TypedDict):
+        mandate_options: NotRequired[
+            "Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsUpiMandateOptions"
+        ]
+        """
+        Configuration options for setting up an eMandate
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsUpiMandateOptions(
+        TypedDict,
+    ):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        """
+        description: NotRequired[str]
+        """
+        A description of the mandate or subscription that is meant to be displayed to the customer.
+        """
+        end_date: NotRequired[int]
+        """
+        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
         TypedDict,
@@ -3395,6 +3457,9 @@ class Invoice(
 
     class CreatePreviewParamsScheduleDetailsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreatePreviewParamsScheduleDetailsPhase(TypedDict):
         add_invoice_items: NotRequired[
@@ -3453,6 +3518,12 @@ class Invoice(
         """
         The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
+        duration: NotRequired[
+            "Invoice.CreatePreviewParamsScheduleDetailsPhaseDuration"
+        ]
+        """
+        The number of intervals the phase should last. If set, `end_date` must not be set.
+        """
         end_date: NotRequired["int|Literal['now']"]
         """
         The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
@@ -3469,7 +3540,7 @@ class Invoice(
         """
         iterations: NotRequired[int]
         """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
+        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -3708,6 +3779,16 @@ class Invoice(
         interval_count: int
         """
         The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies phase duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseInvoiceSettings(TypedDict):
@@ -4044,6 +4125,9 @@ class Invoice(
 
     class CreatePreviewParamsSubscriptionDetailsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreatePreviewParamsSubscriptionDetailsItem(TypedDict):
         billing_thresholds: NotRequired[
@@ -4346,7 +4430,7 @@ class Invoice(
         """
         automatically_finalizes_at: NotRequired[int]
         """
-        The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state. To turn off automatic finalization, set `auto_advance` to false.
+        The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state. To turn off automatic finalization, set `auto_advance` to false.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -4567,7 +4651,7 @@ class Invoice(
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -4616,6 +4700,12 @@ class Invoice(
         """
         If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
         """
+        upi: NotRequired[
+            "Literal['']|Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsUpi"
+        ]
+        """
+        If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice's PaymentIntent.
+        """
         us_bank_account: NotRequired[
             "Literal['']|Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount"
         ]
@@ -4656,7 +4746,7 @@ class Invoice(
             "Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this invoice (Mexico Only).
+        Installment configuration for payments attempted on this invoice.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -4745,6 +4835,34 @@ class Invoice(
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsUpi(TypedDict):
+        mandate_options: NotRequired[
+            "Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsUpiMandateOptions"
+        ]
+        """
+        Configuration options for setting up an eMandate
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsUpiMandateOptions(
+        TypedDict,
+    ):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        """
+        description: NotRequired[str]
+        """
+        A description of the mandate or subscription that is meant to be displayed to the customer.
+        """
+        end_date: NotRequired[int]
+        """
+        End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
         TypedDict,

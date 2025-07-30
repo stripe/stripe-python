@@ -208,6 +208,10 @@ class SessionService(StripeService):
 
         For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
         """
+        origin_context: NotRequired[Literal["mobile_app", "web"]]
+        """
+        Where the user is coming from. This informs the optimizations that are applied to the session. For example, a session originating from a mobile app may behave more like a native app, depending on the platform. This parameter is currently not allowed if `ui_mode` is `custom`.
+        """
         payment_intent_data: NotRequired[
             "SessionService.CreateParamsPaymentIntentData"
         ]
@@ -275,6 +279,7 @@ class SessionService(StripeService):
                     "mobilepay",
                     "multibanco",
                     "naver_pay",
+                    "nz_bank_account",
                     "oxxo",
                     "p24",
                     "pay_by_bank",
@@ -716,6 +721,10 @@ class SessionService(StripeService):
         ]
         """
         How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+        """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for this invoice.
         """
 
     class CreateParamsLineItem(TypedDict):
@@ -2004,6 +2013,16 @@ class SessionService(StripeService):
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
         """
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+        """
 
     class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
@@ -2150,6 +2169,12 @@ class SessionService(StripeService):
         update: NotRequired["SessionService.CreateParamsPermissionsUpdate"]
         """
         Permissions for updating the Checkout Session.
+        """
+        update_discounts: NotRequired[Literal["client_only", "server_only"]]
+        """
+        Determines which entity is allowed to update the discounts (coupons or promotion codes) that apply to this session.
+
+        Default is `client_only`. Stripe Checkout client will automatically handle discount updates. If set to `server_only`, only your server is allowed to update discounts.
         """
         update_line_items: NotRequired[Literal["client_only", "server_only"]]
         """
@@ -2663,6 +2688,9 @@ class SessionService(StripeService):
 
     class CreateParamsSubscriptionDataBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
         issuer: NotRequired[
@@ -2821,6 +2849,12 @@ class SessionService(StripeService):
         """
         Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
         """
+        discounts: NotRequired[
+            "Literal['']|List[SessionService.UpdateParamsDiscount]"
+        ]
+        """
+        List of coupons and promotion codes attached to the Checkout Session.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -2850,6 +2884,12 @@ class SessionService(StripeService):
         ]
         """
         The shipping rate options to apply to this Session. Up to a maximum of 5.
+        """
+        subscription_data: NotRequired[
+            "SessionService.UpdateParamsSubscriptionData"
+        ]
+        """
+        A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
         """
 
     class UpdateParamsCollectedInformation(TypedDict):
@@ -2894,6 +2934,44 @@ class SessionService(StripeService):
         state: NotRequired[str]
         """
         State, county, province, or region.
+        """
+
+    class UpdateParamsDiscount(TypedDict):
+        coupon: NotRequired[str]
+        """
+        The ID of the [Coupon](https://stripe.com/docs/api/coupons) to apply to this Session. One of `coupon` or `coupon_data` is required when updating discounts.
+        """
+        coupon_data: NotRequired[
+            "SessionService.UpdateParamsDiscountCouponData"
+        ]
+        """
+        Data used to generate a new [Coupon](https://stripe.com/docs/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+        """
+
+    class UpdateParamsDiscountCouponData(TypedDict):
+        amount_off: NotRequired[int]
+        """
+        A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+        """
+        duration: NotRequired[Literal["forever", "once", "repeating"]]
+        """
+        Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: NotRequired[str]
+        """
+        Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+        """
+        percent_off: NotRequired[float]
+        """
+        A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
         """
 
     class UpdateParamsLineItem(TypedDict):
@@ -3129,6 +3207,16 @@ class SessionService(StripeService):
         ]
         """
         Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
+        """
+
+    class UpdateParamsSubscriptionData(TypedDict):
+        trial_end: NotRequired[int]
+        """
+        Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
+        """
+        trial_period_days: NotRequired["Literal['']|int"]
+        """
+        Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         """
 
     def list(

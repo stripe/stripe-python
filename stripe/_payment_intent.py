@@ -3186,7 +3186,7 @@ class PaymentIntent(
     class PresentmentDetails(StripeObject):
         presentment_amount: int
         """
-        Amount intended to be collected by this payment, denominated in presentment_currency.
+        Amount intended to be collected by this payment, denominated in `presentment_currency`.
         """
         presentment_currency: str
         """
@@ -3308,6 +3308,10 @@ class PaymentIntent(
         """
 
     class CaptureParams(RequestOptions):
+        amount_details: NotRequired["PaymentIntent.CaptureParamsAmountDetails"]
+        """
+        Provides industry-specific information about the amount.
+        """
         amount_to_capture: NotRequired[int]
         """
         The amount to capture from the PaymentIntent, which must be less than or equal to the original amount. Defaults to the full `amount_capturable` if it's not provided.
@@ -3352,6 +3356,168 @@ class PaymentIntent(
         """
         The parameters that you can use to automatically create a transfer after the payment
         is captured. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        """
+
+    class CaptureParamsAmountDetails(TypedDict):
+        discount_amount: NotRequired["Literal['']|int"]
+        """
+        The amount an item was discounted for.
+        """
+        line_items: NotRequired[
+            "Literal['']|List[PaymentIntent.CaptureParamsAmountDetailsLineItem]"
+        ]
+        """
+        A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        """
+        shipping: NotRequired[
+            "Literal['']|PaymentIntent.CaptureParamsAmountDetailsShipping"
+        ]
+        """
+        Contains information about the shipping portion of the amount.
+        """
+        tax: NotRequired[
+            "Literal['']|PaymentIntent.CaptureParamsAmountDetailsTax"
+        ]
+        """
+        Contains information about the tax portion of the amount.
+        """
+
+    class CaptureParamsAmountDetailsLineItem(TypedDict):
+        discount_amount: NotRequired[int]
+        """
+        The amount an item was discounted for. Positive integer.
+        """
+        payment_method_options: NotRequired[
+            "PaymentIntent.CaptureParamsAmountDetailsLineItemPaymentMethodOptions"
+        ]
+        """
+        Payment method-specific information for line items.
+        """
+        product_code: NotRequired[str]
+        """
+        Unique identifier of the product. At most 12 characters long.
+        """
+        product_name: str
+        """
+        Name of the product. At most 100 characters long.
+        """
+        quantity: int
+        """
+        Number of items of the product. Positive integer.
+        """
+        tax: NotRequired["PaymentIntent.CaptureParamsAmountDetailsLineItemTax"]
+        """
+        Contains information about the tax on the item.
+        """
+        unit_cost: int
+        """
+        Cost of the product. Non-negative integer.
+        """
+        unit_of_measure: NotRequired[str]
+        """
+        A unit of measure for the line item, such as gallons, feet, meters, etc.
+        """
+
+    class CaptureParamsAmountDetailsLineItemPaymentMethodOptions(TypedDict):
+        card: NotRequired[
+            "PaymentIntent.CaptureParamsAmountDetailsLineItemPaymentMethodOptionsCard"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `card` payment method."
+        """
+        card_present: NotRequired[
+            "PaymentIntent.CaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `card_present` payment method."
+        """
+        klarna: NotRequired[
+            "PaymentIntent.CaptureParamsAmountDetailsLineItemPaymentMethodOptionsKlarna"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `klarna` payment method."
+        """
+        paypal: NotRequired[
+            "PaymentIntent.CaptureParamsAmountDetailsLineItemPaymentMethodOptionsPaypal"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `paypal` payment method."
+        """
+
+    class CaptureParamsAmountDetailsLineItemPaymentMethodOptionsCard(
+        TypedDict
+    ):
+        commodity_code: NotRequired[str]
+        """
+        Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+        """
+
+    class CaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent(
+        TypedDict,
+    ):
+        commodity_code: NotRequired[str]
+        """
+        Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+        """
+
+    class CaptureParamsAmountDetailsLineItemPaymentMethodOptionsKlarna(
+        TypedDict,
+    ):
+        image_url: NotRequired[str]
+        """
+        URL to an image for the product. Max length, 4096 characters.
+        """
+        product_url: NotRequired[str]
+        """
+        URL to the product page. Max length, 4096 characters.
+        """
+        subscription_reference: NotRequired[str]
+        """
+        Reference for the subscription this line item is for.
+        """
+
+    class CaptureParamsAmountDetailsLineItemPaymentMethodOptionsPaypal(
+        TypedDict,
+    ):
+        category: NotRequired[
+            Literal["digital_goods", "donation", "physical_goods"]
+        ]
+        """
+        Type of the line item.
+        """
+        description: NotRequired[str]
+        """
+        Description of the line item.
+        """
+        sold_by: NotRequired[str]
+        """
+        The Stripe account ID of the connected account that sells the item.
+        """
+
+    class CaptureParamsAmountDetailsLineItemTax(TypedDict):
+        total_tax_amount: int
+        """
+        The total tax on an item. Non-negative integer.
+        """
+
+    class CaptureParamsAmountDetailsShipping(TypedDict):
+        amount: NotRequired["Literal['']|int"]
+        """
+        Portion of the amount that is for shipping.
+        """
+        from_postal_code: NotRequired["Literal['']|str"]
+        """
+        The postal code that represents the shipping source.
+        """
+        to_postal_code: NotRequired["Literal['']|str"]
+        """
+        The postal code that represents the shipping destination.
+        """
+
+    class CaptureParamsAmountDetailsTax(TypedDict):
+        total_tax_amount: int
+        """
+        Total portion of the amount that is for tax.
         """
 
     class CaptureParamsHooks(TypedDict):
@@ -4078,6 +4244,12 @@ class PaymentIntent(
         """
 
     class ConfirmParams(RequestOptions):
+        amount_details: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsAmountDetails"
+        ]
+        """
+        Provides industry-specific information about the amount.
+        """
         application_fee_amount: NotRequired["Literal['']|int"]
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
@@ -4187,6 +4359,168 @@ class PaymentIntent(
         use_stripe_sdk: NotRequired[bool]
         """
         Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
+        """
+
+    class ConfirmParamsAmountDetails(TypedDict):
+        discount_amount: NotRequired["Literal['']|int"]
+        """
+        The amount an item was discounted for.
+        """
+        line_items: NotRequired[
+            "Literal['']|List[PaymentIntent.ConfirmParamsAmountDetailsLineItem]"
+        ]
+        """
+        A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        """
+        shipping: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsAmountDetailsShipping"
+        ]
+        """
+        Contains information about the shipping portion of the amount.
+        """
+        tax: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsAmountDetailsTax"
+        ]
+        """
+        Contains information about the tax portion of the amount.
+        """
+
+    class ConfirmParamsAmountDetailsLineItem(TypedDict):
+        discount_amount: NotRequired[int]
+        """
+        The amount an item was discounted for. Positive integer.
+        """
+        payment_method_options: NotRequired[
+            "PaymentIntent.ConfirmParamsAmountDetailsLineItemPaymentMethodOptions"
+        ]
+        """
+        Payment method-specific information for line items.
+        """
+        product_code: NotRequired[str]
+        """
+        Unique identifier of the product. At most 12 characters long.
+        """
+        product_name: str
+        """
+        Name of the product. At most 100 characters long.
+        """
+        quantity: int
+        """
+        Number of items of the product. Positive integer.
+        """
+        tax: NotRequired["PaymentIntent.ConfirmParamsAmountDetailsLineItemTax"]
+        """
+        Contains information about the tax on the item.
+        """
+        unit_cost: int
+        """
+        Cost of the product. Non-negative integer.
+        """
+        unit_of_measure: NotRequired[str]
+        """
+        A unit of measure for the line item, such as gallons, feet, meters, etc.
+        """
+
+    class ConfirmParamsAmountDetailsLineItemPaymentMethodOptions(TypedDict):
+        card: NotRequired[
+            "PaymentIntent.ConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCard"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `card` payment method."
+        """
+        card_present: NotRequired[
+            "PaymentIntent.ConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `card_present` payment method."
+        """
+        klarna: NotRequired[
+            "PaymentIntent.ConfirmParamsAmountDetailsLineItemPaymentMethodOptionsKlarna"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `klarna` payment method."
+        """
+        paypal: NotRequired[
+            "PaymentIntent.ConfirmParamsAmountDetailsLineItemPaymentMethodOptionsPaypal"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `paypal` payment method."
+        """
+
+    class ConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCard(
+        TypedDict
+    ):
+        commodity_code: NotRequired[str]
+        """
+        Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+        """
+
+    class ConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent(
+        TypedDict,
+    ):
+        commodity_code: NotRequired[str]
+        """
+        Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+        """
+
+    class ConfirmParamsAmountDetailsLineItemPaymentMethodOptionsKlarna(
+        TypedDict,
+    ):
+        image_url: NotRequired[str]
+        """
+        URL to an image for the product. Max length, 4096 characters.
+        """
+        product_url: NotRequired[str]
+        """
+        URL to the product page. Max length, 4096 characters.
+        """
+        subscription_reference: NotRequired[str]
+        """
+        Reference for the subscription this line item is for.
+        """
+
+    class ConfirmParamsAmountDetailsLineItemPaymentMethodOptionsPaypal(
+        TypedDict,
+    ):
+        category: NotRequired[
+            Literal["digital_goods", "donation", "physical_goods"]
+        ]
+        """
+        Type of the line item.
+        """
+        description: NotRequired[str]
+        """
+        Description of the line item.
+        """
+        sold_by: NotRequired[str]
+        """
+        The Stripe account ID of the connected account that sells the item.
+        """
+
+    class ConfirmParamsAmountDetailsLineItemTax(TypedDict):
+        total_tax_amount: int
+        """
+        The total tax on an item. Non-negative integer.
+        """
+
+    class ConfirmParamsAmountDetailsShipping(TypedDict):
+        amount: NotRequired["Literal['']|int"]
+        """
+        Portion of the amount that is for shipping.
+        """
+        from_postal_code: NotRequired["Literal['']|str"]
+        """
+        The postal code that represents the shipping source.
+        """
+        to_postal_code: NotRequired["Literal['']|str"]
+        """
+        The postal code that represents the shipping destination.
+        """
+
+    class ConfirmParamsAmountDetailsTax(TypedDict):
+        total_tax_amount: int
+        """
+        Total portion of the amount that is for tax.
         """
 
     class ConfirmParamsHooks(TypedDict):
@@ -6455,7 +6789,7 @@ class PaymentIntent(
             "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
+        Installment configuration for payments attempted on this PaymentIntent.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -8030,6 +8364,10 @@ class PaymentIntent(
         """
         Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
         """
+        amount_details: NotRequired["PaymentIntent.CreateParamsAmountDetails"]
+        """
+        Provides industry-specific information about the amount.
+        """
         application_fee_amount: NotRequired[int]
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
@@ -8210,6 +8548,166 @@ class PaymentIntent(
         use_stripe_sdk: NotRequired[bool]
         """
         Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
+        """
+
+    class CreateParamsAmountDetails(TypedDict):
+        discount_amount: NotRequired["Literal['']|int"]
+        """
+        The amount an item was discounted for.
+        """
+        line_items: NotRequired[
+            "Literal['']|List[PaymentIntent.CreateParamsAmountDetailsLineItem]"
+        ]
+        """
+        A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        """
+        shipping: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsAmountDetailsShipping"
+        ]
+        """
+        Contains information about the shipping portion of the amount.
+        """
+        tax: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsAmountDetailsTax"
+        ]
+        """
+        Contains information about the tax portion of the amount.
+        """
+
+    class CreateParamsAmountDetailsLineItem(TypedDict):
+        discount_amount: NotRequired[int]
+        """
+        The amount an item was discounted for. Positive integer.
+        """
+        payment_method_options: NotRequired[
+            "PaymentIntent.CreateParamsAmountDetailsLineItemPaymentMethodOptions"
+        ]
+        """
+        Payment method-specific information for line items.
+        """
+        product_code: NotRequired[str]
+        """
+        Unique identifier of the product. At most 12 characters long.
+        """
+        product_name: str
+        """
+        Name of the product. At most 100 characters long.
+        """
+        quantity: int
+        """
+        Number of items of the product. Positive integer.
+        """
+        tax: NotRequired["PaymentIntent.CreateParamsAmountDetailsLineItemTax"]
+        """
+        Contains information about the tax on the item.
+        """
+        unit_cost: int
+        """
+        Cost of the product. Non-negative integer.
+        """
+        unit_of_measure: NotRequired[str]
+        """
+        A unit of measure for the line item, such as gallons, feet, meters, etc.
+        """
+
+    class CreateParamsAmountDetailsLineItemPaymentMethodOptions(TypedDict):
+        card: NotRequired[
+            "PaymentIntent.CreateParamsAmountDetailsLineItemPaymentMethodOptionsCard"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `card` payment method."
+        """
+        card_present: NotRequired[
+            "PaymentIntent.CreateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `card_present` payment method."
+        """
+        klarna: NotRequired[
+            "PaymentIntent.CreateParamsAmountDetailsLineItemPaymentMethodOptionsKlarna"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `klarna` payment method."
+        """
+        paypal: NotRequired[
+            "PaymentIntent.CreateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `paypal` payment method."
+        """
+
+    class CreateParamsAmountDetailsLineItemPaymentMethodOptionsCard(TypedDict):
+        commodity_code: NotRequired[str]
+        """
+        Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+        """
+
+    class CreateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent(
+        TypedDict,
+    ):
+        commodity_code: NotRequired[str]
+        """
+        Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+        """
+
+    class CreateParamsAmountDetailsLineItemPaymentMethodOptionsKlarna(
+        TypedDict,
+    ):
+        image_url: NotRequired[str]
+        """
+        URL to an image for the product. Max length, 4096 characters.
+        """
+        product_url: NotRequired[str]
+        """
+        URL to the product page. Max length, 4096 characters.
+        """
+        subscription_reference: NotRequired[str]
+        """
+        Reference for the subscription this line item is for.
+        """
+
+    class CreateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal(
+        TypedDict,
+    ):
+        category: NotRequired[
+            Literal["digital_goods", "donation", "physical_goods"]
+        ]
+        """
+        Type of the line item.
+        """
+        description: NotRequired[str]
+        """
+        Description of the line item.
+        """
+        sold_by: NotRequired[str]
+        """
+        The Stripe account ID of the connected account that sells the item.
+        """
+
+    class CreateParamsAmountDetailsLineItemTax(TypedDict):
+        total_tax_amount: int
+        """
+        The total tax on an item. Non-negative integer.
+        """
+
+    class CreateParamsAmountDetailsShipping(TypedDict):
+        amount: NotRequired["Literal['']|int"]
+        """
+        Portion of the amount that is for shipping.
+        """
+        from_postal_code: NotRequired["Literal['']|str"]
+        """
+        The postal code that represents the shipping source.
+        """
+        to_postal_code: NotRequired["Literal['']|str"]
+        """
+        The postal code that represents the shipping destination.
+        """
+
+    class CreateParamsAmountDetailsTax(TypedDict):
+        total_tax_amount: int
+        """
+        Total portion of the amount that is for tax.
         """
 
     class CreateParamsAutomaticPaymentMethods(TypedDict):
@@ -10484,7 +10982,7 @@ class PaymentIntent(
             "PaymentIntent.CreateParamsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
+        Installment configuration for payments attempted on this PaymentIntent.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -12139,6 +12637,12 @@ class PaymentIntent(
         """
         The updated total amount that you intend to collect from the cardholder. This amount must be greater than the currently authorized amount.
         """
+        amount_details: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsAmountDetails"
+        ]
+        """
+        Provides industry-specific information about the amount.
+        """
         application_fee_amount: NotRequired[int]
         """
         The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
@@ -12159,6 +12663,12 @@ class PaymentIntent(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        payment_details: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsPaymentDetails"
+        ]
+        """
+        Provides industry-specific information about the charge.
+        """
         payment_method_options: NotRequired[
             "PaymentIntent.IncrementAuthorizationParamsPaymentMethodOptions"
         ]
@@ -12175,6 +12685,172 @@ class PaymentIntent(
         """
         The parameters used to automatically create a transfer after the payment is captured.
         Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        """
+
+    class IncrementAuthorizationParamsAmountDetails(TypedDict):
+        discount_amount: NotRequired["Literal['']|int"]
+        """
+        The amount an item was discounted for.
+        """
+        line_items: NotRequired[
+            "Literal['']|List[PaymentIntent.IncrementAuthorizationParamsAmountDetailsLineItem]"
+        ]
+        """
+        A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        """
+        shipping: NotRequired[
+            "Literal['']|PaymentIntent.IncrementAuthorizationParamsAmountDetailsShipping"
+        ]
+        """
+        Contains information about the shipping portion of the amount.
+        """
+        tax: NotRequired[
+            "Literal['']|PaymentIntent.IncrementAuthorizationParamsAmountDetailsTax"
+        ]
+        """
+        Contains information about the tax portion of the amount.
+        """
+
+    class IncrementAuthorizationParamsAmountDetailsLineItem(TypedDict):
+        discount_amount: NotRequired[int]
+        """
+        The amount an item was discounted for. Positive integer.
+        """
+        payment_method_options: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptions"
+        ]
+        """
+        Payment method-specific information for line items.
+        """
+        product_code: NotRequired[str]
+        """
+        Unique identifier of the product. At most 12 characters long.
+        """
+        product_name: str
+        """
+        Name of the product. At most 100 characters long.
+        """
+        quantity: int
+        """
+        Number of items of the product. Positive integer.
+        """
+        tax: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsAmountDetailsLineItemTax"
+        ]
+        """
+        Contains information about the tax on the item.
+        """
+        unit_cost: int
+        """
+        Cost of the product. Non-negative integer.
+        """
+        unit_of_measure: NotRequired[str]
+        """
+        A unit of measure for the line item, such as gallons, feet, meters, etc.
+        """
+
+    class IncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptions(
+        TypedDict,
+    ):
+        card: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCard"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `card` payment method."
+        """
+        card_present: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `card_present` payment method."
+        """
+        klarna: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsKlarna"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `klarna` payment method."
+        """
+        paypal: NotRequired[
+            "PaymentIntent.IncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsPaypal"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `paypal` payment method."
+        """
+
+    class IncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCard(
+        TypedDict,
+    ):
+        commodity_code: NotRequired[str]
+        """
+        Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+        """
+
+    class IncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent(
+        TypedDict,
+    ):
+        commodity_code: NotRequired[str]
+        """
+        Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+        """
+
+    class IncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsKlarna(
+        TypedDict,
+    ):
+        image_url: NotRequired[str]
+        """
+        URL to an image for the product. Max length, 4096 characters.
+        """
+        product_url: NotRequired[str]
+        """
+        URL to the product page. Max length, 4096 characters.
+        """
+        subscription_reference: NotRequired[str]
+        """
+        Reference for the subscription this line item is for.
+        """
+
+    class IncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsPaypal(
+        TypedDict,
+    ):
+        category: NotRequired[
+            Literal["digital_goods", "donation", "physical_goods"]
+        ]
+        """
+        Type of the line item.
+        """
+        description: NotRequired[str]
+        """
+        Description of the line item.
+        """
+        sold_by: NotRequired[str]
+        """
+        The Stripe account ID of the connected account that sells the item.
+        """
+
+    class IncrementAuthorizationParamsAmountDetailsLineItemTax(TypedDict):
+        total_tax_amount: int
+        """
+        The total tax on an item. Non-negative integer.
+        """
+
+    class IncrementAuthorizationParamsAmountDetailsShipping(TypedDict):
+        amount: NotRequired["Literal['']|int"]
+        """
+        Portion of the amount that is for shipping.
+        """
+        from_postal_code: NotRequired["Literal['']|str"]
+        """
+        The postal code that represents the shipping source.
+        """
+        to_postal_code: NotRequired["Literal['']|str"]
+        """
+        The postal code that represents the shipping destination.
+        """
+
+    class IncrementAuthorizationParamsAmountDetailsTax(TypedDict):
+        total_tax_amount: int
+        """
+        Total portion of the amount that is for tax.
         """
 
     class IncrementAuthorizationParamsHooks(TypedDict):
@@ -12197,6 +12873,16 @@ class PaymentIntent(
         calculation: Union[Literal[""], str]
         """
         The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+        """
+
+    class IncrementAuthorizationParamsPaymentDetails(TypedDict):
+        customer_reference: NotRequired["Literal['']|str"]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
+        order_reference: NotRequired["Literal['']|str"]
+        """
+        A unique value assigned by the business to identify the transaction.
         """
 
     class IncrementAuthorizationParamsPaymentMethodOptions(TypedDict):
@@ -12291,6 +12977,12 @@ class PaymentIntent(
         amount: NotRequired[int]
         """
         Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+        """
+        amount_details: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsAmountDetails"
+        ]
+        """
+        Provides industry-specific information about the amount.
         """
         application_fee_amount: NotRequired["Literal['']|int"]
         """
@@ -12414,6 +13106,166 @@ class PaymentIntent(
         transfer_group: NotRequired[str]
         """
         A string that identifies the resulting payment as part of a group. You can only provide `transfer_group` if it hasn't been set. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+        """
+
+    class ModifyParamsAmountDetails(TypedDict):
+        discount_amount: NotRequired["Literal['']|int"]
+        """
+        The amount an item was discounted for.
+        """
+        line_items: NotRequired[
+            "Literal['']|List[PaymentIntent.ModifyParamsAmountDetailsLineItem]"
+        ]
+        """
+        A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        """
+        shipping: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsAmountDetailsShipping"
+        ]
+        """
+        Contains information about the shipping portion of the amount.
+        """
+        tax: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsAmountDetailsTax"
+        ]
+        """
+        Contains information about the tax portion of the amount.
+        """
+
+    class ModifyParamsAmountDetailsLineItem(TypedDict):
+        discount_amount: NotRequired[int]
+        """
+        The amount an item was discounted for. Positive integer.
+        """
+        payment_method_options: NotRequired[
+            "PaymentIntent.ModifyParamsAmountDetailsLineItemPaymentMethodOptions"
+        ]
+        """
+        Payment method-specific information for line items.
+        """
+        product_code: NotRequired[str]
+        """
+        Unique identifier of the product. At most 12 characters long.
+        """
+        product_name: str
+        """
+        Name of the product. At most 100 characters long.
+        """
+        quantity: int
+        """
+        Number of items of the product. Positive integer.
+        """
+        tax: NotRequired["PaymentIntent.ModifyParamsAmountDetailsLineItemTax"]
+        """
+        Contains information about the tax on the item.
+        """
+        unit_cost: int
+        """
+        Cost of the product. Non-negative integer.
+        """
+        unit_of_measure: NotRequired[str]
+        """
+        A unit of measure for the line item, such as gallons, feet, meters, etc.
+        """
+
+    class ModifyParamsAmountDetailsLineItemPaymentMethodOptions(TypedDict):
+        card: NotRequired[
+            "PaymentIntent.ModifyParamsAmountDetailsLineItemPaymentMethodOptionsCard"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `card` payment method."
+        """
+        card_present: NotRequired[
+            "PaymentIntent.ModifyParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `card_present` payment method."
+        """
+        klarna: NotRequired[
+            "PaymentIntent.ModifyParamsAmountDetailsLineItemPaymentMethodOptionsKlarna"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `klarna` payment method."
+        """
+        paypal: NotRequired[
+            "PaymentIntent.ModifyParamsAmountDetailsLineItemPaymentMethodOptionsPaypal"
+        ]
+        """
+        This sub-hash contains line item details that are specific to `paypal` payment method."
+        """
+
+    class ModifyParamsAmountDetailsLineItemPaymentMethodOptionsCard(TypedDict):
+        commodity_code: NotRequired[str]
+        """
+        Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+        """
+
+    class ModifyParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent(
+        TypedDict,
+    ):
+        commodity_code: NotRequired[str]
+        """
+        Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+        """
+
+    class ModifyParamsAmountDetailsLineItemPaymentMethodOptionsKlarna(
+        TypedDict,
+    ):
+        image_url: NotRequired[str]
+        """
+        URL to an image for the product. Max length, 4096 characters.
+        """
+        product_url: NotRequired[str]
+        """
+        URL to the product page. Max length, 4096 characters.
+        """
+        subscription_reference: NotRequired[str]
+        """
+        Reference for the subscription this line item is for.
+        """
+
+    class ModifyParamsAmountDetailsLineItemPaymentMethodOptionsPaypal(
+        TypedDict,
+    ):
+        category: NotRequired[
+            Literal["digital_goods", "donation", "physical_goods"]
+        ]
+        """
+        Type of the line item.
+        """
+        description: NotRequired[str]
+        """
+        Description of the line item.
+        """
+        sold_by: NotRequired[str]
+        """
+        The Stripe account ID of the connected account that sells the item.
+        """
+
+    class ModifyParamsAmountDetailsLineItemTax(TypedDict):
+        total_tax_amount: int
+        """
+        The total tax on an item. Non-negative integer.
+        """
+
+    class ModifyParamsAmountDetailsShipping(TypedDict):
+        amount: NotRequired["Literal['']|int"]
+        """
+        Portion of the amount that is for shipping.
+        """
+        from_postal_code: NotRequired["Literal['']|str"]
+        """
+        The postal code that represents the shipping source.
+        """
+        to_postal_code: NotRequired["Literal['']|str"]
+        """
+        The postal code that represents the shipping destination.
+        """
+
+    class ModifyParamsAmountDetailsTax(TypedDict):
+        total_tax_amount: int
+        """
+        Total portion of the amount that is for tax.
         """
 
     class ModifyParamsHooks(TypedDict):
@@ -14661,7 +15513,7 @@ class PaymentIntent(
             "PaymentIntent.ModifyParamsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
+        Installment configuration for payments attempted on this PaymentIntent.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -16917,6 +17769,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -16924,18 +17777,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -16960,6 +17817,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -16967,18 +17825,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -16993,6 +17855,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -17000,18 +17863,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -17026,6 +17893,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -17033,18 +17901,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -17068,6 +17940,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -17075,18 +17948,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -17111,6 +17988,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -17118,18 +17996,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -17144,6 +18026,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -17151,18 +18034,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -17177,6 +18064,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -17184,18 +18072,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.

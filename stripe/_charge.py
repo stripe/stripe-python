@@ -315,7 +315,7 @@ class Charge(
                 class Card(StripeObject):
                     brand: Optional[str]
                     """
-                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
                     """
                     brand_product: Optional[str]
                     """
@@ -800,7 +800,7 @@ class Charge(
             """
             brand: Optional[str]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
             capture_before: Optional[int]
             """
@@ -971,7 +971,7 @@ class Charge(
             """
             brand: Optional[str]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
             brand_product: Optional[str]
             """
@@ -1086,6 +1086,10 @@ class Charge(
             cashtag: Optional[str]
             """
             A public identifier for buyers using Cash App.
+            """
+            transaction_id: Optional[str]
+            """
+            A unique and immutable identifier of payments assigned by Cash App
             """
 
         class Crypto(StripeObject):
@@ -1832,7 +1836,7 @@ class Charge(
                 class Card(StripeObject):
                     brand: Optional[str]
                     """
-                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
                     """
                     brand_product: Optional[str]
                     """
@@ -2189,7 +2193,7 @@ class Charge(
     class PresentmentDetails(StripeObject):
         presentment_amount: int
         """
-        Amount intended to be collected by this payment, denominated in presentment_currency.
+        Amount intended to be collected by this payment, denominated in `presentment_currency`.
         """
         presentment_currency: str
         """

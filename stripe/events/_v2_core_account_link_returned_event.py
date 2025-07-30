@@ -9,16 +9,18 @@ from typing import Any, Dict, List, Optional
 from typing_extensions import Literal
 
 
-class V2CoreAccountLinkCompletedEvent(Event):
-    LOOKUP_TYPE = "v2.core.account_link.completed"
-    type: Literal["v2.core.account_link.completed"]
+class V2CoreAccountLinkReturnedEvent(Event):
+    LOOKUP_TYPE = "v2.core.account_link.returned"
+    type: Literal["v2.core.account_link.returned"]
 
-    class V2CoreAccountLinkCompletedEventData(StripeObject):
+    class V2CoreAccountLinkReturnedEventData(StripeObject):
         account_id: str
         """
         The ID of the v2 account.
         """
-        configurations: List[Literal["recipient"]]
+        configurations: List[
+            Literal["customer", "merchant", "recipient", "storer"]
+        ]
         """
         Configurations on the Account that was onboarded via the account link.
         """
@@ -27,9 +29,9 @@ class V2CoreAccountLinkCompletedEvent(Event):
         Open Enum. The use case type of the account link that has been completed.
         """
 
-    data: V2CoreAccountLinkCompletedEventData
+    data: V2CoreAccountLinkReturnedEventData
     """
-    Data for the v2.core.account_link.completed event
+    Data for the v2.core.account_link.returned event
     """
 
     @classmethod
@@ -40,7 +42,7 @@ class V2CoreAccountLinkCompletedEvent(Event):
         last_response: Optional[StripeResponse] = None,
         requestor: "_APIRequestor",
         api_mode: ApiMode,
-    ) -> "V2CoreAccountLinkCompletedEvent":
+    ) -> "V2CoreAccountLinkReturnedEvent":
         evt = super()._construct_from(
             values=values,
             last_response=last_response,
@@ -48,7 +50,7 @@ class V2CoreAccountLinkCompletedEvent(Event):
             api_mode=api_mode,
         )
         if hasattr(evt, "data"):
-            evt.data = V2CoreAccountLinkCompletedEvent.V2CoreAccountLinkCompletedEventData._construct_from(
+            evt.data = V2CoreAccountLinkReturnedEvent.V2CoreAccountLinkReturnedEventData._construct_from(
                 values=evt.data,
                 last_response=last_response,
                 requestor=requestor,

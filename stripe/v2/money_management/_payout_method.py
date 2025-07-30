@@ -21,6 +21,10 @@ class PayoutMethod(StripeObject):
         the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodBankAccount objects
         cannot be used as payout methods and will not appear in the payout method list.
         """
+        bank_account_type: Literal["checking", "savings"]
+        """
+        The type of bank account (checking or savings).
+        """
         bank_name: str
         """
         The name of the bank this bank account is in. This field is populated automatically by Stripe.

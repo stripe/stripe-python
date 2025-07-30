@@ -45,8 +45,8 @@ from stripe.events._v2_core_account_including_identity_updated_event import (
 from stripe.events._v2_core_account_including_requirements_updated_event import (
     V2CoreAccountIncludingRequirementsUpdatedEvent as V2CoreAccountIncludingRequirementsUpdatedEvent,
 )
-from stripe.events._v2_core_account_link_completed_event import (
-    V2CoreAccountLinkCompletedEvent as V2CoreAccountLinkCompletedEvent,
+from stripe.events._v2_core_account_link_returned_event import (
+    V2CoreAccountLinkReturnedEvent as V2CoreAccountLinkReturnedEvent,
 )
 from stripe.events._v2_core_account_person_created_event import (
     V2CoreAccountPersonCreatedEvent as V2CoreAccountPersonCreatedEvent,
@@ -132,6 +132,9 @@ from stripe.events._v2_money_management_outbound_transfer_returned_event import 
 from stripe.events._v2_money_management_outbound_transfer_updated_event import (
     V2MoneyManagementOutboundTransferUpdatedEvent as V2MoneyManagementOutboundTransferUpdatedEvent,
 )
+from stripe.events._v2_money_management_payout_method_updated_event import (
+    V2MoneyManagementPayoutMethodUpdatedEvent as V2MoneyManagementPayoutMethodUpdatedEvent,
+)
 from stripe.events._v2_money_management_received_credit_available_event import (
     V2MoneyManagementReceivedCreditAvailableEvent as V2MoneyManagementReceivedCreditAvailableEvent,
 )
@@ -164,9 +167,6 @@ from stripe.events._v2_money_management_transaction_created_event import (
 )
 from stripe.events._v2_money_management_transaction_updated_event import (
     V2MoneyManagementTransactionUpdatedEvent as V2MoneyManagementTransactionUpdatedEvent,
-)
-from stripe.events._v2_off_session_payment_requires_capture_event import (
-    V2OffSessionPaymentRequiresCaptureEvent as V2OffSessionPaymentRequiresCaptureEvent,
 )
 from stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event import (
     V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent as V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,

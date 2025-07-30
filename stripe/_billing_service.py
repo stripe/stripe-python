@@ -14,6 +14,7 @@ from stripe.billing._meter_event_adjustment_service import (
 )
 from stripe.billing._meter_event_service import MeterEventService
 from stripe.billing._meter_service import MeterService
+from stripe.billing._meter_usage_service import MeterUsageService
 
 
 class BillingService(StripeService):
@@ -32,3 +33,4 @@ class BillingService(StripeService):
         self.meter_event_adjustments = MeterEventAdjustmentService(
             self._requestor,
         )
+        self.meter_usage = MeterUsageService(self._requestor)

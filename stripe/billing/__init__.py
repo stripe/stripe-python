@@ -37,3 +37,8 @@ from stripe.billing._meter_event_summary_service import (
     MeterEventSummaryService as MeterEventSummaryService,
 )
 from stripe.billing._meter_service import MeterService as MeterService
+from stripe.billing._meter_usage import MeterUsage as MeterUsage
+from stripe.billing._meter_usage_row import MeterUsageRow as MeterUsageRow
+from stripe.billing._meter_usage_service import (
+    MeterUsageService as MeterUsageService,
+)

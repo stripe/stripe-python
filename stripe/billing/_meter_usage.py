@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._createable_api_resource import CreateableAPIResource
-from stripe._list_object import ListObject
-from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
+from stripe._singleton_api_resource import SingletonAPIResource
+from typing import ClassVar, Dict, List
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -15,144 +12,38 @@ from typing_extensions import (
 )
 
 if TYPE_CHECKING:
-    from stripe._file import File
+    from stripe.billing._meter_usage_row import MeterUsageRow
 
 
-class ReportRun(
-    CreateableAPIResource["ReportRun"],
-    ListableAPIResource["ReportRun"],
-):
+class MeterUsage(SingletonAPIResource["MeterUsage"]):
     """
-    The Report Run object represents an instance of a report type generated with
-    specific run parameters. Once the object is created, Stripe begins processing the report.
-    When the report has finished running, it will give you a reference to a file
-    where you can retrieve your results. For an overview, see
-    [API Access to Reports](https://stripe.com/docs/reporting/statements/api).
-
-    Note that certain report types can only be run based on your live-mode data (not test-mode
-    data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
+    A billing meter usage event represents an aggregated view of a customer's billing meter events within a specified timeframe.
     """
 
-    OBJECT_NAME: ClassVar[Literal["reporting.report_run"]] = (
-        "reporting.report_run"
+    OBJECT_NAME: ClassVar[Literal["billing.meter_usage"]] = (
+        "billing.meter_usage"
     )
 
-    class Parameters(StripeObject):
-        columns: Optional[List[str]]
+    class RetrieveParams(RequestOptions):
+        customer: str
         """
-        The set of output columns requested for inclusion in the report run.
+        The customer id to fetch meter usage data for.
         """
-        connected_account: Optional[str]
+        end_time: int
         """
-        Connected account ID by which to filter the report run.
+        The timestamp from when to stop aggregating meter events (exclusive). Must be aligned with minute boundaries.
         """
-        currency: Optional[str]
-        """
-        Currency of objects to be included in the report run.
-        """
-        interval_end: Optional[int]
-        """
-        Ending timestamp of data to be included in the report run. Can be any UTC timestamp between 1 second after the user specified `interval_start` and 1 second before this report's last `data_available_end` value.
-        """
-        interval_start: Optional[int]
-        """
-        Starting timestamp of data to be included in the report run. Can be any UTC timestamp between 1 second after this report's `data_available_start` and 1 second before the user specified `interval_end` value.
-        """
-        payout: Optional[str]
-        """
-        Payout ID by which to filter the report run.
-        """
-        reporting_category: Optional[str]
-        """
-        Category of balance transactions to be included in the report run.
-        """
-        timezone: Optional[str]
-        """
-        Defaults to `Etc/UTC`. The output timezone for all timestamps in the report. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). Has no effect on `interval_start` or `interval_end`.
-        """
-
-    class CreateParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        parameters: NotRequired["ReportRun.CreateParamsParameters"]
+        meters: NotRequired[List["MeterUsage.RetrieveParamsMeter"]]
         """
-        Parameters specifying how the report should be run. Different Report Types have different required and optional parameters, listed in the [API Access to Reports](https://stripe.com/docs/reporting/statements/api) documentation.
+        An array of meter parameters to specify which meters to include in the usage data. If not specified, usage across all meters for the customer is included.
         """
-        report_type: str
+        start_time: int
         """
-        The ID of the [report type](https://stripe.com/docs/reporting/statements/api#report-types) to run, such as `"balance.summary.1"`.
-        """
-
-    class CreateParamsParameters(TypedDict):
-        columns: NotRequired[List[str]]
-        """
-        The set of report columns to include in the report output. If omitted, the Report Type is run with its default column set.
-        """
-        connected_account: NotRequired[str]
-        """
-        Connected account ID to filter for in the report run.
-        """
-        currency: NotRequired[str]
-        """
-        Currency of objects to be included in the report run.
-        """
-        interval_end: NotRequired[int]
-        """
-        Ending timestamp of data to be included in the report run (exclusive).
-        """
-        interval_start: NotRequired[int]
-        """
-        Starting timestamp of data to be included in the report run.
-        """
-        payout: NotRequired[str]
-        """
-        Payout ID by which to filter the report run.
-        """
-        reporting_category: NotRequired[
-            Literal[
-                "advance",
-                "advance_funding",
-                "anticipation_repayment",
-                "charge",
-                "charge_failure",
-                "climate_order_purchase",
-                "climate_order_refund",
-                "connect_collection_transfer",
-                "connect_reserved_funds",
-                "contribution",
-                "dispute",
-                "dispute_reversal",
-                "fee",
-                "financing_paydown",
-                "financing_paydown_reversal",
-                "financing_payout",
-                "financing_payout_reversal",
-                "issuing_authorization_hold",
-                "issuing_authorization_release",
-                "issuing_dispute",
-                "issuing_transaction",
-                "network_cost",
-                "other_adjustment",
-                "partial_capture_reversal",
-                "payout",
-                "payout_reversal",
-                "platform_earning",
-                "platform_earning_refund",
-                "refund",
-                "refund_failure",
-                "risk_reserved_funds",
-                "tax",
-                "topup",
-                "topup_reversal",
-                "transfer",
-                "transfer_reversal",
-                "unreconciled_customer_funds",
-            ]
-        ]
-        """
-        Category of balance transactions to be included in the report run.
+        The timestamp from when to start aggregating meter events (inclusive). Must be aligned with minute boundaries.
         """
         timezone: NotRequired[
             Literal[
@@ -758,188 +649,72 @@ class ReportRun(
             ]
         ]
         """
-        Defaults to `Etc/UTC`. The output timezone for all timestamps in the report. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). Has no effect on `interval_start` or `interval_end`.
+        The timezone to use for the start and end times. Defaults to UTC if not specified.
+        """
+        value_grouping_window: NotRequired[
+            Literal["day", "hour", "month", "week"]
+        ]
+        """
+        Specifies what granularity to use when aggregating meter usage events. If not specified, a single event would be returned for the specified time range.
         """
 
-    class ListParams(RequestOptions):
-        created: NotRequired["ReportRun.ListParamsCreated|int"]
+    class RetrieveParamsMeter(TypedDict):
+        dimension_filters: NotRequired[Dict[str, str]]
         """
-        Only return Report Runs that were created during the given date interval.
+        Key-value pairs used to filter usage events by meter dimension values. If specified, usage will be filtered for matching usage events.
         """
-        ending_before: NotRequired[str]
+        dimension_group_by_keys: NotRequired[List[str]]
         """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        List of meter dimension keys to group by. If specified, usage events will be grouped by the given meter dimension key's values.
         """
-        expand: NotRequired[List[str]]
+        meter_id: str
         """
-        Specifies which fields in the response should be expanded.
+        Meter id to query usage for.
         """
-        limit: NotRequired[int]
+        tenant_filters: NotRequired[Dict[str, str]]
         """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        Key-value pairs used to filter usage events by high cardinality tenant dimension values. If specified, usage will be filtered for matching usage events.
         """
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    created: int
+    data: List["MeterUsageRow"]
     """
-    Time at which the object was created. Measured in seconds since the Unix epoch.
+    The aggregated meter usage data for the specified customer and time range.
     """
-    error: Optional[str]
+    data_refreshed_at: int
     """
-    If something should go wrong during the run, a message about the failure (populated when
-     `status=failed`).
-    """
-    id: str
-    """
-    Unique identifier for the object.
+    Timestamp indicating how fresh the data is. Measured in seconds since the Unix epoch.
     """
     livemode: bool
     """
-    `true` if the report is run on live mode data and `false` if it is run on test mode data.
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    object: Literal["reporting.report_run"]
+    object: Literal["billing.meter_usage"]
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    parameters: Parameters
-    report_type: str
-    """
-    The ID of the [report type](https://stripe.com/docs/reports/report-types) to run, such as `"balance.summary.1"`.
-    """
-    result: Optional["File"]
-    """
-    The file object representing the result of the report run (populated when
-     `status=succeeded`).
-    """
-    status: str
-    """
-    Status of this report run. This will be `pending` when the run is initially created.
-     When the run finishes, this will be set to `succeeded` and the `result` field will be populated.
-     Rarely, we may encounter an error, at which point this will be set to `failed` and the `error` field will be populated.
-    """
-    succeeded_at: Optional[int]
-    """
-    Timestamp at which this run successfully finished (populated when
-     `status=succeeded`). Measured in seconds since the Unix epoch.
-    """
-
-    @classmethod
-    def create(cls, **params: Unpack["ReportRun.CreateParams"]) -> "ReportRun":
-        """
-        Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
-        """
-        return cast(
-            "ReportRun",
-            cls._static_request(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def create_async(
-        cls, **params: Unpack["ReportRun.CreateParams"]
-    ) -> "ReportRun":
-        """
-        Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
-        """
-        return cast(
-            "ReportRun",
-            await cls._static_request_async(
-                "post",
-                cls.class_url(),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def list(
-        cls, **params: Unpack["ReportRun.ListParams"]
-    ) -> ListObject["ReportRun"]:
-        """
-        Returns a list of Report Runs, with the most recent appearing first.
-        """
-        result = cls._static_request(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    async def list_async(
-        cls, **params: Unpack["ReportRun.ListParams"]
-    ) -> ListObject["ReportRun"]:
-        """
-        Returns a list of Report Runs, with the most recent appearing first.
-        """
-        result = await cls._static_request_async(
-            "get",
-            cls.class_url(),
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["ReportRun.RetrieveParams"]
-    ) -> "ReportRun":
+        cls, **params: Unpack["MeterUsage.RetrieveParams"]
+    ) -> "MeterUsage":
         """
-        Retrieves the details of an existing Report Run.
+        Returns aggregated meter usage data for a customer within a specified time interval. The data can be grouped by various dimensions and can include multiple meters if specified.
         """
-        instance = cls(id, **params)
+        instance = cls(None, **params)
         instance.refresh()
         return instance
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ReportRun.RetrieveParams"]
-    ) -> "ReportRun":
+        cls, **params: Unpack["MeterUsage.RetrieveParams"]
+    ) -> "MeterUsage":
         """
-        Retrieves the details of an existing Report Run.
+        Returns aggregated meter usage data for a customer within a specified time interval. The data can be grouped by various dimensions and can include multiple meters if specified.
         """
-        instance = cls(id, **params)
+        instance = cls(None, **params)
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {"parameters": Parameters}
+    @classmethod
+    def class_url(cls):
+        return "/v1/billing/analytics/meter_usage"

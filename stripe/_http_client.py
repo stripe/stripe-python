@@ -595,7 +595,7 @@ class RequestsClient(HTTPClient):
 
     def __init__(
         self,
-        timeout: int = 80,
+        timeout: Union[float, Tuple[float, float]] = 80,
         session: Optional["RequestsSession"] = None,
         verify_ssl_certs: bool = True,
         proxy: Optional[Union[str, HTTPClient._Proxy]] = None,

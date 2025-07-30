@@ -87,9 +87,17 @@ class ConfigurationService(StripeService):
         """
 
     class CreateParamsTipping(TypedDict):
+        aed: NotRequired["ConfigurationService.CreateParamsTippingAed"]
+        """
+        Tipping configuration for AED
+        """
         aud: NotRequired["ConfigurationService.CreateParamsTippingAud"]
         """
         Tipping configuration for AUD
+        """
+        bgn: NotRequired["ConfigurationService.CreateParamsTippingBgn"]
+        """
+        Tipping configuration for BGN
         """
         cad: NotRequired["ConfigurationService.CreateParamsTippingCad"]
         """
@@ -119,6 +127,10 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for HKD
         """
+        huf: NotRequired["ConfigurationService.CreateParamsTippingHuf"]
+        """
+        Tipping configuration for HUF
+        """
         jpy: NotRequired["ConfigurationService.CreateParamsTippingJpy"]
         """
         Tipping configuration for JPY
@@ -139,6 +151,10 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for PLN
         """
+        ron: NotRequired["ConfigurationService.CreateParamsTippingRon"]
+        """
+        Tipping configuration for RON
+        """
         sek: NotRequired["ConfigurationService.CreateParamsTippingSek"]
         """
         Tipping configuration for SEK
@@ -152,7 +168,35 @@ class ConfigurationService(StripeService):
         Tipping configuration for USD
         """
 
+    class CreateParamsTippingAed(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
     class CreateParamsTippingAud(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingBgn(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -264,6 +308,20 @@ class ConfigurationService(StripeService):
         Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
         """
 
+    class CreateParamsTippingHuf(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
     class CreateParamsTippingJpy(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
@@ -321,6 +379,20 @@ class ConfigurationService(StripeService):
         """
 
     class CreateParamsTippingPln(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingRon(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -568,9 +640,17 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParamsTipping(TypedDict):
+        aed: NotRequired["ConfigurationService.UpdateParamsTippingAed"]
+        """
+        Tipping configuration for AED
+        """
         aud: NotRequired["ConfigurationService.UpdateParamsTippingAud"]
         """
         Tipping configuration for AUD
+        """
+        bgn: NotRequired["ConfigurationService.UpdateParamsTippingBgn"]
+        """
+        Tipping configuration for BGN
         """
         cad: NotRequired["ConfigurationService.UpdateParamsTippingCad"]
         """
@@ -600,6 +680,10 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for HKD
         """
+        huf: NotRequired["ConfigurationService.UpdateParamsTippingHuf"]
+        """
+        Tipping configuration for HUF
+        """
         jpy: NotRequired["ConfigurationService.UpdateParamsTippingJpy"]
         """
         Tipping configuration for JPY
@@ -620,6 +704,10 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for PLN
         """
+        ron: NotRequired["ConfigurationService.UpdateParamsTippingRon"]
+        """
+        Tipping configuration for RON
+        """
         sek: NotRequired["ConfigurationService.UpdateParamsTippingSek"]
         """
         Tipping configuration for SEK
@@ -633,7 +721,35 @@ class ConfigurationService(StripeService):
         Tipping configuration for USD
         """
 
+    class UpdateParamsTippingAed(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
     class UpdateParamsTippingAud(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class UpdateParamsTippingBgn(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -745,6 +861,20 @@ class ConfigurationService(StripeService):
         Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
         """
 
+    class UpdateParamsTippingHuf(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
     class UpdateParamsTippingJpy(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
@@ -802,6 +932,20 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParamsTippingPln(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class UpdateParamsTippingRon(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip

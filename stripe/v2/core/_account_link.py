@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 class AccountLink(StripeObject):
     """
-    AccountLinks are the means by which a Merchant grants an Account permission to access Stripe-hosted applications, such as Recipient Onboarding. This API is only available for users enrolled in the public preview for Global Payouts.
+    AccountLinks are the means by which a Merchant grants an Account permission to access Stripe-hosted applications, such as Recipient Onboarding. This API is only available for users enrolled in the public preview for Accounts v2.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.core.account_link"]] = (
@@ -16,9 +16,25 @@ class AccountLink(StripeObject):
 
     class UseCase(StripeObject):
         class AccountOnboarding(StripeObject):
-            configurations: List[Literal["recipient"]]
+            class CollectionOptions(StripeObject):
+                fields: Optional[Literal["currently_due", "eventually_due"]]
+                """
+                Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don't specify collection_options, the default value is currently_due.
+                """
+                future_requirements: Optional[Literal["include", "omit"]]
+                """
+                Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
+                """
+
+            collection_options: Optional[CollectionOptions]
             """
-            Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
+            Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
+            """
+            configurations: List[
+                Literal["customer", "merchant", "recipient", "storer"]
+            ]
+            """
+            Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
             """
             refresh_url: str
             """
@@ -28,9 +44,26 @@ class AccountLink(StripeObject):
             """
             The URL that the user will be redirected to upon completing the linked flow.
             """
+            _inner_class_types = {"collection_options": CollectionOptions}
 
         class AccountUpdate(StripeObject):
-            configurations: List[Literal["recipient"]]
+            class CollectionOptions(StripeObject):
+                fields: Optional[Literal["currently_due", "eventually_due"]]
+                """
+                Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don't specify collection_options, the default value is currently_due.
+                """
+                future_requirements: Optional[Literal["include", "omit"]]
+                """
+                Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
+                """
+
+            collection_options: Optional[CollectionOptions]
+            """
+            Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
+            """
+            configurations: List[
+                Literal["customer", "merchant", "recipient", "storer"]
+            ]
             """
             Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
             """
@@ -42,6 +75,7 @@ class AccountLink(StripeObject):
             """
             The URL that the user will be redirected to upon completing the linked flow.
             """
+            _inner_class_types = {"collection_options": CollectionOptions}
 
         account_onboarding: Optional[AccountOnboarding]
         """

@@ -132,7 +132,7 @@ class CreditGrant(
         """
         type: Literal["monetary"]
         """
-        Specify the type of this amount. We currently only support `monetary` billing credits.
+        The type of this amount. We currently only support `monetary` billing credits.
         """
 
     class CreateParamsAmountMonetary(TypedDict):

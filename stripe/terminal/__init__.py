@@ -14,6 +14,10 @@ from stripe.terminal._location import Location as Location
 from stripe.terminal._location_service import (
     LocationService as LocationService,
 )
+from stripe.terminal._onboarding_link import OnboardingLink as OnboardingLink
+from stripe.terminal._onboarding_link_service import (
+    OnboardingLinkService as OnboardingLinkService,
+)
 from stripe.terminal._reader import Reader as Reader
 from stripe.terminal._reader_collected_data import (
     ReaderCollectedData as ReaderCollectedData,

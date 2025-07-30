@@ -19,6 +19,7 @@ if not TYPE_CHECKING:
     from stripe.api_resources.terminal.configuration import Configuration
     from stripe.api_resources.terminal.connection_token import ConnectionToken
     from stripe.api_resources.terminal.location import Location
+    from stripe.api_resources.terminal.onboarding_link import OnboardingLink
     from stripe.api_resources.terminal.reader import Reader
     from stripe.api_resources.terminal.reader_collected_data import (
         ReaderCollectedData,

@@ -28,15 +28,25 @@ class BalanceSettings(
             """
             How frequently funds will be paid out. One of `manual` (payouts only created via API call), `daily`, `weekly`, or `monthly`.
             """
-            monthly_anchor: Optional[int]
+            monthly_payout_days: Optional[List[int]]
             """
             The day of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
             """
-            weekly_anchor: Optional[
-                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
+            weekly_payout_days: Optional[
+                List[
+                    Literal[
+                        "friday",
+                        "monday",
+                        "saturday",
+                        "sunday",
+                        "thursday",
+                        "tuesday",
+                        "wednesday",
+                    ]
+                ]
             ]
             """
-            The day of the week funds will be paid out, of the style 'monday', 'tuesday', etc. Only shown if `interval` is weekly.
+            The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
             """
 
         schedule: Optional[Schedule]
@@ -94,19 +104,29 @@ class BalanceSettings(
         """
         How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
         """
-        monthly_anchor: NotRequired[int]
+        monthly_payout_days: NotRequired[List[int]]
         """
-        The day of the month when available funds are paid out, specified as a number between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
+        The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
         """
-        weekly_anchor: NotRequired[
-            Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
+        weekly_payout_days: NotRequired[
+            List[
+                Literal[
+                    "friday",
+                    "monday",
+                    "saturday",
+                    "sunday",
+                    "thursday",
+                    "tuesday",
+                    "wednesday",
+                ]
+            ]
         ]
         """
-        The day of the week when available funds are paid out (required and applicable only if `interval` is `weekly`.)
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
         """
 
     class ModifyParamsSettlementTiming(TypedDict):
-        delay_days: NotRequired[int]
+        delay_days_override: NotRequired[int]
         """
         The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
         """
