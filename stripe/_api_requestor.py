@@ -551,10 +551,14 @@ class _APIRequestor(object):
                 "questions."
             )
 
-        abs_url = "%s%s" % (
-            self._options.base_addresses.get(base_address),
-            url,
-        )
+        # we're passed full urls from thin events, so we should just call those directly
+        if url.startswith("https://"):
+            abs_url = url
+        else:
+            abs_url = "%s%s" % (
+                self._options.base_addresses.get(base_address),
+                url,
+            )
 
         params = params or {}
         if params and (method == "get" or method == "delete"):
@@ -821,7 +825,7 @@ class _APIRequestor(object):
 
         return rcontent, rcode, rheaders
 
-    def _should_handle_code_as_error(self, rcode):
+    def _should_handle_code_as_error(self, rcode: int) -> bool:
         return not 200 <= rcode < 300
 
     def _interpret_response(

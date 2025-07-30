@@ -27,9 +27,10 @@ from stripe._stripe_response import StripeResponse
 from stripe._util import _convert_to_stripe_object, get_api_mode, deprecated  # noqa: F401
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
-from stripe.v2._event import ThinEvent
+from stripe.v2._event import UnknownThinEvent
 
 from typing import Any, Dict, Optional, Union, cast
+from typing_extensions import TYPE_CHECKING
 
 # Non-generated services
 from stripe._oauth_service import OAuthService
@@ -110,6 +111,9 @@ from stripe._treasury_service import TreasuryService
 from stripe._webhook_endpoint_service import WebhookEndpointService
 from stripe._v2_services import V2Services
 # services: The end of the section generated from our OpenAPI spec
+
+if TYPE_CHECKING:
+    from stripe.events._event_classes import ALL_PUSHED_THIN_EVENTS
 
 
 class StripeClient(object):
@@ -274,7 +278,7 @@ class StripeClient(object):
         sig_header: str,
         secret: str,
         tolerance: int = Webhook.DEFAULT_TOLERANCE,
-    ) -> ThinEvent:
+    ) -> "ALL_PUSHED_THIN_EVENTS":
         payload = (
             cast(Union[bytes, bytearray], raw).decode("utf-8")
             if hasattr(raw, "decode")
@@ -282,8 +286,16 @@ class StripeClient(object):
         )
 
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
+        parsed_body = json.loads(payload)
 
-        return ThinEvent(payload)
+        # circular import busting
+        from stripe.events._event_classes import PUSHED_THIN_EVENT_CLASSES
+
+        event_class = PUSHED_THIN_EVENT_CLASSES.get(
+            parsed_body["type"], UnknownThinEvent
+        )
+
+        return event_class(parsed_body, self)
 
     def construct_event(
         self,
@@ -314,6 +326,8 @@ class StripeClient(object):
 
         stripe_context = params.pop("stripe_context", None)
 
+        usage = params.pop("usage", None)
+
         # stripe-context goes *here* and not in api_requestor. Properties
         # go on api_requestor when you want them to persist onto requests
         # made when you call instance methods on APIResources that come from
@@ -330,7 +344,8 @@ class StripeClient(object):
             options=options,
             base_address=base_address,
             api_mode=api_mode,
-            usage=["raw_request"],
+            # we manually pass usage in event internals, so use those if available
+            usage=usage or ["raw_request"],
         )
 
         return self._requestor._interpret_response(
@@ -364,6 +379,9 @@ class StripeClient(object):
         *,
         api_mode: ApiMode,
     ) -> StripeObject:
+        """
+        Used to translate the result of a `raw_request` into a StripeObject.
+        """
         return _convert_to_stripe_object(
             resp=resp,
             params=params,

@@ -9,7 +9,7 @@ import warnings
 
 from stripe._api_mode import ApiMode
 
-from urllib.parse import parse_qsl, quote_plus  # noqa: F401
+from urllib.parse import parse_qsl, quote_plus, urlparse  # noqa: F401
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (
@@ -417,9 +417,15 @@ def sanitize_id(id):
     return quotedId
 
 
-def get_api_mode(url):
+def get_api_mode(url: str) -> ApiMode:
+    # support absolute urls
+    if url.startswith("http"):
+        url = urlparse(url).path
+
     if url.startswith("/v2"):
         return "V2"
+
+    # if urls aren't explicitly marked as v1, they're assumed to be v1
     else:
         return "V1"
 
