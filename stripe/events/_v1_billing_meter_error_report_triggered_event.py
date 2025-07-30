@@ -5,6 +5,7 @@ from stripe._api_requestor import _APIRequestor
 from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
+from stripe._util import get_api_mode
 from stripe.billing._meter import Meter
 from stripe.v2._event import Event, RelatedObject, ThinEvent
 from typing import Any, Dict, List, Optional, cast
@@ -32,13 +33,17 @@ class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
         )
 
     def fetch_related_object(self) -> "Meter":
+        response = self.client.raw_request(
+            "get",
+            self.related_object.url,
+            stripe_context=self.context,
+            usage=["fetch_related_object"],
+        )
         return cast(
             "Meter",
-            self.client.raw_request(
-                "get",
-                self.related_object.url,
-                stripe_context=self.context,
-                usage=["fetch_related_object"],
+            self.client.deserialize(
+                response,
+                api_mode=get_api_mode(self.related_object.url),
             ),
         )
 
@@ -49,13 +54,17 @@ class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
         )
 
     async def fetch_related_object_async(self) -> "Meter":
+        response = await self.client.raw_request_async(
+            "get",
+            self.related_object.url,
+            stripe_context=self.context,
+            usage=["fetch_related_object"],
+        )
         return cast(
             "Meter",
-            await self.client.raw_request_async(
-                "get",
-                self.related_object.url,
-                stripe_context=self.context,
-                usage=["fetch_related_object"],
+            self.client.deserialize(
+                response,
+                api_mode=get_api_mode(self.related_object.url),
             ),
         )
 

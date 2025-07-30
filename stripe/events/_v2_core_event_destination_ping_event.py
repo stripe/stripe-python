@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
+from stripe._util import get_api_mode
 from stripe.v2._event import Event, RelatedObject, ThinEvent
 from stripe.v2._event_destination import EventDestination
 from typing import Any, Dict, cast
@@ -29,13 +30,17 @@ class PushedV2CoreEventDestinationPingEvent(ThinEvent):
         )
 
     def fetch_related_object(self) -> "EventDestination":
+        response = self.client.raw_request(
+            "get",
+            self.related_object.url,
+            stripe_context=self.context,
+            usage=["fetch_related_object"],
+        )
         return cast(
             "EventDestination",
-            self.client.raw_request(
-                "get",
-                self.related_object.url,
-                stripe_context=self.context,
-                usage=["fetch_related_object"],
+            self.client.deserialize(
+                response,
+                api_mode=get_api_mode(self.related_object.url),
             ),
         )
 
@@ -46,13 +51,17 @@ class PushedV2CoreEventDestinationPingEvent(ThinEvent):
         )
 
     async def fetch_related_object_async(self) -> "EventDestination":
+        response = await self.client.raw_request_async(
+            "get",
+            self.related_object.url,
+            stripe_context=self.context,
+            usage=["fetch_related_object"],
+        )
         return cast(
             "EventDestination",
-            await self.client.raw_request_async(
-                "get",
-                self.related_object.url,
-                stripe_context=self.context,
-                usage=["fetch_related_object"],
+            self.client.deserialize(
+                response,
+                api_mode=get_api_mode(self.related_object.url),
             ),
         )
 

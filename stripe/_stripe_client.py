@@ -113,7 +113,7 @@ from stripe._v2_services import V2Services
 # services: The end of the section generated from our OpenAPI spec
 
 if TYPE_CHECKING:
-    from stripe.events._event_classes import All_PUSHED_THIN_EVENTS
+    from stripe.events._event_classes import ALL_PUSHED_THIN_EVENTS
 
 
 class StripeClient(object):
@@ -278,7 +278,7 @@ class StripeClient(object):
         sig_header: str,
         secret: str,
         tolerance: int = Webhook.DEFAULT_TOLERANCE,
-    ) -> "All_PUSHED_THIN_EVENTS":
+    ) -> "ALL_PUSHED_THIN_EVENTS":
         payload = (
             cast(Union[bytes, bytearray], raw).decode("utf-8")
             if hasattr(raw, "decode")

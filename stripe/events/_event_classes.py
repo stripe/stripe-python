@@ -27,7 +27,7 @@ PUSHED_THIN_EVENT_CLASSES = {
     PushedV2CoreEventDestinationPingEvent.LOOKUP_TYPE: PushedV2CoreEventDestinationPingEvent,
 }
 
-All_PUSHED_THIN_EVENTS = Union[
+ALL_PUSHED_THIN_EVENTS = Union[
     PushedV1BillingMeterErrorReportTriggeredEvent,
     PushedV1BillingMeterNoMeterFoundEvent,
     PushedV2CoreEventDestinationPingEvent,
