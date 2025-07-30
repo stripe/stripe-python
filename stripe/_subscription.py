@@ -552,7 +552,9 @@ class Subscription(
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
-        cancel_at: NotRequired[int]
+        cancel_at: NotRequired[
+            "int|Literal['max_period_end', 'min_period_end']"
+        ]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -796,6 +798,9 @@ class Subscription(
 
     class CreateParamsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreateParamsBillingThresholds(TypedDict):
         amount_gte: NotRequired[int]
@@ -1383,7 +1388,9 @@ class Subscription(
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
-        cancel_at: NotRequired["Literal['']|int"]
+        cancel_at: NotRequired[
+            "Literal['']|int|Literal['max_period_end', 'min_period_end']"
+        ]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -1476,7 +1483,7 @@ class Subscription(
 
         Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
 
-        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://docs.stripe.com/changelog/2019-03-14) to learn more.
         """
         payment_settings: NotRequired[
             "Subscription.ModifyParamsPaymentSettings"
