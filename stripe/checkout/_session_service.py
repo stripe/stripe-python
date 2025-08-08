@@ -210,7 +210,7 @@ class SessionService(StripeService):
         """
         origin_context: NotRequired[Literal["mobile_app", "web"]]
         """
-        Where the user is coming from. This informs the optimizations that are applied to the session. For example, a session originating from a mobile app may behave more like a native app, depending on the platform. This parameter is currently not allowed if `ui_mode` is `custom`.
+        Where the user is coming from. This informs the optimizations that are applied to the session.
         """
         payment_intent_data: NotRequired[
             "SessionService.CreateParamsPaymentIntentData"
@@ -410,7 +410,7 @@ class SessionService(StripeService):
     class CreateParamsAdaptivePricing(TypedDict):
         enabled: NotRequired[bool]
         """
-        Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
+        If set to `true`, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
         """
 
     class CreateParamsAfterExpiration(TypedDict):
@@ -642,9 +642,41 @@ class SessionService(StripeService):
         """
         The ID of the coupon to apply to this Session.
         """
+        coupon_data: NotRequired[
+            "SessionService.CreateParamsDiscountCouponData"
+        ]
+        """
+        Data used to generate a new [Coupon](https://stripe.com/docs/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+        """
         promotion_code: NotRequired[str]
         """
         The ID of a promotion code to apply to this Session.
+        """
+
+    class CreateParamsDiscountCouponData(TypedDict):
+        amount_off: NotRequired[int]
+        """
+        A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+        """
+        duration: NotRequired[Literal["forever", "once", "repeating"]]
+        """
+        Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: NotRequired[str]
+        """
+        Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+        """
+        percent_off: NotRequired[float]
+        """
+        A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
         """
 
     class CreateParamsInvoiceCreation(TypedDict):

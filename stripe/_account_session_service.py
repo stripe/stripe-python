@@ -327,7 +327,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsCapitalFinancingFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsCapitalFinancingApplication(TypedDict):
@@ -339,7 +339,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsCapitalFinancingApplicationFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsCapitalFinancingApplicationFeatures(TypedDict):
@@ -357,7 +357,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsCapitalFinancingPromotionFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsCapitalFinancingPromotionFeatures(TypedDict):
@@ -372,7 +372,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsCapitalOverviewFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsCapitalOverviewFeatures(TypedDict):
@@ -417,7 +417,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsDocumentsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsDocumentsFeatures(TypedDict):
@@ -432,7 +432,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsExportTaxTransactionsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsExportTaxTransactionsFeatures(TypedDict):
@@ -665,7 +665,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsPaymentMethodSettingsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsPaymentMethodSettingsFeatures(TypedDict):
@@ -744,7 +744,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsPayoutsListFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsPayoutsListFeatures(TypedDict):
@@ -759,7 +759,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsProductTaxCodeSelectorFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsProductTaxCodeSelectorFeatures(TypedDict):
@@ -789,7 +789,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsReportingChartFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsReportingChartFeatures(TypedDict):
@@ -804,7 +804,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsTaxRegistrationsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsTaxRegistrationsFeatures(TypedDict):
@@ -819,7 +819,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsTaxSettingsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsTaxSettingsFeatures(TypedDict):
@@ -834,7 +834,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsTaxThresholdMonitoringFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsTaxThresholdMonitoringFeatures(TypedDict):

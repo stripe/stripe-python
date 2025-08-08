@@ -193,7 +193,18 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
 
         class Alma(StripeObject):
-            pass
+            class Installments(StripeObject):
+                count: int
+                """
+                The number of installments.
+                """
+
+            installments: Optional[Installments]
+            transaction_id: Optional[str]
+            """
+            The Alma transaction ID associated with this payment.
+            """
+            _inner_class_types = {"installments": Installments}
 
         class AmazonPay(StripeObject):
             class Funding(StripeObject):
@@ -235,6 +246,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 _inner_class_types = {"card": Card}
 
             funding: Optional[Funding]
+            transaction_id: Optional[str]
+            """
+            The Amazon Pay transaction ID associated with this payment.
+            """
             _inner_class_types = {"funding": Funding}
 
         class AuBecsDebit(StripeObject):
@@ -1049,6 +1064,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             A unique identifier for the buyer as determined by the local payment processor.
             """
+            transaction_id: Optional[str]
+            """
+            The Kakao Pay transaction ID associated with this payment.
+            """
 
         class Klarna(StripeObject):
             class PayerDetails(StripeObject):
@@ -1133,6 +1152,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             The last four digits of the card. This may not be present for American Express cards.
             """
+            transaction_id: Optional[str]
+            """
+            The Korean Card transaction ID associated with this payment.
+            """
 
         class Link(StripeObject):
             country: Optional[str]
@@ -1187,6 +1210,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             buyer_id: Optional[str]
             """
             A unique identifier for the buyer as determined by the local payment processor.
+            """
+            transaction_id: Optional[str]
+            """
+            The Naver Pay transaction ID associated with this payment.
             """
 
         class NzBankAccount(StripeObject):
@@ -1273,6 +1300,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             buyer_id: Optional[str]
             """
             A unique identifier for the buyer as determined by the local payment processor.
+            """
+            transaction_id: Optional[str]
+            """
+            The Payco transaction ID associated with this payment.
             """
 
         class Paynow(StripeObject):
@@ -1478,12 +1509,20 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 _inner_class_types = {"card": Card}
 
             funding: Optional[Funding]
+            transaction_id: Optional[str]
+            """
+            The Revolut Pay transaction ID associated with this payment.
+            """
             _inner_class_types = {"funding": Funding}
 
         class SamsungPay(StripeObject):
             buyer_id: Optional[str]
             """
             A unique identifier for the buyer as determined by the local payment processor.
+            """
+            transaction_id: Optional[str]
+            """
+            The Samsung Pay transaction ID associated with this payment.
             """
 
         class Satispay(StripeObject):

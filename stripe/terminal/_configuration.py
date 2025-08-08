@@ -234,6 +234,20 @@ class Configuration(
             Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             """
 
+        class Mxn(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
         class Myr(StripeObject):
             fixed_amounts: Optional[List[int]]
             """
@@ -358,6 +372,7 @@ class Configuration(
         hkd: Optional[Hkd]
         huf: Optional[Huf]
         jpy: Optional[Jpy]
+        mxn: Optional[Mxn]
         myr: Optional[Myr]
         nok: Optional[Nok]
         nzd: Optional[Nzd]
@@ -379,6 +394,7 @@ class Configuration(
             "hkd": Hkd,
             "huf": Huf,
             "jpy": Jpy,
+            "mxn": Mxn,
             "myr": Myr,
             "nok": Nok,
             "nzd": Nzd,
@@ -576,6 +592,10 @@ class Configuration(
         """
         Tipping configuration for JPY
         """
+        mxn: NotRequired["Configuration.CreateParamsTippingMxn"]
+        """
+        Tipping configuration for MXN
+        """
         myr: NotRequired["Configuration.CreateParamsTippingMyr"]
         """
         Tipping configuration for MYR
@@ -764,6 +784,20 @@ class Configuration(
         """
 
     class CreateParamsTippingJpy(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingMxn(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -1117,6 +1151,10 @@ class Configuration(
         """
         Tipping configuration for JPY
         """
+        mxn: NotRequired["Configuration.ModifyParamsTippingMxn"]
+        """
+        Tipping configuration for MXN
+        """
         myr: NotRequired["Configuration.ModifyParamsTippingMyr"]
         """
         Tipping configuration for MYR
@@ -1305,6 +1343,20 @@ class Configuration(
         """
 
     class ModifyParamsTippingJpy(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class ModifyParamsTippingMxn(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip

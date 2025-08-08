@@ -534,7 +534,7 @@ class PaymentLinkService(StripeService):
         """
         price: NotRequired[str]
         """
-        The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object.
+        The ID of the [Price](https://stripe.com/docs/api/prices) or [Plan](https://stripe.com/docs/api/plans) object. One of `price` or `price_data` is required.
         """
         price_data: NotRequired[
             "PaymentLinkService.CreateParamsLineItemPriceData"

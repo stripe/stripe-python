@@ -33192,7 +33192,7 @@ class TestGeneratedExamples(object):
                     {
                         "event_name": "event_name",
                         "identifier": "identifier",
-                        "payload": {"undefined": "payload"},
+                        "payload": {"key": "payload"},
                         "timestamp": "1970-01-01T15:18:46.294Z",
                     },
                 ],
@@ -33203,7 +33203,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/meter_event_stream",
             query_string="",
             api_base="https://meter-events.stripe.com",
-            post_data='{"events":[{"event_name":"event_name","identifier":"identifier","payload":{"undefined":"payload"},"timestamp":"1970-01-01T15:18:46.294Z"}]}',
+            post_data='{"events":[{"event_name":"event_name","identifier":"identifier","payload":{"key":"payload"},"timestamp":"1970-01-01T15:18:46.294Z"}]}',
             is_json=True,
         )
 
@@ -33222,7 +33222,7 @@ class TestGeneratedExamples(object):
         client.v2.billing.meter_events.create(
             {
                 "event_name": "event_name",
-                "payload": {"undefined": "payload"},
+                "payload": {"key": "payload"},
             }
         )
         http_client_mock.assert_requested(
@@ -33230,7 +33230,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/meter_events",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"event_name":"event_name","payload":{"undefined":"payload"}}',
+            post_data='{"event_name":"event_name","payload":{"key":"payload"}}',
             is_json=True,
         )
 
@@ -34846,7 +34846,7 @@ class TestGeneratedExamples(object):
                 "amount": {"currency": "USD", "value": 96},
                 "cadence": "unscheduled",
                 "customer": "customer",
-                "metadata": {"undefined": "metadata"},
+                "metadata": {"key": "metadata"},
                 "payment_method": "payment_method",
             }
         )
@@ -34855,7 +34855,7 @@ class TestGeneratedExamples(object):
             path="/v2/payments/off_session_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"cadence":"unscheduled","customer":"customer","metadata":{"undefined":"metadata"},"payment_method":"payment_method"}',
+            post_data='{"amount":{"currency":"USD","value":96},"cadence":"unscheduled","customer":"customer","metadata":{"key":"metadata"},"payment_method":"payment_method"}',
             is_json=True,
         )
 
@@ -34970,7 +34970,7 @@ class TestGeneratedExamples(object):
                     "events": [
                         {
                             "event_name": "event_name",
-                            "payload": {"undefined": "payload"},
+                            "payload": {"key": "payload"},
                         },
                     ],
                 }
@@ -34982,7 +34982,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/meter_event_stream",
             query_string="",
             api_base="https://meter-events.stripe.com",
-            post_data='{"events":[{"event_name":"event_name","payload":{"undefined":"payload"}}]}',
+            post_data='{"events":[{"event_name":"event_name","payload":{"key":"payload"}}]}',
             is_json=True,
         )
 

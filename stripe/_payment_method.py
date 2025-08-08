@@ -20,6 +20,7 @@ from typing_extensions import (
 if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._customer import Customer
+    from stripe._mandate import Mandate
     from stripe._setup_attempt import SetupAttempt
 
 
@@ -2562,6 +2563,10 @@ class PaymentMethod(
     klarna: Optional[Klarna]
     konbini: Optional[Konbini]
     kr_card: Optional[KrCard]
+    latest_active_mandate: Optional["Mandate"]
+    """
+    The Mandate object of the most recently created Mandate associated with this payment method
+    """
     link: Optional[Link]
     livemode: bool
     """

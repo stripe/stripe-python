@@ -788,7 +788,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsCapitalFinancingFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsCapitalFinancingApplication(TypedDict):
@@ -800,7 +800,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsCapitalFinancingApplicationFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsCapitalFinancingApplicationFeatures(TypedDict):
@@ -818,7 +818,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsCapitalFinancingPromotionFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsCapitalFinancingPromotionFeatures(TypedDict):
@@ -833,7 +833,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsCapitalOverviewFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsCapitalOverviewFeatures(TypedDict):
@@ -878,7 +878,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsDocumentsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsDocumentsFeatures(TypedDict):
@@ -893,7 +893,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsExportTaxTransactionsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsExportTaxTransactionsFeatures(TypedDict):
@@ -1126,7 +1126,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsPaymentMethodSettingsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsPaymentMethodSettingsFeatures(TypedDict):
@@ -1205,7 +1205,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsPayoutsListFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsPayoutsListFeatures(TypedDict):
@@ -1220,7 +1220,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsProductTaxCodeSelectorFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsProductTaxCodeSelectorFeatures(TypedDict):
@@ -1250,7 +1250,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsReportingChartFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsReportingChartFeatures(TypedDict):
@@ -1265,7 +1265,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsTaxRegistrationsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsTaxRegistrationsFeatures(TypedDict):
@@ -1280,7 +1280,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsTaxSettingsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsTaxSettingsFeatures(TypedDict):
@@ -1295,7 +1295,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "AccountSession.CreateParamsComponentsTaxThresholdMonitoringFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsTaxThresholdMonitoringFeatures(TypedDict):
