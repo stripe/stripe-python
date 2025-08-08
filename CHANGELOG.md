@@ -1,5 +1,10 @@
 # Changelog
 
+## 12.5.0b2 - 2025-08-08
+* [#1545](https://github.com/stripe/stripe-python/pull/1545) Bring back invoice payments APIs that were missing in the public preview SDKs
+    * Add support for new resource `InvoicePayment`
+    * Add support for `list` and `retrieve` methods on resource `InvoicePayment`
+
 ## 12.5.0b1 - 2025-07-30
 This release changes the pinned API version to `2025-07-30.preview`.
 
