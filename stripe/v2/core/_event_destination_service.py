@@ -3,10 +3,11 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
+from stripe.v2._deleted_object import DeletedObject
 from stripe.v2._event import Event
 from stripe.v2._event_destination import EventDestination
 from stripe.v2._list_object import ListObject
-from typing import Dict, List, Optional, cast
+from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -124,7 +125,7 @@ class EventDestinationService(StripeService):
         """
         Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
         """
-        metadata: NotRequired[Dict[str, Optional[str]]]
+        metadata: NotRequired[Dict[str, str]]
         """
         Metadata.
         """
@@ -226,12 +227,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: "EventDestinationService.DeleteParams" = {},
         options: RequestOptions = {},
-    ) -> EventDestination:
+    ) -> DeletedObject:
         """
         Delete an event destination.
         """
         return cast(
-            EventDestination,
+            DeletedObject,
             self._request(
                 "delete",
                 "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
@@ -246,12 +247,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: "EventDestinationService.DeleteParams" = {},
         options: RequestOptions = {},
-    ) -> EventDestination:
+    ) -> DeletedObject:
         """
         Delete an event destination.
         """
         return cast(
-            EventDestination,
+            DeletedObject,
             await self._request_async(
                 "delete",
                 "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
