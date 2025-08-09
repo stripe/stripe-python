@@ -28,10 +28,18 @@ class Registration(
 
     class CountryOptions(StripeObject):
         class Ae(StripeObject):
+            class Standard(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an Default standard registration.
+                """
+
+            standard: Optional[Standard]
             type: Literal["standard"]
             """
             Type of registration in `country`.
             """
+            _inner_class_types = {"standard": Standard}
 
         class Al(StripeObject):
             type: Literal["standard"]
@@ -53,7 +61,9 @@ class Registration(
 
         class At(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -66,10 +76,18 @@ class Registration(
             _inner_class_types = {"standard": Standard}
 
         class Au(StripeObject):
+            class Standard(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an Default standard registration.
+                """
+
+            standard: Optional[Standard]
             type: Literal["standard"]
             """
             Type of registration in `country`.
             """
+            _inner_class_types = {"standard": Standard}
 
         class Aw(StripeObject):
             type: Literal["standard"]
@@ -103,7 +121,9 @@ class Registration(
 
         class Be(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -123,7 +143,9 @@ class Registration(
 
         class Bg(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -180,10 +202,18 @@ class Registration(
             """
 
         class Ch(StripeObject):
+            class Standard(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an Default standard registration.
+                """
+
+            standard: Optional[Standard]
             type: Literal["standard"]
             """
             Type of registration in `country`.
             """
+            _inner_class_types = {"standard": Standard}
 
         class Cl(StripeObject):
             type: Literal["simplified"]
@@ -217,7 +247,9 @@ class Registration(
 
         class Cy(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -231,7 +263,9 @@ class Registration(
 
         class Cz(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -245,7 +279,9 @@ class Registration(
 
         class De(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -259,7 +295,9 @@ class Registration(
 
         class Dk(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -279,7 +317,9 @@ class Registration(
 
         class Ee(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -299,7 +339,9 @@ class Registration(
 
         class Es(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -319,7 +361,9 @@ class Registration(
 
         class Fi(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -333,7 +377,9 @@ class Registration(
 
         class Fr(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -346,10 +392,18 @@ class Registration(
             _inner_class_types = {"standard": Standard}
 
         class Gb(StripeObject):
+            class Standard(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an Default standard registration.
+                """
+
+            standard: Optional[Standard]
             type: Literal["standard"]
             """
             Type of registration in `country`.
             """
+            _inner_class_types = {"standard": Standard}
 
         class Ge(StripeObject):
             type: Literal["simplified"]
@@ -365,7 +419,9 @@ class Registration(
 
         class Gr(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -379,7 +435,9 @@ class Registration(
 
         class Hr(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -393,7 +451,9 @@ class Registration(
 
         class Hu(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -413,7 +473,9 @@ class Registration(
 
         class Ie(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -439,7 +501,9 @@ class Registration(
 
         class It(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -452,10 +516,18 @@ class Registration(
             _inner_class_types = {"standard": Standard}
 
         class Jp(StripeObject):
+            class Standard(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an Default standard registration.
+                """
+
+            standard: Optional[Standard]
             type: Literal["standard"]
             """
             Type of registration in `country`.
             """
+            _inner_class_types = {"standard": Standard}
 
         class Ke(StripeObject):
             type: Literal["simplified"]
@@ -495,7 +567,9 @@ class Registration(
 
         class Lt(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -509,7 +583,9 @@ class Registration(
 
         class Lu(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -523,7 +599,9 @@ class Registration(
 
         class Lv(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -567,7 +645,9 @@ class Registration(
 
         class Mt(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -599,7 +679,9 @@ class Registration(
 
         class Nl(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -612,10 +694,18 @@ class Registration(
             _inner_class_types = {"standard": Standard}
 
         class No(StripeObject):
+            class Standard(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an Default standard registration.
+                """
+
+            standard: Optional[Standard]
             type: Literal["standard"]
             """
             Type of registration in `country`.
             """
+            _inner_class_types = {"standard": Standard}
 
         class Np(StripeObject):
             type: Literal["simplified"]
@@ -624,10 +714,18 @@ class Registration(
             """
 
         class Nz(StripeObject):
+            class Standard(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an Default standard registration.
+                """
+
+            standard: Optional[Standard]
             type: Literal["standard"]
             """
             Type of registration in `country`.
             """
+            _inner_class_types = {"standard": Standard}
 
         class Om(StripeObject):
             type: Literal["standard"]
@@ -649,7 +747,9 @@ class Registration(
 
         class Pl(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -663,7 +763,9 @@ class Registration(
 
         class Pt(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -677,7 +779,9 @@ class Registration(
 
         class Ro(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -709,7 +813,9 @@ class Registration(
 
         class Se(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -722,14 +828,24 @@ class Registration(
             _inner_class_types = {"standard": Standard}
 
         class Sg(StripeObject):
+            class Standard(StripeObject):
+                place_of_supply_scheme: Literal["inbound_goods", "standard"]
+                """
+                Place of supply scheme used in an Default standard registration.
+                """
+
+            standard: Optional[Standard]
             type: Literal["standard"]
             """
             Type of registration in `country`.
             """
+            _inner_class_types = {"standard": Standard}
 
         class Si(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -743,7 +859,9 @@ class Registration(
 
         class Sk(StripeObject):
             class Standard(StripeObject):
-                place_of_supply_scheme: Literal["small_seller", "standard"]
+                place_of_supply_scheme: Literal[
+                    "inbound_goods", "small_seller", "standard"
+                ]
                 """
                 Place of supply scheme used in an EU standard registration.
                 """
@@ -1519,15 +1637,43 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsAe(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsAeStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsAeStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
+        """
+
     class CreateParamsCountryOptionsAl(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsAlStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsAlStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsAm(TypedDict):
@@ -1537,9 +1683,23 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsAo(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsAoStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsAoStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsAt(TypedDict):
@@ -1555,21 +1715,51 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsAtStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsAu(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsAuStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsAuStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
+        """
+
     class CreateParamsCountryOptionsAw(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsAwStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsAwStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsAz(TypedDict):
@@ -1579,21 +1769,63 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsBa(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsBaStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsBaStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsBb(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsBbStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsBbStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
+        """
+
     class CreateParamsCountryOptionsBd(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsBdStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsBdStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsBe(TypedDict):
@@ -1609,15 +1841,31 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsBeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsBf(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsBfStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsBfStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsBg(TypedDict):
@@ -1633,15 +1881,31 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsBgStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsBh(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsBhStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsBhStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsBj(TypedDict):
@@ -1651,9 +1915,23 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsBs(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsBsStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsBsStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsBy(TypedDict):
@@ -1681,15 +1959,43 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsCd(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsCdStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsCdStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
+        """
+
     class CreateParamsCountryOptionsCh(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsChStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsChStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsCl(TypedDict):
@@ -1735,7 +2041,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsCyStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1753,7 +2061,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsCzStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1771,7 +2081,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsDeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1789,7 +2101,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsDkStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1813,7 +2127,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsEeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1837,15 +2153,31 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsEsStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsEt(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsEtStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsEtStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsFi(TypedDict):
@@ -1861,7 +2193,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsFiStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1879,15 +2213,31 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsFrStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsGb(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsGbStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsGbStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsGe(TypedDict):
@@ -1897,9 +2247,23 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsGn(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsGnStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsGnStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsGr(TypedDict):
@@ -1915,7 +2279,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsGrStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1933,7 +2299,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsHrStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1951,7 +2319,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsHuStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1975,7 +2345,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsIeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1987,9 +2359,23 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsIs(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsIsStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsIsStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsIt(TypedDict):
@@ -2005,15 +2391,31 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsItStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsJp(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsJpStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsJpStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsKe(TypedDict):
@@ -2065,7 +2467,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsLtStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -2083,7 +2487,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsLuStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -2101,7 +2507,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsLvStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -2119,21 +2527,63 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsMe(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsMeStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsMeStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsMk(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsMkStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsMkStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
+        """
+
     class CreateParamsCountryOptionsMr(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsMrStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsMrStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsMt(TypedDict):
@@ -2149,7 +2599,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsMtStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -2185,15 +2637,31 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsNlStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsNo(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsNoStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsNoStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsNp(TypedDict):
@@ -2203,15 +2671,43 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsNz(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsNzStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsNzStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
+        """
+
     class CreateParamsCountryOptionsOm(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsOmStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsOmStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsPe(TypedDict):
@@ -2239,7 +2735,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsPlStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -2257,7 +2755,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsPtStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -2275,15 +2775,31 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsRoStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsRs(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsRsStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsRsStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsRu(TypedDict):
@@ -2311,15 +2827,31 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsSeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsSg(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsSgStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsSgStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsSi(TypedDict):
@@ -2335,7 +2867,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsSiStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -2353,7 +2887,9 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsSkStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -2365,9 +2901,23 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsSr(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsSrStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsSrStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsTh(TypedDict):
@@ -2475,9 +3025,23 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsUy(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsUyStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsUyStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsUz(TypedDict):
@@ -2493,9 +3057,23 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsZa(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsZaStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsZaStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsZm(TypedDict):
@@ -2505,9 +3083,23 @@ class Registration(
         """
 
     class CreateParamsCountryOptionsZw(TypedDict):
+        standard: NotRequired[
+            "Registration.CreateParamsCountryOptionsZwStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsZwStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class ListParams(RequestOptions):

@@ -376,7 +376,7 @@ class Capability(UpdateableAPIResource["Capability"]):
     Time at which the capability was requested. Measured in seconds since the Unix epoch.
     """
     requirements: Optional[Requirements]
-    status: Literal["active", "disabled", "inactive", "pending", "unrequested"]
+    status: Literal["active", "inactive", "pending", "unrequested"]
     """
     The status of the capability.
     """
