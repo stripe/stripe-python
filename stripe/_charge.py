@@ -166,7 +166,7 @@ class Charge(
         """
         network_decline_code: Optional[str]
         """
-        For charges declined by the network, a brand specific alphanumeric code which indicates the reason the authorization failed.
+        For charges declined by the network, an alphanumeric code which indicates the reason the charge failed.
         """
         network_status: Optional[str]
         """
