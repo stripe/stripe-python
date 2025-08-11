@@ -236,6 +236,10 @@ class Configuration(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        name: NotRequired["Literal['']|str"]
+        """
+        The name of the configuration.
+        """
 
     class CreateParamsBusinessProfile(TypedDict):
         headline: NotRequired["Literal['']|str"]
@@ -496,6 +500,10 @@ class Configuration(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        name: NotRequired["Literal['']|str"]
+        """
+        The name of the configuration.
+        """
 
     class ModifyParamsBusinessProfile(TypedDict):
         headline: NotRequired["Literal['']|str"]
@@ -727,6 +735,10 @@ class Configuration(
     metadata: Optional[Dict[str, str]]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
+    name: Optional[str]
+    """
+    The name of the configuration.
     """
     object: Literal["billing_portal.configuration"]
     """
