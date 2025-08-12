@@ -25,6 +25,26 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         "payment_attempt_record"
     )
 
+    class Amount(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        """
+
+    class AmountAuthorized(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        """
+
     class AmountCanceled(StripeObject):
         currency: str
         """
@@ -32,7 +52,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class AmountFailed(StripeObject):
@@ -42,7 +62,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class AmountGuaranteed(StripeObject):
@@ -52,7 +72,17 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        """
+
+    class AmountRefunded(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class AmountRequested(StripeObject):
@@ -62,7 +92,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class CustomerDetails(StripeObject):
@@ -1852,6 +1882,25 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "zip": Zip,
         }
 
+    class ProcessorDetails(StripeObject):
+        class Custom(StripeObject):
+            payment_reference: str
+            """
+            An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+            """
+
+        custom: Optional[Custom]
+        """
+        Custom processors represent payment processors not modeled directly in
+        the Stripe API. This resource consists of details about the custom processor
+        used for this payment attempt.
+        """
+        type: Literal["custom"]
+        """
+        The processor used for this payment attempt.
+        """
+        _inner_class_types = {"custom": Custom}
+
     class ShippingDetails(StripeObject):
         class Address(StripeObject):
             city: Optional[str]
@@ -1909,6 +1958,14 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         Specifies which fields in the response should be expanded.
         """
 
+    amount: Amount
+    """
+    A representation of an amount of money, consisting of an amount and a currency.
+    """
+    amount_authorized: AmountAuthorized
+    """
+    A representation of an amount of money, consisting of an amount and a currency.
+    """
     amount_canceled: AmountCanceled
     """
     A representation of an amount of money, consisting of an amount and a currency.
@@ -1921,9 +1978,17 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     """
     A representation of an amount of money, consisting of an amount and a currency.
     """
+    amount_refunded: AmountRefunded
+    """
+    A representation of an amount of money, consisting of an amount and a currency.
+    """
     amount_requested: AmountRequested
     """
     A representation of an amount of money, consisting of an amount and a currency.
+    """
+    application: Optional[str]
+    """
+    ID of the Connect application that created the PaymentAttemptRecord.
     """
     created: int
     """
@@ -1965,9 +2030,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     """
     ID of the Payment Record this Payment Attempt Record belongs to.
     """
-    payment_reference: Optional[str]
+    processor_details: ProcessorDetails
     """
-    An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+    Processor information associated with this payment.
     """
     reported_by: Literal["self", "stripe"]
     """
@@ -2041,11 +2106,15 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         return instance
 
     _inner_class_types = {
+        "amount": Amount,
+        "amount_authorized": AmountAuthorized,
         "amount_canceled": AmountCanceled,
         "amount_failed": AmountFailed,
         "amount_guaranteed": AmountGuaranteed,
+        "amount_refunded": AmountRefunded,
         "amount_requested": AmountRequested,
         "customer_details": CustomerDetails,
         "payment_method_details": PaymentMethodDetails,
+        "processor_details": ProcessorDetails,
         "shipping_details": ShippingDetails,
     }
