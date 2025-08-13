@@ -31,6 +31,12 @@ class ConfigurationService(StripeService):
         """
         Configurations for collecting transactions offline.
         """
+        reader_security: NotRequired[
+            "Literal['']|ConfigurationService.CreateParamsReaderSecurity"
+        ]
+        """
+        Configurations for reader security settings.
+        """
         reboot_window: NotRequired[
             "ConfigurationService.CreateParamsRebootWindow"
         ]
@@ -68,6 +74,12 @@ class ConfigurationService(StripeService):
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class CreateParamsReaderSecurity(TypedDict):
+        admin_menu_passcode: NotRequired["Literal['']|str"]
+        """
+        Passcode used to access a reader's admin menu.
         """
 
     class CreateParamsRebootWindow(TypedDict):
@@ -600,6 +612,12 @@ class ConfigurationService(StripeService):
         """
         Configurations for collecting transactions offline.
         """
+        reader_security: NotRequired[
+            "Literal['']|ConfigurationService.UpdateParamsReaderSecurity"
+        ]
+        """
+        Configurations for reader security settings.
+        """
         reboot_window: NotRequired[
             "Literal['']|ConfigurationService.UpdateParamsRebootWindow"
         ]
@@ -639,6 +657,12 @@ class ConfigurationService(StripeService):
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class UpdateParamsReaderSecurity(TypedDict):
+        admin_menu_passcode: NotRequired["Literal['']|str"]
+        """
+        Passcode used to access a reader's admin menu.
         """
 
     class UpdateParamsRebootWindow(TypedDict):

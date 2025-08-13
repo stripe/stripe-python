@@ -49,6 +49,12 @@ class Configuration(
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         """
 
+    class ReaderSecurity(StripeObject):
+        admin_menu_passcode: str
+        """
+        Passcode used to access a reader's admin menu.
+        """
+
     class RebootWindow(StripeObject):
         end_hour: int
         """
@@ -494,6 +500,12 @@ class Configuration(
         """
         Configurations for collecting transactions offline.
         """
+        reader_security: NotRequired[
+            "Literal['']|Configuration.CreateParamsReaderSecurity"
+        ]
+        """
+        Configurations for reader security settings.
+        """
         reboot_window: NotRequired["Configuration.CreateParamsRebootWindow"]
         """
         Reboot time settings for readers that support customized reboot time configuration.
@@ -525,6 +537,12 @@ class Configuration(
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class CreateParamsReaderSecurity(TypedDict):
+        admin_menu_passcode: NotRequired["Literal['']|str"]
+        """
+        Passcode used to access a reader's admin menu.
         """
 
     class CreateParamsRebootWindow(TypedDict):
@@ -1047,6 +1065,12 @@ class Configuration(
         """
         Configurations for collecting transactions offline.
         """
+        reader_security: NotRequired[
+            "Literal['']|Configuration.ModifyParamsReaderSecurity"
+        ]
+        """
+        Configurations for reader security settings.
+        """
         reboot_window: NotRequired[
             "Literal['']|Configuration.ModifyParamsRebootWindow"
         ]
@@ -1084,6 +1108,12 @@ class Configuration(
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class ModifyParamsReaderSecurity(TypedDict):
+        admin_menu_passcode: NotRequired["Literal['']|str"]
+        """
+        Passcode used to access a reader's admin menu.
         """
 
     class ModifyParamsRebootWindow(TypedDict):
@@ -1594,6 +1624,7 @@ class Configuration(
     String representing the object's type. Objects of the same type share the same value.
     """
     offline: Optional[Offline]
+    reader_security: Optional[ReaderSecurity]
     reboot_window: Optional[RebootWindow]
     stripe_s700: Optional[StripeS700]
     tipping: Optional[Tipping]
@@ -1829,6 +1860,7 @@ class Configuration(
     _inner_class_types = {
         "bbpos_wisepos_e": BbposWiseposE,
         "offline": Offline,
+        "reader_security": ReaderSecurity,
         "reboot_window": RebootWindow,
         "stripe_s700": StripeS700,
         "tipping": Tipping,
