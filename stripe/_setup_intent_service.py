@@ -1058,6 +1058,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
         """
+        pix: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodOptionsPix"
+        ]
+        """
+        If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
+        """
         sepa_debit: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodOptionsSepaDebit"
         ]
@@ -1505,6 +1511,50 @@ class SetupIntentService(StripeService):
         start_date: NotRequired[str]
         """
         Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class ConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -2729,6 +2779,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
         """
+        pix: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodOptionsPix"
+        ]
+        """
+        If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
+        """
         sepa_debit: NotRequired[
             "SetupIntentService.CreateParamsPaymentMethodOptionsSepaDebit"
         ]
@@ -3176,6 +3232,50 @@ class SetupIntentService(StripeService):
         start_date: NotRequired[str]
         """
         Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+        """
+
+    class CreateParamsPaymentMethodOptionsPix(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation.
+        """
+
+    class CreateParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -4379,6 +4479,12 @@ class SetupIntentService(StripeService):
         """
         If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
         """
+        pix: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodOptionsPix"
+        ]
+        """
+        If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
+        """
         sepa_debit: NotRequired[
             "SetupIntentService.UpdateParamsPaymentMethodOptionsSepaDebit"
         ]
@@ -4826,6 +4932,50 @@ class SetupIntentService(StripeService):
         start_date: NotRequired[str]
         """
         Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+        """
+
+    class UpdateParamsPaymentMethodOptionsPix(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation.
+        """
+
+    class UpdateParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class UpdateParamsPaymentMethodOptionsSepaDebit(TypedDict):

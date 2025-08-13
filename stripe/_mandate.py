@@ -46,7 +46,14 @@ class Mandate(ListableAPIResource["Mandate"]):
         _inner_class_types = {"offline": Offline, "online": Online}
 
     class MultiUse(StripeObject):
-        pass
+        amount: Optional[int]
+        """
+        The amount of the payment on a multi use mandate.
+        """
+        currency: Optional[str]
+        """
+        The currency of the payment on a multi use mandate.
+        """
 
     class PaymentMethodDetails(StripeObject):
         class AcssDebit(StripeObject):
@@ -200,6 +207,36 @@ class Mandate(ListableAPIResource["Mandate"]):
             Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
             """
 
+        class Pix(StripeObject):
+            amount_includes_iof: Optional[Literal["always", "never"]]
+            """
+            Determines if the amount includes the IOF tax.
+            """
+            amount_type: Optional[Literal["fixed", "maximum"]]
+            """
+            Type of amount.
+            """
+            end_date: Optional[str]
+            """
+            Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+            """
+            payment_schedule: Optional[
+                Literal[
+                    "halfyearly", "monthly", "quarterly", "weekly", "yearly"
+                ]
+            ]
+            """
+            Schedule at which the future payments will be charged.
+            """
+            reference: Optional[str]
+            """
+            Subscription name displayed to buyers in their bank app.
+            """
+            start_date: Optional[str]
+            """
+            Start date of the mandate, in `YYYY-MM-DD`.
+            """
+
         class RevolutPay(StripeObject):
             pass
 
@@ -233,6 +270,7 @@ class Mandate(ListableAPIResource["Mandate"]):
         nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
+        pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         type: str
@@ -255,6 +293,7 @@ class Mandate(ListableAPIResource["Mandate"]):
             "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
             "payto": Payto,
+            "pix": Pix,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "us_bank_account": UsBankAccount,

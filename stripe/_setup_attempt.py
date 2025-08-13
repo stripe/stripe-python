@@ -376,6 +376,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Payto(StripeObject):
             pass
 
+        class Pix(StripeObject):
+            pass
+
         class RevolutPay(StripeObject):
             pass
 
@@ -443,6 +446,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
+        pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
@@ -472,6 +476,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
             "payto": Payto,
+            "pix": Pix,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,

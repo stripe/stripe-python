@@ -4747,7 +4747,13 @@ class PaymentIntentService(StripeService):
         """
         The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        mandate_options: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4758,6 +4764,42 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class ConfirmParamsPaymentMethodOptionsPromptpay(TypedDict):
@@ -8998,7 +9040,13 @@ class PaymentIntentService(StripeService):
         """
         The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        mandate_options: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -9009,6 +9057,42 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class CreateParamsPaymentMethodOptionsPromptpay(TypedDict):
@@ -13623,7 +13707,13 @@ class PaymentIntentService(StripeService):
         """
         The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        mandate_options: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -13634,6 +13724,42 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class UpdateParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class UpdateParamsPaymentMethodOptionsPromptpay(TypedDict):
