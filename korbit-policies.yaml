@@ -1,0 +1,1835 @@
+version: '0.1'
+topics:
+  - name: "Stripe Best Practices – Core API Usage"
+    paths:
+      - '**/*.py'
+      - '**/*.js'
+      - '**/*.ts'
+    policies:
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Stripe - Do Not Hard-Code Secret API Keys"
+        description: |
+          Secret API keys must never be embedded directly in source code.
+        impact: |
+          Prevents accidental key leaks and enforces use of secure secret management.
+        code_examples:
+          - non_compliant: |
+              # Python
+              stripe.api_key = "sk_test_123456"
+            compliant: |
+              # Python
+              import os
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+          - non_compliant: |
+              // JavaScript
+              const stripe = require('stripe')('sk_test_ABCDEF');
+            compliant: |
+              // JavaScript
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+          - non_compliant: |
+              // TypeScript
+              const stripe = require('stripe')('sk_test_123456');
+            compliant: |
+              // TypeScript
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Enforce Idempotency on Mutable Requests"
+        description: |
+          All Stripe POST requests that create or modify resources must include an `idempotencyKey`.
+        impact: |
+          Prevents unintended duplicate charges or actions when network issues cause retries.
+        code_examples:
+          - non_compliant: |
+              // TypeScript
+              await stripe.charges.create({
+                amount: 500,
+                currency: 'usd',
+                source: token
+              });
+            compliant: |
+              // TypeScript
+              await stripe.charges.create({
+                amount: 500,
+                currency: 'usd',
+                source: token
+              }, {
+                idempotencyKey: request.headers['Idempotency-Key']
+              });
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Stripe – Pin API Version Explicitly"
+        description: |
+          Each Stripe request must include an explicit `api_version` parameter.
+        impact: |
+           Guarantees consistent behavior and prevents unexpected breaking changes when Stripe upgrades its API.
+        code_examples:
+          - non_compliant: |
+              # Python
+              import stripe
+              # Default API version used (may change)
+              stripe.Customer.create(email="alice@example.com")
+            compliant: |
+              # Python
+              import stripe
+              stripe.Customer.create(
+              email="alice@example.com",
+              api_version="2025-07-15"
+              )
+          - non_compliant: |
+              // JavaScript
+              const stripe = require('stripe')();
+              stripe.customers.create({ email: 'alice@example.com' });
+            compliant: |
+              // JavaScript
+              const stripe = require('stripe')({ apiVersion: '2025-07-15' });
+              stripe.customers.create({ email: 'alice@example.com' });
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Validate Webhook Signatures"
+        description: |
+          All incoming webhook payloads must be verified using Stripe’s signature header.
+        impact: |
+          Prevents processing forged or tampered webhook events.
+        code_examples:
+          - non_compliant: |
+              // JavaScript
+              const event = JSON.parse(request.body);
+            compliant: |
+              // JavaScript
+              const sig = request.headers['stripe-signature'];
+              const event = stripe.webhooks.constructEvent(
+                request.body,
+                sig,
+                process.env.STRIPE_WEBHOOK_SECRET
+              );
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Use Publishable Keys Only on Client Side"
+        description: |
+          Client-side code must use only publishable keys; secret keys belong on the server.
+        impact: |
+          Reduces risk of exposing secret keys to end users or malicious actors.
+        code_examples:
+          - non_compliant: |
+              <!-- JavaScript on frontend -->
+              const stripe = Stripe('sk_test_123');
+            compliant: |
+              <!-- JavaScript on frontend -->
+              const stripe = Stripe('pk_live_ABCDEF');
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Set Reasonable Request Timeouts"
+        description: |
+          Every Stripe API client must configure a timeout for remote calls.
+        impact: |
+          Prevents hanging requests and improves application resilience.
+        code_examples:
+          - non_compliant: |
+              // Python
+              stripe.Charge.list(limit=3)
+            compliant: |
+              # Python
+              stripe.Charge.list(limit=3, request_timeout=30)
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Handle API Errors Gracefully"
+        description: |
+          All Stripe calls must catch and handle exceptions instead of allowing unhandled crashes.
+        impact: |
+          Improves reliability and provides clear error feedback to users.
+        code_examples:
+          - non_compliant: |
+              // JavaScript
+              const charge = await stripe.charges.create(params);
+            compliant: |
+              // JavaScript
+              try {
+                const charge = await stripe.charges.create(params);
+              } catch (err) {
+                console.error('Stripe error:', err);
+                // return friendly error response
+              }
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Mask Sensitive Fields in Logs"
+        description: |
+          Do not log full card numbers, CVC, or full secret keys in application logs.
+        impact: |
+          Protects sensitive payment data from unauthorized disclosure.
+        code_examples:
+          - non_compliant: |
+              # Python
+              logger.info(f"Charging card {card_number}")
+            compliant: |
+              # Python
+              logger.info(f"Charging card ending in {card_number[-4:]}")
+
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Stripe - Always Load Secret Keys from Environment Variables"
+        description: |
+          Secret API keys must never be hard-coded; they must be loaded from environment variables.
+        impact: |
+          Ensures that production and test keys remain outside source control and can be rotated safely.
+        code_examples:
+          - non_compliant: |
+              // TypeScript
+              const stripe = require("stripe")("sk_live_abc123");
+            compliant: |
+              // TypeScript
+              const stripe = require("stripe")(
+                process.env.NODE_ENV === "production"
+                  ? process.env.STRIPE_SECRET_KEY
+                  : process.env.STRIPE_TEST_SECRET_KEY
+              );
+          - non_compliant: |
+              # Python
+              import stripe
+              stripe.api_key = "sk_test_ABC123"
+            compliant: |
+              # Python
+              import os, stripe
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Stripe - Require HTTPS for All Stripe Endpoints"
+        description: |
+          Stripe API base URLs must always use HTTPS.
+        impact: |
+          Guarantees secure, encrypted transmission of payment data.
+        code_examples:
+          - non_compliant: |
+              // JavaScript
+              stripe.setApiBase('http://api.stripe.com');
+            compliant: |
+              // JavaScript
+              stripe.setApiBase('https://api.stripe.com');
+  - name: "Stripe Best Practices – Additional Rules"
+    paths:
+      - '**/*.py'
+      - '**/*.js'
+      - '**/*.ts'
+    policies:
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Enforce Correct Currency Codes"
+        description: |
+          All monetary operations must use valid ISO 4217 currency codes.
+        impact: |
+          Prevents unexpected errors or mis-charging due to invalid currency identifiers.
+        code_examples:
+          - non_compliant: |
+              # Python
+              charge = stripe.Charge.create(amount=1000, currency='US')
+            compliant: |
+              # Python
+              charge = stripe.Charge.create(amount=1000, currency='usd')
+          - non_compliant: |
+              // JavaScript
+              const charge = await stripe.charges.create({ amount: 1000, currency: 'DOLLAR' });
+            compliant: |
+              // JavaScript
+              const charge = await stripe.charges.create({ amount: 1000, currency: 'usd' });
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Limit Object Expansion Fields"
+        description: |
+          Do not expand unrelated or unnecessary fields when retrieving Stripe objects.
+        impact: |
+          Reduces bandwidth and latency by avoiding oversized responses.
+        code_examples:
+          - non_compliant: |
+              # Python
+              # Only the subscription is needed, but invoices and balance are also expanded
+              customer = stripe.Customer.retrieve(
+                  "cus_123", expand=["subscriptions", "invoices", "balance"]
+              )
+            compliant: |
+              # Python
+              customer = stripe.Customer.retrieve(
+                  "cus_123", expand=["subscriptions"]
+              )
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Do Not Use Deprecated API Methods"
+        description: |
+          Do not call any Stripe API endpoints or SDK methods marked deprecated.
+        impact: |
+          Prevents breakage when deprecated endpoints are removed in future API versions.
+        code_examples:
+          - non_compliant: |
+              // TypeScript
+              import Stripe from 'stripe';
+              const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2025-07-15' });
+              // Using deprecated Orders API
+              await stripe.orders.create({ currency: 'usd', items: orderItems });
+            compliant: |
+              // TypeScript
+              import Stripe from 'stripe';
+              const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2025-07-15' });
+              await stripe.paymentIntents.create({ currency: 'usd', amount: 500 });
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Use Payment Intents for Payments"
+        description: |
+          All new payment flows must call `stripe.paymentIntents.create()` rather than `stripe.charges.create()`.
+        impact: |
+          Required for Strong Customer Authentication (SCA) compliance and to support next-generation payment methods.
+        code_examples:
+          - non_compliant: |
+              # Python
+              stripe.Charge.create(amount=500, currency='usd', source=token)
+            compliant: |
+              # Python
+              stripe.PaymentIntent.create(
+                  amount=500,
+                  currency='usd',
+                  payment_method=pm_id
+              )
+          - non_compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              await stripe.charges.create({ amount: 500, currency: 'usd', source: token });
+            compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              await stripe.paymentIntents.create({
+                amount: 500,
+                currency: 'usd',
+                payment_method: pm_id
+              });
+          - non_compliant: |
+              // TypeScript example
+              import Stripe from 'stripe';
+              const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, { apiVersion: '2022-11-15' });
+              await stripe.charges.create({ amount: 500, currency: 'usd', source: token });
+            compliant: |
+              // TypeScript example
+              import Stripe from 'stripe';
+              const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, { apiVersion: '2022-11-15' });
+              await stripe.paymentIntents.create({
+                amount: 500,
+                currency: 'usd',
+                payment_method: pm_id
+              });
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Do Not Suppress Exceptions Silently"
+        description: |
+          Never catch Stripe exceptions without logging or re-raising them.
+        impact: |
+          Prevents hidden failures and aids debugging of payment errors.
+        code_examples:
+          - non_compliant: |
+              // JavaScript
+              try {
+                await stripe.charges.create(params);
+              } catch (e) { /* ignore */ }
+            compliant: |
+              // JavaScript
+              try {
+                await stripe.charges.create(params);
+              } catch (e) {
+                console.error('Stripe error:', e);
+                throw e;
+              }
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Serialize Metadata as Strings"
+        description: |
+          All metadata values must be sent as strings, not other data types.
+        impact: |
+          Ensures consistent storage and retrieval of metadata fields.
+        code_examples:
+          - non_compliant: |
+              # Python
+              stripe.Customer.create(email='a@b.com', metadata={'order_id': 123})
+            compliant: |
+              # Python
+              stripe.Customer.create(email='a@b.com', metadata={'order_id': '123'})
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Avoid Client-Side Price Calculations"
+        description: |
+          Final amounts, including tax and discounts, must not be calculated on the client-side.
+        impact: |
+          Prevents price manipulation and maintains billing accuracy.
+        code_examples:
+          - non_compliant: |
+              // TypeScript
+              const total = price * qty + tax;
+              await stripe.paymentIntents.create({ amount: total, currency: 'usd' });
+            compliant: |
+              // TypeScript
+              // Fetch amount from server where the tax and discounts are calculated securely
+              const res = await fetch("/api/create-payment-intent", { method: "POST" });
+              const data = await res.json();
+              await stripe.paymentIntents.create({ amount: data.amount, currency: "usd" });
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Use Structured Logging for Webhook Events"
+        description: |
+          Log webhook events using a structured format (JSON) rather than plain text.
+        impact: |
+          Facilitates monitoring and alerting on webhook processing issues.
+        code_examples:
+          - non_compliant: |
+              # Python
+              logger.info("Received event " + event.id)
+            compliant: |
+              # Python
+              logger.info({"event_id": event.id, "type": event.type})
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Validate Customer Email Field"
+        description: |
+          Customer email fields must be validated using a regex pattern in the source code before creating Stripe Customer objects.
+        impact: |
+          Validates email addresses to prevent invalid data from being stored in Stripe, reducing API errors and ensuring reliable customer communication.
+        code_examples:
+          - non_compliant: |
+              // JavaScript
+              stripe.customers.create({ email: "not-an-email" });
+            compliant: |
+              // JavaScript
+              const email = "user@example.com";
+              if (!/\S+@\S+\.\S+/.test(email)) {
+                throw new Error("Invalid email");
+              }
+              stripe.customers.create({ email });
+          - non_compliant: |
+              # Python
+              stripe.Customer.create(email="not-an-email")
+            compliant: |
+              # Python
+              import re
+              email = "user@example.com"
+              if not re.match(r"\S+@\S+\.\S+", email):
+                  raise ValueError("Invalid email")
+              stripe.Customer.create(email=email)
+          - non_compliant: |
+              // TypeScript
+              stripe.customers.create({ email: "not-an-email" });
+            compliant: |
+              // TypeScript
+              const email: string = "user@example.com";
+              if (!/\S+@\S+\.\S+/.test(email)) {
+                throw new Error("Invalid email");
+              }
+              stripe.customers.create({ email });
+
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Stripe - Configure 3D Secure Option on PaymentIntent"
+        description: |
+          When creating a PaymentIntent for cards, explicitly configure `request_three_d_secure` in `payment_method_options`.
+        impact: |
+          Helps support strong customer authentication and reduce fraud for card payments.
+        code_examples:
+          - non_compliant: |
+             # Python
+              stripe.PaymentIntent.create(
+                amount=1000,
+                currency='eur',
+                payment_method_types=['card']
+              )
+            compliant: |
+              # Python
+              stripe.PaymentIntent.create(
+                amount=1000,
+                currency='eur',
+                payment_method_types=['card'],
+                payment_method_options={
+                  'card': {'request_three_d_secure': 'any'}
+                }
+              )
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Restrict Checkout Session Mode"
+        description: |
+          Always specify `mode` (`payment` or `subscription`) when creating a Checkout Session.
+        impact: |
+          Prevents ambiguous sessions and enforces intended use of the checkout flow.
+        code_examples:
+          - non_compliant: |
+              // TypeScript
+              import Stripe from 'stripe';
+              const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2025-07-15' });
+              await stripe.checkout.sessions.create({
+              line_items: [{ price: 'price_ABC123', quantity: 1 }],
+              success_url: 'https://example.com/success',
+              cancel_url: 'https://example.com/cancel'
+              });
+            compliant: |
+              // TypeScript
+              import Stripe from 'stripe';
+              const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2025-07-15' });
+              await stripe.checkout.sessions.create({
+              payment_method_types: ['card'],
+              mode: 'subscription',
+              line_items: [{ price: 'price_ABC123', quantity: 1 }],
+              success_url: 'https://example.com/success',
+              cancel_url: 'https://example.com/cancel'
+              });
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Pass stripe_account When Using Connected Accounts"
+        description: |
+          Always include the `stripe_account` argument when making API requests on behalf of a connected account.
+        impact: |
+          Ensures correct resource association and authorization in Stripe Connect integrations.
+        code_examples:
+          - non_compliant: |
+              # Python
+              token = 'tok_visa'
+              stripe.Charge.create(amount=500, currency='usd', source=token)
+            compliant: |
+              # Python
+              token = 'tok_visa'
+              stripe.Charge.create(
+                amount=500,
+                currency='usd',
+                source=token,
+                stripe_account='acct_123456789'
+              )
+
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Implement Throttling to Avoid Rate Limits"
+        description: |
+          Ensure loops or concurrent requests to Stripe APIs include explicit throttling logic.
+        impact: |
+          Prevents HTTP 429 errors and improves application reliability.
+        code_examples:
+          - non_compliant: |
+              # Python
+              for i in range(1000):
+                stripe.Charge.list(limit=1)
+            compliant: |
+              # Python
+              import time
+              stripe.api_key = 'sk_test_123'
+              for i in range(1000):
+                stripe.Charge.list(limit=1)
+                time.sleep(0.1)
+
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Avoid Logging Webhook Payloads"
+        description: |
+          Do not log full raw webhook bodies; log only parsed, needed fields.
+        impact: |
+          Prevents sensitive data exposure and reduces log size.
+        code_examples:
+          - non_compliant: |
+              # Python
+              logger.info(request.data)
+            compliant: |
+              # Python
+              logger.info({"id": event.id, "type": event.type})
+
+
+
+  - name: "Stripe Best Practices – Additional Rules"
+    paths:
+      - '**/*.py'
+      - '**/*.js'
+      - '**/*.ts'
+      - "**/package.json"
+    policies:
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Validate PaymentIntent Status Before Confirm"
+        description: |
+          Check that a PaymentIntent is in `requires_confirmation` status before calling `confirm()`.
+        impact: |
+          Prevents errors and duplicate confirmations by ensuring only intents ready for confirmation are processed.
+        code_examples:
+          - non_compliant: |
+              # Python
+              import stripe
+              intent_id = "pi_123"
+              stripe.PaymentIntent.confirm(intent_id)
+          - compliant: |
+              # Python
+              import stripe
+              intent = stripe.PaymentIntent.retrieve("pi_123")
+              if intent.status == "requires_confirmation":
+                  stripe.PaymentIntent.confirm(intent.id)
+          - non_compliant: |
+              // JavaScript
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              stripe.paymentIntents.confirm('pi_123');
+          - compliant: |
+              // JavaScript
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              const intent = await stripe.paymentIntents.retrieve('pi_123');
+              if (intent.status === 'requires_confirmation') {
+                await stripe.paymentIntents.confirm(intent.id);
+              }
+
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Stripe - Use SetupIntent for Saving Payment Methods"
+        description: |
+          Use `SetupIntent` rather than `PaymentIntent` when saving payment methods for later off-session use.
+        impact: |
+          Ensures compliance with future payment flows and SCA requirements for off-session charges.
+        code_examples:
+          - non_compliant: |
+              # Python
+              stripe.PaymentIntent.create(amount=0, currency='usd', payment_method=pm_id)
+          - compliant: |
+              # Python
+              stripe.SetupIntent.create(payment_method=pm_id)
+          - non_compliant: |
+              // JavaScript
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              await stripe.paymentIntents.create({ amount: 0, currency: 'usd', payment_method: pmId });
+          - compliant: |
+              // JavaScript
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              await stripe.setupIntents.create({ payment_method: pmId });
+
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Stripe - Enforce HTTPS for Webhook Endpoint URLs"
+        description: |
+          All Stripe webhook endpoint URLs must begin with `https://`.
+        impact: |
+          Guarantees encrypted transmission of webhook data and prevents MITM attacks.
+        code_examples:
+          - non_compliant: |
+              # Python
+              WEBHOOK_URL = "http://example.com/webhook"
+          - compliant: |
+              # Python
+              WEBHOOK_URL = "https://example.com/webhook"
+          - non_compliant: |
+              // JavaScript
+              const WEBHOOK_URL = 'http://example.com/webhook';
+          - compliant: |
+              // JavaScript
+              const WEBHOOK_URL = 'https://example.com/webhook';
+
+       # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Validate Amount Is Positive Integer"
+        description: |
+          Verify that all `amount` parameters are positive integers before passing to Stripe API methods.
+        impact: |
+          Prevents invalid requests and accidental zero or negative charges.
+        code_examples:
+          - non_compliant: |
+              # Python
+              amount = -500
+              stripe.Charge.create(amount=amount, currency='usd')
+            compliant: |
+              # Python
+              amount = -500
+              if not isinstance(amount, int) or amount <= 0:
+                  raise ValueError("Amount must be a positive integer")
+              stripe.Charge.create(amount=amount, currency='usd')
+          - non_compliant: |
+              // JavaScript
+              const amount = 0;
+              await stripe.charges.create({ amount, currency: 'usd' });
+            compliant: |
+              // JavaScript
+              const amount = 0;
+              if (!Number.isInteger(amount) || amount <= 0) {
+                throw new Error("Amount must be a positive integer");
+              }
+              await stripe.charges.create({ amount, currency: 'usd' });
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Do Not Expose Secret Keys in Error Responses"
+        description: |
+          Never include secret API keys or raw tokens in error messages sent to clients.
+        impact: |
+          Prevents accidental leakage of credentials through unhandled exceptions.
+        code_examples:
+          - non_compliant: |
+              # Python
+              import stripe
+              try:
+                  stripe.Charge.create(amount=1000, currency='usd')
+              except Exception as e:
+                  # Exposes the secret key in the error response
+                  return f"Error: {e} with key {stripe.api_key}"
+          - compliant: |
+              # Python
+              import stripe
+              try:
+                  stripe.Charge.create(amount=1000, currency='usd')
+              except Exception:
+                  # Generic message without leaking secrets
+                  return "Error processing payment"
+          - non_compliant: |
+              // JavaScript
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+              try {
+                await stripe.charges.create(params);
+              } catch (err) {
+                // Sends secret key back to client
+                res.status(500).send(`Failed: ${err.message} secret=${process.env.STRIPE_SECRET_KEY}`);
+              }
+          - compliant: |
+              // JavaScript
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+              try {
+                await stripe.charges.create(params);
+              } catch {
+                // Generic message without leaking secrets
+                res.status(500).send('Failed to process payment');
+              }
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Require Idempotency-Key Header Validation"
+        description: |
+          Verify presence and format of the `Idempotency-Key` header before processing mutable requests.
+        impact: |
+          Ensures requests include a valid idempotency key to prevent duplicate resource creation.
+        code_examples:
+          - non_compliant: |
+              // JavaScript
+              const key = req.headers['Idempotency-Key'];
+              await stripe.charges.create(params, { idempotencyKey: key });
+          - compliant: |
+              // JavaScript
+              const key = req.headers['Idempotency-Key'];
+              if (!key || typeof key !== 'string') {
+                throw new Error('Missing or invalid Idempotency-Key');
+              }
+              await stripe.charges.create(params, { idempotencyKey: key });
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Implement Retries on Network Errors"
+        description: |
+          Automatically retry idempotent Stripe API calls on transient network errors.
+        impact: |
+          Improves resilience by handling intermittent connectivity issues.
+        code_examples:
+          - non_compliant: |
+              # Python
+              stripe.Charge.list(limit=1)
+            compliant: |
+              # Python
+              import time
+              from stripe.error import APIConnectionError, StripeError
+
+              max_attempts = 3
+              for attempt in range(1, max_attempts + 1):
+                  try:
+                      stripe.Charge.list(limit=1)
+                      break
+                  except APIConnectionError:
+                      if attempt == max_attempts:
+                          raise
+                      time.sleep(1)
+                  except StripeError:
+                      raise
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Avoid Long-Running Sync Calls in Handlers"
+        description: |
+          Do not perform long-running Stripe operations synchronously within HTTP request handlers.
+        impact: |
+          Prevents blocking event loops or threads and maintains API responsiveness.
+        code_examples:
+          - non_compliant: |
+              // JavaScript
+              app.post('/pay', (req, res) => {
+                const charge = stripe.charges.create({ amount: 1000, currency: 'usd' });
+                res.send(charge);
+              });
+            compliant: |
+              // JavaScript
+              app.post('/pay', async (req, res) => {
+                // Enqueue job to process payment asynchronously
+                await paymentQueue.add({ amount: 1000, currency: 'usd' });
+                res.sendStatus(202);
+              });
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Validate Subscription Items Parameter Presence"
+        description: |
+          Ensure `items` parameter is provided when creating a Subscription.
+        impact: |
+          Prevents subscription creation errors and incomplete billing setups.
+        code_examples:
+          - non_compliant: |
+              # Python
+              stripe.Subscription.create(customer='cus_123')
+          - compliant: |
+              # Python
+              stripe.Subscription.create(customer='cus_123', items=[{ 'price': 'price_ABC' }])
+
+       # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Enforce Exact SDK Version Pinning"
+        description: |
+          Stripe SDK versions in package.json must be pinned to an exact version.
+        impact: |
+          Ensures compatibility and prevents unexpected breaking changes from upstream releases.
+        code_examples:
+          - non_compliant: |
+              // package.json
+              {
+                "dependencies": {
+                  "stripe": "^8.0.0"
+                }
+              }
+            compliant: |
+              // package.json
+              {
+                "dependencies": {
+                  "stripe": "8.0.0"
+                }
+              }
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Use Secure Compare for Signature Validation"
+        description: |
+          Compare webhook signatures using a constant-time secure comparison function.
+        impact: |
+          Prevents timing attacks that could forge valid signatures.
+        code_examples:
+          - non_compliant: |
+              # Python
+              if sig_header == expected_sig:
+                  handle_event()
+          - compliant: |
+              # Python
+              import hmac, hashlib
+              
+              if hmac.compare_digest(sig_header, expected_sig):
+                  handle_event()
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Log Webhook Fields at Appropriate Level"
+        description: |
+          Log only selected webhook fields at INFO level or below; use DEBUG for full payloads.
+        impact: |
+          Prevents sensitive data exposure in production logs and aids troubleshooting.
+        code_examples:
+          - non_compliant: |
+              # JavaScript
+              console.info(req.body);
+          - compliant: |
+              # JavaScript
+              console.info({ id: req.body.id, type: req.body.type });
+              console.debug(req.body);
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Ensure SetupIntent for Future Payments"
+        description: |
+          Use the Stripe SetupIntent API to collect and store payment methods for future off-session charges.
+        impact: |
+          Guarantees secure storage of payment methods and compliance with SCA requirements.
+        code_examples:
+          - non_compliant: |
+              # Python
+              stripe.Customer.create(source=token)
+            compliant: |
+              # Python
+              intent = stripe.SetupIntent.create(payment_method=token)
+              stripe.Customer.create(
+                  invoice_settings={'default_payment_method': intent.payment_method}
+              )
+          - non_compliant: |
+              // JavaScript
+              stripe.customers.create({ source: token });
+            compliant: |
+              // JavaScript
+              const intent = await stripe.setupIntents.create({ payment_method: token });
+              stripe.customers.create({
+                  invoice_settings: { default_payment_method: intent.payment_method }
+              });
+          - non_compliant: |
+              // TypeScript
+              stripe.customers.create({ source: token });
+            compliant: |
+              // TypeScript
+              const intent = await stripe.setupIntents.create({ payment_method: token });
+              stripe.customers.create({
+                  invoice_settings: { default_payment_method: intent.payment_method }
+              });
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Stripe - Prevent PaymentIntent Creation Without Currency"
+        description: |
+          Always specify `currency` when creating a PaymentIntent.
+        impact: |
+          Prevents server errors and ambiguous amounts by requiring an explicit currency code.
+        code_examples:
+          - non_compliant: |
+              # Python
+              stripe.PaymentIntent.create(amount=1000)
+          - compliant: |
+              # Python
+              stripe.PaymentIntent.create(amount=1000, currency='usd')
+  - name: "Stripe Best Practices – Further Rules"
+    paths:
+      - '**/*.py'
+      - '**/*.ts'
+    policies:
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Do Not Expose API Error Details to Clients"
+        description: |
+          Internal Stripe error messages and stack traces must not be returned directly to end users.
+        impact: |
+          Prevents leakage of implementation or security details that could aid attackers.
+        code_examples:
+          - non_compliant: |
+              # Python
+              except stripe.error.StripeError as e:
+                  return JsonResponse({'error': str(e)}, status=400)
+            compliant: |
+              # Python
+              except stripe.error.StripeError:
+                  return JsonResponse({'error': 'Payment processing failed.'}, status=400)
+          - non_compliant: |
+              // JavaScript
+              try {
+                await stripe.charges.create(params);
+              } catch (err) {
+                res.status(400).send(err.message);
+              }
+            compliant: |
+              // JavaScript
+              try {
+                await stripe.charges.create(params);
+              } catch {
+                res.status(400).send('Payment processing failed.');
+              }
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Sanitize Metadata Keys"
+        description: |
+          Restrict metadata object keys to lowercase letters, numbers, and underscores only.
+        impact: |
+          Prevents API errors and ensures consistent metadata storage.
+        code_examples:
+          - non_compliant: |
+              # Python
+              stripe.Customer.create(metadata={'Order-ID': '1234'})
+            compliant: |
+              # Python
+              stripe.Customer.create(metadata={'order_id': '1234'})
+          - non_compliant: |
+              // JavaScript
+              stripe.customers.create({ metadata: { 'User Email': userEmail } });
+            compliant: |
+              // JavaScript
+              stripe.customers.create({ metadata: { user_email: userEmail } });
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Enforce `setup_future_usage` on PaymentIntents When Saving Cards"
+        description: |
+          When you intend to reuse a payment method for future payments, `setup_future_usage` must be set.
+        impact: |
+          Guarantees saved payment methods are eligible for future off-session payments.
+        code_examples:
+          - non_compliant: |
+              // TypeScript
+              await stripe.paymentIntents.create({ amount: 1000, currency: 'usd', payment_method: pm });
+            compliant: |
+              // TypeScript
+              await stripe.paymentIntents.create({
+                amount: 1000,
+                currency: 'usd',
+                payment_method: pm,
+                setup_future_usage: 'off_session'
+              });
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Validate Price ID Format Before Use"
+        description: |
+          Validate price IDs to match the `^price_[A-Za-z0-9]+$` pattern in source code before Stripe API calls.
+        impact: |
+          Prevents API errors due to client-side typos in price IDs, ensuring reliable checkout sessions.
+        code_examples:
+          - non_compliant: |
+              # Python
+              import stripe
+              price_id = 'prc_123'  # Invalid format
+              stripe.checkout.Session.create(price=price_id, quantity=1)
+            compliant: |
+              # Python
+              import re
+              price_id = 'price_ABC123'
+              if not re.match(r'^price_[A-Za-z0-9]+$', price_id):
+                  raise ValueError('Invalid price ID')
+              stripe.checkout.Session.create(price=price_id, quantity=1)
+          - non_compliant: |
+              // JavaScript
+              const priceId = 'prc_123'; // Invalid format
+              stripe.checkout.sessions.create({ price: priceId, quantity: 1 });
+            compliant: |
+              // JavaScript
+              const priceId = 'price_ABC123';
+              if (!/^price_[A-Za-z0-9]+$/.test(priceId)) {
+                  throw new Error('Invalid price ID');
+              }
+              stripe.checkout.sessions.create({ price: priceId, quantity: 1 });
+          - non_compliant: |
+              // TypeScript
+              const priceId: string = 'prc_123'; // Invalid format
+              stripe.checkout.sessions.create({ price: priceId, quantity: 1 });
+            compliant: |
+              // TypeScript
+              const priceId: string = 'price_ABC123';
+              if (!/^price_[A-Za-z0-9]+$/.test(priceId)) {
+                  throw new Error('Invalid price ID');
+              }
+              stripe.checkout.sessions.create({ price: priceId, quantity: 1 });
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Require `billing_address_collection` in Checkout Sessions"
+        description: |
+          Explicitly set `billing_address_collection` to 'required' or 'auto' when creating Stripe Checkout Sessions.
+        impact: |
+          Ensures necessary billing data is collected, maintaining compliance with business requirements.
+        code_examples:
+          - non_compliant: |
+              // JavaScript
+              await stripe.checkout.sessions.create({ line_items, success_url, cancel_url });
+            compliant: |
+              // JavaScript
+              await stripe.checkout.sessions.create({
+                line_items,
+                success_url,
+                cancel_url,
+                billing_address_collection: 'required'
+              });
+          - non_compliant: |
+              # Python
+              stripe.checkout.Session.create(
+                  line_items=[{'price': 'price_ABC123', 'quantity': 1}],
+                  success_url='https://example.com/success',
+                  cancel_url='https://example.com/cancel'
+              )
+            compliant: |
+              # Python
+              stripe.checkout.Session.create(
+                  line_items=[{'price': 'price_ABC123', 'quantity': 1}],
+                  success_url='https://example.com/success',
+                  cancel_url='https://example.com/cancel',
+                  billing_address_collection='required'
+              )
+          - non_compliant: |
+              // TypeScript
+              await stripe.checkout.sessions.create({ line_items, success_url, cancel_url });
+            compliant: |
+              // TypeScript
+              await stripe.checkout.sessions.create({
+                line_items,
+                success_url,
+                cancel_url,
+                billing_address_collection: 'required'
+              });
+
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Validate `customer` ID Before Invoice Creation"
+        description: |
+          Validate customer IDs to match `^cus_[A-Za-z0-9]+$` and be non-empty strings in source code before creating Stripe invoices.
+        impact: |
+          Prevents runtime errors and orphaned invoices by ensuring valid customer IDs.
+        code_examples:
+          - non_compliant: |
+              # Python
+              customer_id = maybe_customer  # Unvalidated
+              stripe.Invoice.create(customer=customer_id, collection_method='charge_automatically')
+            compliant: |
+              # Python
+              import re
+              customer_id = 'cus_ABC123'
+              if not (isinstance(customer_id, str) and re.match(r'^cus_[A-Za-z0-9]+$', customer_id)):
+                  raise ValueError('Invalid customer ID')
+              stripe.Invoice.create(customer=customer_id, collection_method='charge_automatically')
+          - non_compliant: |
+              // JavaScript
+              const customerId = req.body.customer; // Unvalidated
+              await stripe.invoices.create({ customer: customerId, collection_method: 'charge_automatically' });
+            compliant: |
+              // JavaScript
+              const customerId = req.body.customer;
+              if (!customerId || !/^cus_[A-Za-z0-9]+$/.test(customerId)) {
+                  throw new Error('Invalid customer ID');
+              }
+              await stripe.invoices.create({ customer: customerId, collection_method: 'charge_automatically' });
+          - non_compliant: |
+              // TypeScript
+              const customerId: string = req.body.customer; // Unvalidated
+              await stripe.invoices.create({ customer: customerId, collection_method: 'charge_automatically' });
+            compliant: |
+              // TypeScript
+              const customerId: string = req.body.customer;
+              if (!customerId || !/^cus_[A-Za-z0-9]+$/.test(customerId)) {
+                  throw new Error('Invalid customer ID');
+              }
+              await stripe.invoices.create({ customer: customerId, collection_method: 'charge_automatically' });
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Require `cancel_at_period_end` on Subscription Updates"
+        description: |
+          Explicitly set `cancel_at_period_end` to true or false when updating Stripe subscriptions.
+        impact: |
+          Prevents unintended immediate cancellations or renewals, ensuring clear subscription behavior.
+        code_examples:
+          - non_compliant: |
+              // TypeScript
+              await stripe.subscriptions.update(subId, { plan: newPlan });
+            compliant: |
+              // TypeScript
+              await stripe.subscriptions.update(subId, {
+                plan: newPlan,
+                cancel_at_period_end: false
+              });
+          - non_compliant: |
+              # Python
+              stripe.Subscription.modify(sub_id, plan=new_plan)
+            compliant: |
+              # Python
+              stripe.Subscription.modify(sub_id, plan=new_plan, cancel_at_period_end=False)
+          - non_compliant: |
+              // JavaScript
+              await stripe.subscriptions.update(subId, { plan: newPlan });
+            compliant: |
+              // JavaScript
+              await stripe.subscriptions.update(subId, {
+                plan: newPlan,
+                cancel_at_period_end: false
+              });
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Enforce `transfer_group` for Platform Transfers"
+        description: |
+          Always set a `transfer_group` identifier when creating charges or refunds for connected accounts.
+        impact: |
+          Facilitates reconciliation and accurate accounting for platform-to-connected transfers.
+        code_examples:
+          - non_compliant: |
+              # Python
+              stripe.Charge.create(amount=2000, currency='usd', source=tok, stripe_account='acct_123')
+          - compliant: |
+              # Python
+              stripe.Charge.create(
+                amount=2000,
+                currency='usd',
+                source=tok,
+                stripe_account='acct_123',
+                transfer_group='ORDER_456'
+              )
+          - non_compliant: |
+              // JavaScript
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              await stripe.charges.create({ amount: 2000, currency: 'usd', source: tok, stripeAccount: 'acct_123' });
+          - compliant: |
+              // JavaScript
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              await stripe.charges.create({
+                amount: 2000,
+                currency: 'usd',
+                source: tok,
+                stripeAccount: 'acct_123',
+                transfer_group: 'ORDER_456'
+              });
+          - non_compliant: |
+              // TypeScript
+              import Stripe from 'stripe';
+              const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2025-07-15' });
+              await stripe.charges.create({
+                amount: 2000,
+                currency: 'usd',
+                source: tok,
+                stripeAccount: 'acct_123'
+              });
+          - compliant: |
+              // TypeScript
+              import Stripe from 'stripe';
+              const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2025-07-15' });
+              await stripe.charges.create({
+                amount: 2000,
+                currency: 'usd',
+                source: tok,
+                stripeAccount: 'acct_123',
+                transfer_group: 'ORDER_456'
+              });
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Stripe - Check `application_fee_amount` Does Not Exceed Charge Amount"
+        description: |
+          Validate that `application_fee_amount` is less than the total charge amount in source code before creating Stripe Payment Intents.
+        impact: |
+          Prevents invalid fee configurations and unexpected request failures.
+        code_examples:
+          - non_compliant: |
+              // JavaScript
+              const amount = 500;
+              const applicationFee = 600;
+              await stripe.paymentIntents.create({ amount, currency: 'usd', application_fee_amount: applicationFee });
+            compliant: |
+              // JavaScript
+              const amount = 500;
+              const applicationFee = 100;
+              if (applicationFee >= amount) throw new Error('Fee must be less than amount');
+              await stripe.paymentIntents.create({ amount, currency: 'usd', application_fee_amount: applicationFee });
+          - non_compliant: |
+              # Python
+              amount = 500
+              application_fee = 600
+              stripe.PaymentIntent.create(amount=amount, currency='usd', application_fee_amount=application_fee)
+            compliant: |
+              # Python
+              amount = 500
+              application_fee = 100
+              if application_fee >= amount:
+                  raise ValueError('Fee must be less than amount')
+              stripe.PaymentIntent.create(amount=amount, currency='usd', application_fee_amount=application_fee)
+          - non_compliant: |
+              // TypeScript
+              const amount: number = 500;
+              const applicationFee: number = 600;
+              await stripe.paymentIntents.create({ amount, currency: 'usd', application_fee_amount: applicationFee });
+            compliant: |
+              // TypeScript
+              const amount: number = 500;
+              const applicationFee: number = 100;
+              if (applicationFee >= amount) throw new Error('Fee must be less than amount');
+              await stripe.paymentIntents.create({ amount, currency: 'usd', application_fee_amount: applicationFee });
+
+     
+
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Stripe - Ensure Unique Idempotency Keys per Operation"
+        description: |
+          Do not reuse idempotency keys across different resource types or operations.
+        impact: |
+          Avoids unintended deduplication and resource collisions.
+        code_examples:
+          - non_compliant: |
+              // TypeScript
+              const key = request.headers['Idempotency-Key'];
+              await stripe.charges.create(params, { idempotencyKey: key });
+              await stripe.refunds.create(params, { idempotencyKey: key });
+            compliant: |
+              // TypeScript
+              const key = request.headers['Idempotency-Key'];
+              await stripe.charges.create(params, { idempotencyKey: `${key}:charge` });
+              await stripe.refunds.create(params, { idempotencyKey: `${key}:refund` });
+
+
+  - name: "Stripe API Usage – Secure and Reliable Practices"
+    paths:
+      - '**/*.py'
+      - '**/*.js'
+      - '**/*.ts'
+    policies:
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Do Not Hard-Code Secret API Keys"
+        description: |
+          Secret API keys must never be hard-coded in source code.
+        impact: |
+          Hard-coded secrets can be committed to version control and exposed to unauthorized parties.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              import stripe              
+              stripe.api_key = "sk_test_51HkzLAbc1234567890"
+            compliant: |
+              # Python example
+              import stripe, os              
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+          - non_compliant: |
+              // JavaScript example
+              const stripe = require('stripe')('sk_test_51HkzLAbc1234567890');
+            compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+      
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Use Environment Variables for Configuration"
+        description: |
+          All Stripe configuration values must be sourced from environment variables.
+        impact: |
+          Prevents accidental exposure of credentials and simplifies secure rotation.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              import stripe
+              
+              stripe.api_version = "2022-11-15"
+            compliant: |
+              # Python example
+              import stripe, os
+              
+              stripe.api_version = os.getenv("STRIPE_API_VERSION")
+          - non_compliant: |
+              // JavaScript example
+              const stripe = require('stripe')('sk_test_...'); stripe.setApiVersion('2022-11-15');
+            compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              stripe.setApiVersion(process.env.STRIPE_API_VERSION);
+      
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Enforce Idempotency on Mutable Requests"
+        description: |
+          All POST, PUT, and DELETE requests to Stripe must include a unique idempotency key header.
+        impact: |
+          Ensures requests are not processed multiple times in case of retries or network errors.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              import stripe
+              
+              stripe.Charge.create(amount=1000, currency="usd", source="tok_visa")
+            compliant: |
+              # Python example
+              import stripe, uuid
+              
+              idempotency_key = str(uuid.uuid4())
+              stripe.Charge.create(
+                  amount=1000,
+                  currency="usd",
+                  source="tok_visa",
+                  idempotency_key=idempotency_key
+              )
+          - non_compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              
+              stripe.charges.create({ amount: 1000, currency: 'usd', source: 'tok_visa' });
+            compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              const { v4: uuidv4 } = require('uuid');
+              
+              stripe.charges.create(
+                { amount: 1000, currency: 'usd', source: 'tok_visa' },
+                { idempotencyKey: uuidv4() }
+              );
+      
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Pin Stripe API Version Explicitly"
+        description: |
+          Stripe API version must be explicitly set on each request or client initialization.
+        impact: |
+          Prevents breaking changes when Stripe rolls out new API versions.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              import stripe
+              
+              # No api_version set
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+            compliant: |
+              # Python example
+              import stripe, os
+              
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+              stripe.api_version = "2022-11-15"
+          - non_compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+            compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
+                apiVersion: '2022-11-15'
+              });
+      
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Validate Stripe Webhook Signatures"
+        description: |
+          All incoming Stripe webhook payloads must be verified using the signing secret.
+        impact: |
+          Protects against forged webhook events and unauthorized notifications.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              from flask import request
+              
+              data = request.get_json()
+            compliant: |
+              # Python example
+              import stripe, os
+              from flask import request, abort
+              
+              payload = request.data
+              sig_header = request.headers.get('Stripe-Signature')
+              endpoint_secret = os.getenv("STRIPE_WEBHOOK_SECRET")
+              
+              try:
+                  event = stripe.Webhook.construct_event(
+                      payload, sig_header, endpoint_secret
+                  )
+              except stripe.error.SignatureVerificationError:
+                  abort(400)
+          - non_compliant: |
+              // JavaScript example
+              const express = require('express');
+              const app = express();
+              
+              app.post('/webhook', express.json(), (req, res) => {
+                const event = req.body;
+              });
+            compliant: |
+              // JavaScript example
+              const express = require('express');
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              
+              const app = express();
+              app.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
+                const sig = req.headers['stripe-signature'];
+                try {
+                  const event = stripe.webhooks.constructEvent(
+                    req.body, sig, process.env.STRIPE_WEBHOOK_SECRET
+                  );
+                } catch (err) {
+                  return res.status(400).send(`Webhook Error: ${err.message}`);
+                }
+                res.sendStatus(200);
+              });
+      
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Set Timeouts on Stripe API Requests"
+        description: |
+          All Stripe API requests must include a network timeout value.
+        impact: |
+          Prevents requests from hanging indefinitely and improves resilience.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              import stripe, os
+              
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+              stripe.Charge.create(amount=500, currency="usd", source="tok_mastercard")
+            compliant: |
+              # Python example
+              import stripe, os
+              
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+              stripe.default_http_client = stripe.http_client.RequestsClient(timeout=5)
+              stripe.Charge.create(amount=500, currency="usd", source="tok_mastercard")
+          - non_compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              
+              stripe.charges.create({ amount: 500, currency: 'usd', source: 'tok_mastercard' });
+            compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY, {
+                httpAgent: new (require('https').Agent)({ timeout: 5000 })
+              });
+              stripe.charges.create({ amount: 500, currency: 'usd', source: 'tok_mastercard' });
+      
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Handle API Errors Gracefully"
+        description: |
+          All Stripe API calls must handle potential exceptions or error responses.
+        impact: |
+          Ensures application stability and allows for retries or user-friendly messages.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              import stripe, os
+              
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+              charge = stripe.Charge.create(amount=200, currency="usd", source="tok_amex")
+            compliant: |
+              # Python example
+              import stripe, os
+              
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+              try:
+                  charge = stripe.Charge.create(amount=200, currency="usd", source="tok_amex")
+              except stripe.error.StripeError as e:
+                  # log and handle error
+                  print(f"Stripe error: {e.user_message}")
+          - non_compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              
+              stripe.charges.create({ amount: 200, currency: 'usd', source: 'tok_amex' })
+            compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              
+              stripe.charges.create({ amount: 200, currency: 'usd', source: 'tok_amex' })
+                .then(charge => console.log(charge.id))
+                .catch(err => console.error(`Stripe error: ${err.message}`));
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Validate Price ID Format Before Use"
+        description: |
+          All Stripe price identifiers must match the /^price_[A-Za-z0-9]+$/ pattern.
+        impact: |
+          Prevents API errors and ensures only valid Price IDs are submitted.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              price_id = "pr_123"
+              stripe.Price.retrieve(price_id)
+            compliant: |
+              # Python example
+              import re
+              price_id = "price_1KXYZAbc1234"
+              if not re.match(r"^price_[A-Za-z0-9]+$", price_id):
+                  raise ValueError("Invalid Price ID format")
+              stripe.Price.retrieve(price_id)
+          - non_compliant: |
+              // JavaScript example
+              const priceId = "pr_123";
+            compliant: |
+              // JavaScript example
+              const PRICE_REGEX = /^price_[A-Za-z0-9]+$/;
+              const priceId = "price_1KXYZAbc1234";
+              if (!PRICE_REGEX.test(priceId)) {
+                throw new Error("Invalid Price ID format");
+              }
+              await stripe.prices.retrieve(priceId);
+  - name: "Stripe API Usage – Advanced Security and Reliability"
+    paths:
+      - '**/*.py'
+      - '**/*.js'
+      - '**/*.ts'
+    policies:
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Do Not Log Sensitive Data"
+        description: |
+          Code must never log secret API keys, card numbers, or CVC values.
+        impact: |
+          Prevents exposure of PCI-sensitive information in logs accessible to unauthorized users.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              import stripe, logging, os
+              
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+              logging.info(f"Charging with key {stripe.api_key}")
+            compliant: |
+              # Python example
+              import stripe, logging, os
+              
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+              logging.info("Processing Stripe charge")
+          - non_compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              console.log(`Card number: ${card.number}`);
+            compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              console.log("Received card data; processing securely.");
+
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Use HTTPS Endpoints for Webhooks"
+        description: |
+          Webhook URLs in source code must use the HTTPS protocol.
+        impact: |
+          Ensures payload integrity and prevents man-in-the-middle attacks by securing webhook communication.
+        code_examples:
+          - non_compliant: |
+              # Python
+              WEBHOOK_URL = "http://example.com/stripe-webhook"
+            compliant: |
+              # Python
+              WEBHOOK_URL = "https://example.com/stripe-webhook"
+          - non_compliant: |
+              // JavaScript
+              const webhookUrl = "http://myapp.local/webhook";
+            compliant: |
+              // JavaScript
+              const webhookUrl = "https://myapp.example.com/webhook";
+          - non_compliant: |
+              // TypeScript
+              const webhookUrl: string = "http://myapp.local/webhook";
+            compliant: |
+              // TypeScript
+              const webhookUrl: string = "https://myapp.example.com/webhook";
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Implement Exponential Backoff on Retryable Errors"
+        description: |
+          Retryable Stripe API errors must be retried using exponential backoff.
+        impact: |
+          Reduces risk of thundering herd and API rate-limit failures.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              import stripe, time, os
+              
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+              try:
+                  stripe.Charge.create(amount=100, currency="usd", source="tok_visa")
+              except stripe.error.RateLimitError:
+                  stripe.Charge.create(amount=100, currency="usd", source="tok_visa")
+            compliant: |
+              # Python example
+              import stripe, time, os
+              
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+              backoff = 1
+              for _ in range(5):
+                  try:
+                      stripe.Charge.create(amount=100, currency="usd", source="tok_visa")
+                      break
+                  except stripe.error.RateLimitError:
+                      time.sleep(backoff)
+                      backoff *= 2
+          - non_compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              
+              stripe.charges.create({ amount: 100, currency: 'usd', source: 'tok_visa' })
+                .catch(() => stripe.charges.create({ amount: 100, currency: 'usd', source: 'tok_visa' }));
+            compliant: |
+              // JavaScript example
+              const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+              const sleep = ms => new Promise(res => setTimeout(res, ms));
+              
+              async function createCharge() {
+                let delay = 1000;
+                for (let i = 0; i < 5; i++) {
+                  try {
+                    return await stripe.charges.create({ amount: 100, currency: 'usd', source: 'tok_visa' });
+                  } catch (err) {
+                    if (err.type === 'StripeRateLimitError') {
+                      await sleep(delay);
+                      delay *= 2;
+                    } else {
+                      throw err;
+                    }
+                  }
+                }
+              }
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Enforce Request and Response Schema Validation"
+        description: |
+          All Stripe API request payloads and responses must conform to defined JSON schemas.
+        impact: |
+          Prevents unexpected data structures that could cause runtime errors or security issues.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              data = {"amount": 100}
+              stripe.Charge.create(**data)
+            compliant: |
+              # Python example
+              from jsonschema import validate
+              import stripe, os
+              
+              schema = {
+                  "type": "object",
+                  "properties": {"amount": {"type": "integer"}, "currency": {"type": "string"}},
+                  "required": ["amount", "currency"]
+              }
+              payload = {"amount": 100, "currency": "usd"}
+              validate(payload, schema)
+              stripe.Charge.create(**payload)
+          - non_compliant: |
+              // JavaScript example
+              const payload = { amount: 100 };
+              stripe.charges.create(payload);
+            compliant: |
+              // JavaScript example
+              const Ajv = require('ajv');
+              const ajv = new Ajv();
+              
+              const schema = { type: 'object', properties: { amount: { type: 'number' }, currency: { type: 'string' } }, required: ['amount', 'currency'] };
+              const payload = { amount: 100, currency: 'usd' };
+              
+              if (!ajv.validate(schema, payload)) throw new Error('Invalid payload');
+              stripe.charges.create(payload);
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Paginate List API Calls"
+        description: |
+          All list endpoints must use pagination parameters (`limit` and `starting_after`).
+        impact: |
+          Prevents excessive memory usage and performance degradation on large datasets.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              import stripe, os
+              
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+              customers = stripe.Customer.list()
+            compliant: |
+              # Python example
+              import stripe, os
+              
+              stripe.api_key = os.getenv("STRIPE_SECRET_KEY")
+              customers = stripe.Customer.list(limit=50, starting_after="cus_123")
+          - non_compliant: |
+              // JavaScript example
+              const customers = await stripe.customers.list();
+            compliant: |
+              // JavaScript example
+              const customers = await stripe.customers.list({ limit: 50, starting_after: 'cus_123' });
+
+      # Severity: Mandatory
+      # Required Context: Single-File
+      - title: "Mask Card Numbers in Logs"
+        description: |
+          Logs must display only the last four digits of card numbers.
+        impact: |
+          Ensures PCI compliance by preventing full card number exposure.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              card_number = "4242424242424242"
+              print(f"Card: {card_number}")
+            compliant: |
+              # Python example
+              card_number = "4242424242424242"
+              print(f"Card: **** **** **** {card_number[-4:]}")
+          - non_compliant: |
+              // JavaScript example
+              const card = { number: '4242424242424242' };
+              console.log(`Card: ${card.number}`);
+            compliant: |
+              // JavaScript example
+              const card = { number: '4242424242424242' };
+              console.log(`Card: **** **** **** ${card.number.slice(-4)}`);
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Do Not Expose Raw Error Messages"
+        description: |
+          API error messages returned to clients must be user-friendly and generic.
+        impact: |
+          Prevents leakage of internal implementation details and potential attack vectors.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              try:
+                  charge = stripe.Charge.create(...)
+              except Exception as e:
+                  return {"error": str(e)}
+            compliant: |
+              # Python example
+              try:
+                  charge = stripe.Charge.create(...)
+              except stripe.error.StripeError:
+                  return {"error": "Payment processing failed. Please try again later."}
+          - non_compliant: |
+              // JavaScript example
+              stripe.charges.create({...}).catch(err => res.send(err.message));
+            compliant: |
+              // JavaScript example
+              stripe.charges.create({...})
+                .catch(() => res.status(500).send({ error: "Payment failed. Contact support." }));
+
+      # Severity: High
+      # Required Context: Single-File
+      - title: "Prevent API Key Exposure in URLs"
+        description: |
+          Never include secret API keys or tokens in URL query parameters.
+        impact: |
+          Protects secrets from being logged in access logs or browser history.
+        code_examples:
+          - non_compliant: |
+              # Python example
+              url = f"https://api.example.com?key={os.getenv('STRIPE_SECRET_KEY')}"
+            compliant: |
+              # Python example
+              url = "https://api.example.com"
+              headers = {"Authorization": f"Bearer {os.getenv('STRIPE_SECRET_KEY')}"}
+          - non_compliant: |
+              // JavaScript example
+              const url = `https://api.service.com?token=${process.env.STRIPE_SECRET_KEY}`;
+            compliant: |
+              // JavaScript example
+              const url = 'https://api.service.com';
+              const headers = { Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}` };
+
+      # Severity: Medium
+      # Required Context: Single-File
+      - title: "Use Strong Cryptographic Functions for Signing"
+        description: |
+          Use HMAC-SHA256 for generating and verifying signatures in Stripe webhook handling.
+        impact: |
+          Ensures data integrity and authenticity of Stripe webhook payloads against tampering.
+        code_examples:
+          - non_compliant: |
+              # Python
+              import hmac, hashlib, os
+              signature = hmac.new(os.getenv("SECRET").encode(), msg=b"data", digestmod=hashlib.md5).hexdigest()
+            compliant: |
+              # Python
+              import hmac, hashlib, os
+              signature = hmac.new(os.getenv("SECRET").encode(), msg=b"data", digestmod=hashlib.sha256).hexdigest()
+          - non_compliant: |
+              // JavaScript
+              const crypto = require('crypto');
+              const sig = crypto.createHmac('md5', process.env.SECRET).update('data').digest('hex');
+            compliant: |
+              // JavaScript
+              const crypto = require('crypto');
+              const sig = crypto.createHmac('sha256', process.env.SECRET).update('data').digest('hex');
+          - non_compliant: |
+              // TypeScript
+              import * as crypto from 'crypto';
+              const sig = crypto.createHmac('md5', process.env.SECRET!).update('data').digest('hex');
+            compliant: |
+              // TypeScript
+              import * as crypto from 'crypto';
+              const sig = crypto.createHmac('sha256', process.env.SECRET!).update('data').digest('hex');
