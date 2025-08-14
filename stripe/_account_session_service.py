@@ -155,6 +155,12 @@ class AccountSessionService(StripeService):
         """
         Configuration for the [payments](https://docs.stripe.com/connect/supported-embedded-components/payments/) embedded component.
         """
+        payout_details: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPayoutDetails"
+        ]
+        """
+        Configuration for the [payout details](https://docs.stripe.com/connect/supported-embedded-components/payout-details/) embedded component.
+        """
         payouts: NotRequired[
             "AccountSessionService.CreateParamsComponentsPayouts"
         ]
@@ -700,6 +706,21 @@ class AccountSessionService(StripeService):
         """
         Whether sending refunds is enabled. This is `true` by default.
         """
+
+    class CreateParamsComponentsPayoutDetails(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPayoutDetailsFeatures"
+        ]
+        """
+        An empty list, because this embedded component has no features.
+        """
+
+    class CreateParamsComponentsPayoutDetailsFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsPayouts(TypedDict):
         enabled: bool

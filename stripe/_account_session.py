@@ -367,6 +367,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class PayoutDetails(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class Payouts(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -447,6 +458,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payment_details: PaymentDetails
         payment_disputes: PaymentDisputes
         payments: Payments
+        payout_details: PayoutDetails
         payouts: Payouts
         payouts_list: PayoutsList
         tax_registrations: TaxRegistrations
@@ -469,6 +481,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payment_details": PaymentDetails,
             "payment_disputes": PaymentDisputes,
             "payments": Payments,
+            "payout_details": PayoutDetails,
             "payouts": Payouts,
             "payouts_list": PayoutsList,
             "tax_registrations": TaxRegistrations,
@@ -617,6 +630,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payments: NotRequired["AccountSession.CreateParamsComponentsPayments"]
         """
         Configuration for the [payments](https://docs.stripe.com/connect/supported-embedded-components/payments/) embedded component.
+        """
+        payout_details: NotRequired[
+            "AccountSession.CreateParamsComponentsPayoutDetails"
+        ]
+        """
+        Configuration for the [payout details](https://docs.stripe.com/connect/supported-embedded-components/payout-details/) embedded component.
         """
         payouts: NotRequired["AccountSession.CreateParamsComponentsPayouts"]
         """
@@ -1161,6 +1180,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether sending refunds is enabled. This is `true` by default.
         """
+
+    class CreateParamsComponentsPayoutDetails(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPayoutDetailsFeatures"
+        ]
+        """
+        An empty list, because this embedded component has no features.
+        """
+
+    class CreateParamsComponentsPayoutDetailsFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsPayouts(TypedDict):
         enabled: bool
