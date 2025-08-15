@@ -355,7 +355,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
 
         class Billie(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Billie transaction ID associated with this payment.
+            """
 
         class BillingDetails(StripeObject):
             class Address(StripeObject):
@@ -1560,7 +1563,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
 
         class Satispay(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Satispay transaction ID associated with this payment.
+            """
 
         class SepaCreditTransfer(StripeObject):
             bank_name: Optional[str]

@@ -440,7 +440,10 @@ class Charge(
             """
 
         class Billie(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Billie transaction ID associated with this payment.
+            """
 
         class Blik(StripeObject):
             buyer_id: Optional[str]
@@ -1923,7 +1926,10 @@ class Charge(
             """
 
         class Satispay(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Satispay transaction ID associated with this payment.
+            """
 
         class SepaCreditTransfer(StripeObject):
             bank_name: Optional[str]
