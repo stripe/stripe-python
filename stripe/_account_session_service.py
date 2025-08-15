@@ -47,6 +47,12 @@ class AccountSessionService(StripeService):
         """
         Configuration for the [app viewport](https://docs.stripe.com/connect/supported-embedded-components/app-viewport/) embedded component.
         """
+        balance_report: NotRequired[
+            "AccountSessionService.CreateParamsComponentsBalanceReport"
+        ]
+        """
+        Configuration for the [balance report](https://docs.stripe.com/connect/supported-embedded-components/financial-reports#balance-report) embedded component.
+        """
         balances: NotRequired[
             "AccountSessionService.CreateParamsComponentsBalances"
         ]
@@ -160,6 +166,12 @@ class AccountSessionService(StripeService):
         ]
         """
         Configuration for the [payout details](https://docs.stripe.com/connect/supported-embedded-components/payout-details/) embedded component.
+        """
+        payout_reconciliation_report: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPayoutReconciliationReport"
+        ]
+        """
+        Configuration for the [payout reconciliation report](https://docs.stripe.com/connect/supported-embedded-components/financial-reports#payout-reconciliation-report) embedded component.
         """
         payouts: NotRequired[
             "AccountSessionService.CreateParamsComponentsPayouts"
@@ -289,6 +301,21 @@ class AccountSessionService(StripeService):
         """
         The list of apps allowed to be enabled in the embedded component.
         """
+
+    class CreateParamsComponentsBalanceReport(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsBalanceReportFeatures"
+        ]
+        """
+        An empty list, because this embedded component has no features.
+        """
+
+    class CreateParamsComponentsBalanceReportFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsBalances(TypedDict):
         enabled: bool
@@ -720,6 +747,21 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsPayoutDetailsFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsPayoutReconciliationReport(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPayoutReconciliationReportFeatures"
+        ]
+        """
+        An empty list, because this embedded component has no features.
+        """
+
+    class CreateParamsComponentsPayoutReconciliationReportFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsPayouts(TypedDict):
