@@ -400,6 +400,8 @@ class _APIRequestor(object):
                 **error_args,
                 invalid_param=error_data.get("invalid_param"),
             )
+        elif type == "rate_limit":
+            return error.RateLimitError(**error_args)
         # switchCases: The end of the section generated from our OpenAPI spec
 
         return self.specific_v1_api_error(

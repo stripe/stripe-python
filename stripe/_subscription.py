@@ -578,6 +578,16 @@ class Subscription(
         """
         _inner_class_types = {"end_behavior": EndBehavior}
 
+    class AttachCadenceParams(RequestOptions):
+        billing_cadence: str
+        """
+        The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class CancelParams(RequestOptions):
         cancellation_details: NotRequired[
             "Subscription.CancelParamsCancellationDetails"
@@ -628,6 +638,10 @@ class Subscription(
         backdate_start_date: NotRequired[int]
         """
         A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
+        """
+        billing_cadence: NotRequired[str]
+        """
+        The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
         """
         billing_cycle_anchor: NotRequired[int]
         """
@@ -2558,6 +2572,10 @@ class Subscription(
     A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.
     """
     automatic_tax: AutomaticTax
+    billing_cadence: Optional[str]
+    """
+    The Billing Cadence which controls the timing of recurring invoice generation for this subscription.If unset, the subscription will bill according to its own configured schedule and create its own invoices.If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+    """
     billing_cycle_anchor: int
     """
     The reference point that aligns future [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
@@ -2754,6 +2772,120 @@ class Subscription(
     """
     If the subscription has a trial, the beginning of that trial.
     """
+
+    @classmethod
+    def _cls_attach_cadence(
+        cls,
+        subscription: str,
+        **params: Unpack["Subscription.AttachCadenceParams"],
+    ) -> "Subscription":
+        """
+        Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+        """
+        return cast(
+            "Subscription",
+            cls._static_request(
+                "post",
+                "/v1/subscriptions/{subscription}/attach_cadence".format(
+                    subscription=sanitize_id(subscription)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def attach_cadence(
+        subscription: str, **params: Unpack["Subscription.AttachCadenceParams"]
+    ) -> "Subscription":
+        """
+        Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+        """
+        ...
+
+    @overload
+    def attach_cadence(
+        self, **params: Unpack["Subscription.AttachCadenceParams"]
+    ) -> "Subscription":
+        """
+        Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+        """
+        ...
+
+    @class_method_variant("_cls_attach_cadence")
+    def attach_cadence(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Subscription.AttachCadenceParams"]
+    ) -> "Subscription":
+        """
+        Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+        """
+        return cast(
+            "Subscription",
+            self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/attach_cadence".format(
+                    subscription=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_attach_cadence_async(
+        cls,
+        subscription: str,
+        **params: Unpack["Subscription.AttachCadenceParams"],
+    ) -> "Subscription":
+        """
+        Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+        """
+        return cast(
+            "Subscription",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/attach_cadence".format(
+                    subscription=sanitize_id(subscription)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def attach_cadence_async(
+        subscription: str, **params: Unpack["Subscription.AttachCadenceParams"]
+    ) -> "Subscription":
+        """
+        Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+        """
+        ...
+
+    @overload
+    async def attach_cadence_async(
+        self, **params: Unpack["Subscription.AttachCadenceParams"]
+    ) -> "Subscription":
+        """
+        Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+        """
+        ...
+
+    @class_method_variant("_cls_attach_cadence_async")
+    async def attach_cadence_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Subscription.AttachCadenceParams"]
+    ) -> "Subscription":
+        """
+        Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+        """
+        return cast(
+            "Subscription",
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/attach_cadence".format(
+                    subscription=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def _cls_cancel(

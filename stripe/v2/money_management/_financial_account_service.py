@@ -29,6 +29,10 @@ class FinancialAccountService(StripeService):
         """
 
     class CreateParams(TypedDict):
+        display_name: NotRequired[str]
+        """
+        A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Metadata associated with the FinancialAccount.

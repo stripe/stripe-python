@@ -406,11 +406,14 @@ class SessionService(StripeService):
         """
         Wallet-specific configuration.
         """
+        checkout_items: NotRequired[
+            List["SessionService.CreateParamsCheckoutItem"]
+        ]
 
     class CreateParamsAdaptivePricing(TypedDict):
         enabled: NotRequired[bool]
         """
-        Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
+        If set to `true`, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
         """
 
     class CreateParamsAfterExpiration(TypedDict):
@@ -456,6 +459,18 @@ class SessionService(StripeService):
         """
         Type of the account referenced in the request.
         """
+
+    class CreateParamsCheckoutItem(TypedDict):
+        key: str
+        type: Literal["checkout_item"]
+        rate_card_subscription_item: NotRequired[
+            "SessionService.CreateParamsCheckoutItemRateCardSubscriptionItem"
+        ]
+
+    class CreateParamsCheckoutItemRateCardSubscriptionItem(TypedDict):
+        rate_card: str
+        metadata: NotRequired[Dict[str, str]]
+        rate_card_version: NotRequired[str]
 
     class CreateParamsConsentCollection(TypedDict):
         payment_method_reuse_agreement: NotRequired[

@@ -262,4 +262,8 @@ class InvalidPaymentMethodError(StripeError):
         self.invalid_param = invalid_param
 
 
+class RateLimitError(StripeError):
+    pass
+
+
 # classDefinitions: The end of the section generated from our OpenAPI spec

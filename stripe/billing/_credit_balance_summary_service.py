@@ -43,6 +43,14 @@ class CreditBalanceSummaryService(StripeService):
         """
 
     class RetrieveParamsFilterApplicabilityScope(TypedDict):
+        billable_items: NotRequired[
+            List[
+                "CreditBalanceSummaryService.RetrieveParamsFilterApplicabilityScopeBillableItem"
+            ]
+        ]
+        """
+        A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+        """
         price_type: NotRequired[Literal["metered"]]
         """
         The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
@@ -54,6 +62,12 @@ class CreditBalanceSummaryService(StripeService):
         ]
         """
         A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+        """
+
+    class RetrieveParamsFilterApplicabilityScopeBillableItem(TypedDict):
+        id: str
+        """
+        The billable item ID this credit grant should apply to.
         """
 
     class RetrieveParamsFilterApplicabilityScopePrice(TypedDict):

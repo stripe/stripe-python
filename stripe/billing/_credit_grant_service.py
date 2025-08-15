@@ -59,13 +59,29 @@ class CreditGrantService(StripeService):
         """
 
     class CreateParamsAmount(TypedDict):
+        custom_pricing_unit: NotRequired[
+            "CreditGrantService.CreateParamsAmountCustomPricingUnit"
+        ]
+        """
+        The custom pricing unit amount.
+        """
         monetary: NotRequired["CreditGrantService.CreateParamsAmountMonetary"]
         """
         The monetary amount.
         """
-        type: Literal["monetary"]
+        type: Literal["custom_pricing_unit", "monetary"]
         """
         The type of this amount. We currently only support `monetary` billing credits.
+        """
+
+    class CreateParamsAmountCustomPricingUnit(TypedDict):
+        id: str
+        """
+        The ID of the custom pricing unit.
+        """
+        value: str
+        """
+        A positive integer representing the amount of the credit grant.
         """
 
     class CreateParamsAmountMonetary(TypedDict):
@@ -85,6 +101,14 @@ class CreditGrantService(StripeService):
         """
 
     class CreateParamsApplicabilityConfigScope(TypedDict):
+        billable_items: NotRequired[
+            List[
+                "CreditGrantService.CreateParamsApplicabilityConfigScopeBillableItem"
+            ]
+        ]
+        """
+        A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+        """
         price_type: NotRequired[Literal["metered"]]
         """
         The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
@@ -96,6 +120,12 @@ class CreditGrantService(StripeService):
         ]
         """
         A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+        """
+
+    class CreateParamsApplicabilityConfigScopeBillableItem(TypedDict):
+        id: str
+        """
+        The billable item ID this credit grant should apply to.
         """
 
     class CreateParamsApplicabilityConfigScopePrice(TypedDict):

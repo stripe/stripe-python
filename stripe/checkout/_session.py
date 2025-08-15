@@ -61,7 +61,7 @@ class Session(
     class AdaptivePricing(StripeObject):
         enabled: bool
         """
-        Whether Adaptive Pricing is enabled.
+        If enabled, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions).
         """
 
     class AfterExpiration(StripeObject):
@@ -121,6 +121,21 @@ class Session(
         The status of the most recent automated tax calculation for this session.
         """
         _inner_class_types = {"liability": Liability}
+
+    class CheckoutItem(StripeObject):
+        class RateCardSubscriptionItem(StripeObject):
+            billing_cadence: Optional[str]
+            metadata: Optional[Dict[str, str]]
+            rate_card: str
+            rate_card_subscription: Optional[str]
+            rate_card_version: str
+
+        key: str
+        rate_card_subscription_item: Optional[RateCardSubscriptionItem]
+        type: Literal["checkout_item"]
+        _inner_class_types = {
+            "rate_card_subscription_item": RateCardSubscriptionItem,
+        }
 
     class CollectedInformation(StripeObject):
         class ShippingDetails(StripeObject):
@@ -2537,11 +2552,12 @@ class Session(
         """
         Wallet-specific configuration.
         """
+        checkout_items: NotRequired[List["Session.CreateParamsCheckoutItem"]]
 
     class CreateParamsAdaptivePricing(TypedDict):
         enabled: NotRequired[bool]
         """
-        Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
+        If set to `true`, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
         """
 
     class CreateParamsAfterExpiration(TypedDict):
@@ -2583,6 +2599,18 @@ class Session(
         """
         Type of the account referenced in the request.
         """
+
+    class CreateParamsCheckoutItem(TypedDict):
+        key: str
+        type: Literal["checkout_item"]
+        rate_card_subscription_item: NotRequired[
+            "Session.CreateParamsCheckoutItemRateCardSubscriptionItem"
+        ]
+
+    class CreateParamsCheckoutItemRateCardSubscriptionItem(TypedDict):
+        rate_card: str
+        metadata: NotRequired[Dict[str, str]]
+        rate_card_version: NotRequired[str]
 
     class CreateParamsConsentCollection(TypedDict):
         payment_method_reuse_agreement: NotRequired[
@@ -5349,6 +5377,7 @@ class Session(
     """
     If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website.
     """
+    checkout_items: Optional[List[CheckoutItem]]
     client_reference_id: Optional[str]
     """
     A unique string to reference the Checkout Session. This can be a
@@ -5993,6 +6022,7 @@ class Session(
         "adaptive_pricing": AdaptivePricing,
         "after_expiration": AfterExpiration,
         "automatic_tax": AutomaticTax,
+        "checkout_items": CheckoutItem,
         "collected_information": CollectedInformation,
         "consent": Consent,
         "consent_collection": ConsentCollection,

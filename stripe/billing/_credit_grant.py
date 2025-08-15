@@ -38,6 +38,16 @@ class CreditGrant(
     )
 
     class Amount(StripeObject):
+        class CustomPricingUnit(StripeObject):
+            id: str
+            """
+            Unique identifier for the object.
+            """
+            value: str
+            """
+            A positive integer representing the amount.
+            """
+
         class Monetary(StripeObject):
             currency: str
             """
@@ -48,24 +58,41 @@ class CreditGrant(
             A positive integer representing the amount.
             """
 
+        custom_pricing_unit: Optional[CustomPricingUnit]
+        """
+        The custom pricing unit amount.
+        """
         monetary: Optional[Monetary]
         """
         The monetary amount.
         """
-        type: Literal["monetary"]
+        type: Literal["custom_pricing_unit", "monetary"]
         """
         The type of this amount. We currently only support `monetary` billing credits.
         """
-        _inner_class_types = {"monetary": Monetary}
+        _inner_class_types = {
+            "custom_pricing_unit": CustomPricingUnit,
+            "monetary": Monetary,
+        }
 
     class ApplicabilityConfig(StripeObject):
         class Scope(StripeObject):
+            class BillableItem(StripeObject):
+                id: Optional[str]
+                """
+                Unique identifier for the object.
+                """
+
             class Price(StripeObject):
                 id: Optional[str]
                 """
                 Unique identifier for the object.
                 """
 
+            billable_items: Optional[List[BillableItem]]
+            """
+            The billable items that credit grants can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+            """
             price_type: Optional[Literal["metered"]]
             """
             The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `prices`.
@@ -74,7 +101,10 @@ class CreditGrant(
             """
             The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `price_type`.
             """
-            _inner_class_types = {"prices": Price}
+            _inner_class_types = {
+                "billable_items": BillableItem,
+                "prices": Price,
+            }
 
         scope: Scope
         _inner_class_types = {"scope": Scope}
@@ -126,13 +156,29 @@ class CreditGrant(
         """
 
     class CreateParamsAmount(TypedDict):
+        custom_pricing_unit: NotRequired[
+            "CreditGrant.CreateParamsAmountCustomPricingUnit"
+        ]
+        """
+        The custom pricing unit amount.
+        """
         monetary: NotRequired["CreditGrant.CreateParamsAmountMonetary"]
         """
         The monetary amount.
         """
-        type: Literal["monetary"]
+        type: Literal["custom_pricing_unit", "monetary"]
         """
         The type of this amount. We currently only support `monetary` billing credits.
+        """
+
+    class CreateParamsAmountCustomPricingUnit(TypedDict):
+        id: str
+        """
+        The ID of the custom pricing unit.
+        """
+        value: str
+        """
+        A positive integer representing the amount of the credit grant.
         """
 
     class CreateParamsAmountMonetary(TypedDict):
@@ -152,6 +198,14 @@ class CreditGrant(
         """
 
     class CreateParamsApplicabilityConfigScope(TypedDict):
+        billable_items: NotRequired[
+            List[
+                "CreditGrant.CreateParamsApplicabilityConfigScopeBillableItem"
+            ]
+        ]
+        """
+        A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+        """
         price_type: NotRequired[Literal["metered"]]
         """
         The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
@@ -161,6 +215,12 @@ class CreditGrant(
         ]
         """
         A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+        """
+
+    class CreateParamsApplicabilityConfigScopeBillableItem(TypedDict):
+        id: str
+        """
+        The billable item ID this credit grant should apply to.
         """
 
     class CreateParamsApplicabilityConfigScopePrice(TypedDict):

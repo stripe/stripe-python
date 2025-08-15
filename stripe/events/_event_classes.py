@@ -63,6 +63,15 @@ from stripe.events._v1_billing_meter_error_report_triggered_event import (
 from stripe.events._v1_billing_meter_no_meter_found_event import (
     V1BillingMeterNoMeterFoundEvent,
 )
+from stripe.events._account_configuration_recipient_data_account_link_completed_event import (
+    AccountConfigurationRecipientDataAccountLinkCompletedEvent,
+)
+from stripe.events._account_configuration_recipient_data_feature_status_updated_event import (
+    AccountConfigurationRecipientDataFeatureStatusUpdatedEvent,
+)
+from stripe.events._account_requirements_updated_event import (
+    AccountRequirementsUpdatedEvent,
+)
 from stripe.events._v2_money_management_financial_account_created_event import (
     V2MoneyManagementFinancialAccountCreatedEvent,
 )
@@ -153,6 +162,120 @@ from stripe.events._v2_money_management_outbound_transfer_updated_event import (
 from stripe.events._v2_money_management_payout_method_updated_event import (
     V2MoneyManagementPayoutMethodUpdatedEvent,
 )
+from stripe.events._v2_billing_cadence_billed_event import (
+    V2BillingCadenceBilledEvent,
+)
+from stripe.events._v2_billing_cadence_canceled_event import (
+    V2BillingCadenceCanceledEvent,
+)
+from stripe.events._v2_billing_cadence_created_event import (
+    V2BillingCadenceCreatedEvent,
+)
+from stripe.events._v2_billing_cadence_errored_event import (
+    V2BillingCadenceErroredEvent,
+)
+from stripe.events._v2_billing_license_fee_created_event import (
+    V2BillingLicenseFeeCreatedEvent,
+)
+from stripe.events._v2_billing_license_fee_updated_event import (
+    V2BillingLicenseFeeUpdatedEvent,
+)
+from stripe.events._v2_billing_license_fee_version_created_event import (
+    V2BillingLicenseFeeVersionCreatedEvent,
+)
+from stripe.events._v2_billing_licensed_item_created_event import (
+    V2BillingLicensedItemCreatedEvent,
+)
+from stripe.events._v2_billing_licensed_item_updated_event import (
+    V2BillingLicensedItemUpdatedEvent,
+)
+from stripe.events._v2_billing_metered_item_created_event import (
+    V2BillingMeteredItemCreatedEvent,
+)
+from stripe.events._v2_billing_metered_item_updated_event import (
+    V2BillingMeteredItemUpdatedEvent,
+)
+from stripe.events._v2_billing_pricing_plan_created_event import (
+    V2BillingPricingPlanCreatedEvent,
+)
+from stripe.events._v2_billing_pricing_plan_updated_event import (
+    V2BillingPricingPlanUpdatedEvent,
+)
+from stripe.events._v2_billing_pricing_plan_component_created_event import (
+    V2BillingPricingPlanComponentCreatedEvent,
+)
+from stripe.events._v2_billing_pricing_plan_component_updated_event import (
+    V2BillingPricingPlanComponentUpdatedEvent,
+)
+from stripe.events._v2_billing_pricing_plan_subscription_collection_awaiting_customer_action_event import (
+    V2BillingPricingPlanSubscriptionCollectionAwaitingCustomerActionEvent,
+)
+from stripe.events._v2_billing_pricing_plan_subscription_collection_current_event import (
+    V2BillingPricingPlanSubscriptionCollectionCurrentEvent,
+)
+from stripe.events._v2_billing_pricing_plan_subscription_collection_past_due_event import (
+    V2BillingPricingPlanSubscriptionCollectionPastDueEvent,
+)
+from stripe.events._v2_billing_pricing_plan_subscription_collection_paused_event import (
+    V2BillingPricingPlanSubscriptionCollectionPausedEvent,
+)
+from stripe.events._v2_billing_pricing_plan_subscription_collection_unpaid_event import (
+    V2BillingPricingPlanSubscriptionCollectionUnpaidEvent,
+)
+from stripe.events._v2_billing_pricing_plan_subscription_servicing_activated_event import (
+    V2BillingPricingPlanSubscriptionServicingActivatedEvent,
+)
+from stripe.events._v2_billing_pricing_plan_subscription_servicing_canceled_event import (
+    V2BillingPricingPlanSubscriptionServicingCanceledEvent,
+)
+from stripe.events._v2_billing_pricing_plan_subscription_servicing_paused_event import (
+    V2BillingPricingPlanSubscriptionServicingPausedEvent,
+)
+from stripe.events._v2_billing_pricing_plan_version_created_event import (
+    V2BillingPricingPlanVersionCreatedEvent,
+)
+from stripe.events._v2_billing_rate_card_created_event import (
+    V2BillingRateCardCreatedEvent,
+)
+from stripe.events._v2_billing_rate_card_updated_event import (
+    V2BillingRateCardUpdatedEvent,
+)
+from stripe.events._v2_billing_rate_card_rate_created_event import (
+    V2BillingRateCardRateCreatedEvent,
+)
+from stripe.events._v2_billing_rate_card_subscription_activated_event import (
+    V2BillingRateCardSubscriptionActivatedEvent,
+)
+from stripe.events._v2_billing_rate_card_subscription_canceled_event import (
+    V2BillingRateCardSubscriptionCanceledEvent,
+)
+from stripe.events._v2_billing_rate_card_subscription_collection_awaiting_customer_action_event import (
+    V2BillingRateCardSubscriptionCollectionAwaitingCustomerActionEvent,
+)
+from stripe.events._v2_billing_rate_card_subscription_collection_current_event import (
+    V2BillingRateCardSubscriptionCollectionCurrentEvent,
+)
+from stripe.events._v2_billing_rate_card_subscription_collection_past_due_event import (
+    V2BillingRateCardSubscriptionCollectionPastDueEvent,
+)
+from stripe.events._v2_billing_rate_card_subscription_collection_paused_event import (
+    V2BillingRateCardSubscriptionCollectionPausedEvent,
+)
+from stripe.events._v2_billing_rate_card_subscription_collection_unpaid_event import (
+    V2BillingRateCardSubscriptionCollectionUnpaidEvent,
+)
+from stripe.events._v2_billing_rate_card_subscription_servicing_activated_event import (
+    V2BillingRateCardSubscriptionServicingActivatedEvent,
+)
+from stripe.events._v2_billing_rate_card_subscription_servicing_canceled_event import (
+    V2BillingRateCardSubscriptionServicingCanceledEvent,
+)
+from stripe.events._v2_billing_rate_card_subscription_servicing_paused_event import (
+    V2BillingRateCardSubscriptionServicingPausedEvent,
+)
+from stripe.events._v2_billing_rate_card_version_created_event import (
+    V2BillingRateCardVersionCreatedEvent,
+)
 from stripe.events._v2_money_management_received_credit_available_event import (
     V2MoneyManagementReceivedCreditAvailableEvent,
 )
@@ -180,6 +303,18 @@ from stripe.events._v2_money_management_received_debit_succeeded_event import (
 from stripe.events._v2_money_management_received_debit_updated_event import (
     V2MoneyManagementReceivedDebitUpdatedEvent,
 )
+from stripe.events._v2_reporting_report_run_created_event import (
+    V2ReportingReportRunCreatedEvent,
+)
+from stripe.events._v2_reporting_report_run_failed_event import (
+    V2ReportingReportRunFailedEvent,
+)
+from stripe.events._v2_reporting_report_run_succeeded_event import (
+    V2ReportingReportRunSucceededEvent,
+)
+from stripe.events._v2_reporting_report_run_updated_event import (
+    V2ReportingReportRunUpdatedEvent,
+)
 from stripe.events._v2_money_management_transaction_created_event import (
     V2MoneyManagementTransactionCreatedEvent,
 )
@@ -189,8 +324,49 @@ from stripe.events._v2_money_management_transaction_updated_event import (
 
 
 THIN_EVENT_CLASSES = {
+    AccountConfigurationRecipientDataAccountLinkCompletedEvent.LOOKUP_TYPE: AccountConfigurationRecipientDataAccountLinkCompletedEvent,
+    AccountConfigurationRecipientDataFeatureStatusUpdatedEvent.LOOKUP_TYPE: AccountConfigurationRecipientDataFeatureStatusUpdatedEvent,
+    AccountRequirementsUpdatedEvent.LOOKUP_TYPE: AccountRequirementsUpdatedEvent,
     V1BillingMeterErrorReportTriggeredEvent.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEvent,
     V1BillingMeterNoMeterFoundEvent.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEvent,
+    V2BillingCadenceBilledEvent.LOOKUP_TYPE: V2BillingCadenceBilledEvent,
+    V2BillingCadenceCanceledEvent.LOOKUP_TYPE: V2BillingCadenceCanceledEvent,
+    V2BillingCadenceCreatedEvent.LOOKUP_TYPE: V2BillingCadenceCreatedEvent,
+    V2BillingCadenceErroredEvent.LOOKUP_TYPE: V2BillingCadenceErroredEvent,
+    V2BillingLicensedItemCreatedEvent.LOOKUP_TYPE: V2BillingLicensedItemCreatedEvent,
+    V2BillingLicensedItemUpdatedEvent.LOOKUP_TYPE: V2BillingLicensedItemUpdatedEvent,
+    V2BillingLicenseFeeCreatedEvent.LOOKUP_TYPE: V2BillingLicenseFeeCreatedEvent,
+    V2BillingLicenseFeeUpdatedEvent.LOOKUP_TYPE: V2BillingLicenseFeeUpdatedEvent,
+    V2BillingLicenseFeeVersionCreatedEvent.LOOKUP_TYPE: V2BillingLicenseFeeVersionCreatedEvent,
+    V2BillingMeteredItemCreatedEvent.LOOKUP_TYPE: V2BillingMeteredItemCreatedEvent,
+    V2BillingMeteredItemUpdatedEvent.LOOKUP_TYPE: V2BillingMeteredItemUpdatedEvent,
+    V2BillingPricingPlanComponentCreatedEvent.LOOKUP_TYPE: V2BillingPricingPlanComponentCreatedEvent,
+    V2BillingPricingPlanComponentUpdatedEvent.LOOKUP_TYPE: V2BillingPricingPlanComponentUpdatedEvent,
+    V2BillingPricingPlanCreatedEvent.LOOKUP_TYPE: V2BillingPricingPlanCreatedEvent,
+    V2BillingPricingPlanSubscriptionCollectionAwaitingCustomerActionEvent.LOOKUP_TYPE: V2BillingPricingPlanSubscriptionCollectionAwaitingCustomerActionEvent,
+    V2BillingPricingPlanSubscriptionCollectionCurrentEvent.LOOKUP_TYPE: V2BillingPricingPlanSubscriptionCollectionCurrentEvent,
+    V2BillingPricingPlanSubscriptionCollectionPastDueEvent.LOOKUP_TYPE: V2BillingPricingPlanSubscriptionCollectionPastDueEvent,
+    V2BillingPricingPlanSubscriptionCollectionPausedEvent.LOOKUP_TYPE: V2BillingPricingPlanSubscriptionCollectionPausedEvent,
+    V2BillingPricingPlanSubscriptionCollectionUnpaidEvent.LOOKUP_TYPE: V2BillingPricingPlanSubscriptionCollectionUnpaidEvent,
+    V2BillingPricingPlanSubscriptionServicingActivatedEvent.LOOKUP_TYPE: V2BillingPricingPlanSubscriptionServicingActivatedEvent,
+    V2BillingPricingPlanSubscriptionServicingCanceledEvent.LOOKUP_TYPE: V2BillingPricingPlanSubscriptionServicingCanceledEvent,
+    V2BillingPricingPlanSubscriptionServicingPausedEvent.LOOKUP_TYPE: V2BillingPricingPlanSubscriptionServicingPausedEvent,
+    V2BillingPricingPlanUpdatedEvent.LOOKUP_TYPE: V2BillingPricingPlanUpdatedEvent,
+    V2BillingPricingPlanVersionCreatedEvent.LOOKUP_TYPE: V2BillingPricingPlanVersionCreatedEvent,
+    V2BillingRateCardCreatedEvent.LOOKUP_TYPE: V2BillingRateCardCreatedEvent,
+    V2BillingRateCardRateCreatedEvent.LOOKUP_TYPE: V2BillingRateCardRateCreatedEvent,
+    V2BillingRateCardSubscriptionActivatedEvent.LOOKUP_TYPE: V2BillingRateCardSubscriptionActivatedEvent,
+    V2BillingRateCardSubscriptionCanceledEvent.LOOKUP_TYPE: V2BillingRateCardSubscriptionCanceledEvent,
+    V2BillingRateCardSubscriptionCollectionAwaitingCustomerActionEvent.LOOKUP_TYPE: V2BillingRateCardSubscriptionCollectionAwaitingCustomerActionEvent,
+    V2BillingRateCardSubscriptionCollectionCurrentEvent.LOOKUP_TYPE: V2BillingRateCardSubscriptionCollectionCurrentEvent,
+    V2BillingRateCardSubscriptionCollectionPastDueEvent.LOOKUP_TYPE: V2BillingRateCardSubscriptionCollectionPastDueEvent,
+    V2BillingRateCardSubscriptionCollectionPausedEvent.LOOKUP_TYPE: V2BillingRateCardSubscriptionCollectionPausedEvent,
+    V2BillingRateCardSubscriptionCollectionUnpaidEvent.LOOKUP_TYPE: V2BillingRateCardSubscriptionCollectionUnpaidEvent,
+    V2BillingRateCardSubscriptionServicingActivatedEvent.LOOKUP_TYPE: V2BillingRateCardSubscriptionServicingActivatedEvent,
+    V2BillingRateCardSubscriptionServicingCanceledEvent.LOOKUP_TYPE: V2BillingRateCardSubscriptionServicingCanceledEvent,
+    V2BillingRateCardSubscriptionServicingPausedEvent.LOOKUP_TYPE: V2BillingRateCardSubscriptionServicingPausedEvent,
+    V2BillingRateCardUpdatedEvent.LOOKUP_TYPE: V2BillingRateCardUpdatedEvent,
+    V2BillingRateCardVersionCreatedEvent.LOOKUP_TYPE: V2BillingRateCardVersionCreatedEvent,
     V2CoreAccountClosedEvent.LOOKUP_TYPE: V2CoreAccountClosedEvent,
     V2CoreAccountCreatedEvent.LOOKUP_TYPE: V2CoreAccountCreatedEvent,
     V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
@@ -251,4 +427,8 @@ THIN_EVENT_CLASSES = {
     V2PaymentsOffSessionPaymentCreatedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentCreatedEvent,
     V2PaymentsOffSessionPaymentFailedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentFailedEvent,
     V2PaymentsOffSessionPaymentSucceededEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentSucceededEvent,
+    V2ReportingReportRunCreatedEvent.LOOKUP_TYPE: V2ReportingReportRunCreatedEvent,
+    V2ReportingReportRunFailedEvent.LOOKUP_TYPE: V2ReportingReportRunFailedEvent,
+    V2ReportingReportRunSucceededEvent.LOOKUP_TYPE: V2ReportingReportRunSucceededEvent,
+    V2ReportingReportRunUpdatedEvent.LOOKUP_TYPE: V2ReportingReportRunUpdatedEvent,
 }

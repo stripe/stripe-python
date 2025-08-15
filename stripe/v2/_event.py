@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Dict, Any
 
 from typing_extensions import Literal
 
@@ -40,6 +40,10 @@ class Event(StripeObject):
         """
         _inner_class_types = {"request": Request}
 
+    changes: Dict[str, Any]
+    """
+    Before and after changes for the primary related object.
+    """
     context: Optional[str]
     """
     Authentication context needed to fetch the event or related object.

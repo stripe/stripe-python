@@ -12,6 +12,16 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class SubscriptionService(StripeService):
+    class AttachCadenceParams(TypedDict):
+        billing_cadence: str
+        """
+        The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     class CancelParams(TypedDict):
         cancellation_details: NotRequired[
             "SubscriptionService.CancelParamsCancellationDetails"
@@ -64,6 +74,10 @@ class SubscriptionService(StripeService):
         backdate_start_date: NotRequired[int]
         """
         A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
+        """
+        billing_cadence: NotRequired[str]
+        """
+        The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
         """
         billing_cycle_anchor: NotRequired[int]
         """
@@ -2375,6 +2389,50 @@ class SubscriptionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/subscriptions/search",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def attach_cadence(
+        self,
+        subscription: str,
+        params: "SubscriptionService.AttachCadenceParams",
+        options: RequestOptions = {},
+    ) -> Subscription:
+        """
+        Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+        """
+        return cast(
+            Subscription,
+            self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/attach_cadence".format(
+                    subscription=sanitize_id(subscription),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def attach_cadence_async(
+        self,
+        subscription: str,
+        params: "SubscriptionService.AttachCadenceParams",
+        options: RequestOptions = {},
+    ) -> Subscription:
+        """
+        Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+        """
+        return cast(
+            Subscription,
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/attach_cadence".format(
+                    subscription=sanitize_id(subscription),
+                ),
                 base_address="api",
                 params=params,
                 options=options,

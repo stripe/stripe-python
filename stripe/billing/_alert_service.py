@@ -23,9 +23,15 @@ class AlertService(StripeService):
         """
 
     class CreateParams(TypedDict):
-        alert_type: Literal["usage_threshold"]
+        alert_type: Literal["credit_balance_threshold", "usage_threshold"]
         """
         The type of alert to create.
+        """
+        credit_balance_threshold: NotRequired[
+            "AlertService.CreateParamsCreditBalanceThreshold"
+        ]
+        """
+        The configuration of the credit balance threshold.
         """
         expand: NotRequired[List[str]]
         """
@@ -38,6 +44,70 @@ class AlertService(StripeService):
         usage_threshold: NotRequired["AlertService.CreateParamsUsageThreshold"]
         """
         The configuration of the usage threshold.
+        """
+
+    class CreateParamsCreditBalanceThreshold(TypedDict):
+        filters: NotRequired[
+            List["AlertService.CreateParamsCreditBalanceThresholdFilter"]
+        ]
+        """
+        The filters allows limiting the scope of this credit balance alert. You must specify a customer filter at this time.
+        """
+        lte: "AlertService.CreateParamsCreditBalanceThresholdLte"
+        """
+        Defines at which value the alert will fire.
+        """
+        recurrence: Literal["one_time"]
+        """
+        Whether the alert should only fire only once, or once per billing cycle.
+        """
+
+    class CreateParamsCreditBalanceThresholdFilter(TypedDict):
+        customer: NotRequired[str]
+        """
+        Limit the scope to this credit balance alert only to this customer.
+        """
+        type: Literal["customer"]
+        """
+        What type of filter is being applied to this credit balance alert.
+        """
+
+    class CreateParamsCreditBalanceThresholdLte(TypedDict):
+        balance_type: Literal["custom_pricing_unit", "monetary"]
+        """
+        Specify the type of this balance. We currently only support `monetary` billing credits.
+        """
+        custom_pricing_unit: NotRequired[
+            "AlertService.CreateParamsCreditBalanceThresholdLteCustomPricingUnit"
+        ]
+        """
+        The custom pricing unit amount.
+        """
+        monetary: NotRequired[
+            "AlertService.CreateParamsCreditBalanceThresholdLteMonetary"
+        ]
+        """
+        The monetary amount.
+        """
+
+    class CreateParamsCreditBalanceThresholdLteCustomPricingUnit(TypedDict):
+        id: str
+        """
+        The ID of the custom pricing unit.
+        """
+        value: str
+        """
+        A positive decimal string representing the amount of the custom pricing unit threshold.
+        """
+
+    class CreateParamsCreditBalanceThresholdLteMonetary(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
+        """
+        value: int
+        """
+        An integer representing the amount of the threshold.
         """
 
     class CreateParamsUsageThreshold(TypedDict):
@@ -77,9 +147,15 @@ class AlertService(StripeService):
         """
 
     class ListParams(TypedDict):
-        alert_type: NotRequired[Literal["usage_threshold"]]
+        alert_type: NotRequired[
+            Literal["credit_balance_threshold", "usage_threshold"]
+        ]
         """
         Filter results to only include this type of alert.
+        """
+        customer: NotRequired[str]
+        """
+        Filter results to only include alerts for the given customer.
         """
         ending_before: NotRequired[str]
         """

@@ -27,6 +27,16 @@ class CreditBalanceTransaction(
 
     class Credit(StripeObject):
         class Amount(StripeObject):
+            class CustomPricingUnit(StripeObject):
+                id: str
+                """
+                Unique identifier for the object.
+                """
+                value: str
+                """
+                A positive integer representing the amount.
+                """
+
             class Monetary(StripeObject):
                 currency: str
                 """
@@ -37,15 +47,22 @@ class CreditBalanceTransaction(
                 A positive integer representing the amount.
                 """
 
+            custom_pricing_unit: Optional[CustomPricingUnit]
+            """
+            The custom pricing unit amount.
+            """
             monetary: Optional[Monetary]
             """
             The monetary amount.
             """
-            type: Literal["monetary"]
+            type: Literal["custom_pricing_unit", "monetary"]
             """
             The type of this amount. We currently only support `monetary` billing credits.
             """
-            _inner_class_types = {"monetary": Monetary}
+            _inner_class_types = {
+                "custom_pricing_unit": CustomPricingUnit,
+                "monetary": Monetary,
+            }
 
         class CreditsApplicationInvoiceVoided(StripeObject):
             invoice: ExpandableField["Invoice"]
@@ -75,6 +92,16 @@ class CreditBalanceTransaction(
 
     class Debit(StripeObject):
         class Amount(StripeObject):
+            class CustomPricingUnit(StripeObject):
+                id: str
+                """
+                Unique identifier for the object.
+                """
+                value: str
+                """
+                A positive integer representing the amount.
+                """
+
             class Monetary(StripeObject):
                 currency: str
                 """
@@ -85,15 +112,22 @@ class CreditBalanceTransaction(
                 A positive integer representing the amount.
                 """
 
+            custom_pricing_unit: Optional[CustomPricingUnit]
+            """
+            The custom pricing unit amount.
+            """
             monetary: Optional[Monetary]
             """
             The monetary amount.
             """
-            type: Literal["monetary"]
+            type: Literal["custom_pricing_unit", "monetary"]
             """
             The type of this amount. We currently only support `monetary` billing credits.
             """
-            _inner_class_types = {"monetary": Monetary}
+            _inner_class_types = {
+                "custom_pricing_unit": CustomPricingUnit,
+                "monetary": Monetary,
+            }
 
         class CreditsApplied(StripeObject):
             invoice: ExpandableField["Invoice"]

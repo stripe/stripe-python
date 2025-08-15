@@ -28,6 +28,63 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     OBJECT_NAME: ClassVar[Literal["billing.alert"]] = "billing.alert"
 
+    class CreditBalanceThreshold(StripeObject):
+        class Filter(StripeObject):
+            customer: Optional[ExpandableField["Customer"]]
+            """
+            Limit the scope of the alert to this customer ID
+            """
+            type: Literal["customer"]
+
+        class Lte(StripeObject):
+            class CustomPricingUnit(StripeObject):
+                id: str
+                """
+                Unique identifier for the object.
+                """
+                value: str
+                """
+                A positive decimal string representing the amount.
+                """
+
+            class Monetary(StripeObject):
+                currency: str
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                value: int
+                """
+                A positive integer representing the amount.
+                """
+
+            balance_type: Literal["custom_pricing_unit", "monetary"]
+            """
+            The type of this balance. We currently only support `monetary` amounts.
+            """
+            custom_pricing_unit: Optional[CustomPricingUnit]
+            """
+            The custom pricing unit amount.
+            """
+            monetary: Optional[Monetary]
+            """
+            The monetary amount.
+            """
+            _inner_class_types = {
+                "custom_pricing_unit": CustomPricingUnit,
+                "monetary": Monetary,
+            }
+
+        filters: Optional[List[Filter]]
+        """
+        The filters allow limiting the scope of this credit balance alert. You must specify only a customer filter at this time.
+        """
+        lte: Lte
+        recurrence: Literal["one_time"]
+        """
+        Defines how the alert will behave.
+        """
+        _inner_class_types = {"filters": Filter, "lte": Lte}
+
     class UsageThreshold(StripeObject):
         class Filter(StripeObject):
             customer: Optional[ExpandableField["Customer"]]
@@ -67,9 +124,15 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
 
     class CreateParams(RequestOptions):
-        alert_type: Literal["usage_threshold"]
+        alert_type: Literal["credit_balance_threshold", "usage_threshold"]
         """
         The type of alert to create.
+        """
+        credit_balance_threshold: NotRequired[
+            "Alert.CreateParamsCreditBalanceThreshold"
+        ]
+        """
+        The configuration of the credit balance threshold.
         """
         expand: NotRequired[List[str]]
         """
@@ -82,6 +145,70 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         usage_threshold: NotRequired["Alert.CreateParamsUsageThreshold"]
         """
         The configuration of the usage threshold.
+        """
+
+    class CreateParamsCreditBalanceThreshold(TypedDict):
+        filters: NotRequired[
+            List["Alert.CreateParamsCreditBalanceThresholdFilter"]
+        ]
+        """
+        The filters allows limiting the scope of this credit balance alert. You must specify a customer filter at this time.
+        """
+        lte: "Alert.CreateParamsCreditBalanceThresholdLte"
+        """
+        Defines at which value the alert will fire.
+        """
+        recurrence: Literal["one_time"]
+        """
+        Whether the alert should only fire only once, or once per billing cycle.
+        """
+
+    class CreateParamsCreditBalanceThresholdFilter(TypedDict):
+        customer: NotRequired[str]
+        """
+        Limit the scope to this credit balance alert only to this customer.
+        """
+        type: Literal["customer"]
+        """
+        What type of filter is being applied to this credit balance alert.
+        """
+
+    class CreateParamsCreditBalanceThresholdLte(TypedDict):
+        balance_type: Literal["custom_pricing_unit", "monetary"]
+        """
+        Specify the type of this balance. We currently only support `monetary` billing credits.
+        """
+        custom_pricing_unit: NotRequired[
+            "Alert.CreateParamsCreditBalanceThresholdLteCustomPricingUnit"
+        ]
+        """
+        The custom pricing unit amount.
+        """
+        monetary: NotRequired[
+            "Alert.CreateParamsCreditBalanceThresholdLteMonetary"
+        ]
+        """
+        The monetary amount.
+        """
+
+    class CreateParamsCreditBalanceThresholdLteCustomPricingUnit(TypedDict):
+        id: str
+        """
+        The ID of the custom pricing unit.
+        """
+        value: str
+        """
+        A positive decimal string representing the amount of the custom pricing unit threshold.
+        """
+
+    class CreateParamsCreditBalanceThresholdLteMonetary(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
+        """
+        value: int
+        """
+        An integer representing the amount of the threshold.
         """
 
     class CreateParamsUsageThreshold(TypedDict):
@@ -119,9 +246,15 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
 
     class ListParams(RequestOptions):
-        alert_type: NotRequired[Literal["usage_threshold"]]
+        alert_type: NotRequired[
+            Literal["credit_balance_threshold", "usage_threshold"]
+        ]
         """
         Filter results to only include this type of alert.
+        """
+        customer: NotRequired[str]
+        """
+        Filter results to only include alerts for the given customer.
         """
         ending_before: NotRequired[str]
         """
@@ -150,9 +283,13 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         Specifies which fields in the response should be expanded.
         """
 
-    alert_type: Literal["usage_threshold"]
+    alert_type: Literal["credit_balance_threshold", "usage_threshold"]
     """
     Defines the type of the alert.
+    """
+    credit_balance_threshold: Optional[CreditBalanceThreshold]
+    """
+    Encapsulates configuration of the alert to monitor billing credit balance.
     """
     id: str
     """
@@ -583,4 +720,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {"usage_threshold": UsageThreshold}
+    _inner_class_types = {
+        "credit_balance_threshold": CreditBalanceThreshold,
+        "usage_threshold": UsageThreshold,
+    }
