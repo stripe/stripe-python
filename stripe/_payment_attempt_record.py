@@ -1957,6 +1957,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         Specifies which fields in the response should be expanded.
         """
+        limit: NotRequired[int]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
         payment_record: str
         """
         The ID of the Payment Record.
