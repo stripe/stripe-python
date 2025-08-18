@@ -774,7 +774,7 @@ class Reader(
         """
 
     class PresentPaymentMethodParamsCard(TypedDict):
-        cvc: NotRequired[str]
+        cvc: str
         """
         Card security code.
         """
