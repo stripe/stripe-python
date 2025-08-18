@@ -40,7 +40,7 @@ class ReaderService(StripeService):
         """
 
     class PresentPaymentMethodParamsCard(TypedDict):
-        cvc: str
+        cvc: NotRequired[str]
         """
         Card security code.
         """
