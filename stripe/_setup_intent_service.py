@@ -1524,7 +1524,7 @@ class SetupIntentService(StripeService):
     class ConfirmParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
         amount: NotRequired[int]
         """
-        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
         """
         amount_includes_iof: NotRequired[Literal["always", "never"]]
         """
@@ -3245,7 +3245,7 @@ class SetupIntentService(StripeService):
     class CreateParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
         amount: NotRequired[int]
         """
-        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
         """
         amount_includes_iof: NotRequired[Literal["always", "never"]]
         """
@@ -4945,7 +4945,7 @@ class SetupIntentService(StripeService):
     class UpdateParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
         amount: NotRequired[int]
         """
-        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
         """
         amount_includes_iof: NotRequired[Literal["always", "never"]]
         """

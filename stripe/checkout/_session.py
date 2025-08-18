@@ -4200,7 +4200,7 @@ class Session(
     class CreateParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
         amount: NotRequired[int]
         """
-        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 250 BRL.
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
         """
         amount_includes_iof: NotRequired[Literal["always", "never"]]
         """
