@@ -89,11 +89,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             """
             _inner_class_types = {"proration_details": ProrationDetails}
 
-        class RateCardSubscriptionDetails(StripeObject):
-            invoice_item: str
-            rate_card_subscription: str
-            rate_card_version: str
-
         class SubscriptionItemDetails(StripeObject):
             class ProrationDetails(StripeObject):
                 class CreditedItems(StripeObject):
@@ -138,7 +133,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         Details about the invoice item that generated this line item
         """
-        rate_card_subscription_details: Optional[RateCardSubscriptionDetails]
         subscription_item_details: Optional[SubscriptionItemDetails]
         """
         Details about the subscription item that generated this line item
@@ -153,7 +147,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         _inner_class_types = {
             "invoice_item_details": InvoiceItemDetails,
-            "rate_card_subscription_details": RateCardSubscriptionDetails,
             "subscription_item_details": SubscriptionItemDetails,
         }
 
@@ -202,14 +195,8 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             The ID of the product this item is associated with.
             """
 
-        class RateCardRateDetails(StripeObject):
-            metered_item: str
-            rate_card: str
-            rate_card_rate: str
-
         price_details: Optional[PriceDetails]
-        rate_card_rate_details: Optional[RateCardRateDetails]
-        type: Literal["price_details", "rate_card_rate_details"]
+        type: Literal["price_details"]
         """
         The type of the pricing details.
         """
@@ -217,10 +204,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
         """
-        _inner_class_types = {
-            "price_details": PriceDetails,
-            "rate_card_rate_details": RateCardRateDetails,
-        }
+        _inner_class_types = {"price_details": PriceDetails}
 
     class TaxCalculationReference(StripeObject):
         calculation_id: Optional[str]
