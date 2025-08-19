@@ -1,7 +1,9 @@
 import base64
+import importlib
 from typing import Any, List
+from unittest import mock
 from typing_extensions import Type
-from unittest.mock import call
+from unittest.mock import MagicMock, call, patch
 import pytest
 import json
 import sys
@@ -13,6 +15,12 @@ else:
 
 import stripe
 from stripe import _http_client
+from stripe._http_client import (
+    UrlFetchClient as AppEngineClient,
+    RequestsClient,
+    Urllib2Client as BuiltinClient,
+    PycurlClient,
+)
 from stripe._encode import _api_encode
 from stripe import APIConnectionError
 import urllib3
@@ -33,40 +41,56 @@ class StripeClientTestCase(object):
 
     @pytest.fixture
     def request_mocks(self, mocker):
+        return {}
         request_mocks = {}
         for lib, mockpath in self.REQUEST_LIBRARIES:
             request_mocks[lib] = mocker.patch(mockpath)
         return request_mocks
 
 
-class TestNewDefaultHttpClient(StripeClientTestCase):
-    def check_default(self, none_libs, expected):
-        for lib in none_libs:
-            setattr(_http_client, lib, None)
+SUPPORTED_LIBS = frozenset(
+    ("google.appengine.api", "requests", "pycurl", "httpx", "aiohttp")
+)
 
-        inst = _http_client.new_default_http_client()
 
-        assert isinstance(inst, expected)
+@pytest.mark.parametrize(
+    ["available_libs", "expected"],
+    [
+        [["google.appengine.api"], AppEngineClient],
+        [["google.appengine.api", "requests"], AppEngineClient],
+        [["requests"], RequestsClient],
+        [["requests", "pycurl"], RequestsClient],
+        [["pycurl"], PycurlClient],
+        [[], BuiltinClient],
+    ],
+)
+def test_default_httpclient_from_imports(available_libs, expected):
+    orig_import = __import__
 
-    def test_new_default_http_client_urlfetch(self, request_mocks):
-        self.check_default((), _http_client.UrlFetchClient)
+    def _is_mocked_import(name, *args):
+        """
+        emulate packages being missing by throwing early if they're not supposed to be here.
+        """
+        if name in SUPPORTED_LIBS and name not in available_libs:
+            raise ImportError()
 
-    def test_new_default_http_client_requests(self, request_mocks):
-        self.check_default(("urlfetch",), _http_client.RequestsClient)
+        try:
+            # if it's not supposed to be missing, try and import it for real
+            return orig_import(name, *args)
+        except ImportError:
+            # we don't have some of our 3rd party options (like the GAE module) available, but the import needs to succeed
+            return MagicMock()
 
-    def test_new_default_http_client_pycurl(self, request_mocks):
-        self.check_default(("urlfetch", "requests"), _http_client.PycurlClient)
+    with patch("builtins.__import__") as mock_import:
+        mock_import.side_effect = _is_mocked_import
 
-    def test_new_default_http_client_urllib2(self, request_mocks):
-        self.check_default(
-            ("urlfetch", "requests", "pycurl"),
-            _http_client.Urllib2Client,
-        )
+        client = _http_client.new_default_http_client()
+        assert isinstance(client, expected)
 
 
 class TestNewHttpClientAsyncFallback(StripeClientTestCase):
-    def check_default(self, none_libs, expected):
-        for lib in none_libs:
+    def check_default(self, possible_libs, expected):
+        for lib in possible_libs:
             setattr(_http_client, lib, None)
 
         inst = _http_client.new_http_client_async_fallback()

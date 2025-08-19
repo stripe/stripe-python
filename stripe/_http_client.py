@@ -1,5 +1,4 @@
 from io import BytesIO
-import sys
 import textwrap
 import email
 import time
@@ -32,6 +31,7 @@ from typing import (
     AsyncIterable,
 )
 from typing_extensions import (
+    TYPE_CHECKING,
     Literal,
     NoReturn,
     TypedDict,
@@ -39,78 +39,25 @@ from typing_extensions import (
     Never,
 )
 
+if TYPE_CHECKING:
+    from urllib.parse import ParseResult
 
-# The precedence of HTTP libraries is
-# - Urlfetch (this is provided by Google App Engine, so if it's present you probably want it)
-# - Requests (popular library, the top priority for all environments outside Google App Engine, but not always present)
-# - Pycurl (another library, not always present, not as preferred as Requests but at least it verifies SSL certs)
-# - urllib2 with a warning (basically always present, fallback if needed)
-try:
-    import urllib.request as urllibrequest
-    import urllib.error as urlliberror
-except ImportError:
-    # Try to load in urllib2, but don't sweat it if it's not available.
-    pass
-
-try:
-    import pycurl  # pyright: ignore
-except ImportError:
-    pycurl = None
-
-try:
-    import httpx
-    import anyio
-    from httpx import Timeout as HTTPXTimeout
-    from httpx import Client as HTTPXClientType
-except ImportError:
-    httpx = None
-    anyio = None
-
-try:
-    import aiohttp
-    from aiohttp import ClientTimeout as AIOHTTPTimeout
-    from aiohttp import StreamReader as AIOHTTPStreamReader
-except ImportError:
-    aiohttp = None
-
-try:
-    import requests
-    from requests import Session as RequestsSession
-except ImportError:
-    requests = None
-else:
     try:
-        # Require version 0.8.8, but don't want to depend on distutils
-        version: str
-        version = requests.__version__
-        major: int
-        minor: int
-        patch: int
-        major, minor, patch = [int(i) for i in version.split(".")]
-    except Exception:
-        # Probably some new-fangled version, so it should support verify
+        from requests import Session as RequestsSession
+    except ImportError:
         pass
-    else:
-        if (major, minor, patch) < (0, 8, 8):
-            sys.stderr.write(
-                "Warning: the Stripe library requires that your Python "
-                '"requests" library be newer than version 0.8.8, but your '
-                '"requests" library is version %s. Stripe will fall back to '
-                "an alternate HTTP library so everything should work. We "
-                'recommend upgrading your "requests" library. If you have any '
-                "questions, please contact support@stripe.com. (HINT: running "
-                '"pip install -U requests" should upgrade your requests '
-                "library to the latest version.)" % (version,)
-            )
-            requests = None
 
-try:
-    from google.appengine.api import urlfetch  # pyright: ignore
-except ImportError:
-    urlfetch = None
+    try:
+        from httpx import Timeout as HTTPXTimeout
+        from httpx import Client as HTTPXClientType
+    except ImportError:
+        pass
 
-# proxy support for the pycurl client
-from urllib.parse import urlparse, ParseResult
+    try:
+        from aiohttp import ClientTimeout as AIOHTTPTimeout
+        from aiohttp import StreamReader as AIOHTTPStreamReader
+    except ImportError:
+        pass
 
 
 def _now_ms():
@@ -118,27 +65,61 @@ def _now_ms():
 
 
 def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
-    if urlfetch:
-        impl = UrlFetchClient
-    elif requests:
-        impl = RequestsClient
-    elif pycurl:
-        impl = PycurlClient
-    else:
-        impl = Urllib2Client
+    """
+    This method creates and returns a new HTTPClient based on what libraries are available. It uses the following precedence rules:
 
-    return impl(*args, **kwargs)
+    1. Urlfetch (this is provided by Google App Engine, so if it's present you probably want it)
+    2. Requests (popular library, the top priority for all environments outside Google App Engine, but not always present)
+    3. Pycurl (another library, not always present, not as preferred as Requests but at least it verifies SSL certs)
+    4. urllib with a warning (basically always present, a reasonable final default)
+
+    For performance, it only imports what it's actually going to use. But, it re-calculates every time its called, so probably save its result instead of calling it multiple times.
+    """
+    try:
+        from google.appengine.api import urlfetch  # type: ignore # noqa: F401
+
+        return UrlFetchClient(*args, **kwargs)
+    except ImportError:
+        pass
+
+    try:
+        import requests  # noqa: F401
+
+        return RequestsClient(*args, **kwargs)
+    except ImportError:
+        pass
+
+    try:
+        import pycurl  # type: ignore # noqa: F401
+
+        return PycurlClient(*args, **kwargs)
+    except ImportError:
+        pass
+
+    return Urllib2Client(*args, **kwargs)
 
 
 def new_http_client_async_fallback(*args: Any, **kwargs: Any) -> "HTTPClient":
-    if httpx:
-        impl = HTTPXClient
-    elif aiohttp:
-        impl = AIOHTTPClient
-    else:
-        impl = NoImportFoundAsyncClient
+    """
+    Similar to `new_default_http_client` above, this returns a client that can handle async HTTP requests, if available.
+    """
 
-    return impl(*args, **kwargs)
+    try:
+        import httpx  # noqa: F401
+        import anyio  # noqa: F401
+
+        return HTTPXClient(*args, **kwargs)
+    except ImportError:
+        pass
+
+    try:
+        import aiohttp  # noqa: F401
+
+        return AIOHTTPClient(*args, **kwargs)
+    except ImportError:
+        pass
+
+    return NoImportFoundAsyncClient(*args, **kwargs)
 
 
 class HTTPClient(object):
@@ -610,10 +591,11 @@ class RequestsClient(HTTPClient):
         self._session = session
         self._timeout = timeout
 
-        assert requests is not None
+        import requests
+
         self.requests = requests
 
-    def request(
+    def request(  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
         method: str,
         url: str,
@@ -624,7 +606,7 @@ class RequestsClient(HTTPClient):
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(
+    def request_stream(  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
         method: str,
         url: str,
@@ -806,17 +788,18 @@ class UrlFetchClient(HTTPClient):
         # to 55 seconds to allow for a slow Stripe
         self._deadline = deadline
 
-        assert urlfetch is not None
+        from google.appengine.api import urlfetch  # pyright: ignore
+
         self.urlfetch = urlfetch
 
-    def request(
+    def request(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(
+    def request_stream(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[BytesIO, int, Mapping[str, str]]:
         return self._request_internal(
@@ -904,14 +887,14 @@ class UrlFetchClient(HTTPClient):
 
 
 class _Proxy(TypedDict):
-    http: Optional[ParseResult]
-    https: Optional[ParseResult]
+    http: Optional["ParseResult"]
+    https: Optional["ParseResult"]
 
 
 class PycurlClient(HTTPClient):
     class _ParsedProxy(TypedDict, total=False):
-        http: Optional[ParseResult]
-        https: Optional[ParseResult]
+        http: Optional["ParseResult"]
+        https: Optional["ParseResult"]
 
     name = "pycurl"
     _parsed_proxy: Optional[_ParsedProxy]
@@ -928,7 +911,9 @@ class PycurlClient(HTTPClient):
             async_fallback_client=async_fallback_client,
         )
 
-        assert pycurl is not None
+        import pycurl  # pyright: ignore[reportMissingModuleSource]
+        from urllib.parse import urlparse
+
         self.pycurl = pycurl
         # Initialize this within the object so that we can reuse connections.
         self._curl = pycurl.Curl()
@@ -950,14 +935,14 @@ class PycurlClient(HTTPClient):
         headers = email.message_from_string(raw_headers)
         return dict((k.lower(), v) for k, v in dict(headers).items())
 
-    def request(
+    def request(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, method, url, headers: Mapping[str, str], post_data=None
     ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(
+    def request_stream(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, method, url, headers: Mapping[str, str], post_data=None
     ) -> Tuple[BytesIO, int, Mapping[str, str]]:
         return self._request_internal(
@@ -1091,7 +1076,7 @@ class PycurlClient(HTTPClient):
         msg = textwrap.fill(msg) + "\n\n(Network error: " + e.args[1] + ")"
         raise APIConnectionError(msg, should_retry=should_retry) from e
 
-    def _get_proxy(self, url) -> Optional[ParseResult]:
+    def _get_proxy(self, url) -> Optional["ParseResult"]:
         if self._parsed_proxy:
             proxy = self._parsed_proxy
             scheme = url.split(":")[0] if url else None
@@ -1103,6 +1088,7 @@ class PycurlClient(HTTPClient):
         pass
 
 
+# todo(major): rename this, urllib2 isn't called that anymore
 class Urllib2Client(HTTPClient):
     name = "urllib.request"
 
@@ -1117,6 +1103,13 @@ class Urllib2Client(HTTPClient):
             proxy=proxy,
             async_fallback_client=async_fallback_client,
         )
+
+        import urllib.request as urllibrequest
+        import urllib.error as urlliberror
+
+        self.urllibrequest = urllibrequest
+        self.urlliberror = urlliberror
+
         # prepare and cache proxy tied opener here
         self._opener = None
         if self._proxy:
@@ -1127,14 +1120,14 @@ class Urllib2Client(HTTPClient):
             )
             self._opener = urllibrequest.build_opener(proxy_handler)
 
-    def request(
+    def request(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(
+    def request_stream(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[HTTPResponse, int, Mapping[str, str]]:
         return self._request_internal(
@@ -1172,7 +1165,7 @@ class Urllib2Client(HTTPClient):
         if isinstance(post_data, str):
             post_data = post_data.encode("utf-8")
 
-        req = urllibrequest.Request(
+        req = self.urllibrequest.Request(
             url, post_data, cast(MutableMapping[str, str], headers)
         )
 
@@ -1185,7 +1178,7 @@ class Urllib2Client(HTTPClient):
             response = (
                 self._opener.open(req)
                 if self._opener
-                else urllibrequest.urlopen(req)
+                else self.urllibrequest.urlopen(req)
             )
 
             if is_streaming:
@@ -1195,11 +1188,11 @@ class Urllib2Client(HTTPClient):
 
             rcode = response.code
             headers = dict(response.info())
-        except urlliberror.HTTPError as e:
+        except self.urlliberror.HTTPError as e:
             rcode = e.code
             rcontent = e.read()
             headers = dict(e.info())
-        except (urlliberror.URLError, ValueError) as e:
+        except (self.urlliberror.URLError, ValueError) as e:
             self._handle_request_error(e)
         lh = dict((k.lower(), v) for k, v in iter(dict(headers).items()))
         return rcontent, rcode, lh
@@ -1229,15 +1222,8 @@ class HTTPXClient(HTTPClient):
     ):
         super(HTTPXClient, self).__init__(**kwargs)
 
-        if httpx is None:
-            raise ImportError(
-                "Unexpected: tried to initialize HTTPXClient but the httpx module is not present."
-            )
-
-        if anyio is None:
-            raise ImportError(
-                "Unexpected: tried to initialize HTTPXClient but the anyio module is not present."
-            )
+        import httpx
+        import anyio
 
         self.httpx = httpx
         self.anyio = anyio
@@ -1274,7 +1260,7 @@ class HTTPXClient(HTTPClient):
             {"headers": headers, "data": post_data or {}, **kwargs},
         ]
 
-    def request(
+    def request(  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
         method: str,
         url: str,
@@ -1330,7 +1316,7 @@ class HTTPXClient(HTTPClient):
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
         raise APIConnectionError(msg, should_retry=should_retry) from e
 
-    def request_stream(
+    def request_stream(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[Iterable[bytes], int, Mapping[str, str]]:
         if self._client is None:
@@ -1389,36 +1375,37 @@ class AIOHTTPClient(HTTPClient):
     ):
         super(AIOHTTPClient, self).__init__(**kwargs)
 
-        if aiohttp is None:
-            raise ImportError(
-                "Unexpected: tried to initialize AIOHTTPClient but the aiohttp module is not present."
-            )
+        import aiohttp
+
+        self.aiohttp = aiohttp
 
         self._timeout = timeout
         self._cached_session = None
 
     @property
     def _session(self):
-        assert aiohttp is not None
-
         if self._cached_session is None:
             kwargs = {}
             if self._verify_ssl_certs:
                 ssl_context = ssl.create_default_context(
                     cafile=stripe.ca_bundle_path
                 )
-                kwargs["connector"] = aiohttp.TCPConnector(ssl=ssl_context)
+                kwargs["connector"] = self.aiohttp.TCPConnector(
+                    ssl=ssl_context
+                )
             else:
-                kwargs["connector"] = aiohttp.TCPConnector(verify_ssl=False)
+                kwargs["connector"] = self.aiohttp.TCPConnector(
+                    verify_ssl=False
+                )
 
-            self._cached_session = aiohttp.ClientSession(**kwargs)
+            self._cached_session = self.aiohttp.ClientSession(**kwargs)
 
         return self._cached_session
 
     def sleep_async(self, secs):
         return asyncio.sleep(secs)
 
-    def request(self) -> Tuple[bytes, int, Mapping[str, str]]:
+    def request(self) -> Tuple[bytes, int, Mapping[str, str]]:  # pyright: ignore[reportIncompatibleMethodOverride]
         raise NotImplementedError(
             "AIOHTTPClient does not support synchronous requests."
         )
@@ -1469,7 +1456,7 @@ class AIOHTTPClient(HTTPClient):
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
         raise APIConnectionError(msg, should_retry=should_retry) from e
 
-    def request_stream(self) -> Tuple[Iterable[bytes], int, Mapping[str, str]]:
+    def request_stream(self) -> Tuple[Iterable[bytes], int, Mapping[str, str]]:  # pyright: ignore[reportIncompatibleMethodOverride]
         raise NotImplementedError(
             "AIOHTTPClient does not support synchronous requests."
         )
