@@ -34,6 +34,7 @@ class FileService(StripeService):
             "issuing_regulatory_reporting",
             "pci_document",
             "tax_document_user_upload",
+            "terminal_android_apk",
             "terminal_reader_splashscreen",
         ]
         """
@@ -43,7 +44,7 @@ class FileService(StripeService):
     class CreateParamsFileLinkData(TypedDict):
         create: bool
         """
-        Set this to `true` to create a file link for the newly created file. Creating a link is only possible when the file's `purpose` is one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `issuing_regulatory_reporting`, `pci_document`, `tax_document_user_upload`, or `terminal_reader_splashscreen`.
+        Set this to `true` to create a file link for the newly created file. Creating a link is only possible when the file's `purpose` is one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `issuing_regulatory_reporting`, `pci_document`, `tax_document_user_upload`, `terminal_android_apk`, or `terminal_reader_splashscreen`.
         """
         expires_at: NotRequired[int]
         """
@@ -89,6 +90,7 @@ class FileService(StripeService):
                 "selfie",
                 "sigma_scheduled_query",
                 "tax_document_user_upload",
+                "terminal_android_apk",
                 "terminal_reader_splashscreen",
             ]
         ]

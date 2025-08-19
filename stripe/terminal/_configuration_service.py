@@ -135,6 +135,10 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for JPY
         """
+        mxn: NotRequired["ConfigurationService.CreateParamsTippingMxn"]
+        """
+        Tipping configuration for MXN
+        """
         myr: NotRequired["ConfigurationService.CreateParamsTippingMyr"]
         """
         Tipping configuration for MYR
@@ -323,6 +327,20 @@ class ConfigurationService(StripeService):
         """
 
     class CreateParamsTippingJpy(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingMxn(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -688,6 +706,10 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for JPY
         """
+        mxn: NotRequired["ConfigurationService.UpdateParamsTippingMxn"]
+        """
+        Tipping configuration for MXN
+        """
         myr: NotRequired["ConfigurationService.UpdateParamsTippingMyr"]
         """
         Tipping configuration for MYR
@@ -876,6 +898,20 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParamsTippingJpy(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class UpdateParamsTippingMxn(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
