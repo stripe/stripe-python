@@ -59,6 +59,14 @@ if TYPE_CHECKING:
     except ImportError:
         pass
 
+# # FIXME - remove these?
+# urlfetch = None
+# requests = None
+# pycurl = None
+# urllibrequest = None
+# httpx = None
+# aiohttp = None
+
 
 def _now_ms():
     return int(round(time.time() * 1000))
@@ -140,6 +148,7 @@ class HTTPClient(object):
         verify_ssl_certs: bool = True,
         proxy: Optional[Union[str, _Proxy]] = None,
         async_fallback_client: Optional["HTTPClient"] = None,
+        _lib=None,  # used for internal unit testing
     ):
         self._verify_ssl_certs = verify_ssl_certs
         if proxy:
@@ -581,6 +590,7 @@ class RequestsClient(HTTPClient):
         verify_ssl_certs: bool = True,
         proxy: Optional[Union[str, HTTPClient._Proxy]] = None,
         async_fallback_client: Optional[HTTPClient] = None,
+        _lib=None,  # used for internal unit testing
         **kwargs,
     ):
         super(RequestsClient, self).__init__(
@@ -591,9 +601,12 @@ class RequestsClient(HTTPClient):
         self._session = session
         self._timeout = timeout
 
-        import requests
+        if _lib is None:
+            import requests
 
-        self.requests = requests
+            _lib = requests
+
+        self.requests = _lib
 
     def request(  # pyright: ignore[reportIncompatibleMethodOverride]
         self,
@@ -767,6 +780,7 @@ class UrlFetchClient(HTTPClient):
         proxy: Optional[HTTPClient._Proxy] = None,
         deadline: int = 55,
         async_fallback_client: Optional[HTTPClient] = None,
+        _lib=None,  # used for internal unit testing
     ):
         super(UrlFetchClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs,
@@ -788,9 +802,12 @@ class UrlFetchClient(HTTPClient):
         # to 55 seconds to allow for a slow Stripe
         self._deadline = deadline
 
-        from google.appengine.api import urlfetch  # pyright: ignore
+        if _lib is None:
+            from google.appengine.api import urlfetch  # pyright: ignore
 
-        self.urlfetch = urlfetch
+            _lib = urlfetch
+
+        self.urlfetch = _lib
 
     def request(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
@@ -904,6 +921,7 @@ class PycurlClient(HTTPClient):
         verify_ssl_certs: bool = True,
         proxy: Optional[HTTPClient._Proxy] = None,
         async_fallback_client: Optional[HTTPClient] = None,
+        _lib=None,  # used for internal unit testing
     ):
         super(PycurlClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs,
@@ -911,17 +929,21 @@ class PycurlClient(HTTPClient):
             async_fallback_client=async_fallback_client,
         )
 
-        import pycurl  # pyright: ignore[reportMissingModuleSource]
-        from urllib.parse import urlparse
+        if _lib is None:
+            import pycurl  # pyright: ignore[reportMissingModuleSource]
 
-        self.pycurl = pycurl
+            _lib = pycurl
+
+        self.pycurl = _lib
         # Initialize this within the object so that we can reuse connections.
-        self._curl = pycurl.Curl()
+        self._curl = _lib.Curl()
 
         self._parsed_proxy = {}
         # need to urlparse the proxy, since PyCurl
         # consumes the proxy url in small pieces
         if self._proxy:
+            from urllib.parse import urlparse
+
             proxy_ = self._proxy
             for scheme, value in proxy_.items():
                 # In general, TypedDict.items() gives you (key: str, value: object)
@@ -1097,6 +1119,7 @@ class Urllib2Client(HTTPClient):
         verify_ssl_certs: bool = True,
         proxy: Optional[HTTPClient._Proxy] = None,
         async_fallback_client: Optional[HTTPClient] = None,
+        _lib=None,  # used for internal unit testing
     ):
         super(Urllib2Client, self).__init__(
             verify_ssl_certs=verify_ssl_certs,
@@ -1104,10 +1127,14 @@ class Urllib2Client(HTTPClient):
             async_fallback_client=async_fallback_client,
         )
 
-        import urllib.request as urllibrequest
+        if _lib is None:
+            import urllib.request as urllibrequest
+
+            _lib = urllibrequest
+        self.urllibrequest = _lib
+
         import urllib.error as urlliberror
 
-        self.urllibrequest = urllibrequest
         self.urlliberror = urlliberror
 
         # prepare and cache proxy tied opener here
@@ -1115,10 +1142,10 @@ class Urllib2Client(HTTPClient):
         if self._proxy:
             # We have to cast _Proxy to Dict[str, str] because pyright is not smart enough to
             # realize that all the value types are str.
-            proxy_handler = urllibrequest.ProxyHandler(
+            proxy_handler = self.urllibrequest.ProxyHandler(
                 cast(Dict[str, str], self._proxy)
             )
-            self._opener = urllibrequest.build_opener(proxy_handler)
+            self._opener = self.urllibrequest.build_opener(proxy_handler)
 
     def request(  # pyright: ignore[reportIncompatibleMethodOverride]
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
@@ -1218,14 +1245,19 @@ class HTTPXClient(HTTPClient):
         self,
         timeout: Optional[Union[float, "HTTPXTimeout"]] = 80,
         allow_sync_methods=False,
+        _lib=None,  # used for internal unit testing
         **kwargs,
     ):
         super(HTTPXClient, self).__init__(**kwargs)
 
-        import httpx
+        if _lib is None:
+            import httpx
+
+            _lib = httpx
+        self.httpx = _lib
+
         import anyio
 
-        self.httpx = httpx
         self.anyio = anyio
 
         kwargs = {}
@@ -1236,10 +1268,10 @@ class HTTPXClient(HTTPClient):
         else:
             kwargs["verify"] = False
 
-        self._client_async = httpx.AsyncClient(**kwargs)
+        self._client_async = self.httpx.AsyncClient(**kwargs)
         self._client = None
         if allow_sync_methods:
-            self._client = httpx.Client(**kwargs)
+            self._client = self.httpx.Client(**kwargs)
         self._timeout = timeout
 
     def sleep_async(self, secs):
@@ -1371,13 +1403,19 @@ class AIOHTTPClient(HTTPClient):
     name = "aiohttp"
 
     def __init__(
-        self, timeout: Optional[Union[float, "AIOHTTPTimeout"]] = 80, **kwargs
+        self,
+        timeout: Optional[Union[float, "AIOHTTPTimeout"]] = 80,
+        _lib=None,  # used for internal unit testing
+        **kwargs,
     ):
         super(AIOHTTPClient, self).__init__(**kwargs)
 
-        import aiohttp
+        if _lib is None:
+            import aiohttp
 
-        self.aiohttp = aiohttp
+            _lib = aiohttp
+
+        self.aiohttp = _lib
 
         self._timeout = timeout
         self._cached_session = None
