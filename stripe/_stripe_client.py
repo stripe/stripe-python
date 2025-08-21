@@ -301,7 +301,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.accounts will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.accounts.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.accounts
 
@@ -311,7 +311,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.account_links will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.account_links.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.account_links
 
@@ -321,7 +321,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.account_sessions will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.account_sessions.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.account_sessions
 
@@ -331,7 +331,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.apple_pay_domains will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.apple_pay_domains.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.apple_pay_domains
 
@@ -341,7 +341,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.application_fees will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.application_fees.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.application_fees
 
@@ -351,7 +351,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.apps will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.apps.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.apps
 
@@ -361,7 +361,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.balance will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.balance.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.balance
 
@@ -371,7 +371,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.balance_transactions will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.balance_transactions.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.balance_transactions
 
@@ -381,7 +381,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.billing will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.billing.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.billing
 
@@ -391,7 +391,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.billing_portal will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.billing_portal.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.billing_portal
 
@@ -401,7 +401,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.charges will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.charges.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.charges
 
@@ -411,7 +411,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.checkout will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.checkout.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.checkout
 
@@ -421,7 +421,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.climate will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.climate.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.climate
 
@@ -431,7 +431,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.confirmation_tokens will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.confirmation_tokens.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.confirmation_tokens
 
@@ -441,7 +441,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.test_helpers will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.test_helpers.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.test_helpers
 
@@ -451,7 +451,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.country_specs will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.country_specs.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.country_specs
 
@@ -461,7 +461,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.coupons will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.coupons.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.coupons
 
@@ -471,7 +471,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.credit_notes will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.credit_notes.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.credit_notes
 
@@ -481,7 +481,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.customers will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.customers.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.customers
 
@@ -491,7 +491,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.customer_sessions will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.customer_sessions.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.customer_sessions
 
@@ -501,7 +501,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.disputes will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.disputes.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.disputes
 
@@ -511,7 +511,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.entitlements will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.entitlements.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.entitlements
 
@@ -521,7 +521,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.ephemeral_keys will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.ephemeral_keys.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.ephemeral_keys
 
@@ -531,7 +531,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.events will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.events.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.events
 
@@ -541,7 +541,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.exchange_rates will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.exchange_rates.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.exchange_rates
 
@@ -551,7 +551,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.files will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.files.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.files
 
@@ -561,7 +561,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.file_links will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.file_links.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.file_links
 
@@ -571,7 +571,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.financial_connections will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.financial_connections.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.financial_connections
 
@@ -581,7 +581,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.forwarding will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.forwarding.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.forwarding
 
@@ -591,7 +591,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.identity will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.identity.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.identity
 
@@ -601,7 +601,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.invoices will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.invoices.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.invoices
 
@@ -611,7 +611,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.invoice_payments will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.invoice_payments.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.invoice_payments
 
@@ -621,7 +621,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.invoice_rendering_templates will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.invoice_rendering_templates.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.invoice_rendering_templates
 
@@ -631,7 +631,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.invoice_items will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.invoice_items.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.invoice_items
 
@@ -641,7 +641,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.issuing will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.issuing.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.issuing
 
@@ -651,7 +651,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.mandates will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.mandates.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.mandates
 
@@ -661,7 +661,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.payment_intents will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.payment_intents.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.payment_intents
 
@@ -671,7 +671,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.payment_links will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.payment_links.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.payment_links
 
@@ -681,7 +681,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.payment_methods will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.payment_methods.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.payment_methods
 
@@ -693,7 +693,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.payment_method_configurations will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.payment_method_configurations.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.payment_method_configurations
 
@@ -703,7 +703,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.payment_method_domains will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.payment_method_domains.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.payment_method_domains
 
@@ -713,7 +713,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.payouts will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.payouts.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.payouts
 
@@ -723,7 +723,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.plans will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.plans.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.plans
 
@@ -733,7 +733,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.prices will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.prices.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.prices
 
@@ -743,7 +743,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.products will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.products.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.products
 
@@ -753,7 +753,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.promotion_codes will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.promotion_codes.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.promotion_codes
 
@@ -763,7 +763,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.quotes will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.quotes.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.quotes
 
@@ -773,7 +773,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.radar will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.radar.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.radar
 
@@ -783,7 +783,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.refunds will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.refunds.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.refunds
 
@@ -793,7 +793,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.reporting will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.reporting.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.reporting
 
@@ -803,7 +803,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.reviews will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.reviews.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.reviews
 
@@ -813,7 +813,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.sigma will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.sigma.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.sigma
 
@@ -823,7 +823,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.setup_attempts will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.setup_attempts.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.setup_attempts
 
@@ -833,7 +833,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.setup_intents will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.setup_intents.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.setup_intents
 
@@ -843,7 +843,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.shipping_rates will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.shipping_rates.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.shipping_rates
 
@@ -853,7 +853,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.sources will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.sources.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.sources
 
@@ -863,7 +863,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.subscriptions will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.subscriptions.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.subscriptions
 
@@ -873,7 +873,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.subscription_items will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.subscription_items.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.subscription_items
 
@@ -883,7 +883,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.subscription_schedules will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.subscription_schedules.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.subscription_schedules
 
@@ -893,7 +893,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.tax will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.tax.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.tax
 
@@ -903,7 +903,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.tax_codes will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.tax_codes.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.tax_codes
 
@@ -913,7 +913,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.tax_ids will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.tax_ids.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.tax_ids
 
@@ -923,7 +923,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.tax_rates will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.tax_rates.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.tax_rates
 
@@ -933,7 +933,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.terminal will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.terminal.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.terminal
 
@@ -943,7 +943,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.tokens will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.tokens.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.tokens
 
@@ -953,7 +953,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.topups will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.topups.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.topups
 
@@ -963,7 +963,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.transfers will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.transfers.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.transfers
 
@@ -973,7 +973,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.treasury will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.treasury.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.treasury
 
@@ -983,7 +983,7 @@ class StripeClient(object):
         Deprecation Warning:
           StripeClient.webhook_endpoints will be deprecated in the next major release.
           All functionality under it has been copied over to StripeClient.v1.webhook_endpoints.
-          See [link TKTK] for more on this and tips on migrating to the new v1 namespace.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.webhook_endpoints
 
