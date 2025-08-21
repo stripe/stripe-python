@@ -35,6 +35,8 @@ from typing import Any, Dict, Optional, Union, cast
 from stripe._oauth_service import OAuthService
 
 # services: The beginning of the section generated from our OpenAPI spec
+from stripe._v1_services import V1Services
+from stripe._v2_services import V2Services
 from stripe._account_service import AccountService
 from stripe._account_link_service import AccountLinkService
 from stripe._account_notice_service import AccountNoticeService
@@ -118,7 +120,6 @@ from stripe._transfer_service import TransferService
 from stripe._treasury_service import TreasuryService
 from stripe._webhook_endpoint_service import WebhookEndpointService
 from stripe._external_account_service import ExternalAccountService
-from stripe._v2_services import V2Services
 # services: The end of the section generated from our OpenAPI spec
 
 
@@ -196,97 +197,7 @@ class StripeClient(object):
         self.oauth = OAuthService(self._requestor, self._options)
 
         # top-level services: The beginning of the section generated from our OpenAPI spec
-        self.accounts = AccountService(self._requestor)
-        self.account_links = AccountLinkService(self._requestor)
-        self.account_notices = AccountNoticeService(self._requestor)
-        self.account_sessions = AccountSessionService(self._requestor)
-        self.apple_pay_domains = ApplePayDomainService(self._requestor)
-        self.application_fees = ApplicationFeeService(self._requestor)
-        self.apps = AppsService(self._requestor)
-        self.balance = BalanceService(self._requestor)
-        self.balance_settings = BalanceSettingsService(self._requestor)
-        self.balance_transactions = BalanceTransactionService(self._requestor)
-        self.billing = BillingService(self._requestor)
-        self.billing_portal = BillingPortalService(self._requestor)
-        self.capital = CapitalService(self._requestor)
-        self.charges = ChargeService(self._requestor)
-        self.checkout = CheckoutService(self._requestor)
-        self.climate = ClimateService(self._requestor)
-        self.confirmation_tokens = ConfirmationTokenService(self._requestor)
-        self.test_helpers = TestHelpersService(self._requestor)
-        self.country_specs = CountrySpecService(self._requestor)
-        self.coupons = CouponService(self._requestor)
-        self.credit_notes = CreditNoteService(self._requestor)
-        self.customers = CustomerService(self._requestor)
-        self.customer_sessions = CustomerSessionService(self._requestor)
-        self.disputes = DisputeService(self._requestor)
-        self.entitlements = EntitlementsService(self._requestor)
-        self.ephemeral_keys = EphemeralKeyService(self._requestor)
-        self.events = EventService(self._requestor)
-        self.exchange_rates = ExchangeRateService(self._requestor)
-        self.files = FileService(self._requestor)
-        self.file_links = FileLinkService(self._requestor)
-        self.financial_connections = FinancialConnectionsService(
-            self._requestor
-        )
-        self.forwarding = ForwardingService(self._requestor)
-        self.fx_quotes = FxQuoteService(self._requestor)
-        self.identity = IdentityService(self._requestor)
-        self.invoices = InvoiceService(self._requestor)
-        self.invoice_payments = InvoicePaymentService(self._requestor)
-        self.invoice_rendering_templates = InvoiceRenderingTemplateService(
-            self._requestor,
-        )
-        self.invoice_items = InvoiceItemService(self._requestor)
-        self.issuing = IssuingService(self._requestor)
-        self.mandates = MandateService(self._requestor)
-        self.margins = MarginService(self._requestor)
-        self.orders = OrderService(self._requestor)
-        self.payment_attempt_records = PaymentAttemptRecordService(
-            self._requestor
-        )
-        self.payment_intents = PaymentIntentService(self._requestor)
-        self.payment_links = PaymentLinkService(self._requestor)
-        self.payment_methods = PaymentMethodService(self._requestor)
-        self.payment_method_configurations = PaymentMethodConfigurationService(
-            self._requestor,
-        )
-        self.payment_method_domains = PaymentMethodDomainService(
-            self._requestor
-        )
-        self.payment_records = PaymentRecordService(self._requestor)
-        self.payouts = PayoutService(self._requestor)
-        self.plans = PlanService(self._requestor)
-        self.prices = PriceService(self._requestor)
-        self.privacy = PrivacyService(self._requestor)
-        self.products = ProductService(self._requestor)
-        self.promotion_codes = PromotionCodeService(self._requestor)
-        self.quotes = QuoteService(self._requestor)
-        self.radar = RadarService(self._requestor)
-        self.refunds = RefundService(self._requestor)
-        self.reporting = ReportingService(self._requestor)
-        self.reviews = ReviewService(self._requestor)
-        self.sigma = SigmaService(self._requestor)
-        self.setup_attempts = SetupAttemptService(self._requestor)
-        self.setup_intents = SetupIntentService(self._requestor)
-        self.shipping_rates = ShippingRateService(self._requestor)
-        self.sources = SourceService(self._requestor)
-        self.subscriptions = SubscriptionService(self._requestor)
-        self.subscription_items = SubscriptionItemService(self._requestor)
-        self.subscription_schedules = SubscriptionScheduleService(
-            self._requestor
-        )
-        self.tax = TaxService(self._requestor)
-        self.tax_codes = TaxCodeService(self._requestor)
-        self.tax_ids = TaxIdService(self._requestor)
-        self.tax_rates = TaxRateService(self._requestor)
-        self.terminal = TerminalService(self._requestor)
-        self.tokens = TokenService(self._requestor)
-        self.topups = TopupService(self._requestor)
-        self.transfers = TransferService(self._requestor)
-        self.treasury = TreasuryService(self._requestor)
-        self.webhook_endpoints = WebhookEndpointService(self._requestor)
-        self.external_accounts = ExternalAccountService(self._requestor)
+        self.v1 = V1Services(self._requestor)
         self.v2 = V2Services(self._requestor)
         # top-level services: The end of the section generated from our OpenAPI spec
 
@@ -394,4 +305,796 @@ class StripeClient(object):
         )
 
     # deprecated v1 services: The beginning of the section generated from our OpenAPI spec
+    @property
+    def accounts(self) -> AccountService:
+        """
+        Deprecation Warning:
+          StripeClient.accounts will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.accounts.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.accounts
+
+    @property
+    def account_links(self) -> AccountLinkService:
+        """
+        Deprecation Warning:
+          StripeClient.account_links will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.account_links.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.account_links
+
+    @property
+    def account_notices(self) -> AccountNoticeService:
+        """
+        Deprecation Warning:
+          StripeClient.account_notices will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.account_notices.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.account_notices
+
+    @property
+    def account_sessions(self) -> AccountSessionService:
+        """
+        Deprecation Warning:
+          StripeClient.account_sessions will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.account_sessions.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.account_sessions
+
+    @property
+    def apple_pay_domains(self) -> ApplePayDomainService:
+        """
+        Deprecation Warning:
+          StripeClient.apple_pay_domains will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.apple_pay_domains.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.apple_pay_domains
+
+    @property
+    def application_fees(self) -> ApplicationFeeService:
+        """
+        Deprecation Warning:
+          StripeClient.application_fees will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.application_fees.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.application_fees
+
+    @property
+    def apps(self) -> AppsService:
+        """
+        Deprecation Warning:
+          StripeClient.apps will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.apps.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.apps
+
+    @property
+    def balance(self) -> BalanceService:
+        """
+        Deprecation Warning:
+          StripeClient.balance will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.balance.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.balance
+
+    @property
+    def balance_settings(self) -> BalanceSettingsService:
+        """
+        Deprecation Warning:
+          StripeClient.balance_settings will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.balance_settings.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.balance_settings
+
+    @property
+    def balance_transactions(self) -> BalanceTransactionService:
+        """
+        Deprecation Warning:
+          StripeClient.balance_transactions will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.balance_transactions.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.balance_transactions
+
+    @property
+    def billing(self) -> BillingService:
+        """
+        Deprecation Warning:
+          StripeClient.billing will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.billing.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.billing
+
+    @property
+    def billing_portal(self) -> BillingPortalService:
+        """
+        Deprecation Warning:
+          StripeClient.billing_portal will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.billing_portal.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.billing_portal
+
+    @property
+    def capital(self) -> CapitalService:
+        """
+        Deprecation Warning:
+          StripeClient.capital will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.capital.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.capital
+
+    @property
+    def charges(self) -> ChargeService:
+        """
+        Deprecation Warning:
+          StripeClient.charges will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.charges.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.charges
+
+    @property
+    def checkout(self) -> CheckoutService:
+        """
+        Deprecation Warning:
+          StripeClient.checkout will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.checkout.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.checkout
+
+    @property
+    def climate(self) -> ClimateService:
+        """
+        Deprecation Warning:
+          StripeClient.climate will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.climate.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.climate
+
+    @property
+    def confirmation_tokens(self) -> ConfirmationTokenService:
+        """
+        Deprecation Warning:
+          StripeClient.confirmation_tokens will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.confirmation_tokens.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.confirmation_tokens
+
+    @property
+    def test_helpers(self) -> TestHelpersService:
+        """
+        Deprecation Warning:
+          StripeClient.test_helpers will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.test_helpers.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.test_helpers
+
+    @property
+    def country_specs(self) -> CountrySpecService:
+        """
+        Deprecation Warning:
+          StripeClient.country_specs will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.country_specs.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.country_specs
+
+    @property
+    def coupons(self) -> CouponService:
+        """
+        Deprecation Warning:
+          StripeClient.coupons will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.coupons.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.coupons
+
+    @property
+    def credit_notes(self) -> CreditNoteService:
+        """
+        Deprecation Warning:
+          StripeClient.credit_notes will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.credit_notes.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.credit_notes
+
+    @property
+    def customers(self) -> CustomerService:
+        """
+        Deprecation Warning:
+          StripeClient.customers will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.customers.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.customers
+
+    @property
+    def customer_sessions(self) -> CustomerSessionService:
+        """
+        Deprecation Warning:
+          StripeClient.customer_sessions will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.customer_sessions.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.customer_sessions
+
+    @property
+    def disputes(self) -> DisputeService:
+        """
+        Deprecation Warning:
+          StripeClient.disputes will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.disputes.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.disputes
+
+    @property
+    def entitlements(self) -> EntitlementsService:
+        """
+        Deprecation Warning:
+          StripeClient.entitlements will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.entitlements.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.entitlements
+
+    @property
+    def ephemeral_keys(self) -> EphemeralKeyService:
+        """
+        Deprecation Warning:
+          StripeClient.ephemeral_keys will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.ephemeral_keys.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.ephemeral_keys
+
+    @property
+    def events(self) -> EventService:
+        """
+        Deprecation Warning:
+          StripeClient.events will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.events.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.events
+
+    @property
+    def exchange_rates(self) -> ExchangeRateService:
+        """
+        Deprecation Warning:
+          StripeClient.exchange_rates will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.exchange_rates.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.exchange_rates
+
+    @property
+    def files(self) -> FileService:
+        """
+        Deprecation Warning:
+          StripeClient.files will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.files.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.files
+
+    @property
+    def file_links(self) -> FileLinkService:
+        """
+        Deprecation Warning:
+          StripeClient.file_links will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.file_links.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.file_links
+
+    @property
+    def financial_connections(self) -> FinancialConnectionsService:
+        """
+        Deprecation Warning:
+          StripeClient.financial_connections will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.financial_connections.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.financial_connections
+
+    @property
+    def forwarding(self) -> ForwardingService:
+        """
+        Deprecation Warning:
+          StripeClient.forwarding will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.forwarding.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.forwarding
+
+    @property
+    def fx_quotes(self) -> FxQuoteService:
+        """
+        Deprecation Warning:
+          StripeClient.fx_quotes will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.fx_quotes.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.fx_quotes
+
+    @property
+    def identity(self) -> IdentityService:
+        """
+        Deprecation Warning:
+          StripeClient.identity will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.identity.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.identity
+
+    @property
+    def invoices(self) -> InvoiceService:
+        """
+        Deprecation Warning:
+          StripeClient.invoices will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.invoices.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.invoices
+
+    @property
+    def invoice_payments(self) -> InvoicePaymentService:
+        """
+        Deprecation Warning:
+          StripeClient.invoice_payments will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.invoice_payments.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.invoice_payments
+
+    @property
+    def invoice_rendering_templates(self) -> InvoiceRenderingTemplateService:
+        """
+        Deprecation Warning:
+          StripeClient.invoice_rendering_templates will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.invoice_rendering_templates.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.invoice_rendering_templates
+
+    @property
+    def invoice_items(self) -> InvoiceItemService:
+        """
+        Deprecation Warning:
+          StripeClient.invoice_items will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.invoice_items.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.invoice_items
+
+    @property
+    def issuing(self) -> IssuingService:
+        """
+        Deprecation Warning:
+          StripeClient.issuing will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.issuing.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.issuing
+
+    @property
+    def mandates(self) -> MandateService:
+        """
+        Deprecation Warning:
+          StripeClient.mandates will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.mandates.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.mandates
+
+    @property
+    def margins(self) -> MarginService:
+        """
+        Deprecation Warning:
+          StripeClient.margins will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.margins.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.margins
+
+    @property
+    def orders(self) -> OrderService:
+        """
+        Deprecation Warning:
+          StripeClient.orders will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.orders.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.orders
+
+    @property
+    def payment_attempt_records(self) -> PaymentAttemptRecordService:
+        """
+        Deprecation Warning:
+          StripeClient.payment_attempt_records will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.payment_attempt_records.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.payment_attempt_records
+
+    @property
+    def payment_intents(self) -> PaymentIntentService:
+        """
+        Deprecation Warning:
+          StripeClient.payment_intents will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.payment_intents.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.payment_intents
+
+    @property
+    def payment_links(self) -> PaymentLinkService:
+        """
+        Deprecation Warning:
+          StripeClient.payment_links will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.payment_links.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.payment_links
+
+    @property
+    def payment_methods(self) -> PaymentMethodService:
+        """
+        Deprecation Warning:
+          StripeClient.payment_methods will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.payment_methods.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.payment_methods
+
+    @property
+    def payment_method_configurations(
+        self,
+    ) -> PaymentMethodConfigurationService:
+        """
+        Deprecation Warning:
+          StripeClient.payment_method_configurations will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.payment_method_configurations.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.payment_method_configurations
+
+    @property
+    def payment_method_domains(self) -> PaymentMethodDomainService:
+        """
+        Deprecation Warning:
+          StripeClient.payment_method_domains will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.payment_method_domains.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.payment_method_domains
+
+    @property
+    def payment_records(self) -> PaymentRecordService:
+        """
+        Deprecation Warning:
+          StripeClient.payment_records will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.payment_records.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.payment_records
+
+    @property
+    def payouts(self) -> PayoutService:
+        """
+        Deprecation Warning:
+          StripeClient.payouts will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.payouts.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.payouts
+
+    @property
+    def plans(self) -> PlanService:
+        """
+        Deprecation Warning:
+          StripeClient.plans will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.plans.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.plans
+
+    @property
+    def prices(self) -> PriceService:
+        """
+        Deprecation Warning:
+          StripeClient.prices will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.prices.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.prices
+
+    @property
+    def privacy(self) -> PrivacyService:
+        """
+        Deprecation Warning:
+          StripeClient.privacy will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.privacy.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.privacy
+
+    @property
+    def products(self) -> ProductService:
+        """
+        Deprecation Warning:
+          StripeClient.products will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.products.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.products
+
+    @property
+    def promotion_codes(self) -> PromotionCodeService:
+        """
+        Deprecation Warning:
+          StripeClient.promotion_codes will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.promotion_codes.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.promotion_codes
+
+    @property
+    def quotes(self) -> QuoteService:
+        """
+        Deprecation Warning:
+          StripeClient.quotes will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.quotes.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.quotes
+
+    @property
+    def radar(self) -> RadarService:
+        """
+        Deprecation Warning:
+          StripeClient.radar will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.radar.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.radar
+
+    @property
+    def refunds(self) -> RefundService:
+        """
+        Deprecation Warning:
+          StripeClient.refunds will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.refunds.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.refunds
+
+    @property
+    def reporting(self) -> ReportingService:
+        """
+        Deprecation Warning:
+          StripeClient.reporting will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.reporting.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.reporting
+
+    @property
+    def reviews(self) -> ReviewService:
+        """
+        Deprecation Warning:
+          StripeClient.reviews will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.reviews.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.reviews
+
+    @property
+    def sigma(self) -> SigmaService:
+        """
+        Deprecation Warning:
+          StripeClient.sigma will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.sigma.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.sigma
+
+    @property
+    def setup_attempts(self) -> SetupAttemptService:
+        """
+        Deprecation Warning:
+          StripeClient.setup_attempts will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.setup_attempts.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.setup_attempts
+
+    @property
+    def setup_intents(self) -> SetupIntentService:
+        """
+        Deprecation Warning:
+          StripeClient.setup_intents will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.setup_intents.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.setup_intents
+
+    @property
+    def shipping_rates(self) -> ShippingRateService:
+        """
+        Deprecation Warning:
+          StripeClient.shipping_rates will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.shipping_rates.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.shipping_rates
+
+    @property
+    def sources(self) -> SourceService:
+        """
+        Deprecation Warning:
+          StripeClient.sources will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.sources.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.sources
+
+    @property
+    def subscriptions(self) -> SubscriptionService:
+        """
+        Deprecation Warning:
+          StripeClient.subscriptions will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.subscriptions.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.subscriptions
+
+    @property
+    def subscription_items(self) -> SubscriptionItemService:
+        """
+        Deprecation Warning:
+          StripeClient.subscription_items will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.subscription_items.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.subscription_items
+
+    @property
+    def subscription_schedules(self) -> SubscriptionScheduleService:
+        """
+        Deprecation Warning:
+          StripeClient.subscription_schedules will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.subscription_schedules.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.subscription_schedules
+
+    @property
+    def tax(self) -> TaxService:
+        """
+        Deprecation Warning:
+          StripeClient.tax will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.tax.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.tax
+
+    @property
+    def tax_codes(self) -> TaxCodeService:
+        """
+        Deprecation Warning:
+          StripeClient.tax_codes will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.tax_codes.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.tax_codes
+
+    @property
+    def tax_ids(self) -> TaxIdService:
+        """
+        Deprecation Warning:
+          StripeClient.tax_ids will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.tax_ids.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.tax_ids
+
+    @property
+    def tax_rates(self) -> TaxRateService:
+        """
+        Deprecation Warning:
+          StripeClient.tax_rates will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.tax_rates.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.tax_rates
+
+    @property
+    def terminal(self) -> TerminalService:
+        """
+        Deprecation Warning:
+          StripeClient.terminal will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.terminal.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.terminal
+
+    @property
+    def tokens(self) -> TokenService:
+        """
+        Deprecation Warning:
+          StripeClient.tokens will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.tokens.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.tokens
+
+    @property
+    def topups(self) -> TopupService:
+        """
+        Deprecation Warning:
+          StripeClient.topups will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.topups.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.topups
+
+    @property
+    def transfers(self) -> TransferService:
+        """
+        Deprecation Warning:
+          StripeClient.transfers will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.transfers.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.transfers
+
+    @property
+    def treasury(self) -> TreasuryService:
+        """
+        Deprecation Warning:
+          StripeClient.treasury will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.treasury.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.treasury
+
+    @property
+    def webhook_endpoints(self) -> WebhookEndpointService:
+        """
+        Deprecation Warning:
+          StripeClient.webhook_endpoints will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.webhook_endpoints.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.webhook_endpoints
+
+    @property
+    def external_accounts(self) -> ExternalAccountService:
+        """
+        Deprecation Warning:
+          StripeClient.external_accounts will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.external_accounts.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.external_accounts
+
     # deprecated v1 services: The end of the section generated from our OpenAPI spec
