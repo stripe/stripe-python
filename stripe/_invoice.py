@@ -427,6 +427,7 @@ class Invoice(
                 "coupon_expired",
                 "customer_max_payment_methods",
                 "customer_max_subscriptions",
+                "customer_session_expired",
                 "customer_tax_location_invalid",
                 "debit_not_authorized",
                 "email_invalid",
@@ -444,6 +445,7 @@ class Invoice(
                 "incorrect_cvc",
                 "incorrect_number",
                 "incorrect_zip",
+                "india_recurring_payment_mandate_canceled",
                 "instant_payouts_config_disabled",
                 "instant_payouts_currency_disabled",
                 "instant_payouts_limit_exceeded",
@@ -583,7 +585,7 @@ class Invoice(
         """
         network_decline_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
         """
         param: Optional[str]
         """
@@ -2648,6 +2650,16 @@ class Invoice(
         """
         The coupons to redeem into discounts for the item.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "Invoice.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -2681,6 +2693,42 @@ class Invoice(
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriod(
+        TypedDict,
+    ):
+        end: "Invoice.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: "Invoice.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodStart"
+        """
+        Start of the invoice item period.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodEnd(
+        TypedDict,
+    ):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "phase_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodStart(
+        TypedDict,
+    ):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "phase_start", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPriceData(
