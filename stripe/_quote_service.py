@@ -22,16 +22,16 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class QuoteService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.preview_invoices = QuotePreviewInvoiceService(self._requestor)
-        self.preview_subscription_schedules = (
-            QuotePreviewSubscriptionScheduleService(
+        self.computed_upfront_line_items = (
+            QuoteComputedUpfrontLineItemsService(
                 self._requestor,
             )
         )
         self.lines = QuoteLineService(self._requestor)
         self.line_items = QuoteLineItemService(self._requestor)
-        self.computed_upfront_line_items = (
-            QuoteComputedUpfrontLineItemsService(
+        self.preview_invoices = QuotePreviewInvoiceService(self._requestor)
+        self.preview_subscription_schedules = (
+            QuotePreviewSubscriptionScheduleService(
                 self._requestor,
             )
         )

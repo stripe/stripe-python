@@ -444,20 +444,6 @@ from stripe._ephemeral_key_service import (
     EphemeralKeyService as EphemeralKeyService,
 )
 from stripe._error import (
-    AlreadyCanceledError as AlreadyCanceledError,
-    AlreadyExistsError as AlreadyExistsError,
-    BlockedByStripeError as BlockedByStripeError,
-    ControlledByDashboardError as ControlledByDashboardError,
-    FeatureNotEnabledError as FeatureNotEnabledError,
-    FinancialAccountNotOpenError as FinancialAccountNotOpenError,
-    InsufficientFundsError as InsufficientFundsError,
-    InvalidPaymentMethodError as InvalidPaymentMethodError,
-    InvalidPayoutMethodError as InvalidPayoutMethodError,
-    NonZeroBalanceError as NonZeroBalanceError,
-    NotCancelableError as NotCancelableError,
-    QuotaExceededError as QuotaExceededError,
-    RateLimitError as RateLimitError,
-    RecipientNotNotifiableError as RecipientNotNotifiableError,
     TemporarySessionExpiredError as TemporarySessionExpiredError,
 )
 from stripe._event import Event as Event
@@ -665,6 +651,7 @@ from stripe._transfer_reversal_service import (
 )
 from stripe._transfer_service import TransferService as TransferService
 from stripe._treasury_service import TreasuryService as TreasuryService
+from stripe._v1_services import V1Services as V1Services
 from stripe._v2_services import V2Services as V2Services
 from stripe._webhook_endpoint import WebhookEndpoint as WebhookEndpoint
 from stripe._webhook_endpoint_service import (
