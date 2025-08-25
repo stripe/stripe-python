@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
+from stripe._list_object import ListObject
+from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional
@@ -11,7 +12,7 @@ if TYPE_CHECKING:
     from stripe._payment_method import PaymentMethod
 
 
-class Mandate(APIResource["Mandate"]):
+class Mandate(ListableAPIResource["Mandate"]):
     """
     A Mandate is a record of the permission that your customer gives you to debit their payment method.
     """
@@ -45,7 +46,14 @@ class Mandate(APIResource["Mandate"]):
         _inner_class_types = {"offline": Offline, "online": Online}
 
     class MultiUse(StripeObject):
-        pass
+        amount: Optional[int]
+        """
+        The amount of the payment on a multi use mandate.
+        """
+        currency: Optional[str]
+        """
+        The currency of the payment on a multi use mandate.
+        """
 
     class PaymentMethodDetails(StripeObject):
         class AcssDebit(StripeObject):
@@ -199,6 +207,36 @@ class Mandate(APIResource["Mandate"]):
             Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
             """
 
+        class Pix(StripeObject):
+            amount_includes_iof: Optional[Literal["always", "never"]]
+            """
+            Determines if the amount includes the IOF tax.
+            """
+            amount_type: Optional[Literal["fixed", "maximum"]]
+            """
+            Type of amount.
+            """
+            end_date: Optional[str]
+            """
+            Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+            """
+            payment_schedule: Optional[
+                Literal[
+                    "halfyearly", "monthly", "quarterly", "weekly", "yearly"
+                ]
+            ]
+            """
+            Schedule at which the future payments will be charged.
+            """
+            reference: Optional[str]
+            """
+            Subscription name displayed to buyers in their bank app.
+            """
+            start_date: Optional[str]
+            """
+            Start date of the mandate, in `YYYY-MM-DD`.
+            """
+
         class RevolutPay(StripeObject):
             pass
 
@@ -232,6 +270,7 @@ class Mandate(APIResource["Mandate"]):
         nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
+        pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         type: str
@@ -254,6 +293,7 @@ class Mandate(APIResource["Mandate"]):
             "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
             "payto": Payto,
+            "pix": Pix,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "us_bank_account": UsBankAccount,
@@ -267,6 +307,33 @@ class Mandate(APIResource["Mandate"]):
         currency: str
         """
         The currency of the payment on a single use mandate.
+        """
+
+    class ListParams(RequestOptions):
+        ending_before: NotRequired[str]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired[int]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        on_behalf_of: NotRequired[str]
+        """
+        The Stripe account ID that the mandates are intended for. Learn more about the [use case for connected accounts payments](https://stripe.com/docs/payments/connected-accounts).
+        """
+        payment_method: str
+        starting_after: NotRequired[str]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+        status: Literal["active", "inactive", "pending"]
+        """
+        The status of the mandates to retrieve. Status indicates whether or not you can use it to initiate a payment, and can have a value of `active`, `pending`, or `inactive`.
         """
 
     class RetrieveParams(RequestOptions):
@@ -307,6 +374,46 @@ class Mandate(APIResource["Mandate"]):
     """
     The type of the mandate.
     """
+
+    @classmethod
+    def list(
+        cls, **params: Unpack["Mandate.ListParams"]
+    ) -> ListObject["Mandate"]:
+        """
+        Retrieves a list of Mandates for a given PaymentMethod.
+        """
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    async def list_async(
+        cls, **params: Unpack["Mandate.ListParams"]
+    ) -> ListObject["Mandate"]:
+        """
+        Retrieves a list of Mandates for a given PaymentMethod.
+        """
+        result = await cls._static_request_async(
+            "get",
+            cls.class_url(),
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
 
     @classmethod
     def retrieve(

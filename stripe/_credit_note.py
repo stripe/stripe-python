@@ -320,7 +320,7 @@ class CreditNote(
         """
         refund: NotRequired[str]
         """
-        ID of an existing refund to link this credit note to.
+        ID of an existing refund to link this credit note to. Required when `type` is `refund`.
         """
 
     class CreateParamsShippingCost(TypedDict):
@@ -551,7 +551,7 @@ class CreditNote(
         """
         refund: NotRequired[str]
         """
-        ID of an existing refund to link this credit note to.
+        ID of an existing refund to link this credit note to. Required when `type` is `refund`.
         """
 
     class PreviewLinesParamsShippingCost(TypedDict):
@@ -686,7 +686,7 @@ class CreditNote(
         """
         refund: NotRequired[str]
         """
-        ID of an existing refund to link this credit note to.
+        ID of an existing refund to link this credit note to. Required when `type` is `refund`.
         """
 
     class PreviewParamsShippingCost(TypedDict):

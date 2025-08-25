@@ -11,8 +11,8 @@ from stripe.v2.core._vault_service import VaultService
 class CoreService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.account_links = AccountLinkService(self._requestor)
         self.accounts = AccountService(self._requestor)
-        self.event_destinations = EventDestinationService(self._requestor)
+        self.account_links = AccountLinkService(self._requestor)
         self.events = EventService(self._requestor)
+        self.event_destinations = EventDestinationService(self._requestor)
         self.vault = VaultService(self._requestor)

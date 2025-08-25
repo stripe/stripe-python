@@ -236,10 +236,44 @@ class SubscriptionSchedule(
                 """
                 _inner_class_types = {"discount_end": DiscountEnd}
 
+            class Period(StripeObject):
+                class End(StripeObject):
+                    timestamp: Optional[int]
+                    """
+                    A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+                    """
+                    type: Literal[
+                        "min_item_period_end", "phase_end", "timestamp"
+                    ]
+                    """
+                    Select how to calculate the end of the invoice item period.
+                    """
+
+                class Start(StripeObject):
+                    timestamp: Optional[int]
+                    """
+                    A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+                    """
+                    type: Literal[
+                        "max_item_period_start", "phase_start", "timestamp"
+                    ]
+                    """
+                    Select how to calculate the start of the invoice item period.
+                    """
+
+                end: End
+                start: Start
+                _inner_class_types = {"end": End, "start": Start}
+
             discounts: List[Discount]
             """
             The stackable discounts that will be applied to the item.
             """
+            metadata: Optional[Dict[str, str]]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            """
+            period: Period
             price: ExpandableField["Price"]
             """
             ID of the price used to generate the invoice item.
@@ -252,7 +286,7 @@ class SubscriptionSchedule(
             """
             The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
             """
-            _inner_class_types = {"discounts": Discount}
+            _inner_class_types = {"discounts": Discount, "period": Period}
 
         class AutomaticTax(StripeObject):
             class Liability(StripeObject):
@@ -1520,6 +1554,16 @@ class SubscriptionSchedule(
         """
         The coupons to redeem into discounts for the item.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -1585,6 +1629,38 @@ class SubscriptionSchedule(
         interval_count: int
         """
         The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemPeriod(TypedDict):
+        end: "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: (
+            "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPeriodStart"
+        )
+        """
+        Start of the invoice item period.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemPeriodEnd(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "phase_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemPeriodStart(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "phase_start", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class CreateParamsPhaseAddInvoiceItemPriceData(TypedDict):
@@ -2332,6 +2408,16 @@ class SubscriptionSchedule(
         """
         The coupons to redeem into discounts for the item.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -2397,6 +2483,38 @@ class SubscriptionSchedule(
         interval_count: int
         """
         The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class ModifyParamsPhaseAddInvoiceItemPeriod(TypedDict):
+        end: "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: (
+            "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPeriodStart"
+        )
+        """
+        Start of the invoice item period.
+        """
+
+    class ModifyParamsPhaseAddInvoiceItemPeriodEnd(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "phase_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class ModifyParamsPhaseAddInvoiceItemPeriodStart(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "phase_start", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class ModifyParamsPhaseAddInvoiceItemPriceData(TypedDict):

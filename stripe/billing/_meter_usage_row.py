@@ -31,7 +31,7 @@ class MeterUsageRow(StripeObject):
     """
     meter_id: Optional[str]
     """
-    The unique identifier for the meter.
+    The unique identifier for the meter. Null if no meters were provided and usage was aggregated across all meters.
     """
     object: Literal["billing.meter_usage_row"]
     """

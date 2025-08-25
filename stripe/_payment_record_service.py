@@ -277,9 +277,11 @@ class PaymentRecordService(StripeService):
         """
         Information about the Payment Method debited for this payment.
         """
-        payment_reference: NotRequired[str]
+        processor_details: NotRequired[
+            "PaymentRecordService.ReportPaymentParamsProcessorDetails"
+        ]
         """
-        An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+        Processor information for this payment.
         """
         shipping_details: NotRequired[
             "PaymentRecordService.ReportPaymentParamsShippingDetails"
@@ -295,7 +297,7 @@ class PaymentRecordService(StripeService):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class ReportPaymentParamsCustomerDetails(TypedDict):
@@ -406,6 +408,24 @@ class PaymentRecordService(StripeService):
         type: NotRequired[str]
         """
         The custom payment method type associated with this payment.
+        """
+
+    class ReportPaymentParamsProcessorDetails(TypedDict):
+        custom: NotRequired[
+            "PaymentRecordService.ReportPaymentParamsProcessorDetailsCustom"
+        ]
+        """
+        Information about the custom processor used to make this payment.
+        """
+        type: Literal["custom"]
+        """
+        The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+        """
+
+    class ReportPaymentParamsProcessorDetailsCustom(TypedDict):
+        payment_reference: str
+        """
+        An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
         """
 
     class ReportPaymentParamsShippingDetails(TypedDict):

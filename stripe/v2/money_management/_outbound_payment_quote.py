@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 class OutboundPaymentQuote(StripeObject):
     """
-    OutboundPaymentQuote represents a quote
+    OutboundPaymentQuote represents a quote that provides fee and amount estimates for OutboundPayment.
     """
 
     OBJECT_NAME: ClassVar[

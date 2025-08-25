@@ -10,6 +10,34 @@ import pytest
 
 
 class TestGeneratedExamples(object):
+    def test_account_links_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/account_links",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.account_links.create(
+            {
+                "account": "acct_xxxxxxxxxxxxx",
+                "refresh_url": "https://example.com/reauth",
+                "return_url": "https://example.com/return",
+                "type": "account_onboarding",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/account_links",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="account=acct_xxxxxxxxxxxxx&refresh_url=https%3A%2F%2Fexample.com%2Freauth&return_url=https%3A%2F%2Fexample.com%2Freturn&type=account_onboarding",
+        )
+
     def test_account_links_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -38,7 +66,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.account_links.create(
+        client.v1.account_links.create(
             {
                 "account": "acct_xxxxxxxxxxxxx",
                 "refresh_url": "https://example.com/reauth",
@@ -84,7 +112,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.account_links.create_async(
+        await client.v1.account_links.create_async(
             {
                 "account": "acct_xxxxxxxxxxxxx",
                 "refresh_url": "https://example.com/reauth",
@@ -98,6 +126,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="account=acct_xxxxxxxxxxxxx&refresh_url=https%3A%2F%2Fexample.com%2Freauth&return_url=https%3A%2F%2Fexample.com%2Freturn&type=account_onboarding",
+        )
+
+    def test_accounts_capabilities_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/capabilities",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.capabilities.list("acct_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_accounts_capabilities_get(
@@ -122,7 +170,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.capabilities.list("acct_xxxxxxxxxxxxx")
+        client.v1.accounts.capabilities.list("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities",
@@ -154,10 +202,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.capabilities.list_async("acct_xxxxxxxxxxxxx")
+        await client.v1.accounts.capabilities.list_async("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_capabilities_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.capabilities.retrieve(
+            "acct_xxxxxxxxxxxxx",
+            "card_payments",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -187,7 +258,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.capabilities.retrieve(
+        client.v1.accounts.capabilities.retrieve(
             "acct_xxxxxxxxxxxxx",
             "card_payments",
         )
@@ -225,7 +296,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.capabilities.retrieve_async(
+        await client.v1.accounts.capabilities.retrieve_async(
             "acct_xxxxxxxxxxxxx",
             "card_payments",
         )
@@ -234,6 +305,31 @@ class TestGeneratedExamples(object):
             path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_capabilities_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.capabilities.update(
+            "acct_xxxxxxxxxxxxx",
+            "card_payments",
+            {"requested": True},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="requested=true",
         )
 
     def test_accounts_capabilities_post(
@@ -263,7 +359,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.capabilities.update(
+        client.v1.accounts.capabilities.update(
             "acct_xxxxxxxxxxxxx",
             "card_payments",
             {"requested": True},
@@ -305,7 +401,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.capabilities.update_async(
+        await client.v1.accounts.capabilities.update_async(
             "acct_xxxxxxxxxxxxx",
             "card_payments",
             {"requested": True},
@@ -316,6 +412,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="requested=true",
+        )
+
+    def test_accounts_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/accounts/acct_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.delete("acct_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_accounts_delete(self, http_client_mock: HTTPClientMock) -> None:
@@ -338,7 +454,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.delete("acct_xxxxxxxxxxxxx")
+        client.v1.accounts.delete("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
@@ -370,10 +486,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.delete_async("acct_xxxxxxxxxxxxx")
+        await client.v1.accounts.delete_async("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_external_accounts_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.external_accounts.delete(
+            "acct_xxxxxxxxxxxxx",
+            "ba_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -403,7 +542,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.external_accounts.delete(
+        client.v1.accounts.external_accounts.delete(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
@@ -441,13 +580,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.external_accounts.delete_async(
+        await client.v1.accounts.external_accounts.delete_async(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_external_accounts_delete_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.external_accounts.delete(
+            "acct_xxxxxxxxxxxxx",
+            "card_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -477,7 +639,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.external_accounts.delete(
+        client.v1.accounts.external_accounts.delete(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -515,7 +677,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.external_accounts.delete_async(
+        await client.v1.accounts.external_accounts.delete_async(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -523,6 +685,30 @@ class TestGeneratedExamples(object):
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_external_accounts_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.external_accounts.list(
+            "acct_xxxxxxxxxxxxx",
+            {"limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -552,7 +738,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.external_accounts.list(
+        client.v1.accounts.external_accounts.list(
             "acct_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -591,7 +777,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.external_accounts.list_async(
+        await client.v1.accounts.external_accounts.list_async(
             "acct_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -599,6 +785,30 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_external_accounts_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
+            "object=bank_account&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.external_accounts.list(
+            "acct_xxxxxxxxxxxxx",
+            {"object": "bank_account", "limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
+            query_string="object=bank_account&limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -629,7 +839,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.external_accounts.list(
+        client.v1.accounts.external_accounts.list(
             "acct_xxxxxxxxxxxxx",
             {"object": "bank_account", "limit": 3},
         )
@@ -669,7 +879,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.external_accounts.list_async(
+        await client.v1.accounts.external_accounts.list_async(
             "acct_xxxxxxxxxxxxx",
             {"object": "bank_account", "limit": 3},
         )
@@ -677,6 +887,30 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="object=bank_account&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_external_accounts_get_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
+            "object=card&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.external_accounts.list(
+            "acct_xxxxxxxxxxxxx",
+            {"object": "card", "limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
+            query_string="object=card&limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -707,7 +941,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.external_accounts.list(
+        client.v1.accounts.external_accounts.list(
             "acct_xxxxxxxxxxxxx",
             {"object": "card", "limit": 3},
         )
@@ -747,7 +981,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.external_accounts.list_async(
+        await client.v1.accounts.external_accounts.list_async(
             "acct_xxxxxxxxxxxxx",
             {"object": "card", "limit": 3},
         )
@@ -755,6 +989,29 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
             query_string="object=card&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_external_accounts_get_4_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.external_accounts.retrieve(
+            "acct_xxxxxxxxxxxxx",
+            "ba_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -783,7 +1040,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.external_accounts.retrieve(
+        client.v1.accounts.external_accounts.retrieve(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
@@ -821,13 +1078,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.external_accounts.retrieve_async(
+        await client.v1.accounts.external_accounts.retrieve_async(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_external_accounts_get_5_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.external_accounts.retrieve(
+            "acct_xxxxxxxxxxxxx",
+            "card_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -857,7 +1137,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.external_accounts.retrieve(
+        client.v1.accounts.external_accounts.retrieve(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -895,7 +1175,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.external_accounts.retrieve_async(
+        await client.v1.accounts.external_accounts.retrieve_async(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -904,6 +1184,30 @@ class TestGeneratedExamples(object):
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_external_accounts_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.external_accounts.create(
+            "acct_xxxxxxxxxxxxx",
+            {"external_account": "btok_xxxxxxxxxxxxx"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="external_account=btok_xxxxxxxxxxxxx",
         )
 
     def test_accounts_external_accounts_post(
@@ -932,7 +1236,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.external_accounts.create(
+        client.v1.accounts.external_accounts.create(
             "acct_xxxxxxxxxxxxx",
             {"external_account": "btok_xxxxxxxxxxxxx"},
         )
@@ -972,7 +1276,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.external_accounts.create_async(
+        await client.v1.accounts.external_accounts.create_async(
             "acct_xxxxxxxxxxxxx",
             {"external_account": "btok_xxxxxxxxxxxxx"},
         )
@@ -982,6 +1286,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="external_account=btok_xxxxxxxxxxxxx",
+        )
+
+    def test_accounts_external_accounts_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.external_accounts.create(
+            "acct_xxxxxxxxxxxxx",
+            {"external_account": "tok_xxxx_debit"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="external_account=tok_xxxx_debit",
         )
 
     def test_accounts_external_accounts_post_2(
@@ -1010,7 +1338,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.external_accounts.create(
+        client.v1.accounts.external_accounts.create(
             "acct_xxxxxxxxxxxxx",
             {"external_account": "tok_xxxx_debit"},
         )
@@ -1050,7 +1378,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.external_accounts.create_async(
+        await client.v1.accounts.external_accounts.create_async(
             "acct_xxxxxxxxxxxxx",
             {"external_account": "tok_xxxx_debit"},
         )
@@ -1060,6 +1388,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="external_account=tok_xxxx_debit",
+        )
+
+    def test_accounts_external_accounts_post_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.external_accounts.update(
+            "acct_xxxxxxxxxxxxx",
+            "ba_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_accounts_external_accounts_post_3(
@@ -1089,7 +1442,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.external_accounts.update(
+        client.v1.accounts.external_accounts.update(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -1131,7 +1484,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.external_accounts.update_async(
+        await client.v1.accounts.external_accounts.update_async(
             "acct_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -1139,6 +1492,31 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/ba_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
+        )
+
+    def test_accounts_external_accounts_post_4_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.external_accounts.update(
+            "acct_xxxxxxxxxxxxx",
+            "card_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts/card_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
@@ -1171,7 +1549,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.external_accounts.update(
+        client.v1.accounts.external_accounts.update(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -1213,7 +1591,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.external_accounts.update_async(
+        await client.v1.accounts.external_accounts.update_async(
             "acct_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -1224,6 +1602,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_accounts_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/accounts",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/accounts",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_accounts_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -1247,7 +1646,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.list({"limit": 3})
+        client.v1.accounts.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts",
@@ -1280,11 +1679,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.list_async({"limit": 3})
+        await client.v1.accounts.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.retrieve("acct_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -1308,7 +1727,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.retrieve("acct_xxxxxxxxxxxxx")
+        client.v1.accounts.retrieve("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
@@ -1340,10 +1759,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.retrieve_async("acct_xxxxxxxxxxxxx")
+        await client.v1.accounts.retrieve_async("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_login_links_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/login_links",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.login_links.create("acct_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/login_links",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -1370,7 +1809,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.login_links.create("acct_xxxxxxxxxxxxx")
+        client.v1.accounts.login_links.create("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/login_links",
@@ -1402,10 +1841,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.login_links.create_async("acct_xxxxxxxxxxxxx")
+        await client.v1.accounts.login_links.create_async("acct_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/login_links",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_persons_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.persons.delete(
+            "acct_xxxxxxxxxxxxx",
+            "person_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -1435,7 +1897,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.persons.delete(
+        client.v1.accounts.persons.delete(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
         )
@@ -1473,7 +1935,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.persons.delete_async(
+        await client.v1.accounts.persons.delete_async(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
         )
@@ -1481,6 +1943,30 @@ class TestGeneratedExamples(object):
             "delete",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_persons_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/persons",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.persons.list(
+            "acct_xxxxxxxxxxxxx",
+            {"limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/persons",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -1510,7 +1996,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.persons.list(
+        client.v1.accounts.persons.list(
             "acct_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -1549,7 +2035,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.persons.list_async(
+        await client.v1.accounts.persons.list_async(
             "acct_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -1557,6 +2043,29 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_persons_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.persons.retrieve(
+            "acct_xxxxxxxxxxxxx",
+            "person_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -1585,7 +2094,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.persons.retrieve(
+        client.v1.accounts.persons.retrieve(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
         )
@@ -1623,7 +2132,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.persons.retrieve_async(
+        await client.v1.accounts.persons.retrieve_async(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
         )
@@ -1632,6 +2141,30 @@ class TestGeneratedExamples(object):
             path="/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_accounts_persons_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/persons",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.persons.create(
+            "acct_xxxxxxxxxxxxx",
+            {"first_name": "Jane", "last_name": "Diaz"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/persons",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="first_name=Jane&last_name=Diaz",
         )
 
     def test_accounts_persons_post(
@@ -1661,7 +2194,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.persons.create(
+        client.v1.accounts.persons.create(
             "acct_xxxxxxxxxxxxx",
             {"first_name": "Jane", "last_name": "Diaz"},
         )
@@ -1702,7 +2235,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.persons.create_async(
+        await client.v1.accounts.persons.create_async(
             "acct_xxxxxxxxxxxxx",
             {"first_name": "Jane", "last_name": "Diaz"},
         )
@@ -1712,6 +2245,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="first_name=Jane&last_name=Diaz",
+        )
+
+    def test_accounts_persons_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.persons.update(
+            "acct_xxxxxxxxxxxxx",
+            "person_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_accounts_persons_post_2(
@@ -1741,7 +2299,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.persons.update(
+        client.v1.accounts.persons.update(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -1783,7 +2341,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.persons.update_async(
+        await client.v1.accounts.persons.update_async(
             "acct_xxxxxxxxxxxxx",
             "person_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -1794,6 +2352,37 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_accounts_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/accounts",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.create(
+            {
+                "type": "custom",
+                "country": "US",
+                "email": "jenny.rosen@example.com",
+                "capabilities": {
+                    "card_payments": {"requested": True},
+                    "transfers": {"requested": True},
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=true&capabilities[transfers][requested]=true",
         )
 
     def test_accounts_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -1825,7 +2414,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.create(
+        client.v1.accounts.create(
             {
                 "type": "custom",
                 "country": "US",
@@ -1877,7 +2466,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.create_async(
+        await client.v1.accounts.create_async(
             {
                 "type": "custom",
                 "country": "US",
@@ -1894,6 +2483,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="type=custom&country=US&email=jenny.rosen%40example.com&capabilities[card_payments][requested]=true&capabilities[transfers][requested]=true",
+        )
+
+    def test_accounts_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/accounts/acct_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.update(
+            "acct_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_accounts_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -1920,7 +2533,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.update(
+        client.v1.accounts.update(
             "acct_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -1960,7 +2573,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.update_async(
+        await client.v1.accounts.update_async(
             "acct_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -1970,6 +2583,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_accounts_reject_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/reject",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.accounts.reject(
+            "acct_xxxxxxxxxxxxx",
+            {"reason": "fraud"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/accounts/acct_xxxxxxxxxxxxx/reject",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="reason=fraud",
         )
 
     def test_accounts_reject_post(
@@ -1998,7 +2635,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.accounts.reject(
+        client.v1.accounts.reject(
             "acct_xxxxxxxxxxxxx",
             {"reason": "fraud"},
         )
@@ -2038,7 +2675,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.accounts.reject_async(
+        await client.v1.accounts.reject_async(
             "acct_xxxxxxxxxxxxx",
             {"reason": "fraud"},
         )
@@ -2048,6 +2685,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="reason=fraud",
+        )
+
+    def test_application_fees_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/application_fees",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.application_fees.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/application_fees",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_application_fees_get(
@@ -2073,7 +2731,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.application_fees.list({"limit": 3})
+        client.v1.application_fees.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/application_fees",
@@ -2106,11 +2764,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.application_fees.list_async({"limit": 3})
+        await client.v1.application_fees.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/application_fees",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_application_fees_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/application_fees/fee_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.application_fees.retrieve("fee_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/application_fees/fee_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -2136,7 +2814,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.application_fees.retrieve("fee_xxxxxxxxxxxxx")
+        client.v1.application_fees.retrieve("fee_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx",
@@ -2168,11 +2846,35 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.application_fees.retrieve_async("fee_xxxxxxxxxxxxx")
+        await client.v1.application_fees.retrieve_async("fee_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_application_fees_refunds_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.application_fees.refunds.list(
+            "fee_xxxxxxxxxxxxx",
+            {"limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -2202,7 +2904,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.application_fees.refunds.list(
+        client.v1.application_fees.refunds.list(
             "fee_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -2241,7 +2943,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.application_fees.refunds.list_async(
+        await client.v1.application_fees.refunds.list_async(
             "fee_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -2249,6 +2951,29 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_application_fees_refunds_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.application_fees.refunds.retrieve(
+            "fee_xxxxxxxxxxxxx",
+            "fr_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -2277,7 +3002,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.application_fees.refunds.retrieve(
+        client.v1.application_fees.refunds.retrieve(
             "fee_xxxxxxxxxxxxx",
             "fr_xxxxxxxxxxxxx",
         )
@@ -2315,13 +3040,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.application_fees.refunds.retrieve_async(
+        await client.v1.application_fees.refunds.retrieve_async(
             "fee_xxxxxxxxxxxxx",
             "fr_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_application_fees_refunds_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.application_fees.refunds.create("fee_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -2348,7 +3093,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.application_fees.refunds.create("fee_xxxxxxxxxxxxx")
+        client.v1.application_fees.refunds.create("fee_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
@@ -2380,12 +3125,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.application_fees.refunds.create_async("fee_xxxxxxxxxxxxx")
+        await client.v1.application_fees.refunds.create_async(
+            "fee_xxxxxxxxxxxxx",
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_application_fees_refunds_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.application_fees.refunds.update(
+            "fee_xxxxxxxxxxxxx",
+            "fr_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_application_fees_refunds_post_2(
@@ -2415,7 +3187,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.application_fees.refunds.update(
+        client.v1.application_fees.refunds.update(
             "fee_xxxxxxxxxxxxx",
             "fr_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -2457,7 +3229,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.application_fees.refunds.update_async(
+        await client.v1.application_fees.refunds.update_async(
             "fee_xxxxxxxxxxxxx",
             "fr_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -2468,6 +3240,32 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_apps_secrets_delete_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/apps/secrets/delete",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.apps.secrets.delete_where(
+            {
+                "name": "my-api-key",
+                "scope": {"type": "account"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/apps/secrets/delete",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="name=my-api-key&scope[type]=account",
         )
 
     def test_apps_secrets_delete_post(
@@ -2496,7 +3294,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.apps.secrets.delete_where(
+        client.v1.apps.secrets.delete_where(
             {
                 "name": "my-api-key",
                 "scope": {"type": "account"},
@@ -2538,7 +3336,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.apps.secrets.delete_where_async(
+        await client.v1.apps.secrets.delete_where_async(
             {
                 "name": "my-api-key",
                 "scope": {"type": "account"},
@@ -2550,6 +3348,32 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="name=my-api-key&scope[type]=account",
+        )
+
+    def test_apps_secrets_find_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/apps/secrets/find",
+            "name=sec_123&scope[type]=account",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.apps.secrets.find(
+            {
+                "name": "sec_123",
+                "scope": {"type": "account"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/apps/secrets/find",
+            query_string="name=sec_123&scope[type]=account",
+            api_base="https://api.stripe.com",
         )
 
     def test_apps_secrets_find_get(
@@ -2578,7 +3402,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.apps.secrets.find(
+        client.v1.apps.secrets.find(
             {
                 "name": "sec_123",
                 "scope": {"type": "account"},
@@ -2619,7 +3443,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.apps.secrets.find_async(
+        await client.v1.apps.secrets.find_async(
             {
                 "name": "sec_123",
                 "scope": {"type": "account"},
@@ -2629,6 +3453,27 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/apps/secrets/find",
             query_string="name=sec_123&scope[type]=account",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_apps_secrets_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/apps/secrets",
+            "scope[type]=account&limit=2",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.apps.secrets.list({"scope": {"type": "account"}, "limit": 2})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/apps/secrets",
+            query_string="scope[type]=account&limit=2",
             api_base="https://api.stripe.com",
         )
 
@@ -2656,7 +3501,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.apps.secrets.list({"scope": {"type": "account"}, "limit": 2})
+        client.v1.apps.secrets.list({"scope": {"type": "account"}, "limit": 2})
         http_client_mock.assert_requested(
             "get",
             path="/v1/apps/secrets",
@@ -2692,12 +3537,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.apps.secrets.list_async(
+        await client.v1.apps.secrets.list_async(
             {
                 "scope": {"type": "account"},
                 "limit": 2,
             }
         )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/apps/secrets",
+            query_string="scope[type]=account&limit=2",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_apps_secrets_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/apps/secrets",
+            "scope[type]=account&limit=2",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.apps.secrets.list({"scope": {"type": "account"}, "limit": 2})
         http_client_mock.assert_requested(
             "get",
             path="/v1/apps/secrets",
@@ -2731,7 +3597,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.apps.secrets.list({"scope": {"type": "account"}, "limit": 2})
+        client.v1.apps.secrets.list({"scope": {"type": "account"}, "limit": 2})
         http_client_mock.assert_requested(
             "get",
             path="/v1/apps/secrets",
@@ -2767,7 +3633,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.apps.secrets.list_async(
+        await client.v1.apps.secrets.list_async(
             {
                 "scope": {"type": "account"},
                 "limit": 2,
@@ -2778,6 +3644,33 @@ class TestGeneratedExamples(object):
             path="/v1/apps/secrets",
             query_string="scope[type]=account&limit=2",
             api_base="https://api.stripe.com",
+        )
+
+    def test_apps_secrets_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/apps/secrets",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.apps.secrets.create(
+            {
+                "name": "sec_123",
+                "payload": "very secret string",
+                "scope": {"type": "account"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/apps/secrets",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="name=sec_123&payload=very%20secret%20string&scope[type]=account",
         )
 
     def test_apps_secrets_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -2805,7 +3698,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.apps.secrets.create(
+        client.v1.apps.secrets.create(
             {
                 "name": "sec_123",
                 "payload": "very secret string",
@@ -2849,7 +3742,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.apps.secrets.create_async(
+        await client.v1.apps.secrets.create_async(
             {
                 "name": "sec_123",
                 "payload": "very secret string",
@@ -2862,6 +3755,33 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="name=sec_123&payload=very%20secret%20string&scope[type]=account",
+        )
+
+    def test_apps_secrets_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/apps/secrets",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.apps.secrets.create(
+            {
+                "name": "my-api-key",
+                "payload": "secret_key_xxxxxx",
+                "scope": {"type": "account"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/apps/secrets",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="name=my-api-key&payload=secret_key_xxxxxx&scope[type]=account",
         )
 
     def test_apps_secrets_post_2(
@@ -2891,7 +3811,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.apps.secrets.create(
+        client.v1.apps.secrets.create(
             {
                 "name": "my-api-key",
                 "payload": "secret_key_xxxxxx",
@@ -2935,7 +3855,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.apps.secrets.create_async(
+        await client.v1.apps.secrets.create_async(
             {
                 "name": "my-api-key",
                 "payload": "secret_key_xxxxxx",
@@ -2948,6 +3868,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="name=my-api-key&payload=secret_key_xxxxxx&scope[type]=account",
+        )
+
+    def test_balance_transactions_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/balance_transactions",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.balance_transactions.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/balance_transactions",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_balance_transactions_get(
@@ -2973,7 +3914,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.balance_transactions.list({"limit": 3})
+        client.v1.balance_transactions.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/balance_transactions",
@@ -3006,11 +3947,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.balance_transactions.list_async({"limit": 3})
+        await client.v1.balance_transactions.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/balance_transactions",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_balance_transactions_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/balance_transactions/txn_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.balance_transactions.retrieve("txn_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/balance_transactions/txn_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -3036,7 +3997,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.balance_transactions.retrieve("txn_xxxxxxxxxxxxx")
+        client.v1.balance_transactions.retrieve("txn_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/balance_transactions/txn_xxxxxxxxxxxxx",
@@ -3068,11 +4029,34 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.balance_transactions.retrieve_async("txn_xxxxxxxxxxxxx")
+        await client.v1.balance_transactions.retrieve_async(
+            "txn_xxxxxxxxxxxxx"
+        )
         http_client_mock.assert_requested(
             "get",
             path="/v1/balance_transactions/txn_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_billing_portal_configurations_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/billing_portal/configurations",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.billing_portal.configurations.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/billing_portal/configurations",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -3099,7 +4083,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.billing_portal.configurations.list({"limit": 3})
+        client.v1.billing_portal.configurations.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/billing_portal/configurations",
@@ -3132,11 +4116,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.billing_portal.configurations.list_async({"limit": 3})
+        await client.v1.billing_portal.configurations.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/billing_portal/configurations",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_billing_portal_configurations_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.billing_portal.configurations.retrieve("bpc_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -3162,7 +4166,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.billing_portal.configurations.retrieve("bpc_xxxxxxxxxxxxx")
+        client.v1.billing_portal.configurations.retrieve("bpc_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
@@ -3196,7 +4200,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.billing_portal.configurations.retrieve_async(
+        await client.v1.billing_portal.configurations.retrieve_async(
             "bpc_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -3204,6 +4208,41 @@ class TestGeneratedExamples(object):
             path="/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_billing_portal_configurations_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/billing_portal/configurations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.billing_portal.configurations.create(
+            {
+                "features": {
+                    "customer_update": {
+                        "allowed_updates": ["email", "tax_id"],
+                        "enabled": True,
+                    },
+                    "invoice_history": {"enabled": True},
+                },
+                "business_profile": {
+                    "privacy_policy_url": "https://example.com/privacy",
+                    "terms_of_service_url": "https://example.com/terms",
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/billing_portal/configurations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=true&features[invoice_history][enabled]=true&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
         )
 
     def test_billing_portal_configurations_post(
@@ -3241,7 +4280,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.billing_portal.configurations.create(
+        client.v1.billing_portal.configurations.create(
             {
                 "features": {
                     "customer_update": {
@@ -3301,7 +4340,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.billing_portal.configurations.create_async(
+        await client.v1.billing_portal.configurations.create_async(
             {
                 "features": {
                     "customer_update": {
@@ -3322,6 +4361,35 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="features[customer_update][allowed_updates][0]=email&features[customer_update][allowed_updates][1]=tax_id&features[customer_update][enabled]=true&features[invoice_history][enabled]=true&business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
+        )
+
+    def test_billing_portal_configurations_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.billing_portal.configurations.update(
+            "bpc_xxxxxxxxxxxxx",
+            {
+                "business_profile": {
+                    "privacy_policy_url": "https://example.com/privacy",
+                    "terms_of_service_url": "https://example.com/terms",
+                },
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
         )
 
     def test_billing_portal_configurations_post_2(
@@ -3353,7 +4421,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.billing_portal.configurations.update(
+        client.v1.billing_portal.configurations.update(
             "bpc_xxxxxxxxxxxxx",
             {
                 "business_profile": {
@@ -3401,7 +4469,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.billing_portal.configurations.update_async(
+        await client.v1.billing_portal.configurations.update_async(
             "bpc_xxxxxxxxxxxxx",
             {
                 "business_profile": {
@@ -3416,6 +4484,32 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="business_profile[privacy_policy_url]=https%3A%2F%2Fexample.com%2Fprivacy&business_profile[terms_of_service_url]=https%3A%2F%2Fexample.com%2Fterms",
+        )
+
+    def test_billing_portal_sessions_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/billing_portal/sessions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.billing_portal.sessions.create(
+            {
+                "customer": "cus_xxxxxxxxxxxxx",
+                "return_url": "https://example.com/account",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/billing_portal/sessions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="customer=cus_xxxxxxxxxxxxx&return_url=https%3A%2F%2Fexample.com%2Faccount",
         )
 
     def test_billing_portal_sessions_post(
@@ -3444,7 +4538,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.billing_portal.sessions.create(
+        client.v1.billing_portal.sessions.create(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
                 "return_url": "https://example.com/account",
@@ -3486,7 +4580,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.billing_portal.sessions.create_async(
+        await client.v1.billing_portal.sessions.create_async(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
                 "return_url": "https://example.com/account",
@@ -3498,6 +4592,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="customer=cus_xxxxxxxxxxxxx&return_url=https%3A%2F%2Fexample.com%2Faccount",
+        )
+
+    def test_charges_capture_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/charges/ch_xxxxxxxxxxxxx/capture",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.charges.capture("ch_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/charges/ch_xxxxxxxxxxxxx/capture",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_charges_capture_post(
@@ -3522,7 +4636,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.charges.capture("ch_xxxxxxxxxxxxx")
+        client.v1.charges.capture("ch_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/charges/ch_xxxxxxxxxxxxx/capture",
@@ -3554,11 +4668,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.charges.capture_async("ch_xxxxxxxxxxxxx")
+        await client.v1.charges.capture_async("ch_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/charges/ch_xxxxxxxxxxxxx/capture",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_charges_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/charges",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.charges.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/charges",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -3583,7 +4718,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.charges.list({"limit": 3})
+        client.v1.charges.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/charges",
@@ -3616,11 +4751,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.charges.list_async({"limit": 3})
+        await client.v1.charges.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/charges",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_charges_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/charges/ch_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.charges.retrieve("ch_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/charges/ch_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -3644,7 +4799,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.charges.retrieve("ch_xxxxxxxxxxxxx")
+        client.v1.charges.retrieve("ch_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/charges/ch_xxxxxxxxxxxxx",
@@ -3676,12 +4831,40 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.charges.retrieve_async("ch_xxxxxxxxxxxxx")
+        await client.v1.charges.retrieve_async("ch_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/charges/ch_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_charges_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/charges",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.charges.create(
+            {
+                "amount": 2000,
+                "currency": "usd",
+                "source": "tok_xxxx",
+                "description": "My First Test Charge (created for API docs at https://www.stripe.com/docs/api)",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/charges",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=2000&currency=usd&source=tok_xxxx&description=My%20First%20Test%20Charge%20%28created%20for%20API%20docs%20at%20https%3A%2F%2Fwww.stripe.com%2Fdocs%2Fapi%29",
         )
 
     def test_charges_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -3710,7 +4893,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.charges.create(
+        client.v1.charges.create(
             {
                 "amount": 2000,
                 "currency": "usd",
@@ -3756,7 +4939,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.charges.create_async(
+        await client.v1.charges.create_async(
             {
                 "amount": 2000,
                 "currency": "usd",
@@ -3770,6 +4953,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=2000&currency=usd&source=tok_xxxx&description=My%20First%20Test%20Charge%20%28created%20for%20API%20docs%20at%20https%3A%2F%2Fwww.stripe.com%2Fdocs%2Fapi%29",
+        )
+
+    def test_charges_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/charges/ch_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.charges.update(
+            "ch_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/charges/ch_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_charges_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -3796,7 +5003,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.charges.update(
+        client.v1.charges.update(
             "ch_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -3836,7 +5043,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.charges.update_async(
+        await client.v1.charges.update_async(
             "ch_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -3846,6 +5053,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_charges_search_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/charges/search",
+            "query=amount%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.charges.search(
+            {
+                "query": "amount>999 AND metadata['order_id']:'6735'",
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/charges/search",
+            query_string="query=amount%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+            api_base="https://api.stripe.com",
         )
 
     def test_charges_search_get(
@@ -3873,7 +5105,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.charges.search(
+        client.v1.charges.search(
             {
                 "query": "amount>999 AND metadata['order_id']:'6735'",
             }
@@ -3912,7 +5144,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.charges.search_async(
+        await client.v1.charges.search_async(
             {
                 "query": "amount>999 AND metadata['order_id']:'6735'",
             }
@@ -3921,6 +5153,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/charges/search",
             query_string="query=amount%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_checkout_sessions_expire_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/checkout/sessions/sess_xyz/expire",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.checkout.sessions.expire("sess_xyz")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/checkout/sessions/sess_xyz/expire",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -3946,7 +5198,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.checkout.sessions.expire("sess_xyz")
+        client.v1.checkout.sessions.expire("sess_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/checkout/sessions/sess_xyz/expire",
@@ -3978,10 +5230,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.checkout.sessions.expire_async("sess_xyz")
+        await client.v1.checkout.sessions.expire_async("sess_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/checkout/sessions/sess_xyz/expire",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_checkout_sessions_expire_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.checkout.sessions.expire("cs_test_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -4008,7 +5280,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.checkout.sessions.expire("cs_test_xxxxxxxxxxxxx")
+        client.v1.checkout.sessions.expire("cs_test_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire",
@@ -4040,11 +5312,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.checkout.sessions.expire_async("cs_test_xxxxxxxxxxxxx")
+        await client.v1.checkout.sessions.expire_async("cs_test_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_checkout_sessions_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/checkout/sessions",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.checkout.sessions.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/checkout/sessions",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -4071,7 +5364,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.checkout.sessions.list({"limit": 3})
+        client.v1.checkout.sessions.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/checkout/sessions",
@@ -4104,11 +5397,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.checkout.sessions.list_async({"limit": 3})
+        await client.v1.checkout.sessions.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/checkout/sessions",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_checkout_sessions_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.checkout.sessions.retrieve("cs_test_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -4134,7 +5447,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.checkout.sessions.retrieve("cs_test_xxxxxxxxxxxxx")
+        client.v1.checkout.sessions.retrieve("cs_test_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx",
@@ -4166,10 +5479,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.checkout.sessions.retrieve_async("cs_test_xxxxxxxxxxxxx")
+        await client.v1.checkout.sessions.retrieve_async(
+            "cs_test_xxxxxxxxxxxxx",
+        )
         http_client_mock.assert_requested(
             "get",
             path="/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_checkout_sessions_line_items_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/checkout/sessions/sess_xyz/line_items",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.checkout.sessions.line_items.list("sess_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/checkout/sessions/sess_xyz/line_items",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -4196,7 +5531,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.checkout.sessions.line_items.list("sess_xyz")
+        client.v1.checkout.sessions.line_items.list("sess_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/checkout/sessions/sess_xyz/line_items",
@@ -4228,12 +5563,51 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.checkout.sessions.line_items.list_async("sess_xyz")
+        await client.v1.checkout.sessions.line_items.list_async("sess_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/checkout/sessions/sess_xyz/line_items",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_checkout_sessions_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/checkout/sessions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.checkout.sessions.create(
+            {
+                "success_url": "https://example.com/success",
+                "cancel_url": "https://example.com/cancel",
+                "mode": "payment",
+                "shipping_options": [
+                    {"shipping_rate": "shr_standard"},
+                    {
+                        "shipping_rate_data": {
+                            "display_name": "Standard",
+                            "delivery_estimate": {
+                                "minimum": {"unit": "day", "value": 5},
+                                "maximum": {"unit": "day", "value": 7},
+                            },
+                        },
+                    },
+                ],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/checkout/sessions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="success_url=https%3A%2F%2Fexample.com%2Fsuccess&cancel_url=https%3A%2F%2Fexample.com%2Fcancel&mode=payment&shipping_options[0][shipping_rate]=shr_standard&shipping_options[1][shipping_rate_data][display_name]=Standard&shipping_options[1][shipping_rate_data][delivery_estimate][minimum][unit]=day&shipping_options[1][shipping_rate_data][delivery_estimate][minimum][value]=5&shipping_options[1][shipping_rate_data][delivery_estimate][maximum][unit]=day&shipping_options[1][shipping_rate_data][delivery_estimate][maximum][value]=7",
         )
 
     def test_checkout_sessions_post(
@@ -4275,7 +5649,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.checkout.sessions.create(
+        client.v1.checkout.sessions.create(
             {
                 "success_url": "https://example.com/success",
                 "cancel_url": "https://example.com/cancel",
@@ -4343,7 +5717,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.checkout.sessions.create_async(
+        await client.v1.checkout.sessions.create_async(
             {
                 "success_url": "https://example.com/success",
                 "cancel_url": "https://example.com/cancel",
@@ -4368,6 +5742,35 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="success_url=https%3A%2F%2Fexample.com%2Fsuccess&cancel_url=https%3A%2F%2Fexample.com%2Fcancel&mode=payment&shipping_options[0][shipping_rate]=shr_standard&shipping_options[1][shipping_rate_data][display_name]=Standard&shipping_options[1][shipping_rate_data][delivery_estimate][minimum][unit]=day&shipping_options[1][shipping_rate_data][delivery_estimate][minimum][value]=5&shipping_options[1][shipping_rate_data][delivery_estimate][maximum][unit]=day&shipping_options[1][shipping_rate_data][delivery_estimate][maximum][value]=7",
+        )
+
+    def test_checkout_sessions_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/checkout/sessions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.checkout.sessions.create(
+            {
+                "success_url": "https://example.com/success",
+                "line_items": [
+                    {"price": "price_xxxxxxxxxxxxx", "quantity": 2}
+                ],
+                "mode": "payment",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/checkout/sessions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="success_url=https%3A%2F%2Fexample.com%2Fsuccess&line_items[0][price]=price_xxxxxxxxxxxxx&line_items[0][quantity]=2&mode=payment",
         )
 
     def test_checkout_sessions_post_2(
@@ -4397,7 +5800,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.checkout.sessions.create(
+        client.v1.checkout.sessions.create(
             {
                 "success_url": "https://example.com/success",
                 "line_items": [
@@ -4443,7 +5846,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.checkout.sessions.create_async(
+        await client.v1.checkout.sessions.create_async(
             {
                 "success_url": "https://example.com/success",
                 "line_items": [
@@ -4480,6 +5883,27 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_country_specs_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/country_specs",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.country_specs.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/country_specs",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
     def test_country_specs_get(self, http_client_mock: HTTPClientMock) -> None:
         stripe.CountrySpec.list(limit=3)
         http_client_mock.assert_requested(
@@ -4501,7 +5925,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.country_specs.list({"limit": 3})
+        client.v1.country_specs.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/country_specs",
@@ -4534,11 +5958,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.country_specs.list_async({"limit": 3})
+        await client.v1.country_specs.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/country_specs",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_country_specs_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/country_specs/US",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.country_specs.retrieve("US")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/country_specs/US",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -4564,7 +6008,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.country_specs.retrieve("US")
+        client.v1.country_specs.retrieve("US")
         http_client_mock.assert_requested(
             "get",
             path="/v1/country_specs/US",
@@ -4596,10 +6040,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.country_specs.retrieve_async("US")
+        await client.v1.country_specs.retrieve_async("US")
         http_client_mock.assert_requested(
             "get",
             path="/v1/country_specs/US",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_coupons_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/coupons/Z4OV52SU",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.coupons.delete("Z4OV52SU")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/coupons/Z4OV52SU",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -4624,7 +6088,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.coupons.delete("Z4OV52SU")
+        client.v1.coupons.delete("Z4OV52SU")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/coupons/Z4OV52SU",
@@ -4656,11 +6120,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.coupons.delete_async("Z4OV52SU")
+        await client.v1.coupons.delete_async("Z4OV52SU")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/coupons/Z4OV52SU",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_coupons_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/coupons",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.coupons.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/coupons",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -4685,7 +6170,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.coupons.list({"limit": 3})
+        client.v1.coupons.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/coupons",
@@ -4718,11 +6203,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.coupons.list_async({"limit": 3})
+        await client.v1.coupons.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/coupons",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_coupons_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/coupons/Z4OV52SU",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.coupons.retrieve("Z4OV52SU")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/coupons/Z4OV52SU",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -4746,7 +6251,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.coupons.retrieve("Z4OV52SU")
+        client.v1.coupons.retrieve("Z4OV52SU")
         http_client_mock.assert_requested(
             "get",
             path="/v1/coupons/Z4OV52SU",
@@ -4778,12 +6283,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.coupons.retrieve_async("Z4OV52SU")
+        await client.v1.coupons.retrieve_async("Z4OV52SU")
         http_client_mock.assert_requested(
             "get",
             path="/v1/coupons/Z4OV52SU",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_coupons_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/coupons",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.coupons.create({"percent_off": 25.5, "duration": "once"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/coupons",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="percent_off=25.5&duration=once",
         )
 
     def test_coupons_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -4810,7 +6336,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.coupons.create({"percent_off": 25.5, "duration": "once"})
+        client.v1.coupons.create({"percent_off": 25.5, "duration": "once"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/coupons",
@@ -4847,7 +6373,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.coupons.create_async(
+        await client.v1.coupons.create_async(
             {
                 "percent_off": 25.5,
                 "duration": "once",
@@ -4859,6 +6385,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="percent_off=25.5&duration=once",
+        )
+
+    def test_coupons_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/coupons/Z4OV52SU",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.coupons.update(
+            "Z4OV52SU",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/coupons/Z4OV52SU",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_coupons_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -4885,7 +6435,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.coupons.update(
+        client.v1.coupons.update(
             "Z4OV52SU",
             {"metadata": {"order_id": "6735"}},
         )
@@ -4925,7 +6475,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.coupons.update_async(
+        await client.v1.coupons.update_async(
             "Z4OV52SU",
             {"metadata": {"order_id": "6735"}},
         )
@@ -4935,6 +6485,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_credit_notes_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/credit_notes",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.credit_notes.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/credit_notes",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_credit_notes_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -4958,7 +6529,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.credit_notes.list({"limit": 3})
+        client.v1.credit_notes.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/credit_notes",
@@ -4991,10 +6562,34 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.credit_notes.list_async({"limit": 3})
+        await client.v1.credit_notes.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/credit_notes",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_credit_notes_lines_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/credit_notes/cn_xxxxxxxxxxxxx/lines",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.credit_notes.line_items.list(
+            "cn_xxxxxxxxxxxxx",
+            {"limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/credit_notes/cn_xxxxxxxxxxxxx/lines",
             query_string="limit=3",
             api_base="https://api.stripe.com",
         )
@@ -5025,7 +6620,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.credit_notes.line_items.list(
+        client.v1.credit_notes.line_items.list(
             "cn_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -5064,7 +6659,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.credit_notes.line_items.list_async(
+        await client.v1.credit_notes.line_items.list_async(
             "cn_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -5073,6 +6668,38 @@ class TestGeneratedExamples(object):
             path="/v1/credit_notes/cn_xxxxxxxxxxxxx/lines",
             query_string="limit=3",
             api_base="https://api.stripe.com",
+        )
+
+    def test_credit_notes_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/credit_notes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.credit_notes.create(
+            {
+                "invoice": "in_xxxxxxxxxxxxx",
+                "lines": [
+                    {
+                        "type": "invoice_line_item",
+                        "invoice_line_item": "il_xxxxxxxxxxxxx",
+                        "quantity": 1,
+                    },
+                ],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/credit_notes",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="invoice=in_xxxxxxxxxxxxx&lines[0][type]=invoice_line_item&lines[0][invoice_line_item]=il_xxxxxxxxxxxxx&lines[0][quantity]=1",
         )
 
     def test_credit_notes_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -5105,7 +6732,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.credit_notes.create(
+        client.v1.credit_notes.create(
             {
                 "invoice": "in_xxxxxxxxxxxxx",
                 "lines": [
@@ -5159,7 +6786,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.credit_notes.create_async(
+        await client.v1.credit_notes.create_async(
             {
                 "invoice": "in_xxxxxxxxxxxxx",
                 "lines": [
@@ -5177,6 +6804,38 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="invoice=in_xxxxxxxxxxxxx&lines[0][type]=invoice_line_item&lines[0][invoice_line_item]=il_xxxxxxxxxxxxx&lines[0][quantity]=1",
+        )
+
+    def test_credit_notes_preview_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/credit_notes/preview",
+            "invoice=in_xxxxxxxxxxxxx&lines[0][type]=invoice_line_item&lines[0][invoice_line_item]=il_xxxxxxxxxxxxx&lines[0][quantity]=1",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.credit_notes.preview(
+            {
+                "invoice": "in_xxxxxxxxxxxxx",
+                "lines": [
+                    {
+                        "type": "invoice_line_item",
+                        "invoice_line_item": "il_xxxxxxxxxxxxx",
+                        "quantity": 1,
+                    },
+                ],
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/credit_notes/preview",
+            query_string="invoice=in_xxxxxxxxxxxxx&lines[0][type]=invoice_line_item&lines[0][invoice_line_item]=il_xxxxxxxxxxxxx&lines[0][quantity]=1",
+            api_base="https://api.stripe.com",
         )
 
     def test_credit_notes_preview_get(
@@ -5211,7 +6870,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.credit_notes.preview(
+        client.v1.credit_notes.preview(
             {
                 "invoice": "in_xxxxxxxxxxxxx",
                 "lines": [
@@ -5264,7 +6923,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.credit_notes.preview_async(
+        await client.v1.credit_notes.preview_async(
             {
                 "invoice": "in_xxxxxxxxxxxxx",
                 "lines": [
@@ -5280,6 +6939,32 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/credit_notes/preview",
             query_string="invoice=in_xxxxxxxxxxxxx&lines[0][type]=invoice_line_item&lines[0][invoice_line_item]=il_xxxxxxxxxxxxx&lines[0][quantity]=1",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_credit_notes_preview_lines_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/credit_notes/preview/lines",
+            "limit=3&invoice=in_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.credit_notes.preview_lines.list(
+            {
+                "limit": 3,
+                "invoice": "in_xxxxxxxxxxxxx",
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/credit_notes/preview/lines",
+            query_string="limit=3&invoice=in_xxxxxxxxxxxxx",
             api_base="https://api.stripe.com",
         )
 
@@ -5309,7 +6994,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.credit_notes.preview_lines.list(
+        client.v1.credit_notes.preview_lines.list(
             {
                 "limit": 3,
                 "invoice": "in_xxxxxxxxxxxxx",
@@ -5350,7 +7035,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.credit_notes.preview_lines.list_async(
+        await client.v1.credit_notes.preview_lines.list_async(
             {
                 "limit": 3,
                 "invoice": "in_xxxxxxxxxxxxx",
@@ -5360,6 +7045,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/credit_notes/preview/lines",
             query_string="limit=3&invoice=in_xxxxxxxxxxxxx",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_credit_notes_void_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.credit_notes.void_credit_note("cn_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -5385,7 +7090,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.credit_notes.void_credit_note("cn_xxxxxxxxxxxxx")
+        client.v1.credit_notes.void_credit_note("cn_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
@@ -5417,12 +7122,38 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.credit_notes.void_credit_note_async("cn_xxxxxxxxxxxxx")
+        await client.v1.credit_notes.void_credit_note_async("cn_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_customer_sessions_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customer_sessions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customer_sessions.create(
+            {
+                "customer": "cus_123",
+                "components": {"buy_button": {"enabled": True}},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customer_sessions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="customer=cus_123&components[buy_button][enabled]=true",
         )
 
     def test_customer_sessions_post(
@@ -5451,7 +7182,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customer_sessions.create(
+        client.v1.customer_sessions.create(
             {
                 "customer": "cus_123",
                 "components": {"buy_button": {"enabled": True}},
@@ -5493,7 +7224,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customer_sessions.create_async(
+        await client.v1.customer_sessions.create_async(
             {
                 "customer": "cus_123",
                 "components": {"buy_button": {"enabled": True}},
@@ -5505,6 +7236,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="customer=cus_123&components[buy_button][enabled]=true",
+        )
+
+    def test_customers_balance_transactions_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.balance_transactions.list(
+            "cus_xxxxxxxxxxxxx",
+            {"limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_customers_balance_transactions_get(
@@ -5533,7 +7288,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.balance_transactions.list(
+        client.v1.customers.balance_transactions.list(
             "cus_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -5572,7 +7327,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.balance_transactions.list_async(
+        await client.v1.customers.balance_transactions.list_async(
             "cus_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -5580,6 +7335,29 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_balance_transactions_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.balance_transactions.retrieve(
+            "cus_xxxxxxxxxxxxx",
+            "cbtxn_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -5608,7 +7386,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.balance_transactions.retrieve(
+        client.v1.customers.balance_transactions.retrieve(
             "cus_xxxxxxxxxxxxx",
             "cbtxn_xxxxxxxxxxxxx",
         )
@@ -5646,7 +7424,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.balance_transactions.retrieve_async(
+        await client.v1.customers.balance_transactions.retrieve_async(
             "cus_xxxxxxxxxxxxx",
             "cbtxn_xxxxxxxxxxxxx",
         )
@@ -5655,6 +7433,30 @@ class TestGeneratedExamples(object):
             path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_customers_balance_transactions_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.balance_transactions.create(
+            "cus_xxxxxxxxxxxxx",
+            {"amount": -500, "currency": "usd"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=-500&currency=usd",
         )
 
     def test_customers_balance_transactions_post(
@@ -5684,7 +7486,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.balance_transactions.create(
+        client.v1.customers.balance_transactions.create(
             "cus_xxxxxxxxxxxxx",
             {"amount": -500, "currency": "usd"},
         )
@@ -5725,7 +7527,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.balance_transactions.create_async(
+        await client.v1.customers.balance_transactions.create_async(
             "cus_xxxxxxxxxxxxx",
             {"amount": -500, "currency": "usd"},
         )
@@ -5735,6 +7537,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=-500&currency=usd",
+        )
+
+    def test_customers_balance_transactions_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.balance_transactions.update(
+            "cus_xxxxxxxxxxxxx",
+            "cbtxn_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_customers_balance_transactions_post_2(
@@ -5764,7 +7591,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.balance_transactions.update(
+        client.v1.customers.balance_transactions.update(
             "cus_xxxxxxxxxxxxx",
             "cbtxn_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -5806,7 +7633,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.balance_transactions.update_async(
+        await client.v1.customers.balance_transactions.update_async(
             "cus_xxxxxxxxxxxxx",
             "cbtxn_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -5817,6 +7644,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_customers_cash_balance_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_123/cash_balance",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.cash_balance.retrieve("cus_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_123/cash_balance",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_customers_cash_balance_get(
@@ -5841,7 +7688,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.cash_balance.retrieve("cus_123")
+        client.v1.customers.cash_balance.retrieve("cus_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers/cus_123/cash_balance",
@@ -5873,12 +7720,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.cash_balance.retrieve_async("cus_123")
+        await client.v1.customers.cash_balance.retrieve_async("cus_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers/cus_123/cash_balance",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_customers_cash_balance_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customers/cus_123/cash_balance",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.cash_balance.update(
+            "cus_123",
+            {"settings": {"reconciliation_mode": "manual"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/cus_123/cash_balance",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="settings[reconciliation_mode]=manual",
         )
 
     def test_customers_cash_balance_post(
@@ -5907,7 +7778,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.cash_balance.update(
+        client.v1.customers.cash_balance.update(
             "cus_123",
             {"settings": {"reconciliation_mode": "manual"}},
         )
@@ -5947,7 +7818,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.cash_balance.update_async(
+        await client.v1.customers.cash_balance.update_async(
             "cus_123",
             {"settings": {"reconciliation_mode": "manual"}},
         )
@@ -5957,6 +7828,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="settings[reconciliation_mode]=manual",
+        )
+
+    def test_customers_cash_balance_transactions_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_123/cash_balance_transactions",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.cash_balance_transactions.list(
+            "cus_123",
+            {"limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_123/cash_balance_transactions",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_customers_cash_balance_transactions_get(
@@ -5985,7 +7880,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.cash_balance_transactions.list(
+        client.v1.customers.cash_balance_transactions.list(
             "cus_123",
             {"limit": 3},
         )
@@ -6024,7 +7919,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.cash_balance_transactions.list_async(
+        await client.v1.customers.cash_balance_transactions.list_async(
             "cus_123",
             {"limit": 3},
         )
@@ -6032,6 +7927,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/customers/cus_123/cash_balance_transactions",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/customers/cus_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.delete("cus_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/customers/cus_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -6055,7 +7970,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.delete("cus_xxxxxxxxxxxxx")
+        client.v1.customers.delete("cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
@@ -6087,12 +8002,43 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.delete_async("cus_xxxxxxxxxxxxx")
+        await client.v1.customers.delete_async("cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_customers_funding_instructions_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customers/cus_123/funding_instructions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.funding_instructions.create(
+            "cus_123",
+            {
+                "bank_transfer": {
+                    "requested_address_types": ["zengin"],
+                    "type": "jp_bank_transfer",
+                },
+                "currency": "usd",
+                "funding_type": "bank_transfer",
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/cus_123/funding_instructions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="bank_transfer[requested_address_types][0]=zengin&bank_transfer[type]=jp_bank_transfer&currency=usd&funding_type=bank_transfer",
         )
 
     def test_customers_funding_instructions_post(
@@ -6126,7 +8072,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.funding_instructions.create(
+        client.v1.customers.funding_instructions.create(
             "cus_123",
             {
                 "bank_transfer": {
@@ -6178,7 +8124,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.funding_instructions.create_async(
+        await client.v1.customers.funding_instructions.create_async(
             "cus_123",
             {
                 "bank_transfer": {
@@ -6195,6 +8141,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="bank_transfer[requested_address_types][0]=zengin&bank_transfer[type]=jp_bank_transfer&currency=usd&funding_type=bank_transfer",
+        )
+
+    def test_customers_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_customers_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -6218,7 +8185,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.list({"limit": 3})
+        client.v1.customers.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers",
@@ -6251,7 +8218,28 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.list_async({"limit": 3})
+        await client.v1.customers.list_async({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers",
@@ -6280,7 +8268,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.list({"limit": 3})
+        client.v1.customers.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers",
@@ -6313,11 +8301,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.list_async({"limit": 3})
+        await client.v1.customers.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_get_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.retrieve("cus_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -6341,7 +8349,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.retrieve("cus_xxxxxxxxxxxxx")
+        client.v1.customers.retrieve("cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
@@ -6373,11 +8381,35 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.retrieve_async("cus_xxxxxxxxxxxxx")
+        await client.v1.customers.retrieve_async("cus_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_payment_methods_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_xyz/payment_methods",
+            "type=card",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.payment_methods.list(
+            "cus_xyz",
+            {"type": "card"},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_xyz/payment_methods",
+            query_string="type=card",
             api_base="https://api.stripe.com",
         )
 
@@ -6407,7 +8439,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.payment_methods.list(
+        client.v1.customers.payment_methods.list(
             "cus_xyz",
             {"type": "card"},
         )
@@ -6446,13 +8478,37 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.payment_methods.list_async(
+        await client.v1.customers.payment_methods.list_async(
             "cus_xyz",
             {"type": "card"},
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers/cus_xyz/payment_methods",
+            query_string="type=card",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_payment_methods_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx/payment_methods",
+            "type=card",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.payment_methods.list(
+            "cus_xxxxxxxxxxxxx",
+            {"type": "card"},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/payment_methods",
             query_string="type=card",
             api_base="https://api.stripe.com",
         )
@@ -6483,7 +8539,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.payment_methods.list(
+        client.v1.customers.payment_methods.list(
             "cus_xxxxxxxxxxxxx",
             {"type": "card"},
         )
@@ -6522,7 +8578,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.payment_methods.list_async(
+        await client.v1.customers.payment_methods.list_async(
             "cus_xxxxxxxxxxxxx",
             {"type": "card"},
         )
@@ -6531,6 +8587,31 @@ class TestGeneratedExamples(object):
             path="/v1/customers/cus_xxxxxxxxxxxxx/payment_methods",
             query_string="type=card",
             api_base="https://api.stripe.com",
+        )
+
+    def test_customers_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customers",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.create(
+            {
+                "description": "My First Test Customer (created for API docs at https://www.stripe.com/docs/api)",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="description=My%20First%20Test%20Customer%20%28created%20for%20API%20docs%20at%20https%3A%2F%2Fwww.stripe.com%2Fdocs%2Fapi%29",
         )
 
     def test_customers_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -6556,7 +8637,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.create(
+        client.v1.customers.create(
             {
                 "description": "My First Test Customer (created for API docs at https://www.stripe.com/docs/api)",
             }
@@ -6596,7 +8677,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.create_async(
+        await client.v1.customers.create_async(
             {
                 "description": "My First Test Customer (created for API docs at https://www.stripe.com/docs/api)",
             }
@@ -6607,6 +8688,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="description=My%20First%20Test%20Customer%20%28created%20for%20API%20docs%20at%20https%3A%2F%2Fwww.stripe.com%2Fdocs%2Fapi%29",
+        )
+
+    def test_customers_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customers/cus_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.update(
+            "cus_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/cus_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_customers_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -6633,7 +8738,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.update(
+        client.v1.customers.update(
             "cus_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -6673,7 +8778,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.update_async(
+        await client.v1.customers.update_async(
             "cus_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -6683,6 +8788,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_customers_search_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/search",
+            "query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.search(
+            {
+                "query": "name:'fakename' AND metadata['foo']:'bar'",
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/search",
+            query_string="query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27",
+            api_base="https://api.stripe.com",
         )
 
     def test_customers_search_get(
@@ -6710,7 +8840,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.search(
+        client.v1.customers.search(
             {
                 "query": "name:'fakename' AND metadata['foo']:'bar'",
             }
@@ -6749,7 +8879,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.search_async(
+        await client.v1.customers.search_async(
+            {
+                "query": "name:'fakename' AND metadata['foo']:'bar'",
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/search",
+            query_string="query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_search_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/search",
+            "query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.search(
             {
                 "query": "name:'fakename' AND metadata['foo']:'bar'",
             }
@@ -6786,7 +8941,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.search(
+        client.v1.customers.search(
             {
                 "query": "name:'fakename' AND metadata['foo']:'bar'",
             }
@@ -6825,7 +8980,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.search_async(
+        await client.v1.customers.search_async(
             {
                 "query": "name:'fakename' AND metadata['foo']:'bar'",
             }
@@ -6834,6 +8989,29 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/customers/search",
             query_string="query=name%3A%27fakename%27%20AND%20metadata%5B%27foo%27%5D%3A%27bar%27",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_sources_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.sources.detach(
+            "cus_xxxxxxxxxxxxx",
+            "ba_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -6862,7 +9040,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.sources.detach(
+        client.v1.sources.detach(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
@@ -6900,13 +9078,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.sources.detach_async(
+        await client.v1.sources.detach_async(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_sources_delete_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.sources.detach(
+            "cus_xxxxxxxxxxxxx",
+            "card_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -6936,7 +9137,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.sources.detach(
+        client.v1.sources.detach(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -6974,7 +9175,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.sources.detach_async(
+        await client.v1.sources.detach_async(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -6982,6 +9183,30 @@ class TestGeneratedExamples(object):
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_sources_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx/sources",
+            "object=bank_account&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.payment_sources.list(
+            "cus_xxxxxxxxxxxxx",
+            {"object": "bank_account", "limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
+            query_string="object=bank_account&limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -7012,7 +9237,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.payment_sources.list(
+        client.v1.customers.payment_sources.list(
             "cus_xxxxxxxxxxxxx",
             {"object": "bank_account", "limit": 3},
         )
@@ -7052,7 +9277,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.payment_sources.list_async(
+        await client.v1.customers.payment_sources.list_async(
             "cus_xxxxxxxxxxxxx",
             {"object": "bank_account", "limit": 3},
         )
@@ -7060,6 +9285,30 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
             query_string="object=bank_account&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_sources_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx/sources",
+            "object=card&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.payment_sources.list(
+            "cus_xxxxxxxxxxxxx",
+            {"object": "card", "limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
+            query_string="object=card&limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -7090,7 +9339,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.payment_sources.list(
+        client.v1.customers.payment_sources.list(
             "cus_xxxxxxxxxxxxx",
             {"object": "card", "limit": 3},
         )
@@ -7130,7 +9379,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.payment_sources.list_async(
+        await client.v1.customers.payment_sources.list_async(
             "cus_xxxxxxxxxxxxx",
             {"object": "card", "limit": 3},
         )
@@ -7138,6 +9387,29 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
             query_string="object=card&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_sources_get_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.payment_sources.retrieve(
+            "cus_xxxxxxxxxxxxx",
+            "ba_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -7166,7 +9438,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.payment_sources.retrieve(
+        client.v1.customers.payment_sources.retrieve(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
@@ -7204,13 +9476,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.payment_sources.retrieve_async(
+        await client.v1.customers.payment_sources.retrieve_async(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_sources_get_4_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.payment_sources.retrieve(
+            "cus_xxxxxxxxxxxxx",
+            "card_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -7240,7 +9535,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.payment_sources.retrieve(
+        client.v1.customers.payment_sources.retrieve(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -7278,7 +9573,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.payment_sources.retrieve_async(
+        await client.v1.customers.payment_sources.retrieve_async(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
         )
@@ -7287,6 +9582,31 @@ class TestGeneratedExamples(object):
             path="/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_customers_sources_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customers/cus_123/sources/card_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.payment_sources.update(
+            "cus_123",
+            "card_123",
+            {"account_holder_name": "Kamil"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/cus_123/sources/card_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="account_holder_name=Kamil",
         )
 
     def test_customers_sources_post(
@@ -7316,7 +9636,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.payment_sources.update(
+        client.v1.customers.payment_sources.update(
             "cus_123",
             "card_123",
             {"account_holder_name": "Kamil"},
@@ -7358,7 +9678,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.payment_sources.update_async(
+        await client.v1.customers.payment_sources.update_async(
             "cus_123",
             "card_123",
             {"account_holder_name": "Kamil"},
@@ -7369,6 +9689,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="account_holder_name=Kamil",
+        )
+
+    def test_customers_sources_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customers/cus_xxxxxxxxxxxxx/sources",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.payment_sources.create(
+            "cus_xxxxxxxxxxxxx",
+            {"source": "btok_xxxxxxxxxxxxx"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="source=btok_xxxxxxxxxxxxx",
         )
 
     def test_customers_sources_post_2(
@@ -7397,7 +9741,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.payment_sources.create(
+        client.v1.customers.payment_sources.create(
             "cus_xxxxxxxxxxxxx",
             {"source": "btok_xxxxxxxxxxxxx"},
         )
@@ -7437,7 +9781,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.payment_sources.create_async(
+        await client.v1.customers.payment_sources.create_async(
             "cus_xxxxxxxxxxxxx",
             {"source": "btok_xxxxxxxxxxxxx"},
         )
@@ -7447,6 +9791,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="source=btok_xxxxxxxxxxxxx",
+        )
+
+    def test_customers_sources_post_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customers/cus_xxxxxxxxxxxxx/sources",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.payment_sources.create(
+            "cus_xxxxxxxxxxxxx",
+            {"source": "tok_xxxx"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/sources",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="source=tok_xxxx",
         )
 
     def test_customers_sources_post_3(
@@ -7475,7 +9843,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.payment_sources.create(
+        client.v1.customers.payment_sources.create(
             "cus_xxxxxxxxxxxxx",
             {"source": "tok_xxxx"},
         )
@@ -7515,7 +9883,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.payment_sources.create_async(
+        await client.v1.customers.payment_sources.create_async(
             "cus_xxxxxxxxxxxxx",
             {"source": "tok_xxxx"},
         )
@@ -7525,6 +9893,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="source=tok_xxxx",
+        )
+
+    def test_customers_sources_post_4_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.payment_sources.update(
+            "cus_xxxxxxxxxxxxx",
+            "ba_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/sources/ba_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_customers_sources_post_4(
@@ -7554,7 +9947,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.payment_sources.update(
+        client.v1.customers.payment_sources.update(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -7596,7 +9989,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.payment_sources.update_async(
+        await client.v1.customers.payment_sources.update_async(
             "cus_xxxxxxxxxxxxx",
             "ba_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -7607,6 +10000,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_customers_sources_post_5_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.payment_sources.update(
+            "cus_xxxxxxxxxxxxx",
+            "card_xxxxxxxxxxxxx",
+            {"name": "Jenny Rosen"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/sources/card_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="name=Jenny%20Rosen",
         )
 
     def test_customers_sources_post_5(
@@ -7636,7 +10054,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.payment_sources.update(
+        client.v1.customers.payment_sources.update(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
             {"name": "Jenny Rosen"},
@@ -7678,7 +10096,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.payment_sources.update_async(
+        await client.v1.customers.payment_sources.update_async(
             "cus_xxxxxxxxxxxxx",
             "card_xxxxxxxxxxxxx",
             {"name": "Jenny Rosen"},
@@ -7689,6 +10107,29 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="name=Jenny%20Rosen",
+        )
+
+    def test_customers_tax_ids_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.tax_ids.delete(
+            "cus_xxxxxxxxxxxxx",
+            "txi_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_customers_tax_ids_delete(
@@ -7716,7 +10157,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.tax_ids.delete(
+        client.v1.customers.tax_ids.delete(
             "cus_xxxxxxxxxxxxx",
             "txi_xxxxxxxxxxxxx",
         )
@@ -7754,7 +10195,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.tax_ids.delete_async(
+        await client.v1.customers.tax_ids.delete_async(
             "cus_xxxxxxxxxxxxx",
             "txi_xxxxxxxxxxxxx",
         )
@@ -7762,6 +10203,30 @@ class TestGeneratedExamples(object):
             "delete",
             path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_tax_ids_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx/tax_ids",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.tax_ids.list(
+            "cus_xxxxxxxxxxxxx",
+            {"limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -7791,7 +10256,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.tax_ids.list(
+        client.v1.customers.tax_ids.list(
             "cus_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -7830,7 +10295,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.tax_ids.list_async(
+        await client.v1.customers.tax_ids.list_async(
             "cus_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -7838,6 +10303,29 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_customers_tax_ids_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.tax_ids.retrieve(
+            "cus_xxxxxxxxxxxxx",
+            "txi_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -7866,7 +10354,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.tax_ids.retrieve(
+        client.v1.customers.tax_ids.retrieve(
             "cus_xxxxxxxxxxxxx",
             "txi_xxxxxxxxxxxxx",
         )
@@ -7904,7 +10392,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.tax_ids.retrieve_async(
+        await client.v1.customers.tax_ids.retrieve_async(
             "cus_xxxxxxxxxxxxx",
             "txi_xxxxxxxxxxxxx",
         )
@@ -7913,6 +10401,30 @@ class TestGeneratedExamples(object):
             path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_customers_tax_ids_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/customers/cus_xxxxxxxxxxxxx/tax_ids",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.customers.tax_ids.create(
+            "cus_xxxxxxxxxxxxx",
+            {"type": "eu_vat", "value": "DE123456789"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/cus_xxxxxxxxxxxxx/tax_ids",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="type=eu_vat&value=DE123456789",
         )
 
     def test_customers_tax_ids_post(
@@ -7942,7 +10454,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.customers.tax_ids.create(
+        client.v1.customers.tax_ids.create(
             "cus_xxxxxxxxxxxxx",
             {"type": "eu_vat", "value": "DE123456789"},
         )
@@ -7983,7 +10495,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.customers.tax_ids.create_async(
+        await client.v1.customers.tax_ids.create_async(
             "cus_xxxxxxxxxxxxx",
             {"type": "eu_vat", "value": "DE123456789"},
         )
@@ -7993,6 +10505,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="type=eu_vat&value=DE123456789",
+        )
+
+    def test_disputes_close_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/disputes/dp_xxxxxxxxxxxxx/close",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.disputes.close("dp_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/disputes/dp_xxxxxxxxxxxxx/close",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_disputes_close_post(
@@ -8017,7 +10549,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.disputes.close("dp_xxxxxxxxxxxxx")
+        client.v1.disputes.close("dp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/disputes/dp_xxxxxxxxxxxxx/close",
@@ -8049,11 +10581,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.disputes.close_async("dp_xxxxxxxxxxxxx")
+        await client.v1.disputes.close_async("dp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/disputes/dp_xxxxxxxxxxxxx/close",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_disputes_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/disputes",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.disputes.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/disputes",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -8078,7 +10631,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.disputes.list({"limit": 3})
+        client.v1.disputes.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/disputes",
@@ -8111,11 +10664,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.disputes.list_async({"limit": 3})
+        await client.v1.disputes.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/disputes",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_disputes_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/disputes/dp_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.disputes.retrieve("dp_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/disputes/dp_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -8139,7 +10712,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.disputes.retrieve("dp_xxxxxxxxxxxxx")
+        client.v1.disputes.retrieve("dp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/disputes/dp_xxxxxxxxxxxxx",
@@ -8171,12 +10744,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.disputes.retrieve_async("dp_xxxxxxxxxxxxx")
+        await client.v1.disputes.retrieve_async("dp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/disputes/dp_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_disputes_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/disputes/dp_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.disputes.update(
+            "dp_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/disputes/dp_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_disputes_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -8203,7 +10800,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.disputes.update(
+        client.v1.disputes.update(
             "dp_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -8243,7 +10840,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.disputes.update_async(
+        await client.v1.disputes.update_async(
             "dp_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -8253,6 +10850,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_events_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/events",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.events.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/events",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_events_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -8276,7 +10894,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.events.list({"limit": 3})
+        client.v1.events.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/events",
@@ -8309,11 +10927,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.events.list_async({"limit": 3})
+        await client.v1.events.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/events",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_events_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/events/evt_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.events.retrieve("evt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/events/evt_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -8337,7 +10975,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.events.retrieve("evt_xxxxxxxxxxxxx")
+        client.v1.events.retrieve("evt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/events/evt_xxxxxxxxxxxxx",
@@ -8369,11 +11007,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.events.retrieve_async("evt_xxxxxxxxxxxxx")
+        await client.v1.events.retrieve_async("evt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/events/evt_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_file_links_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/file_links",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.file_links.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/file_links",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -8398,7 +11057,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.file_links.list({"limit": 3})
+        client.v1.file_links.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/file_links",
@@ -8431,11 +11090,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.file_links.list_async({"limit": 3})
+        await client.v1.file_links.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/file_links",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_file_links_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/file_links/link_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.file_links.retrieve("link_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/file_links/link_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -8459,7 +11138,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.file_links.retrieve("link_xxxxxxxxxxxxx")
+        client.v1.file_links.retrieve("link_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/file_links/link_xxxxxxxxxxxxx",
@@ -8491,12 +11170,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.file_links.retrieve_async("link_xxxxxxxxxxxxx")
+        await client.v1.file_links.retrieve_async("link_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/file_links/link_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_file_links_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/file_links",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.file_links.create({"file": "file_xxxxxxxxxxxxx"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/file_links",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="file=file_xxxxxxxxxxxxx",
         )
 
     def test_file_links_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -8520,7 +11220,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.file_links.create({"file": "file_xxxxxxxxxxxxx"})
+        client.v1.file_links.create({"file": "file_xxxxxxxxxxxxx"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/file_links",
@@ -8554,13 +11254,37 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.file_links.create_async({"file": "file_xxxxxxxxxxxxx"})
+        await client.v1.file_links.create_async({"file": "file_xxxxxxxxxxxxx"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/file_links",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="file=file_xxxxxxxxxxxxx",
+        )
+
+    def test_file_links_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/file_links/link_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.file_links.update(
+            "link_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/file_links/link_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_file_links_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -8587,7 +11311,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.file_links.update(
+        client.v1.file_links.update(
             "link_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -8627,7 +11351,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.file_links.update_async(
+        await client.v1.file_links.update_async(
             "link_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -8637,6 +11361,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_files_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/files",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.files.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/files",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_files_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -8658,7 +11403,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.files.list({"limit": 3})
+        client.v1.files.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/files",
@@ -8691,11 +11436,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.files.list_async({"limit": 3})
+        await client.v1.files.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/files",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_files_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/files/file_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.files.retrieve("file_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/files/file_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -8719,7 +11484,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.files.retrieve("file_xxxxxxxxxxxxx")
+        client.v1.files.retrieve("file_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/files/file_xxxxxxxxxxxxx",
@@ -8751,12 +11516,37 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.files.retrieve_async("file_xxxxxxxxxxxxx")
+        await client.v1.files.retrieve_async("file_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/files/file_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_files_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/files",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.files.create(
+            {
+                "purpose": "account_requirement",
+                "file": io.StringIO("foo"),
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/files",
+            query_string="",
+            api_base="https://files.stripe.com",
         )
 
     def test_files_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -8782,7 +11572,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.files.create(
+        client.v1.files.create(
             {
                 "purpose": "account_requirement",
                 "file": io.StringIO("foo"),
@@ -8822,7 +11612,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.files.create_async(
+        await client.v1.files.create_async(
             {
                 "purpose": "account_requirement",
                 "file": io.StringIO("foo"),
@@ -8833,6 +11623,26 @@ class TestGeneratedExamples(object):
             path="/v1/files",
             query_string="",
             api_base="https://files.stripe.com",
+        )
+
+    def test_financial_connections_accounts_disconnect_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/financial_connections/accounts/fca_xyz/disconnect",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.accounts.disconnect("fca_xyz")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/financial_connections/accounts/fca_xyz/disconnect",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_financial_connections_accounts_disconnect_post(
@@ -8857,7 +11667,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.accounts.disconnect("fca_xyz")
+        client.v1.financial_connections.accounts.disconnect("fca_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xyz/disconnect",
@@ -8889,10 +11699,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.accounts.disconnect_async("fca_xyz")
+        await client.v1.financial_connections.accounts.disconnect_async(
+            "fca_xyz",
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xyz/disconnect",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_financial_connections_accounts_disconnect_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/disconnect",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.accounts.disconnect("fca_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/disconnect",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -8919,7 +11751,9 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.accounts.disconnect("fca_xxxxxxxxxxxxx")
+        client.v1.financial_connections.accounts.disconnect(
+            "fca_xxxxxxxxxxxxx"
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/disconnect",
@@ -8953,12 +11787,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.accounts.disconnect_async(
+        await client.v1.financial_connections.accounts.disconnect_async(
             "fca_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/disconnect",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_financial_connections_accounts_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/financial_connections/accounts",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.accounts.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/financial_connections/accounts",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -8985,7 +11839,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.accounts.list()
+        client.v1.financial_connections.accounts.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/accounts",
@@ -9017,10 +11871,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.accounts.list_async()
+        await client.v1.financial_connections.accounts.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_financial_connections_accounts_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/financial_connections/accounts/fca_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.accounts.retrieve("fca_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/financial_connections/accounts/fca_xyz",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -9047,7 +11921,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.accounts.retrieve("fca_xyz")
+        client.v1.financial_connections.accounts.retrieve("fca_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xyz",
@@ -9079,11 +11953,38 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.accounts.retrieve_async("fca_xyz")
+        await client.v1.financial_connections.accounts.retrieve_async(
+            "fca_xyz"
+        )
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xyz",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_financial_connections_accounts_get_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/financial_connections/accounts",
+            "account_holder[customer]=cus_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.accounts.list(
+            {
+                "account_holder": {"customer": "cus_xxxxxxxxxxxxx"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/financial_connections/accounts",
+            query_string="account_holder[customer]=cus_xxxxxxxxxxxxx",
             api_base="https://api.stripe.com",
         )
 
@@ -9112,7 +12013,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.accounts.list(
+        client.v1.financial_connections.accounts.list(
             {
                 "account_holder": {"customer": "cus_xxxxxxxxxxxxx"},
             }
@@ -9151,7 +12052,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.accounts.list_async(
+        await client.v1.financial_connections.accounts.list_async(
             {
                 "account_holder": {"customer": "cus_xxxxxxxxxxxxx"},
             }
@@ -9160,6 +12061,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/financial_connections/accounts",
             query_string="account_holder[customer]=cus_xxxxxxxxxxxxx",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_financial_connections_accounts_get_4_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.accounts.retrieve("fca_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -9185,7 +12106,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.accounts.retrieve("fca_xxxxxxxxxxxxx")
+        client.v1.financial_connections.accounts.retrieve("fca_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx",
@@ -9219,13 +12140,37 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.accounts.retrieve_async(
+        await client.v1.financial_connections.accounts.retrieve_async(
             "fca_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_financial_connections_accounts_owners_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/financial_connections/accounts/fca_xyz/owners",
+            "ownership=fcaowns_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.accounts.owners.list(
+            "fca_xyz",
+            {"ownership": "fcaowns_xyz"},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/financial_connections/accounts/fca_xyz/owners",
+            query_string="ownership=fcaowns_xyz",
             api_base="https://api.stripe.com",
         )
 
@@ -9255,7 +12200,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.accounts.owners.list(
+        client.v1.financial_connections.accounts.owners.list(
             "fca_xyz",
             {"ownership": "fcaowns_xyz"},
         )
@@ -9294,7 +12239,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.accounts.owners.list_async(
+        await client.v1.financial_connections.accounts.owners.list_async(
             "fca_xyz",
             {"ownership": "fcaowns_xyz"},
         )
@@ -9302,6 +12247,30 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/financial_connections/accounts/fca_xyz/owners",
             query_string="ownership=fcaowns_xyz",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_financial_connections_accounts_owners_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/owners",
+            "limit=3&ownership=fcaowns_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.accounts.owners.list(
+            "fca_xxxxxxxxxxxxx",
+            {"limit": 3, "ownership": "fcaowns_xxxxxxxxxxxxx"},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/owners",
+            query_string="limit=3&ownership=fcaowns_xxxxxxxxxxxxx",
             api_base="https://api.stripe.com",
         )
 
@@ -9332,7 +12301,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.accounts.owners.list(
+        client.v1.financial_connections.accounts.owners.list(
             "fca_xxxxxxxxxxxxx",
             {"limit": 3, "ownership": "fcaowns_xxxxxxxxxxxxx"},
         )
@@ -9372,7 +12341,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.accounts.owners.list_async(
+        await client.v1.financial_connections.accounts.owners.list_async(
             "fca_xxxxxxxxxxxxx",
             {"limit": 3, "ownership": "fcaowns_xxxxxxxxxxxxx"},
         )
@@ -9381,6 +12350,30 @@ class TestGeneratedExamples(object):
             path="/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/owners",
             query_string="limit=3&ownership=fcaowns_xxxxxxxxxxxxx",
             api_base="https://api.stripe.com",
+        )
+
+    def test_financial_connections_accounts_refresh_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/financial_connections/accounts/fca_xyz/refresh",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.accounts.refresh(
+            "fca_xyz",
+            {"features": ["balance"]},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/financial_connections/accounts/fca_xyz/refresh",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="features[0]=balance",
         )
 
     def test_financial_connections_accounts_refresh_post(
@@ -9409,7 +12402,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.accounts.refresh(
+        client.v1.financial_connections.accounts.refresh(
             "fca_xyz",
             {"features": ["balance"]},
         )
@@ -9449,7 +12442,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.accounts.refresh_async(
+        await client.v1.financial_connections.accounts.refresh_async(
             "fca_xyz",
             {"features": ["balance"]},
         )
@@ -9459,6 +12452,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="features[0]=balance",
+        )
+
+    def test_financial_connections_accounts_subscribe_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/financial_connections/accounts/fa_123/subscribe",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.accounts.subscribe(
+            "fa_123",
+            {"features": ["transactions"]},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/financial_connections/accounts/fa_123/subscribe",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="features[0]=transactions",
         )
 
     def test_financial_connections_accounts_subscribe_post(
@@ -9487,7 +12504,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.accounts.subscribe(
+        client.v1.financial_connections.accounts.subscribe(
             "fa_123",
             {"features": ["transactions"]},
         )
@@ -9527,13 +12544,37 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.accounts.subscribe_async(
+        await client.v1.financial_connections.accounts.subscribe_async(
             "fa_123",
             {"features": ["transactions"]},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/financial_connections/accounts/fa_123/subscribe",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="features[0]=transactions",
+        )
+
+    def test_financial_connections_accounts_unsubscribe_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/financial_connections/accounts/fa_123/unsubscribe",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.accounts.unsubscribe(
+            "fa_123",
+            {"features": ["transactions"]},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/financial_connections/accounts/fa_123/unsubscribe",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="features[0]=transactions",
@@ -9565,7 +12606,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.accounts.unsubscribe(
+        client.v1.financial_connections.accounts.unsubscribe(
             "fa_123",
             {"features": ["transactions"]},
         )
@@ -9605,7 +12646,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.accounts.unsubscribe_async(
+        await client.v1.financial_connections.accounts.unsubscribe_async(
             "fa_123",
             {"features": ["transactions"]},
         )
@@ -9615,6 +12656,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="features[0]=transactions",
+        )
+
+    def test_financial_connections_sessions_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/financial_connections/sessions/fcsess_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.sessions.retrieve("fcsess_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/financial_connections/sessions/fcsess_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_financial_connections_sessions_get(
@@ -9639,7 +12700,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.sessions.retrieve("fcsess_xyz")
+        client.v1.financial_connections.sessions.retrieve("fcsess_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/sessions/fcsess_xyz",
@@ -9671,12 +12732,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.sessions.retrieve_async(
-            "fcsess_xyz"
+        await client.v1.financial_connections.sessions.retrieve_async(
+            "fcsess_xyz",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/sessions/fcsess_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_financial_connections_sessions_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.sessions.retrieve("fcsess_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -9703,7 +12784,9 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.sessions.retrieve("fcsess_xxxxxxxxxxxxx")
+        client.v1.financial_connections.sessions.retrieve(
+            "fcsess_xxxxxxxxxxxxx",
+        )
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx",
@@ -9737,7 +12820,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.sessions.retrieve_async(
+        await client.v1.financial_connections.sessions.retrieve_async(
             "fcsess_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -9745,6 +12828,32 @@ class TestGeneratedExamples(object):
             path="/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_financial_connections_sessions_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/financial_connections/sessions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.sessions.create(
+            {
+                "account_holder": {"type": "customer", "customer": "cus_123"},
+                "permissions": ["balances"],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/financial_connections/sessions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="account_holder[type]=customer&account_holder[customer]=cus_123&permissions[0]=balances",
         )
 
     def test_financial_connections_sessions_post(
@@ -9773,7 +12882,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.sessions.create(
+        client.v1.financial_connections.sessions.create(
             {
                 "account_holder": {"type": "customer", "customer": "cus_123"},
                 "permissions": ["balances"],
@@ -9815,7 +12924,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.sessions.create_async(
+        await client.v1.financial_connections.sessions.create_async(
             {
                 "account_holder": {"type": "customer", "customer": "cus_123"},
                 "permissions": ["balances"],
@@ -9827,6 +12936,36 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="account_holder[type]=customer&account_holder[customer]=cus_123&permissions[0]=balances",
+        )
+
+    def test_financial_connections_sessions_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/financial_connections/sessions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.sessions.create(
+            {
+                "account_holder": {
+                    "type": "customer",
+                    "customer": "cus_xxxxxxxxxxxxx",
+                },
+                "permissions": ["payment_method", "balances"],
+                "filters": {"countries": ["US"]},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/financial_connections/sessions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
         )
 
     def test_financial_connections_sessions_post_2(
@@ -9859,7 +12998,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.sessions.create(
+        client.v1.financial_connections.sessions.create(
             {
                 "account_holder": {
                     "type": "customer",
@@ -9909,7 +13048,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.sessions.create_async(
+        await client.v1.financial_connections.sessions.create_async(
             {
                 "account_holder": {
                     "type": "customer",
@@ -9925,6 +13064,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="account_holder[type]=customer&account_holder[customer]=cus_xxxxxxxxxxxxx&permissions[0]=payment_method&permissions[1]=balances&filters[countries][0]=US",
+        )
+
+    def test_financial_connections_transactions_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/financial_connections/transactions/tr_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.transactions.retrieve("tr_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/financial_connections/transactions/tr_123",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_financial_connections_transactions_get(
@@ -9949,7 +13108,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.transactions.retrieve("tr_123")
+        client.v1.financial_connections.transactions.retrieve("tr_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/transactions/tr_123",
@@ -9981,13 +13140,34 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.transactions.retrieve_async(
-            "tr_123"
+        await client.v1.financial_connections.transactions.retrieve_async(
+            "tr_123",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/transactions/tr_123",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_financial_connections_transactions_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/financial_connections/transactions",
+            "account=fca_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.financial_connections.transactions.list({"account": "fca_xyz"})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/financial_connections/transactions",
+            query_string="account=fca_xyz",
             api_base="https://api.stripe.com",
         )
 
@@ -10014,7 +13194,11 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.financial_connections.transactions.list({"account": "fca_xyz"})
+        client.v1.financial_connections.transactions.list(
+            {
+                "account": "fca_xyz",
+            }
+        )
         http_client_mock.assert_requested(
             "get",
             path="/v1/financial_connections/transactions",
@@ -10049,7 +13233,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.financial_connections.transactions.list_async(
+        await client.v1.financial_connections.transactions.list_async(
             {
                 "account": "fca_xyz",
             }
@@ -10058,6 +13242,27 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/financial_connections/transactions",
             query_string="account=fca_xyz",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_identity_verification_reports_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/identity/verification_reports",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.identity.verification_reports.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/identity/verification_reports",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -10084,7 +13289,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.identity.verification_reports.list({"limit": 3})
+        client.v1.identity.verification_reports.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_reports",
@@ -10117,11 +13322,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.identity.verification_reports.list_async({"limit": 3})
+        await client.v1.identity.verification_reports.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_reports",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_identity_verification_reports_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/identity/verification_reports/vr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.identity.verification_reports.retrieve("vr_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/identity/verification_reports/vr_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -10147,7 +13372,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.identity.verification_reports.retrieve("vr_xxxxxxxxxxxxx")
+        client.v1.identity.verification_reports.retrieve("vr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_reports/vr_xxxxxxxxxxxxx",
@@ -10181,12 +13406,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.identity.verification_reports.retrieve_async(
+        await client.v1.identity.verification_reports.retrieve_async(
             "vr_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_reports/vr_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_identity_verification_sessions_cancel_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.identity.verification_sessions.cancel("vs_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -10213,7 +13458,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.identity.verification_sessions.cancel("vs_xxxxxxxxxxxxx")
+        client.v1.identity.verification_sessions.cancel("vs_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel",
@@ -10247,13 +13492,34 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.identity.verification_sessions.cancel_async(
+        await client.v1.identity.verification_sessions.cancel_async(
             "vs_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_identity_verification_sessions_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/identity/verification_sessions",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.identity.verification_sessions.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/identity/verification_sessions",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -10280,7 +13546,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.identity.verification_sessions.list({"limit": 3})
+        client.v1.identity.verification_sessions.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_sessions",
@@ -10313,11 +13579,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.identity.verification_sessions.list_async({"limit": 3})
+        await client.v1.identity.verification_sessions.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_sessions",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_identity_verification_sessions_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.identity.verification_sessions.retrieve("vs_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -10343,7 +13629,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.identity.verification_sessions.retrieve("vs_xxxxxxxxxxxxx")
+        client.v1.identity.verification_sessions.retrieve("vs_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
@@ -10377,7 +13663,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.identity.verification_sessions.retrieve_async(
+        await client.v1.identity.verification_sessions.retrieve_async(
             "vs_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -10385,6 +13671,27 @@ class TestGeneratedExamples(object):
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_identity_verification_sessions_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/identity/verification_sessions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.identity.verification_sessions.create({"type": "document"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/identity/verification_sessions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="type=document",
         )
 
     def test_identity_verification_sessions_post(
@@ -10410,7 +13717,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.identity.verification_sessions.create({"type": "document"})
+        client.v1.identity.verification_sessions.create({"type": "document"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/identity/verification_sessions",
@@ -10444,7 +13751,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.identity.verification_sessions.create_async(
+        await client.v1.identity.verification_sessions.create_async(
             {
                 "type": "document",
             }
@@ -10455,6 +13762,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="type=document",
+        )
+
+    def test_identity_verification_sessions_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.identity.verification_sessions.update(
+            "vs_xxxxxxxxxxxxx",
+            {"type": "id_number"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="type=id_number",
         )
 
     def test_identity_verification_sessions_post_2(
@@ -10483,7 +13814,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.identity.verification_sessions.update(
+        client.v1.identity.verification_sessions.update(
             "vs_xxxxxxxxxxxxx",
             {"type": "id_number"},
         )
@@ -10523,7 +13854,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.identity.verification_sessions.update_async(
+        await client.v1.identity.verification_sessions.update_async(
             "vs_xxxxxxxxxxxxx",
             {"type": "id_number"},
         )
@@ -10533,6 +13864,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="type=id_number",
+        )
+
+    def test_identity_verification_sessions_redact_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.identity.verification_sessions.redact("vs_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_identity_verification_sessions_redact_post(
@@ -10557,7 +13908,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.identity.verification_sessions.redact("vs_xxxxxxxxxxxxx")
+        client.v1.identity.verification_sessions.redact("vs_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact",
@@ -10591,12 +13942,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.identity.verification_sessions.redact_async(
+        await client.v1.identity.verification_sessions.redact_async(
             "vs_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_invoiceitems_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/invoiceitems/ii_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoice_items.delete("ii_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -10623,7 +13994,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoice_items.delete("ii_xxxxxxxxxxxxx")
+        client.v1.invoice_items.delete("ii_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
@@ -10655,11 +14026,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoice_items.delete_async("ii_xxxxxxxxxxxxx")
+        await client.v1.invoice_items.delete_async("ii_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_invoiceitems_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/invoiceitems",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoice_items.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/invoiceitems",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -10684,7 +14076,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoice_items.list({"limit": 3})
+        client.v1.invoice_items.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoiceitems",
@@ -10717,11 +14109,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoice_items.list_async({"limit": 3})
+        await client.v1.invoice_items.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoiceitems",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_invoiceitems_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/invoiceitems/ii_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoice_items.retrieve("ii_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -10747,7 +14159,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoice_items.retrieve("ii_xxxxxxxxxxxxx")
+        client.v1.invoice_items.retrieve("ii_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
@@ -10779,12 +14191,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoice_items.retrieve_async("ii_xxxxxxxxxxxxx")
+        await client.v1.invoice_items.retrieve_async("ii_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_invoiceitems_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/invoiceitems",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoice_items.create({"customer": "cus_xxxxxxxxxxxxx"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/invoiceitems",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="customer=cus_xxxxxxxxxxxxx",
         )
 
     def test_invoiceitems_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -10808,7 +14241,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoice_items.create({"customer": "cus_xxxxxxxxxxxxx"})
+        client.v1.invoice_items.create({"customer": "cus_xxxxxxxxxxxxx"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoiceitems",
@@ -10842,7 +14275,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoice_items.create_async(
+        await client.v1.invoice_items.create_async(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
             }
@@ -10853,6 +14286,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="customer=cus_xxxxxxxxxxxxx",
+        )
+
+    def test_invoiceitems_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/invoiceitems/ii_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoice_items.update(
+            "ii_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/invoiceitems/ii_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_invoiceitems_post_2(
@@ -10881,7 +14338,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoice_items.update(
+        client.v1.invoice_items.update(
             "ii_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -10921,7 +14378,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoice_items.update_async(
+        await client.v1.invoice_items.update_async(
             "ii_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -10931,6 +14388,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_invoices_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/invoices/in_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoices.delete("in_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/invoices/in_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_invoices_delete(self, http_client_mock: HTTPClientMock) -> None:
@@ -10953,7 +14430,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoices.delete("in_xxxxxxxxxxxxx")
+        client.v1.invoices.delete("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
@@ -10985,10 +14462,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoices.delete_async("in_xxxxxxxxxxxxx")
+        await client.v1.invoices.delete_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_invoices_finalize_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/invoices/in_xxxxxxxxxxxxx/finalize",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoices.finalize_invoice("in_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/invoices/in_xxxxxxxxxxxxx/finalize",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -11015,7 +14512,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoices.finalize_invoice("in_xxxxxxxxxxxxx")
+        client.v1.invoices.finalize_invoice("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/finalize",
@@ -11047,11 +14544,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoices.finalize_invoice_async("in_xxxxxxxxxxxxx")
+        await client.v1.invoices.finalize_invoice_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/finalize",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_invoices_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/invoices",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoices.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/invoices",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -11076,7 +14594,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoices.list({"limit": 3})
+        client.v1.invoices.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoices",
@@ -11109,11 +14627,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoices.list_async({"limit": 3})
+        await client.v1.invoices.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoices",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_invoices_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/invoices/in_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoices.retrieve("in_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/invoices/in_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -11137,7 +14675,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoices.retrieve("in_xxxxxxxxxxxxx")
+        client.v1.invoices.retrieve("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
@@ -11169,11 +14707,35 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoices.retrieve_async("in_xxxxxxxxxxxxx")
+        await client.v1.invoices.retrieve_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_invoices_get_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/invoices/in_xxxxxxxxxxxxx",
+            "expand[0]=customer",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoices.retrieve(
+            "in_xxxxxxxxxxxxx",
+            {"expand": ["customer"]},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/invoices/in_xxxxxxxxxxxxx",
+            query_string="expand[0]=customer",
             api_base="https://api.stripe.com",
         )
 
@@ -11201,7 +14763,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoices.retrieve(
+        client.v1.invoices.retrieve(
             "in_xxxxxxxxxxxxx",
             {"expand": ["customer"]},
         )
@@ -11240,7 +14802,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoices.retrieve_async(
+        await client.v1.invoices.retrieve_async(
             "in_xxxxxxxxxxxxx",
             {"expand": ["customer"]},
         )
@@ -11248,6 +14810,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/invoices/in_xxxxxxxxxxxxx",
             query_string="expand[0]=customer",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_invoices_mark_uncollectible_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoices.mark_uncollectible("in_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -11273,7 +14855,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoices.mark_uncollectible("in_xxxxxxxxxxxxx")
+        client.v1.invoices.mark_uncollectible("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible",
@@ -11305,10 +14887,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoices.mark_uncollectible_async("in_xxxxxxxxxxxxx")
+        await client.v1.invoices.mark_uncollectible_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/mark_uncollectible",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_invoices_pay_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/invoices/in_xxxxxxxxxxxxx/pay",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoices.pay("in_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/invoices/in_xxxxxxxxxxxxx/pay",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -11333,7 +14935,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoices.pay("in_xxxxxxxxxxxxx")
+        client.v1.invoices.pay("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/pay",
@@ -11365,12 +14967,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoices.pay_async("in_xxxxxxxxxxxxx")
+        await client.v1.invoices.pay_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/pay",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_invoices_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/invoices",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoices.create({"customer": "cus_xxxxxxxxxxxxx"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/invoices",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="customer=cus_xxxxxxxxxxxxx",
         )
 
     def test_invoices_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -11394,7 +15017,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoices.create({"customer": "cus_xxxxxxxxxxxxx"})
+        client.v1.invoices.create({"customer": "cus_xxxxxxxxxxxxx"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices",
@@ -11428,13 +15051,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoices.create_async({"customer": "cus_xxxxxxxxxxxxx"})
+        await client.v1.invoices.create_async(
+            {"customer": "cus_xxxxxxxxxxxxx"}
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="customer=cus_xxxxxxxxxxxxx",
+        )
+
+    def test_invoices_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/invoices/in_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoices.update(
+            "in_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/invoices/in_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_invoices_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -11461,7 +15110,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoices.update(
+        client.v1.invoices.update(
             "in_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -11501,7 +15150,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoices.update_async(
+        await client.v1.invoices.update_async(
             "in_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -11511,6 +15160,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_invoices_search_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/invoices/search",
+            "query=total%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoices.search(
+            {
+                "query": "total>999 AND metadata['order_id']:'6735'",
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/invoices/search",
+            query_string="query=total%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+            api_base="https://api.stripe.com",
         )
 
     def test_invoices_search_get(
@@ -11538,7 +15212,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoices.search(
+        client.v1.invoices.search(
             {
                 "query": "total>999 AND metadata['order_id']:'6735'",
             }
@@ -11577,7 +15251,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoices.search_async(
+        await client.v1.invoices.search_async(
             {
                 "query": "total>999 AND metadata['order_id']:'6735'",
             }
@@ -11586,6 +15260,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/invoices/search",
             query_string="query=total%3E999%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_invoices_send_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/invoices/in_xxxxxxxxxxxxx/send",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoices.send_invoice("in_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/invoices/in_xxxxxxxxxxxxx/send",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -11611,7 +15305,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoices.send_invoice("in_xxxxxxxxxxxxx")
+        client.v1.invoices.send_invoice("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/send",
@@ -11643,10 +15337,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoices.send_invoice_async("in_xxxxxxxxxxxxx")
+        await client.v1.invoices.send_invoice_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/send",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_invoices_void_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/invoices/in_xxxxxxxxxxxxx/void",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.invoices.void_invoice("in_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/invoices/in_xxxxxxxxxxxxx/void",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -11673,7 +15387,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.invoices.void_invoice("in_xxxxxxxxxxxxx")
+        client.v1.invoices.void_invoice("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/void",
@@ -11705,10 +15419,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.invoices.void_invoice_async("in_xxxxxxxxxxxxx")
+        await client.v1.invoices.void_invoice_async("in_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/invoices/in_xxxxxxxxxxxxx/void",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_authorizations_approve_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.authorizations.approve("iauth_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -11735,7 +15469,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.authorizations.approve("iauth_xxxxxxxxxxxxx")
+        client.v1.issuing.authorizations.approve("iauth_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve",
@@ -11767,12 +15501,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.authorizations.approve_async(
-            "iauth_xxxxxxxxxxxxx"
+        await client.v1.issuing.authorizations.approve_async(
+            "iauth_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_authorizations_decline_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.authorizations.decline("iauth_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -11799,7 +15553,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.authorizations.decline("iauth_xxxxxxxxxxxxx")
+        client.v1.issuing.authorizations.decline("iauth_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline",
@@ -11831,13 +15585,34 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.authorizations.decline_async(
-            "iauth_xxxxxxxxxxxxx"
+        await client.v1.issuing.authorizations.decline_async(
+            "iauth_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_authorizations_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/authorizations",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.authorizations.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/authorizations",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -11864,7 +15639,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.authorizations.list({"limit": 3})
+        client.v1.issuing.authorizations.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/authorizations",
@@ -11897,11 +15672,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.authorizations.list_async({"limit": 3})
+        await client.v1.issuing.authorizations.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/authorizations",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_authorizations_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.authorizations.retrieve("iauth_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -11927,7 +15722,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.authorizations.retrieve("iauth_xxxxxxxxxxxxx")
+        client.v1.issuing.authorizations.retrieve("iauth_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
@@ -11961,7 +15756,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.authorizations.retrieve_async(
+        await client.v1.issuing.authorizations.retrieve_async(
             "iauth_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -11969,6 +15764,30 @@ class TestGeneratedExamples(object):
             path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_authorizations_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.authorizations.update(
+            "iauth_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_issuing_authorizations_post(
@@ -11997,7 +15816,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.authorizations.update(
+        client.v1.issuing.authorizations.update(
             "iauth_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -12037,7 +15856,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.authorizations.update_async(
+        await client.v1.issuing.authorizations.update_async(
             "iauth_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -12047,6 +15866,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_issuing_cardholders_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/cardholders",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.cardholders.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/cardholders",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_issuing_cardholders_get(
@@ -12072,7 +15912,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.cardholders.list({"limit": 3})
+        client.v1.issuing.cardholders.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cardholders",
@@ -12105,11 +15945,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.cardholders.list_async({"limit": 3})
+        await client.v1.issuing.cardholders.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cardholders",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_cardholders_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.cardholders.retrieve("ich_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -12135,7 +15995,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.cardholders.retrieve("ich_xxxxxxxxxxxxx")
+        client.v1.issuing.cardholders.retrieve("ich_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
@@ -12167,12 +16027,49 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.cardholders.retrieve_async("ich_xxxxxxxxxxxxx")
+        await client.v1.issuing.cardholders.retrieve_async("ich_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_cardholders_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/cardholders",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.cardholders.create(
+            {
+                "type": "individual",
+                "name": "Jenny Rosen",
+                "email": "jenny.rosen@example.com",
+                "phone_number": "+18888675309",
+                "billing": {
+                    "address": {
+                        "line1": "1234 Main Street",
+                        "city": "San Francisco",
+                        "state": "CA",
+                        "country": "US",
+                        "postal_code": "94111",
+                    },
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/cardholders",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="type=individual&name=Jenny%20Rosen&email=jenny.rosen%40example.com&phone_number=%2B18888675309&billing[address][line1]=1234%20Main%20Street&billing[address][city]=San%20Francisco&billing[address][state]=CA&billing[address][country]=US&billing[address][postal_code]=94111",
         )
 
     def test_issuing_cardholders_post(
@@ -12212,7 +16109,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.cardholders.create(
+        client.v1.issuing.cardholders.create(
             {
                 "type": "individual",
                 "name": "Jenny Rosen",
@@ -12276,7 +16173,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.cardholders.create_async(
+        await client.v1.issuing.cardholders.create_async(
             {
                 "type": "individual",
                 "name": "Jenny Rosen",
@@ -12299,6 +16196,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="type=individual&name=Jenny%20Rosen&email=jenny.rosen%40example.com&phone_number=%2B18888675309&billing[address][line1]=1234%20Main%20Street&billing[address][city]=San%20Francisco&billing[address][state]=CA&billing[address][country]=US&billing[address][postal_code]=94111",
+        )
+
+    def test_issuing_cardholders_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.cardholders.update(
+            "ich_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_issuing_cardholders_post_2(
@@ -12327,7 +16248,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.cardholders.update(
+        client.v1.issuing.cardholders.update(
             "ich_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -12367,7 +16288,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.cardholders.update_async(
+        await client.v1.issuing.cardholders.update_async(
             "ich_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -12377,6 +16298,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_issuing_cards_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/cards",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.cards.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/cards",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_issuing_cards_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -12400,7 +16342,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.cards.list({"limit": 3})
+        client.v1.issuing.cards.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cards",
@@ -12433,11 +16375,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.cards.list_async({"limit": 3})
+        await client.v1.issuing.cards.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cards",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_cards_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/cards/ic_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.cards.retrieve("ic_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/cards/ic_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -12463,7 +16425,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.cards.retrieve("ic_xxxxxxxxxxxxx")
+        client.v1.issuing.cards.retrieve("ic_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cards/ic_xxxxxxxxxxxxx",
@@ -12495,12 +16457,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.cards.retrieve_async("ic_xxxxxxxxxxxxx")
+        await client.v1.issuing.cards.retrieve_async("ic_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/cards/ic_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_cards_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/cards",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.cards.create(
+            {
+                "cardholder": "ich_xxxxxxxxxxxxx",
+                "currency": "usd",
+                "type": "virtual",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/cards",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="cardholder=ich_xxxxxxxxxxxxx&currency=usd&type=virtual",
         )
 
     def test_issuing_cards_post(
@@ -12530,7 +16519,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.cards.create(
+        client.v1.issuing.cards.create(
             {
                 "cardholder": "ich_xxxxxxxxxxxxx",
                 "currency": "usd",
@@ -12574,7 +16563,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.cards.create_async(
+        await client.v1.issuing.cards.create_async(
             {
                 "cardholder": "ich_xxxxxxxxxxxxx",
                 "currency": "usd",
@@ -12587,6 +16576,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="cardholder=ich_xxxxxxxxxxxxx&currency=usd&type=virtual",
+        )
+
+    def test_issuing_cards_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/cards/ic_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.cards.update(
+            "ic_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/cards/ic_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_issuing_cards_post_2(
@@ -12615,7 +16628,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.cards.update(
+        client.v1.issuing.cards.update(
             "ic_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -12655,7 +16668,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.cards.update_async(
+        await client.v1.issuing.cards.update_async(
             "ic_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -12665,6 +16678,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_issuing_disputes_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/disputes",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.disputes.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/disputes",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_issuing_disputes_get(
@@ -12690,7 +16724,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.disputes.list({"limit": 3})
+        client.v1.issuing.disputes.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/disputes",
@@ -12723,11 +16757,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.disputes.list_async({"limit": 3})
+        await client.v1.issuing.disputes.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/disputes",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_disputes_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/disputes/idp_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.disputes.retrieve("idp_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -12753,7 +16807,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.disputes.retrieve("idp_xxxxxxxxxxxxx")
+        client.v1.issuing.disputes.retrieve("idp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx",
@@ -12785,12 +16839,43 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.disputes.retrieve_async("idp_xxxxxxxxxxxxx")
+        await client.v1.issuing.disputes.retrieve_async("idp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_disputes_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/disputes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.disputes.create(
+            {
+                "transaction": "ipi_xxxxxxxxxxxxx",
+                "evidence": {
+                    "reason": "fraudulent",
+                    "fraudulent": {
+                        "explanation": "Purchase was unrecognized."
+                    },
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/disputes",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="transaction=ipi_xxxxxxxxxxxxx&evidence[reason]=fraudulent&evidence[fraudulent][explanation]=Purchase%20was%20unrecognized.",
         )
 
     def test_issuing_disputes_post(
@@ -12822,7 +16907,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.disputes.create(
+        client.v1.issuing.disputes.create(
             {
                 "transaction": "ipi_xxxxxxxxxxxxx",
                 "evidence": {
@@ -12872,7 +16957,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.disputes.create_async(
+        await client.v1.issuing.disputes.create_async(
             {
                 "transaction": "ipi_xxxxxxxxxxxxx",
                 "evidence": {
@@ -12889,6 +16974,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="transaction=ipi_xxxxxxxxxxxxx&evidence[reason]=fraudulent&evidence[fraudulent][explanation]=Purchase%20was%20unrecognized.",
+        )
+
+    def test_issuing_disputes_submit_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.disputes.submit("idp_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_issuing_disputes_submit_post(
@@ -12913,7 +17018,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.disputes.submit("idp_xxxxxxxxxxxxx")
+        client.v1.issuing.disputes.submit("idp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit",
@@ -12945,10 +17050,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.disputes.submit_async("idp_xxxxxxxxxxxxx")
+        await client.v1.issuing.disputes.submit_async("idp_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_personalization_designs_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/personalization_designs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.personalization_designs.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/personalization_designs",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -12975,7 +17100,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.personalization_designs.list()
+        client.v1.issuing.personalization_designs.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/personalization_designs",
@@ -13007,10 +17132,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.personalization_designs.list_async()
+        await client.v1.issuing.personalization_designs.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/personalization_designs",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_personalization_designs_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/personalization_designs/pd_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.personalization_designs.retrieve("pd_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/personalization_designs/pd_xyz",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -13037,7 +17182,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.personalization_designs.retrieve("pd_xyz")
+        client.v1.issuing.personalization_designs.retrieve("pd_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/personalization_designs/pd_xyz",
@@ -13069,12 +17214,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.personalization_designs.retrieve_async("pd_xyz")
+        await client.v1.issuing.personalization_designs.retrieve_async(
+            "pd_xyz"
+        )
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/personalization_designs/pd_xyz",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_personalization_designs_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/personalization_designs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.personalization_designs.create(
+            {
+                "physical_bundle": "pb_xyz",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/personalization_designs",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="physical_bundle=pb_xyz",
         )
 
     def test_issuing_personalization_designs_post(
@@ -13100,7 +17272,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.personalization_designs.create(
+        client.v1.issuing.personalization_designs.create(
             {
                 "physical_bundle": "pb_xyz",
             }
@@ -13140,7 +17312,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.personalization_designs.create_async(
+        await client.v1.issuing.personalization_designs.create_async(
             {
                 "physical_bundle": "pb_xyz",
             }
@@ -13151,6 +17323,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="physical_bundle=pb_xyz",
+        )
+
+    def test_issuing_personalization_designs_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/personalization_designs/pd_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.personalization_designs.update("pd_xyz")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/personalization_designs/pd_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_issuing_personalization_designs_post_2(
@@ -13175,7 +17367,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.personalization_designs.update("pd_xyz")
+        client.v1.issuing.personalization_designs.update("pd_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/personalization_designs/pd_xyz",
@@ -13207,10 +17399,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.personalization_designs.update_async("pd_xyz")
+        await client.v1.issuing.personalization_designs.update_async("pd_xyz")
         http_client_mock.assert_requested(
             "post",
             path="/v1/issuing/personalization_designs/pd_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_physical_bundles_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/physical_bundles",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.physical_bundles.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/physical_bundles",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -13237,7 +17449,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.physical_bundles.list()
+        client.v1.issuing.physical_bundles.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/physical_bundles",
@@ -13269,10 +17481,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.physical_bundles.list_async()
+        await client.v1.issuing.physical_bundles.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/physical_bundles",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_physical_bundles_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/physical_bundles/pb_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.physical_bundles.retrieve("pb_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/physical_bundles/pb_xyz",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -13299,7 +17531,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.physical_bundles.retrieve("pb_xyz")
+        client.v1.issuing.physical_bundles.retrieve("pb_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/physical_bundles/pb_xyz",
@@ -13331,11 +17563,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.physical_bundles.retrieve_async("pb_xyz")
+        await client.v1.issuing.physical_bundles.retrieve_async("pb_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/physical_bundles/pb_xyz",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_transactions_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/transactions",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.transactions.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/transactions",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -13362,7 +17615,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.transactions.list({"limit": 3})
+        client.v1.issuing.transactions.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/transactions",
@@ -13395,11 +17648,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.transactions.list_async({"limit": 3})
+        await client.v1.issuing.transactions.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/transactions",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_transactions_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.transactions.retrieve("ipi_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -13425,7 +17698,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.transactions.retrieve("ipi_xxxxxxxxxxxxx")
+        client.v1.issuing.transactions.retrieve("ipi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
@@ -13457,12 +17730,38 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.transactions.retrieve_async("ipi_xxxxxxxxxxxxx")
+        await client.v1.issuing.transactions.retrieve_async(
+            "ipi_xxxxxxxxxxxxx"
+        )
         http_client_mock.assert_requested(
             "get",
             path="/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_issuing_transactions_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.issuing.transactions.update(
+            "ipi_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_issuing_transactions_post(
@@ -13491,7 +17790,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.issuing.transactions.update(
+        client.v1.issuing.transactions.update(
             "ipi_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -13531,7 +17830,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.issuing.transactions.update_async(
+        await client.v1.issuing.transactions.update_async(
             "ipi_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -13541,6 +17840,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_mandates_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/mandates/mandate_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.mandates.retrieve("mandate_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/mandates/mandate_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_mandates_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -13563,7 +17882,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.mandates.retrieve("mandate_xxxxxxxxxxxxx")
+        client.v1.mandates.retrieve("mandate_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/mandates/mandate_xxxxxxxxxxxxx",
@@ -13595,10 +17914,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.mandates.retrieve_async("mandate_xxxxxxxxxxxxx")
+        await client.v1.mandates.retrieve_async("mandate_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/mandates/mandate_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payment_intents_apply_customer_balance_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.apply_customer_balance("pi_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -13625,7 +17964,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.apply_customer_balance("pi_xxxxxxxxxxxxx")
+        client.v1.payment_intents.apply_customer_balance("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance",
@@ -13659,12 +17998,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.apply_customer_balance_async(
+        await client.v1.payment_intents.apply_customer_balance_async(
             "pi_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payment_intents_cancel_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.cancel("pi_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -13691,7 +18050,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.cancel("pi_xxxxxxxxxxxxx")
+        client.v1.payment_intents.cancel("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel",
@@ -13723,10 +18082,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.cancel_async("pi_xxxxxxxxxxxxx")
+        await client.v1.payment_intents.cancel_async("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payment_intents_capture_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx/capture",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.capture("pi_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_intents/pi_xxxxxxxxxxxxx/capture",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -13753,7 +18132,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.capture("pi_xxxxxxxxxxxxx")
+        client.v1.payment_intents.capture("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/capture",
@@ -13785,12 +18164,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.capture_async("pi_xxxxxxxxxxxxx")
+        await client.v1.payment_intents.capture_async("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/capture",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_payment_intents_confirm_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx/confirm",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.confirm(
+            "pi_xxxxxxxxxxxxx",
+            {"payment_method": "pm_card_visa"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_intents/pi_xxxxxxxxxxxxx/confirm",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="payment_method=pm_card_visa",
         )
 
     def test_payment_intents_confirm_post(
@@ -13819,7 +18222,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.confirm(
+        client.v1.payment_intents.confirm(
             "pi_xxxxxxxxxxxxx",
             {"payment_method": "pm_card_visa"},
         )
@@ -13859,7 +18262,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.confirm_async(
+        await client.v1.payment_intents.confirm_async(
             "pi_xxxxxxxxxxxxx",
             {"payment_method": "pm_card_visa"},
         )
@@ -13869,6 +18272,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="payment_method=pm_card_visa",
+        )
+
+    def test_payment_intents_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payment_intents",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payment_intents",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_payment_intents_get(
@@ -13894,7 +18318,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.list({"limit": 3})
+        client.v1.payment_intents.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_intents",
@@ -13927,11 +18351,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.list_async({"limit": 3})
+        await client.v1.payment_intents.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_intents",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payment_intents_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.retrieve("pi_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payment_intents/pi_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -13957,7 +18401,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.retrieve("pi_xxxxxxxxxxxxx")
+        client.v1.payment_intents.retrieve("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx",
@@ -13989,12 +18433,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.retrieve_async("pi_xxxxxxxxxxxxx")
+        await client.v1.payment_intents.retrieve_async("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_payment_intents_increment_authorization_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx/increment_authorization",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.increment_authorization(
+            "pi_xxxxxxxxxxxxx",
+            {"amount": 2099},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_intents/pi_xxxxxxxxxxxxx/increment_authorization",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=2099",
         )
 
     def test_payment_intents_increment_authorization_post(
@@ -14023,7 +18491,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.increment_authorization(
+        client.v1.payment_intents.increment_authorization(
             "pi_xxxxxxxxxxxxx",
             {"amount": 2099},
         )
@@ -14063,7 +18531,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.increment_authorization_async(
+        await client.v1.payment_intents.increment_authorization_async(
             "pi_xxxxxxxxxxxxx",
             {"amount": 2099},
         )
@@ -14073,6 +18541,33 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=2099",
+        )
+
+    def test_payment_intents_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_intents",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.create(
+            {
+                "amount": 1099,
+                "currency": "eur",
+                "automatic_payment_methods": {"enabled": True},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_intents",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=true",
         )
 
     def test_payment_intents_post(
@@ -14102,7 +18597,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.create(
+        client.v1.payment_intents.create(
             {
                 "amount": 1099,
                 "currency": "eur",
@@ -14146,7 +18641,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.create_async(
+        await client.v1.payment_intents.create_async(
             {
                 "amount": 1099,
                 "currency": "eur",
@@ -14159,6 +18654,33 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=1099&currency=eur&automatic_payment_methods[enabled]=true",
+        )
+
+    def test_payment_intents_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_intents",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.create(
+            {
+                "amount": 2000,
+                "currency": "usd",
+                "automatic_payment_methods": {"enabled": True},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_intents",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=true",
         )
 
     def test_payment_intents_post_2(
@@ -14188,7 +18710,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.create(
+        client.v1.payment_intents.create(
             {
                 "amount": 2000,
                 "currency": "usd",
@@ -14232,7 +18754,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.create_async(
+        await client.v1.payment_intents.create_async(
             {
                 "amount": 2000,
                 "currency": "usd",
@@ -14245,6 +18767,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=2000&currency=usd&automatic_payment_methods[enabled]=true",
+        )
+
+    def test_payment_intents_post_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.update(
+            "pi_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_intents/pi_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_payment_intents_post_3(
@@ -14273,7 +18819,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.update(
+        client.v1.payment_intents.update(
             "pi_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -14313,7 +18859,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.update_async(
+        await client.v1.payment_intents.update_async(
             "pi_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -14323,6 +18869,36 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_payment_intents_post_4_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_intents",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.create(
+            {
+                "amount": 200,
+                "currency": "usd",
+                "payment_method_data": {
+                    "type": "p24",
+                    "p24": {"bank": "blik"},
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_intents",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=200&currency=usd&payment_method_data[type]=p24&payment_method_data[p24][bank]=blik",
         )
 
     def test_payment_intents_post_4(
@@ -14352,7 +18928,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.create(
+        client.v1.payment_intents.create(
             {
                 "amount": 200,
                 "currency": "usd",
@@ -14399,7 +18975,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.create_async(
+        await client.v1.payment_intents.create_async(
             {
                 "amount": 200,
                 "currency": "usd",
@@ -14415,6 +18991,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=200&currency=usd&payment_method_data[type]=p24&payment_method_data[p24][bank]=blik",
+        )
+
+    def test_payment_intents_search_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payment_intents/search",
+            "query=status%3A%27succeeded%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.search(
+            {
+                "query": "status:'succeeded' AND metadata['order_id']:'6735'",
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payment_intents/search",
+            query_string="query=status%3A%27succeeded%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+            api_base="https://api.stripe.com",
         )
 
     def test_payment_intents_search_get(
@@ -14442,7 +19043,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.search(
+        client.v1.payment_intents.search(
             {
                 "query": "status:'succeeded' AND metadata['order_id']:'6735'",
             }
@@ -14481,7 +19082,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.search_async(
+        await client.v1.payment_intents.search_async(
             {
                 "query": "status:'succeeded' AND metadata['order_id']:'6735'",
             }
@@ -14490,6 +19091,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/payment_intents/search",
             query_string="query=status%3A%27succeeded%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payment_intents_verify_microdeposits_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.verify_microdeposits("pi_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -14515,7 +19136,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.verify_microdeposits("pi_xxxxxxxxxxxxx")
+        client.v1.payment_intents.verify_microdeposits("pi_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
@@ -14549,7 +19170,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.verify_microdeposits_async(
+        await client.v1.payment_intents.verify_microdeposits_async(
             "pi_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -14557,6 +19178,30 @@ class TestGeneratedExamples(object):
             path="/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_payment_intents_verify_microdeposits_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_intents.verify_microdeposits(
+            "pi_xxxxxxxxxxxxx",
+            {"amounts": [32, 45]},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amounts[0]=32&amounts[1]=45",
         )
 
     def test_payment_intents_verify_microdeposits_post_2(
@@ -14585,7 +19230,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_intents.verify_microdeposits(
+        client.v1.payment_intents.verify_microdeposits(
             "pi_xxxxxxxxxxxxx",
             {"amounts": [32, 45]},
         )
@@ -14625,7 +19270,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_intents.verify_microdeposits_async(
+        await client.v1.payment_intents.verify_microdeposits_async(
             "pi_xxxxxxxxxxxxx",
             {"amounts": [32, 45]},
         )
@@ -14635,6 +19280,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amounts[0]=32&amounts[1]=45",
+        )
+
+    def test_payment_links_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payment_links/pl_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_links.retrieve("pl_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payment_links/pl_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_payment_links_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -14657,7 +19322,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_links.retrieve("pl_xyz")
+        client.v1.payment_links.retrieve("pl_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links/pl_xyz",
@@ -14689,11 +19354,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_links.retrieve_async("pl_xyz")
+        await client.v1.payment_links.retrieve_async("pl_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links/pl_xyz",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payment_links_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payment_links",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_links.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payment_links",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -14720,7 +19406,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_links.list({"limit": 3})
+        client.v1.payment_links.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links",
@@ -14753,11 +19439,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_links.list_async({"limit": 3})
+        await client.v1.payment_links.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payment_links_get_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payment_links/plink_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_links.retrieve("plink_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payment_links/plink_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -14783,7 +19489,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_links.retrieve("plink_xxxxxxxxxxxxx")
+        client.v1.payment_links.retrieve("plink_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
@@ -14815,10 +19521,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_links.retrieve_async("plink_xxxxxxxxxxxxx")
+        await client.v1.payment_links.retrieve_async("plink_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links/plink_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payment_links_line_items_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payment_links/pl_xyz/line_items",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_links.line_items.list("pl_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payment_links/pl_xyz/line_items",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -14845,7 +19571,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_links.line_items.list("pl_xyz")
+        client.v1.payment_links.line_items.list("pl_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links/pl_xyz/line_items",
@@ -14877,12 +19603,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_links.line_items.list_async("pl_xyz")
+        await client.v1.payment_links.line_items.list_async("pl_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_links/pl_xyz/line_items",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_payment_links_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_links",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_links.create(
+            {
+                "line_items": [
+                    {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
+                ],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_links",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="line_items[0][price]=price_xxxxxxxxxxxxx&line_items[0][quantity]=1",
         )
 
     def test_payment_links_post(
@@ -14910,7 +19663,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_links.create(
+        client.v1.payment_links.create(
             {
                 "line_items": [
                     {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
@@ -14952,7 +19705,34 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_links.create_async(
+        await client.v1.payment_links.create_async(
+            {
+                "line_items": [
+                    {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
+                ],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_links",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="line_items[0][price]=price_xxxxxxxxxxxxx&line_items[0][quantity]=1",
+        )
+
+    def test_payment_links_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_links",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_links.create(
             {
                 "line_items": [
                     {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
@@ -14992,7 +19772,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_links.create(
+        client.v1.payment_links.create(
             {
                 "line_items": [
                     {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
@@ -15034,7 +19814,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_links.create_async(
+        await client.v1.payment_links.create_async(
             {
                 "line_items": [
                     {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
@@ -15047,6 +19827,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="line_items[0][price]=price_xxxxxxxxxxxxx&line_items[0][quantity]=1",
+        )
+
+    def test_payment_links_post_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_links/plink_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_links.update(
+            "plink_xxxxxxxxxxxxx",
+            {"active": False},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_links/plink_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="active=false",
         )
 
     def test_payment_links_post_3(
@@ -15075,7 +19879,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_links.update(
+        client.v1.payment_links.update(
             "plink_xxxxxxxxxxxxx",
             {"active": False},
         )
@@ -15115,7 +19919,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_links.update_async(
+        await client.v1.payment_links.update_async(
             "plink_xxxxxxxxxxxxx",
             {"active": False},
         )
@@ -15125,6 +19929,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="active=false",
+        )
+
+    def test_payment_method_configurations_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payment_method_configurations",
+            "application=foo",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_method_configurations.list({"application": "foo"})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payment_method_configurations",
+            query_string="application=foo",
+            api_base="https://api.stripe.com",
         )
 
     def test_payment_method_configurations_get(
@@ -15150,7 +19975,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_method_configurations.list({"application": "foo"})
+        client.v1.payment_method_configurations.list({"application": "foo"})
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_method_configurations",
@@ -15183,7 +20008,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_method_configurations.list_async(
+        await client.v1.payment_method_configurations.list_async(
             {
                 "application": "foo",
             }
@@ -15192,6 +20017,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/payment_method_configurations",
             query_string="application=foo",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payment_method_configurations_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payment_method_configurations/foo",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_method_configurations.retrieve("foo")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payment_method_configurations/foo",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -15217,7 +20062,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_method_configurations.retrieve("foo")
+        client.v1.payment_method_configurations.retrieve("foo")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_method_configurations/foo",
@@ -15249,12 +20094,38 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_method_configurations.retrieve_async("foo")
+        await client.v1.payment_method_configurations.retrieve_async("foo")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_method_configurations/foo",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_payment_method_configurations_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_method_configurations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_method_configurations.create(
+            {
+                "acss_debit": {"display_preference": {"preference": "none"}},
+                "affirm": {"display_preference": {"preference": "none"}},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_method_configurations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="acss_debit[display_preference][preference]=none&affirm[display_preference][preference]=none",
         )
 
     def test_payment_method_configurations_post(
@@ -15283,7 +20154,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_method_configurations.create(
+        client.v1.payment_method_configurations.create(
             {
                 "acss_debit": {"display_preference": {"preference": "none"}},
                 "affirm": {"display_preference": {"preference": "none"}},
@@ -15325,7 +20196,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_method_configurations.create_async(
+        await client.v1.payment_method_configurations.create_async(
             {
                 "acss_debit": {"display_preference": {"preference": "none"}},
                 "affirm": {"display_preference": {"preference": "none"}},
@@ -15337,6 +20208,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="acss_debit[display_preference][preference]=none&affirm[display_preference][preference]=none",
+        )
+
+    def test_payment_method_configurations_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_method_configurations/foo",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_method_configurations.update(
+            "foo",
+            {"acss_debit": {"display_preference": {"preference": "on"}}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_method_configurations/foo",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="acss_debit[display_preference][preference]=on",
         )
 
     def test_payment_method_configurations_post_2(
@@ -15365,7 +20260,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_method_configurations.update(
+        client.v1.payment_method_configurations.update(
             "foo",
             {"acss_debit": {"display_preference": {"preference": "on"}}},
         )
@@ -15405,7 +20300,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_method_configurations.update_async(
+        await client.v1.payment_method_configurations.update_async(
             "foo",
             {"acss_debit": {"display_preference": {"preference": "on"}}},
         )
@@ -15415,6 +20310,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="acss_debit[display_preference][preference]=on",
+        )
+
+    def test_payment_methods_attach_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_methods/pm_xxxxxxxxxxxxx/attach",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_methods.attach(
+            "pm_xxxxxxxxxxxxx",
+            {"customer": "cus_xxxxxxxxxxxxx"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_methods/pm_xxxxxxxxxxxxx/attach",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="customer=cus_xxxxxxxxxxxxx",
         )
 
     def test_payment_methods_attach_post(
@@ -15443,7 +20362,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_methods.attach(
+        client.v1.payment_methods.attach(
             "pm_xxxxxxxxxxxxx",
             {"customer": "cus_xxxxxxxxxxxxx"},
         )
@@ -15483,7 +20402,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_methods.attach_async(
+        await client.v1.payment_methods.attach_async(
             "pm_xxxxxxxxxxxxx",
             {"customer": "cus_xxxxxxxxxxxxx"},
         )
@@ -15493,6 +20412,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="customer=cus_xxxxxxxxxxxxx",
+        )
+
+    def test_payment_methods_detach_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_methods/pm_xxxxxxxxxxxxx/detach",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_methods.detach("pm_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_methods/pm_xxxxxxxxxxxxx/detach",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_payment_methods_detach_post(
@@ -15517,7 +20456,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_methods.detach("pm_xxxxxxxxxxxxx")
+        client.v1.payment_methods.detach("pm_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx/detach",
@@ -15549,11 +20488,37 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_methods.detach_async("pm_xxxxxxxxxxxxx")
+        await client.v1.payment_methods.detach_async("pm_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx/detach",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payment_methods_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payment_methods",
+            "customer=cus_xxxxxxxxxxxxx&type=card",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_methods.list(
+            {
+                "customer": "cus_xxxxxxxxxxxxx",
+                "type": "card",
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payment_methods",
+            query_string="customer=cus_xxxxxxxxxxxxx&type=card",
             api_base="https://api.stripe.com",
         )
 
@@ -15583,7 +20548,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_methods.list(
+        client.v1.payment_methods.list(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
                 "type": "card",
@@ -15624,7 +20589,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_methods.list_async(
+        await client.v1.payment_methods.list_async(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
                 "type": "card",
@@ -15634,6 +20599,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/payment_methods",
             query_string="customer=cus_xxxxxxxxxxxxx&type=card",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payment_methods_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payment_methods/pm_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_methods.retrieve("pm_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payment_methods/pm_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -15659,7 +20644,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_methods.retrieve("pm_xxxxxxxxxxxxx")
+        client.v1.payment_methods.retrieve("pm_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx",
@@ -15691,12 +20676,43 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_methods.retrieve_async("pm_xxxxxxxxxxxxx")
+        await client.v1.payment_methods.retrieve_async("pm_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payment_methods/pm_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_payment_methods_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_methods",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_methods.create(
+            {
+                "type": "card",
+                "card": {
+                    "number": "4242424242424242",
+                    "exp_month": 8,
+                    "exp_year": 2024,
+                    "cvc": "314",
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_methods",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="type=card&card[number]=4242424242424242&card[exp_month]=8&card[exp_year]=2024&card[cvc]=314",
         )
 
     def test_payment_methods_post(
@@ -15730,7 +20746,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_methods.create(
+        client.v1.payment_methods.create(
             {
                 "type": "card",
                 "card": {
@@ -15782,7 +20798,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_methods.create_async(
+        await client.v1.payment_methods.create_async(
             {
                 "type": "card",
                 "card": {
@@ -15799,6 +20815,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="type=card&card[number]=4242424242424242&card[exp_month]=8&card[exp_year]=2024&card[cvc]=314",
+        )
+
+    def test_payment_methods_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payment_methods/pm_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payment_methods.update(
+            "pm_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payment_methods/pm_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_payment_methods_post_2(
@@ -15827,7 +20867,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payment_methods.update(
+        client.v1.payment_methods.update(
             "pm_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -15867,7 +20907,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payment_methods.update_async(
+        await client.v1.payment_methods.update_async(
             "pm_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -15877,6 +20917,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_payouts_cancel_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payouts/po_xxxxxxxxxxxxx/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payouts.cancel("po_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payouts/po_xxxxxxxxxxxxx/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_payouts_cancel_post(
@@ -15901,7 +20961,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payouts.cancel("po_xxxxxxxxxxxxx")
+        client.v1.payouts.cancel("po_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx/cancel",
@@ -15933,11 +20993,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payouts.cancel_async("po_xxxxxxxxxxxxx")
+        await client.v1.payouts.cancel_async("po_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx/cancel",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payouts_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payouts",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payouts.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payouts",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -15962,7 +21043,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payouts.list({"limit": 3})
+        client.v1.payouts.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/payouts",
@@ -15995,11 +21076,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payouts.list_async({"limit": 3})
+        await client.v1.payouts.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/payouts",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_payouts_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/payouts/po_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payouts.retrieve("po_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/payouts/po_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -16023,7 +21124,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payouts.retrieve("po_xxxxxxxxxxxxx")
+        client.v1.payouts.retrieve("po_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payouts/po_xxxxxxxxxxxxx",
@@ -16055,12 +21156,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payouts.retrieve_async("po_xxxxxxxxxxxxx")
+        await client.v1.payouts.retrieve_async("po_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/payouts/po_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_payouts_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payouts",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payouts.create({"amount": 1100, "currency": "usd"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payouts",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=1100&currency=usd",
         )
 
     def test_payouts_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -16087,7 +21209,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payouts.create({"amount": 1100, "currency": "usd"})
+        client.v1.payouts.create({"amount": 1100, "currency": "usd"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/payouts",
@@ -16124,13 +21246,42 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payouts.create_async({"amount": 1100, "currency": "usd"})
+        await client.v1.payouts.create_async(
+            {
+                "amount": 1100,
+                "currency": "usd",
+            }
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/payouts",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=1100&currency=usd",
+        )
+
+    def test_payouts_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payouts/po_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payouts.update(
+            "po_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payouts/po_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_payouts_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -16157,7 +21308,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payouts.update(
+        client.v1.payouts.update(
             "po_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -16197,7 +21348,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payouts.update_async(
+        await client.v1.payouts.update_async(
             "po_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -16207,6 +21358,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_payouts_reverse_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/payouts/po_xxxxxxxxxxxxx/reverse",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.payouts.reverse("po_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/payouts/po_xxxxxxxxxxxxx/reverse",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_payouts_reverse_post(
@@ -16231,7 +21402,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.payouts.reverse("po_xxxxxxxxxxxxx")
+        client.v1.payouts.reverse("po_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx/reverse",
@@ -16263,10 +21434,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.payouts.reverse_async("po_xxxxxxxxxxxxx")
+        await client.v1.payouts.reverse_async("po_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/payouts/po_xxxxxxxxxxxxx/reverse",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_plans_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/plans/price_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.plans.delete("price_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/plans/price_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -16291,7 +21482,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.plans.delete("price_xxxxxxxxxxxxx")
+        client.v1.plans.delete("price_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/plans/price_xxxxxxxxxxxxx",
@@ -16323,11 +21514,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.plans.delete_async("price_xxxxxxxxxxxxx")
+        await client.v1.plans.delete_async("price_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/plans/price_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_plans_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/plans",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.plans.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/plans",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -16350,7 +21562,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.plans.list({"limit": 3})
+        client.v1.plans.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/plans",
@@ -16383,11 +21595,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.plans.list_async({"limit": 3})
+        await client.v1.plans.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/plans",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_plans_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/plans/price_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.plans.retrieve("price_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/plans/price_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -16411,7 +21643,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.plans.retrieve("price_xxxxxxxxxxxxx")
+        client.v1.plans.retrieve("price_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/plans/price_xxxxxxxxxxxxx",
@@ -16443,12 +21675,40 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.plans.retrieve_async("price_xxxxxxxxxxxxx")
+        await client.v1.plans.retrieve_async("price_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/plans/price_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_plans_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/plans",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.plans.create(
+            {
+                "amount": 2000,
+                "currency": "usd",
+                "interval": "month",
+                "product": "prod_xxxxxxxxxxxxx",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/plans",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=2000&currency=usd&interval=month&product=prod_xxxxxxxxxxxxx",
         )
 
     def test_plans_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -16477,7 +21737,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.plans.create(
+        client.v1.plans.create(
             {
                 "amount": 2000,
                 "currency": "usd",
@@ -16523,7 +21783,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.plans.create_async(
+        await client.v1.plans.create_async(
             {
                 "amount": 2000,
                 "currency": "usd",
@@ -16537,6 +21797,34 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=2000&currency=usd&interval=month&product=prod_xxxxxxxxxxxxx",
+        )
+
+    def test_plans_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/plans",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.plans.create(
+            {
+                "amount": 2000,
+                "currency": "usd",
+                "interval": "month",
+                "product": {"name": "My product"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/plans",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=2000&currency=usd&interval=month&product[name]=My%20product",
         )
 
     def test_plans_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -16565,7 +21853,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.plans.create(
+        client.v1.plans.create(
             {
                 "amount": 2000,
                 "currency": "usd",
@@ -16611,7 +21899,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.plans.create_async(
+        await client.v1.plans.create_async(
             {
                 "amount": 2000,
                 "currency": "usd",
@@ -16625,6 +21913,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=2000&currency=usd&interval=month&product[name]=My%20product",
+        )
+
+    def test_plans_post_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/plans/price_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.plans.update(
+            "price_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/plans/price_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_plans_post_3(self, http_client_mock: HTTPClientMock) -> None:
@@ -16651,7 +21963,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.plans.update(
+        client.v1.plans.update(
             "price_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -16691,7 +22003,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.plans.update_async(
+        await client.v1.plans.update_async(
             "price_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -16701,6 +22013,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_prices_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/prices",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.prices.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/prices",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_prices_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -16724,7 +22057,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.prices.list({"limit": 3})
+        client.v1.prices.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/prices",
@@ -16757,11 +22090,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.prices.list_async({"limit": 3})
+        await client.v1.prices.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/prices",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_prices_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/prices/price_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.prices.retrieve("price_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/prices/price_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -16785,7 +22138,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.prices.retrieve("price_xxxxxxxxxxxxx")
+        client.v1.prices.retrieve("price_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/prices/price_xxxxxxxxxxxxx",
@@ -16817,12 +22170,44 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.prices.retrieve_async("price_xxxxxxxxxxxxx")
+        await client.v1.prices.retrieve_async("price_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/prices/price_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_prices_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/prices",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.prices.create(
+            {
+                "unit_amount": 2000,
+                "currency": "usd",
+                "currency_options": {
+                    "uah": {"unit_amount": 5000},
+                    "eur": {"unit_amount": 1800},
+                },
+                "recurring": {"interval": "month"},
+                "product": "prod_xxxxxxxxxxxxx",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/prices",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="unit_amount=2000&currency=usd&currency_options[uah][unit_amount]=5000&currency_options[eur][unit_amount]=1800&recurring[interval]=month&product=prod_xxxxxxxxxxxxx",
         )
 
     def test_prices_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -16855,7 +22240,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.prices.create(
+        client.v1.prices.create(
             {
                 "unit_amount": 2000,
                 "currency": "usd",
@@ -16909,7 +22294,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.prices.create_async(
+        await client.v1.prices.create_async(
             {
                 "unit_amount": 2000,
                 "currency": "usd",
@@ -16927,6 +22312,34 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="unit_amount=2000&currency=usd&currency_options[uah][unit_amount]=5000&currency_options[eur][unit_amount]=1800&recurring[interval]=month&product=prod_xxxxxxxxxxxxx",
+        )
+
+    def test_prices_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/prices",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.prices.create(
+            {
+                "unit_amount": 2000,
+                "currency": "usd",
+                "recurring": {"interval": "month"},
+                "product": "prod_xxxxxxxxxxxxx",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/prices",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="unit_amount=2000&currency=usd&recurring[interval]=month&product=prod_xxxxxxxxxxxxx",
         )
 
     def test_prices_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -16955,7 +22368,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.prices.create(
+        client.v1.prices.create(
             {
                 "unit_amount": 2000,
                 "currency": "usd",
@@ -17001,7 +22414,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.prices.create_async(
+        await client.v1.prices.create_async(
             {
                 "unit_amount": 2000,
                 "currency": "usd",
@@ -17015,6 +22428,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="unit_amount=2000&currency=usd&recurring[interval]=month&product=prod_xxxxxxxxxxxxx",
+        )
+
+    def test_prices_post_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/prices/price_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.prices.update(
+            "price_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/prices/price_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_prices_post_3(self, http_client_mock: HTTPClientMock) -> None:
@@ -17041,7 +22478,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.prices.update(
+        client.v1.prices.update(
             "price_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -17081,7 +22518,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.prices.update_async(
+        await client.v1.prices.update_async(
             "price_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -17091,6 +22528,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_prices_search_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/prices/search",
+            "query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.prices.search(
+            {
+                "query": "active:'true' AND metadata['order_id']:'6735'",
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/prices/search",
+            query_string="query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+            api_base="https://api.stripe.com",
         )
 
     def test_prices_search_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -17116,7 +22578,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.prices.search(
+        client.v1.prices.search(
             {
                 "query": "active:'true' AND metadata['order_id']:'6735'",
             }
@@ -17155,7 +22617,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.prices.search_async(
+        await client.v1.prices.search_async(
             {
                 "query": "active:'true' AND metadata['order_id']:'6735'",
             }
@@ -17164,6 +22626,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/prices/search",
             query_string="query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_products_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/products/prod_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.products.delete("prod_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/products/prod_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -17187,7 +22669,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.products.delete("prod_xxxxxxxxxxxxx")
+        client.v1.products.delete("prod_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/products/prod_xxxxxxxxxxxxx",
@@ -17219,11 +22701,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.products.delete_async("prod_xxxxxxxxxxxxx")
+        await client.v1.products.delete_async("prod_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/products/prod_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_products_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/products",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.products.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/products",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -17248,7 +22751,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.products.list({"limit": 3})
+        client.v1.products.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/products",
@@ -17281,11 +22784,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.products.list_async({"limit": 3})
+        await client.v1.products.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/products",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_products_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/products/prod_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.products.retrieve("prod_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/products/prod_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -17309,7 +22832,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.products.retrieve("prod_xxxxxxxxxxxxx")
+        client.v1.products.retrieve("prod_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/products/prod_xxxxxxxxxxxxx",
@@ -17341,12 +22864,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.products.retrieve_async("prod_xxxxxxxxxxxxx")
+        await client.v1.products.retrieve_async("prod_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/products/prod_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_products_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/products",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.products.create({"name": "Gold Special"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/products",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="name=Gold%20Special",
         )
 
     def test_products_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -17370,7 +22914,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.products.create({"name": "Gold Special"})
+        client.v1.products.create({"name": "Gold Special"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/products",
@@ -17404,13 +22948,37 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.products.create_async({"name": "Gold Special"})
+        await client.v1.products.create_async({"name": "Gold Special"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/products",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="name=Gold%20Special",
+        )
+
+    def test_products_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/products/prod_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.products.update(
+            "prod_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/products/prod_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_products_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -17437,7 +23005,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.products.update(
+        client.v1.products.update(
             "prod_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -17477,7 +23045,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.products.update_async(
+        await client.v1.products.update_async(
             "prod_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -17487,6 +23055,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_products_search_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/products/search",
+            "query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.products.search(
+            {
+                "query": "active:'true' AND metadata['order_id']:'6735'",
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/products/search",
+            query_string="query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+            api_base="https://api.stripe.com",
         )
 
     def test_products_search_get(
@@ -17514,7 +23107,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.products.search(
+        client.v1.products.search(
             {
                 "query": "active:'true' AND metadata['order_id']:'6735'",
             }
@@ -17553,7 +23146,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.products.search_async(
+        await client.v1.products.search_async(
             {
                 "query": "active:'true' AND metadata['order_id']:'6735'",
             }
@@ -17562,6 +23155,27 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/products/search",
             query_string="query=active%3A%27true%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_promotion_codes_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/promotion_codes",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.promotion_codes.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/promotion_codes",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -17588,7 +23202,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.promotion_codes.list({"limit": 3})
+        client.v1.promotion_codes.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/promotion_codes",
@@ -17621,11 +23235,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.promotion_codes.list_async({"limit": 3})
+        await client.v1.promotion_codes.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/promotion_codes",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_promotion_codes_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/promotion_codes/promo_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.promotion_codes.retrieve("promo_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/promotion_codes/promo_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -17651,7 +23285,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.promotion_codes.retrieve("promo_xxxxxxxxxxxxx")
+        client.v1.promotion_codes.retrieve("promo_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/promotion_codes/promo_xxxxxxxxxxxxx",
@@ -17683,12 +23317,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.promotion_codes.retrieve_async("promo_xxxxxxxxxxxxx")
+        await client.v1.promotion_codes.retrieve_async("promo_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/promotion_codes/promo_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_promotion_codes_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/promotion_codes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.promotion_codes.create({"coupon": "Z4OV52SU"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/promotion_codes",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="coupon=Z4OV52SU",
         )
 
     def test_promotion_codes_post(
@@ -17714,7 +23369,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.promotion_codes.create({"coupon": "Z4OV52SU"})
+        client.v1.promotion_codes.create({"coupon": "Z4OV52SU"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/promotion_codes",
@@ -17748,13 +23403,37 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.promotion_codes.create_async({"coupon": "Z4OV52SU"})
+        await client.v1.promotion_codes.create_async({"coupon": "Z4OV52SU"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/promotion_codes",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="coupon=Z4OV52SU",
+        )
+
+    def test_promotion_codes_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/promotion_codes/promo_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.promotion_codes.update(
+            "promo_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/promotion_codes/promo_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_promotion_codes_post_2(
@@ -17783,7 +23462,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.promotion_codes.update(
+        client.v1.promotion_codes.update(
             "promo_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -17823,7 +23502,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.promotion_codes.update_async(
+        await client.v1.promotion_codes.update_async(
             "promo_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -17833,6 +23512,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_quotes_accept_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/quotes/qt_xxxxxxxxxxxxx/accept",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.quotes.accept("qt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/quotes/qt_xxxxxxxxxxxxx/accept",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_quotes_accept_post(
@@ -17857,7 +23556,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.quotes.accept("qt_xxxxxxxxxxxxx")
+        client.v1.quotes.accept("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/accept",
@@ -17889,10 +23588,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.quotes.accept_async("qt_xxxxxxxxxxxxx")
+        await client.v1.quotes.accept_async("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/accept",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_quotes_cancel_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/quotes/qt_xxxxxxxxxxxxx/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.quotes.cancel("qt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/quotes/qt_xxxxxxxxxxxxx/cancel",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -17919,7 +23638,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.quotes.cancel("qt_xxxxxxxxxxxxx")
+        client.v1.quotes.cancel("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/cancel",
@@ -17951,10 +23670,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.quotes.cancel_async("qt_xxxxxxxxxxxxx")
+        await client.v1.quotes.cancel_async("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_quotes_finalize_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/quotes/qt_xxxxxxxxxxxxx/finalize",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.quotes.finalize_quote("qt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/quotes/qt_xxxxxxxxxxxxx/finalize",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -17981,7 +23720,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.quotes.finalize_quote("qt_xxxxxxxxxxxxx")
+        client.v1.quotes.finalize_quote("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/finalize",
@@ -18013,11 +23752,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.quotes.finalize_quote_async("qt_xxxxxxxxxxxxx")
+        await client.v1.quotes.finalize_quote_async("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/finalize",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_quotes_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/quotes",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.quotes.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/quotes",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -18042,7 +23802,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.quotes.list({"limit": 3})
+        client.v1.quotes.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes",
@@ -18075,11 +23835,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.quotes.list_async({"limit": 3})
+        await client.v1.quotes.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_quotes_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/quotes/qt_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.quotes.retrieve("qt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/quotes/qt_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -18103,7 +23883,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.quotes.retrieve("qt_xxxxxxxxxxxxx")
+        client.v1.quotes.retrieve("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx",
@@ -18135,10 +23915,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.quotes.retrieve_async("qt_xxxxxxxxxxxxx")
+        await client.v1.quotes.retrieve_async("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_quotes_line_items_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/quotes/qt_xxxxxxxxxxxxx/line_items",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.quotes.line_items.list("qt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/quotes/qt_xxxxxxxxxxxxx/line_items",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -18165,7 +23965,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.quotes.line_items.list("qt_xxxxxxxxxxxxx")
+        client.v1.quotes.line_items.list("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/line_items",
@@ -18197,12 +23997,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.quotes.line_items.list_async("qt_xxxxxxxxxxxxx")
+        await client.v1.quotes.line_items.list_async("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/line_items",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_quotes_pdf_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.quotes.pdf("qt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
+            query_string="",
+            api_base="https://files.stripe.com",
         )
 
     def test_quotes_pdf_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -18225,7 +24045,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.quotes.pdf("qt_xxxxxxxxxxxxx")
+        client.v1.quotes.pdf("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
@@ -18257,12 +24077,40 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.quotes.pdf_async("qt_xxxxxxxxxxxxx")
+        await client.v1.quotes.pdf_async("qt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
             query_string="",
             api_base="https://files.stripe.com",
+        )
+
+    def test_quotes_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/quotes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.quotes.create(
+            {
+                "customer": "cus_xxxxxxxxxxxxx",
+                "line_items": [
+                    {"price": "price_xxxxxxxxxxxxx", "quantity": 2}
+                ],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/quotes",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="customer=cus_xxxxxxxxxxxxx&line_items[0][price]=price_xxxxxxxxxxxxx&line_items[0][quantity]=2",
         )
 
     def test_quotes_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -18289,7 +24137,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.quotes.create(
+        client.v1.quotes.create(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
                 "line_items": [
@@ -18333,7 +24181,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.quotes.create_async(
+        await client.v1.quotes.create_async(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
                 "line_items": [
@@ -18347,6 +24195,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="customer=cus_xxxxxxxxxxxxx&line_items[0][price]=price_xxxxxxxxxxxxx&line_items[0][quantity]=2",
+        )
+
+    def test_quotes_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/quotes/qt_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.quotes.update(
+            "qt_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/quotes/qt_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_quotes_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -18373,7 +24245,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.quotes.update(
+        client.v1.quotes.update(
             "qt_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -18413,7 +24285,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.quotes.update_async(
+        await client.v1.quotes.update_async(
             "qt_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -18423,6 +24295,29 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_quotes_preview_invoices_lines_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.quotes.list_preview_invoice_lines(
+            "qt_xyz",
+            "in_xyz",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_quotes_preview_invoices_lines_get(
@@ -18450,7 +24345,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.quotes.list_preview_invoice_lines(
+        client.v1.quotes.list_preview_invoice_lines(
             "qt_xyz",
             "in_xyz",
         )
@@ -18488,7 +24383,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.quotes.list_preview_invoice_lines_async(
+        await client.v1.quotes.list_preview_invoice_lines_async(
             "qt_xyz",
             "in_xyz",
         )
@@ -18496,6 +24391,27 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/quotes/qt_xyz/preview_invoices/in_xyz/lines",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_radar_early_fraud_warnings_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/radar/early_fraud_warnings",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.radar.early_fraud_warnings.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/radar/early_fraud_warnings",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -18522,7 +24438,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.radar.early_fraud_warnings.list({"limit": 3})
+        client.v1.radar.early_fraud_warnings.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/early_fraud_warnings",
@@ -18555,11 +24471,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.radar.early_fraud_warnings.list_async({"limit": 3})
+        await client.v1.radar.early_fraud_warnings.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/early_fraud_warnings",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_radar_early_fraud_warnings_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.radar.early_fraud_warnings.retrieve("issfr_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -18585,7 +24521,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.radar.early_fraud_warnings.retrieve("issfr_xxxxxxxxxxxxx")
+        client.v1.radar.early_fraud_warnings.retrieve("issfr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx",
@@ -18619,12 +24555,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.radar.early_fraud_warnings.retrieve_async(
+        await client.v1.radar.early_fraud_warnings.retrieve_async(
             "issfr_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_radar_value_list_items_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.radar.value_list_items.delete("rsli_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -18651,7 +24607,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.radar.value_list_items.delete("rsli_xxxxxxxxxxxxx")
+        client.v1.radar.value_list_items.delete("rsli_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
@@ -18683,11 +24639,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.radar.value_list_items.delete_async("rsli_xxxxxxxxxxxxx")
+        await client.v1.radar.value_list_items.delete_async(
+            "rsli_xxxxxxxxxxxxx",
+        )
         http_client_mock.assert_requested(
             "delete",
             path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_radar_value_list_items_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/radar/value_list_items",
+            "limit=3&value_list=rsl_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.radar.value_list_items.list(
+            {
+                "limit": 3,
+                "value_list": "rsl_xxxxxxxxxxxxx",
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/radar/value_list_items",
+            query_string="limit=3&value_list=rsl_xxxxxxxxxxxxx",
             api_base="https://api.stripe.com",
         )
 
@@ -18717,7 +24701,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.radar.value_list_items.list(
+        client.v1.radar.value_list_items.list(
             {
                 "limit": 3,
                 "value_list": "rsl_xxxxxxxxxxxxx",
@@ -18758,7 +24742,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.radar.value_list_items.list_async(
+        await client.v1.radar.value_list_items.list_async(
             {
                 "limit": 3,
                 "value_list": "rsl_xxxxxxxxxxxxx",
@@ -18768,6 +24752,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/radar/value_list_items",
             query_string="limit=3&value_list=rsl_xxxxxxxxxxxxx",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_radar_value_list_items_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.radar.value_list_items.retrieve("rsli_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -18793,7 +24797,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.radar.value_list_items.retrieve("rsli_xxxxxxxxxxxxx")
+        client.v1.radar.value_list_items.retrieve("rsli_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
@@ -18825,14 +24829,40 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.radar.value_list_items.retrieve_async(
-            "rsli_xxxxxxxxxxxxx"
+        await client.v1.radar.value_list_items.retrieve_async(
+            "rsli_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_radar_value_list_items_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/radar/value_list_items",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.radar.value_list_items.create(
+            {
+                "value_list": "rsl_xxxxxxxxxxxxx",
+                "value": "1.2.3.4",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/radar/value_list_items",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="value_list=rsl_xxxxxxxxxxxxx&value=1.2.3.4",
         )
 
     def test_radar_value_list_items_post(
@@ -18861,7 +24891,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.radar.value_list_items.create(
+        client.v1.radar.value_list_items.create(
             {
                 "value_list": "rsl_xxxxxxxxxxxxx",
                 "value": "1.2.3.4",
@@ -18903,7 +24933,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.radar.value_list_items.create_async(
+        await client.v1.radar.value_list_items.create_async(
             {
                 "value_list": "rsl_xxxxxxxxxxxxx",
                 "value": "1.2.3.4",
@@ -18915,6 +24945,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="value_list=rsl_xxxxxxxxxxxxx&value=1.2.3.4",
+        )
+
+    def test_radar_value_lists_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.radar.value_lists.delete("rsl_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_radar_value_lists_delete(
@@ -18939,7 +24989,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.radar.value_lists.delete("rsl_xxxxxxxxxxxxx")
+        client.v1.radar.value_lists.delete("rsl_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
@@ -18971,11 +25021,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.radar.value_lists.delete_async("rsl_xxxxxxxxxxxxx")
+        await client.v1.radar.value_lists.delete_async("rsl_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_radar_value_lists_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/radar/value_lists",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.radar.value_lists.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/radar/value_lists",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -19002,7 +25073,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.radar.value_lists.list({"limit": 3})
+        client.v1.radar.value_lists.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/value_lists",
@@ -19035,11 +25106,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.radar.value_lists.list_async({"limit": 3})
+        await client.v1.radar.value_lists.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/value_lists",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_radar_value_lists_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.radar.value_lists.retrieve("rsl_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -19065,7 +25156,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.radar.value_lists.retrieve("rsl_xxxxxxxxxxxxx")
+        client.v1.radar.value_lists.retrieve("rsl_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
@@ -19097,12 +25188,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.radar.value_lists.retrieve_async("rsl_xxxxxxxxxxxxx")
+        await client.v1.radar.value_lists.retrieve_async("rsl_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_radar_value_lists_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/radar/value_lists",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.radar.value_lists.create(
+            {
+                "alias": "custom_ip_xxxxxxxxxxxxx",
+                "name": "Custom IP Blocklist",
+                "item_type": "ip_address",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/radar/value_lists",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="alias=custom_ip_xxxxxxxxxxxxx&name=Custom%20IP%20Blocklist&item_type=ip_address",
         )
 
     def test_radar_value_lists_post(
@@ -19132,7 +25250,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.radar.value_lists.create(
+        client.v1.radar.value_lists.create(
             {
                 "alias": "custom_ip_xxxxxxxxxxxxx",
                 "name": "Custom IP Blocklist",
@@ -19176,7 +25294,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.radar.value_lists.create_async(
+        await client.v1.radar.value_lists.create_async(
             {
                 "alias": "custom_ip_xxxxxxxxxxxxx",
                 "name": "Custom IP Blocklist",
@@ -19189,6 +25307,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="alias=custom_ip_xxxxxxxxxxxxx&name=Custom%20IP%20Blocklist&item_type=ip_address",
+        )
+
+    def test_radar_value_lists_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.radar.value_lists.update(
+            "rsl_xxxxxxxxxxxxx",
+            {"name": "Updated IP Block List"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="name=Updated%20IP%20Block%20List",
         )
 
     def test_radar_value_lists_post_2(
@@ -19217,7 +25359,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.radar.value_lists.update(
+        client.v1.radar.value_lists.update(
             "rsl_xxxxxxxxxxxxx",
             {"name": "Updated IP Block List"},
         )
@@ -19257,7 +25399,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.radar.value_lists.update_async(
+        await client.v1.radar.value_lists.update_async(
             "rsl_xxxxxxxxxxxxx",
             {"name": "Updated IP Block List"},
         )
@@ -19267,6 +25409,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="name=Updated%20IP%20Block%20List",
+        )
+
+    def test_refunds_cancel_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/refunds/re_xxxxxxxxxxxxx/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.refunds.cancel("re_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/refunds/re_xxxxxxxxxxxxx/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_refunds_cancel_post(
@@ -19291,7 +25453,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.refunds.cancel("re_xxxxxxxxxxxxx")
+        client.v1.refunds.cancel("re_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/refunds/re_xxxxxxxxxxxxx/cancel",
@@ -19323,11 +25485,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.refunds.cancel_async("re_xxxxxxxxxxxxx")
+        await client.v1.refunds.cancel_async("re_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/refunds/re_xxxxxxxxxxxxx/cancel",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_refunds_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/refunds",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.refunds.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/refunds",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -19352,7 +25535,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.refunds.list({"limit": 3})
+        client.v1.refunds.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/refunds",
@@ -19385,11 +25568,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.refunds.list_async({"limit": 3})
+        await client.v1.refunds.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/refunds",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_refunds_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/refunds/re_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.refunds.retrieve("re_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/refunds/re_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -19413,7 +25616,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.refunds.retrieve("re_xxxxxxxxxxxxx")
+        client.v1.refunds.retrieve("re_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/refunds/re_xxxxxxxxxxxxx",
@@ -19445,12 +25648,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.refunds.retrieve_async("re_xxxxxxxxxxxxx")
+        await client.v1.refunds.retrieve_async("re_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/refunds/re_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_refunds_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/refunds",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.refunds.create({"charge": "ch_xxxxxxxxxxxxx"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/refunds",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="charge=ch_xxxxxxxxxxxxx",
         )
 
     def test_refunds_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -19474,7 +25698,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.refunds.create({"charge": "ch_xxxxxxxxxxxxx"})
+        client.v1.refunds.create({"charge": "ch_xxxxxxxxxxxxx"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/refunds",
@@ -19508,13 +25732,37 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.refunds.create_async({"charge": "ch_xxxxxxxxxxxxx"})
+        await client.v1.refunds.create_async({"charge": "ch_xxxxxxxxxxxxx"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/refunds",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="charge=ch_xxxxxxxxxxxxx",
+        )
+
+    def test_refunds_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/refunds/re_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.refunds.update(
+            "re_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/refunds/re_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_refunds_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -19541,7 +25789,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.refunds.update(
+        client.v1.refunds.update(
             "re_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -19581,7 +25829,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.refunds.update_async(
+        await client.v1.refunds.update_async(
             "re_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -19591,6 +25839,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_reporting_report_runs_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/reporting/report_runs",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.reporting.report_runs.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/reporting/report_runs",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_reporting_report_runs_get(
@@ -19616,7 +25885,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.reporting.report_runs.list({"limit": 3})
+        client.v1.reporting.report_runs.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_runs",
@@ -19649,11 +25918,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.reporting.report_runs.list_async({"limit": 3})
+        await client.v1.reporting.report_runs.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_runs",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_reporting_report_runs_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/reporting/report_runs/frr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.reporting.report_runs.retrieve("frr_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/reporting/report_runs/frr_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -19679,7 +25968,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.reporting.report_runs.retrieve("frr_xxxxxxxxxxxxx")
+        client.v1.reporting.report_runs.retrieve("frr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_runs/frr_xxxxxxxxxxxxx",
@@ -19711,12 +26000,43 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.reporting.report_runs.retrieve_async("frr_xxxxxxxxxxxxx")
+        await client.v1.reporting.report_runs.retrieve_async(
+            "frr_xxxxxxxxxxxxx",
+        )
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_runs/frr_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_reporting_report_runs_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/reporting/report_runs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.reporting.report_runs.create(
+            {
+                "report_type": "balance.summary.1",
+                "parameters": {
+                    "interval_start": 1522540800,
+                    "interval_end": 1525132800,
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/reporting/report_runs",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="report_type=balance.summary.1&parameters[interval_start]=1522540800&parameters[interval_end]=1525132800",
         )
 
     def test_reporting_report_runs_post(
@@ -19748,7 +26068,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.reporting.report_runs.create(
+        client.v1.reporting.report_runs.create(
             {
                 "report_type": "balance.summary.1",
                 "parameters": {
@@ -19796,7 +26116,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.reporting.report_runs.create_async(
+        await client.v1.reporting.report_runs.create_async(
             {
                 "report_type": "balance.summary.1",
                 "parameters": {
@@ -19811,6 +26131,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="report_type=balance.summary.1&parameters[interval_start]=1522540800&parameters[interval_end]=1525132800",
+        )
+
+    def test_reporting_report_types_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/reporting/report_types",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.reporting.report_types.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/reporting/report_types",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_reporting_report_types_get(
@@ -19835,7 +26175,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.reporting.report_types.list()
+        client.v1.reporting.report_types.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_types",
@@ -19867,10 +26207,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.reporting.report_types.list_async()
+        await client.v1.reporting.report_types.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_types",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_reporting_report_types_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/reporting/report_types/balance.summary.1",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.reporting.report_types.retrieve("balance.summary.1")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/reporting/report_types/balance.summary.1",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -19897,7 +26257,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.reporting.report_types.retrieve("balance.summary.1")
+        client.v1.reporting.report_types.retrieve("balance.summary.1")
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_types/balance.summary.1",
@@ -19929,10 +26289,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.reporting.report_types.retrieve_async("balance.summary.1")
+        await client.v1.reporting.report_types.retrieve_async(
+            "balance.summary.1",
+        )
         http_client_mock.assert_requested(
             "get",
             path="/v1/reporting/report_types/balance.summary.1",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_reviews_approve_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/reviews/prv_xxxxxxxxxxxxx/approve",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.reviews.approve("prv_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/reviews/prv_xxxxxxxxxxxxx/approve",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -19959,7 +26341,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.reviews.approve("prv_xxxxxxxxxxxxx")
+        client.v1.reviews.approve("prv_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/reviews/prv_xxxxxxxxxxxxx/approve",
@@ -19991,11 +26373,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.reviews.approve_async("prv_xxxxxxxxxxxxx")
+        await client.v1.reviews.approve_async("prv_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/reviews/prv_xxxxxxxxxxxxx/approve",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_reviews_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/reviews",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.reviews.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/reviews",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -20020,7 +26423,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.reviews.list({"limit": 3})
+        client.v1.reviews.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/reviews",
@@ -20053,11 +26456,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.reviews.list_async({"limit": 3})
+        await client.v1.reviews.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/reviews",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_reviews_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/reviews/prv_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.reviews.retrieve("prv_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/reviews/prv_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -20081,7 +26504,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.reviews.retrieve("prv_xxxxxxxxxxxxx")
+        client.v1.reviews.retrieve("prv_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/reviews/prv_xxxxxxxxxxxxx",
@@ -20113,11 +26536,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.reviews.retrieve_async("prv_xxxxxxxxxxxxx")
+        await client.v1.reviews.retrieve_async("prv_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/reviews/prv_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_setup_attempts_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/setup_attempts",
+            "limit=3&setup_intent=si_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.setup_attempts.list({"limit": 3, "setup_intent": "si_xyz"})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/setup_attempts",
+            query_string="limit=3&setup_intent=si_xyz",
             api_base="https://api.stripe.com",
         )
 
@@ -20147,7 +26591,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.setup_attempts.list({"limit": 3, "setup_intent": "si_xyz"})
+        client.v1.setup_attempts.list({"limit": 3, "setup_intent": "si_xyz"})
         http_client_mock.assert_requested(
             "get",
             path="/v1/setup_attempts",
@@ -20183,7 +26627,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.setup_attempts.list_async(
+        await client.v1.setup_attempts.list_async(
             {
                 "limit": 3,
                 "setup_intent": "si_xyz",
@@ -20193,6 +26637,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/setup_attempts",
             query_string="limit=3&setup_intent=si_xyz",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_setup_intents_cancel_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.setup_intents.cancel("seti_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -20218,7 +26682,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.setup_intents.cancel("seti_xxxxxxxxxxxxx")
+        client.v1.setup_intents.cancel("seti_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel",
@@ -20250,12 +26714,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.setup_intents.cancel_async("seti_xxxxxxxxxxxxx")
+        await client.v1.setup_intents.cancel_async("seti_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/cancel",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_setup_intents_confirm_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/setup_intents/seti_xxxxxxxxxxxxx/confirm",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.setup_intents.confirm(
+            "seti_xxxxxxxxxxxxx",
+            {"payment_method": "pm_card_visa"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/setup_intents/seti_xxxxxxxxxxxxx/confirm",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="payment_method=pm_card_visa",
         )
 
     def test_setup_intents_confirm_post(
@@ -20284,7 +26772,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.setup_intents.confirm(
+        client.v1.setup_intents.confirm(
             "seti_xxxxxxxxxxxxx",
             {"payment_method": "pm_card_visa"},
         )
@@ -20324,7 +26812,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.setup_intents.confirm_async(
+        await client.v1.setup_intents.confirm_async(
             "seti_xxxxxxxxxxxxx",
             {"payment_method": "pm_card_visa"},
         )
@@ -20334,6 +26822,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="payment_method=pm_card_visa",
+        )
+
+    def test_setup_intents_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/setup_intents",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.setup_intents.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/setup_intents",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_setup_intents_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -20357,7 +26866,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.setup_intents.list({"limit": 3})
+        client.v1.setup_intents.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/setup_intents",
@@ -20390,11 +26899,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.setup_intents.list_async({"limit": 3})
+        await client.v1.setup_intents.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/setup_intents",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_setup_intents_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/setup_intents/seti_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.setup_intents.retrieve("seti_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/setup_intents/seti_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -20420,7 +26949,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.setup_intents.retrieve("seti_xxxxxxxxxxxxx")
+        client.v1.setup_intents.retrieve("seti_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx",
@@ -20452,12 +26981,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.setup_intents.retrieve_async("seti_xxxxxxxxxxxxx")
+        await client.v1.setup_intents.retrieve_async("seti_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_setup_intents_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/setup_intents",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.setup_intents.create({"payment_method_types": ["card"]})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/setup_intents",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="payment_method_types[0]=card",
         )
 
     def test_setup_intents_post(
@@ -20483,7 +27033,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.setup_intents.create({"payment_method_types": ["card"]})
+        client.v1.setup_intents.create({"payment_method_types": ["card"]})
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents",
@@ -20517,7 +27067,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.setup_intents.create_async(
+        await client.v1.setup_intents.create_async(
             {
                 "payment_method_types": ["card"],
             }
@@ -20528,6 +27078,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="payment_method_types[0]=card",
+        )
+
+    def test_setup_intents_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/setup_intents/seti_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.setup_intents.update(
+            "seti_xxxxxxxxxxxxx",
+            {"metadata": {"user_id": "3435453"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/setup_intents/seti_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[user_id]=3435453",
         )
 
     def test_setup_intents_post_2(
@@ -20556,7 +27130,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.setup_intents.update(
+        client.v1.setup_intents.update(
             "seti_xxxxxxxxxxxxx",
             {"metadata": {"user_id": "3435453"}},
         )
@@ -20596,7 +27170,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.setup_intents.update_async(
+        await client.v1.setup_intents.update_async(
             "seti_xxxxxxxxxxxxx",
             {"metadata": {"user_id": "3435453"}},
         )
@@ -20606,6 +27180,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[user_id]=3435453",
+        )
+
+    def test_setup_intents_verify_microdeposits_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.setup_intents.verify_microdeposits("seti_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_setup_intents_verify_microdeposits_post(
@@ -20630,7 +27224,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.setup_intents.verify_microdeposits("seti_xxxxxxxxxxxxx")
+        client.v1.setup_intents.verify_microdeposits("seti_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
@@ -20664,7 +27258,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.setup_intents.verify_microdeposits_async(
+        await client.v1.setup_intents.verify_microdeposits_async(
             "seti_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -20672,6 +27266,30 @@ class TestGeneratedExamples(object):
             path="/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_setup_intents_verify_microdeposits_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.setup_intents.verify_microdeposits(
+            "seti_xxxxxxxxxxxxx",
+            {"amounts": [32, 45]},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amounts[0]=32&amounts[1]=45",
         )
 
     def test_setup_intents_verify_microdeposits_post_2(
@@ -20700,7 +27318,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.setup_intents.verify_microdeposits(
+        client.v1.setup_intents.verify_microdeposits(
             "seti_xxxxxxxxxxxxx",
             {"amounts": [32, 45]},
         )
@@ -20740,7 +27358,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.setup_intents.verify_microdeposits_async(
+        await client.v1.setup_intents.verify_microdeposits_async(
             "seti_xxxxxxxxxxxxx",
             {"amounts": [32, 45]},
         )
@@ -20750,6 +27368,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amounts[0]=32&amounts[1]=45",
+        )
+
+    def test_shipping_rates_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/shipping_rates",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.shipping_rates.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/shipping_rates",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_shipping_rates_get(
@@ -20774,7 +27412,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.shipping_rates.list()
+        client.v1.shipping_rates.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/shipping_rates",
@@ -20806,11 +27444,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.shipping_rates.list_async()
+        await client.v1.shipping_rates.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/shipping_rates",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_shipping_rates_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/shipping_rates",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.shipping_rates.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/shipping_rates",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -20837,7 +27496,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.shipping_rates.list({"limit": 3})
+        client.v1.shipping_rates.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/shipping_rates",
@@ -20870,11 +27529,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.shipping_rates.list_async({"limit": 3})
+        await client.v1.shipping_rates.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/shipping_rates",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_shipping_rates_get_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/shipping_rates/shr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.shipping_rates.retrieve("shr_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/shipping_rates/shr_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -20900,7 +27579,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.shipping_rates.retrieve("shr_xxxxxxxxxxxxx")
+        client.v1.shipping_rates.retrieve("shr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/shipping_rates/shr_xxxxxxxxxxxxx",
@@ -20932,12 +27611,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.shipping_rates.retrieve_async("shr_xxxxxxxxxxxxx")
+        await client.v1.shipping_rates.retrieve_async("shr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/shipping_rates/shr_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_shipping_rates_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/shipping_rates",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.shipping_rates.create(
+            {
+                "display_name": "Sample Shipper",
+                "fixed_amount": {"currency": "usd", "amount": 400},
+                "type": "fixed_amount",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/shipping_rates",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="display_name=Sample%20Shipper&fixed_amount[currency]=usd&fixed_amount[amount]=400&type=fixed_amount",
         )
 
     def test_shipping_rates_post(
@@ -20967,7 +27673,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.shipping_rates.create(
+        client.v1.shipping_rates.create(
             {
                 "display_name": "Sample Shipper",
                 "fixed_amount": {"currency": "usd", "amount": 400},
@@ -21011,7 +27717,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.shipping_rates.create_async(
+        await client.v1.shipping_rates.create_async(
             {
                 "display_name": "Sample Shipper",
                 "fixed_amount": {"currency": "usd", "amount": 400},
@@ -21024,6 +27730,33 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="display_name=Sample%20Shipper&fixed_amount[currency]=usd&fixed_amount[amount]=400&type=fixed_amount",
+        )
+
+    def test_shipping_rates_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/shipping_rates",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.shipping_rates.create(
+            {
+                "display_name": "Ground shipping",
+                "type": "fixed_amount",
+                "fixed_amount": {"amount": 500, "currency": "usd"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/shipping_rates",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="display_name=Ground%20shipping&type=fixed_amount&fixed_amount[amount]=500&fixed_amount[currency]=usd",
         )
 
     def test_shipping_rates_post_2(
@@ -21053,7 +27786,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.shipping_rates.create(
+        client.v1.shipping_rates.create(
             {
                 "display_name": "Ground shipping",
                 "type": "fixed_amount",
@@ -21097,7 +27830,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.shipping_rates.create_async(
+        await client.v1.shipping_rates.create_async(
             {
                 "display_name": "Ground shipping",
                 "type": "fixed_amount",
@@ -21110,6 +27843,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="display_name=Ground%20shipping&type=fixed_amount&fixed_amount[amount]=500&fixed_amount[currency]=usd",
+        )
+
+    def test_shipping_rates_post_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/shipping_rates/shr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.shipping_rates.update(
+            "shr_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/shipping_rates/shr_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_shipping_rates_post_3(
@@ -21138,7 +27895,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.shipping_rates.update(
+        client.v1.shipping_rates.update(
             "shr_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -21178,7 +27935,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.shipping_rates.update_async(
+        await client.v1.shipping_rates.update_async(
             "shr_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -21188,6 +27945,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_sigma_scheduled_query_runs_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/sigma/scheduled_query_runs",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.sigma.scheduled_query_runs.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/sigma/scheduled_query_runs",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_sigma_scheduled_query_runs_get(
@@ -21213,7 +27991,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.sigma.scheduled_query_runs.list({"limit": 3})
+        client.v1.sigma.scheduled_query_runs.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/sigma/scheduled_query_runs",
@@ -21246,11 +28024,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.sigma.scheduled_query_runs.list_async({"limit": 3})
+        await client.v1.sigma.scheduled_query_runs.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/sigma/scheduled_query_runs",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_sigma_scheduled_query_runs_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.sigma.scheduled_query_runs.retrieve("sqr_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -21276,7 +28074,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.sigma.scheduled_query_runs.retrieve("sqr_xxxxxxxxxxxxx")
+        client.v1.sigma.scheduled_query_runs.retrieve("sqr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx",
@@ -21310,12 +28108,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.sigma.scheduled_query_runs.retrieve_async(
+        await client.v1.sigma.scheduled_query_runs.retrieve_async(
             "sqr_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_sources_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/sources/src_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.sources.retrieve("src_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/sources/src_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -21340,7 +28158,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.sources.retrieve("src_xxxxxxxxxxxxx")
+        client.v1.sources.retrieve("src_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/sources/src_xxxxxxxxxxxxx",
@@ -21372,7 +28190,27 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.sources.retrieve_async("src_xxxxxxxxxxxxx")
+        await client.v1.sources.retrieve_async("src_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/sources/src_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_sources_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/sources/src_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.sources.retrieve("src_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/sources/src_xxxxxxxxxxxxx",
@@ -21400,7 +28238,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.sources.retrieve("src_xxxxxxxxxxxxx")
+        client.v1.sources.retrieve("src_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/sources/src_xxxxxxxxxxxxx",
@@ -21432,12 +28270,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.sources.retrieve_async("src_xxxxxxxxxxxxx")
+        await client.v1.sources.retrieve_async("src_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/sources/src_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_sources_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/sources/src_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.sources.update(
+            "src_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/sources/src_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_sources_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -21464,7 +28326,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.sources.update(
+        client.v1.sources.update(
             "src_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -21504,7 +28366,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.sources.update_async(
+        await client.v1.sources.update_async(
             "src_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -21514,6 +28376,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_subscription_items_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/subscription_items/si_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscription_items.delete("si_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/subscription_items/si_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_subscription_items_delete(
@@ -21538,7 +28420,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscription_items.delete("si_xxxxxxxxxxxxx")
+        client.v1.subscription_items.delete("si_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
@@ -21570,11 +28452,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscription_items.delete_async("si_xxxxxxxxxxxxx")
+        await client.v1.subscription_items.delete_async("si_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_subscription_items_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/subscription_items",
+            "subscription=sub_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscription_items.list({"subscription": "sub_xxxxxxxxxxxxx"})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/subscription_items",
+            query_string="subscription=sub_xxxxxxxxxxxxx",
             api_base="https://api.stripe.com",
         )
 
@@ -21601,7 +28504,9 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscription_items.list({"subscription": "sub_xxxxxxxxxxxxx"})
+        client.v1.subscription_items.list(
+            {"subscription": "sub_xxxxxxxxxxxxx"}
+        )
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscription_items",
@@ -21636,7 +28541,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscription_items.list_async(
+        await client.v1.subscription_items.list_async(
             {
                 "subscription": "sub_xxxxxxxxxxxxx",
             }
@@ -21645,6 +28550,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/subscription_items",
             query_string="subscription=sub_xxxxxxxxxxxxx",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_subscription_items_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/subscription_items/si_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscription_items.retrieve("si_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/subscription_items/si_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -21670,7 +28595,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscription_items.retrieve("si_xxxxxxxxxxxxx")
+        client.v1.subscription_items.retrieve("si_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
@@ -21702,12 +28627,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscription_items.retrieve_async("si_xxxxxxxxxxxxx")
+        await client.v1.subscription_items.retrieve_async("si_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscription_items/si_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_subscription_items_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/subscription_items",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscription_items.create(
+            {
+                "subscription": "sub_xxxxxxxxxxxxx",
+                "price": "price_xxxxxxxxxxxxx",
+                "quantity": 2,
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/subscription_items",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="subscription=sub_xxxxxxxxxxxxx&price=price_xxxxxxxxxxxxx&quantity=2",
         )
 
     def test_subscription_items_post(
@@ -21737,7 +28689,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscription_items.create(
+        client.v1.subscription_items.create(
             {
                 "subscription": "sub_xxxxxxxxxxxxx",
                 "price": "price_xxxxxxxxxxxxx",
@@ -21781,7 +28733,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscription_items.create_async(
+        await client.v1.subscription_items.create_async(
             {
                 "subscription": "sub_xxxxxxxxxxxxx",
                 "price": "price_xxxxxxxxxxxxx",
@@ -21794,6 +28746,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="subscription=sub_xxxxxxxxxxxxx&price=price_xxxxxxxxxxxxx&quantity=2",
+        )
+
+    def test_subscription_items_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/subscription_items/si_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscription_items.update(
+            "si_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/subscription_items/si_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_subscription_items_post_2(
@@ -21822,7 +28798,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscription_items.update(
+        client.v1.subscription_items.update(
             "si_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -21862,7 +28838,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscription_items.update_async(
+        await client.v1.subscription_items.update_async(
             "si_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -21872,6 +28848,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_subscription_schedules_cancel_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscription_schedules.cancel("sub_sched_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_subscription_schedules_cancel_post(
@@ -21896,7 +28892,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscription_schedules.cancel("sub_sched_xxxxxxxxxxxxx")
+        client.v1.subscription_schedules.cancel("sub_sched_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/cancel",
@@ -21930,13 +28926,34 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscription_schedules.cancel_async(
+        await client.v1.subscription_schedules.cancel_async(
             "sub_sched_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/cancel",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_subscription_schedules_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/subscription_schedules",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscription_schedules.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/subscription_schedules",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -21963,7 +28980,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscription_schedules.list({"limit": 3})
+        client.v1.subscription_schedules.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscription_schedules",
@@ -21996,11 +29013,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscription_schedules.list_async({"limit": 3})
+        await client.v1.subscription_schedules.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscription_schedules",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_subscription_schedules_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscription_schedules.retrieve("sub_sched_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -22026,7 +29063,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscription_schedules.retrieve("sub_sched_xxxxxxxxxxxxx")
+        client.v1.subscription_schedules.retrieve("sub_sched_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
@@ -22060,7 +29097,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscription_schedules.retrieve_async(
+        await client.v1.subscription_schedules.retrieve_async(
             "sub_sched_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -22068,6 +29105,41 @@ class TestGeneratedExamples(object):
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_subscription_schedules_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/subscription_schedules",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscription_schedules.create(
+            {
+                "customer": "cus_xxxxxxxxxxxxx",
+                "start_date": 1676070661,
+                "end_behavior": "release",
+                "phases": [
+                    {
+                        "items": [
+                            {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
+                        ],
+                        "iterations": 12,
+                    },
+                ],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/subscription_schedules",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
         )
 
     def test_subscription_schedules_post(
@@ -22103,7 +29175,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscription_schedules.create(
+        client.v1.subscription_schedules.create(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
                 "start_date": 1676070661,
@@ -22161,7 +29233,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscription_schedules.create_async(
+        await client.v1.subscription_schedules.create_async(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
                 "start_date": 1676070661,
@@ -22182,6 +29254,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+        )
+
+    def test_subscription_schedules_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscription_schedules.update(
+            "sub_sched_xxxxxxxxxxxxx",
+            {"end_behavior": "release"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="end_behavior=release",
         )
 
     def test_subscription_schedules_post_2(
@@ -22210,7 +29306,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscription_schedules.update(
+        client.v1.subscription_schedules.update(
             "sub_sched_xxxxxxxxxxxxx",
             {"end_behavior": "release"},
         )
@@ -22250,7 +29346,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscription_schedules.update_async(
+        await client.v1.subscription_schedules.update_async(
             "sub_sched_xxxxxxxxxxxxx",
             {"end_behavior": "release"},
         )
@@ -22260,6 +29356,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="end_behavior=release",
+        )
+
+    def test_subscription_schedules_release_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/release",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscription_schedules.release("sub_sched_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/release",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_subscription_schedules_release_post(
@@ -22284,7 +29400,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscription_schedules.release("sub_sched_xxxxxxxxxxxxx")
+        client.v1.subscription_schedules.release("sub_sched_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/release",
@@ -22318,12 +29434,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscription_schedules.release_async(
+        await client.v1.subscription_schedules.release_async(
             "sub_sched_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx/release",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_subscriptions_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/subscriptions/sub_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscriptions.cancel("sub_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -22350,7 +29486,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscriptions.cancel("sub_xxxxxxxxxxxxx")
+        client.v1.subscriptions.cancel("sub_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
@@ -22382,10 +29518,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscriptions.cancel_async("sub_xxxxxxxxxxxxx")
+        await client.v1.subscriptions.cancel_async("sub_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_subscriptions_discount_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/subscriptions/sub_xyz/discount",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscriptions.delete_discount("sub_xyz")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/subscriptions/sub_xyz/discount",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -22412,7 +29568,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscriptions.delete_discount("sub_xyz")
+        client.v1.subscriptions.delete_discount("sub_xyz")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/subscriptions/sub_xyz/discount",
@@ -22444,11 +29600,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscriptions.delete_discount_async("sub_xyz")
+        await client.v1.subscriptions.delete_discount_async("sub_xyz")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/subscriptions/sub_xyz/discount",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_subscriptions_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/subscriptions",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscriptions.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/subscriptions",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -22473,7 +29650,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscriptions.list({"limit": 3})
+        client.v1.subscriptions.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscriptions",
@@ -22506,11 +29683,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscriptions.list_async({"limit": 3})
+        await client.v1.subscriptions.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscriptions",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_subscriptions_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/subscriptions/sub_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscriptions.retrieve("sub_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -22536,7 +29733,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscriptions.retrieve("sub_xxxxxxxxxxxxx")
+        client.v1.subscriptions.retrieve("sub_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
@@ -22568,12 +29765,38 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscriptions.retrieve_async("sub_xxxxxxxxxxxxx")
+        await client.v1.subscriptions.retrieve_async("sub_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_subscriptions_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/subscriptions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscriptions.create(
+            {
+                "customer": "cus_xxxxxxxxxxxxx",
+                "items": [{"price": "price_xxxxxxxxxxxxx"}],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/subscriptions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="customer=cus_xxxxxxxxxxxxx&items[0][price]=price_xxxxxxxxxxxxx",
         )
 
     def test_subscriptions_post(
@@ -22602,7 +29825,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscriptions.create(
+        client.v1.subscriptions.create(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
                 "items": [{"price": "price_xxxxxxxxxxxxx"}],
@@ -22644,7 +29867,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscriptions.create_async(
+        await client.v1.subscriptions.create_async(
             {
                 "customer": "cus_xxxxxxxxxxxxx",
                 "items": [{"price": "price_xxxxxxxxxxxxx"}],
@@ -22656,6 +29879,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="customer=cus_xxxxxxxxxxxxx&items[0][price]=price_xxxxxxxxxxxxx",
+        )
+
+    def test_subscriptions_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/subscriptions/sub_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscriptions.update(
+            "sub_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/subscriptions/sub_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_subscriptions_post_2(
@@ -22684,7 +29931,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscriptions.update(
+        client.v1.subscriptions.update(
             "sub_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -22724,7 +29971,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscriptions.update_async(
+        await client.v1.subscriptions.update_async(
             "sub_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -22734,6 +29981,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_subscriptions_search_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/subscriptions/search",
+            "query=status%3A%27active%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.subscriptions.search(
+            {
+                "query": "status:'active' AND metadata['order_id']:'6735'",
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/subscriptions/search",
+            query_string="query=status%3A%27active%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+            api_base="https://api.stripe.com",
         )
 
     def test_subscriptions_search_get(
@@ -22761,7 +30033,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.subscriptions.search(
+        client.v1.subscriptions.search(
             {
                 "query": "status:'active' AND metadata['order_id']:'6735'",
             }
@@ -22800,7 +30072,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.subscriptions.search_async(
+        await client.v1.subscriptions.search_async(
             {
                 "query": "status:'active' AND metadata['order_id']:'6735'",
             }
@@ -22809,6 +30081,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/subscriptions/search",
             query_string="query=status%3A%27active%27%20AND%20metadata%5B%27order_id%27%5D%3A%276735%27",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_tax_calculations_line_items_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax/calculations/xxx/line_items",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax.calculations.line_items.list("xxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax/calculations/xxx/line_items",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -22834,7 +30126,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax.calculations.line_items.list("xxx")
+        client.v1.tax.calculations.line_items.list("xxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/calculations/xxx/line_items",
@@ -22866,12 +30158,48 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax.calculations.line_items.list_async("xxx")
+        await client.v1.tax.calculations.line_items.list_async("xxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/calculations/xxx/line_items",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_tax_calculations_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tax/calculations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax.calculations.create(
+            {
+                "currency": "usd",
+                "line_items": [{"amount": 1000, "reference": "L1"}],
+                "customer_details": {
+                    "address": {
+                        "line1": "354 Oyster Point Blvd",
+                        "city": "South San Francisco",
+                        "state": "CA",
+                        "postal_code": "94080",
+                        "country": "US",
+                    },
+                    "address_source": "shipping",
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax/calculations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="currency=usd&line_items[0][amount]=1000&line_items[0][reference]=L1&customer_details[address][line1]=354%20Oyster%20Point%20Blvd&customer_details[address][city]=South%20San%20Francisco&customer_details[address][state]=CA&customer_details[address][postal_code]=94080&customer_details[address][country]=US&customer_details[address_source]=shipping",
         )
 
     def test_tax_calculations_post(
@@ -22910,7 +30238,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax.calculations.create(
+        client.v1.tax.calculations.create(
             {
                 "currency": "usd",
                 "line_items": [{"amount": 1000, "reference": "L1"}],
@@ -22972,7 +30300,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax.calculations.create_async(
+        await client.v1.tax.calculations.create_async(
             {
                 "currency": "usd",
                 "line_items": [{"amount": 1000, "reference": "L1"}],
@@ -22996,6 +30324,27 @@ class TestGeneratedExamples(object):
             post_data="currency=usd&line_items[0][amount]=1000&line_items[0][reference]=L1&customer_details[address][line1]=354%20Oyster%20Point%20Blvd&customer_details[address][city]=South%20San%20Francisco&customer_details[address][state]=CA&customer_details[address][postal_code]=94080&customer_details[address][country]=US&customer_details[address_source]=shipping",
         )
 
+    def test_tax_codes_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax_codes",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_codes.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax_codes",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
     def test_tax_codes_get(self, http_client_mock: HTTPClientMock) -> None:
         stripe.TaxCode.list(limit=3)
         http_client_mock.assert_requested(
@@ -23017,7 +30366,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax_codes.list({"limit": 3})
+        client.v1.tax_codes.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_codes",
@@ -23050,11 +30399,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax_codes.list_async({"limit": 3})
+        await client.v1.tax_codes.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_codes",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_tax_codes_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax_codes/txcd_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_codes.retrieve("txcd_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax_codes/txcd_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -23078,7 +30447,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax_codes.retrieve("txcd_xxxxxxxxxxxxx")
+        client.v1.tax_codes.retrieve("txcd_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_codes/txcd_xxxxxxxxxxxxx",
@@ -23110,12 +30479,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax_codes.retrieve_async("txcd_xxxxxxxxxxxxx")
+        await client.v1.tax_codes.retrieve_async("txcd_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_codes/txcd_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_tax_forms_pdf_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax.forms.pdf("form_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+            query_string="",
+            api_base="https://files.stripe.com",
         )
 
     def test_tax_forms_pdf_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -23138,7 +30527,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax.forms.pdf("form_xxxxxxxxxxxxx")
+        client.v1.tax.forms.pdf("form_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
@@ -23170,12 +30559,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax.forms.pdf_async("form_xxxxxxxxxxxxx")
+        await client.v1.tax.forms.pdf_async("form_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
             query_string="",
             api_base="https://files.stripe.com",
+        )
+
+    def test_tax_ids_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/tax_ids/taxid_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_ids.delete("taxid_123")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/tax_ids/taxid_123",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_tax_ids_delete(self, http_client_mock: HTTPClientMock) -> None:
@@ -23198,7 +30607,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax_ids.delete("taxid_123")
+        client.v1.tax_ids.delete("taxid_123")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/tax_ids/taxid_123",
@@ -23230,10 +30639,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax_ids.delete_async("taxid_123")
+        await client.v1.tax_ids.delete_async("taxid_123")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/tax_ids/taxid_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_tax_ids_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax_ids",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_ids.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax_ids",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -23258,7 +30687,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax_ids.list()
+        client.v1.tax_ids.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_ids",
@@ -23290,10 +30719,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax_ids.list_async()
+        await client.v1.tax_ids.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_ids",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_tax_ids_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax_ids/taxid_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_ids.retrieve("taxid_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax_ids/taxid_123",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -23318,7 +30767,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax_ids.retrieve("taxid_123")
+        client.v1.tax_ids.retrieve("taxid_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_ids/taxid_123",
@@ -23350,12 +30799,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax_ids.retrieve_async("taxid_123")
+        await client.v1.tax_ids.retrieve_async("taxid_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_ids/taxid_123",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_tax_ids_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tax_ids",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_ids.create({"type": "eu_vat", "value": "123"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax_ids",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="type=eu_vat&value=123",
         )
 
     def test_tax_ids_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -23382,7 +30852,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax_ids.create({"type": "eu_vat", "value": "123"})
+        client.v1.tax_ids.create({"type": "eu_vat", "value": "123"})
         http_client_mock.assert_requested(
             "post",
             path="/v1/tax_ids",
@@ -23419,13 +30889,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax_ids.create_async({"type": "eu_vat", "value": "123"})
+        await client.v1.tax_ids.create_async(
+            {"type": "eu_vat", "value": "123"}
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/tax_ids",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="type=eu_vat&value=123",
+        )
+
+    def test_tax_rates_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax_rates",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_rates.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax_rates",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_tax_rates_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -23449,7 +30942,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax_rates.list({"limit": 3})
+        client.v1.tax_rates.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_rates",
@@ -23482,11 +30975,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax_rates.list_async({"limit": 3})
+        await client.v1.tax_rates.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_rates",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_tax_rates_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax_rates/txr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_rates.retrieve("txr_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -23510,7 +31023,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax_rates.retrieve("txr_xxxxxxxxxxxxx")
+        client.v1.tax_rates.retrieve("txr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
@@ -23542,12 +31055,41 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax_rates.retrieve_async("txr_xxxxxxxxxxxxx")
+        await client.v1.tax_rates.retrieve_async("txr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_tax_rates_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tax_rates",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_rates.create(
+            {
+                "display_name": "VAT",
+                "description": "VAT Germany",
+                "jurisdiction": "DE",
+                "percentage": 16,
+                "inclusive": False,
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax_rates",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=false",
         )
 
     def test_tax_rates_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -23577,7 +31119,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax_rates.create(
+        client.v1.tax_rates.create(
             {
                 "display_name": "VAT",
                 "description": "VAT Germany",
@@ -23625,7 +31167,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax_rates.create_async(
+        await client.v1.tax_rates.create_async(
             {
                 "display_name": "VAT",
                 "description": "VAT Germany",
@@ -23640,6 +31182,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="display_name=VAT&description=VAT%20Germany&jurisdiction=DE&percentage=16&inclusive=false",
+        )
+
+    def test_tax_rates_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tax_rates/txr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax_rates.update(
+            "txr_xxxxxxxxxxxxx",
+            {"active": False},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax_rates/txr_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="active=false",
         )
 
     def test_tax_rates_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -23666,7 +31232,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax_rates.update(
+        client.v1.tax_rates.update(
             "txr_xxxxxxxxxxxxx",
             {"active": False},
         )
@@ -23706,7 +31272,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax_rates.update_async(
+        await client.v1.tax_rates.update_async(
             "txr_xxxxxxxxxxxxx",
             {"active": False},
         )
@@ -23716,6 +31282,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="active=false",
+        )
+
+    def test_tax_registrations_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax/registrations",
+            "status=all",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax.registrations.list({"status": "all"})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax/registrations",
+            query_string="status=all",
+            api_base="https://api.stripe.com",
         )
 
     def test_tax_registrations_get(
@@ -23741,7 +31328,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax.registrations.list({"status": "all"})
+        client.v1.tax.registrations.list({"status": "all"})
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/registrations",
@@ -23774,12 +31361,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax.registrations.list_async({"status": "all"})
+        await client.v1.tax.registrations.list_async({"status": "all"})
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/registrations",
             query_string="status=all",
             api_base="https://api.stripe.com",
+        )
+
+    def test_tax_registrations_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tax/registrations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax.registrations.create(
+            {
+                "country": "IE",
+                "country_options": {"ie": {"type": "oss_union"}},
+                "active_from": "now",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax/registrations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="country=IE&country_options[ie][type]=oss_union&active_from=now",
         )
 
     def test_tax_registrations_post(
@@ -23809,7 +31423,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax.registrations.create(
+        client.v1.tax.registrations.create(
             {
                 "country": "IE",
                 "country_options": {"ie": {"type": "oss_union"}},
@@ -23853,7 +31467,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax.registrations.create_async(
+        await client.v1.tax.registrations.create_async(
             {
                 "country": "IE",
                 "country_options": {"ie": {"type": "oss_union"}},
@@ -23866,6 +31480,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="country=IE&country_options[ie][type]=oss_union&active_from=now",
+        )
+
+    def test_tax_registrations_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tax/registrations/taxreg_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax.registrations.update(
+            "taxreg_xxxxxxxxxxxxx",
+            {"expires_at": "now"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax/registrations/taxreg_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="expires_at=now",
         )
 
     def test_tax_registrations_post_2(
@@ -23894,7 +31532,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax.registrations.update(
+        client.v1.tax.registrations.update(
             "taxreg_xxxxxxxxxxxxx",
             {"expires_at": "now"},
         )
@@ -23934,7 +31572,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax.registrations.update_async(
+        await client.v1.tax.registrations.update_async(
             "taxreg_xxxxxxxxxxxxx",
             {"expires_at": "now"},
         )
@@ -23944,6 +31582,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="expires_at=now",
+        )
+
+    def test_tax_settings_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tax/settings",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax.settings.retrieve()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tax/settings",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_tax_settings_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -23966,7 +31624,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax.settings.retrieve()
+        client.v1.tax.settings.retrieve()
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/settings",
@@ -23998,12 +31656,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax.settings.retrieve_async()
+        await client.v1.tax.settings.retrieve_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/tax/settings",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_tax_settings_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tax/settings",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax.settings.update({"defaults": {"tax_code": "txcd_10000000"}})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax/settings",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="defaults[tax_code]=txcd_10000000",
         )
 
     def test_tax_settings_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -24027,7 +31706,11 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax.settings.update({"defaults": {"tax_code": "txcd_10000000"}})
+        client.v1.tax.settings.update(
+            {
+                "defaults": {"tax_code": "txcd_10000000"},
+            }
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/tax/settings",
@@ -24063,7 +31746,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax.settings.update_async(
+        await client.v1.tax.settings.update_async(
             {
                 "defaults": {"tax_code": "txcd_10000000"},
             }
@@ -24074,6 +31757,32 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="defaults[tax_code]=txcd_10000000",
+        )
+
+    def test_tax_transactions_create_from_calculation_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tax/transactions/create_from_calculation",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tax.transactions.create_from_calculation(
+            {
+                "calculation": "xxx",
+                "reference": "yyy",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax/transactions/create_from_calculation",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="calculation=xxx&reference=yyy",
         )
 
     def test_tax_transactions_create_from_calculation_post(
@@ -24102,7 +31811,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tax.transactions.create_from_calculation(
+        client.v1.tax.transactions.create_from_calculation(
             {
                 "calculation": "xxx",
                 "reference": "yyy",
@@ -24144,7 +31853,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tax.transactions.create_from_calculation_async(
+        await client.v1.tax.transactions.create_from_calculation_async(
             {
                 "calculation": "xxx",
                 "reference": "yyy",
@@ -24156,6 +31865,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="calculation=xxx&reference=yyy",
+        )
+
+    def test_terminal_configurations_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/terminal/configurations/uc_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.configurations.delete("uc_123")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/terminal/configurations/uc_123",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_terminal_configurations_delete(
@@ -24180,7 +31909,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.configurations.delete("uc_123")
+        client.v1.terminal.configurations.delete("uc_123")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/configurations/uc_123",
@@ -24212,10 +31941,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.configurations.delete_async("uc_123")
+        await client.v1.terminal.configurations.delete_async("uc_123")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/configurations/uc_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_configurations_delete_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.configurations.delete("tmc_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -24242,7 +31991,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.configurations.delete("tmc_xxxxxxxxxxxxx")
+        client.v1.terminal.configurations.delete("tmc_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
@@ -24274,10 +32023,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.configurations.delete_async("tmc_xxxxxxxxxxxxx")
+        await client.v1.terminal.configurations.delete_async(
+            "tmc_xxxxxxxxxxxxx",
+        )
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_configurations_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/terminal/configurations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.configurations.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/terminal/configurations",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -24304,7 +32075,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.configurations.list()
+        client.v1.terminal.configurations.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations",
@@ -24336,10 +32107,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.configurations.list_async()
+        await client.v1.terminal.configurations.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_configurations_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/terminal/configurations/uc_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.configurations.retrieve("uc_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/terminal/configurations/uc_123",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -24366,7 +32157,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.configurations.retrieve("uc_123")
+        client.v1.terminal.configurations.retrieve("uc_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations/uc_123",
@@ -24398,11 +32189,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.configurations.retrieve_async("uc_123")
+        await client.v1.terminal.configurations.retrieve_async("uc_123")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations/uc_123",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_configurations_get_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/terminal/configurations",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.configurations.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/terminal/configurations",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -24429,7 +32241,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.configurations.list({"limit": 3})
+        client.v1.terminal.configurations.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations",
@@ -24462,11 +32274,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.configurations.list_async({"limit": 3})
+        await client.v1.terminal.configurations.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_configurations_get_4_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.configurations.retrieve("tmc_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -24492,7 +32324,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.configurations.retrieve("tmc_xxxxxxxxxxxxx")
+        client.v1.terminal.configurations.retrieve("tmc_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
@@ -24524,12 +32356,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.configurations.retrieve_async(
-            "tmc_xxxxxxxxxxxxx"
+        await client.v1.terminal.configurations.retrieve_async(
+            "tmc_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_configurations_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/configurations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.configurations.create()
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/configurations",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -24556,7 +32408,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.configurations.create()
+        client.v1.terminal.configurations.create()
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/configurations",
@@ -24588,12 +32440,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.configurations.create_async()
+        await client.v1.terminal.configurations.create_async()
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/configurations",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_configurations_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/configurations/uc_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.configurations.update(
+            "uc_123",
+            {"tipping": {"usd": {"fixed_amounts": [10]}}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/configurations/uc_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="tipping[usd][fixed_amounts][0]=10",
         )
 
     def test_terminal_configurations_post_2(
@@ -24622,7 +32498,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.configurations.update(
+        client.v1.terminal.configurations.update(
             "uc_123",
             {"tipping": {"usd": {"fixed_amounts": [10]}}},
         )
@@ -24662,7 +32538,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.configurations.update_async(
+        await client.v1.terminal.configurations.update_async(
             "uc_123",
             {"tipping": {"usd": {"fixed_amounts": [10]}}},
         )
@@ -24672,6 +32548,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="tipping[usd][fixed_amounts][0]=10",
+        )
+
+    def test_terminal_configurations_post_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/configurations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.configurations.create(
+            {
+                "bbpos_wisepos_e": {"splashscreen": "file_xxxxxxxxxxxxx"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/configurations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="bbpos_wisepos_e[splashscreen]=file_xxxxxxxxxxxxx",
         )
 
     def test_terminal_configurations_post_3(
@@ -24699,7 +32600,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.configurations.create(
+        client.v1.terminal.configurations.create(
             {
                 "bbpos_wisepos_e": {"splashscreen": "file_xxxxxxxxxxxxx"},
             }
@@ -24739,7 +32640,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.configurations.create_async(
+        await client.v1.terminal.configurations.create_async(
             {
                 "bbpos_wisepos_e": {"splashscreen": "file_xxxxxxxxxxxxx"},
             }
@@ -24747,6 +32648,30 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/configurations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="bbpos_wisepos_e[splashscreen]=file_xxxxxxxxxxxxx",
+        )
+
+    def test_terminal_configurations_post_4_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.configurations.update(
+            "tmc_xxxxxxxxxxxxx",
+            {"bbpos_wisepos_e": {"splashscreen": "file_xxxxxxxxxxxxx"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="bbpos_wisepos_e[splashscreen]=file_xxxxxxxxxxxxx",
@@ -24778,7 +32703,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.configurations.update(
+        client.v1.terminal.configurations.update(
             "tmc_xxxxxxxxxxxxx",
             {"bbpos_wisepos_e": {"splashscreen": "file_xxxxxxxxxxxxx"}},
         )
@@ -24818,7 +32743,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.configurations.update_async(
+        await client.v1.terminal.configurations.update_async(
             "tmc_xxxxxxxxxxxxx",
             {"bbpos_wisepos_e": {"splashscreen": "file_xxxxxxxxxxxxx"}},
         )
@@ -24828,6 +32753,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="bbpos_wisepos_e[splashscreen]=file_xxxxxxxxxxxxx",
+        )
+
+    def test_terminal_connection_tokens_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/connection_tokens",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.connection_tokens.create()
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/connection_tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_terminal_connection_tokens_post(
@@ -24852,7 +32797,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.connection_tokens.create()
+        client.v1.terminal.connection_tokens.create()
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/connection_tokens",
@@ -24884,10 +32829,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.connection_tokens.create_async()
+        await client.v1.terminal.connection_tokens.create_async()
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/connection_tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_locations_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/terminal/locations/tml_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.locations.delete("tml_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -24914,7 +32879,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.locations.delete("tml_xxxxxxxxxxxxx")
+        client.v1.terminal.locations.delete("tml_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
@@ -24946,11 +32911,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.locations.delete_async("tml_xxxxxxxxxxxxx")
+        await client.v1.terminal.locations.delete_async("tml_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_locations_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/terminal/locations",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.locations.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/terminal/locations",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -24977,7 +32963,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.locations.list({"limit": 3})
+        client.v1.terminal.locations.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/locations",
@@ -25010,11 +32996,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.locations.list_async({"limit": 3})
+        await client.v1.terminal.locations.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/locations",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_locations_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/terminal/locations/tml_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.locations.retrieve("tml_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -25040,7 +33046,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.locations.retrieve("tml_xxxxxxxxxxxxx")
+        client.v1.terminal.locations.retrieve("tml_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
@@ -25072,12 +33078,44 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.locations.retrieve_async("tml_xxxxxxxxxxxxx")
+        await client.v1.terminal.locations.retrieve_async("tml_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_locations_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/locations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.locations.create(
+            {
+                "display_name": "My First Store",
+                "address": {
+                    "line1": "1234 Main Street",
+                    "city": "San Francisco",
+                    "postal_code": "94111",
+                    "state": "CA",
+                    "country": "US",
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/locations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="display_name=My%20First%20Store&address[line1]=1234%20Main%20Street&address[city]=San%20Francisco&address[postal_code]=94111&address[state]=CA&address[country]=US",
         )
 
     def test_terminal_locations_post(
@@ -25112,7 +33150,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.locations.create(
+        client.v1.terminal.locations.create(
             {
                 "display_name": "My First Store",
                 "address": {
@@ -25166,7 +33204,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.locations.create_async(
+        await client.v1.terminal.locations.create_async(
             {
                 "display_name": "My First Store",
                 "address": {
@@ -25184,6 +33222,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="display_name=My%20First%20Store&address[line1]=1234%20Main%20Street&address[city]=San%20Francisco&address[postal_code]=94111&address[state]=CA&address[country]=US",
+        )
+
+    def test_terminal_locations_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/locations/tml_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.locations.update(
+            "tml_xxxxxxxxxxxxx",
+            {"display_name": "My First Store"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/locations/tml_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="display_name=My%20First%20Store",
         )
 
     def test_terminal_locations_post_2(
@@ -25212,7 +33274,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.locations.update(
+        client.v1.terminal.locations.update(
             "tml_xxxxxxxxxxxxx",
             {"display_name": "My First Store"},
         )
@@ -25252,7 +33314,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.locations.update_async(
+        await client.v1.terminal.locations.update_async(
             "tml_xxxxxxxxxxxxx",
             {"display_name": "My First Store"},
         )
@@ -25262,6 +33324,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="display_name=My%20First%20Store",
+        )
+
+    def test_terminal_readers_cancel_action_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.readers.cancel_action("tmr_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_terminal_readers_cancel_action_post(
@@ -25286,7 +33368,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.readers.cancel_action("tmr_xxxxxxxxxxxxx")
+        client.v1.terminal.readers.cancel_action("tmr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action",
@@ -25318,10 +33400,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.readers.cancel_action_async("tmr_xxxxxxxxxxxxx")
+        await client.v1.terminal.readers.cancel_action_async(
+            "tmr_xxxxxxxxxxxxx",
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_readers_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.readers.delete("tmr_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -25348,7 +33452,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.readers.delete("tmr_xxxxxxxxxxxxx")
+        client.v1.terminal.readers.delete("tmr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
@@ -25380,11 +33484,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.readers.delete_async("tmr_xxxxxxxxxxxxx")
+        await client.v1.terminal.readers.delete_async("tmr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_readers_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/terminal/readers",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.readers.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/terminal/readers",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -25411,7 +33536,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.readers.list({"limit": 3})
+        client.v1.terminal.readers.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/readers",
@@ -25444,11 +33569,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.readers.list_async({"limit": 3})
+        await client.v1.terminal.readers.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/readers",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_readers_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.readers.retrieve("tmr_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -25474,7 +33619,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.readers.retrieve("tmr_xxxxxxxxxxxxx")
+        client.v1.terminal.readers.retrieve("tmr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
@@ -25506,12 +33651,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.readers.retrieve_async("tmr_xxxxxxxxxxxxx")
+        await client.v1.terminal.readers.retrieve_async("tmr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_terminal_readers_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/readers",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.readers.create(
+            {
+                "registration_code": "puppies-plug-could",
+                "label": "Blue Rabbit",
+                "location": "tml_1234",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/readers",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="registration_code=puppies-plug-could&label=Blue%20Rabbit&location=tml_1234",
         )
 
     def test_terminal_readers_post(
@@ -25541,7 +33713,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.readers.create(
+        client.v1.terminal.readers.create(
             {
                 "registration_code": "puppies-plug-could",
                 "label": "Blue Rabbit",
@@ -25585,7 +33757,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.readers.create_async(
+        await client.v1.terminal.readers.create_async(
             {
                 "registration_code": "puppies-plug-could",
                 "label": "Blue Rabbit",
@@ -25598,6 +33770,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="registration_code=puppies-plug-could&label=Blue%20Rabbit&location=tml_1234",
+        )
+
+    def test_terminal_readers_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.readers.update(
+            "tmr_xxxxxxxxxxxxx",
+            {"label": "Blue Rabbit"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="label=Blue%20Rabbit",
         )
 
     def test_terminal_readers_post_2(
@@ -25626,7 +33822,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.readers.update(
+        client.v1.terminal.readers.update(
             "tmr_xxxxxxxxxxxxx",
             {"label": "Blue Rabbit"},
         )
@@ -25666,7 +33862,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.readers.update_async(
+        await client.v1.terminal.readers.update_async(
             "tmr_xxxxxxxxxxxxx",
             {"label": "Blue Rabbit"},
         )
@@ -25676,6 +33872,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="label=Blue%20Rabbit",
+        )
+
+    def test_terminal_readers_process_payment_intent_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_payment_intent",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.readers.process_payment_intent(
+            "tmr_xxxxxxxxxxxxx",
+            {"payment_intent": "pi_xxxxxxxxxxxxx"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_payment_intent",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="payment_intent=pi_xxxxxxxxxxxxx",
         )
 
     def test_terminal_readers_process_payment_intent_post(
@@ -25704,7 +33924,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.readers.process_payment_intent(
+        client.v1.terminal.readers.process_payment_intent(
             "tmr_xxxxxxxxxxxxx",
             {"payment_intent": "pi_xxxxxxxxxxxxx"},
         )
@@ -25744,7 +33964,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.readers.process_payment_intent_async(
+        await client.v1.terminal.readers.process_payment_intent_async(
             "tmr_xxxxxxxxxxxxx",
             {"payment_intent": "pi_xxxxxxxxxxxxx"},
         )
@@ -25754,6 +33974,33 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="payment_intent=pi_xxxxxxxxxxxxx",
+        )
+
+    def test_terminal_readers_process_setup_intent_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.terminal.readers.process_setup_intent(
+            "tmr_xxxxxxxxxxxxx",
+            {
+                "setup_intent": "seti_xxxxxxxxxxxxx",
+                "allow_redisplay": "always",
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
         )
 
     def test_terminal_readers_process_setup_intent_post(
@@ -25783,7 +34030,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.terminal.readers.process_setup_intent(
+        client.v1.terminal.readers.process_setup_intent(
             "tmr_xxxxxxxxxxxxx",
             {
                 "setup_intent": "seti_xxxxxxxxxxxxx",
@@ -25827,7 +34074,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.terminal.readers.process_setup_intent_async(
+        await client.v1.terminal.readers.process_setup_intent_async(
             "tmr_xxxxxxxxxxxxx",
             {
                 "setup_intent": "seti_xxxxxxxxxxxxx",
@@ -25840,6 +34087,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="setup_intent=seti_xxxxxxxxxxxxx&allow_redisplay=always",
+        )
+
+    def test_test_helpers_customers_fund_cash_balance_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/customers/cus_123/fund_cash_balance",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.customers.fund_cash_balance(
+            "cus_123",
+            {"amount": 30, "currency": "eur"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/customers/cus_123/fund_cash_balance",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=30&currency=eur",
         )
 
     def test_test_helpers_customers_fund_cash_balance_post(
@@ -25869,7 +34140,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.customers.fund_cash_balance(
+        client.v1.test_helpers.customers.fund_cash_balance(
             "cus_123",
             {"amount": 30, "currency": "eur"},
         )
@@ -25910,7 +34181,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.customers.fund_cash_balance_async(
+        await client.v1.test_helpers.customers.fund_cash_balance_async(
             "cus_123",
             {"amount": 30, "currency": "eur"},
         )
@@ -25920,6 +34191,67 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=30&currency=eur",
+        )
+
+    def test_test_helpers_issuing_authorizations_capture_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/authorizations/example_authorization/capture",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.authorizations.capture(
+            "example_authorization",
+            {
+                "capture_amount": 100,
+                "close_authorization": True,
+                "purchase_details": {
+                    "flight": {
+                        "departure_at": 1633651200,
+                        "passenger_name": "John Doe",
+                        "refundable": True,
+                        "segments": [
+                            {
+                                "arrival_airport_code": "SFO",
+                                "carrier": "Delta",
+                                "departure_airport_code": "LAX",
+                                "flight_number": "DL100",
+                                "service_class": "Economy",
+                                "stopover_allowed": True,
+                            },
+                        ],
+                        "travel_agency": "Orbitz",
+                    },
+                    "fuel": {
+                        "type": "diesel",
+                        "unit": "liter",
+                        "unit_cost_decimal": "3.5",
+                        "quantity_decimal": "10",
+                    },
+                    "lodging": {"check_in_at": 1633651200, "nights": 2},
+                    "receipt": [
+                        {
+                            "description": "Room charge",
+                            "quantity": "1",
+                            "total": 200,
+                            "unit_cost": 200,
+                        },
+                    ],
+                    "reference": "foo",
+                },
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/authorizations/example_authorization/capture",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="capture_amount=100&close_authorization=true&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_authorizations_capture_post(
@@ -25983,7 +34315,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.authorizations.capture(
+        client.v1.test_helpers.issuing.authorizations.capture(
             "example_authorization",
             {
                 "capture_amount": 100,
@@ -26095,7 +34427,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.authorizations.capture_async(
+        await client.v1.test_helpers.issuing.authorizations.capture_async(
             "example_authorization",
             {
                 "capture_amount": 100,
@@ -26144,6 +34476,28 @@ class TestGeneratedExamples(object):
             post_data="capture_amount=100&close_authorization=true&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1633651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
+    def test_test_helpers_issuing_authorizations_expire_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/authorizations/example_authorization/expire",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.authorizations.expire(
+            "example_authorization",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/authorizations/example_authorization/expire",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_test_helpers_issuing_authorizations_expire_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -26168,7 +34522,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.authorizations.expire(
+        client.v1.test_helpers.issuing.authorizations.expire(
             "example_authorization",
         )
         http_client_mock.assert_requested(
@@ -26204,7 +34558,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.authorizations.expire_async(
+        await client.v1.test_helpers.issuing.authorizations.expire_async(
             "example_authorization",
         )
         http_client_mock.assert_requested(
@@ -26212,6 +34566,30 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/authorizations/example_authorization/expire",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_issuing_authorizations_increment_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/authorizations/example_authorization/increment",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.authorizations.increment(
+            "example_authorization",
+            {"increment_amount": 50, "is_amount_controllable": True},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/authorizations/example_authorization/increment",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="increment_amount=50&is_amount_controllable=true",
         )
 
     def test_test_helpers_issuing_authorizations_increment_post(
@@ -26241,7 +34619,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.authorizations.increment(
+        client.v1.test_helpers.issuing.authorizations.increment(
             "example_authorization",
             {"increment_amount": 50, "is_amount_controllable": True},
         )
@@ -26282,7 +34660,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.authorizations.increment_async(
+        await client.v1.test_helpers.issuing.authorizations.increment_async(
             "example_authorization",
             {"increment_amount": 50, "is_amount_controllable": True},
         )
@@ -26292,6 +34670,54 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="increment_amount=50&is_amount_controllable=true",
+        )
+
+    def test_test_helpers_issuing_authorizations_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/authorizations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.authorizations.create(
+            {
+                "amount": 100,
+                "amount_details": {"atm_fee": 10, "cashback_amount": 5},
+                "authorization_method": "chip",
+                "card": "foo",
+                "currency": "usd",
+                "is_amount_controllable": True,
+                "merchant_data": {
+                    "category": "ac_refrigeration_repair",
+                    "city": "foo",
+                    "country": "bar",
+                    "name": "foo",
+                    "network_id": "bar",
+                    "postal_code": "foo",
+                    "state": "bar",
+                    "terminal_id": "foo",
+                },
+                "network_data": {"acquiring_institution_id": "foo"},
+                "verification_data": {
+                    "address_line1_check": "mismatch",
+                    "address_postal_code_check": "match",
+                    "cvc_check": "match",
+                    "expiry_check": "mismatch",
+                },
+                "wallet": "apple_pay",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/authorizations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=true&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
         )
 
     def test_test_helpers_issuing_authorizations_post(
@@ -26342,7 +34768,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.authorizations.create(
+        client.v1.test_helpers.issuing.authorizations.create(
             {
                 "amount": 100,
                 "amount_details": {"atm_fee": 10, "cashback_amount": 5},
@@ -26428,7 +34854,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.authorizations.create_async(
+        await client.v1.test_helpers.issuing.authorizations.create_async(
             {
                 "amount": 100,
                 "amount_details": {"atm_fee": 10, "cashback_amount": 5},
@@ -26464,6 +34890,30 @@ class TestGeneratedExamples(object):
             post_data="amount=100&amount_details[atm_fee]=10&amount_details[cashback_amount]=5&authorization_method=chip&card=foo&currency=usd&is_amount_controllable=true&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&network_data[acquiring_institution_id]=foo&verification_data[address_line1_check]=mismatch&verification_data[address_postal_code_check]=match&verification_data[cvc_check]=match&verification_data[expiry_check]=mismatch&wallet=apple_pay",
         )
 
+    def test_test_helpers_issuing_authorizations_reverse_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/authorizations/example_authorization/reverse",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.authorizations.reverse(
+            "example_authorization",
+            {"reverse_amount": 20},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/authorizations/example_authorization/reverse",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="reverse_amount=20",
+        )
+
     def test_test_helpers_issuing_authorizations_reverse_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -26490,7 +34940,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.authorizations.reverse(
+        client.v1.test_helpers.issuing.authorizations.reverse(
             "example_authorization",
             {"reverse_amount": 20},
         )
@@ -26530,7 +34980,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.authorizations.reverse_async(
+        await client.v1.test_helpers.issuing.authorizations.reverse_async(
             "example_authorization",
             {"reverse_amount": 20},
         )
@@ -26540,6 +34990,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="reverse_amount=20",
+        )
+
+    def test_test_helpers_issuing_cards_shipping_deliver_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/cards/card_123/shipping/deliver",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.cards.deliver_card("card_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/cards/card_123/shipping/deliver",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_test_helpers_issuing_cards_shipping_deliver_post(
@@ -26564,7 +35034,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.cards.deliver_card("card_123")
+        client.v1.test_helpers.issuing.cards.deliver_card("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/deliver",
@@ -26596,10 +35066,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.cards.deliver_card_async("card_123")
+        await client.v1.test_helpers.issuing.cards.deliver_card_async(
+            "card_123",
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/deliver",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_issuing_cards_shipping_fail_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/cards/card_123/shipping/fail",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.cards.fail_card("card_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/cards/card_123/shipping/fail",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -26626,7 +35118,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.cards.fail_card("card_123")
+        client.v1.test_helpers.issuing.cards.fail_card("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/fail",
@@ -26658,10 +35150,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.cards.fail_card_async("card_123")
+        await client.v1.test_helpers.issuing.cards.fail_card_async("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/fail",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_issuing_cards_shipping_return_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/cards/card_123/shipping/return",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.cards.return_card("card_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/cards/card_123/shipping/return",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -26688,7 +35200,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.cards.return_card("card_123")
+        client.v1.test_helpers.issuing.cards.return_card("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/return",
@@ -26720,10 +35232,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.cards.return_card_async("card_123")
+        await client.v1.test_helpers.issuing.cards.return_card_async(
+            "card_123"
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/return",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_issuing_cards_shipping_ship_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/cards/card_123/shipping/ship",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.cards.ship_card("card_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/cards/card_123/shipping/ship",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -26750,7 +35284,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.cards.ship_card("card_123")
+        client.v1.test_helpers.issuing.cards.ship_card("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/ship",
@@ -26782,10 +35316,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.cards.ship_card_async("card_123")
+        await client.v1.test_helpers.issuing.cards.ship_card_async("card_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/cards/card_123/shipping/ship",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_issuing_personalization_designs_activate_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.personalization_designs.activate("pd_xyz")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -26812,7 +35366,9 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.personalization_designs.activate("pd_xyz")
+        client.v1.test_helpers.issuing.personalization_designs.activate(
+            "pd_xyz",
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate",
@@ -26846,14 +35402,34 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await (
-            client.test_helpers.issuing.personalization_designs.activate_async(
-                "pd_xyz"
-            )
+        await client.v1.test_helpers.issuing.personalization_designs.activate_async(
+            "pd_xyz"
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/activate",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_issuing_personalization_designs_deactivate_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.personalization_designs.deactivate(
+            "pd_xyz"
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -26880,8 +35456,8 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.personalization_designs.deactivate(
-            "pd_xyz"
+        client.v1.test_helpers.issuing.personalization_designs.deactivate(
+            "pd_xyz",
         )
         http_client_mock.assert_requested(
             "post",
@@ -26918,7 +35494,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.personalization_designs.deactivate_async(
+        await client.v1.test_helpers.issuing.personalization_designs.deactivate_async(
             "pd_xyz"
         )
         http_client_mock.assert_requested(
@@ -26926,6 +35502,30 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/deactivate",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_issuing_personalization_designs_reject_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/personalization_designs/pd_xyz/reject",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.personalization_designs.reject(
+            "pd_xyz",
+            {"rejection_reasons": {"card_logo": ["geographic_location"]}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/personalization_designs/pd_xyz/reject",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="rejection_reasons[card_logo][0]=geographic_location",
         )
 
     def test_test_helpers_issuing_personalization_designs_reject_post(
@@ -26954,7 +35554,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.personalization_designs.reject(
+        client.v1.test_helpers.issuing.personalization_designs.reject(
             "pd_xyz",
             {"rejection_reasons": {"card_logo": ["geographic_location"]}},
         )
@@ -26994,7 +35594,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.personalization_designs.reject_async(
+        await client.v1.test_helpers.issuing.personalization_designs.reject_async(
             "pd_xyz",
             {"rejection_reasons": {"card_logo": ["geographic_location"]}},
         )
@@ -27004,6 +35604,77 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="rejection_reasons[card_logo][0]=geographic_location",
+        )
+
+    def test_test_helpers_issuing_transactions_create_force_capture_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/transactions/create_force_capture",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.transactions.create_force_capture(
+            {
+                "amount": 100,
+                "card": "foo",
+                "currency": "usd",
+                "merchant_data": {
+                    "category": "ac_refrigeration_repair",
+                    "city": "foo",
+                    "country": "US",
+                    "name": "foo",
+                    "network_id": "bar",
+                    "postal_code": "10001",
+                    "state": "NY",
+                    "terminal_id": "foo",
+                },
+                "purchase_details": {
+                    "flight": {
+                        "departure_at": 1633651200,
+                        "passenger_name": "John Doe",
+                        "refundable": True,
+                        "segments": [
+                            {
+                                "arrival_airport_code": "SFO",
+                                "carrier": "Delta",
+                                "departure_airport_code": "LAX",
+                                "flight_number": "DL100",
+                                "service_class": "Economy",
+                                "stopover_allowed": True,
+                            },
+                        ],
+                        "travel_agency": "Orbitz",
+                    },
+                    "fuel": {
+                        "type": "diesel",
+                        "unit": "liter",
+                        "unit_cost_decimal": "3.5",
+                        "quantity_decimal": "10",
+                    },
+                    "lodging": {"check_in_at": 1533651200, "nights": 2},
+                    "receipt": [
+                        {
+                            "description": "Room charge",
+                            "quantity": "1",
+                            "total": 200,
+                            "unit_cost": 200,
+                        },
+                    ],
+                    "reference": "foo",
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/transactions/create_force_capture",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_create_force_capture_post(
@@ -27077,7 +35748,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.transactions.create_force_capture(
+        client.v1.test_helpers.issuing.transactions.create_force_capture(
             {
                 "amount": 100,
                 "card": "foo",
@@ -27211,7 +35882,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.transactions.create_force_capture_async(
+        await client.v1.test_helpers.issuing.transactions.create_force_capture_async(
             {
                 "amount": 100,
                 "card": "foo",
@@ -27268,6 +35939,77 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=US&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=10001&merchant_data[state]=NY&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1633651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
+        )
+
+    def test_test_helpers_issuing_transactions_create_unlinked_refund_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.transactions.create_unlinked_refund(
+            {
+                "amount": 100,
+                "card": "foo",
+                "currency": "usd",
+                "merchant_data": {
+                    "category": "ac_refrigeration_repair",
+                    "city": "foo",
+                    "country": "bar",
+                    "name": "foo",
+                    "network_id": "bar",
+                    "postal_code": "foo",
+                    "state": "bar",
+                    "terminal_id": "foo",
+                },
+                "purchase_details": {
+                    "flight": {
+                        "departure_at": 1533651200,
+                        "passenger_name": "John Doe",
+                        "refundable": True,
+                        "segments": [
+                            {
+                                "arrival_airport_code": "SFO",
+                                "carrier": "Delta",
+                                "departure_airport_code": "LAX",
+                                "flight_number": "DL100",
+                                "service_class": "Economy",
+                                "stopover_allowed": True,
+                            },
+                        ],
+                        "travel_agency": "Orbitz",
+                    },
+                    "fuel": {
+                        "type": "diesel",
+                        "unit": "liter",
+                        "unit_cost_decimal": "3.5",
+                        "quantity_decimal": "10",
+                    },
+                    "lodging": {"check_in_at": 1533651200, "nights": 2},
+                    "receipt": [
+                        {
+                            "description": "Room charge",
+                            "quantity": "1",
+                            "total": 200,
+                            "unit_cost": 200,
+                        },
+                    ],
+                    "reference": "foo",
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/transactions/create_unlinked_refund",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
     def test_test_helpers_issuing_transactions_create_unlinked_refund_post(
@@ -27341,7 +36083,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.transactions.create_unlinked_refund(
+        client.v1.test_helpers.issuing.transactions.create_unlinked_refund(
             {
                 "amount": 100,
                 "card": "foo",
@@ -27473,7 +36215,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.transactions.create_unlinked_refund_async(
+        await client.v1.test_helpers.issuing.transactions.create_unlinked_refund_async(
             {
                 "amount": 100,
                 "card": "foo",
@@ -27532,6 +36274,30 @@ class TestGeneratedExamples(object):
             post_data="amount=100&card=foo&currency=usd&merchant_data[category]=ac_refrigeration_repair&merchant_data[city]=foo&merchant_data[country]=bar&merchant_data[name]=foo&merchant_data[network_id]=bar&merchant_data[postal_code]=foo&merchant_data[state]=bar&merchant_data[terminal_id]=foo&purchase_details[flight][departure_at]=1533651200&purchase_details[flight][passenger_name]=John%20Doe&purchase_details[flight][refundable]=true&purchase_details[flight][segments][0][arrival_airport_code]=SFO&purchase_details[flight][segments][0][carrier]=Delta&purchase_details[flight][segments][0][departure_airport_code]=LAX&purchase_details[flight][segments][0][flight_number]=DL100&purchase_details[flight][segments][0][service_class]=Economy&purchase_details[flight][segments][0][stopover_allowed]=true&purchase_details[flight][travel_agency]=Orbitz&purchase_details[fuel][type]=diesel&purchase_details[fuel][unit]=liter&purchase_details[fuel][unit_cost_decimal]=3.5&purchase_details[fuel][quantity_decimal]=10&purchase_details[lodging][check_in_at]=1533651200&purchase_details[lodging][nights]=2&purchase_details[receipt][0][description]=Room%20charge&purchase_details[receipt][0][quantity]=1&purchase_details[receipt][0][total]=200&purchase_details[receipt][0][unit_cost]=200&purchase_details[reference]=foo",
         )
 
+    def test_test_helpers_issuing_transactions_refund_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/issuing/transactions/example_transaction/refund",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.issuing.transactions.refund(
+            "example_transaction",
+            {"refund_amount": 50},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/issuing/transactions/example_transaction/refund",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="refund_amount=50",
+        )
+
     def test_test_helpers_issuing_transactions_refund_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -27558,7 +36324,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.issuing.transactions.refund(
+        client.v1.test_helpers.issuing.transactions.refund(
             "example_transaction",
             {"refund_amount": 50},
         )
@@ -27598,7 +36364,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.issuing.transactions.refund_async(
+        await client.v1.test_helpers.issuing.transactions.refund_async(
             "example_transaction",
             {"refund_amount": 50},
         )
@@ -27608,6 +36374,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="refund_amount=50",
+        )
+
+    def test_test_helpers_refunds_expire_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/refunds/re_123/expire",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.refunds.expire("re_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/refunds/re_123/expire",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_test_helpers_refunds_expire_post(
@@ -27632,7 +36418,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.refunds.expire("re_123")
+        client.v1.test_helpers.refunds.expire("re_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/refunds/re_123/expire",
@@ -27664,12 +36450,36 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.refunds.expire_async("re_123")
+        await client.v1.test_helpers.refunds.expire_async("re_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/refunds/re_123/expire",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_test_clocks_advance_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/test_clocks/clock_xyz/advance",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.test_clocks.advance(
+            "clock_xyz",
+            {"frozen_time": 142},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/test_clocks/clock_xyz/advance",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="frozen_time=142",
         )
 
     def test_test_helpers_test_clocks_advance_post(
@@ -27698,7 +36508,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.test_clocks.advance(
+        client.v1.test_helpers.test_clocks.advance(
             "clock_xyz",
             {"frozen_time": 142},
         )
@@ -27738,7 +36548,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.test_clocks.advance_async(
+        await client.v1.test_helpers.test_clocks.advance_async(
             "clock_xyz",
             {"frozen_time": 142},
         )
@@ -27748,6 +36558,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="frozen_time=142",
+        )
+
+    def test_test_helpers_test_clocks_advance_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx/advance",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.test_clocks.advance(
+            "clock_xxxxxxxxxxxxx",
+            {"frozen_time": 1675552261},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx/advance",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="frozen_time=1675552261",
         )
 
     def test_test_helpers_test_clocks_advance_post_2(
@@ -27776,7 +36610,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.test_clocks.advance(
+        client.v1.test_helpers.test_clocks.advance(
             "clock_xxxxxxxxxxxxx",
             {"frozen_time": 1675552261},
         )
@@ -27816,7 +36650,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.test_clocks.advance_async(
+        await client.v1.test_helpers.test_clocks.advance_async(
             "clock_xxxxxxxxxxxxx",
             {"frozen_time": 1675552261},
         )
@@ -27826,6 +36660,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="frozen_time=1675552261",
+        )
+
+    def test_test_helpers_test_clocks_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/test_helpers/test_clocks/clock_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.test_clocks.delete("clock_xyz")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/test_helpers/test_clocks/clock_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_test_helpers_test_clocks_delete(
@@ -27850,7 +36704,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.test_clocks.delete("clock_xyz")
+        client.v1.test_helpers.test_clocks.delete("clock_xyz")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/test_helpers/test_clocks/clock_xyz",
@@ -27882,10 +36736,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.test_clocks.delete_async("clock_xyz")
+        await client.v1.test_helpers.test_clocks.delete_async("clock_xyz")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/test_helpers/test_clocks/clock_xyz",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_test_clocks_delete_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.test_clocks.delete("clock_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -27912,7 +36786,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.test_clocks.delete("clock_xxxxxxxxxxxxx")
+        client.v1.test_helpers.test_clocks.delete("clock_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
@@ -27944,12 +36818,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.test_clocks.delete_async(
+        await client.v1.test_helpers.test_clocks.delete_async(
             "clock_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "delete",
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_test_clocks_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/test_helpers/test_clocks",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.test_clocks.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/test_helpers/test_clocks",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -27976,7 +36870,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.test_clocks.list()
+        client.v1.test_helpers.test_clocks.list()
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks",
@@ -28008,10 +36902,30 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.test_clocks.list_async()
+        await client.v1.test_helpers.test_clocks.list_async()
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_test_clocks_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/test_helpers/test_clocks/clock_xyz",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.test_clocks.retrieve("clock_xyz")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/test_helpers/test_clocks/clock_xyz",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -28038,7 +36952,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.test_clocks.retrieve("clock_xyz")
+        client.v1.test_helpers.test_clocks.retrieve("clock_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks/clock_xyz",
@@ -28070,11 +36984,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.test_clocks.retrieve_async("clock_xyz")
+        await client.v1.test_helpers.test_clocks.retrieve_async("clock_xyz")
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks/clock_xyz",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_test_clocks_get_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/test_helpers/test_clocks",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.test_clocks.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/test_helpers/test_clocks",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -28101,7 +37036,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.test_clocks.list({"limit": 3})
+        client.v1.test_helpers.test_clocks.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks",
@@ -28134,11 +37069,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.test_clocks.list_async({"limit": 3})
+        await client.v1.test_helpers.test_clocks.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_test_clocks_get_4_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.test_clocks.retrieve("clock_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -28164,7 +37119,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.test_clocks.retrieve("clock_xxxxxxxxxxxxx")
+        client.v1.test_helpers.test_clocks.retrieve("clock_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
@@ -28198,7 +37153,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.test_clocks.retrieve_async(
+        await client.v1.test_helpers.test_clocks.retrieve_async(
             "clock_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -28206,6 +37161,32 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_test_clocks_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/test_clocks",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.test_clocks.create(
+            {
+                "frozen_time": 123,
+                "name": "cogsworth",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/test_clocks",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="frozen_time=123&name=cogsworth",
         )
 
     def test_test_helpers_test_clocks_post(
@@ -28234,7 +37215,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.test_clocks.create(
+        client.v1.test_helpers.test_clocks.create(
             {
                 "frozen_time": 123,
                 "name": "cogsworth",
@@ -28276,7 +37257,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.test_clocks.create_async(
+        await client.v1.test_helpers.test_clocks.create_async(
             {
                 "frozen_time": 123,
                 "name": "cogsworth",
@@ -28288,6 +37269,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="frozen_time=123&name=cogsworth",
+        )
+
+    def test_test_helpers_test_clocks_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/test_clocks",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.test_clocks.create({"frozen_time": 1577836800})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/test_clocks",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="frozen_time=1577836800",
         )
 
     def test_test_helpers_test_clocks_post_2(
@@ -28313,7 +37315,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.test_clocks.create({"frozen_time": 1577836800})
+        client.v1.test_helpers.test_clocks.create({"frozen_time": 1577836800})
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/test_clocks",
@@ -28349,7 +37351,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.test_clocks.create_async(
+        await client.v1.test_helpers.test_clocks.create_async(
             {
                 "frozen_time": 1577836800,
             }
@@ -28360,6 +37362,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="frozen_time=1577836800",
+        )
+
+    def test_test_helpers_treasury_inbound_transfers_fail_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/treasury/inbound_transfers/ibt_123/fail",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.treasury.inbound_transfers.fail(
+            "ibt_123",
+            {"failure_details": {"code": "account_closed"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/fail",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="failure_details[code]=account_closed",
         )
 
     def test_test_helpers_treasury_inbound_transfers_fail_post(
@@ -28388,7 +37414,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.treasury.inbound_transfers.fail(
+        client.v1.test_helpers.treasury.inbound_transfers.fail(
             "ibt_123",
             {"failure_details": {"code": "account_closed"}},
         )
@@ -28428,7 +37454,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.treasury.inbound_transfers.fail_async(
+        await client.v1.test_helpers.treasury.inbound_transfers.fail_async(
             "ibt_123",
             {"failure_details": {"code": "account_closed"}},
         )
@@ -28438,6 +37464,28 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="failure_details[code]=account_closed",
+        )
+
+    def test_test_helpers_treasury_inbound_transfers_return_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/treasury/inbound_transfers/ibt_123/return",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.treasury.inbound_transfers.return_inbound_transfer(
+            "ibt_123",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/return",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_test_helpers_treasury_inbound_transfers_return_post(
@@ -28464,8 +37512,8 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.treasury.inbound_transfers.return_inbound_transfer(
-            "ibt_123",
+        client.v1.test_helpers.treasury.inbound_transfers.return_inbound_transfer(
+            "ibt_123"
         )
         http_client_mock.assert_requested(
             "post",
@@ -28500,12 +37548,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.treasury.inbound_transfers.return_inbound_transfer_async(
+        await client.v1.test_helpers.treasury.inbound_transfers.return_inbound_transfer_async(
             "ibt_123"
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/return",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_treasury_inbound_transfers_succeed_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.treasury.inbound_transfers.succeed("ibt_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -28532,7 +37600,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.treasury.inbound_transfers.succeed("ibt_123")
+        client.v1.test_helpers.treasury.inbound_transfers.succeed("ibt_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed",
@@ -28566,12 +37634,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.treasury.inbound_transfers.succeed_async(
+        await client.v1.test_helpers.treasury.inbound_transfers.succeed_async(
             "ibt_123",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_treasury_outbound_transfers_fail_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/treasury/outbound_transfers/obt_123/fail",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.treasury.outbound_transfers.fail("obt_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/treasury/outbound_transfers/obt_123/fail",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -28598,7 +37686,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.treasury.outbound_transfers.fail("obt_123")
+        client.v1.test_helpers.treasury.outbound_transfers.fail("obt_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/outbound_transfers/obt_123/fail",
@@ -28632,12 +37720,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.treasury.outbound_transfers.fail_async(
+        await client.v1.test_helpers.treasury.outbound_transfers.fail_async(
             "obt_123",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/outbound_transfers/obt_123/fail",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_treasury_outbound_transfers_post_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/treasury/outbound_transfers/obt_123/post",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.treasury.outbound_transfers.post("obt_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/treasury/outbound_transfers/obt_123/post",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -28664,7 +37772,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.treasury.outbound_transfers.post("obt_123")
+        client.v1.test_helpers.treasury.outbound_transfers.post("obt_123")
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/outbound_transfers/obt_123/post",
@@ -28698,7 +37806,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.treasury.outbound_transfers.post_async(
+        await client.v1.test_helpers.treasury.outbound_transfers.post_async(
             "obt_123",
         )
         http_client_mock.assert_requested(
@@ -28706,6 +37814,30 @@ class TestGeneratedExamples(object):
             path="/v1/test_helpers/treasury/outbound_transfers/obt_123/post",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_test_helpers_treasury_outbound_transfers_return_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/treasury/outbound_transfers/obt_123/return",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.treasury.outbound_transfers.return_outbound_transfer(
+            "obt_123",
+            {"returned_details": {"code": "account_closed"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/treasury/outbound_transfers/obt_123/return",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="returned_details[code]=account_closed",
         )
 
     def test_test_helpers_treasury_outbound_transfers_return_post(
@@ -28734,7 +37866,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.treasury.outbound_transfers.return_outbound_transfer(
+        client.v1.test_helpers.treasury.outbound_transfers.return_outbound_transfer(
             "obt_123",
             {"returned_details": {"code": "account_closed"}},
         )
@@ -28774,7 +37906,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.treasury.outbound_transfers.return_outbound_transfer_async(
+        await client.v1.test_helpers.treasury.outbound_transfers.return_outbound_transfer_async(
             "obt_123",
             {"returned_details": {"code": "account_closed"}},
         )
@@ -28784,6 +37916,34 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="returned_details[code]=account_closed",
+        )
+
+    def test_test_helpers_treasury_received_credits_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/treasury/received_credits",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.treasury.received_credits.create(
+            {
+                "financial_account": "fa_123",
+                "network": "ach",
+                "amount": 1234,
+                "currency": "usd",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/treasury/received_credits",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="financial_account=fa_123&network=ach&amount=1234&currency=usd",
         )
 
     def test_test_helpers_treasury_received_credits_post(
@@ -28814,7 +37974,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.treasury.received_credits.create(
+        client.v1.test_helpers.treasury.received_credits.create(
             {
                 "financial_account": "fa_123",
                 "network": "ach",
@@ -28860,7 +38020,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.treasury.received_credits.create_async(
+        await client.v1.test_helpers.treasury.received_credits.create_async(
             {
                 "financial_account": "fa_123",
                 "network": "ach",
@@ -28871,6 +38031,34 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "post",
             path="/v1/test_helpers/treasury/received_credits",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="financial_account=fa_123&network=ach&amount=1234&currency=usd",
+        )
+
+    def test_test_helpers_treasury_received_debits_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/test_helpers/treasury/received_debits",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.test_helpers.treasury.received_debits.create(
+            {
+                "financial_account": "fa_123",
+                "network": "ach",
+                "amount": 1234,
+                "currency": "usd",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/test_helpers/treasury/received_debits",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="financial_account=fa_123&network=ach&amount=1234&currency=usd",
@@ -28904,7 +38092,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.test_helpers.treasury.received_debits.create(
+        client.v1.test_helpers.treasury.received_debits.create(
             {
                 "financial_account": "fa_123",
                 "network": "ach",
@@ -28950,7 +38138,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.test_helpers.treasury.received_debits.create_async(
+        await client.v1.test_helpers.treasury.received_debits.create_async(
             {
                 "financial_account": "fa_123",
                 "network": "ach",
@@ -28964,6 +38152,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="financial_account=fa_123&network=ach&amount=1234&currency=usd",
+        )
+
+    def test_tokens_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/tokens/tok_xxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tokens.retrieve("tok_xxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/tokens/tok_xxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_tokens_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -28986,7 +38194,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tokens.retrieve("tok_xxxx")
+        client.v1.tokens.retrieve("tok_xxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tokens/tok_xxxx",
@@ -29018,12 +38226,42 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tokens.retrieve_async("tok_xxxx")
+        await client.v1.tokens.retrieve_async("tok_xxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/tokens/tok_xxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_tokens_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tokens",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tokens.create(
+            {
+                "card": {
+                    "number": "4242424242424242",
+                    "exp_month": "5",
+                    "exp_year": "2023",
+                    "cvc": "314",
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="card[number]=4242424242424242&card[exp_month]=5&card[exp_year]=2023&card[cvc]=314",
         )
 
     def test_tokens_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -29054,7 +38292,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tokens.create(
+        client.v1.tokens.create(
             {
                 "card": {
                     "number": "4242424242424242",
@@ -29104,7 +38342,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tokens.create_async(
+        await client.v1.tokens.create_async(
             {
                 "card": {
                     "number": "4242424242424242",
@@ -29120,6 +38358,38 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="card[number]=4242424242424242&card[exp_month]=5&card[exp_year]=2023&card[cvc]=314",
+        )
+
+    def test_tokens_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tokens",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tokens.create(
+            {
+                "bank_account": {
+                    "country": "US",
+                    "currency": "usd",
+                    "account_holder_name": "Jenny Rosen",
+                    "account_holder_type": "individual",
+                    "routing_number": "110000000",
+                    "account_number": "000123456789",
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="bank_account[country]=US&bank_account[currency]=usd&bank_account[account_holder_name]=Jenny%20Rosen&bank_account[account_holder_type]=individual&bank_account[routing_number]=110000000&bank_account[account_number]=000123456789",
         )
 
     def test_tokens_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -29152,7 +38422,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tokens.create(
+        client.v1.tokens.create(
             {
                 "bank_account": {
                     "country": "US",
@@ -29206,7 +38476,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tokens.create_async(
+        await client.v1.tokens.create_async(
             {
                 "bank_account": {
                     "country": "US",
@@ -29224,6 +38494,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="bank_account[country]=US&bank_account[currency]=usd&bank_account[account_holder_name]=Jenny%20Rosen&bank_account[account_holder_type]=individual&bank_account[routing_number]=110000000&bank_account[account_number]=000123456789",
+        )
+
+    def test_tokens_post_3_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tokens",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tokens.create({"pii": {"id_number": "000000000"}})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="pii[id_number]=000000000",
         )
 
     def test_tokens_post_3(self, http_client_mock: HTTPClientMock) -> None:
@@ -29247,7 +38538,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tokens.create({"pii": {"id_number": "000000000"}})
+        client.v1.tokens.create({"pii": {"id_number": "000000000"}})
         http_client_mock.assert_requested(
             "post",
             path="/v1/tokens",
@@ -29281,13 +38572,43 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tokens.create_async({"pii": {"id_number": "000000000"}})
+        await client.v1.tokens.create_async(
+            {"pii": {"id_number": "000000000"}}
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="pii[id_number]=000000000",
+        )
+
+    def test_tokens_post_4_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tokens",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tokens.create(
+            {
+                "account": {
+                    "individual": {"first_name": "Jane", "last_name": "Doe"},
+                    "tos_shown_and_accepted": True,
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=true",
         )
 
     def test_tokens_post_4(self, http_client_mock: HTTPClientMock) -> None:
@@ -29316,7 +38637,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tokens.create(
+        client.v1.tokens.create(
             {
                 "account": {
                     "individual": {"first_name": "Jane", "last_name": "Doe"},
@@ -29362,7 +38683,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tokens.create_async(
+        await client.v1.tokens.create_async(
             {
                 "account": {
                     "individual": {"first_name": "Jane", "last_name": "Doe"},
@@ -29376,6 +38697,35 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="account[individual][first_name]=Jane&account[individual][last_name]=Doe&account[tos_shown_and_accepted]=true",
+        )
+
+    def test_tokens_post_5_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tokens",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tokens.create(
+            {
+                "person": {
+                    "first_name": "Jane",
+                    "last_name": "Doe",
+                    "relationship": {"owner": True},
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=true",
         )
 
     def test_tokens_post_5(self, http_client_mock: HTTPClientMock) -> None:
@@ -29405,7 +38755,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tokens.create(
+        client.v1.tokens.create(
             {
                 "person": {
                     "first_name": "Jane",
@@ -29453,7 +38803,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tokens.create_async(
+        await client.v1.tokens.create_async(
             {
                 "person": {
                     "first_name": "Jane",
@@ -29468,6 +38818,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="person[first_name]=Jane&person[last_name]=Doe&person[relationship][owner]=true",
+        )
+
+    def test_tokens_post_6_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/tokens",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.tokens.create({"cvc_update": {"cvc": "123"}})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="cvc_update[cvc]=123",
         )
 
     def test_tokens_post_6(self, http_client_mock: HTTPClientMock) -> None:
@@ -29491,7 +38862,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.tokens.create({"cvc_update": {"cvc": "123"}})
+        client.v1.tokens.create({"cvc_update": {"cvc": "123"}})
         http_client_mock.assert_requested(
             "post",
             path="/v1/tokens",
@@ -29525,13 +38896,33 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.tokens.create_async({"cvc_update": {"cvc": "123"}})
+        await client.v1.tokens.create_async({"cvc_update": {"cvc": "123"}})
         http_client_mock.assert_requested(
             "post",
             path="/v1/tokens",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="cvc_update[cvc]=123",
+        )
+
+    def test_topups_cancel_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/topups/tu_xxxxxxxxxxxxx/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.topups.cancel("tu_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/topups/tu_xxxxxxxxxxxxx/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_topups_cancel_post(
@@ -29556,7 +38947,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.topups.cancel("tu_xxxxxxxxxxxxx")
+        client.v1.topups.cancel("tu_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/topups/tu_xxxxxxxxxxxxx/cancel",
@@ -29588,11 +38979,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.topups.cancel_async("tu_xxxxxxxxxxxxx")
+        await client.v1.topups.cancel_async("tu_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/topups/tu_xxxxxxxxxxxxx/cancel",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_topups_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/topups",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.topups.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/topups",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -29617,7 +39029,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.topups.list({"limit": 3})
+        client.v1.topups.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/topups",
@@ -29650,11 +39062,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.topups.list_async({"limit": 3})
+        await client.v1.topups.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/topups",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_topups_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/topups/tu_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.topups.retrieve("tu_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/topups/tu_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -29678,7 +39110,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.topups.retrieve("tu_xxxxxxxxxxxxx")
+        client.v1.topups.retrieve("tu_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/topups/tu_xxxxxxxxxxxxx",
@@ -29710,12 +39142,40 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.topups.retrieve_async("tu_xxxxxxxxxxxxx")
+        await client.v1.topups.retrieve_async("tu_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/topups/tu_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_topups_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/topups",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.topups.create(
+            {
+                "amount": 2000,
+                "currency": "usd",
+                "description": "Top-up for Jenny Rosen",
+                "statement_descriptor": "Top-up",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/topups",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=2000&currency=usd&description=Top-up%20for%20Jenny%20Rosen&statement_descriptor=Top-up",
         )
 
     def test_topups_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -29744,7 +39204,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.topups.create(
+        client.v1.topups.create(
             {
                 "amount": 2000,
                 "currency": "usd",
@@ -29790,7 +39250,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.topups.create_async(
+        await client.v1.topups.create_async(
             {
                 "amount": 2000,
                 "currency": "usd",
@@ -29804,6 +39264,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=2000&currency=usd&description=Top-up%20for%20Jenny%20Rosen&statement_descriptor=Top-up",
+        )
+
+    def test_topups_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/topups/tu_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.topups.update(
+            "tu_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/topups/tu_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_topups_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -29830,7 +39314,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.topups.update(
+        client.v1.topups.update(
             "tu_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -29870,7 +39354,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.topups.update_async(
+        await client.v1.topups.update_async(
             "tu_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -29880,6 +39364,27 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_transfers_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/transfers",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.transfers.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/transfers",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_transfers_get(self, http_client_mock: HTTPClientMock) -> None:
@@ -29903,7 +39408,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.transfers.list({"limit": 3})
+        client.v1.transfers.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/transfers",
@@ -29936,11 +39441,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.transfers.list_async({"limit": 3})
+        await client.v1.transfers.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/transfers",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_transfers_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/transfers/tr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.transfers.retrieve("tr_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/transfers/tr_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -29964,7 +39489,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.transfers.retrieve("tr_xxxxxxxxxxxxx")
+        client.v1.transfers.retrieve("tr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/transfers/tr_xxxxxxxxxxxxx",
@@ -29996,12 +39521,40 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.transfers.retrieve_async("tr_xxxxxxxxxxxxx")
+        await client.v1.transfers.retrieve_async("tr_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/transfers/tr_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_transfers_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/transfers",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.transfers.create(
+            {
+                "amount": 400,
+                "currency": "usd",
+                "destination": "acct_xxxxxxxxxxxxx",
+                "transfer_group": "ORDER_95",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/transfers",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=400&currency=usd&destination=acct_xxxxxxxxxxxxx&transfer_group=ORDER_95",
         )
 
     def test_transfers_post(self, http_client_mock: HTTPClientMock) -> None:
@@ -30030,7 +39583,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.transfers.create(
+        client.v1.transfers.create(
             {
                 "amount": 400,
                 "currency": "usd",
@@ -30076,7 +39629,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.transfers.create_async(
+        await client.v1.transfers.create_async(
             {
                 "amount": 400,
                 "currency": "usd",
@@ -30090,6 +39643,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=400&currency=usd&destination=acct_xxxxxxxxxxxxx&transfer_group=ORDER_95",
+        )
+
+    def test_transfers_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/transfers/tr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.transfers.update(
+            "tr_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/transfers/tr_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_transfers_post_2(self, http_client_mock: HTTPClientMock) -> None:
@@ -30116,7 +39693,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.transfers.update(
+        client.v1.transfers.update(
             "tr_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -30156,7 +39733,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.transfers.update_async(
+        await client.v1.transfers.update_async(
             "tr_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -30166,6 +39743,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_transfers_reversals_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.transfers.reversals.list(
+            "tr_xxxxxxxxxxxxx",
+            {"limit": 3},
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
+            query_string="limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_transfers_reversals_get(
@@ -30194,7 +39795,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.transfers.reversals.list(
+        client.v1.transfers.reversals.list(
             "tr_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -30233,7 +39834,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.transfers.reversals.list_async(
+        await client.v1.transfers.reversals.list_async(
             "tr_xxxxxxxxxxxxx",
             {"limit": 3},
         )
@@ -30241,6 +39842,29 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_transfers_reversals_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.transfers.reversals.retrieve(
+            "tr_xxxxxxxxxxxxx",
+            "trr_xxxxxxxxxxxxx",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -30269,7 +39893,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.transfers.reversals.retrieve(
+        client.v1.transfers.reversals.retrieve(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",
         )
@@ -30307,7 +39931,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.transfers.reversals.retrieve_async(
+        await client.v1.transfers.reversals.retrieve_async(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",
         )
@@ -30316,6 +39940,30 @@ class TestGeneratedExamples(object):
             path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_transfers_reversals_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.transfers.reversals.create(
+            "tr_xxxxxxxxxxxxx",
+            {"amount": 100},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="amount=100",
         )
 
     def test_transfers_reversals_post(
@@ -30344,7 +39992,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.transfers.reversals.create(
+        client.v1.transfers.reversals.create(
             "tr_xxxxxxxxxxxxx",
             {"amount": 100},
         )
@@ -30384,7 +40032,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.transfers.reversals.create_async(
+        await client.v1.transfers.reversals.create_async(
             "tr_xxxxxxxxxxxxx",
             {"amount": 100},
         )
@@ -30394,6 +40042,31 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="amount=100",
+        )
+
+    def test_transfers_reversals_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.transfers.reversals.update(
+            "tr_xxxxxxxxxxxxx",
+            "trr_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_transfers_reversals_post_2(
@@ -30423,7 +40096,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.transfers.reversals.update(
+        client.v1.transfers.reversals.update(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -30465,7 +40138,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.transfers.reversals.update_async(
+        await client.v1.transfers.reversals.update_async(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
@@ -30476,6 +40149,32 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_treasury_credit_reversals_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/credit_reversals",
+            "financial_account=fa_xxxxxxxxxxxxx&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.credit_reversals.list(
+            {
+                "financial_account": "fa_xxxxxxxxxxxxx",
+                "limit": 3,
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/credit_reversals",
+            query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_treasury_credit_reversals_get(
@@ -30504,7 +40203,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.credit_reversals.list(
+        client.v1.treasury.credit_reversals.list(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -30545,7 +40244,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.credit_reversals.list_async(
+        await client.v1.treasury.credit_reversals.list_async(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -30555,6 +40254,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/treasury/credit_reversals",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_credit_reversals_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.credit_reversals.retrieve("credrev_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -30580,7 +40299,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.credit_reversals.retrieve("credrev_xxxxxxxxxxxxx")
+        client.v1.treasury.credit_reversals.retrieve("credrev_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx",
@@ -30614,7 +40333,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.credit_reversals.retrieve_async(
+        await client.v1.treasury.credit_reversals.retrieve_async(
             "credrev_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -30622,6 +40341,31 @@ class TestGeneratedExamples(object):
             path="/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_credit_reversals_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/treasury/credit_reversals",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.credit_reversals.create(
+            {
+                "received_credit": "rc_xxxxxxxxxxxxx",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/treasury/credit_reversals",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="received_credit=rc_xxxxxxxxxxxxx",
         )
 
     def test_treasury_credit_reversals_post(
@@ -30649,7 +40393,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.credit_reversals.create(
+        client.v1.treasury.credit_reversals.create(
             {
                 "received_credit": "rc_xxxxxxxxxxxxx",
             }
@@ -30689,7 +40433,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.credit_reversals.create_async(
+        await client.v1.treasury.credit_reversals.create_async(
             {
                 "received_credit": "rc_xxxxxxxxxxxxx",
             }
@@ -30700,6 +40444,32 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="received_credit=rc_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_debit_reversals_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/debit_reversals",
+            "financial_account=fa_xxxxxxxxxxxxx&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.debit_reversals.list(
+            {
+                "financial_account": "fa_xxxxxxxxxxxxx",
+                "limit": 3,
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/debit_reversals",
+            query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_treasury_debit_reversals_get(
@@ -30728,7 +40498,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.debit_reversals.list(
+        client.v1.treasury.debit_reversals.list(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -30769,7 +40539,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.debit_reversals.list_async(
+        await client.v1.treasury.debit_reversals.list_async(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -30779,6 +40549,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/treasury/debit_reversals",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_debit_reversals_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.debit_reversals.retrieve("debrev_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -30804,7 +40594,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.debit_reversals.retrieve("debrev_xxxxxxxxxxxxx")
+        client.v1.treasury.debit_reversals.retrieve("debrev_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx",
@@ -30838,7 +40628,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.debit_reversals.retrieve_async(
+        await client.v1.treasury.debit_reversals.retrieve_async(
             "debrev_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -30846,6 +40636,31 @@ class TestGeneratedExamples(object):
             path="/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_debit_reversals_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/treasury/debit_reversals",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.debit_reversals.create(
+            {
+                "received_debit": "rd_xxxxxxxxxxxxx",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/treasury/debit_reversals",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="received_debit=rd_xxxxxxxxxxxxx",
         )
 
     def test_treasury_debit_reversals_post(
@@ -30871,7 +40686,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.debit_reversals.create(
+        client.v1.treasury.debit_reversals.create(
             {
                 "received_debit": "rd_xxxxxxxxxxxxx",
             }
@@ -30911,7 +40726,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.debit_reversals.create_async(
+        await client.v1.treasury.debit_reversals.create_async(
             {
                 "received_debit": "rd_xxxxxxxxxxxxx",
             }
@@ -30922,6 +40737,28 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="received_debit=rd_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_financial_accounts_features_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.financial_accounts.features.retrieve(
+            "fa_xxxxxxxxxxxxx"
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_treasury_financial_accounts_features_get(
@@ -30946,8 +40783,8 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.financial_accounts.features.retrieve(
-            "fa_xxxxxxxxxxxxx"
+        client.v1.treasury.financial_accounts.features.retrieve(
+            "fa_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
@@ -30982,13 +40819,34 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.financial_accounts.features.retrieve_async(
+        await client.v1.treasury.financial_accounts.features.retrieve_async(
             "fa_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_financial_accounts_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/financial_accounts",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.financial_accounts.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/financial_accounts",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -31015,7 +40873,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.financial_accounts.list({"limit": 3})
+        client.v1.treasury.financial_accounts.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts",
@@ -31048,11 +40906,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.financial_accounts.list_async({"limit": 3})
+        await client.v1.treasury.financial_accounts.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_financial_accounts_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.financial_accounts.retrieve("fa_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -31078,7 +40956,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.financial_accounts.retrieve("fa_xxxxxxxxxxxxx")
+        client.v1.treasury.financial_accounts.retrieve("fa_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
@@ -31112,7 +40990,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.financial_accounts.retrieve_async(
+        await client.v1.treasury.financial_accounts.retrieve_async(
             "fa_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -31120,6 +40998,32 @@ class TestGeneratedExamples(object):
             path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_financial_accounts_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/treasury/financial_accounts",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.financial_accounts.create(
+            {
+                "supported_currencies": ["usd"],
+                "features": {},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/treasury/financial_accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="supported_currencies[0]=usd",
         )
 
     def test_treasury_financial_accounts_post(
@@ -31148,7 +41052,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.financial_accounts.create(
+        client.v1.treasury.financial_accounts.create(
             {
                 "supported_currencies": ["usd"],
                 "features": {},
@@ -31190,7 +41094,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.financial_accounts.create_async(
+        await client.v1.treasury.financial_accounts.create_async(
             {
                 "supported_currencies": ["usd"],
                 "features": {},
@@ -31202,6 +41106,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="supported_currencies[0]=usd",
+        )
+
+    def test_treasury_financial_accounts_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.financial_accounts.update(
+            "fa_xxxxxxxxxxxxx",
+            {"metadata": {"order_id": "6735"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="metadata[order_id]=6735",
         )
 
     def test_treasury_financial_accounts_post_2(
@@ -31230,7 +41158,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.financial_accounts.update(
+        client.v1.treasury.financial_accounts.update(
             "fa_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -31270,7 +41198,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.financial_accounts.update_async(
+        await client.v1.treasury.financial_accounts.update_async(
             "fa_xxxxxxxxxxxxx",
             {"metadata": {"order_id": "6735"}},
         )
@@ -31280,6 +41208,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="metadata[order_id]=6735",
+        )
+
+    def test_treasury_inbound_transfers_cancel_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.inbound_transfers.cancel("ibt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_treasury_inbound_transfers_cancel_post(
@@ -31304,7 +41252,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.inbound_transfers.cancel("ibt_xxxxxxxxxxxxx")
+        client.v1.treasury.inbound_transfers.cancel("ibt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel",
@@ -31336,13 +41284,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.inbound_transfers.cancel_async(
+        await client.v1.treasury.inbound_transfers.cancel_async(
             "ibt_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_inbound_transfers_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/inbound_transfers",
+            "financial_account=fa_xxxxxxxxxxxxx&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.inbound_transfers.list(
+            {
+                "financial_account": "fa_xxxxxxxxxxxxx",
+                "limit": 3,
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/inbound_transfers",
+            query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -31372,7 +41346,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.inbound_transfers.list(
+        client.v1.treasury.inbound_transfers.list(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -31413,7 +41387,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.inbound_transfers.list_async(
+        await client.v1.treasury.inbound_transfers.list_async(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -31423,6 +41397,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/treasury/inbound_transfers",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_inbound_transfers_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.inbound_transfers.retrieve("ibt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -31448,7 +41442,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.inbound_transfers.retrieve("ibt_xxxxxxxxxxxxx")
+        client.v1.treasury.inbound_transfers.retrieve("ibt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx",
@@ -31482,7 +41476,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.inbound_transfers.retrieve_async(
+        await client.v1.treasury.inbound_transfers.retrieve_async(
             "ibt_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -31490,6 +41484,35 @@ class TestGeneratedExamples(object):
             path="/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_inbound_transfers_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/treasury/inbound_transfers",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.inbound_transfers.create(
+            {
+                "financial_account": "fa_xxxxxxxxxxxxx",
+                "amount": 10000,
+                "currency": "usd",
+                "origin_payment_method": "pm_xxxxxxxxxxxxx",
+                "description": "InboundTransfer from my bank account",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/treasury/inbound_transfers",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="financial_account=fa_xxxxxxxxxxxxx&amount=10000&currency=usd&origin_payment_method=pm_xxxxxxxxxxxxx&description=InboundTransfer%20from%20my%20bank%20account",
         )
 
     def test_treasury_inbound_transfers_post(
@@ -31521,7 +41544,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.inbound_transfers.create(
+        client.v1.treasury.inbound_transfers.create(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "amount": 10000,
@@ -31569,7 +41592,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.inbound_transfers.create_async(
+        await client.v1.treasury.inbound_transfers.create_async(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "amount": 10000,
@@ -31584,6 +41607,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="financial_account=fa_xxxxxxxxxxxxx&amount=10000&currency=usd&origin_payment_method=pm_xxxxxxxxxxxxx&description=InboundTransfer%20from%20my%20bank%20account",
+        )
+
+    def test_treasury_outbound_payments_cancel_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.outbound_payments.cancel("bot_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_treasury_outbound_payments_cancel_post(
@@ -31608,7 +41651,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.outbound_payments.cancel("bot_xxxxxxxxxxxxx")
+        client.v1.treasury.outbound_payments.cancel("bot_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel",
@@ -31640,13 +41683,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.outbound_payments.cancel_async(
+        await client.v1.treasury.outbound_payments.cancel_async(
             "bot_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx/cancel",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_outbound_payments_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/outbound_payments",
+            "financial_account=fa_xxxxxxxxxxxxx&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.outbound_payments.list(
+            {
+                "financial_account": "fa_xxxxxxxxxxxxx",
+                "limit": 3,
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/outbound_payments",
+            query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -31676,7 +41745,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.outbound_payments.list(
+        client.v1.treasury.outbound_payments.list(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -31717,7 +41786,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.outbound_payments.list_async(
+        await client.v1.treasury.outbound_payments.list_async(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -31727,6 +41796,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/treasury/outbound_payments",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_outbound_payments_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.outbound_payments.retrieve("bot_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -31752,7 +41841,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.outbound_payments.retrieve("bot_xxxxxxxxxxxxx")
+        client.v1.treasury.outbound_payments.retrieve("bot_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx",
@@ -31786,7 +41875,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.outbound_payments.retrieve_async(
+        await client.v1.treasury.outbound_payments.retrieve_async(
             "bot_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -31794,6 +41883,36 @@ class TestGeneratedExamples(object):
             path="/v1/treasury/outbound_payments/bot_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_outbound_payments_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/treasury/outbound_payments",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.outbound_payments.create(
+            {
+                "financial_account": "fa_xxxxxxxxxxxxx",
+                "amount": 10000,
+                "currency": "usd",
+                "customer": "cus_xxxxxxxxxxxxx",
+                "destination_payment_method": "pm_xxxxxxxxxxxxx",
+                "description": "OutboundPayment to a 3rd party",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/treasury/outbound_payments",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="financial_account=fa_xxxxxxxxxxxxx&amount=10000&currency=usd&customer=cus_xxxxxxxxxxxxx&destination_payment_method=pm_xxxxxxxxxxxxx&description=OutboundPayment%20to%20a%203rd%20party",
         )
 
     def test_treasury_outbound_payments_post(
@@ -31826,7 +41945,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.outbound_payments.create(
+        client.v1.treasury.outbound_payments.create(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "amount": 10000,
@@ -31876,7 +41995,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.outbound_payments.create_async(
+        await client.v1.treasury.outbound_payments.create_async(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "amount": 10000,
@@ -31892,6 +42011,26 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="financial_account=fa_xxxxxxxxxxxxx&amount=10000&currency=usd&customer=cus_xxxxxxxxxxxxx&destination_payment_method=pm_xxxxxxxxxxxxx&description=OutboundPayment%20to%20a%203rd%20party",
+        )
+
+    def test_treasury_outbound_transfers_cancel_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.outbound_transfers.cancel("obt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_treasury_outbound_transfers_cancel_post(
@@ -31916,7 +42055,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.outbound_transfers.cancel("obt_xxxxxxxxxxxxx")
+        client.v1.treasury.outbound_transfers.cancel("obt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "post",
             path="/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel",
@@ -31950,13 +42089,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.outbound_transfers.cancel_async(
+        await client.v1.treasury.outbound_transfers.cancel_async(
             "obt_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_outbound_transfers_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/outbound_transfers",
+            "financial_account=fa_xxxxxxxxxxxxx&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.outbound_transfers.list(
+            {
+                "financial_account": "fa_xxxxxxxxxxxxx",
+                "limit": 3,
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/outbound_transfers",
+            query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -31986,7 +42151,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.outbound_transfers.list(
+        client.v1.treasury.outbound_transfers.list(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -32027,7 +42192,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.outbound_transfers.list_async(
+        await client.v1.treasury.outbound_transfers.list_async(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -32037,6 +42202,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/treasury/outbound_transfers",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_outbound_transfers_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.outbound_transfers.retrieve("obt_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -32062,7 +42247,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.outbound_transfers.retrieve("obt_xxxxxxxxxxxxx")
+        client.v1.treasury.outbound_transfers.retrieve("obt_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx",
@@ -32096,7 +42281,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.outbound_transfers.retrieve_async(
+        await client.v1.treasury.outbound_transfers.retrieve_async(
             "obt_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
@@ -32104,6 +42289,35 @@ class TestGeneratedExamples(object):
             path="/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_outbound_transfers_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/treasury/outbound_transfers",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.outbound_transfers.create(
+            {
+                "financial_account": "fa_xxxxxxxxxxxxx",
+                "destination_payment_method": "pm_xxxxxxxxxxxxx",
+                "amount": 500,
+                "currency": "usd",
+                "description": "OutboundTransfer to my external bank account",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/treasury/outbound_transfers",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="financial_account=fa_xxxxxxxxxxxxx&destination_payment_method=pm_xxxxxxxxxxxxx&amount=500&currency=usd&description=OutboundTransfer%20to%20my%20external%20bank%20account",
         )
 
     def test_treasury_outbound_transfers_post(
@@ -32135,7 +42349,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.outbound_transfers.create(
+        client.v1.treasury.outbound_transfers.create(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "destination_payment_method": "pm_xxxxxxxxxxxxx",
@@ -32183,7 +42397,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.outbound_transfers.create_async(
+        await client.v1.treasury.outbound_transfers.create_async(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "destination_payment_method": "pm_xxxxxxxxxxxxx",
@@ -32198,6 +42412,32 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="financial_account=fa_xxxxxxxxxxxxx&destination_payment_method=pm_xxxxxxxxxxxxx&amount=500&currency=usd&description=OutboundTransfer%20to%20my%20external%20bank%20account",
+        )
+
+    def test_treasury_received_credits_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/received_credits",
+            "financial_account=fa_xxxxxxxxxxxxx&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.received_credits.list(
+            {
+                "financial_account": "fa_xxxxxxxxxxxxx",
+                "limit": 3,
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/received_credits",
+            query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
+            api_base="https://api.stripe.com",
         )
 
     def test_treasury_received_credits_get(
@@ -32226,7 +42466,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.received_credits.list(
+        client.v1.treasury.received_credits.list(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -32267,7 +42507,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.received_credits.list_async(
+        await client.v1.treasury.received_credits.list_async(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -32277,6 +42517,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/treasury/received_credits",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_received_credits_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/received_credits/rc_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.received_credits.retrieve("rc_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/received_credits/rc_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -32302,7 +42562,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.received_credits.retrieve("rc_xxxxxxxxxxxxx")
+        client.v1.treasury.received_credits.retrieve("rc_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/received_credits/rc_xxxxxxxxxxxxx",
@@ -32334,13 +42594,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.received_credits.retrieve_async(
+        await client.v1.treasury.received_credits.retrieve_async(
             "rc_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/received_credits/rc_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_received_debits_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/received_debits",
+            "financial_account=fa_xxxxxxxxxxxxx&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.received_debits.list(
+            {
+                "financial_account": "fa_xxxxxxxxxxxxx",
+                "limit": 3,
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/received_debits",
+            query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -32370,7 +42656,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.received_debits.list(
+        client.v1.treasury.received_debits.list(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -32411,7 +42697,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.received_debits.list_async(
+        await client.v1.treasury.received_debits.list_async(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -32421,6 +42707,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/treasury/received_debits",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_received_debits_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/received_debits/rd_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.received_debits.retrieve("rd_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/received_debits/rd_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -32446,7 +42752,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.received_debits.retrieve("rd_xxxxxxxxxxxxx")
+        client.v1.treasury.received_debits.retrieve("rd_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/received_debits/rd_xxxxxxxxxxxxx",
@@ -32478,13 +42784,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.received_debits.retrieve_async(
-            "rd_xxxxxxxxxxxxx"
+        await client.v1.treasury.received_debits.retrieve_async(
+            "rd_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/received_debits/rd_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_transaction_entries_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/transaction_entries",
+            "financial_account=fa_xxxxxxxxxxxxx&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.transaction_entries.list(
+            {
+                "financial_account": "fa_xxxxxxxxxxxxx",
+                "limit": 3,
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/transaction_entries",
+            query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -32514,7 +42846,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.transaction_entries.list(
+        client.v1.treasury.transaction_entries.list(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -32555,7 +42887,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.transaction_entries.list_async(
+        await client.v1.treasury.transaction_entries.list_async(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -32565,6 +42897,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/treasury/transaction_entries",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_transaction_entries_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.transaction_entries.retrieve("trxne_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -32590,7 +42942,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.transaction_entries.retrieve("trxne_xxxxxxxxxxxxx")
+        client.v1.treasury.transaction_entries.retrieve("trxne_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx",
@@ -32624,13 +42976,39 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.transaction_entries.retrieve_async(
+        await client.v1.treasury.transaction_entries.retrieve_async(
             "trxne_xxxxxxxxxxxxx",
         )
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_transactions_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/transactions",
+            "financial_account=fa_xxxxxxxxxxxxx&limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.transactions.list(
+            {
+                "financial_account": "fa_xxxxxxxxxxxxx",
+                "limit": 3,
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/transactions",
+            query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -32660,7 +43038,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.transactions.list(
+        client.v1.treasury.transactions.list(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -32701,7 +43079,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.transactions.list_async(
+        await client.v1.treasury.transactions.list_async(
             {
                 "financial_account": "fa_xxxxxxxxxxxxx",
                 "limit": 3,
@@ -32711,6 +43089,26 @@ class TestGeneratedExamples(object):
             "get",
             path="/v1/treasury/transactions",
             query_string="financial_account=fa_xxxxxxxxxxxxx&limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_treasury_transactions_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/treasury/transactions/trxn_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.treasury.transactions.retrieve("trxn_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/treasury/transactions/trxn_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -32736,7 +43134,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.treasury.transactions.retrieve("trxn_xxxxxxxxxxxxx")
+        client.v1.treasury.transactions.retrieve("trxn_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/transactions/trxn_xxxxxxxxxxxxx",
@@ -32768,10 +43166,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.treasury.transactions.retrieve_async("trxn_xxxxxxxxxxxxx")
+        await client.v1.treasury.transactions.retrieve_async(
+            "trxn_xxxxxxxxxxxxx",
+        )
         http_client_mock.assert_requested(
             "get",
             path="/v1/treasury/transactions/trxn_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_webhook_endpoints_delete_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.webhook_endpoints.delete("we_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -32798,7 +43218,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.webhook_endpoints.delete("we_xxxxxxxxxxxxx")
+        client.v1.webhook_endpoints.delete("we_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
@@ -32830,11 +43250,32 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.webhook_endpoints.delete_async("we_xxxxxxxxxxxxx")
+        await client.v1.webhook_endpoints.delete_async("we_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "delete",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
             query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_webhook_endpoints_get_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/webhook_endpoints",
+            "limit=3",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.webhook_endpoints.list({"limit": 3})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/webhook_endpoints",
+            query_string="limit=3",
             api_base="https://api.stripe.com",
         )
 
@@ -32861,7 +43302,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.webhook_endpoints.list({"limit": 3})
+        client.v1.webhook_endpoints.list({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/webhook_endpoints",
@@ -32894,11 +43335,31 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.webhook_endpoints.list_async({"limit": 3})
+        await client.v1.webhook_endpoints.list_async({"limit": 3})
         http_client_mock.assert_requested(
             "get",
             path="/v1/webhook_endpoints",
             query_string="limit=3",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_webhook_endpoints_get_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.webhook_endpoints.retrieve("we_xxxxxxxxxxxxx")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
+            query_string="",
             api_base="https://api.stripe.com",
         )
 
@@ -32924,7 +43385,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.webhook_endpoints.retrieve("we_xxxxxxxxxxxxx")
+        client.v1.webhook_endpoints.retrieve("we_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
@@ -32956,12 +43417,38 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.webhook_endpoints.retrieve_async("we_xxxxxxxxxxxxx")
+        await client.v1.webhook_endpoints.retrieve_async("we_xxxxxxxxxxxxx")
         http_client_mock.assert_requested(
             "get",
             path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_webhook_endpoints_post_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/webhook_endpoints",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.webhook_endpoints.create(
+            {
+                "url": "https://example.com/my/webhook/endpoint",
+                "enabled_events": ["charge.failed", "charge.succeeded"],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/webhook_endpoints",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="url=https%3A%2F%2Fexample.com%2Fmy%2Fwebhook%2Fendpoint&enabled_events[0]=charge.failed&enabled_events[1]=charge.succeeded",
         )
 
     def test_webhook_endpoints_post(
@@ -32990,7 +43477,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.webhook_endpoints.create(
+        client.v1.webhook_endpoints.create(
             {
                 "url": "https://example.com/my/webhook/endpoint",
                 "enabled_events": ["charge.failed", "charge.succeeded"],
@@ -33032,7 +43519,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.webhook_endpoints.create_async(
+        await client.v1.webhook_endpoints.create_async(
             {
                 "url": "https://example.com/my/webhook/endpoint",
                 "enabled_events": ["charge.failed", "charge.succeeded"],
@@ -33044,6 +43531,30 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="url=https%3A%2F%2Fexample.com%2Fmy%2Fwebhook%2Fendpoint&enabled_events[0]=charge.failed&enabled_events[1]=charge.succeeded",
+        )
+
+    def test_webhook_endpoints_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.webhook_endpoints.update(
+            "we_xxxxxxxxxxxxx",
+            {"url": "https://example.com/new_endpoint"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="url=https%3A%2F%2Fexample.com%2Fnew_endpoint",
         )
 
     def test_webhook_endpoints_post_2(
@@ -33072,7 +43583,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.webhook_endpoints.update(
+        client.v1.webhook_endpoints.update(
             "we_xxxxxxxxxxxxx",
             {"url": "https://example.com/new_endpoint"},
         )
@@ -33112,7 +43623,7 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        await client.webhook_endpoints.update_async(
+        await client.v1.webhook_endpoints.update_async(
             "we_xxxxxxxxxxxxx",
             {"url": "https://example.com/new_endpoint"},
         )
@@ -33122,6 +43633,33 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="url=https%3A%2F%2Fexample.com%2Fnew_endpoint",
+        )
+
+    def test_v2_billing_meter_event_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/meter_events",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.meter_events.create(
+            {
+                "event_name": "event_name",
+                "payload": {"key": "payload"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/meter_events",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"event_name":"event_name","payload":{"key":"payload"}}',
+            is_json=True,
         )
 
     def test_v2_billing_meter_event_adjustment_post_service(
@@ -33192,7 +43730,7 @@ class TestGeneratedExamples(object):
                     {
                         "event_name": "event_name",
                         "identifier": "identifier",
-                        "payload": {"undefined": "payload"},
+                        "payload": {"key": "payload"},
                         "timestamp": "1970-01-01T15:18:46.294Z",
                     },
                 ],
@@ -33203,81 +43741,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/meter_event_stream",
             query_string="",
             api_base="https://meter-events.stripe.com",
-            post_data='{"events":[{"event_name":"event_name","identifier":"identifier","payload":{"undefined":"payload"},"timestamp":"1970-01-01T15:18:46.294Z"}]}',
-            is_json=True,
-        )
-
-    def test_v2_billing_meter_event_post_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/billing/meter_events",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.meter_events.create(
-            {
-                "event_name": "event_name",
-                "payload": {"undefined": "payload"},
-            }
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/billing/meter_events",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data='{"event_name":"event_name","payload":{"undefined":"payload"}}',
-            is_json=True,
-        )
-
-    def test_v2_core_account_link_post_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/core/account_links",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.core.account_links.create(
-            {
-                "account": "account",
-                "use_case": {
-                    "type": "account_onboarding",
-                    "account_onboarding": {
-                        "collection_options": {
-                            "fields": "eventually_due",
-                            "future_requirements": "include",
-                        },
-                        "configurations": ["storer"],
-                        "refresh_url": "refresh_url",
-                        "return_url": "return_url",
-                    },
-                    "account_update": {
-                        "collection_options": {
-                            "fields": "eventually_due",
-                            "future_requirements": "include",
-                        },
-                        "configurations": ["storer"],
-                        "refresh_url": "refresh_url",
-                        "return_url": "return_url",
-                    },
-                },
-            }
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/core/account_links",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data='{"account":"account","use_case":{"type":"account_onboarding","account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"}}}',
+            post_data='{"events":[{"event_name":"event_name","identifier":"identifier","payload":{"key":"payload"},"timestamp":"1970-01-01T15:18:46.294Z"}]}',
             is_json=True,
         )
 
@@ -33500,6 +43964,94 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_core_account_link_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/account_links",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.account_links.create(
+            {
+                "account": "account",
+                "use_case": {
+                    "type": "account_onboarding",
+                    "account_onboarding": {
+                        "collection_options": {
+                            "fields": "eventually_due",
+                            "future_requirements": "include",
+                        },
+                        "configurations": ["storer"],
+                        "refresh_url": "refresh_url",
+                        "return_url": "return_url",
+                    },
+                    "account_update": {
+                        "collection_options": {
+                            "fields": "eventually_due",
+                            "future_requirements": "include",
+                        },
+                        "configurations": ["storer"],
+                        "refresh_url": "refresh_url",
+                        "return_url": "return_url",
+                    },
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/account_links",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"account":"account","use_case":{"type":"account_onboarding","account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"}}}',
+            is_json=True,
+        )
+
+    def test_v2_core_event_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/events",
+            "object_id=object_id",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.events.list({"object_id": "object_id"})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/events",
+            query_string="object_id=object_id",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_event_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/events/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.events.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/events/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_core_event_destination_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -33675,47 +44227,6 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
             post_data="{}",
             is_json=True,
-        )
-
-    def test_v2_core_event_get_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/core/events",
-            "object_id=object_id",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.core.events.list({"object_id": "object_id"})
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/core/events",
-            query_string="object_id=object_id",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_core_event_get_2_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/core/events/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.core.events.retrieve("id_123")
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/core/events/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
         )
 
     def test_v2_core_vault_gb_bank_account_post_service(
@@ -34194,61 +44705,6 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
-    def test_v2_money_management_outbound_payment_quote_post_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/money_management/outbound_payment_quotes",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.money_management.outbound_payment_quotes.create(
-            {
-                "amount": {"currency": "USD", "value": 96},
-                "from": {
-                    "currency": "usd",
-                    "financial_account": "financial_account",
-                },
-                "to": {
-                    "currency": "usd",
-                    "payout_method": "payout_method",
-                    "recipient": "recipient",
-                },
-            }
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/money_management/outbound_payment_quotes",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","recipient":"recipient"}}',
-            is_json=True,
-        )
-
-    def test_v2_money_management_outbound_payment_quote_get_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/money_management/outbound_payment_quotes/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.money_management.outbound_payment_quotes.retrieve("id_123")
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/money_management/outbound_payment_quotes/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
     def test_v2_money_management_outbound_payment_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -34344,6 +44800,61 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
             post_data="{}",
             is_json=True,
+        )
+
+    def test_v2_money_management_outbound_payment_quote_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/outbound_payment_quotes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.outbound_payment_quotes.create(
+            {
+                "amount": {"currency": "USD", "value": 96},
+                "from": {
+                    "currency": "usd",
+                    "financial_account": "financial_account",
+                },
+                "to": {
+                    "currency": "usd",
+                    "payout_method": "payout_method",
+                    "recipient": "recipient",
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/outbound_payment_quotes",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","recipient":"recipient"}}',
+            is_json=True,
+        )
+
+    def test_v2_money_management_outbound_payment_quote_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/outbound_payment_quotes/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.outbound_payment_quotes.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/outbound_payment_quotes/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_v2_money_management_outbound_setup_intent_get_service(
@@ -34729,46 +45240,6 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
-    def test_v2_money_management_transaction_entry_get_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/money_management/transaction_entries",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.money_management.transaction_entries.list()
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/money_management/transaction_entries",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_money_management_transaction_entry_get_2_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/money_management/transaction_entries/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.money_management.transaction_entries.retrieve("id_123")
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/money_management/transaction_entries/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
     def test_v2_money_management_transaction_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -34805,6 +45276,46 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "get",
             path="/v2/money_management/transactions/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_transaction_entry_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/transaction_entries",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.transaction_entries.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/transaction_entries",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_transaction_entry_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/transaction_entries/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.transaction_entries.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/transaction_entries/id_123",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -34846,7 +45357,7 @@ class TestGeneratedExamples(object):
                 "amount": {"currency": "USD", "value": 96},
                 "cadence": "unscheduled",
                 "customer": "customer",
-                "metadata": {"undefined": "metadata"},
+                "metadata": {"key": "metadata"},
                 "payment_method": "payment_method",
             }
         )
@@ -34855,7 +45366,7 @@ class TestGeneratedExamples(object):
             path="/v2/payments/off_session_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"cadence":"unscheduled","customer":"customer","metadata":{"undefined":"metadata"},"payment_method":"payment_method"}',
+            post_data='{"amount":{"currency":"USD","value":96},"cadence":"unscheduled","customer":"customer","metadata":{"key":"metadata"},"payment_method":"payment_method"}',
             is_json=True,
         )
 
@@ -34950,13 +45461,13 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_temporary_session_expired_error_service(
+    def test_already_canceled_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/billing/meter_event_stream",
-            rbody='{"error":{"type":"temporary_session_expired","code":"billing_meter_event_session_expired"}}',
+            "/v2/money_management/outbound_payments/id_123/cancel",
+            rbody='{"error":{"type":"already_canceled","code":"outbound_payment_already_canceled"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -34965,48 +45476,12 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.billing.meter_event_stream.create(
-                {
-                    "events": [
-                        {
-                            "event_name": "event_name",
-                            "payload": {"undefined": "payload"},
-                        },
-                    ],
-                }
-            )
-        except _error.TemporarySessionExpiredError:
+            client.v2.money_management.outbound_payments.cancel("id_123")
+        except _error.AlreadyCanceledError:
             pass
         http_client_mock.assert_requested(
             "post",
-            path="/v2/billing/meter_event_stream",
-            query_string="",
-            api_base="https://meter-events.stripe.com",
-            post_data='{"events":[{"event_name":"event_name","payload":{"undefined":"payload"}}]}',
-            is_json=True,
-        )
-
-    def test_non_zero_balance_error_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/money_management/financial_accounts/id_123/close",
-            rbody='{"error":{"type":"non_zero_balance","code":"closing_financial_account_with_non_zero_balances"}}',
-            rcode=400,
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        try:
-            client.v2.money_management.financial_accounts.close("id_123")
-        except _error.NonZeroBalanceError:
-            pass
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/money_management/financial_accounts/id_123/close",
+            path="/v2/money_management/outbound_payments/id_123/cancel",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",
@@ -35041,6 +45516,64 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data='{"type":"storage"}',
+            is_json=True,
+        )
+
+    def test_blocked_by_stripe_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/us_bank_accounts",
+            rbody='{"error":{"type":"blocked_by_stripe","code":"inbound_transfer_not_allowed"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.core.vault.us_bank_accounts.create(
+                {
+                    "account_number": "account_number",
+                }
+            )
+        except _error.BlockedByStripeError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/us_bank_accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"account_number":"account_number"}',
+            is_json=True,
+        )
+
+    def test_controlled_by_dashboard_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/us_bank_accounts/id_123/archive",
+            rbody='{"error":{"type":"controlled_by_dashboard","code":"bank_account_cannot_be_archived"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.core.vault.us_bank_accounts.archive("id_123")
+        except _error.ControlledByDashboardError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/us_bank_accounts/id_123/archive",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
             is_json=True,
         )
 
@@ -35107,91 +45640,6 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_blocked_by_stripe_error_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/core/vault/us_bank_accounts",
-            rbody='{"error":{"type":"blocked_by_stripe","code":"inbound_transfer_not_allowed"}}',
-            rcode=400,
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        try:
-            client.v2.core.vault.us_bank_accounts.create(
-                {
-                    "account_number": "account_number",
-                }
-            )
-        except _error.BlockedByStripeError:
-            pass
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/core/vault/us_bank_accounts",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data='{"account_number":"account_number"}',
-            is_json=True,
-        )
-
-    def test_already_canceled_error_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/money_management/outbound_payments/id_123/cancel",
-            rbody='{"error":{"type":"already_canceled","code":"outbound_payment_already_canceled"}}',
-            rcode=400,
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        try:
-            client.v2.money_management.outbound_payments.cancel("id_123")
-        except _error.AlreadyCanceledError:
-            pass
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/money_management/outbound_payments/id_123/cancel",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_not_cancelable_error_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/money_management/outbound_payments/id_123/cancel",
-            rbody='{"error":{"type":"not_cancelable","code":"outbound_payment_not_cancelable"}}',
-            rcode=400,
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        try:
-            client.v2.money_management.outbound_payments.cancel("id_123")
-        except _error.NotCancelableError:
-            pass
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/money_management/outbound_payments/id_123/cancel",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
     def test_insufficient_funds_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -35225,6 +45673,118 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
+            is_json=True,
+        )
+
+    def test_invalid_payment_method_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/us_bank_accounts",
+            rbody='{"error":{"type":"invalid_payment_method","code":"invalid_us_bank_account"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.core.vault.us_bank_accounts.create(
+                {
+                    "account_number": "account_number",
+                }
+            )
+        except _error.InvalidPaymentMethodError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/us_bank_accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"account_number":"account_number"}',
+            is_json=True,
+        )
+
+    def test_invalid_payout_method_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/outbound_setup_intents",
+            rbody='{"error":{"type":"invalid_payout_method","code":"invalid_payout_method"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.money_management.outbound_setup_intents.create()
+        except _error.InvalidPayoutMethodError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/outbound_setup_intents",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_non_zero_balance_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/financial_accounts/id_123/close",
+            rbody='{"error":{"type":"non_zero_balance","code":"closing_financial_account_with_non_zero_balances"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.money_management.financial_accounts.close("id_123")
+        except _error.NonZeroBalanceError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/financial_accounts/id_123/close",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_not_cancelable_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/outbound_payments/id_123/cancel",
+            rbody='{"error":{"type":"not_cancelable","code":"outbound_payment_not_cancelable"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.money_management.outbound_payments.cancel("id_123")
+        except _error.NotCancelableError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/outbound_payments/id_123/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
             is_json=True,
         )
 
@@ -35295,13 +45855,13 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_invalid_payout_method_error_service(
+    def test_temporary_session_expired_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/money_management/outbound_setup_intents",
-            rbody='{"error":{"type":"invalid_payout_method","code":"invalid_payout_method"}}',
+            "/v2/billing/meter_event_stream",
+            rbody='{"error":{"type":"temporary_session_expired","code":"billing_meter_event_session_expired"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -35310,72 +45870,23 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.money_management.outbound_setup_intents.create()
-        except _error.InvalidPayoutMethodError:
-            pass
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/money_management/outbound_setup_intents",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_controlled_by_dashboard_error_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/core/vault/us_bank_accounts/id_123/archive",
-            rbody='{"error":{"type":"controlled_by_dashboard","code":"bank_account_cannot_be_archived"}}',
-            rcode=400,
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        try:
-            client.v2.core.vault.us_bank_accounts.archive("id_123")
-        except _error.ControlledByDashboardError:
-            pass
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/core/vault/us_bank_accounts/id_123/archive",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_invalid_payment_method_error_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/core/vault/us_bank_accounts",
-            rbody='{"error":{"type":"invalid_payment_method","code":"invalid_us_bank_account"}}',
-            rcode=400,
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        try:
-            client.v2.core.vault.us_bank_accounts.create(
+            client.v2.billing.meter_event_stream.create(
                 {
-                    "account_number": "account_number",
+                    "events": [
+                        {
+                            "event_name": "event_name",
+                            "payload": {"key": "payload"},
+                        },
+                    ],
                 }
             )
-        except _error.InvalidPaymentMethodError:
+        except _error.TemporarySessionExpiredError:
             pass
         http_client_mock.assert_requested(
             "post",
-            path="/v2/core/vault/us_bank_accounts",
+            path="/v2/billing/meter_event_stream",
             query_string="",
-            api_base="https://api.stripe.com",
-            post_data='{"account_number":"account_number"}',
+            api_base="https://meter-events.stripe.com",
+            post_data='{"events":[{"event_name":"event_name","payload":{"key":"payload"}}]}',
             is_json=True,
         )

@@ -3059,10 +3059,13 @@ class AccountService(StripeService):
         type: Literal[
             "ae_crn",
             "ae_vat",
+            "ao_nif",
             "at_fn",
             "au_abn",
             "au_acn",
             "au_in",
+            "az_tin",
+            "bd_etin",
             "be_cbe",
             "bg_uic",
             "br_cnpj",
@@ -3072,11 +3075,14 @@ class AccountService(StripeService):
             "ca_rid",
             "ch_chid",
             "ch_uid",
+            "cr_cpj",
+            "cr_nite",
             "cy_tic",
             "cz_ico",
             "de_hrn",
             "de_vat",
             "dk_cvr",
+            "do_rcn",
             "ee_rk",
             "es_cif",
             "fi_yt",
@@ -3085,6 +3091,7 @@ class AccountService(StripeService):
             "gb_crn",
             "gi_crn",
             "gr_gemi",
+            "gt_nit",
             "hk_br",
             "hk_cr",
             "hk_mbs",
@@ -3093,6 +3100,7 @@ class AccountService(StripeService):
             "it_rea",
             "it_vat",
             "jp_cn",
+            "kz_bin",
             "li_uid",
             "lt_ccrn",
             "lu_rcs",
@@ -3102,12 +3110,17 @@ class AccountService(StripeService):
             "my_brn",
             "my_coid",
             "my_sst",
+            "mz_nuit",
             "nl_kvk",
             "no_orgnr",
             "nz_bn",
+            "pe_ruc",
+            "pk_ntn",
             "pl_regon",
             "pt_vat",
             "ro_cui",
+            "sa_crn",
+            "sa_tin",
             "se_orgnr",
             "sg_uen",
             "si_msp",
@@ -4798,12 +4811,28 @@ class AccountService(StripeService):
     class CreateParamsIdentityIndividualIdNumber(TypedDict):
         type: Literal[
             "ae_eid",
+            "ao_nif",
+            "az_tin",
+            "bd_brc",
+            "bd_etin",
+            "bd_nid",
             "br_cpf",
+            "cr_cpf",
+            "cr_dimex",
+            "cr_nite",
             "de_stn",
+            "do_rcn",
+            "gt_nit",
             "hk_id",
+            "kz_iin",
             "mx_rfc",
             "my_nric",
+            "mz_nuit",
             "nl_bsn",
+            "pe_dni",
+            "pk_cnic",
+            "pk_snic",
+            "sa_tin",
             "sg_fin",
             "sg_nric",
             "th_lc",
@@ -5554,6 +5583,10 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsConfigurationCustomer(TypedDict):
+        applied: NotRequired[bool]
+        """
+        Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+        """
         automatic_indirect_tax: NotRequired[
             "AccountService.UpdateParamsConfigurationCustomerAutomaticIndirectTax"
         ]
@@ -5982,6 +6015,10 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsConfigurationMerchant(TypedDict):
+        applied: NotRequired[bool]
+        """
+        Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+        """
         bacs_debit_payments: NotRequired[
             "AccountService.UpdateParamsConfigurationMerchantBacsDebitPayments"
         ]
@@ -6980,6 +7017,10 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsConfigurationRecipient(TypedDict):
+        applied: NotRequired[bool]
+        """
+        Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+        """
         capabilities: NotRequired[
             "AccountService.UpdateParamsConfigurationRecipientCapabilities"
         ]
@@ -7068,6 +7109,10 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsConfigurationStorer(TypedDict):
+        applied: NotRequired[bool]
+        """
+        Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+        """
         capabilities: NotRequired[
             "AccountService.UpdateParamsConfigurationStorerCapabilities"
         ]
@@ -8574,10 +8619,13 @@ class AccountService(StripeService):
         type: Literal[
             "ae_crn",
             "ae_vat",
+            "ao_nif",
             "at_fn",
             "au_abn",
             "au_acn",
             "au_in",
+            "az_tin",
+            "bd_etin",
             "be_cbe",
             "bg_uic",
             "br_cnpj",
@@ -8587,11 +8635,14 @@ class AccountService(StripeService):
             "ca_rid",
             "ch_chid",
             "ch_uid",
+            "cr_cpj",
+            "cr_nite",
             "cy_tic",
             "cz_ico",
             "de_hrn",
             "de_vat",
             "dk_cvr",
+            "do_rcn",
             "ee_rk",
             "es_cif",
             "fi_yt",
@@ -8600,6 +8651,7 @@ class AccountService(StripeService):
             "gb_crn",
             "gi_crn",
             "gr_gemi",
+            "gt_nit",
             "hk_br",
             "hk_cr",
             "hk_mbs",
@@ -8608,6 +8660,7 @@ class AccountService(StripeService):
             "it_rea",
             "it_vat",
             "jp_cn",
+            "kz_bin",
             "li_uid",
             "lt_ccrn",
             "lu_rcs",
@@ -8617,12 +8670,17 @@ class AccountService(StripeService):
             "my_brn",
             "my_coid",
             "my_sst",
+            "mz_nuit",
             "nl_kvk",
             "no_orgnr",
             "nz_bn",
+            "pe_ruc",
+            "pk_ntn",
             "pl_regon",
             "pt_vat",
             "ro_cui",
+            "sa_crn",
+            "sa_tin",
             "se_orgnr",
             "sg_uen",
             "si_msp",
@@ -10357,12 +10415,28 @@ class AccountService(StripeService):
     class UpdateParamsIdentityIndividualIdNumber(TypedDict):
         type: Literal[
             "ae_eid",
+            "ao_nif",
+            "az_tin",
+            "bd_brc",
+            "bd_etin",
+            "bd_nid",
             "br_cpf",
+            "cr_cpf",
+            "cr_dimex",
+            "cr_nite",
             "de_stn",
+            "do_rcn",
+            "gt_nit",
             "hk_id",
+            "kz_iin",
             "mx_rfc",
             "my_nric",
+            "mz_nuit",
             "nl_bsn",
+            "pe_dni",
+            "pk_cnic",
+            "pk_snic",
+            "sa_tin",
             "sg_fin",
             "sg_nric",
             "th_lc",

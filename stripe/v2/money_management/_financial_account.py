@@ -507,6 +507,10 @@ class FinancialAccount(StripeObject):
     """
     Time at which the object was created.
     """
+    display_name: Optional[str]
+    """
+    A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
+    """
     id: str
     """
     Unique identifier for the object.
