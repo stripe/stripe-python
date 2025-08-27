@@ -177,10 +177,6 @@ class PermissionError(StripeError):
     pass
 
 
-class RateLimitError(StripeError):
-    pass
-
-
 class SignatureVerificationError(StripeError):
     def __init__(self, message, sig_header, http_body=None):
         super(SignatureVerificationError, self).__init__(message, http_body)
