@@ -574,7 +574,7 @@ class Account(
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
                 """
-                The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`.
+                The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
                 details: Optional[str]
                 """
@@ -586,7 +586,7 @@ class Account(
                 """
                 front: Optional[ExpandableField["File"]]
                 """
-                The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`.
+                The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
 
             document: Document
