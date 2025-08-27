@@ -35,6 +35,10 @@ class TransactionEntry(StripeObject):
             """
             If applicable, the ID of the Adjustment that created this Transaction.
             """
+            currency_conversion: Optional[str]
+            """
+            In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
+            """
             fee_transaction: Optional[str]
             """
             If applicable, the ID of the FeeTransaction that created this Transaction.
@@ -61,6 +65,7 @@ class TransactionEntry(StripeObject):
             """
             type: Literal[
                 "adjustment",
+                "currency_conversion",
                 "fee_transaction",
                 "inbound_transfer",
                 "outbound_payment",
@@ -74,6 +79,7 @@ class TransactionEntry(StripeObject):
 
         category: Literal[
             "adjustment",
+            "currency_conversion",
             "inbound_transfer",
             "outbound_payment",
             "outbound_transfer",

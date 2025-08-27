@@ -166,7 +166,7 @@ class Charge(
         """
         network_decline_code: Optional[str]
         """
-        For charges declined by the network, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        For charges declined by the network, an alphanumeric code which indicates the reason the charge failed.
         """
         network_status: Optional[str]
         """
@@ -174,7 +174,7 @@ class Charge(
         """
         reason: Optional[str]
         """
-        An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
+        An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges blocked because the payment is unlikely to be authorized have the value `low_probability_of_authorization`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
         """
         risk_level: Optional[str]
         """
@@ -308,7 +308,18 @@ class Charge(
             """
 
         class Alma(StripeObject):
-            pass
+            class Installments(StripeObject):
+                count: int
+                """
+                The number of installments.
+                """
+
+            installments: Optional[Installments]
+            transaction_id: Optional[str]
+            """
+            The Alma transaction ID associated with this payment.
+            """
+            _inner_class_types = {"installments": Installments}
 
         class AmazonPay(StripeObject):
             class Funding(StripeObject):
@@ -350,6 +361,10 @@ class Charge(
                 _inner_class_types = {"card": Card}
 
             funding: Optional[Funding]
+            transaction_id: Optional[str]
+            """
+            The Amazon Pay transaction ID associated with this payment.
+            """
             _inner_class_types = {"funding": Funding}
 
         class AuBecsDebit(StripeObject):
@@ -425,7 +440,10 @@ class Charge(
             """
 
         class Billie(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Billie transaction ID associated with this payment.
+            """
 
         class Blik(StripeObject):
             buyer_id: Optional[str]
@@ -1442,6 +1460,10 @@ class Charge(
             """
             A unique identifier for the buyer as determined by the local payment processor.
             """
+            transaction_id: Optional[str]
+            """
+            The Kakao Pay transaction ID associated with this payment.
+            """
 
         class Klarna(StripeObject):
             class PayerDetails(StripeObject):
@@ -1526,6 +1548,10 @@ class Charge(
             """
             The last four digits of the card. This may not be present for American Express cards.
             """
+            transaction_id: Optional[str]
+            """
+            The Korean Card transaction ID associated with this payment.
+            """
 
         class Link(StripeObject):
             country: Optional[str]
@@ -1580,6 +1606,10 @@ class Charge(
             buyer_id: Optional[str]
             """
             A unique identifier for the buyer as determined by the local payment processor.
+            """
+            transaction_id: Optional[str]
+            """
+            The Naver Pay transaction ID associated with this payment.
             """
 
         class NzBankAccount(StripeObject):
@@ -1667,8 +1697,20 @@ class Charge(
             """
             A unique identifier for the buyer as determined by the local payment processor.
             """
+            transaction_id: Optional[str]
+            """
+            The Payco transaction ID associated with this payment.
+            """
 
         class Paynow(StripeObject):
+            location: Optional[str]
+            """
+            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            """
             reference: Optional[str]
             """
             Reference number associated with this PayNow payment
@@ -1818,6 +1860,10 @@ class Charge(
             """
             Unique transaction id generated by BCB
             """
+            mandate: Optional[str]
+            """
+            ID of the multi use Mandate generated by the PaymentIntent
+            """
 
         class Promptpay(StripeObject):
             reference: Optional[str]
@@ -1871,6 +1917,10 @@ class Charge(
                 _inner_class_types = {"card": Card}
 
             funding: Optional[Funding]
+            transaction_id: Optional[str]
+            """
+            The Revolut Pay transaction ID associated with this payment.
+            """
             _inner_class_types = {"funding": Funding}
 
         class SamsungPay(StripeObject):
@@ -1878,9 +1928,16 @@ class Charge(
             """
             A unique identifier for the buyer as determined by the local payment processor.
             """
+            transaction_id: Optional[str]
+            """
+            The Samsung Pay transaction ID associated with this payment.
+            """
 
         class Satispay(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Satispay transaction ID associated with this payment.
+            """
 
         class SepaCreditTransfer(StripeObject):
             bank_name: Optional[str]
