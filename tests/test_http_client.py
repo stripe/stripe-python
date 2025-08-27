@@ -405,7 +405,14 @@ class ClientTestBase:
 
     @pytest.fixture
     def make_request(self, make_client, client) -> MakeReqFunc:
-        def _make_request(method, url, headers, post_data, client_kwargs=None):
+        def _make_request(
+            method,
+            url,
+            headers,
+            post_data,
+            client_kwargs=None,
+            max_retries=None,
+        ):
             # reuse the fixture client, if possible
             if client_kwargs or self.CLIENT_KWARGS or self.ALWAYS_INIT_CLIENT:
                 local_client = make_client(
@@ -418,7 +425,11 @@ class ClientTestBase:
                 local_client = client
 
             return local_client.request_with_retries(
-                method, url, headers, post_data
+                method,
+                url,
+                headers,
+                post_data,
+                max_network_retries=max_retries,
             )
 
         return _make_request
@@ -426,7 +437,12 @@ class ClientTestBase:
     @pytest.fixture
     def make_streamed_request(self, make_client, client) -> MakeReqFunc:
         def _make_request_stream(
-            method, url, headers, post_data, client_kwargs=None
+            method,
+            url,
+            headers,
+            post_data,
+            client_kwargs=None,
+            max_retries=None,
         ):
             if client_kwargs or self.CLIENT_KWARGS or self.ALWAYS_INIT_CLIENT:
                 local_client = make_client(
@@ -436,7 +452,11 @@ class ClientTestBase:
                 local_client = client
 
             return local_client.request_stream_with_retries(
-                method, url, headers, post_data
+                method,
+                url,
+                headers,
+                post_data,
+                max_network_retries=max_retries,
             )
 
         return _make_request_stream
@@ -602,6 +622,7 @@ class TestRequestsClient(ClientTestBase):
     REQUEST_CLIENT: Type[_http_client.RequestsClient] = (
         _http_client.RequestsClient
     )
+    PROXY = "http://slap/"
 
     @pytest.fixture
     def session(self):
@@ -665,43 +686,15 @@ class TestRequestsClient(ClientTestBase):
 
         return _check_call
 
-    @pytest.fixture
-    def make_request(self, mocked_request_lib) -> MakeReqFunc:
-        def _make_request(method, url, headers, post_data, timeout=80):
-            client = self.REQUEST_CLIENT(
-                verify_ssl_certs=True,
-                timeout=timeout,
-                proxy="http://slap/",
-                _lib=mocked_request_lib,
-            )
-            return client.request_with_retries(method, url, headers, post_data)
-
-        return _make_request
-
-    @pytest.fixture
-    def make_streamed_request(self, mocked_request_lib) -> MakeReqFunc:
-        def _make_streamed_request(
-            method, url, headers, post_data, timeout=80
-        ):
-            client = self.REQUEST_CLIENT(
-                verify_ssl_certs=True,
-                timeout=timeout,
-                proxy="http://slap/",
-                _lib=mocked_request_lib,
-            )
-            return client.request_stream_with_retries(
-                method, url, headers, post_data
-            )
-
-        return _make_streamed_request
-
     def test_timeout(
         self, mocked_request_lib, mock_response, check_call, make_request
     ):
         headers = {"my-header": "header val"}
         data = ""
         mock_response(mocked_request_lib, '{"foo": "baz"}', 200)
-        make_request("POST", self.valid_url, headers, data, timeout=5)
+        make_request(
+            "POST", self.valid_url, headers, data, client_kwargs={"timeout": 5}
+        )
 
         check_call(None, "POST", self.valid_url, data, headers, timeout=5)
 
@@ -723,7 +716,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
     max_retries = 3
 
     @pytest.fixture
-    def response(self, mocker):
+    def response(self):
         def response(code=200, headers={}):
             result = Mock()
             result.content = "{}"
@@ -792,62 +785,54 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
 
         return _check_call_numbers
 
-    @pytest.fixture
-    def make_retried_request(self, client):
-        def _make_request():
-            return client.request_with_retries(
-                "GET", self.valid_url, {}, None, self.max_retries
-            )
-
-        return _make_request
-
-    @pytest.fixture
-    def make_streamed_retried_request(self, client):
-        def _make_request():
-            return client.request_stream_with_retries(
-                "GET", self.valid_url, {}, None, self.max_retries
-            )
-
-        return _make_request
-
     def test_retry_error_until_response(
-        self, mock_retry, response, check_call_numbers, make_retried_request
+        self, mock_retry, response, check_call_numbers, make_request
     ):
         mock_retry(retry_error_num=1, responses=[response(code=202)])
-        _, code, _ = make_retried_request()
+        _, code, _ = make_request(
+            "GET", self.valid_url, {}, None, max_retries=self.max_retries
+        )
         assert code == 202
         check_call_numbers(2)
 
     def test_retry_error_until_exceeded(
-        self, mock_retry, check_call_numbers, make_retried_request
+        self, mock_retry, check_call_numbers, make_request
     ):
         mock_retry(retry_error_num=self.max_retries)
         with pytest.raises(APIConnectionError):
-            make_retried_request()
+            make_request(
+                "GET", self.valid_url, {}, None, max_retries=self.max_retries
+            )
 
         check_call_numbers(self.max_retries)
 
     def test_no_retry_error(
-        self, mock_retry, check_call_numbers, make_retried_request
+        self, mock_retry, check_call_numbers, make_request
     ):
         mock_retry(no_retry_error_num=self.max_retries)
         with pytest.raises(APIConnectionError):
-            make_retried_request()
+            make_request(
+                "GET", self.valid_url, {}, None, max_retries=self.max_retries
+            )
         check_call_numbers(1)
 
     def test_retry_codes(
-        self, mock_retry, response, check_call_numbers, make_retried_request
+        self, mock_retry, response, check_call_numbers, make_request
     ):
         mock_retry(responses=[response(code=409), response(code=202)])
-        _, code, _ = make_retried_request()
+        _, code, _ = make_request(
+            "GET", self.valid_url, {}, None, max_retries=self.max_retries
+        )
         assert code == 202
         check_call_numbers(2)
 
     def test_retry_codes_until_exceeded(
-        self, mock_retry, response, check_call_numbers, make_retried_request
+        self, mock_retry, response, check_call_numbers, make_request
     ):
         mock_retry(responses=[response(code=409)] * (self.max_retries + 1))
-        _, code, _ = make_retried_request()
+        _, code, _ = make_request(
+            "GET", self.valid_url, {}, None, max_retries=self.max_retries
+        )
         assert code == 409
         check_call_numbers(self.max_retries + 1)
 
@@ -856,36 +841,40 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         mock_retry,
         response,
         check_call_numbers,
-        make_streamed_retried_request,
+        make_streamed_request,
     ):
         mock_retry(retry_error_num=1, responses=[response(code=202)])
-        _, code, _ = make_streamed_retried_request()
+        _, code, _ = make_streamed_request(
+            "GET", self.valid_url, {}, None, max_retries=self.max_retries
+        )
         assert code == 202
         check_call_numbers(2, is_streaming=True)
 
     def test_retry_request_stream_error_until_exceeded(
         self,
         mock_retry,
-        response,
         check_call_numbers,
-        make_streamed_retried_request,
+        make_streamed_request,
     ):
         mock_retry(retry_error_num=self.max_retries)
         with pytest.raises(APIConnectionError):
-            make_streamed_retried_request()
+            make_streamed_request(
+                "GET", self.valid_url, {}, None, max_retries=self.max_retries
+            )
 
         check_call_numbers(self.max_retries, is_streaming=True)
 
     def test_no_retry_request_stream_error(
         self,
         mock_retry,
-        response,
         check_call_numbers,
-        make_streamed_retried_request,
+        make_streamed_request,
     ):
         mock_retry(no_retry_error_num=self.max_retries)
         with pytest.raises(APIConnectionError):
-            make_streamed_retried_request()
+            make_streamed_request(
+                "GET", self.valid_url, {}, None, max_retries=self.max_retries
+            )
         check_call_numbers(1, is_streaming=True)
 
     def test_retry_request_stream_codes(
@@ -893,10 +882,12 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         mock_retry,
         response,
         check_call_numbers,
-        make_streamed_retried_request,
+        make_streamed_request,
     ):
         mock_retry(responses=[response(code=409), response(code=202)])
-        _, code, _ = make_streamed_retried_request()
+        _, code, _ = make_streamed_request(
+            "GET", self.valid_url, {}, None, max_retries=self.max_retries
+        )
         assert code == 202
         check_call_numbers(2, is_streaming=True)
 
@@ -905,10 +896,12 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         mock_retry,
         response,
         check_call_numbers,
-        make_streamed_retried_request,
+        make_streamed_request,
     ):
         mock_retry(responses=[response(code=409)] * (self.max_retries + 1))
-        _, code, _ = make_streamed_retried_request()
+        _, code, _ = make_streamed_request(
+            "GET", self.valid_url, {}, None, max_retries=self.max_retries
+        )
         assert code == 409
         check_call_numbers(self.max_retries + 1, is_streaming=True)
 

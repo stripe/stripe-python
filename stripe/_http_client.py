@@ -608,7 +608,7 @@ class RequestsClient(HTTPClient):
 
         self.requests = _lib
 
-    def request(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def request(
         self,
         method: str,
         url: str,
@@ -619,7 +619,7 @@ class RequestsClient(HTTPClient):
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def request_stream(
         self,
         method: str,
         url: str,
@@ -809,14 +809,14 @@ class UrlFetchClient(HTTPClient):
 
         self.urlfetch = _lib
 
-    def request(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def request(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def request_stream(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[BytesIO, int, Mapping[str, str]]:
         return self._request_internal(
@@ -957,14 +957,14 @@ class PycurlClient(HTTPClient):
         headers = email.message_from_string(raw_headers)
         return dict((k.lower(), v) for k, v in dict(headers).items())
 
-    def request(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def request(
         self, method, url, headers: Mapping[str, str], post_data=None
     ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def request_stream(
         self, method, url, headers: Mapping[str, str], post_data=None
     ) -> Tuple[BytesIO, int, Mapping[str, str]]:
         return self._request_internal(
@@ -1147,14 +1147,14 @@ class Urllib2Client(HTTPClient):
             )
             self._opener = self.urllibrequest.build_opener(proxy_handler)
 
-    def request(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def request(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[str, int, Mapping[str, str]]:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def request_stream(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[HTTPResponse, int, Mapping[str, str]]:
         return self._request_internal(
@@ -1292,7 +1292,7 @@ class HTTPXClient(HTTPClient):
             {"headers": headers, "data": post_data or {}, **kwargs},
         ]
 
-    def request(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def request(
         self,
         method: str,
         url: str,
@@ -1348,7 +1348,7 @@ class HTTPXClient(HTTPClient):
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
         raise APIConnectionError(msg, should_retry=should_retry) from e
 
-    def request_stream(  # pyright: ignore[reportIncompatibleMethodOverride]
+    def request_stream(
         self, method: str, url: str, headers: Mapping[str, str], post_data=None
     ) -> Tuple[Iterable[bytes], int, Mapping[str, str]]:
         if self._client is None:
@@ -1443,7 +1443,7 @@ class AIOHTTPClient(HTTPClient):
     def sleep_async(self, secs):
         return asyncio.sleep(secs)
 
-    def request(self) -> Tuple[bytes, int, Mapping[str, str]]:  # pyright: ignore[reportIncompatibleMethodOverride]
+    def request(self) -> Tuple[bytes, int, Mapping[str, str]]:
         raise NotImplementedError(
             "AIOHTTPClient does not support synchronous requests."
         )
@@ -1494,7 +1494,7 @@ class AIOHTTPClient(HTTPClient):
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
         raise APIConnectionError(msg, should_retry=should_retry) from e
 
-    def request_stream(self) -> Tuple[Iterable[bytes], int, Mapping[str, str]]:  # pyright: ignore[reportIncompatibleMethodOverride]
+    def request_stream(self) -> Tuple[Iterable[bytes], int, Mapping[str, str]]:
         raise NotImplementedError(
             "AIOHTTPClient does not support synchronous requests."
         )
