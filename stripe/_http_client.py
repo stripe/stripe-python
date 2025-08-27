@@ -59,14 +59,6 @@ if TYPE_CHECKING:
     except ImportError:
         pass
 
-# # FIXME - remove these?
-# urlfetch = None
-# requests = None
-# pycurl = None
-# urllibrequest = None
-# httpx = None
-# aiohttp = None
-
 
 def _now_ms():
     return int(round(time.time() * 1000))
