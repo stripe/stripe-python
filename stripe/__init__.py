@@ -224,7 +224,6 @@ from stripe._error import IdempotencyError as IdempotencyError
 from stripe._error import InvalidRequestError as InvalidRequestError
 from stripe._error import AuthenticationError as AuthenticationError
 from stripe._error import PermissionError as PermissionError
-from stripe._error import RateLimitError as RateLimitError
 from stripe._error import (
     SignatureVerificationError as SignatureVerificationError,
 )
