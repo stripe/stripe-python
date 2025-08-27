@@ -32,7 +32,7 @@ class PricingPlan(StripeObject):
     """
     id: str
     """
-    Unique identifier for the PricingPlan.
+    Unique identifier for the object.
     """
     latest_version: str
     """
@@ -52,7 +52,7 @@ class PricingPlan(StripeObject):
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of key-value pairs that you can attach to an object.
+    Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["v2.billing.pricing_plan"]
     """

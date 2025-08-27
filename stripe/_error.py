@@ -177,10 +177,6 @@ class PermissionError(StripeError):
     pass
 
 
-class RateLimitError(StripeError):
-    pass
-
-
 class SignatureVerificationError(StripeError):
     def __init__(self, message, sig_header, http_body=None):
         super(SignatureVerificationError, self).__init__(message, http_body)
@@ -188,15 +184,19 @@ class SignatureVerificationError(StripeError):
 
 
 # classDefinitions: The beginning of the section generated from our OpenAPI spec
-class TemporarySessionExpiredError(StripeError):
-    pass
-
-
-class NonZeroBalanceError(StripeError):
+class AlreadyCanceledError(StripeError):
     pass
 
 
 class AlreadyExistsError(StripeError):
+    pass
+
+
+class BlockedByStripeError(StripeError):
+    pass
+
+
+class ControlledByDashboardError(StripeError):
     pass
 
 
@@ -208,35 +208,7 @@ class FinancialAccountNotOpenError(StripeError):
     pass
 
 
-class BlockedByStripeError(StripeError):
-    pass
-
-
-class AlreadyCanceledError(StripeError):
-    pass
-
-
-class NotCancelableError(StripeError):
-    pass
-
-
 class InsufficientFundsError(StripeError):
-    pass
-
-
-class QuotaExceededError(StripeError):
-    pass
-
-
-class RecipientNotNotifiableError(StripeError):
-    pass
-
-
-class InvalidPayoutMethodError(StripeError):
-    pass
-
-
-class ControlledByDashboardError(StripeError):
     pass
 
 
@@ -262,7 +234,31 @@ class InvalidPaymentMethodError(StripeError):
         self.invalid_param = invalid_param
 
 
+class InvalidPayoutMethodError(StripeError):
+    pass
+
+
+class NonZeroBalanceError(StripeError):
+    pass
+
+
+class NotCancelableError(StripeError):
+    pass
+
+
+class QuotaExceededError(StripeError):
+    pass
+
+
 class RateLimitError(StripeError):
+    pass
+
+
+class RecipientNotNotifiableError(StripeError):
+    pass
+
+
+class TemporarySessionExpiredError(StripeError):
     pass
 
 

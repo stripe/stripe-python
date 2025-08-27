@@ -8,5 +8,5 @@ from stripe.v2.reporting._report_service import ReportService
 class ReportingService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.report_runs = ReportRunService(self._requestor)
         self.reports = ReportService(self._requestor)
+        self.report_runs = ReportRunService(self._requestor)

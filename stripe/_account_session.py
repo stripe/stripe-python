@@ -57,6 +57,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class BalanceReport(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class Balances(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -367,6 +378,28 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class PayoutDetails(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class PayoutReconciliationReport(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class Payouts(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -432,6 +465,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
         account_management: AccountManagement
         account_onboarding: AccountOnboarding
+        balance_report: BalanceReport
         balances: Balances
         capital_financing: Optional[CapitalFinancing]
         capital_financing_application: Optional[CapitalFinancingApplication]
@@ -447,6 +481,8 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payment_details: PaymentDetails
         payment_disputes: PaymentDisputes
         payments: Payments
+        payout_details: PayoutDetails
+        payout_reconciliation_report: PayoutReconciliationReport
         payouts: Payouts
         payouts_list: PayoutsList
         tax_registrations: TaxRegistrations
@@ -454,6 +490,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         _inner_class_types = {
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
+            "balance_report": BalanceReport,
             "balances": Balances,
             "capital_financing": CapitalFinancing,
             "capital_financing_application": CapitalFinancingApplication,
@@ -469,6 +506,8 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payment_details": PaymentDetails,
             "payment_disputes": PaymentDisputes,
             "payments": Payments,
+            "payout_details": PayoutDetails,
+            "payout_reconciliation_report": PayoutReconciliationReport,
             "payouts": Payouts,
             "payouts_list": PayoutsList,
             "tax_registrations": TaxRegistrations,
@@ -513,6 +552,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         ]
         """
         Configuration for the [app viewport](https://docs.stripe.com/connect/supported-embedded-components/app-viewport/) embedded component.
+        """
+        balance_report: NotRequired[
+            "AccountSession.CreateParamsComponentsBalanceReport"
+        ]
+        """
+        Configuration for the [balance report](https://docs.stripe.com/connect/supported-embedded-components/financial-reports#balance-report) embedded component.
         """
         balances: NotRequired["AccountSession.CreateParamsComponentsBalances"]
         """
@@ -617,6 +662,18 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payments: NotRequired["AccountSession.CreateParamsComponentsPayments"]
         """
         Configuration for the [payments](https://docs.stripe.com/connect/supported-embedded-components/payments/) embedded component.
+        """
+        payout_details: NotRequired[
+            "AccountSession.CreateParamsComponentsPayoutDetails"
+        ]
+        """
+        Configuration for the [payout details](https://docs.stripe.com/connect/supported-embedded-components/payout-details/) embedded component.
+        """
+        payout_reconciliation_report: NotRequired[
+            "AccountSession.CreateParamsComponentsPayoutReconciliationReport"
+        ]
+        """
+        Configuration for the [payout reconciliation report](https://docs.stripe.com/connect/supported-embedded-components/financial-reports#payout-reconciliation-report) embedded component.
         """
         payouts: NotRequired["AccountSession.CreateParamsComponentsPayouts"]
         """
@@ -744,6 +801,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         The list of apps allowed to be enabled in the embedded component.
         """
+
+    class CreateParamsComponentsBalanceReport(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsBalanceReportFeatures"
+        ]
+        """
+        An empty list, because this embedded component has no features.
+        """
+
+    class CreateParamsComponentsBalanceReportFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsBalances(TypedDict):
         enabled: bool
@@ -1161,6 +1233,36 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether sending refunds is enabled. This is `true` by default.
         """
+
+    class CreateParamsComponentsPayoutDetails(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPayoutDetailsFeatures"
+        ]
+        """
+        An empty list, because this embedded component has no features.
+        """
+
+    class CreateParamsComponentsPayoutDetailsFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsPayoutReconciliationReport(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPayoutReconciliationReportFeatures"
+        ]
+        """
+        An empty list, because this embedded component has no features.
+        """
+
+    class CreateParamsComponentsPayoutReconciliationReportFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsPayouts(TypedDict):
         enabled: bool

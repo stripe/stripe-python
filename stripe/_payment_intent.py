@@ -190,6 +190,7 @@ class PaymentIntent(
                 "coupon_expired",
                 "customer_max_payment_methods",
                 "customer_max_subscriptions",
+                "customer_session_expired",
                 "customer_tax_location_invalid",
                 "debit_not_authorized",
                 "email_invalid",
@@ -208,6 +209,7 @@ class PaymentIntent(
                 "incorrect_cvc",
                 "incorrect_number",
                 "incorrect_zip",
+                "india_recurring_payment_mandate_canceled",
                 "instant_payouts_config_disabled",
                 "instant_payouts_currency_disabled",
                 "instant_payouts_limit_exceeded",
@@ -351,7 +353,7 @@ class PaymentIntent(
         """
         network_decline_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
         """
         param: Optional[str]
         """
@@ -2764,6 +2766,52 @@ class PaymentIntent(
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Pix(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount to be charged for future payments.
+                """
+                amount_includes_iof: Optional[Literal["always", "never"]]
+                """
+                Determines if the amount includes the IOF tax.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                Type of amount.
+                """
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+                """
+                end_date: Optional[str]
+                """
+                Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+                """
+                payment_schedule: Optional[
+                    Literal[
+                        "halfyearly",
+                        "monthly",
+                        "quarterly",
+                        "weekly",
+                        "yearly",
+                    ]
+                ]
+                """
+                Schedule at which the future payments will be charged.
+                """
+                reference: Optional[str]
+                """
+                Subscription name displayed to buyers in their bank app.
+                """
+                start_date: Optional[str]
+                """
+                Start date of the mandate, in `YYYY-MM-DD`.
+                """
+
+            amount_includes_iof: Optional[Literal["always", "never"]]
+            """
+            Determines if the amount includes the IOF tax.
+            """
             expires_after_seconds: Optional[int]
             """
             The number of seconds (between 10 and 1209600) after which Pix payment will expire.
@@ -2772,7 +2820,8 @@ class PaymentIntent(
             """
             The timestamp at which the Pix expires.
             """
-            setup_future_usage: Optional[Literal["none"]]
+            mandate_options: Optional[MandateOptions]
+            setup_future_usage: Optional[Literal["none", "off_session"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2782,6 +2831,7 @@ class PaymentIntent(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
+            _inner_class_types = {"mandate_options": MandateOptions}
 
         class Promptpay(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
@@ -7930,6 +7980,10 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
         expires_after_seconds: NotRequired[int]
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
@@ -7938,7 +7992,13 @@ class PaymentIntent(
         """
         The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        mandate_options: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -7949,6 +8009,42 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class ConfirmParamsPaymentMethodOptionsPromptpay(TypedDict):
@@ -8425,6 +8521,70 @@ class PaymentIntent(
         error_on_requires_action: NotRequired[bool]
         """
         Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. Use this parameter for simpler integrations that don't handle customer actions, such as [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
+        """
+        excluded_payment_method_types: NotRequired[
+            List[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "id_bank_transfer",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "mb_way",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "sepa_debit",
+                    "shopeepay",
+                    "sofort",
+                    "stripe_balance",
+                    "swish",
+                    "twint",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ]
+            ]
+        ]
+        """
+        The list of payment method types to exclude from use with this payment.
         """
         expand: NotRequired[List[str]]
         """
@@ -12123,6 +12283,10 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
         expires_after_seconds: NotRequired[int]
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
@@ -12131,7 +12295,13 @@ class PaymentIntent(
         """
         The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        mandate_options: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -12142,6 +12312,42 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class CreateParamsPaymentMethodOptionsPromptpay(TypedDict):
@@ -16654,6 +16860,10 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
         expires_after_seconds: NotRequired[int]
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
@@ -16662,7 +16872,13 @@ class PaymentIntent(
         """
         The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        mandate_options: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -16673,6 +16889,42 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class ModifyParamsPaymentMethodOptionsPromptpay(TypedDict):
@@ -17234,6 +17486,70 @@ class PaymentIntent(
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
+    """
+    excluded_payment_method_types: Optional[
+        List[
+            Literal[
+                "acss_debit",
+                "affirm",
+                "afterpay_clearpay",
+                "alipay",
+                "alma",
+                "amazon_pay",
+                "au_becs_debit",
+                "bacs_debit",
+                "bancontact",
+                "billie",
+                "blik",
+                "boleto",
+                "card",
+                "cashapp",
+                "crypto",
+                "customer_balance",
+                "eps",
+                "fpx",
+                "giropay",
+                "gopay",
+                "grabpay",
+                "id_bank_transfer",
+                "ideal",
+                "kakao_pay",
+                "klarna",
+                "konbini",
+                "kr_card",
+                "mb_way",
+                "mobilepay",
+                "multibanco",
+                "naver_pay",
+                "nz_bank_account",
+                "oxxo",
+                "p24",
+                "pay_by_bank",
+                "payco",
+                "paynow",
+                "paypal",
+                "payto",
+                "pix",
+                "promptpay",
+                "qris",
+                "rechnung",
+                "revolut_pay",
+                "samsung_pay",
+                "satispay",
+                "sepa_debit",
+                "shopeepay",
+                "sofort",
+                "stripe_balance",
+                "swish",
+                "twint",
+                "us_bank_account",
+                "wechat_pay",
+                "zip",
+            ]
+        ]
+    ]
+    """
+    The list of payment method types to exclude from use with this payment.
     """
     fx_quote: Optional[str]
     """

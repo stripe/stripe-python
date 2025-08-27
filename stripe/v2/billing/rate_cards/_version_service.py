@@ -26,7 +26,7 @@ class VersionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[RateCardVersion]:
         """
-        List the versions of a RateCard object. Results are sorted in reverse chronological order (most recent first).
+        List the versions of a Rate Card object. Results are sorted in reverse chronological order (most recent first).
         """
         return cast(
             ListObject[RateCardVersion],
@@ -48,7 +48,7 @@ class VersionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[RateCardVersion]:
         """
-        List the versions of a RateCard object. Results are sorted in reverse chronological order (most recent first).
+        List the versions of a Rate Card object. Results are sorted in reverse chronological order (most recent first).
         """
         return cast(
             ListObject[RateCardVersion],
@@ -71,7 +71,7 @@ class VersionService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardVersion:
         """
-        Retrieve a specific version of a RateCard object.
+        Retrieve a specific version of a Rate Card object.
         """
         return cast(
             RateCardVersion,
@@ -95,7 +95,7 @@ class VersionService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardVersion:
         """
-        Retrieve a specific version of a RateCard object.
+        Retrieve a specific version of a Rate Card object.
         """
         return cast(
             RateCardVersion,

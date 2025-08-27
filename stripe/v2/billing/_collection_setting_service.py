@@ -8,7 +8,7 @@ from stripe.v2.billing._collection_setting import CollectionSetting
 from stripe.v2.billing.collection_settings._version_service import (
     VersionService,
 )
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -30,6 +30,12 @@ class CollectionSettingService(StripeService):
         An optional customer-facing display name for the CollectionSetting object.
         Maximum length of 250 characters.
         """
+        email_delivery: NotRequired[
+            "CollectionSettingService.CreateParamsEmailDelivery"
+        ]
+        """
+        Email delivery setting.
+        """
         lookup_key: NotRequired[str]
         """
         A lookup key used to retrieve settings dynamically from a static string.
@@ -44,6 +50,24 @@ class CollectionSettingService(StripeService):
         ]
         """
         Payment Method specific configuration to be stored on the object.
+        """
+
+    class CreateParamsEmailDelivery(TypedDict):
+        payment_due: NotRequired[
+            "CollectionSettingService.CreateParamsEmailDeliveryPaymentDue"
+        ]
+        """
+        Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+        """
+
+    class CreateParamsEmailDeliveryPaymentDue(TypedDict):
+        enabled: bool
+        """
+        If true an email for the invoice would be generated and sent out.
+        """
+        include_payment_link: bool
+        """
+        If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
         """
 
     class CreateParamsPaymentMethodOptions(TypedDict):
@@ -272,6 +296,12 @@ class CollectionSettingService(StripeService):
         To remove the display name, set it to an empty string in the request.
         Maximum length of 250 characters.
         """
+        email_delivery: NotRequired[
+            Optional["CollectionSettingService.UpdateParamsEmailDelivery"]
+        ]
+        """
+        Email delivery settings.
+        """
         live_version: NotRequired[str]
         """
         Optionally change the live version of the CollectionSetting. Billing Cadences and other objects that refer to this
@@ -292,6 +322,24 @@ class CollectionSettingService(StripeService):
         ]
         """
         Payment Method specific configuration to be stored on the object.
+        """
+
+    class UpdateParamsEmailDelivery(TypedDict):
+        payment_due: NotRequired[
+            "CollectionSettingService.UpdateParamsEmailDeliveryPaymentDue"
+        ]
+        """
+        Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+        """
+
+    class UpdateParamsEmailDeliveryPaymentDue(TypedDict):
+        enabled: bool
+        """
+        If true an email for the invoice would be generated and sent out.
+        """
+        include_payment_link: bool
+        """
+        If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
         """
 
     class UpdateParamsPaymentMethodOptions(TypedDict):

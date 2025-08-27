@@ -22,75 +22,100 @@ class BalanceSettings(
 
     OBJECT_NAME: ClassVar[Literal["balance_settings"]] = "balance_settings"
 
-    class Payouts(StripeObject):
-        class Schedule(StripeObject):
-            interval: Optional[Literal["daily", "manual", "monthly", "weekly"]]
-            """
-            How frequently funds will be paid out. One of `manual` (payouts only created via API call), `daily`, `weekly`, or `monthly`.
-            """
-            monthly_payout_days: Optional[List[int]]
-            """
-            The day of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
-            """
-            weekly_payout_days: Optional[
-                List[
-                    Literal[
-                        "friday",
-                        "monday",
-                        "saturday",
-                        "sunday",
-                        "thursday",
-                        "tuesday",
-                        "wednesday",
+    class Payments(StripeObject):
+        class Payouts(StripeObject):
+            class Schedule(StripeObject):
+                interval: Optional[
+                    Literal["daily", "manual", "monthly", "weekly"]
+                ]
+                """
+                How frequently funds will be paid out. One of `manual` (payouts only created via API call), `daily`, `weekly`, or `monthly`.
+                """
+                monthly_payout_days: Optional[List[int]]
+                """
+                The day of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
+                """
+                weekly_payout_days: Optional[
+                    List[
+                        Literal[
+                            "friday",
+                            "monday",
+                            "saturday",
+                            "sunday",
+                            "thursday",
+                            "tuesday",
+                            "wednesday",
+                        ]
                     ]
                 ]
-            ]
+                """
+                The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
+                """
+
+            schedule: Optional[Schedule]
             """
-            The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
+            Details on when funds from charges are available, and when they are paid out to an external account. See our [Setting Bank and Debit Card Payouts](https://stripe.com/docs/connect/bank-transfers#payout-information) documentation for details.
+            """
+            statement_descriptor: Optional[str]
+            """
+            The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
+            """
+            status: Literal["disabled", "enabled"]
+            """
+            Whether the funds in this account can be paid out.
+            """
+            _inner_class_types = {"schedule": Schedule}
+
+        class SettlementTiming(StripeObject):
+            delay_days: int
+            """
+            The number of days charge funds are held before becoming available.
             """
 
-        schedule: Optional[Schedule]
+        debit_negative_balances: Optional[bool]
         """
-        Details on when funds from charges are available, and when they are paid out to an external account. See our [Setting Bank and Debit Card Payouts](https://stripe.com/docs/connect/bank-transfers#payout-information) documentation for details.
+        A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See [Understanding Connect account balances](https://docs.stripe.com/connect/account-balances) for details. The default value is `false` when [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, otherwise `true`.
         """
-        statement_descriptor: Optional[str]
+        payouts: Optional[Payouts]
         """
-        The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
+        Settings specific to the account's payouts.
         """
-        status: Literal["disabled", "enabled"]
-        """
-        Whether the funds in this account can be paid out.
-        """
-        _inner_class_types = {"schedule": Schedule}
-
-    class SettlementTiming(StripeObject):
-        delay_days: int
-        """
-        The number of days charge funds are held before becoming available.
-        """
+        settlement_timing: SettlementTiming
+        _inner_class_types = {
+            "payouts": Payouts,
+            "settlement_timing": SettlementTiming,
+        }
 
     class ModifyParams(RequestOptions):
-        debit_negative_balances: NotRequired[bool]
-        """
-        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://docs.stripe.com/connect/account-balances).
-        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        payouts: NotRequired["BalanceSettings.ModifyParamsPayouts"]
+        payments: "BalanceSettings.ModifyParamsPayments"
+        """
+        Settings that apply to the [Payments Balance](https://docs.stripe.com/api/balance).
+        """
+
+    class ModifyParamsPayments(TypedDict):
+        debit_negative_balances: NotRequired[bool]
+        """
+        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://docs.stripe.com/connect/account-balances).
+        """
+        payouts: NotRequired["BalanceSettings.ModifyParamsPaymentsPayouts"]
         """
         Settings specific to the account's payouts.
         """
         settlement_timing: NotRequired[
-            "BalanceSettings.ModifyParamsSettlementTiming"
+            "BalanceSettings.ModifyParamsPaymentsSettlementTiming"
         ]
         """
         Settings related to the account's balance settlement timing.
         """
 
-    class ModifyParamsPayouts(TypedDict):
-        schedule: NotRequired["BalanceSettings.ModifyParamsPayoutsSchedule"]
+    class ModifyParamsPaymentsPayouts(TypedDict):
+        schedule: NotRequired[
+            "BalanceSettings.ModifyParamsPaymentsPayoutsSchedule"
+        ]
         """
         Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://docs.stripe.com/connect/bank-transfers#payout-information) documentation.
         """
@@ -99,7 +124,7 @@ class BalanceSettings(
         The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
         """
 
-    class ModifyParamsPayoutsSchedule(TypedDict):
+    class ModifyParamsPaymentsPayoutsSchedule(TypedDict):
         interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
         """
         How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
@@ -125,7 +150,7 @@ class BalanceSettings(
         The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
         """
 
-    class ModifyParamsSettlementTiming(TypedDict):
+    class ModifyParamsPaymentsSettlementTiming(TypedDict):
         delay_days_override: NotRequired[int]
         """
         The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
@@ -137,19 +162,11 @@ class BalanceSettings(
         Specifies which fields in the response should be expanded.
         """
 
-    debit_negative_balances: Optional[bool]
-    """
-    A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See [Understanding Connect account balances](https://docs.stripe.com/connect/account-balances) for details. The default value is `false` when [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, otherwise `true`.
-    """
     object: Literal["balance_settings"]
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    payouts: Optional[Payouts]
-    """
-    Settings specific to the account's payouts.
-    """
-    settlement_timing: SettlementTiming
+    payments: Payments
 
     @classmethod
     def modify(
@@ -213,7 +230,4 @@ class BalanceSettings(
     def class_url(cls):
         return "/v1/balance_settings"
 
-    _inner_class_types = {
-        "payouts": Payouts,
-        "settlement_timing": SettlementTiming,
-    }
+    _inner_class_types = {"payments": Payments}

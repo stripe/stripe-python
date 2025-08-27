@@ -14,23 +14,23 @@ class CustomPricingUnitService(StripeService):
         display_name: str
         """
         Description that customers will see in the invoice line item.
-        Maximum length of 250 characters.
+        Maximum length of 10 characters.
         """
         lookup_key: NotRequired[str]
         """
-        An internal key you can use to search for a particular CustomPricingUnit item.
+        An internal key you can use to search for a particular custom pricing unit item.
         Must be unique among items.
         Maximum length of 200 characters.
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
 
     class ListParams(TypedDict):
         active: NotRequired[bool]
         """
-        Filter for active/inactive CustomPricingUnits. Mutually exclusive with `lookup_keys`.
+        Filter for active/inactive custom pricing units. Mutually exclusive with `lookup_keys`.
         """
         limit: NotRequired[int]
         """
@@ -48,7 +48,15 @@ class CustomPricingUnitService(StripeService):
     class UpdateParams(TypedDict):
         active: NotRequired[bool]
         """
-        Whether the CustomPricingUnit is active.
+        Whether the Custom Pricing Unit is active.
+        """
+        display_name: NotRequired[str]
+        """
+        Description that customers will see in the invoice line item.
+        """
+        lookup_key: NotRequired[Optional[str]]
+        """
+        An internal key you can use to search for a particular CustomPricingUnit item.
         """
         metadata: NotRequired[Dict[str, Optional[str]]]
         """
@@ -61,7 +69,7 @@ class CustomPricingUnitService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[CustomPricingUnit]:
         """
-        List all CustomPricingUnit objects.
+        List all Custom Pricing Unit objects.
         """
         return cast(
             ListObject[CustomPricingUnit],
@@ -80,7 +88,7 @@ class CustomPricingUnitService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[CustomPricingUnit]:
         """
-        List all CustomPricingUnit objects.
+        List all Custom Pricing Unit objects.
         """
         return cast(
             ListObject[CustomPricingUnit],
@@ -99,7 +107,7 @@ class CustomPricingUnitService(StripeService):
         options: RequestOptions = {},
     ) -> CustomPricingUnit:
         """
-        Create a CustomPricingUnit object.
+        Create a Custom Pricing Unit object.
         """
         return cast(
             CustomPricingUnit,
@@ -118,7 +126,7 @@ class CustomPricingUnitService(StripeService):
         options: RequestOptions = {},
     ) -> CustomPricingUnit:
         """
-        Create a CustomPricingUnit object.
+        Create a Custom Pricing Unit object.
         """
         return cast(
             CustomPricingUnit,
@@ -138,7 +146,7 @@ class CustomPricingUnitService(StripeService):
         options: RequestOptions = {},
     ) -> CustomPricingUnit:
         """
-        Retrieve a CustomPricingUnit object.
+        Retrieve a Custom Pricing Unit object.
         """
         return cast(
             CustomPricingUnit,
@@ -160,7 +168,7 @@ class CustomPricingUnitService(StripeService):
         options: RequestOptions = {},
     ) -> CustomPricingUnit:
         """
-        Retrieve a CustomPricingUnit object.
+        Retrieve a Custom Pricing Unit object.
         """
         return cast(
             CustomPricingUnit,
@@ -182,7 +190,7 @@ class CustomPricingUnitService(StripeService):
         options: RequestOptions = {},
     ) -> CustomPricingUnit:
         """
-        Update a CustomPricingUnit object.
+        Update a Custom Pricing Unit object.
         """
         return cast(
             CustomPricingUnit,
@@ -204,7 +212,7 @@ class CustomPricingUnitService(StripeService):
         options: RequestOptions = {},
     ) -> CustomPricingUnit:
         """
-        Update a CustomPricingUnit object.
+        Update a Custom Pricing Unit object.
         """
         return cast(
             CustomPricingUnit,

@@ -31,6 +31,12 @@ class ConfigurationService(StripeService):
         """
         Configurations for collecting transactions offline.
         """
+        reader_security: NotRequired[
+            "Literal['']|ConfigurationService.CreateParamsReaderSecurity"
+        ]
+        """
+        Configurations for reader security settings.
+        """
         reboot_window: NotRequired[
             "ConfigurationService.CreateParamsRebootWindow"
         ]
@@ -68,6 +74,12 @@ class ConfigurationService(StripeService):
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class CreateParamsReaderSecurity(TypedDict):
+        admin_menu_passcode: NotRequired["Literal['']|str"]
+        """
+        Passcode used to access a reader's admin menu.
         """
 
     class CreateParamsRebootWindow(TypedDict):
@@ -134,6 +146,10 @@ class ConfigurationService(StripeService):
         jpy: NotRequired["ConfigurationService.CreateParamsTippingJpy"]
         """
         Tipping configuration for JPY
+        """
+        mxn: NotRequired["ConfigurationService.CreateParamsTippingMxn"]
+        """
+        Tipping configuration for MXN
         """
         myr: NotRequired["ConfigurationService.CreateParamsTippingMyr"]
         """
@@ -323,6 +339,20 @@ class ConfigurationService(StripeService):
         """
 
     class CreateParamsTippingJpy(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingMxn(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -582,6 +612,12 @@ class ConfigurationService(StripeService):
         """
         Configurations for collecting transactions offline.
         """
+        reader_security: NotRequired[
+            "Literal['']|ConfigurationService.UpdateParamsReaderSecurity"
+        ]
+        """
+        Configurations for reader security settings.
+        """
         reboot_window: NotRequired[
             "Literal['']|ConfigurationService.UpdateParamsRebootWindow"
         ]
@@ -621,6 +657,12 @@ class ConfigurationService(StripeService):
         enabled: bool
         """
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class UpdateParamsReaderSecurity(TypedDict):
+        admin_menu_passcode: NotRequired["Literal['']|str"]
+        """
+        Passcode used to access a reader's admin menu.
         """
 
     class UpdateParamsRebootWindow(TypedDict):
@@ -687,6 +729,10 @@ class ConfigurationService(StripeService):
         jpy: NotRequired["ConfigurationService.UpdateParamsTippingJpy"]
         """
         Tipping configuration for JPY
+        """
+        mxn: NotRequired["ConfigurationService.UpdateParamsTippingMxn"]
+        """
+        Tipping configuration for MXN
         """
         myr: NotRequired["ConfigurationService.UpdateParamsTippingMyr"]
         """
@@ -876,6 +922,20 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParamsTippingJpy(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class UpdateParamsTippingMxn(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip

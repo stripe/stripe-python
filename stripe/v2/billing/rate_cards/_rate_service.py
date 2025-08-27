@@ -19,16 +19,16 @@ class RateService(StripeService):
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         metered_item: NotRequired[str]
         """
-        The MeteredItem that this rate binds to.
+        The Metered Item that this rate binds to.
         """
         price: NotRequired[str]
         """
-        The ID of the Price object to take price information from. The Price must have the same interval as the RateCard.
-        Updates to the Price will not be reflected in the RateCard or its rates.
+        The ID of the price object to take price information from. The price must have the same interval as the rate card.
+        Updates to the Price will not be reflected in the Rate Card or its rates.
         """
         tiering_mode: NotRequired[Literal["graduated", "volume"]]
         """
@@ -102,7 +102,7 @@ class RateService(StripeService):
         """
         metered_item: NotRequired[str]
         """
-        Optionally filter by a MeteredItem.
+        Optionally filter by a Metered Item.
         """
         rate_card_version: NotRequired[str]
         """
@@ -119,7 +119,7 @@ class RateService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[RateCardRate]:
         """
-        List all Rates associated with a RateCard for a specific version (defaults to latest). Rates remain active for all subsequent versions until a new Rate is created for the same MeteredItem.
+        List all Rates associated with a Rate Card for a specific version (defaults to latest). Rates remain active for all subsequent versions until a new rate is created for the same Metered Item.
         """
         return cast(
             ListObject[RateCardRate],
@@ -141,7 +141,7 @@ class RateService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[RateCardRate]:
         """
-        List all Rates associated with a RateCard for a specific version (defaults to latest). Rates remain active for all subsequent versions until a new Rate is created for the same MeteredItem.
+        List all Rates associated with a Rate Card for a specific version (defaults to latest). Rates remain active for all subsequent versions until a new rate is created for the same Metered Item.
         """
         return cast(
             ListObject[RateCardRate],
@@ -163,8 +163,8 @@ class RateService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardRate:
         """
-        Set the rate for a MeteredItem on the latest version of a RateCard object. This will create a new RateCard version
-        if the MeteredItem already has a rate on the RateCard.
+        Set the Rate for a Metered Item on the latest version of a Rate Card object. This will create a new Rate Card version
+        if the Metered Item already has a rate on the Rate Card.
         """
         return cast(
             RateCardRate,
@@ -186,8 +186,8 @@ class RateService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardRate:
         """
-        Set the rate for a MeteredItem on the latest version of a RateCard object. This will create a new RateCard version
-        if the MeteredItem already has a rate on the RateCard.
+        Set the Rate for a Metered Item on the latest version of a Rate Card object. This will create a new Rate Card version
+        if the Metered Item already has a rate on the Rate Card.
         """
         return cast(
             RateCardRate,
@@ -210,7 +210,7 @@ class RateService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardRate:
         """
-        Remove an existing Rate from a RateCard. This will create a new RateCard version without that rate.
+        Remove an existing Rate from a Rate Card. This will create a new Rate Card Version without that Rate.
         """
         return cast(
             RateCardRate,
@@ -234,7 +234,7 @@ class RateService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardRate:
         """
-        Remove an existing Rate from a RateCard. This will create a new RateCard version without that rate.
+        Remove an existing Rate from a Rate Card. This will create a new Rate Card Version without that Rate.
         """
         return cast(
             RateCardRate,

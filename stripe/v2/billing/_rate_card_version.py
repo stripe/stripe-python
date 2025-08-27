@@ -15,7 +15,7 @@ class RateCardVersion(StripeObject):
     """
     id: str
     """
-    The ID of the RateCardVersion.
+    Unique identifier for the object.
     """
     livemode: bool
     """
@@ -27,5 +27,5 @@ class RateCardVersion(StripeObject):
     """
     rate_card_id: str
     """
-    The ID of the RateCard that this version belongs to.
+    The ID of the Rate Card that this version belongs to.
     """

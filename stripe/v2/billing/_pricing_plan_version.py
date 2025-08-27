@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar
+from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 
@@ -13,13 +13,13 @@ class PricingPlanVersion(StripeObject):
     """
     Time at which the object was created.
     """
-    end_date: str
+    end_date: Optional[str]
     """
-    The timestamp when this version became inactive.
+    The timestamp when this version became inactive. Null if it's the latest version.
     """
     id: str
     """
-    Unique identifier for the PricingPlanVersion.
+    Unique identifier for the object.
     """
     livemode: bool
     """

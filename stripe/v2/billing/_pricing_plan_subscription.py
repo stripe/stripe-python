@@ -48,7 +48,7 @@ class PricingPlanSubscription(StripeObject):
 
     billing_cadence: str
     """
-    The ID of the Cadence this subscription is billed on.
+    The ID of the Billing Cadence this subscription is billed on.
     """
     collection_status: Literal[
         "awaiting_customer_action", "current", "past_due", "paused", "unpaid"
@@ -66,7 +66,7 @@ class PricingPlanSubscription(StripeObject):
     """
     id: str
     """
-    Unique identifier for the PricingPlanSubscription.
+    Unique identifier for the object.
     """
     livemode: bool
     """
@@ -74,7 +74,7 @@ class PricingPlanSubscription(StripeObject):
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of key-value pairs that you can attach to an object.
+    Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["v2.billing.pricing_plan_subscription"]
     """
@@ -82,11 +82,11 @@ class PricingPlanSubscription(StripeObject):
     """
     pricing_plan: str
     """
-    The ID of the PricingPlan for this subscription.
+    The ID of the Pricing Plan for this subscription.
     """
     pricing_plan_version: str
     """
-    The ID of the PricingPlanVersion for this subscription.
+    The ID of the Pricing Plan Version for this subscription.
     """
     servicing_status: Literal["active", "canceled", "paused", "pending"]
     """
@@ -98,7 +98,7 @@ class PricingPlanSubscription(StripeObject):
     """
     test_clock: Optional[str]
     """
-    The ID of the TestClock of the associated Cadence, if any.
+    The ID of the Test Clock of the associated Billing Cadence, if any.
     """
     _inner_class_types = {
         "collection_status_transitions": CollectionStatusTransitions,

@@ -27,8 +27,7 @@ class CadenceService(StripeService):
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful
-        for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         payer: "CadenceService.CreateParamsPayer"
         """
@@ -82,11 +81,15 @@ class CadenceService(StripeService):
         This must be an integer between 0 and 23, inclusive.
         0 represents midnight, and 23 represents 11 PM.
         """
-        minute: NotRequired[int]
+        minute: int
         """
         The minute at which the billing cycle ends.
         Must be an integer between 0 and 59, inclusive.
-        Will default to the minute the cadence was created in UTC timezone.
+        """
+        second: int
+        """
+        The second at which the billing cycle ends.
+        Must be an integer between 0 and 59, inclusive.
         """
 
     class CreateParamsBillingCycleMonth(TypedDict):
@@ -111,11 +114,15 @@ class CadenceService(StripeService):
         This must be an integer between 0 and 23, inclusive.
         0 represents midnight, and 23 represents 11 PM.
         """
-        minute: NotRequired[int]
+        minute: int
         """
         The minute at which the billing cycle ends.
         Must be an integer between 0 and 59, inclusive.
-        Will default to the minute the cadence was created in UTC timezone.
+        """
+        second: int
+        """
+        The second at which the billing cycle ends.
+        Must be an integer between 0 and 59, inclusive.
         """
 
     class CreateParamsBillingCycleWeek(TypedDict):
@@ -140,11 +147,15 @@ class CadenceService(StripeService):
         This must be an integer between 0 and 23, inclusive.
         0 represents midnight, and 23 represents 11 PM.
         """
-        minute: NotRequired[int]
+        minute: int
         """
         The minute at which the billing cycle ends.
         Must be an integer between 0 and 59, inclusive.
-        Will default to the minute the cadence was created in UTC timezone.
+        """
+        second: int
+        """
+        The second at which the billing cycle ends.
+        Must be an integer between 0 and 59, inclusive.
         """
 
     class CreateParamsBillingCycleYear(TypedDict):
@@ -174,11 +185,15 @@ class CadenceService(StripeService):
         This must be an integer between 0 and 23, inclusive.
         0 represents midnight, and 23 represents 11 PM.
         """
-        minute: NotRequired[int]
+        minute: int
         """
         The minute at which the billing cycle ends.
         Must be an integer between 0 and 59, inclusive.
-        Will default to the minute the cadence was created in UTC timezone.
+        """
+        second: int
+        """
+        The second at which the billing cycle ends.
+        Must be an integer between 0 and 59, inclusive.
         """
 
     class CreateParamsPayer(TypedDict):
@@ -215,7 +230,7 @@ class CadenceService(StripeService):
     class CreateParamsSettingsBill(TypedDict):
         id: str
         """
-        The ID of the referenced Settings object.
+        The ID of the referenced settings object.
         """
         version: NotRequired[str]
         """
@@ -226,7 +241,7 @@ class CadenceService(StripeService):
     class CreateParamsSettingsCollection(TypedDict):
         id: str
         """
-        The ID of the referenced Settings object.
+        The ID of the referenced settings object.
         """
         version: NotRequired[str]
         """
@@ -245,11 +260,11 @@ class CadenceService(StripeService):
         """
         payer: NotRequired["CadenceService.ListParamsPayer"]
         """
-        If provided, only Cadences that specifically reference the payer will be returned. Mutually exclusive with `test_clock`.
+        If provided, only cadences that specifically reference the payer will be returned. Mutually exclusive with `test_clock`.
         """
         test_clock: NotRequired[str]
         """
-        If provided, only Cadences that specifically reference the provided test clock ID (via the
+        If provided, only cadences that specifically reference the provided test clock ID (via the
         customer's test clock) will be returned.
         Mutually exclusive with `payer`.
         """
@@ -257,7 +272,7 @@ class CadenceService(StripeService):
     class ListParamsPayer(TypedDict):
         customer: NotRequired[str]
         """
-        The ID of the Customer object. If provided, only Cadences that specifically reference the provided customer ID will be returned.
+        The ID of the Customer object. If provided, only cadences that specifically reference the provided customer ID will be returned.
         """
         type: Literal["customer"]
         """
@@ -277,7 +292,7 @@ class CadenceService(StripeService):
         """
         metadata: NotRequired[Dict[str, Optional[str]]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         payer: NotRequired["CadenceService.UpdateParamsPayer"]
         """
@@ -309,7 +324,7 @@ class CadenceService(StripeService):
     class UpdateParamsSettingsBill(TypedDict):
         id: str
         """
-        The ID of the referenced Settings object.
+        The ID of the referenced settings object.
         """
         version: NotRequired[Optional[str]]
         """
@@ -322,7 +337,7 @@ class CadenceService(StripeService):
     class UpdateParamsSettingsCollection(TypedDict):
         id: str
         """
-        The ID of the referenced Settings object.
+        The ID of the referenced settings object.
         """
         version: NotRequired[Optional[str]]
         """
@@ -338,7 +353,7 @@ class CadenceService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[Cadence]:
         """
-        List all the billing Cadences.
+        List Billing Cadences.
         """
         return cast(
             ListObject[Cadence],
@@ -357,7 +372,7 @@ class CadenceService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[Cadence]:
         """
-        List all the billing Cadences.
+        List Billing Cadences.
         """
         return cast(
             ListObject[Cadence],
@@ -376,7 +391,7 @@ class CadenceService(StripeService):
         options: RequestOptions = {},
     ) -> Cadence:
         """
-        Create a billing Cadence object.
+        Create a Billing Cadence object.
         """
         return cast(
             Cadence,
@@ -395,7 +410,7 @@ class CadenceService(StripeService):
         options: RequestOptions = {},
     ) -> Cadence:
         """
-        Create a billing Cadence object.
+        Create a Billing Cadence object.
         """
         return cast(
             Cadence,
@@ -415,7 +430,7 @@ class CadenceService(StripeService):
         options: RequestOptions = {},
     ) -> Cadence:
         """
-        Retrieve a billing Cadence object.
+        Retrieve a Billing Cadence object.
         """
         return cast(
             Cadence,
@@ -435,7 +450,7 @@ class CadenceService(StripeService):
         options: RequestOptions = {},
     ) -> Cadence:
         """
-        Retrieve a billing Cadence object.
+        Retrieve a Billing Cadence object.
         """
         return cast(
             Cadence,
@@ -455,7 +470,7 @@ class CadenceService(StripeService):
         options: RequestOptions = {},
     ) -> Cadence:
         """
-        Update a billing Cadence object.
+        Update a Billing Cadence object.
         """
         return cast(
             Cadence,
@@ -475,7 +490,7 @@ class CadenceService(StripeService):
         options: RequestOptions = {},
     ) -> Cadence:
         """
-        Update a billing Cadence object.
+        Update a Billing Cadence object.
         """
         return cast(
             Cadence,
@@ -495,7 +510,7 @@ class CadenceService(StripeService):
         options: RequestOptions = {},
     ) -> Cadence:
         """
-        Cancel the billing cadence.
+        Cancel the Billing Cadence.
         """
         return cast(
             Cadence,
@@ -515,7 +530,7 @@ class CadenceService(StripeService):
         options: RequestOptions = {},
     ) -> Cadence:
         """
-        Cancel the billing cadence.
+        Cancel the Billing Cadence.
         """
         return cast(
             Cadence,

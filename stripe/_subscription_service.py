@@ -256,6 +256,16 @@ class SubscriptionService(StripeService):
         """
         The coupons to redeem into discounts for the item.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "SubscriptionService.CreateParamsAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. Defaults to the current period of the subscription.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -321,6 +331,36 @@ class SubscriptionService(StripeService):
         The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
         """
 
+    class CreateParamsAddInvoiceItemPeriod(TypedDict):
+        end: "SubscriptionService.CreateParamsAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: "SubscriptionService.CreateParamsAddInvoiceItemPeriodStart"
+        """
+        Start of the invoice item period.
+        """
+
+    class CreateParamsAddInvoiceItemPeriodEnd(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class CreateParamsAddInvoiceItemPeriodStart(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "now", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
+        """
+
     class CreateParamsAddInvoiceItemPriceData(TypedDict):
         currency: str
         """
@@ -370,23 +410,23 @@ class SubscriptionService(StripeService):
     class CreateParamsBillingCycleAnchorConfig(TypedDict):
         day_of_month: int
         """
-        The day of the month the billing_cycle_anchor should be. Ranges from 1 to 31.
+        The day of the month the anchor should be. Ranges from 1 to 31.
         """
         hour: NotRequired[int]
         """
-        The hour of the day the billing_cycle_anchor should be. Ranges from 0 to 23.
+        The hour of the day the anchor should be. Ranges from 0 to 23.
         """
         minute: NotRequired[int]
         """
-        The minute of the hour the billing_cycle_anchor should be. Ranges from 0 to 59.
+        The minute of the hour the anchor should be. Ranges from 0 to 59.
         """
         month: NotRequired[int]
         """
-        The month to start full cycle billing periods. Ranges from 1 to 12.
+        The month to start full cycle periods. Ranges from 1 to 12.
         """
         second: NotRequired[int]
         """
-        The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
+        The second of the minute the anchor should be. Ranges from 0 to 59.
         """
 
     class CreateParamsBillingMode(TypedDict):
@@ -977,13 +1017,13 @@ class SubscriptionService(StripeService):
             "SubscriptionService.ListParamsCurrentPeriodEnd|int"
         ]
         """
-        Only return subscriptions whose current_period_end falls within the given date interval.
+        Only return subscriptions whose minimum item current_period_end falls within the given date interval.
         """
         current_period_start: NotRequired[
             "SubscriptionService.ListParamsCurrentPeriodStart|int"
         ]
         """
-        Only return subscriptions whose current_period_start falls within the given date interval.
+        Only return subscriptions whose maximum item current_period_start falls within the given date interval.
         """
         customer: NotRequired[str]
         """
@@ -1334,6 +1374,16 @@ class SubscriptionService(StripeService):
         """
         The coupons to redeem into discounts for the item.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "SubscriptionService.UpdateParamsAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. Defaults to the current period of the subscription.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -1397,6 +1447,36 @@ class SubscriptionService(StripeService):
         interval_count: int
         """
         The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class UpdateParamsAddInvoiceItemPeriod(TypedDict):
+        end: "SubscriptionService.UpdateParamsAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: "SubscriptionService.UpdateParamsAddInvoiceItemPeriodStart"
+        """
+        Start of the invoice item period.
+        """
+
+    class UpdateParamsAddInvoiceItemPeriodEnd(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class UpdateParamsAddInvoiceItemPeriodStart(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "now", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class UpdateParamsAddInvoiceItemPriceData(TypedDict):
@@ -2402,7 +2482,7 @@ class SubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> Subscription:
         """
-        Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
         """
         return cast(
             Subscription,
@@ -2424,7 +2504,7 @@ class SubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> Subscription:
         """
-        Attach a Cadence to an existing subscription. Once attached, the subscription will be billed by the cadence, potentially sharing invoices with the other subscriptions linked to the Cadence.
+        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
         """
         return cast(
             Subscription,

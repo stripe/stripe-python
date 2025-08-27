@@ -5,11 +5,16 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._intent import Intent
+from stripe.v2.billing.intents._action_service import ActionService
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class IntentService(StripeService):
+    def __init__(self, requestor):
+        super().__init__(requestor)
+        self.actions = ActionService(self._requestor)
+
     class CancelParams(TypedDict):
         pass
 
@@ -22,17 +27,11 @@ class IntentService(StripeService):
     class CreateParams(TypedDict):
         actions: List["IntentService.CreateParamsAction"]
         """
-        Actions to be performed by this BillingIntent.
+        Actions to be performed by this Billing Intent.
         """
         currency: str
         """
-        Three-letter ISO currency code, in lowercase.
-        """
-        effective_at: Literal[
-            "current_billing_period_start", "on_commit", "on_reserve"
-        ]
-        """
-        When the BillingIntent will take effect.
+        Three-letter ISO currency code, in lowercase. Must be a supported currency.
         """
         cadence: NotRequired[str]
         """
@@ -42,7 +41,7 @@ class IntentService(StripeService):
     class CreateParamsAction(TypedDict):
         type: Literal["apply", "deactivate", "modify", "remove", "subscribe"]
         """
-        Type of the BillingIntentAction.
+        Type of the Billing Intent action.
         """
         apply: NotRequired["IntentService.CreateParamsActionApply"]
         """
@@ -112,17 +111,47 @@ class IntentService(StripeService):
         """
 
     class CreateParamsActionDeactivate(TypedDict):
+        billing_details: NotRequired[
+            "IntentService.CreateParamsActionDeactivateBillingDetails"
+        ]
+        """
+        Configuration for the billing details.
+        """
+        effective_at: NotRequired[
+            "IntentService.CreateParamsActionDeactivateEffectiveAt"
+        ]
+        """
+        When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
+        """
         pricing_plan_subscription_details: "IntentService.CreateParamsActionDeactivatePricingPlanSubscriptionDetails"
         """
         Details for deactivating a pricing plan subscription.
         """
-        proration_behavior: Literal["always_invoice", "none"]
-        """
-        Behavior for handling prorations.
-        """
-        type: Literal["pricing_plan_subscription_details"]
+        type: Literal[
+            "pricing_plan_subscription_details", "v1_subscription_details"
+        ]
         """
         Type of the action details.
+        """
+
+    class CreateParamsActionDeactivateBillingDetails(TypedDict):
+        proration_behavior: NotRequired[
+            Literal["no_adjustment", "prorated_adjustment"]
+        ]
+        """
+        This controls the proration adjustment for the partial servicing period.
+        """
+
+    class CreateParamsActionDeactivateEffectiveAt(TypedDict):
+        timestamp: NotRequired[str]
+        """
+        The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
+        """
+        type: Literal[
+            "current_billing_period_start", "on_reserve", "timestamp"
+        ]
+        """
+        When the deactivate action will take effect.
         """
 
     class CreateParamsActionDeactivatePricingPlanSubscriptionDetails(
@@ -134,17 +163,47 @@ class IntentService(StripeService):
         """
 
     class CreateParamsActionModify(TypedDict):
+        billing_details: NotRequired[
+            "IntentService.CreateParamsActionModifyBillingDetails"
+        ]
+        """
+        Configuration for the billing details.
+        """
+        effective_at: NotRequired[
+            "IntentService.CreateParamsActionModifyEffectiveAt"
+        ]
+        """
+        When the modify action will take effect. If not specified, the default behavior is on_reserve.
+        """
         pricing_plan_subscription_details: "IntentService.CreateParamsActionModifyPricingPlanSubscriptionDetails"
         """
         Details for modifying a pricing plan subscription.
         """
-        proration_behavior: Literal["always_invoice", "none"]
-        """
-        Behavior for handling prorations.
-        """
-        type: Literal["pricing_plan_subscription_details"]
+        type: Literal[
+            "pricing_plan_subscription_details", "v1_subscription_details"
+        ]
         """
         Type of the action details.
+        """
+
+    class CreateParamsActionModifyBillingDetails(TypedDict):
+        proration_behavior: NotRequired[
+            Literal["no_adjustment", "prorated_adjustment"]
+        ]
+        """
+        This controls the proration adjustment for the partial servicing period.
+        """
+
+    class CreateParamsActionModifyEffectiveAt(TypedDict):
+        timestamp: NotRequired[str]
+        """
+        The timestamp at which the modify action will take effect. Only present if type is timestamp.
+        """
+        type: Literal[
+            "current_billing_period_start", "on_reserve", "timestamp"
+        ]
+        """
+        When the modify action will take effect.
         """
 
     class CreateParamsActionModifyPricingPlanSubscriptionDetails(TypedDict):
@@ -158,15 +217,15 @@ class IntentService(StripeService):
         """
         new_pricing_plan: NotRequired[str]
         """
-        ID of the new pricing plan, if changing plans.
+        The ID of the new Pricing Plan, if changing plans.
         """
         new_pricing_plan_version: NotRequired[str]
         """
-        Version of the pricing plan to use.
+        The ID of the new Pricing Plan Version to use.
         """
         pricing_plan_subscription: str
         """
-        ID of the pricing plan subscription to modify.
+        The ID of the Pricing Plan Subscription to modify.
         """
 
     class CreateParamsActionModifyPricingPlanSubscriptionDetailsComponentConfiguration(
@@ -196,11 +255,21 @@ class IntentService(StripeService):
         """
 
     class CreateParamsActionSubscribe(TypedDict):
-        proration_behavior: Literal["always_invoice", "none"]
+        billing_details: NotRequired[
+            "IntentService.CreateParamsActionSubscribeBillingDetails"
+        ]
         """
-        Behavior for handling prorations.
+        Configuration for the billing details. If not specified, see the default behavior for individual attributes.
         """
-        type: Literal["pricing_plan_subscription_details"]
+        effective_at: NotRequired[
+            "IntentService.CreateParamsActionSubscribeEffectiveAt"
+        ]
+        """
+        When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
+        """
+        type: Literal[
+            "pricing_plan_subscription_details", "v1_subscription_details"
+        ]
         """
         Type of the action details.
         """
@@ -209,6 +278,32 @@ class IntentService(StripeService):
         ]
         """
         Details for subscribing to a pricing plan.
+        """
+        v1_subscription_details: NotRequired[
+            "IntentService.CreateParamsActionSubscribeV1SubscriptionDetails"
+        ]
+        """
+        Details for subscribing to a v1 subscription.
+        """
+
+    class CreateParamsActionSubscribeBillingDetails(TypedDict):
+        proration_behavior: NotRequired[
+            Literal["no_adjustment", "prorated_adjustment"]
+        ]
+        """
+        This controls the proration adjustment for the partial servicing period.
+        """
+
+    class CreateParamsActionSubscribeEffectiveAt(TypedDict):
+        timestamp: NotRequired[str]
+        """
+        The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
+        """
+        type: Literal[
+            "current_billing_period_start", "on_reserve", "timestamp"
+        ]
+        """
+        When the subscribe action will take effect.
         """
 
     class CreateParamsActionSubscribePricingPlanSubscriptionDetails(TypedDict):
@@ -222,15 +317,15 @@ class IntentService(StripeService):
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         pricing_plan: str
         """
-        ID of the pricing plan to subscribe to.
+        ID of the Pricing Plan to subscribe to.
         """
         pricing_plan_version: str
         """
-        Version of the pricing plan to use.
+        Version of the Pricing Plan to use.
         """
 
     class CreateParamsActionSubscribePricingPlanSubscriptionDetailsComponentConfiguration(
@@ -247,6 +342,37 @@ class IntentService(StripeService):
         pricing_plan_component: NotRequired[str]
         """
         ID of the pricing plan component.
+        """
+
+    class CreateParamsActionSubscribeV1SubscriptionDetails(TypedDict):
+        description: NotRequired[str]
+        """
+        The subscription's description, meant to be displayable to the customer.
+        Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        items: List[
+            "IntentService.CreateParamsActionSubscribeV1SubscriptionDetailsItem"
+        ]
+        """
+        A list of up to 20 subscription items, each with an attached price.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        """
+
+    class CreateParamsActionSubscribeV1SubscriptionDetailsItem(TypedDict):
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        """
+        price: str
+        """
+        The ID of the price object.
+        """
+        quantity: NotRequired[int]
+        """
+        Quantity for this item. If not provided, will default to 1.
         """
 
     class ListParams(TypedDict):
@@ -270,7 +396,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[Intent]:
         """
-        List BillingIntents.
+        List Billing Intents.
         """
         return cast(
             ListObject[Intent],
@@ -289,7 +415,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[Intent]:
         """
-        List BillingIntents.
+        List Billing Intents.
         """
         return cast(
             ListObject[Intent],
@@ -308,7 +434,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> Intent:
         """
-        Create a BillingIntent.
+        Create a Billing Intent.
         """
         return cast(
             Intent,
@@ -327,7 +453,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> Intent:
         """
-        Create a BillingIntent.
+        Create a Billing Intent.
         """
         return cast(
             Intent,
@@ -347,7 +473,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> Intent:
         """
-        Retrieve a BillingIntent.
+        Retrieve a Billing Intent.
         """
         return cast(
             Intent,
@@ -367,7 +493,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> Intent:
         """
-        Retrieve a BillingIntent.
+        Retrieve a Billing Intent.
         """
         return cast(
             Intent,
@@ -387,7 +513,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> Intent:
         """
-        Cancel a BillingIntent.
+        Cancel a Billing Intent.
         """
         return cast(
             Intent,
@@ -407,7 +533,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> Intent:
         """
-        Cancel a BillingIntent.
+        Cancel a Billing Intent.
         """
         return cast(
             Intent,
@@ -427,7 +553,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> Intent:
         """
-        Commit a BillingIntent.
+        Commit a Billing Intent.
         """
         return cast(
             Intent,
@@ -447,7 +573,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> Intent:
         """
-        Commit a BillingIntent.
+        Commit a Billing Intent.
         """
         return cast(
             Intent,
@@ -467,7 +593,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> Intent:
         """
-        Release a BillingIntent.
+        Release a Billing Intent.
         """
         return cast(
             Intent,
@@ -489,7 +615,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> Intent:
         """
-        Release a BillingIntent.
+        Release a Billing Intent.
         """
         return cast(
             Intent,
@@ -511,7 +637,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> Intent:
         """
-        Reserve a BillingIntent.
+        Reserve a Billing Intent.
         """
         return cast(
             Intent,
@@ -531,7 +657,7 @@ class IntentService(StripeService):
         options: RequestOptions = {},
     ) -> Intent:
         """
-        Reserve a BillingIntent.
+        Reserve a Billing Intent.
         """
         return cast(
             Intent,

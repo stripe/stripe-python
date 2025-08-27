@@ -15,7 +15,7 @@ class PricingPlanSubscriptionService(StripeService):
     class ListParams(TypedDict):
         billing_cadence: NotRequired[str]
         """
-        Filter by Cadence ID. Mutually exclusive with `payer`, `pricing_plan`, and `pricing_plan_version`.
+        Filter by Billing Cadence ID. Mutually exclusive with `payer`, `pricing_plan`, and `pricing_plan_version`.
         """
         limit: NotRequired[int]
         """
@@ -31,7 +31,7 @@ class PricingPlanSubscriptionService(StripeService):
         """
         pricing_plan_version: NotRequired[str]
         """
-        Filter by PricingPlanVersion ID. Mutually exlcusive with `billing_cadence`, `payer`, and `pricing_plan`.
+        Filter by Pricing Plan Version ID. Mutually exlcusive with `billing_cadence`, `payer`, and `pricing_plan`.
         """
         servicing_status: NotRequired[
             Literal["active", "canceled", "paused", "pending"]
@@ -43,7 +43,7 @@ class PricingPlanSubscriptionService(StripeService):
     class ListParamsPayer(TypedDict):
         customer: NotRequired[str]
         """
-        The ID of the Customer object. If provided, only PricingPlanSubscriptions that are subscribed on the Cadences with the specified Payer will be returned.
+        The ID of the Customer object. If provided, only Pricing Plan Subscriptions that are subscribed on the cadences with the specified payer will be returned.
         """
         type: Literal["customer"]
         """
@@ -59,7 +59,7 @@ class PricingPlanSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[PricingPlanSubscription]:
         """
-        List all PricingPlanSubscription objects.
+        List all Pricing Plan Subscription objects.
         """
         return cast(
             ListObject[PricingPlanSubscription],
@@ -78,7 +78,7 @@ class PricingPlanSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[PricingPlanSubscription]:
         """
-        List all PricingPlanSubscription objects.
+        List all Pricing Plan Subscription objects.
         """
         return cast(
             ListObject[PricingPlanSubscription],
@@ -98,7 +98,7 @@ class PricingPlanSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> PricingPlanSubscription:
         """
-        Retrieve a PricingPlanSubscription object.
+        Retrieve a Pricing Plan Subscription object.
         """
         return cast(
             PricingPlanSubscription,
@@ -120,7 +120,7 @@ class PricingPlanSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> PricingPlanSubscription:
         """
-        Retrieve a PricingPlanSubscription object.
+        Retrieve a Pricing Plan Subscription object.
         """
         return cast(
             PricingPlanSubscription,

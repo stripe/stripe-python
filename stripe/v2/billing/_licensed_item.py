@@ -7,8 +7,8 @@ from typing_extensions import Literal
 
 class LicensedItem(StripeObject):
     """
-    A LicensedItem represents a billable item whose pricing is based on license fees. You can use LicenseFees
-    to specify the pricing and create Subscriptions to these items.
+    A Licensed Item represents a billable item whose pricing is based on license fees. You can use license fees
+    to specify the pricing and create subscriptions to these items.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.billing.licensed_item"]] = (
@@ -32,7 +32,7 @@ class LicensedItem(StripeObject):
     """
     id: str
     """
-    The ID of the LicensedItem.
+    Unique identifier for the object.
     """
     livemode: bool
     """
@@ -45,7 +45,7 @@ class LicensedItem(StripeObject):
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["v2.billing.licensed_item"]
     """

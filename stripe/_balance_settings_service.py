@@ -15,28 +15,36 @@ class BalanceSettingsService(StripeService):
         """
 
     class UpdateParams(TypedDict):
-        debit_negative_balances: NotRequired[bool]
-        """
-        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://docs.stripe.com/connect/account-balances).
-        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
         """
-        payouts: NotRequired["BalanceSettingsService.UpdateParamsPayouts"]
+        payments: "BalanceSettingsService.UpdateParamsPayments"
+        """
+        Settings that apply to the [Payments Balance](https://docs.stripe.com/api/balance).
+        """
+
+    class UpdateParamsPayments(TypedDict):
+        debit_negative_balances: NotRequired[bool]
+        """
+        A Boolean indicating whether Stripe should try to reclaim negative balances from an attached bank account. For details, see [Understanding Connect Account Balances](https://docs.stripe.com/connect/account-balances).
+        """
+        payouts: NotRequired[
+            "BalanceSettingsService.UpdateParamsPaymentsPayouts"
+        ]
         """
         Settings specific to the account's payouts.
         """
         settlement_timing: NotRequired[
-            "BalanceSettingsService.UpdateParamsSettlementTiming"
+            "BalanceSettingsService.UpdateParamsPaymentsSettlementTiming"
         ]
         """
         Settings related to the account's balance settlement timing.
         """
 
-    class UpdateParamsPayouts(TypedDict):
+    class UpdateParamsPaymentsPayouts(TypedDict):
         schedule: NotRequired[
-            "BalanceSettingsService.UpdateParamsPayoutsSchedule"
+            "BalanceSettingsService.UpdateParamsPaymentsPayoutsSchedule"
         ]
         """
         Details on when funds from charges are available, and when they are paid out to an external account. For details, see our [Setting Bank and Debit Card Payouts](https://docs.stripe.com/connect/bank-transfers#payout-information) documentation.
@@ -46,7 +54,7 @@ class BalanceSettingsService(StripeService):
         The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
         """
 
-    class UpdateParamsPayoutsSchedule(TypedDict):
+    class UpdateParamsPaymentsPayoutsSchedule(TypedDict):
         interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
         """
         How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
@@ -72,7 +80,7 @@ class BalanceSettingsService(StripeService):
         The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
         """
 
-    class UpdateParamsSettlementTiming(TypedDict):
+    class UpdateParamsPaymentsSettlementTiming(TypedDict):
         delay_days_override: NotRequired[int]
         """
         The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
@@ -120,7 +128,7 @@ class BalanceSettingsService(StripeService):
 
     def update(
         self,
-        params: "BalanceSettingsService.UpdateParams" = {},
+        params: "BalanceSettingsService.UpdateParams",
         options: RequestOptions = {},
     ) -> BalanceSettings:
         """
@@ -140,7 +148,7 @@ class BalanceSettingsService(StripeService):
 
     async def update_async(
         self,
-        params: "BalanceSettingsService.UpdateParams" = {},
+        params: "BalanceSettingsService.UpdateParams",
         options: RequestOptions = {},
     ) -> BalanceSettings:
         """

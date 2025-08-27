@@ -26,7 +26,7 @@ class VersionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[PricingPlanVersion]:
         """
-        List all versions of a PricingPlan.
+        List all Pricing Plan Versions of a Pricing Plan.
         """
         return cast(
             ListObject[PricingPlanVersion],
@@ -48,7 +48,7 @@ class VersionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[PricingPlanVersion]:
         """
-        List all versions of a PricingPlan.
+        List all Pricing Plan Versions of a Pricing Plan.
         """
         return cast(
             ListObject[PricingPlanVersion],
@@ -71,7 +71,7 @@ class VersionService(StripeService):
         options: RequestOptions = {},
     ) -> PricingPlanVersion:
         """
-        Retrieve a specific version of a PricingPlan.
+        Retrieve a specific Pricing Plan Version of a Pricing Plan.
         """
         return cast(
             PricingPlanVersion,
@@ -95,7 +95,7 @@ class VersionService(StripeService):
         options: RequestOptions = {},
     ) -> PricingPlanVersion:
         """
-        Retrieve a specific version of a PricingPlan.
+        Retrieve a specific Pricing Plan Version of a Pricing Plan.
         """
         return cast(
             PricingPlanVersion,

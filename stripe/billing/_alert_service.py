@@ -57,17 +57,13 @@ class AlertService(StripeService):
         """
         Defines at which value the alert will fire.
         """
-        recurrence: Literal["one_time"]
-        """
-        Whether the alert should only fire only once, or once per billing cycle.
-        """
 
     class CreateParamsCreditBalanceThresholdFilter(TypedDict):
         customer: NotRequired[str]
         """
         Limit the scope to this credit balance alert only to this customer.
         """
-        type: Literal["customer"]
+        type: Literal["customer", "tenant"]
         """
         What type of filter is being applied to this credit balance alert.
         """

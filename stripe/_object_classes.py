@@ -177,8 +177,6 @@ OBJECT_CLASSES = {
 
 V2_OBJECT_CLASSES = {
     # V2 Object classes: The beginning of the section generated from our OpenAPI spec
-    stripe.v2.Account.OBJECT_NAME: stripe.v2.Account,
-    stripe.v2.AccountLink.OBJECT_NAME: stripe.v2.AccountLink,
     stripe.v2.billing.BillSetting.OBJECT_NAME: stripe.v2.billing.BillSetting,
     stripe.v2.billing.BillSettingVersion.OBJECT_NAME: stripe.v2.billing.BillSettingVersion,
     stripe.v2.billing.Cadence.OBJECT_NAME: stripe.v2.billing.Cadence,
@@ -186,8 +184,10 @@ V2_OBJECT_CLASSES = {
     stripe.v2.billing.CollectionSettingVersion.OBJECT_NAME: stripe.v2.billing.CollectionSettingVersion,
     stripe.v2.billing.CustomPricingUnit.OBJECT_NAME: stripe.v2.billing.CustomPricingUnit,
     stripe.v2.billing.Intent.OBJECT_NAME: stripe.v2.billing.Intent,
+    stripe.v2.billing.IntentAction.OBJECT_NAME: stripe.v2.billing.IntentAction,
     stripe.v2.billing.LicensedItem.OBJECT_NAME: stripe.v2.billing.LicensedItem,
     stripe.v2.billing.LicenseFee.OBJECT_NAME: stripe.v2.billing.LicenseFee,
+    stripe.v2.billing.LicenseFeeSubscription.OBJECT_NAME: stripe.v2.billing.LicenseFeeSubscription,
     stripe.v2.billing.LicenseFeeVersion.OBJECT_NAME: stripe.v2.billing.LicenseFeeVersion,
     stripe.v2.billing.MeteredItem.OBJECT_NAME: stripe.v2.billing.MeteredItem,
     stripe.v2.billing.MeterEvent.OBJECT_NAME: stripe.v2.billing.MeterEvent,
@@ -205,6 +205,7 @@ V2_OBJECT_CLASSES = {
     stripe.v2.billing.ServiceAction.OBJECT_NAME: stripe.v2.billing.ServiceAction,
     stripe.v2.core.Account.OBJECT_NAME: stripe.v2.core.Account,
     stripe.v2.core.AccountLink.OBJECT_NAME: stripe.v2.core.AccountLink,
+    stripe.v2.core.ClaimableSandbox.OBJECT_NAME: stripe.v2.core.ClaimableSandbox,
     stripe.v2.core.Person.OBJECT_NAME: stripe.v2.core.Person,
     stripe.v2.core.vault.GbBankAccount.OBJECT_NAME: stripe.v2.core.vault.GbBankAccount,
     stripe.v2.core.vault.UsBankAccount.OBJECT_NAME: stripe.v2.core.vault.UsBankAccount,

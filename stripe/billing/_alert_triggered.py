@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar
+from typing import ClassVar, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -20,9 +20,21 @@ class AlertTriggered(StripeObject):
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    currency: Optional[str]
+    """
+    Currency for the threshold value
+    """
+    custom_pricing_unit: Optional[str]
+    """
+    Custom pricing unit for the threshold value
+    """
     customer: str
     """
     ID of customer for which the alert triggered
+    """
+    external_customer_id: Optional[str]
+    """
+    External customer ID for the customer for which the alert triggered
     """
     livemode: bool
     """
@@ -32,7 +44,7 @@ class AlertTriggered(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    value: int
+    value: str
     """
     The value triggering the alert
     """

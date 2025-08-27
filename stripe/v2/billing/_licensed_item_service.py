@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._licensed_item import LicensedItem
-from typing import Dict, Optional, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -24,7 +24,7 @@ class LicensedItemService(StripeService):
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         tax_details: NotRequired["LicensedItemService.CreateParamsTaxDetails"]
         """
@@ -48,6 +48,11 @@ class LicensedItemService(StripeService):
         """
         Optionally set the maximum number of results per page. Defaults to 20.
         """
+        lookup_keys: NotRequired[List[str]]
+        """
+        Filter by lookup keys.
+        You can specify up to 10 lookup keys.
+        """
 
     class RetrieveParams(TypedDict):
         pass
@@ -66,7 +71,7 @@ class LicensedItemService(StripeService):
         """
         metadata: NotRequired[Dict[str, Optional[str]]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         tax_details: NotRequired["LicensedItemService.UpdateParamsTaxDetails"]
         """
@@ -91,7 +96,7 @@ class LicensedItemService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[LicensedItem]:
         """
-        List all LicensedItem objects in reverse chronological order of creation.
+        List all Licensed Item objects in reverse chronological order of creation.
         """
         return cast(
             ListObject[LicensedItem],
@@ -110,7 +115,7 @@ class LicensedItemService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[LicensedItem]:
         """
-        List all LicensedItem objects in reverse chronological order of creation.
+        List all Licensed Item objects in reverse chronological order of creation.
         """
         return cast(
             ListObject[LicensedItem],
@@ -129,7 +134,7 @@ class LicensedItemService(StripeService):
         options: RequestOptions = {},
     ) -> LicensedItem:
         """
-        Create a LicensedItem object.
+        Create a Licensed Item object.
         """
         return cast(
             LicensedItem,
@@ -148,7 +153,7 @@ class LicensedItemService(StripeService):
         options: RequestOptions = {},
     ) -> LicensedItem:
         """
-        Create a LicensedItem object.
+        Create a Licensed Item object.
         """
         return cast(
             LicensedItem,
@@ -168,7 +173,7 @@ class LicensedItemService(StripeService):
         options: RequestOptions = {},
     ) -> LicensedItem:
         """
-        Retrieve a LicensedItem object.
+        Retrieve a Licensed Item object.
         """
         return cast(
             LicensedItem,
@@ -188,7 +193,7 @@ class LicensedItemService(StripeService):
         options: RequestOptions = {},
     ) -> LicensedItem:
         """
-        Retrieve a LicensedItem object.
+        Retrieve a Licensed Item object.
         """
         return cast(
             LicensedItem,
@@ -208,7 +213,7 @@ class LicensedItemService(StripeService):
         options: RequestOptions = {},
     ) -> LicensedItem:
         """
-        Update a LicensedItem object. At least one of the fields is required.
+        Update a Licensed Item object. At least one of the fields is required.
         """
         return cast(
             LicensedItem,
@@ -228,7 +233,7 @@ class LicensedItemService(StripeService):
         options: RequestOptions = {},
     ) -> LicensedItem:
         """
-        Update a LicensedItem object. At least one of the fields is required.
+        Update a Licensed Item object. At least one of the fields is required.
         """
         return cast(
             LicensedItem,

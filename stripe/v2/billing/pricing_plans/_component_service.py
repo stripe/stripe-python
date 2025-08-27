@@ -17,7 +17,7 @@ class ComponentService(StripeService):
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         type: Literal["license_fee", "rate_card", "service_action"]
         """
@@ -25,47 +25,43 @@ class ComponentService(StripeService):
         """
         license_fee: NotRequired["ComponentService.CreateParamsLicenseFee"]
         """
-        Details if this component is a LicenseFee.
+        Details if this component is a License Fee.
         """
         rate_card: NotRequired["ComponentService.CreateParamsRateCard"]
         """
-        Details if this component is a RateCard.
+        Details if this component is a Rate Card.
         """
         service_action: NotRequired[
             "ComponentService.CreateParamsServiceAction"
         ]
         """
-        Details if this component is a ServiceAction.
+        Details if this component is a Service Action.
         """
 
     class CreateParamsLicenseFee(TypedDict):
         id: str
         """
-        The ID of the LicenseFee.
+        The ID of the License Fee.
         """
-        version: str
+        version: NotRequired[str]
         """
-        The version of the LicenseFee.
+        The version of the LicenseFee. Defaults to 'latest', if not specified.
         """
 
     class CreateParamsRateCard(TypedDict):
         id: str
         """
-        The ID of the RateCard.
+        The ID of the Rate Card.
         """
-        version: str
+        version: NotRequired[str]
         """
-        The version of the RateCard.
+        The version of the RateCard. Defaults to 'latest', if not specified.
         """
 
     class CreateParamsServiceAction(TypedDict):
         id: str
         """
-        The ID of the ServiceAction.
-        """
-        version: str
-        """
-        The version of the ServiceAction.
+        The ID of the service action.
         """
 
     class DeleteParams(TypedDict):
@@ -83,7 +79,7 @@ class ComponentService(StripeService):
         """
         pricing_plan_version: NotRequired[str]
         """
-        The ID of the PricingPlanVersion to list components for. Will use the latest version if not provided.
+        The ID of the Pricing Plan Version to list components for. Will use the latest version if not provided.
         Mutually exclusive with `lookup_keys`.
         """
 
@@ -107,7 +103,7 @@ class ComponentService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[PricingPlanComponent]:
         """
-        List all PricingPlanComponent objects for a PricingPlan.
+        List all Pricing Plan Component objects for a Pricing Plan.
         """
         return cast(
             ListObject[PricingPlanComponent],
@@ -129,7 +125,7 @@ class ComponentService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[PricingPlanComponent]:
         """
-        List all PricingPlanComponent objects for a PricingPlan.
+        List all Pricing Plan Component objects for a Pricing Plan.
         """
         return cast(
             ListObject[PricingPlanComponent],
@@ -151,7 +147,7 @@ class ComponentService(StripeService):
         options: RequestOptions = {},
     ) -> PricingPlanComponent:
         """
-        Create a PricingPlanComponent object.
+        Create a Pricing Plan Component object.
         """
         return cast(
             PricingPlanComponent,
@@ -173,7 +169,7 @@ class ComponentService(StripeService):
         options: RequestOptions = {},
     ) -> PricingPlanComponent:
         """
-        Create a PricingPlanComponent object.
+        Create a Pricing Plan Component object.
         """
         return cast(
             PricingPlanComponent,
@@ -196,7 +192,7 @@ class ComponentService(StripeService):
         options: RequestOptions = {},
     ) -> PricingPlanComponent:
         """
-        Remove a PricingPlanComponent from the latest version of a PricingPlan.
+        Remove a Pricing Plan Component from the latest version of a Pricing Plan.
         """
         return cast(
             PricingPlanComponent,
@@ -220,7 +216,7 @@ class ComponentService(StripeService):
         options: RequestOptions = {},
     ) -> PricingPlanComponent:
         """
-        Remove a PricingPlanComponent from the latest version of a PricingPlan.
+        Remove a Pricing Plan Component from the latest version of a Pricing Plan.
         """
         return cast(
             PricingPlanComponent,
@@ -244,7 +240,7 @@ class ComponentService(StripeService):
         options: RequestOptions = {},
     ) -> PricingPlanComponent:
         """
-        Retrieve a PricingPlanComponent object.
+        Retrieve a Pricing Plan Component object.
         """
         return cast(
             PricingPlanComponent,
@@ -268,7 +264,7 @@ class ComponentService(StripeService):
         options: RequestOptions = {},
     ) -> PricingPlanComponent:
         """
-        Retrieve a PricingPlanComponent object.
+        Retrieve a Pricing Plan Component object.
         """
         return cast(
             PricingPlanComponent,
@@ -292,7 +288,7 @@ class ComponentService(StripeService):
         options: RequestOptions = {},
     ) -> PricingPlanComponent:
         """
-        Update a PricingPlanComponent object.
+        Update a Pricing Plan Component object.
         """
         return cast(
             PricingPlanComponent,
@@ -316,7 +312,7 @@ class ComponentService(StripeService):
         options: RequestOptions = {},
     ) -> PricingPlanComponent:
         """
-        Update a PricingPlanComponent object.
+        Update a Pricing Plan Component object.
         """
         return cast(
             PricingPlanComponent,

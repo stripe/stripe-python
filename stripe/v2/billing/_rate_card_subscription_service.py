@@ -16,19 +16,19 @@ class RateCardSubscriptionService(StripeService):
     class CreateParams(TypedDict):
         billing_cadence: str
         """
-        The ID of the billing Cadence.
+        The ID of the Billing Cadence.
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         rate_card: str
         """
-        The ID of the RateCard.
+        The ID of the Rate Card.
         """
         rate_card_version: NotRequired[str]
         """
-        The ID of the RateCardVersion. If not specified, defaults to the "live_version" of the RateCard at the time of creation.
+        The ID of the Rate Card Version. If not specified, defaults to the "live_version" of the Rate Card at the time of creation.
         """
 
     class ListParams(TypedDict):
@@ -42,7 +42,7 @@ class RateCardSubscriptionService(StripeService):
         """
         payer: NotRequired["RateCardSubscriptionService.ListParamsPayer"]
         """
-        Optionally filter by the payer associated with Cadences which the RateCardSubscriptions are subscribed to.
+        Optionally filter by the payer associated with Billing Cadences which the Rate Card Subscriptions are subscribed to.
         Mutually exclusive with `billing_cadence`, `rate_card`, and `rate_card_version`.
         """
         rate_card: NotRequired[str]
@@ -63,7 +63,7 @@ class RateCardSubscriptionService(StripeService):
     class ListParamsPayer(TypedDict):
         customer: NotRequired[str]
         """
-        The ID of the Customer object. If provided, only RateCardSubscriptions that are subscribed on the Cadences with the specified Payer will be returned.
+        The ID of the Customer object. If provided, only the Rate Card Subscriptions that are subscribed on the Billing Cadences with the specified payer will be returned.
         """
         type: Literal["customer"]
         """
@@ -76,7 +76,7 @@ class RateCardSubscriptionService(StripeService):
     class UpdateParams(TypedDict):
         metadata: NotRequired[Dict[str, Optional[str]]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
 
     def list(
@@ -85,7 +85,7 @@ class RateCardSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[RateCardSubscription]:
         """
-        List all RateCardSubscription objects.
+        List all Rate Card Subscription objects.
         """
         return cast(
             ListObject[RateCardSubscription],
@@ -104,7 +104,7 @@ class RateCardSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[RateCardSubscription]:
         """
-        List all RateCardSubscription objects.
+        List all Rate Card Subscription objects.
         """
         return cast(
             ListObject[RateCardSubscription],
@@ -123,7 +123,7 @@ class RateCardSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardSubscription:
         """
-        Create a RateCardSubscription to bill a RateCard on a specified billing Cadence.
+        Create a Rate Card Subscription to bill a Rate Card on a specified Billing Cadence.
         """
         return cast(
             RateCardSubscription,
@@ -142,7 +142,7 @@ class RateCardSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardSubscription:
         """
-        Create a RateCardSubscription to bill a RateCard on a specified billing Cadence.
+        Create a Rate Card Subscription to bill a Rate Card on a specified Billing Cadence.
         """
         return cast(
             RateCardSubscription,
@@ -162,7 +162,7 @@ class RateCardSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardSubscription:
         """
-        Retrieve a RateCardSubscription by ID.
+        Retrieve a Rate Card Subscription by ID.
         """
         return cast(
             RateCardSubscription,
@@ -184,7 +184,7 @@ class RateCardSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardSubscription:
         """
-        Retrieve a RateCardSubscription by ID.
+        Retrieve a Rate Card Subscription by ID.
         """
         return cast(
             RateCardSubscription,
@@ -206,7 +206,7 @@ class RateCardSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardSubscription:
         """
-        Update fields on an existing, active RateCardSubscription.
+        Update fields on an existing, active Rate Card Subscription.
         """
         return cast(
             RateCardSubscription,
@@ -228,7 +228,7 @@ class RateCardSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardSubscription:
         """
-        Update fields on an existing, active RateCardSubscription.
+        Update fields on an existing, active Rate Card Subscription.
         """
         return cast(
             RateCardSubscription,
@@ -250,7 +250,7 @@ class RateCardSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardSubscription:
         """
-        Cancel an existing, active RateCardSubscription.
+        Cancel an existing, active Rate Card Subscription.
         """
         return cast(
             RateCardSubscription,
@@ -272,7 +272,7 @@ class RateCardSubscriptionService(StripeService):
         options: RequestOptions = {},
     ) -> RateCardSubscription:
         """
-        Cancel an existing, active RateCardSubscription.
+        Cancel an existing, active Rate Card Subscription.
         """
         return cast(
             RateCardSubscription,
