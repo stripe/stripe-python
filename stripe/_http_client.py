@@ -77,24 +77,24 @@ def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
     """
     try:
         from google.appengine.api import urlfetch  # type: ignore # noqa: F401
-
-        return UrlFetchClient(*args, **kwargs)
     except ImportError:
         pass
+    else:
+        return UrlFetchClient(*args, **kwargs)
 
     try:
         import requests  # noqa: F401
-
-        return RequestsClient(*args, **kwargs)
     except ImportError:
         pass
+    else:
+        return RequestsClient(*args, **kwargs)
 
     try:
         import pycurl  # type: ignore # noqa: F401
-
-        return PycurlClient(*args, **kwargs)
     except ImportError:
         pass
+    else:
+        return PycurlClient(*args, **kwargs)
 
     return Urllib2Client(*args, **kwargs)
 
@@ -107,17 +107,17 @@ def new_http_client_async_fallback(*args: Any, **kwargs: Any) -> "HTTPClient":
     try:
         import httpx  # noqa: F401
         import anyio  # noqa: F401
-
-        return HTTPXClient(*args, **kwargs)
     except ImportError:
         pass
+    else:
+        return HTTPXClient(*args, **kwargs)
 
     try:
         import aiohttp  # noqa: F401
-
-        return AIOHTTPClient(*args, **kwargs)
     except ImportError:
         pass
+    else:
+        return AIOHTTPClient(*args, **kwargs)
 
     return NoImportFoundAsyncClient(*args, **kwargs)
 
