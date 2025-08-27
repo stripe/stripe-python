@@ -51,7 +51,6 @@ from stripe._charge_service import ChargeService
 from stripe._checkout_service import CheckoutService
 from stripe._climate_service import ClimateService
 from stripe._confirmation_token_service import ConfirmationTokenService
-from stripe._test_helpers_service import TestHelpersService
 from stripe._country_spec_service import CountrySpecService
 from stripe._coupon_service import CouponService
 from stripe._credit_note_service import CreditNoteService
@@ -68,11 +67,11 @@ from stripe._financial_connections_service import FinancialConnectionsService
 from stripe._forwarding_service import ForwardingService
 from stripe._identity_service import IdentityService
 from stripe._invoice_service import InvoiceService
+from stripe._invoice_item_service import InvoiceItemService
 from stripe._invoice_payment_service import InvoicePaymentService
 from stripe._invoice_rendering_template_service import (
     InvoiceRenderingTemplateService,
 )
-from stripe._invoice_item_service import InvoiceItemService
 from stripe._issuing_service import IssuingService
 from stripe._mandate_service import MandateService
 from stripe._payment_intent_service import PaymentIntentService
@@ -92,10 +91,10 @@ from stripe._radar_service import RadarService
 from stripe._refund_service import RefundService
 from stripe._reporting_service import ReportingService
 from stripe._review_service import ReviewService
-from stripe._sigma_service import SigmaService
 from stripe._setup_attempt_service import SetupAttemptService
 from stripe._setup_intent_service import SetupIntentService
 from stripe._shipping_rate_service import ShippingRateService
+from stripe._sigma_service import SigmaService
 from stripe._source_service import SourceService
 from stripe._subscription_service import SubscriptionService
 from stripe._subscription_item_service import SubscriptionItemService
@@ -105,6 +104,7 @@ from stripe._tax_code_service import TaxCodeService
 from stripe._tax_id_service import TaxIdService
 from stripe._tax_rate_service import TaxRateService
 from stripe._terminal_service import TerminalService
+from stripe._test_helpers_service import TestHelpersService
 from stripe._token_service import TokenService
 from stripe._topup_service import TopupService
 from stripe._transfer_service import TransferService
@@ -436,16 +436,6 @@ class StripeClient(object):
         return self.v1.confirmation_tokens
 
     @property
-    def test_helpers(self) -> TestHelpersService:
-        """
-        Deprecation Warning:
-          StripeClient.test_helpers will be deprecated in the next major release.
-          All functionality under it has been copied over to StripeClient.v1.test_helpers.
-          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
-        return self.v1.test_helpers
-
-    @property
     def country_specs(self) -> CountrySpecService:
         """
         Deprecation Warning:
@@ -606,6 +596,16 @@ class StripeClient(object):
         return self.v1.invoices
 
     @property
+    def invoice_items(self) -> InvoiceItemService:
+        """
+        Deprecation Warning:
+          StripeClient.invoice_items will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.invoice_items.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.invoice_items
+
+    @property
     def invoice_payments(self) -> InvoicePaymentService:
         """
         Deprecation Warning:
@@ -624,16 +624,6 @@ class StripeClient(object):
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.invoice_rendering_templates
-
-    @property
-    def invoice_items(self) -> InvoiceItemService:
-        """
-        Deprecation Warning:
-          StripeClient.invoice_items will be deprecated in the next major release.
-          All functionality under it has been copied over to StripeClient.v1.invoice_items.
-          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
-        return self.v1.invoice_items
 
     @property
     def issuing(self) -> IssuingService:
@@ -808,16 +798,6 @@ class StripeClient(object):
         return self.v1.reviews
 
     @property
-    def sigma(self) -> SigmaService:
-        """
-        Deprecation Warning:
-          StripeClient.sigma will be deprecated in the next major release.
-          All functionality under it has been copied over to StripeClient.v1.sigma.
-          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
-        return self.v1.sigma
-
-    @property
     def setup_attempts(self) -> SetupAttemptService:
         """
         Deprecation Warning:
@@ -846,6 +826,16 @@ class StripeClient(object):
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.shipping_rates
+
+    @property
+    def sigma(self) -> SigmaService:
+        """
+        Deprecation Warning:
+          StripeClient.sigma will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.sigma.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.sigma
 
     @property
     def sources(self) -> SourceService:
@@ -936,6 +926,16 @@ class StripeClient(object):
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """
         return self.v1.terminal
+
+    @property
+    def test_helpers(self) -> TestHelpersService:
+        """
+        Deprecation Warning:
+          StripeClient.test_helpers will be deprecated in the next major release.
+          All functionality under it has been copied over to StripeClient.v1.test_helpers.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """
+        return self.v1.test_helpers
 
     @property
     def tokens(self) -> TokenService:
