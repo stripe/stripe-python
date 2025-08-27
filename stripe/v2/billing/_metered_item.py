@@ -7,8 +7,8 @@ from typing_extensions import Literal
 
 class MeteredItem(StripeObject):
     """
-    A MeteredItem represents a billable item whose pricing is based on usage, measured by a Meter. You can use RateCards
-    to specify the pricing and create Subscriptions to these items.
+    A Metered Item represents a billable item whose pricing is based on usage, measured by a meter. You can use rate cards
+    to specify the pricing and create subscriptions to these items.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.billing.metered_item"]] = (
@@ -22,7 +22,7 @@ class MeteredItem(StripeObject):
         """
         value: str
         """
-        To count usage towards this MeteredItem, the dimension must have this value.
+        To count usage towards this metered item, the dimension must have this value.
         """
 
     class TaxDetails(StripeObject):
@@ -42,7 +42,7 @@ class MeteredItem(StripeObject):
     """
     id: str
     """
-    The ID of the MeteredItem.
+    Unique identifier for the object.
     """
     invoice_presentation_dimensions: List[str]
     """
@@ -59,11 +59,11 @@ class MeteredItem(StripeObject):
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     meter: str
     """
-    ID of the Meter that measures usage for this MeteredItem.
+    ID of the Meter that measures usage for this Metered Item.
     """
     meter_segment_conditions: List[MeterSegmentCondition]
     """

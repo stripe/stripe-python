@@ -48,7 +48,7 @@ class RateCardSubscription(StripeObject):
 
     billing_cadence: str
     """
-    The ID of the billing Cadence.
+    The ID of the Billing Cadence.
     """
     collection_status: Optional[
         Literal[
@@ -60,11 +60,11 @@ class RateCardSubscription(StripeObject):
         ]
     ]
     """
-    The payment status of a RateCardSubscription.
+    The payment status of a Rate Card Subscription.
     """
     collection_status_transitions: Optional[CollectionStatusTransitions]
     """
-    The collection status transitions of the RateCardSubscription.
+    The collection status transitions of the Rate Card Subscription.
     """
     created: str
     """
@@ -72,7 +72,7 @@ class RateCardSubscription(StripeObject):
     """
     id: str
     """
-    The ID of the RateCardSubscription.
+    Unique identifier for the object.
     """
     livemode: bool
     """
@@ -80,7 +80,7 @@ class RateCardSubscription(StripeObject):
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["v2.billing.rate_card_subscription"]
     """
@@ -88,21 +88,21 @@ class RateCardSubscription(StripeObject):
     """
     rate_card: str
     """
-    The ID of the RateCard.
+    The ID of the Rate Card.
     """
     rate_card_version: str
     """
-    The ID of the RateCardVersion.
+    The ID of the Rate Card Version.
     """
     servicing_status: Optional[
         Literal["active", "canceled", "paused", "pending"]
     ]
     """
-    The servicing status of a RateCardSubscription.
+    The servicing status of a Rate Card Subscription.
     """
     servicing_status_transitions: Optional[ServicingStatusTransitions]
     """
-    The servicing status transitions of the RateCardSubscription.
+    The servicing status transitions of the Rate Card Subscription.
     """
     test_clock: Optional[str]
     """

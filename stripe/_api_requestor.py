@@ -369,39 +369,39 @@ class _APIRequestor(object):
                 code,
             )
         # switchCases: The beginning of the section generated from our OpenAPI spec
-        elif type == "temporary_session_expired":
-            return error.TemporarySessionExpiredError(**error_args)
-        elif type == "non_zero_balance":
-            return error.NonZeroBalanceError(**error_args)
+        elif type == "already_canceled":
+            return error.AlreadyCanceledError(**error_args)
         elif type == "already_exists":
             return error.AlreadyExistsError(**error_args)
+        elif type == "blocked_by_stripe":
+            return error.BlockedByStripeError(**error_args)
+        elif type == "controlled_by_dashboard":
+            return error.ControlledByDashboardError(**error_args)
         elif type == "feature_not_enabled":
             return error.FeatureNotEnabledError(**error_args)
         elif type == "financial_account_not_open":
             return error.FinancialAccountNotOpenError(**error_args)
-        elif type == "blocked_by_stripe":
-            return error.BlockedByStripeError(**error_args)
-        elif type == "already_canceled":
-            return error.AlreadyCanceledError(**error_args)
-        elif type == "not_cancelable":
-            return error.NotCancelableError(**error_args)
         elif type == "insufficient_funds":
             return error.InsufficientFundsError(**error_args)
-        elif type == "quota_exceeded":
-            return error.QuotaExceededError(**error_args)
-        elif type == "recipient_not_notifiable":
-            return error.RecipientNotNotifiableError(**error_args)
-        elif type == "invalid_payout_method":
-            return error.InvalidPayoutMethodError(**error_args)
-        elif type == "controlled_by_dashboard":
-            return error.ControlledByDashboardError(**error_args)
         elif type == "invalid_payment_method":
             return error.InvalidPaymentMethodError(
                 **error_args,
                 invalid_param=error_data.get("invalid_param"),
             )
+        elif type == "invalid_payout_method":
+            return error.InvalidPayoutMethodError(**error_args)
+        elif type == "non_zero_balance":
+            return error.NonZeroBalanceError(**error_args)
+        elif type == "not_cancelable":
+            return error.NotCancelableError(**error_args)
+        elif type == "quota_exceeded":
+            return error.QuotaExceededError(**error_args)
         elif type == "rate_limit":
             return error.RateLimitError(**error_args)
+        elif type == "recipient_not_notifiable":
+            return error.RecipientNotNotifiableError(**error_args)
+        elif type == "temporary_session_expired":
+            return error.TemporarySessionExpiredError(**error_args)
         # switchCases: The end of the section generated from our OpenAPI spec
 
         return self.specific_v1_api_error(

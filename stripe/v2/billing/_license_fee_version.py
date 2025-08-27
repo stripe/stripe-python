@@ -46,11 +46,11 @@ class LicenseFeeVersion(StripeObject):
     """
     id: str
     """
-    The ID of the LicenseFeeVersion.
+    Unique identifier for the object.
     """
     license_fee_id: str
     """
-    The ID of the parent LicenseFee.
+    The ID of the parent License Fee.
     """
     livemode: bool
     """

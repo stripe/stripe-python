@@ -89,10 +89,49 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             """
             _inner_class_types = {"proration_details": ProrationDetails}
 
+        class LicenseFeeSubscriptionDetails(StripeObject):
+            invoice_item: str
+            """
+            The invoice item that generated this line item
+            """
+            license_fee_subscription: str
+            """
+            The license fee subscription that generated this line item
+            """
+            license_fee_version: str
+            """
+            The license fee version at the time this line item was generated
+            """
+            pricing_plan_subscription: str
+            """
+            The pricing plan subscription that manages the license fee subscription
+            """
+            pricing_plan_version: str
+            """
+            The pricing plan version at the time this line item was generated
+            """
+
         class RateCardSubscriptionDetails(StripeObject):
             invoice_item: str
+            """
+            The invoice item that generated this line item
+            """
+            pricing_plan_subscription: Optional[str]
+            """
+            The pricing plan subscription that manages the rate card subscription
+            """
+            pricing_plan_version: Optional[str]
+            """
+            The pricing plan version at the time this line item was generated
+            """
             rate_card_subscription: str
+            """
+            The rate card subscription that generated this line item
+            """
             rate_card_version: str
+            """
+            The rate card version at the time this line item was generated
+            """
 
         class SubscriptionItemDetails(StripeObject):
             class ProrationDetails(StripeObject):
@@ -138,21 +177,32 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         Details about the invoice item that generated this line item
         """
+        license_fee_subscription_details: Optional[
+            LicenseFeeSubscriptionDetails
+        ]
+        """
+        Details about the license fee subscription that generated this line item
+        """
         rate_card_subscription_details: Optional[RateCardSubscriptionDetails]
+        """
+        Details about the rate card subscription that generated this line item
+        """
         subscription_item_details: Optional[SubscriptionItemDetails]
         """
         Details about the subscription item that generated this line item
         """
         type: Literal[
             "invoice_item_details",
-            "subscription_item_details",
+            "license_fee_subscription_details",
             "rate_card_subscription_details",
+            "subscription_item_details",
         ]
         """
         The type of parent that generated this line item
         """
         _inner_class_types = {
             "invoice_item_details": InvoiceItemDetails,
+            "license_fee_subscription_details": LicenseFeeSubscriptionDetails,
             "rate_card_subscription_details": RateCardSubscriptionDetails,
             "subscription_item_details": SubscriptionItemDetails,
         }
@@ -192,6 +242,20 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
 
     class Pricing(StripeObject):
+        class LicenseFeeDetails(StripeObject):
+            license_fee: str
+            """
+            The ID of the license fee this item is associated with
+            """
+            license_fee_version: str
+            """
+            The version of the license fee this item is associated with
+            """
+            licensed_item: str
+            """
+            The ID of the licensed item this item is associated with
+            """
+
         class PriceDetails(StripeObject):
             price: str
             """
@@ -204,12 +268,24 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
 
         class RateCardRateDetails(StripeObject):
             metered_item: str
+            """
+            The ID of billable item this item is associated with
+            """
             rate_card: str
+            """
+            The ID of the rate card this item is associated with
+            """
             rate_card_rate: str
+            """
+            The ID of the rate card rate this item is associated with
+            """
 
+        license_fee_details: Optional[LicenseFeeDetails]
         price_details: Optional[PriceDetails]
         rate_card_rate_details: Optional[RateCardRateDetails]
-        type: Literal["price_details", "rate_card_rate_details"]
+        type: Literal[
+            "license_fee_details", "price_details", "rate_card_rate_details"
+        ]
         """
         The type of the pricing details.
         """
@@ -218,6 +294,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
         """
         _inner_class_types = {
+            "license_fee_details": LicenseFeeDetails,
             "price_details": PriceDetails,
             "rate_card_rate_details": RateCardRateDetails,
         }

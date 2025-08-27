@@ -63,7 +63,7 @@ class RateCardRate(StripeObject):
     """
     id: str
     """
-    The ID of the RateCardRate.
+    Unique identifier for the object.
     """
     livemode: bool
     """
@@ -71,11 +71,11 @@ class RateCardRate(StripeObject):
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     metered_item: "MeteredItem"
     """
-    The MeteredItem that this rate binds to.
+    The Metered Item that this rate binds to.
     """
     object: Literal["v2.billing.rate_card_rate"]
     """
@@ -83,11 +83,11 @@ class RateCardRate(StripeObject):
     """
     rate_card: str
     """
-    The ID of the RateCard it belongs to.
+    The ID of the Rate Card it belongs to.
     """
     rate_card_version: str
     """
-    The ID of the RateCard version it was created on.
+    The ID of the Rate Card Version it was created on.
     """
     tiering_mode: Optional[Literal["graduated", "volume"]]
     """

@@ -376,6 +376,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Payto(StripeObject):
             pass
 
+        class Pix(StripeObject):
+            pass
+
         class RevolutPay(StripeObject):
             pass
 
@@ -443,6 +446,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
+        pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
@@ -472,6 +476,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
             "payto": Payto,
+            "pix": Pix,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
@@ -533,6 +538,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "coupon_expired",
                 "customer_max_payment_methods",
                 "customer_max_subscriptions",
+                "customer_session_expired",
                 "customer_tax_location_invalid",
                 "debit_not_authorized",
                 "email_invalid",
@@ -551,6 +557,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "incorrect_cvc",
                 "incorrect_number",
                 "incorrect_zip",
+                "india_recurring_payment_mandate_canceled",
                 "instant_payouts_config_disabled",
                 "instant_payouts_currency_disabled",
                 "instant_payouts_limit_exceeded",
@@ -694,7 +701,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         """
         network_decline_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
         """
         param: Optional[str]
         """

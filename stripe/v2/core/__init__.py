@@ -7,6 +7,12 @@ from stripe.v2.core._account_link_service import (
     AccountLinkService as AccountLinkService,
 )
 from stripe.v2.core._account_service import AccountService as AccountService
+from stripe.v2.core._claimable_sandbox import (
+    ClaimableSandbox as ClaimableSandbox,
+)
+from stripe.v2.core._claimable_sandbox_service import (
+    ClaimableSandboxService as ClaimableSandboxService,
+)
 from stripe.v2.core._event_destination_service import (
     EventDestinationService as EventDestinationService,
 )

@@ -26,7 +26,7 @@ class VersionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[LicenseFeeVersion]:
         """
-        List all versions of a LicenseFee objects.
+        List all versions of a License Fee object.
         """
         return cast(
             ListObject[LicenseFeeVersion],
@@ -48,7 +48,7 @@ class VersionService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[LicenseFeeVersion]:
         """
-        List all versions of a LicenseFee objects.
+        List all versions of a License Fee object.
         """
         return cast(
             ListObject[LicenseFeeVersion],
@@ -71,7 +71,7 @@ class VersionService(StripeService):
         options: RequestOptions = {},
     ) -> LicenseFeeVersion:
         """
-        Retrieve a LicenseFeeVersion object.
+        Retrieve a License Fee Version object.
         """
         return cast(
             LicenseFeeVersion,
@@ -95,7 +95,7 @@ class VersionService(StripeService):
         options: RequestOptions = {},
     ) -> LicenseFeeVersion:
         """
-        Retrieve a LicenseFeeVersion object.
+        Retrieve a License Fee Version object.
         """
         return cast(
             LicenseFeeVersion,

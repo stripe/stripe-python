@@ -45,7 +45,7 @@ class LicenseFee(StripeObject):
 
     active: bool
     """
-    Whether this LicenseFee is active. Inactive LicenseFees cannot be used in new activations or be modified.
+    Whether this License Fee is active. Inactive License Fees cannot be used in new activations or be modified.
     """
     created: str
     """
@@ -53,29 +53,29 @@ class LicenseFee(StripeObject):
     """
     currency: str
     """
-    The currency of this LicenseFee.
+    Three-letter ISO currency code, in lowercase. Must be a supported currency.
     """
     display_name: str
     """
-    A customer-facing name for the LicenseFee.
+    A customer-facing name for the license fee.
     This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
     Maximum length of 250 characters.
     """
     id: str
     """
-    The ID of the LicenseFee.
+    Unique identifier for the object.
     """
     latest_version: str
     """
-    The ID of the LicenseFee's most recently created version.
+    The ID of the license fee's most recently created version.
     """
     licensed_item: "LicensedItem"
     """
-    The LicensedItem that this license fee binds to.
+    The Licensed Item that this License Fee binds to.
     """
     live_version: str
     """
-    The ID of the version that will be used by all Subscriptions when no specific version is specified.
+    The ID of the License Fee Version that will be used by all subscriptions when no specific version is specified.
     """
     livemode: bool
     """
@@ -83,11 +83,11 @@ class LicenseFee(StripeObject):
     """
     lookup_key: Optional[str]
     """
-    An internal key you can use to search for a particular LicenseFee. Maximum length of 200 characters.
+    An internal key you can use to search for a particular License Fee. Maximum length of 200 characters.
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["v2.billing.license_fee"]
     """

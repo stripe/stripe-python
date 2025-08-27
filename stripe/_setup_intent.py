@@ -127,6 +127,7 @@ class SetupIntent(
                 "coupon_expired",
                 "customer_max_payment_methods",
                 "customer_max_subscriptions",
+                "customer_session_expired",
                 "customer_tax_location_invalid",
                 "debit_not_authorized",
                 "email_invalid",
@@ -145,6 +146,7 @@ class SetupIntent(
                 "incorrect_cvc",
                 "incorrect_number",
                 "incorrect_zip",
+                "india_recurring_payment_mandate_canceled",
                 "instant_payouts_config_disabled",
                 "instant_payouts_currency_disabled",
                 "instant_payouts_limit_exceeded",
@@ -288,7 +290,7 @@ class SetupIntent(
         """
         network_decline_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
         """
         param: Optional[str]
         """
@@ -388,6 +390,28 @@ class SetupIntent(
             qr_code: QrCode
             _inner_class_types = {"qr_code": QrCode}
 
+        class PixDisplayQrCode(StripeObject):
+            data: Optional[str]
+            """
+            The raw data string used to generate QR code, it should be used together with QR code library.
+            """
+            expires_at: Optional[int]
+            """
+            The date (unix timestamp) when the PIX expires.
+            """
+            hosted_instructions_url: Optional[str]
+            """
+            The URL to the hosted pix instructions page, which allows customers to view the pix QR code.
+            """
+            image_url_png: Optional[str]
+            """
+            The image_url_png string used to render png QR code
+            """
+            image_url_svg: Optional[str]
+            """
+            The image_url_svg string used to render svg QR code
+            """
+
         class RedirectToUrl(StripeObject):
             return_url: Optional[str]
             """
@@ -415,6 +439,7 @@ class SetupIntent(
         cashapp_handle_redirect_or_display_qr_code: Optional[
             CashappHandleRedirectOrDisplayQrCode
         ]
+        pix_display_qr_code: Optional[PixDisplayQrCode]
         redirect_to_url: Optional[RedirectToUrl]
         type: str
         """
@@ -427,6 +452,7 @@ class SetupIntent(
         verify_with_microdeposits: Optional[VerifyWithMicrodeposits]
         _inner_class_types = {
             "cashapp_handle_redirect_or_display_qr_code": CashappHandleRedirectOrDisplayQrCode,
+            "pix_display_qr_code": PixDisplayQrCode,
             "redirect_to_url": RedirectToUrl,
             "verify_with_microdeposits": VerifyWithMicrodeposits,
         }
@@ -660,6 +686,52 @@ class SetupIntent(
             mandate_options: Optional[MandateOptions]
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class Pix(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount to be charged for future payments.
+                """
+                amount_includes_iof: Optional[Literal["always", "never"]]
+                """
+                Determines if the amount includes the IOF tax.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                Type of amount.
+                """
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+                """
+                end_date: Optional[str]
+                """
+                Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+                """
+                payment_schedule: Optional[
+                    Literal[
+                        "halfyearly",
+                        "monthly",
+                        "quarterly",
+                        "weekly",
+                        "yearly",
+                    ]
+                ]
+                """
+                Schedule at which the future payments will be charged.
+                """
+                reference: Optional[str]
+                """
+                Subscription name displayed to buyers in their bank app.
+                """
+                start_date: Optional[str]
+                """
+                Start date of the mandate, in `YYYY-MM-DD`.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
                 reference_prefix: Optional[str]
@@ -755,6 +827,7 @@ class SetupIntent(
         link: Optional[Link]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
+        pix: Optional[Pix]
         sepa_debit: Optional[SepaDebit]
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
@@ -767,6 +840,7 @@ class SetupIntent(
             "link": Link,
             "paypal": Paypal,
             "payto": Payto,
+            "pix": Pix,
             "sepa_debit": SepaDebit,
             "us_bank_account": UsBankAccount,
         }
@@ -1761,6 +1835,10 @@ class SetupIntent(
         """
         If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
         """
+        pix: NotRequired["SetupIntent.ConfirmParamsPaymentMethodOptionsPix"]
+        """
+        If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
+        """
         sepa_debit: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodOptionsSepaDebit"
         ]
@@ -2208,6 +2286,50 @@ class SetupIntent(
         start_date: NotRequired[str]
         """
         Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class ConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -3380,6 +3502,10 @@ class SetupIntent(
         """
         If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
         """
+        pix: NotRequired["SetupIntent.CreateParamsPaymentMethodOptionsPix"]
+        """
+        If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
+        """
         sepa_debit: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodOptionsSepaDebit"
         ]
@@ -3827,6 +3953,50 @@ class SetupIntent(
         start_date: NotRequired[str]
         """
         Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+        """
+
+    class CreateParamsPaymentMethodOptionsPix(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation.
+        """
+
+    class CreateParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -4968,6 +5138,10 @@ class SetupIntent(
         """
         If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
         """
+        pix: NotRequired["SetupIntent.ModifyParamsPaymentMethodOptionsPix"]
+        """
+        If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
+        """
         sepa_debit: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodOptionsSepaDebit"
         ]
@@ -5415,6 +5589,50 @@ class SetupIntent(
         start_date: NotRequired[str]
         """
         Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPix(TypedDict):
+        mandate_options: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation.
+        """
+
+    class ModifyParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class ModifyParamsPaymentMethodOptionsSepaDebit(TypedDict):

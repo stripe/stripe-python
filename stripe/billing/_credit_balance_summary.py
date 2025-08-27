@@ -4,7 +4,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._request_options import RequestOptions
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -29,6 +29,36 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
     class Balance(StripeObject):
         class AvailableBalance(StripeObject):
             class CustomPricingUnit(StripeObject):
+                class CustomPricingUnitDetails(StripeObject):
+                    created: int
+                    """
+                    Time at which the object was created. Measured in seconds since the Unix epoch.
+                    """
+                    display_name: str
+                    """
+                    The name of the custom pricing unit.
+                    """
+                    id: str
+                    """
+                    Unique identifier for the object.
+                    """
+                    lookup_key: Optional[str]
+                    """
+                    A lookup key for the custom pricing unit.
+                    """
+                    metadata: Dict[str, str]
+                    """
+                    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                    """
+                    status: str
+                    """
+                    The status of the custom pricing unit.
+                    """
+
+                custom_pricing_unit_details: Optional[CustomPricingUnitDetails]
+                """
+                The custom pricing unit object.
+                """
                 id: str
                 """
                 Unique identifier for the object.
@@ -37,6 +67,9 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
                 """
                 A positive integer representing the amount.
                 """
+                _inner_class_types = {
+                    "custom_pricing_unit_details": CustomPricingUnitDetails,
+                }
 
             class Monetary(StripeObject):
                 currency: str
@@ -67,6 +100,36 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
 
         class LedgerBalance(StripeObject):
             class CustomPricingUnit(StripeObject):
+                class CustomPricingUnitDetails(StripeObject):
+                    created: int
+                    """
+                    Time at which the object was created. Measured in seconds since the Unix epoch.
+                    """
+                    display_name: str
+                    """
+                    The name of the custom pricing unit.
+                    """
+                    id: str
+                    """
+                    Unique identifier for the object.
+                    """
+                    lookup_key: Optional[str]
+                    """
+                    A lookup key for the custom pricing unit.
+                    """
+                    metadata: Dict[str, str]
+                    """
+                    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                    """
+                    status: str
+                    """
+                    The status of the custom pricing unit.
+                    """
+
+                custom_pricing_unit_details: Optional[CustomPricingUnitDetails]
+                """
+                The custom pricing unit object.
+                """
                 id: str
                 """
                 Unique identifier for the object.
@@ -75,6 +138,9 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
                 """
                 A positive integer representing the amount.
                 """
+                _inner_class_types = {
+                    "custom_pricing_unit_details": CustomPricingUnitDetails,
+                }
 
             class Monetary(StripeObject):
                 currency: str

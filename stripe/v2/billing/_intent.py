@@ -11,7 +11,7 @@ class Intent(StripeObject):
     class AmountDetails(StripeObject):
         currency: str
         """
-        Three-letter ISO currency code, in lowercase.
+        Three-letter ISO currency code, in lowercase. Must be a supported currency.
         """
         discount: str
         """
@@ -31,30 +31,30 @@ class Intent(StripeObject):
         """
         total: str
         """
-        Total amount for the BillingIntent.
+        Total amount for the Billing Intent.
         """
 
     class StatusTransitions(StripeObject):
         canceled_at: Optional[str]
         """
-        Time at which the BillingIntent was canceled.
+        Time at which the Billing Intent was canceled.
         """
         committed_at: Optional[str]
         """
-        Time at which the BillingIntent was committed.
+        Time at which the Billing Intent was committed.
         """
         drafted_at: Optional[str]
         """
-        Time at which the BillingIntent was drafted.
+        Time at which the Billing Intent was drafted.
         """
         reserved_at: Optional[str]
         """
-        Time at which the BillingIntent was reserved.
+        Time at which the Billing Intent was reserved.
         """
 
     amount_details: AmountDetails
     """
-    Breakdown of the amount for this BillingIntent.
+    Breakdown of the amount for this Billing Intent.
     """
     cadence: Optional[str]
     """
@@ -66,17 +66,11 @@ class Intent(StripeObject):
     """
     currency: str
     """
-    Three-letter ISO currency code, in lowercase.
-    """
-    effective_at: Literal[
-        "current_billing_period_start", "on_commit", "on_reserve"
-    ]
-    """
-    When the BillingIntent will take effect.
+    Three-letter ISO currency code, in lowercase. Must be a supported currency.
     """
     id: str
     """
-    Unique identifier for the BillingIntent.
+    Unique identifier for the object.
     """
     livemode: bool
     """
@@ -88,11 +82,11 @@ class Intent(StripeObject):
     """
     status: Literal["canceled", "committed", "draft", "reserved"]
     """
-    Current status of the BillingIntent.
+    Current status of the Billing Intent.
     """
     status_transitions: StatusTransitions
     """
-    Timestamps for status transitions of the BillingIntent.
+    Timestamps for status transitions of the Billing Intent.
     """
     _inner_class_types = {
         "amount_details": AmountDetails,

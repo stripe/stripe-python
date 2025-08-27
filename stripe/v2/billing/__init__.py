@@ -3,6 +3,7 @@
 from stripe.v2.billing import (
     bill_settings as bill_settings,
     collection_settings as collection_settings,
+    intents as intents,
     license_fees as license_fees,
     pricing_plans as pricing_plans,
     rate_cards as rate_cards,
@@ -32,10 +33,17 @@ from stripe.v2.billing._custom_pricing_unit_service import (
     CustomPricingUnitService as CustomPricingUnitService,
 )
 from stripe.v2.billing._intent import Intent as Intent
+from stripe.v2.billing._intent_action import IntentAction as IntentAction
 from stripe.v2.billing._intent_service import IntentService as IntentService
 from stripe.v2.billing._license_fee import LicenseFee as LicenseFee
 from stripe.v2.billing._license_fee_service import (
     LicenseFeeService as LicenseFeeService,
+)
+from stripe.v2.billing._license_fee_subscription import (
+    LicenseFeeSubscription as LicenseFeeSubscription,
+)
+from stripe.v2.billing._license_fee_subscription_service import (
+    LicenseFeeSubscriptionService as LicenseFeeSubscriptionService,
 )
 from stripe.v2.billing._license_fee_version import (
     LicenseFeeVersion as LicenseFeeVersion,

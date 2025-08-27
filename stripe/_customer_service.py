@@ -31,19 +31,19 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class CustomerService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.cash_balance = CustomerCashBalanceService(self._requestor)
         self.balance_transactions = CustomerBalanceTransactionService(
             self._requestor,
         )
+        self.cash_balance = CustomerCashBalanceService(self._requestor)
         self.cash_balance_transactions = CustomerCashBalanceTransactionService(
             self._requestor,
         )
-        self.payment_sources = CustomerPaymentSourceService(self._requestor)
-        self.tax_ids = CustomerTaxIdService(self._requestor)
-        self.payment_methods = CustomerPaymentMethodService(self._requestor)
         self.funding_instructions = CustomerFundingInstructionsService(
             self._requestor,
         )
+        self.payment_methods = CustomerPaymentMethodService(self._requestor)
+        self.payment_sources = CustomerPaymentSourceService(self._requestor)
+        self.tax_ids = CustomerTaxIdService(self._requestor)
 
     class CreateParams(TypedDict):
         address: NotRequired["Literal['']|CustomerService.CreateParamsAddress"]

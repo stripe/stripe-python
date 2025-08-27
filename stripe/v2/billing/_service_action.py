@@ -167,7 +167,7 @@ class ServiceAction(StripeObject):
     """
     id: str
     """
-    Unique identifier for the ServiceAction.
+    Unique identifier for the object.
     """
     livemode: bool
     """

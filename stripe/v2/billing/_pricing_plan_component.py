@@ -13,31 +13,27 @@ class PricingPlanComponent(StripeObject):
     class LicenseFee(StripeObject):
         id: str
         """
-        The ID of the LicenseFee.
+        The ID of the License Fee.
         """
-        version: str
+        version: Optional[str]
         """
-        The version of the LicenseFee.
+        The version of the LicenseFee. Defaults to 'latest', if not specified.
         """
 
     class RateCard(StripeObject):
         id: str
         """
-        The ID of the RateCard.
+        The ID of the Rate Card.
         """
-        version: str
+        version: Optional[str]
         """
-        The version of the RateCard.
+        The version of the RateCard. Defaults to 'latest', if not specified.
         """
 
     class ServiceAction(StripeObject):
         id: str
         """
-        The ID of the ServiceAction.
-        """
-        version: str
-        """
-        The version of the ServiceAction.
+        The ID of the service action.
         """
 
     created: str
@@ -46,11 +42,11 @@ class PricingPlanComponent(StripeObject):
     """
     id: str
     """
-    Unique identifier for the PricingPlanComponent.
+    Unique identifier for the object.
     """
     license_fee: Optional[LicenseFee]
     """
-    Details if this component is a LicenseFee.
+    Details if this component is a License Fee.
     """
     livemode: bool
     """
@@ -62,7 +58,7 @@ class PricingPlanComponent(StripeObject):
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of key-value pairs that you can attach to an object.
+    Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["v2.billing.pricing_plan_component"]
     """
@@ -70,19 +66,19 @@ class PricingPlanComponent(StripeObject):
     """
     pricing_plan: str
     """
-    The ID of the PricingPlan this component belongs to.
+    The ID of the Pricing Plan this component belongs to.
     """
     pricing_plan_version: str
     """
-    The ID of the PricingPlanVersion this component belongs to.
+    The ID of the Pricing Plan Version this component belongs to.
     """
     rate_card: Optional[RateCard]
     """
-    Details if this component is a RateCard.
+    Details if this component is a Rate Card.
     """
     service_action: Optional[ServiceAction]
     """
-    Details if this component is a ServiceAction.
+    Details if this component is a Service Action.
     """
     type: Literal["license_fee", "rate_card", "service_action"]
     """

@@ -11,6 +11,9 @@ from stripe.v2.billing._custom_pricing_unit_service import (
 )
 from stripe.v2.billing._intent_service import IntentService
 from stripe.v2.billing._license_fee_service import LicenseFeeService
+from stripe.v2.billing._license_fee_subscription_service import (
+    LicenseFeeSubscriptionService,
+)
 from stripe.v2.billing._licensed_item_service import LicensedItemService
 from stripe.v2.billing._meter_event_adjustment_service import (
     MeterEventAdjustmentService,
@@ -44,21 +47,24 @@ class BillingService(StripeService):
         self.custom_pricing_units = CustomPricingUnitService(self._requestor)
         self.intents = IntentService(self._requestor)
         self.license_fees = LicenseFeeService(self._requestor)
+        self.license_fee_subscriptions = LicenseFeeSubscriptionService(
+            self._requestor,
+        )
         self.licensed_items = LicensedItemService(self._requestor)
+        self.meter_events = MeterEventService(self._requestor)
         self.meter_event_adjustments = MeterEventAdjustmentService(
             self._requestor,
         )
         self.meter_event_session = MeterEventSessionService(self._requestor)
         self.meter_event_stream = MeterEventStreamService(self._requestor)
-        self.meter_events = MeterEventService(self._requestor)
         self.metered_items = MeteredItemService(self._requestor)
+        self.pricing_plans = PricingPlanService(self._requestor)
         self.pricing_plan_subscriptions = PricingPlanSubscriptionService(
             self._requestor,
         )
-        self.pricing_plans = PricingPlanService(self._requestor)
         self.profiles = ProfileService(self._requestor)
+        self.rate_cards = RateCardService(self._requestor)
         self.rate_card_subscriptions = RateCardSubscriptionService(
             self._requestor,
         )
-        self.rate_cards = RateCardService(self._requestor)
         self.service_actions = ServiceActionService(self._requestor)

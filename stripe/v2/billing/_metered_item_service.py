@@ -28,11 +28,11 @@ class MeteredItemService(StripeService):
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         meter: str
         """
-        ID of the Meter that measures usage for this MeteredItem.
+        ID of the Meter that measures usage for this Metered Item.
         """
         meter_segment_conditions: NotRequired[
             List["MeteredItemService.CreateParamsMeterSegmentCondition"]
@@ -59,7 +59,7 @@ class MeteredItemService(StripeService):
         """
         value: str
         """
-        To count usage towards this MeteredItem, the dimension must have this value.
+        To count usage towards this metered item, the dimension must have this value.
         """
 
     class CreateParamsTaxDetails(TypedDict):
@@ -72,6 +72,11 @@ class MeteredItemService(StripeService):
         limit: NotRequired[int]
         """
         Optionally set the maximum number of results per page. Defaults to 20.
+        """
+        lookup_keys: NotRequired[List[str]]
+        """
+        Filter by lookup keys.
+        You can specify up to 10 lookup keys.
         """
 
     class RetrieveParams(TypedDict):
@@ -91,7 +96,7 @@ class MeteredItemService(StripeService):
         """
         metadata: NotRequired[Dict[str, Optional[str]]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         tax_details: NotRequired["MeteredItemService.UpdateParamsTaxDetails"]
         """
@@ -118,7 +123,7 @@ class MeteredItemService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[MeteredItem]:
         """
-        List all MeteredItem objects in reverse chronological order of creation.
+        List all Metered Item objects in reverse chronological order of creation.
         """
         return cast(
             ListObject[MeteredItem],
@@ -137,7 +142,7 @@ class MeteredItemService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[MeteredItem]:
         """
-        List all MeteredItem objects in reverse chronological order of creation.
+        List all Metered Item objects in reverse chronological order of creation.
         """
         return cast(
             ListObject[MeteredItem],
@@ -156,7 +161,7 @@ class MeteredItemService(StripeService):
         options: RequestOptions = {},
     ) -> MeteredItem:
         """
-        Create a MeteredItem object.
+        Create a Metered Item object.
         """
         return cast(
             MeteredItem,
@@ -175,7 +180,7 @@ class MeteredItemService(StripeService):
         options: RequestOptions = {},
     ) -> MeteredItem:
         """
-        Create a MeteredItem object.
+        Create a Metered Item object.
         """
         return cast(
             MeteredItem,
@@ -195,7 +200,7 @@ class MeteredItemService(StripeService):
         options: RequestOptions = {},
     ) -> MeteredItem:
         """
-        Retrieve a MeteredItem object.
+        Retrieve a Metered Item object.
         """
         return cast(
             MeteredItem,
@@ -215,7 +220,7 @@ class MeteredItemService(StripeService):
         options: RequestOptions = {},
     ) -> MeteredItem:
         """
-        Retrieve a MeteredItem object.
+        Retrieve a Metered Item object.
         """
         return cast(
             MeteredItem,
@@ -235,7 +240,7 @@ class MeteredItemService(StripeService):
         options: RequestOptions = {},
     ) -> MeteredItem:
         """
-        Update a MeteredItem object. At least one of the fields is required.
+        Update a Metered Item object. At least one of the fields is required.
         """
         return cast(
             MeteredItem,
@@ -255,7 +260,7 @@ class MeteredItemService(StripeService):
         options: RequestOptions = {},
     ) -> MeteredItem:
         """
-        Update a MeteredItem object. At least one of the fields is required.
+        Update a Metered Item object. At least one of the fields is required.
         """
         return cast(
             MeteredItem,

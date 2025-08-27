@@ -123,17 +123,42 @@ class Session(
         _inner_class_types = {"liability": Liability}
 
     class CheckoutItem(StripeObject):
+        class PricingPlanSubscriptionItem(StripeObject):
+            class ComponentConfigurations(StripeObject):
+                class LicenseFeeComponent(StripeObject):
+                    quantity: int
+
+                license_fee_component: Optional[LicenseFeeComponent]
+                type: Literal["license_fee_component"]
+                _inner_class_types = {
+                    "license_fee_component": LicenseFeeComponent,
+                }
+
+            billing_cadence: Optional[str]
+            component_configurations: Dict[str, ComponentConfigurations]
+            metadata: Dict[str, str]
+            pricing_plan: str
+            pricing_plan_subscription: Optional[str]
+            pricing_plan_version: str
+            _inner_class_types = {
+                "component_configurations": ComponentConfigurations,
+            }
+            _inner_class_dicts = ["component_configurations"]
+
         class RateCardSubscriptionItem(StripeObject):
             billing_cadence: Optional[str]
-            metadata: Optional[Dict[str, str]]
+            metadata: Dict[str, str]
             rate_card: str
             rate_card_subscription: Optional[str]
             rate_card_version: str
 
-        key: str
+        pricing_plan_subscription_item: Optional[PricingPlanSubscriptionItem]
         rate_card_subscription_item: Optional[RateCardSubscriptionItem]
-        type: Literal["checkout_item"]
+        type: Literal[
+            "rate_card_subscription_item", "pricing_plan_subscription_item"
+        ]
         _inner_class_types = {
+            "pricing_plan_subscription_item": PricingPlanSubscriptionItem,
             "rate_card_subscription_item": RateCardSubscriptionItem,
         }
 
@@ -1449,11 +1474,58 @@ class Session(
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Pix(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount to be charged for future payments.
+                """
+                amount_includes_iof: Optional[Literal["always", "never"]]
+                """
+                Determines if the amount includes the IOF tax.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                Type of amount.
+                """
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+                """
+                end_date: Optional[str]
+                """
+                Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+                """
+                payment_schedule: Optional[
+                    Literal[
+                        "halfyearly",
+                        "monthly",
+                        "quarterly",
+                        "weekly",
+                        "yearly",
+                    ]
+                ]
+                """
+                Schedule at which the future payments will be charged.
+                """
+                reference: Optional[str]
+                """
+                Subscription name displayed to buyers in their bank app.
+                """
+                start_date: Optional[str]
+                """
+                Start date of the mandate, in `YYYY-MM-DD`.
+                """
+
+            amount_includes_iof: Optional[Literal["always", "never"]]
+            """
+            Determines if the amount includes the IOF tax.
+            """
             expires_after_seconds: Optional[int]
             """
             The number of seconds after which Pix payment will expire.
             """
-            setup_future_usage: Optional[Literal["none"]]
+            mandate_options: Optional[MandateOptions]
+            setup_future_usage: Optional[Literal["none", "off_session"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1463,6 +1535,7 @@ class Session(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
+            _inner_class_types = {"mandate_options": MandateOptions}
 
         class RevolutPay(StripeObject):
             setup_future_usage: Optional[Literal["none", "off_session"]]
@@ -2362,7 +2435,7 @@ class Session(
         """
         origin_context: NotRequired[Literal["mobile_app", "web"]]
         """
-        Where the user is coming from. This informs the optimizations that are applied to the session. For example, a session originating from a mobile app may behave more like a native app, depending on the platform. This parameter is currently not allowed if `ui_mode` is `custom`.
+        Where the user is coming from. This informs the optimizations that are applied to the session.
         """
         payment_intent_data: NotRequired[
             "Session.CreateParamsPaymentIntentData"
@@ -2601,11 +2674,39 @@ class Session(
         """
 
     class CreateParamsCheckoutItem(TypedDict):
-        key: str
-        type: Literal["checkout_item"]
+        type: Literal[
+            "rate_card_subscription_item", "pricing_plan_subscription_item"
+        ]
         rate_card_subscription_item: NotRequired[
             "Session.CreateParamsCheckoutItemRateCardSubscriptionItem"
         ]
+        pricing_plan_subscription_item: NotRequired[
+            "Session.CreateParamsCheckoutItemPricingPlanSubscriptionItem"
+        ]
+
+    class CreateParamsCheckoutItemPricingPlanSubscriptionItem(TypedDict):
+        pricing_plan: str
+        pricing_plan_version: NotRequired[str]
+        metadata: NotRequired[Dict[str, str]]
+        component_configurations: NotRequired[
+            Dict[
+                str,
+                "Session.CreateParamsCheckoutItemPricingPlanSubscriptionItemComponentConfigurations",
+            ]
+        ]
+
+    class CreateParamsCheckoutItemPricingPlanSubscriptionItemComponentConfigurations(
+        TypedDict,
+    ):
+        type: Literal["license_fee_component"]
+        license_fee_component: NotRequired[
+            "Session.CreateParamsCheckoutItemPricingPlanSubscriptionItemComponentConfigurationsLicenseFeeComponent"
+        ]
+
+    class CreateParamsCheckoutItemPricingPlanSubscriptionItemComponentConfigurationsLicenseFeeComponent(
+        TypedDict,
+    ):
+        quantity: int
 
     class CreateParamsCheckoutItemRateCardSubscriptionItem(TypedDict):
         rate_card: str
@@ -2795,9 +2896,39 @@ class Session(
         """
         The ID of the coupon to apply to this Session.
         """
+        coupon_data: NotRequired["Session.CreateParamsDiscountCouponData"]
+        """
+        Data used to generate a new [Coupon](https://stripe.com/docs/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+        """
         promotion_code: NotRequired[str]
         """
         The ID of a promotion code to apply to this Session.
+        """
+
+    class CreateParamsDiscountCouponData(TypedDict):
+        amount_off: NotRequired[int]
+        """
+        A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+        """
+        duration: NotRequired[Literal["forever", "once", "repeating"]]
+        """
+        Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: NotRequired[str]
+        """
+        Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+        """
+        percent_off: NotRequired[float]
+        """
+        A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
         """
 
     class CreateParamsInvoiceCreation(TypedDict):
@@ -4122,11 +4253,21 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
         expires_after_seconds: NotRequired[int]
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        mandate_options: NotRequired[
+            "Session.CreateParamsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Additional fields for mandate creation.
+        """
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4135,6 +4276,42 @@ class Session(
         If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        amount_type: NotRequired[Literal["fixed", "maximum"]]
+        """
+        Type of amount. Defaults to `maximum`.
+        """
+        currency: NotRequired[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
+        reference: NotRequired[str]
+        """
+        Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+        """
+        start_date: NotRequired[str]
+        """
+        Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
         """
 
     class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):

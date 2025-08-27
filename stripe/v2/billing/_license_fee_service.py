@@ -18,29 +18,29 @@ class LicenseFeeService(StripeService):
     class CreateParams(TypedDict):
         currency: str
         """
-        The currency of this LicenseFee.
+        Three-letter ISO currency code, in lowercase. Must be a supported currency.
         """
         display_name: str
         """
-        A customer-facing name for the LicenseFee.
+        A customer-facing name for the License Fee.
         This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
         Maximum length of 250 characters.
         """
         licensed_item: str
         """
-        The LicensedItem that this rate binds to.
+        The Licensed Item that this License Fee binds to.
         """
         lookup_key: NotRequired[str]
         """
-        An internal key you can use to search for a particular LicenseFee. Maximum length of 200 characters.
+        An internal key you can use to search for a particular license fee. Maximum length of 200 characters.
         """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         service_interval: Literal["day", "month", "week", "year"]
         """
-        The interval for assessing service. For example, a monthly LicenseFee with a rate of $1 for the first 10 "workloads"
+        The interval for assessing service. For example, a monthly license fee with a rate of $1 for the first 10 "workloads"
         and $2 thereafter means "$1 per workload up to 10 workloads during a month of service." This is similar to but
         distinct from billing interval; the service interval deals with the rate at which the customer accumulates fees,
         while the billing interval in Cadence deals with the rate the customer is billed.
@@ -127,22 +127,22 @@ class LicenseFeeService(StripeService):
     class UpdateParams(TypedDict):
         display_name: str
         """
-        A customer-facing name for the LicenseFee.
+        A customer-facing name for the License Fee.
         This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
         Maximum length of 250 characters.
         """
         live_version: NotRequired[str]
         """
-        Changes the version that new LicenseFee will use. Providing `live_version = "latest"` will set the
-        LicenseFee's `live_version` to its latest version.
+        Changes the version that new license fee will use. Providing `live_version = "latest"` will set the
+        license fee's `live_version` to its latest version.
         """
         lookup_key: NotRequired[str]
         """
-        An internal key you can use to search for a particular LicenseFee. Maximum length of 200 characters.
+        An internal key you can use to search for a particular license fee. Maximum length of 200 characters.
         """
         metadata: NotRequired[Dict[str, Optional[str]]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         tiering_mode: NotRequired[Literal["graduated", "volume"]]
         """
@@ -202,7 +202,7 @@ class LicenseFeeService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[LicenseFee]:
         """
-        List all LicenseFee objects.
+        List all License Fee objects.
         """
         return cast(
             ListObject[LicenseFee],
@@ -221,7 +221,7 @@ class LicenseFeeService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[LicenseFee]:
         """
-        List all LicenseFee objects.
+        List all License Fee objects.
         """
         return cast(
             ListObject[LicenseFee],
@@ -240,7 +240,7 @@ class LicenseFeeService(StripeService):
         options: RequestOptions = {},
     ) -> LicenseFee:
         """
-        Create a LicenseFee object.
+        Create a License Fee object.
         """
         return cast(
             LicenseFee,
@@ -259,7 +259,7 @@ class LicenseFeeService(StripeService):
         options: RequestOptions = {},
     ) -> LicenseFee:
         """
-        Create a LicenseFee object.
+        Create a License Fee object.
         """
         return cast(
             LicenseFee,
@@ -279,7 +279,7 @@ class LicenseFeeService(StripeService):
         options: RequestOptions = {},
     ) -> LicenseFee:
         """
-        Retrieve a LicenseFee object.
+        Retrieve a License Fee object.
         """
         return cast(
             LicenseFee,
@@ -299,7 +299,7 @@ class LicenseFeeService(StripeService):
         options: RequestOptions = {},
     ) -> LicenseFee:
         """
-        Retrieve a LicenseFee object.
+        Retrieve a License Fee object.
         """
         return cast(
             LicenseFee,
@@ -319,7 +319,7 @@ class LicenseFeeService(StripeService):
         options: RequestOptions = {},
     ) -> LicenseFee:
         """
-        Update a LicenseFee object.
+        Update a License Fee object.
         """
         return cast(
             LicenseFee,
@@ -339,7 +339,7 @@ class LicenseFeeService(StripeService):
         options: RequestOptions = {},
     ) -> LicenseFee:
         """
-        Update a LicenseFee object.
+        Update a License Fee object.
         """
         return cast(
             LicenseFee,

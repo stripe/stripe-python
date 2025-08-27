@@ -22,6 +22,11 @@ class Cadence(StripeObject):
                 The minute at which the billing cycle ends.
                 Must be an integer between 0 and 59, inclusive.
                 """
+                second: Optional[int]
+                """
+                The second at which the billing cycle ends.
+                Must be an integer between 0 and 59, inclusive.
+                """
 
             time: Time
             """
@@ -40,6 +45,11 @@ class Cadence(StripeObject):
                 minute: int
                 """
                 The minute at which the billing cycle ends.
+                Must be an integer between 0 and 59, inclusive.
+                """
+                second: Optional[int]
+                """
+                The second at which the billing cycle ends.
                 Must be an integer between 0 and 59, inclusive.
                 """
 
@@ -68,6 +78,11 @@ class Cadence(StripeObject):
                 The minute at which the billing cycle ends.
                 Must be an integer between 0 and 59, inclusive.
                 """
+                second: Optional[int]
+                """
+                The second at which the billing cycle ends.
+                Must be an integer between 0 and 59, inclusive.
+                """
 
             day_of_week: int
             """
@@ -91,6 +106,11 @@ class Cadence(StripeObject):
                 minute: int
                 """
                 The minute at which the billing cycle ends.
+                Must be an integer between 0 and 59, inclusive.
+                """
+                second: Optional[int]
+                """
+                The second at which the billing cycle ends.
                 Must be an integer between 0 and 59, inclusive.
                 """
 
@@ -161,7 +181,7 @@ class Cadence(StripeObject):
 
         id: str
         """
-        The ID of the inline discount applied to the cadence.
+        Unique identifier for the object.
         """
         percent_off: Optional[PercentOff]
         """
@@ -191,7 +211,7 @@ class Cadence(StripeObject):
         class Bill(StripeObject):
             id: str
             """
-            The ID of the referenced Settings object.
+            The ID of the referenced settings object.
             """
             version: Optional[str]
             """
@@ -201,7 +221,7 @@ class Cadence(StripeObject):
         class Collection(StripeObject):
             id: str
             """
-            The ID of the referenced Settings object.
+            The ID of the referenced settings object.
             """
             version: Optional[str]
             """
@@ -228,7 +248,7 @@ class Cadence(StripeObject):
     """
     id: str
     """
-    The ID of the billing Cadence object.
+    Unique identifier for the object.
     """
     invoice_discount_rules: Optional[List[InvoiceDiscountRule]]
     """
@@ -240,7 +260,7 @@ class Cadence(StripeObject):
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     next_billing_date: Optional[str]
     """
@@ -264,7 +284,7 @@ class Cadence(StripeObject):
     """
     test_clock: Optional[str]
     """
-    The ID of the TestClock.
+    The ID of the Test Clock.
     """
     _inner_class_types = {
         "billing_cycle": BillingCycle,

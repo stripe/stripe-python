@@ -239,7 +239,7 @@ class ServiceActionService(StripeService):
         options: RequestOptions = {},
     ) -> ServiceAction:
         """
-        Create a ServiceAction object.
+        Create a Service Action object.
         """
         return cast(
             ServiceAction,
@@ -258,7 +258,7 @@ class ServiceActionService(StripeService):
         options: RequestOptions = {},
     ) -> ServiceAction:
         """
-        Create a ServiceAction object.
+        Create a Service Action object.
         """
         return cast(
             ServiceAction,
@@ -278,7 +278,7 @@ class ServiceActionService(StripeService):
         options: RequestOptions = {},
     ) -> ServiceAction:
         """
-        Retrieve a ServiceAction object.
+        Retrieve a Service Action object.
         """
         return cast(
             ServiceAction,
@@ -298,7 +298,7 @@ class ServiceActionService(StripeService):
         options: RequestOptions = {},
     ) -> ServiceAction:
         """
-        Retrieve a ServiceAction object.
+        Retrieve a Service Action object.
         """
         return cast(
             ServiceAction,

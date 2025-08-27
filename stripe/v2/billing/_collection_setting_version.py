@@ -10,6 +10,23 @@ class CollectionSettingVersion(StripeObject):
         "v2.billing.collection_setting_version"
     )
 
+    class EmailDelivery(StripeObject):
+        class PaymentDue(StripeObject):
+            enabled: bool
+            """
+            If true an email for the invoice would be generated and sent out.
+            """
+            include_payment_link: bool
+            """
+            If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
+            """
+
+        payment_due: Optional[PaymentDue]
+        """
+        Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+        """
+        _inner_class_types = {"payment_due": PaymentDue}
+
     class PaymentMethodOptions(StripeObject):
         class AcssDebit(StripeObject):
             class MandateOptions(StripeObject):
@@ -206,6 +223,10 @@ class CollectionSettingVersion(StripeObject):
     """
     Timestamp of when the object was created.
     """
+    email_delivery: Optional[EmailDelivery]
+    """
+    Email delivery settings.
+    """
     id: str
     """
     The ID of the CollectionSettingVersion object.
@@ -226,4 +247,7 @@ class CollectionSettingVersion(StripeObject):
     """
     Payment Method specific configuration stored on the object.
     """
-    _inner_class_types = {"payment_method_options": PaymentMethodOptions}
+    _inner_class_types = {
+        "email_delivery": EmailDelivery,
+        "payment_method_options": PaymentMethodOptions,
+    }

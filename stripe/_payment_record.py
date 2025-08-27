@@ -29,6 +29,26 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     OBJECT_NAME: ClassVar[Literal["payment_record"]] = "payment_record"
 
+    class Amount(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        """
+
+    class AmountAuthorized(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        """
+
     class AmountCanceled(StripeObject):
         currency: str
         """
@@ -36,7 +56,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class AmountFailed(StripeObject):
@@ -46,7 +66,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class AmountGuaranteed(StripeObject):
@@ -56,7 +76,17 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        """
+
+    class AmountRefunded(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class AmountRequested(StripeObject):
@@ -66,7 +96,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class CustomerDetails(StripeObject):
@@ -197,7 +227,18 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
 
         class Alma(StripeObject):
-            pass
+            class Installments(StripeObject):
+                count: int
+                """
+                The number of installments.
+                """
+
+            installments: Optional[Installments]
+            transaction_id: Optional[str]
+            """
+            The Alma transaction ID associated with this payment.
+            """
+            _inner_class_types = {"installments": Installments}
 
         class AmazonPay(StripeObject):
             class Funding(StripeObject):
@@ -239,6 +280,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 _inner_class_types = {"card": Card}
 
             funding: Optional[Funding]
+            transaction_id: Optional[str]
+            """
+            The Amazon Pay transaction ID associated with this payment.
+            """
             _inner_class_types = {"funding": Funding}
 
         class AuBecsDebit(StripeObject):
@@ -314,7 +359,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
 
         class Billie(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Billie transaction ID associated with this payment.
+            """
 
         class BillingDetails(StripeObject):
             class Address(StripeObject):
@@ -1053,6 +1101,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             A unique identifier for the buyer as determined by the local payment processor.
             """
+            transaction_id: Optional[str]
+            """
+            The Kakao Pay transaction ID associated with this payment.
+            """
 
         class Klarna(StripeObject):
             class PayerDetails(StripeObject):
@@ -1137,6 +1189,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             The last four digits of the card. This may not be present for American Express cards.
             """
+            transaction_id: Optional[str]
+            """
+            The Korean Card transaction ID associated with this payment.
+            """
 
         class Link(StripeObject):
             country: Optional[str]
@@ -1191,6 +1247,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             buyer_id: Optional[str]
             """
             A unique identifier for the buyer as determined by the local payment processor.
+            """
+            transaction_id: Optional[str]
+            """
+            The Naver Pay transaction ID associated with this payment.
             """
 
         class NzBankAccount(StripeObject):
@@ -1277,6 +1337,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             buyer_id: Optional[str]
             """
             A unique identifier for the buyer as determined by the local payment processor.
+            """
+            transaction_id: Optional[str]
+            """
+            The Payco transaction ID associated with this payment.
             """
 
         class Paynow(StripeObject):
@@ -1429,6 +1493,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             Unique transaction id generated by BCB
             """
+            mandate: Optional[str]
+            """
+            ID of the multi use Mandate generated by the PaymentIntent
+            """
 
         class Promptpay(StripeObject):
             reference: Optional[str]
@@ -1482,6 +1550,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 _inner_class_types = {"card": Card}
 
             funding: Optional[Funding]
+            transaction_id: Optional[str]
+            """
+            The Revolut Pay transaction ID associated with this payment.
+            """
             _inner_class_types = {"funding": Funding}
 
         class SamsungPay(StripeObject):
@@ -1489,9 +1561,16 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             A unique identifier for the buyer as determined by the local payment processor.
             """
+            transaction_id: Optional[str]
+            """
+            The Samsung Pay transaction ID associated with this payment.
+            """
 
         class Satispay(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Satispay transaction ID associated with this payment.
+            """
 
         class SepaCreditTransfer(StripeObject):
             bank_name: Optional[str]
@@ -1817,6 +1896,25 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             "zip": Zip,
         }
 
+    class ProcessorDetails(StripeObject):
+        class Custom(StripeObject):
+            payment_reference: str
+            """
+            An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+            """
+
+        custom: Optional[Custom]
+        """
+        Custom processors represent payment processors not modeled directly in
+        the Stripe API. This resource consists of details about the custom processor
+        used for this payment attempt.
+        """
+        type: Literal["custom"]
+        """
+        The processor used for this payment attempt.
+        """
+        _inner_class_types = {"custom": Custom}
+
     class ShippingDetails(StripeObject):
         class Address(StripeObject):
             city: Optional[str]
@@ -2120,9 +2218,11 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         Information about the Payment Method debited for this payment.
         """
-        payment_reference: NotRequired[str]
+        processor_details: NotRequired[
+            "PaymentRecord.ReportPaymentParamsProcessorDetails"
+        ]
         """
-        An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+        Processor information for this payment.
         """
         shipping_details: NotRequired[
             "PaymentRecord.ReportPaymentParamsShippingDetails"
@@ -2138,7 +2238,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) for example, 100 cents for 1 USD or 100 for 100 JPY, a zero-decimal currency.
+        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class ReportPaymentParamsCustomerDetails(TypedDict):
@@ -2251,6 +2351,24 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         The custom payment method type associated with this payment.
         """
 
+    class ReportPaymentParamsProcessorDetails(TypedDict):
+        custom: NotRequired[
+            "PaymentRecord.ReportPaymentParamsProcessorDetailsCustom"
+        ]
+        """
+        Information about the custom processor used to make this payment.
+        """
+        type: Literal["custom"]
+        """
+        The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+        """
+
+    class ReportPaymentParamsProcessorDetailsCustom(TypedDict):
+        payment_reference: str
+        """
+        An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+        """
+
     class ReportPaymentParamsShippingDetails(TypedDict):
         address: NotRequired[
             "PaymentRecord.ReportPaymentParamsShippingDetailsAddress"
@@ -2299,6 +2417,14 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         Specifies which fields in the response should be expanded.
         """
 
+    amount: Amount
+    """
+    A representation of an amount of money, consisting of an amount and a currency.
+    """
+    amount_authorized: AmountAuthorized
+    """
+    A representation of an amount of money, consisting of an amount and a currency.
+    """
     amount_canceled: AmountCanceled
     """
     A representation of an amount of money, consisting of an amount and a currency.
@@ -2311,9 +2437,17 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     """
     A representation of an amount of money, consisting of an amount and a currency.
     """
+    amount_refunded: AmountRefunded
+    """
+    A representation of an amount of money, consisting of an amount and a currency.
+    """
     amount_requested: AmountRequested
     """
     A representation of an amount of money, consisting of an amount and a currency.
+    """
+    application: Optional[str]
+    """
+    ID of the Connect application that created the PaymentRecord.
     """
     created: int
     """
@@ -2355,9 +2489,9 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     """
     Information about the Payment Method debited for this payment.
     """
-    payment_reference: Optional[str]
+    processor_details: ProcessorDetails
     """
-    An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+    Processor information associated with this payment.
     """
     shipping_details: Optional[ShippingDetails]
     """
@@ -2929,11 +3063,15 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         return instance
 
     _inner_class_types = {
+        "amount": Amount,
+        "amount_authorized": AmountAuthorized,
         "amount_canceled": AmountCanceled,
         "amount_failed": AmountFailed,
         "amount_guaranteed": AmountGuaranteed,
+        "amount_refunded": AmountRefunded,
         "amount_requested": AmountRequested,
         "customer_details": CustomerDetails,
         "payment_method_details": PaymentMethodDetails,
+        "processor_details": ProcessorDetails,
         "shipping_details": ShippingDetails,
     }

@@ -493,6 +493,9 @@ from stripe._invoice_line_item_service import (
     InvoiceLineItemService as InvoiceLineItemService,
 )
 from stripe._invoice_payment import InvoicePayment as InvoicePayment
+from stripe._invoice_payment_service import (
+    InvoicePaymentService as InvoicePaymentService,
+)
 from stripe._invoice_rendering_template import (
     InvoiceRenderingTemplate as InvoiceRenderingTemplate,
 )
@@ -665,6 +668,7 @@ from stripe._transfer_reversal_service import (
 )
 from stripe._transfer_service import TransferService as TransferService
 from stripe._treasury_service import TreasuryService as TreasuryService
+from stripe._v1_services import V1Services as V1Services
 from stripe._v2_services import V2Services as V2Services
 from stripe._webhook_endpoint import WebhookEndpoint as WebhookEndpoint
 from stripe._webhook_endpoint_service import (

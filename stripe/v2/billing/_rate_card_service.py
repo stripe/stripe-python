@@ -7,7 +7,7 @@ from stripe.v2._list_object import ListObject
 from stripe.v2.billing._rate_card import RateCard
 from stripe.v2.billing.rate_cards._rate_service import RateService
 from stripe.v2.billing.rate_cards._version_service import VersionService
-from typing import Dict, Optional, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -28,9 +28,13 @@ class RateCardService(StripeService):
         This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
         Maximum length of 250 characters.
         """
+        lookup_key: NotRequired[str]
+        """
+        An internal key you can use to search for a particular RateCard. Maximum length of 200 characters.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         service_interval: Literal["day", "month", "week", "year"]
         """
@@ -58,6 +62,11 @@ class RateCardService(StripeService):
         """
         Optionally set the maximum number of results per page. Defaults to 20.
         """
+        lookup_keys: NotRequired[List[str]]
+        """
+        Filter by lookup keys.
+        You can specify up to 10 lookup keys.
+        """
 
     class RetrieveParams(TypedDict):
         pass
@@ -78,9 +87,13 @@ class RateCardService(StripeService):
         Changes the version that new RateCard activations will use. Providing `live_version = "latest"` will set the
         RateCard's `live_version` to its latest version.
         """
+        lookup_key: NotRequired[str]
+        """
+        An internal key you can use to search for a particular RateCard. Maximum length of 200 characters.
+        """
         metadata: NotRequired[Dict[str, Optional[str]]]
         """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
 
     def list(
@@ -89,7 +102,7 @@ class RateCardService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[RateCard]:
         """
-        List all RateCard objects.
+        List all Rate Card objects.
         """
         return cast(
             ListObject[RateCard],
@@ -108,7 +121,7 @@ class RateCardService(StripeService):
         options: RequestOptions = {},
     ) -> ListObject[RateCard]:
         """
-        List all RateCard objects.
+        List all Rate Card objects.
         """
         return cast(
             ListObject[RateCard],
@@ -127,7 +140,7 @@ class RateCardService(StripeService):
         options: RequestOptions = {},
     ) -> RateCard:
         """
-        Create a RateCard object.
+        Create a Rate Card object.
         """
         return cast(
             RateCard,
@@ -146,7 +159,7 @@ class RateCardService(StripeService):
         options: RequestOptions = {},
     ) -> RateCard:
         """
-        Create a RateCard object.
+        Create a Rate Card object.
         """
         return cast(
             RateCard,
@@ -166,7 +179,7 @@ class RateCardService(StripeService):
         options: RequestOptions = {},
     ) -> RateCard:
         """
-        Retrieve the latest version of a RateCard object.
+        Retrieve the latest version of a Rate Card object.
         """
         return cast(
             RateCard,
@@ -186,7 +199,7 @@ class RateCardService(StripeService):
         options: RequestOptions = {},
     ) -> RateCard:
         """
-        Retrieve the latest version of a RateCard object.
+        Retrieve the latest version of a Rate Card object.
         """
         return cast(
             RateCard,
@@ -206,7 +219,7 @@ class RateCardService(StripeService):
         options: RequestOptions = {},
     ) -> RateCard:
         """
-        Update a RateCard object.
+        Update a Rate Card object.
         """
         return cast(
             RateCard,
@@ -226,7 +239,7 @@ class RateCardService(StripeService):
         options: RequestOptions = {},
     ) -> RateCard:
         """
-        Update a RateCard object.
+        Update a Rate Card object.
         """
         return cast(
             RateCard,
