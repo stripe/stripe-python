@@ -1,3 +1,36 @@
+## 12.5.0 - 2025-08-27
+* [#1554](https://github.com/stripe/stripe-python/pull/1554) Add section on private preview SDKs in readme
+* [#1544](https://github.com/stripe/stripe-python/pull/1544) Update generated code. This release changes the pinned API version to `2025-08-27.basil`.
+  * Add support for `balance_report`, `payout_details`, and `payout_reconciliation_report` on `AccountSession.Component` and `AccountSession.CreateParamsComponent`
+  * Add support for `name` on `BillingPortal.Configuration`, `billing_portal.Configuration.CreateParams`, and `billing_portal.Configuration.ModifyParams`
+  * Add support for `installments` on `Charge.PaymentMethodDetail.Alma`
+  * Add support for `transaction_id` on `Charge.PaymentMethodDetail.Alma`, `Charge.PaymentMethodDetail.AmazonPay`, `Charge.PaymentMethodDetail.Billie`, `Charge.PaymentMethodDetail.KakaoPay`, `Charge.PaymentMethodDetail.KrCard`, `Charge.PaymentMethodDetail.NaverPay`, `Charge.PaymentMethodDetail.Payco`, `Charge.PaymentMethodDetail.RevolutPay`, `Charge.PaymentMethodDetail.SamsungPay`, and `Charge.PaymentMethodDetail.Satispay`
+  * Add support for `location` and `reader` on `Charge.PaymentMethodDetail.Paynow`
+  * Add support for `amount_includes_iof` on `Checkout.Session.PaymentMethodOption.Pix`, `PaymentIntent.ConfirmParamsPaymentMethodOptionPix`, `PaymentIntent.CreateParamsPaymentMethodOptionPix`, `PaymentIntent.ModifyParamsPaymentMethodOptionPix`, `PaymentIntent.PaymentMethodOption.Pix`, and `checkout.Session.CreateParamsPaymentMethodOptionPix`
+  * Add support for new values `block` and `resolution` on enum `Dispute.PaymentMethodDetail.Card.case_type`
+  * Add support for new value `terminal_android_apk` on enums `File.ListParams.purpose` and `File.purpose`
+  * Add support for new value `terminal_android_apk` on enum `File.CreateParams.purpose`
+  * Add support for `metadata` and `period` on `Invoice.CreatePreviewParamsScheduleDetailPhaseAddInvoiceItem`, `Subscription.CreateParamsAddInvoiceItem`, `Subscription.ModifyParamsAddInvoiceItem`, `SubscriptionSchedule.CreateParamsPhaseAddInvoiceItem`, `SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItem`, and `SubscriptionSchedule.Phase.AddInvoiceItem`
+  * Add support for `exp_month` and `exp_year` on `issuing.Card.CreateParams`
+  * Add support for `excluded_payment_method_types` on `PaymentIntent.CreateParams` and `PaymentIntent`
+  * Add support for `payout_method` on `Payout.CreateParams` and `Payout`
+  * Add support for `mxn` on `Terminal.Configuration.Tipping`, `terminal.Configuration.CreateParamsTipping`, and `terminal.Configuration.ModifyParamsTipping`
+  * Add support for `card` on `terminal.Reader.PresentPaymentMethodParams`
+  * Add support for new value `card` on enum `terminal.Reader.PresentPaymentMethodParams.type`
+  * Add support for new value `2025-08-27.basil` on enum `WebhookEndpoint.CreateParams.api_version`
+  * Add support for error codes `customer_session_expired` and `india_recurring_payment_mandate_canceled` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
+* [#1553](https://github.com/stripe/stripe-python/pull/1553) Import available http libraries more efficiently
+* [#1549](https://github.com/stripe/stripe-python/pull/1549) Introduce V1 namespaces in StripeClient
+  - All the top level non-namespaced services under StripeClient services(eg. customers, products) are copied under the new V1 namespace. These top level non-namespaced services will be marked as deprecated in the next major release and will be removed in a future release. Eg.
+  ```diff
+  client = StripeClient("sk_test...")
+
+  # Accessing V1 Stripe services on a StripeClient should be through the V1 namespace
+  - client.customers.list()
+  + client.v1.customers.list()
+  ```
+  Refer to the [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for help upgrading.
+
 ## 12.4.0 - 2025-07-30
 This release changes the pinned API version to `2025-07-30.basil`.
 
