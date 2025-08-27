@@ -126,11 +126,6 @@ class TestImports:
             assert isinstance(client, expected)
 
 
-# FIXME: remove
-class StripeClientTestCase:
-    pass
-
-
 MakeReqFunc = Callable[[str, str, Dict[str, str], Optional[str]], Any]
 
 
@@ -390,12 +385,17 @@ class ClientTestBase:
     @pytest.fixture
     def make_client(self, mocked_request_lib):
         def _make_client(**kwargs):
-            return self.REQUEST_CLIENT(
+            client = self.REQUEST_CLIENT(
                 verify_ssl_certs=True,
                 proxy=self.PROXY,
                 _lib=mocked_request_lib,
                 **kwargs,
             )
+            # speed up all retries
+            client._sleep_time_seconds = (
+                lambda num_retries, response=None: 0.0001
+            )
+            return client
 
         return _make_client
 
@@ -598,7 +598,7 @@ class RequestsVerify(object):
         return other and other.endswith("stripe/data/ca-certificates.crt")
 
 
-class TestRequestsClient(StripeClientTestCase, ClientTestBase):
+class TestRequestsClient(ClientTestBase):
     REQUEST_CLIENT: Type[_http_client.RequestsClient] = (
         _http_client.RequestsClient
     )
@@ -792,30 +792,19 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
 
         return _check_call_numbers
 
-    # def max_retries(self):
-    #     return 3
-
     @pytest.fixture
-    def fast_retry_client(self, make_client):
-        client = make_client()
-        # Override sleep time to speed up tests
-        client._sleep_time_seconds = lambda num_retries, response=None: 0.0001
-        # Override configured max retries
-        return client
-
-    @pytest.fixture
-    def make_retried_request(self, fast_retry_client):
+    def make_retried_request(self, client):
         def _make_request():
-            return fast_retry_client.request_with_retries(
+            return client.request_with_retries(
                 "GET", self.valid_url, {}, None, self.max_retries
             )
 
         return _make_request
 
     @pytest.fixture
-    def make_streamed_retried_request(self, fast_retry_client):
+    def make_streamed_retried_request(self, client):
         def _make_request():
-            return fast_retry_client.request_stream_with_retries(
+            return client.request_stream_with_retries(
                 "GET", self.valid_url, {}, None, self.max_retries
             )
 
@@ -924,10 +913,10 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         check_call_numbers(self.max_retries + 1, is_streaming=True)
 
     @pytest.fixture
-    def connection_error(self, fast_retry_client):
+    def connection_error(self, client):
         def connection_error(given_exception):
             with pytest.raises(APIConnectionError) as error:
-                fast_retry_client._handle_request_error(given_exception)
+                client._handle_request_error(given_exception)
             return error.value
 
         return connection_error
@@ -972,7 +961,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         pass
 
 
-class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):
+class TestUrlFetchClient(ClientTestBase):
     REQUEST_CLIENT = _http_client.UrlFetchClient
 
     @pytest.fixture
@@ -1013,7 +1002,7 @@ class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):
         return check_call
 
 
-class TestUrllib2Client(StripeClientTestCase, ClientTestBase):
+class TestUrllib2Client(ClientTestBase):
     REQUEST_CLIENT: Type[_http_client.Urllib2Client] = (
         _http_client.Urllib2Client
     )
@@ -1086,7 +1075,7 @@ class TestUrllib2ClientHttpsProxy(TestUrllib2Client):
     ALWAYS_INIT_CLIENT = True
 
 
-class TestPycurlClient(StripeClientTestCase, ClientTestBase):
+class TestPycurlClient(ClientTestBase):
     REQUEST_CLIENT: Type[_http_client.PycurlClient] = _http_client.PycurlClient
     ALWAYS_INIT_CLIENT = True
 
@@ -1217,7 +1206,7 @@ class TestAPIEncode:
         assert ("foo[name]", "bat") in values
 
 
-class TestHTTPXClient(StripeClientTestCase, ClientTestBase):
+class TestHTTPXClient(ClientTestBase):
     REQUEST_CLIENT: Type[_http_client.HTTPXClient] = _http_client.HTTPXClient
     PROXY = "http://slap/"
     # ALWAYS_INIT_CLIENT= True
@@ -1436,9 +1425,7 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBase):
         )
 
     @pytest.mark.anyio
-    async def test_request_stream_forwards_stream_param(
-        self, mocker, request_mock, mock_response, check_call
-    ):
+    async def test_request_stream_forwards_stream_param(self):
         # TODO
         pass
 
@@ -1461,43 +1448,46 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBase):
 
 class TestHTTPXClientRetryBehavior(TestHTTPXClient):
     responses = None
-    _mocked_request_lib = None
     max_retries = 3
+    ALWAYS_INIT_CLIENT = True
 
     @pytest.fixture
-    def mock_retry(self, request_mock):
+    def mock_retry(self, mocked_request_lib):
         def _mock_retry(
             retry_error_num=0, no_retry_error_num=0, responses=None
         ):
             # Store the mocked request lib for use in make_client
-            self._mocked_request_lib = request_mock
 
             if responses is None:
                 responses = []
             # Mocking classes of exception we catch. Any group of exceptions
             # with the same inheritance pattern will work
             request_root_error_class = Exception
-            request_mock.exceptions.RequestException = request_root_error_class
+            mocked_request_lib.exceptions.RequestException = (
+                request_root_error_class
+            )
 
             no_retry_parent_class = LookupError
             no_retry_child_class = KeyError
-            request_mock.exceptions.SSLError = no_retry_parent_class
+            mocked_request_lib.exceptions.SSLError = no_retry_parent_class
             no_retry_errors = [no_retry_child_class()] * no_retry_error_num
 
             retry_parent_class = EnvironmentError
             retry_child_class = IOError
-            request_mock.exceptions.Timeout = retry_parent_class
-            request_mock.exceptions.ConnectionError = retry_parent_class
+            mocked_request_lib.exceptions.Timeout = retry_parent_class
+            mocked_request_lib.exceptions.ConnectionError = retry_parent_class
             retry_errors = [retry_child_class()] * retry_error_num
             # Include mock responses as possible side-effects
             # to simulate returning proper results after some exceptions
 
             results = retry_errors + no_retry_errors + responses
 
-            request_mock.AsyncClient().request = AsyncMock(side_effect=results)
+            mocked_request_lib.AsyncClient().request = AsyncMock(
+                side_effect=results
+            )
             self.responses = results
 
-            return request_mock
+            return mocked_request_lib
 
         return _mock_retry
 
@@ -1517,14 +1507,6 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
             )
 
         return _check_call_numbers
-
-    @pytest.fixture
-    def client(self, make_client):
-        client = make_client(timeout=80, allow_sync_methods=True)
-        # Override sleep time to speed up tests
-        client._sleep_time_seconds = lambda num_retries, response=None: 0.0001
-        # Override configured max retries
-        return client
 
     @pytest.fixture
     def make_async_request_with_args(self, make_async_request):
@@ -1640,7 +1622,7 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
         pass
 
 
-class TestAIOHTTPClient(StripeClientTestCase, ClientTestBase):
+class TestAIOHTTPClient(ClientTestBase):
     REQUEST_CLIENT: Type[_http_client.AIOHTTPClient] = (
         _http_client.AIOHTTPClient
     )
