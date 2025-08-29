@@ -10,9 +10,10 @@ _default:
     just --list --unsorted
 
 # ⭐ run all unit tests
+[positional-arguments]
 test *args: install-test-deps
     # configured in pyproject.toml
-    pytest {{ args }}
+    pytest "$@"
 
 # run a single test by name
 test-one test_name: install-test-deps

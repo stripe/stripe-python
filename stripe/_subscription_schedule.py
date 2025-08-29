@@ -195,10 +195,44 @@ class SubscriptionSchedule(
                 ID of the promotion code to create a new discount for.
                 """
 
+            class Period(StripeObject):
+                class End(StripeObject):
+                    timestamp: Optional[int]
+                    """
+                    A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+                    """
+                    type: Literal[
+                        "min_item_period_end", "phase_end", "timestamp"
+                    ]
+                    """
+                    Select how to calculate the end of the invoice item period.
+                    """
+
+                class Start(StripeObject):
+                    timestamp: Optional[int]
+                    """
+                    A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+                    """
+                    type: Literal[
+                        "max_item_period_start", "phase_start", "timestamp"
+                    ]
+                    """
+                    Select how to calculate the start of the invoice item period.
+                    """
+
+                end: End
+                start: Start
+                _inner_class_types = {"end": End, "start": Start}
+
             discounts: List[Discount]
             """
             The stackable discounts that will be applied to the item.
             """
+            metadata: Optional[Dict[str, str]]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            """
+            period: Period
             price: ExpandableField["Price"]
             """
             ID of the price used to generate the invoice item.
@@ -211,7 +245,7 @@ class SubscriptionSchedule(
             """
             The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
             """
-            _inner_class_types = {"discounts": Discount}
+            _inner_class_types = {"discounts": Discount, "period": Period}
 
         class AutomaticTax(StripeObject):
             class Liability(StripeObject):
@@ -502,6 +536,9 @@ class SubscriptionSchedule(
 
     class CreateParamsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreateParamsDefaultSettings(TypedDict):
         application_fee_percent: NotRequired[float]
@@ -678,6 +715,10 @@ class SubscriptionSchedule(
         """
         The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
+        duration: NotRequired["SubscriptionSchedule.CreateParamsPhaseDuration"]
+        """
+        The number of intervals the phase should last. If set, `end_date` must not be set.
+        """
         end_date: NotRequired[int]
         """
         The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
@@ -694,7 +735,7 @@ class SubscriptionSchedule(
         """
         iterations: NotRequired[int]
         """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
+        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -734,6 +775,16 @@ class SubscriptionSchedule(
         """
         The coupons to redeem into discounts for the item.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -765,6 +816,38 @@ class SubscriptionSchedule(
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemPeriod(TypedDict):
+        end: "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: (
+            "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPeriodStart"
+        )
+        """
+        Start of the invoice item period.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemPeriodEnd(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "phase_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemPeriodStart(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "phase_start", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class CreateParamsPhaseAddInvoiceItemPriceData(TypedDict):
@@ -835,6 +918,16 @@ class SubscriptionSchedule(
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsPhaseDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies phase duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class CreateParamsPhaseInvoiceSettings(TypedDict):
@@ -1300,6 +1393,10 @@ class SubscriptionSchedule(
         """
         The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
+        duration: NotRequired["SubscriptionSchedule.ModifyParamsPhaseDuration"]
+        """
+        The number of intervals the phase should last. If set, `end_date` must not be set.
+        """
         end_date: NotRequired["int|Literal['now']"]
         """
         The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
@@ -1316,7 +1413,7 @@ class SubscriptionSchedule(
         """
         iterations: NotRequired[int]
         """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
+        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -1360,6 +1457,16 @@ class SubscriptionSchedule(
         """
         The coupons to redeem into discounts for the item.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -1391,6 +1498,38 @@ class SubscriptionSchedule(
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsPhaseAddInvoiceItemPeriod(TypedDict):
+        end: "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: (
+            "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPeriodStart"
+        )
+        """
+        Start of the invoice item period.
+        """
+
+    class ModifyParamsPhaseAddInvoiceItemPeriodEnd(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "phase_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class ModifyParamsPhaseAddInvoiceItemPeriodStart(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "phase_start", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class ModifyParamsPhaseAddInvoiceItemPriceData(TypedDict):
@@ -1461,6 +1600,16 @@ class SubscriptionSchedule(
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsPhaseDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies phase duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class ModifyParamsPhaseInvoiceSettings(TypedDict):

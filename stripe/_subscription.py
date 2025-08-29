@@ -552,7 +552,9 @@ class Subscription(
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
-        cancel_at: NotRequired[int]
+        cancel_at: NotRequired[
+            "int|Literal['max_period_end', 'min_period_end']"
+        ]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -693,6 +695,14 @@ class Subscription(
         """
         The coupons to redeem into discounts for the item.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired["Subscription.CreateParamsAddInvoiceItemPeriod"]
+        """
+        The period associated with this invoice item. Defaults to the current period of the subscription.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -724,6 +734,36 @@ class Subscription(
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsAddInvoiceItemPeriod(TypedDict):
+        end: "Subscription.CreateParamsAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: "Subscription.CreateParamsAddInvoiceItemPeriodStart"
+        """
+        Start of the invoice item period.
+        """
+
+    class CreateParamsAddInvoiceItemPeriodEnd(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class CreateParamsAddInvoiceItemPeriodStart(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "now", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class CreateParamsAddInvoiceItemPriceData(TypedDict):
@@ -775,27 +815,30 @@ class Subscription(
     class CreateParamsBillingCycleAnchorConfig(TypedDict):
         day_of_month: int
         """
-        The day of the month the billing_cycle_anchor should be. Ranges from 1 to 31.
+        The day of the month the anchor should be. Ranges from 1 to 31.
         """
         hour: NotRequired[int]
         """
-        The hour of the day the billing_cycle_anchor should be. Ranges from 0 to 23.
+        The hour of the day the anchor should be. Ranges from 0 to 23.
         """
         minute: NotRequired[int]
         """
-        The minute of the hour the billing_cycle_anchor should be. Ranges from 0 to 59.
+        The minute of the hour the anchor should be. Ranges from 0 to 59.
         """
         month: NotRequired[int]
         """
-        The month to start full cycle billing periods. Ranges from 1 to 12.
+        The month to start full cycle periods. Ranges from 1 to 12.
         """
         second: NotRequired[int]
         """
-        The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
+        The second of the minute the anchor should be. Ranges from 0 to 59.
         """
 
     class CreateParamsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreateParamsBillingThresholds(TypedDict):
         amount_gte: NotRequired[int]
@@ -1227,13 +1270,13 @@ class Subscription(
             "Subscription.ListParamsCurrentPeriodEnd|int"
         ]
         """
-        Only return subscriptions whose current_period_end falls within the given date interval.
+        Only return subscriptions whose minimum item current_period_end falls within the given date interval.
         """
         current_period_start: NotRequired[
             "Subscription.ListParamsCurrentPeriodStart|int"
         ]
         """
-        Only return subscriptions whose current_period_start falls within the given date interval.
+        Only return subscriptions whose maximum item current_period_start falls within the given date interval.
         """
         customer: NotRequired[str]
         """
@@ -1383,7 +1426,9 @@ class Subscription(
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
-        cancel_at: NotRequired["Literal['']|int"]
+        cancel_at: NotRequired[
+            "Literal['']|int|Literal['max_period_end', 'min_period_end']"
+        ]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -1476,7 +1521,7 @@ class Subscription(
 
         Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
 
-        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://docs.stripe.com/changelog/2019-03-14) to learn more.
         """
         payment_settings: NotRequired[
             "Subscription.ModifyParamsPaymentSettings"
@@ -1526,6 +1571,14 @@ class Subscription(
         """
         The coupons to redeem into discounts for the item.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired["Subscription.ModifyParamsAddInvoiceItemPeriod"]
+        """
+        The period associated with this invoice item. Defaults to the current period of the subscription.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -1557,6 +1610,36 @@ class Subscription(
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsAddInvoiceItemPeriod(TypedDict):
+        end: "Subscription.ModifyParamsAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: "Subscription.ModifyParamsAddInvoiceItemPeriodStart"
+        """
+        Start of the invoice item period.
+        """
+
+    class ModifyParamsAddInvoiceItemPeriodEnd(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class ModifyParamsAddInvoiceItemPeriodStart(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "now", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class ModifyParamsAddInvoiceItemPriceData(TypedDict):

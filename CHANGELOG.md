@@ -1,4 +1,64 @@
+## 12.5.0 - 2025-08-27
+* [#1554](https://github.com/stripe/stripe-python/pull/1554) Add section on private preview SDKs in readme
+* [#1544](https://github.com/stripe/stripe-python/pull/1544) Update generated code. This release changes the pinned API version to `2025-08-27.basil`.
+  * Add support for `balance_report`, `payout_details`, and `payout_reconciliation_report` on `AccountSession.Component` and `AccountSession.CreateParamsComponent`
+  * Add support for `name` on `BillingPortal.Configuration`, `billing_portal.Configuration.CreateParams`, and `billing_portal.Configuration.ModifyParams`
+  * Add support for `installments` on `Charge.PaymentMethodDetail.Alma`
+  * Add support for `transaction_id` on `Charge.PaymentMethodDetail.Alma`, `Charge.PaymentMethodDetail.AmazonPay`, `Charge.PaymentMethodDetail.Billie`, `Charge.PaymentMethodDetail.KakaoPay`, `Charge.PaymentMethodDetail.KrCard`, `Charge.PaymentMethodDetail.NaverPay`, `Charge.PaymentMethodDetail.Payco`, `Charge.PaymentMethodDetail.RevolutPay`, `Charge.PaymentMethodDetail.SamsungPay`, and `Charge.PaymentMethodDetail.Satispay`
+  * Add support for `location` and `reader` on `Charge.PaymentMethodDetail.Paynow`
+  * Add support for `amount_includes_iof` on `Checkout.Session.PaymentMethodOption.Pix`, `PaymentIntent.ConfirmParamsPaymentMethodOptionPix`, `PaymentIntent.CreateParamsPaymentMethodOptionPix`, `PaymentIntent.ModifyParamsPaymentMethodOptionPix`, `PaymentIntent.PaymentMethodOption.Pix`, and `checkout.Session.CreateParamsPaymentMethodOptionPix`
+  * Add support for new values `block` and `resolution` on enum `Dispute.PaymentMethodDetail.Card.case_type`
+  * Add support for new value `terminal_android_apk` on enums `File.ListParams.purpose` and `File.purpose`
+  * Add support for new value `terminal_android_apk` on enum `File.CreateParams.purpose`
+  * Add support for `metadata` and `period` on `Invoice.CreatePreviewParamsScheduleDetailPhaseAddInvoiceItem`, `Subscription.CreateParamsAddInvoiceItem`, `Subscription.ModifyParamsAddInvoiceItem`, `SubscriptionSchedule.CreateParamsPhaseAddInvoiceItem`, `SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItem`, and `SubscriptionSchedule.Phase.AddInvoiceItem`
+  * Add support for `exp_month` and `exp_year` on `issuing.Card.CreateParams`
+  * Add support for `excluded_payment_method_types` on `PaymentIntent.CreateParams` and `PaymentIntent`
+  * Add support for `payout_method` on `Payout.CreateParams` and `Payout`
+  * Add support for `mxn` on `Terminal.Configuration.Tipping`, `terminal.Configuration.CreateParamsTipping`, and `terminal.Configuration.ModifyParamsTipping`
+  * Add support for `card` on `terminal.Reader.PresentPaymentMethodParams`
+  * Add support for new value `card` on enum `terminal.Reader.PresentPaymentMethodParams.type`
+  * Add support for new value `2025-08-27.basil` on enum `WebhookEndpoint.CreateParams.api_version`
+  * Add support for error codes `customer_session_expired` and `india_recurring_payment_mandate_canceled` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
+* [#1553](https://github.com/stripe/stripe-python/pull/1553) Import available http libraries more efficiently
+* [#1549](https://github.com/stripe/stripe-python/pull/1549) Introduce V1 namespaces in StripeClient
+  - All the top level non-namespaced services under StripeClient services(eg. customers, products) are copied under the new V1 namespace. These top level non-namespaced services will be marked as deprecated in the next major release and will be removed in a future release. Eg.
+  ```diff
+  client = StripeClient("sk_test...")
+
+  # Accessing V1 Stripe services on a StripeClient should be through the V1 namespace
+  - client.customers.list()
+  + client.v1.customers.list()
+  ```
+  Refer to the [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for help upgrading.
+
+## 12.4.0 - 2025-07-30
+This release changes the pinned API version to `2025-07-30.basil`.
+
+* [#1541](https://github.com/stripe/stripe-python/pull/1541) Update generated code
+  * Add support for `instant_payouts_promotion` on `AccountSession.Component` and `AccountSession.CreateParamsComponent`
+  * Add support for `adjustable_quantity` on `BillingPortal.Configuration.Feature.SubscriptionUpdate.Product`, `billing_portal.Configuration.CreateParamsFeatureSubscriptionUpdateProduct`, and `billing_portal.Configuration.ModifyParamsFeatureSubscriptionUpdateProduct`
+  * Remove support for value `disabled` from enum `Capability.status`
+  * Add support for `transaction_id` on `Charge.PaymentMethodDetail.Cashapp`
+  * Add support for `origin_context` on `Checkout.Session` and `checkout.Session.CreateParams`
+  * Add support for `template` on `Checkout.Session.InvoiceCreation.InvoiceDatum.RenderingOption`, `PaymentLink.CreateParamsInvoiceCreationInvoiceDatumRenderingOption`, `PaymentLink.InvoiceCreation.InvoiceDatum.RenderingOption`, `PaymentLink.ModifyParamsInvoiceCreationInvoiceDatumRenderingOption`, and `checkout.Session.CreateParamsInvoiceCreationInvoiceDatumRenderingOption`
+  * Add support for `setup_future_usage` on `Checkout.Session.PaymentMethodOption.Pix` and `checkout.Session.CreateParamsPaymentMethodOptionPix`
+  * Add support for new value `nz_bank_account` on enum `checkout.Session.CreateParams.payment_method_types`
+  * Change `Identity.VerificationSession.RelatedPerson.account` to be required
+  * Change `Identity.VerificationSession.RelatedPerson.person` to be required
+  * Add support for `duration` on `Invoice.CreatePreviewParamsScheduleDetailPhase`, `SubscriptionSchedule.CreateParamsPhase`, and `SubscriptionSchedule.ModifyParamsPhase`
+  * Change type of `Invoice.CreatePreviewParamsSubscriptionDetail.cancel_at`, `Subscription.CreateParams.cancel_at`, and `Subscription.ModifyParams.cancel_at` from `DateTime` to `DateTime | enum('max_period_end'|'min_period_end')`
+  * Add support for `price_data` on `PaymentLink.CreateParamsLineItem`
+  * Change `PaymentLink.CreateParamsLineItem.price` to be optional
+  * Add support for new value `America/Coyhaique` on enum `reporting.ReportRun.CreateParamsParameter.timezone`
+  * Add support for `standard` on `Tax.Registration.CountryOption.Ae`, `Tax.Registration.CountryOption.Au`, `Tax.Registration.CountryOption.Ch`, `Tax.Registration.CountryOption.Gb`, `Tax.Registration.CountryOption.Jp`, `Tax.Registration.CountryOption.No`, `Tax.Registration.CountryOption.Nz`, `Tax.Registration.CountryOption.Sg`, `tax.Registration.CreateParamsCountryOptionAe`, `tax.Registration.CreateParamsCountryOptionAl`, `tax.Registration.CreateParamsCountryOptionAo`, `tax.Registration.CreateParamsCountryOptionAu`, `tax.Registration.CreateParamsCountryOptionAw`, `tax.Registration.CreateParamsCountryOptionB`, `tax.Registration.CreateParamsCountryOptionBa`, `tax.Registration.CreateParamsCountryOptionBb`, `tax.Registration.CreateParamsCountryOptionBd`, `tax.Registration.CreateParamsCountryOptionBf`, `tax.Registration.CreateParamsCountryOptionBh`, `tax.Registration.CreateParamsCountryOptionCd`, `tax.Registration.CreateParamsCountryOptionCh`, `tax.Registration.CreateParamsCountryOptionEt`, `tax.Registration.CreateParamsCountryOptionGb`, `tax.Registration.CreateParamsCountryOptionGn`, `tax.Registration.CreateParamsCountryOptionIs`, `tax.Registration.CreateParamsCountryOptionJp`, `tax.Registration.CreateParamsCountryOptionMe`, `tax.Registration.CreateParamsCountryOptionMk`, `tax.Registration.CreateParamsCountryOptionMr`, `tax.Registration.CreateParamsCountryOptionNo`, `tax.Registration.CreateParamsCountryOptionNz`, `tax.Registration.CreateParamsCountryOptionOm`, `tax.Registration.CreateParamsCountryOptionR`, `tax.Registration.CreateParamsCountryOptionSg`, `tax.Registration.CreateParamsCountryOptionSr`, `tax.Registration.CreateParamsCountryOptionUy`, `tax.Registration.CreateParamsCountryOptionZa`, and `tax.Registration.CreateParamsCountryOptionZw`
+  * Add support for new value `inbound_goods` on enums `Tax.Registration.CountryOption.At.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Be.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Bg.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Cy.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Cz.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.De.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Dk.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.E.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Ee.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Fi.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Fr.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Gr.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Hr.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Hu.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Ie.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.It.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Lt.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Lu.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Lv.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Mt.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Nl.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Pl.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Pt.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Ro.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Se.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Si.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Sk.Standard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionAtStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionBeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionBgStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionCyStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionCzStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionDeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionDkStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionEStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionEeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionFiStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionFrStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionGrStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionHrStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionHuStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionIeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionItStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionLtStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionLuStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionLvStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionMtStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionNlStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionPlStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionPtStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionRoStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionSeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionSiStandard.place_of_supply_scheme`, and `tax.Registration.CreateParamsCountryOptionSkStandard.place_of_supply_scheme`
+  * Add support for `aed`, `bgn`, `huf`, and `ron` on `Terminal.Configuration.Tipping`, `terminal.Configuration.CreateParamsTipping`, and `terminal.Configuration.ModifyParamsTipping`
+  * Add support for new value `2025-07-30.basil` on enum `WebhookEndpoint.CreateParams.api_version`
+* [#1537](https://github.com/stripe/stripe-python/pull/1537) Fix timeout type hint in RequestsClient
+
 ## 12.3.0 - 2025-07-01
+This release changes the pinned API version to `2025-06-30.basil`.
+
 * [#1526](https://github.com/stripe/stripe-python/pull/1526) Update generated code
   * Add support for `migrate` method on resource `Subscription`
   * Add support for `collect_payment_method` and `confirm_payment_intent` methods on resource `terminal.Reader`
@@ -34,9 +94,6 @@
   * Add support for new value `2025-06-30.basil` on enum `WebhookEndpoint.CreateParams.api_version`
   * Add support for snapshot event `terminal.reader.action_updated` with resource `terminal.Reader`
 * [#1534](https://github.com/stripe/stripe-python/pull/1534) Fix the link to releases page from readme
-* [#1532](https://github.com/stripe/stripe-python/pull/1532) Added lint ignore instruction for deprecated import
-* [#1524](https://github.com/stripe/stripe-python/pull/1524) Added import for the new deprecated services in stripe_client
-* [#1522](https://github.com/stripe/stripe-python/pull/1522) Add a new deprecated v1 services section
 
 ## 12.2.0 - 2025-05-29
  This release changes the pinned API version to `2025-05-28.basil`.

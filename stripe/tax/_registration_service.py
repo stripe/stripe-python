@@ -435,15 +435,43 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsAe(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsAeStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsAeStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
+        """
+
     class CreateParamsCountryOptionsAl(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsAlStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsAlStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsAm(TypedDict):
@@ -453,9 +481,23 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsAo(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsAoStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsAoStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsAt(TypedDict):
@@ -471,21 +513,51 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsAtStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsAu(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsAuStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsAuStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
+        """
+
     class CreateParamsCountryOptionsAw(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsAwStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsAwStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsAz(TypedDict):
@@ -495,21 +567,63 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsBa(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsBaStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsBaStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsBb(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsBbStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsBbStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
+        """
+
     class CreateParamsCountryOptionsBd(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsBdStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsBdStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsBe(TypedDict):
@@ -525,15 +639,31 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsBeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsBf(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsBfStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsBfStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsBg(TypedDict):
@@ -549,15 +679,31 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsBgStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsBh(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsBhStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsBhStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsBj(TypedDict):
@@ -567,9 +713,23 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsBs(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsBsStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsBsStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsBy(TypedDict):
@@ -597,15 +757,43 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsCd(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsCdStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsCdStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
+        """
+
     class CreateParamsCountryOptionsCh(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsChStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsChStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsCl(TypedDict):
@@ -651,7 +839,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsCyStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -669,7 +859,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsCzStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -687,7 +879,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsDeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -705,7 +899,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsDkStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -729,7 +925,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsEeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -753,15 +951,31 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsEsStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsEt(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsEtStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsEtStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsFi(TypedDict):
@@ -777,7 +991,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsFiStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -795,15 +1011,31 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsFrStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsGb(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsGbStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsGbStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsGe(TypedDict):
@@ -813,9 +1045,23 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsGn(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsGnStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsGnStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsGr(TypedDict):
@@ -831,7 +1077,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsGrStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -849,7 +1097,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsHrStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -867,7 +1117,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsHuStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -891,7 +1143,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsIeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -903,9 +1157,23 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsIs(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsIsStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsIsStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsIt(TypedDict):
@@ -921,15 +1189,31 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsItStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsJp(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsJpStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsJpStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsKe(TypedDict):
@@ -981,7 +1265,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsLtStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -999,7 +1285,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsLuStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1017,7 +1305,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsLvStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1035,21 +1325,63 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsMe(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsMeStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsMeStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsMk(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsMkStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsMkStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
+        """
+
     class CreateParamsCountryOptionsMr(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsMrStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsMrStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsMt(TypedDict):
@@ -1065,7 +1397,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsMtStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1101,15 +1435,31 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsNlStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsNo(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsNoStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsNoStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsNp(TypedDict):
@@ -1119,15 +1469,43 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsNz(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsNzStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
         """
 
+    class CreateParamsCountryOptionsNzStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
+        """
+
     class CreateParamsCountryOptionsOm(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsOmStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsOmStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsPe(TypedDict):
@@ -1155,7 +1533,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsPlStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1173,7 +1553,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsPtStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1191,15 +1573,31 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsRoStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsRs(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsRsStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsRsStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsRu(TypedDict):
@@ -1227,15 +1625,31 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsSeStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
 
     class CreateParamsCountryOptionsSg(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsSgStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsSgStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsSi(TypedDict):
@@ -1251,7 +1665,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsSiStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1269,7 +1685,9 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsSkStandard(TypedDict):
-        place_of_supply_scheme: Literal["small_seller", "standard"]
+        place_of_supply_scheme: Literal[
+            "inbound_goods", "small_seller", "standard"
+        ]
         """
         Place of supply scheme used in an EU standard registration.
         """
@@ -1281,9 +1699,23 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsSr(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsSrStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsSrStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsTh(TypedDict):
@@ -1391,9 +1823,23 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsUy(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsUyStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsUyStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsUz(TypedDict):
@@ -1409,9 +1855,23 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsZa(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsZaStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsZaStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class CreateParamsCountryOptionsZm(TypedDict):
@@ -1421,9 +1881,23 @@ class RegistrationService(StripeService):
         """
 
     class CreateParamsCountryOptionsZw(TypedDict):
+        standard: NotRequired[
+            "RegistrationService.CreateParamsCountryOptionsZwStandard"
+        ]
+        """
+        Options for the standard registration.
+        """
         type: Literal["standard"]
         """
         Type of registration to be created in `country`.
+        """
+
+    class CreateParamsCountryOptionsZwStandard(TypedDict):
+        place_of_supply_scheme: NotRequired[
+            Literal["inbound_goods", "standard"]
+        ]
+        """
+        Place of supply scheme used in an standard registration.
         """
 
     class ListParams(TypedDict):

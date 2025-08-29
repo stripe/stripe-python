@@ -16,12 +16,12 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class QuoteService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.line_items = QuoteLineItemService(self._requestor)
         self.computed_upfront_line_items = (
             QuoteComputedUpfrontLineItemsService(
                 self._requestor,
             )
         )
+        self.line_items = QuoteLineItemService(self._requestor)
 
     class AcceptParams(TypedDict):
         expand: NotRequired[List[str]]
@@ -299,6 +299,9 @@ class QuoteService(StripeService):
 
     class CreateParamsSubscriptionDataBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class CreateParamsTransferData(TypedDict):
         amount: NotRequired[int]
