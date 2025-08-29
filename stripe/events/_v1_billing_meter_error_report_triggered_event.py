@@ -33,7 +33,7 @@ class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
         )
 
     def fetch_related_object(self) -> "Meter":
-        response = self.client.raw_request(
+        response = self._client.raw_request(
             "get",
             self.related_object.url,
             stripe_context=self.context,
@@ -41,7 +41,7 @@ class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
         )
         return cast(
             "Meter",
-            self.client.deserialize(
+            self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
             ),
@@ -54,7 +54,7 @@ class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
         )
 
     async def fetch_related_object_async(self) -> "Meter":
-        response = await self.client.raw_request_async(
+        response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
             stripe_context=self.context,
@@ -62,7 +62,7 @@ class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
         )
         return cast(
             "Meter",
-            self.client.deserialize(
+            self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
             ),

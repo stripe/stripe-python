@@ -144,28 +144,28 @@ class ThinEvent:
         if parsed_body.get("reason"):
             self.reason = Reason(parsed_body["reason"])
 
-        self.client = client
+        self._client = client
 
     def __repr__(self) -> str:
         return f"<ThinEvent id={self.id} type={self.type} created={self.created} context={self.context} reason={self.reason}>"
 
     def pull(self) -> Event:
-        response = self.client.raw_request(
+        response = self._client.raw_request(
             "get",
             f"/v2/core/events/{self.id}",
             stripe_context=self.context,
             usage=["pushed_event_pull"],
         )
-        return cast(Event, self.client.deserialize(response, api_mode="V2"))
+        return cast(Event, self._client.deserialize(response, api_mode="V2"))
 
     async def pull_async(self) -> Event:
-        response = await self.client.raw_request_async(
+        response = await self._client.raw_request_async(
             "get",
             f"/v2/core/events/{self.id}",
             stripe_context=self.context,
             usage=["pushed_event_pull", "pushed_event_pull_async"],
         )
-        return cast(Event, self.client.deserialize(response, api_mode="V2"))
+        return cast(Event, self._client.deserialize(response, api_mode="V2"))
 
 
 class UnknownThinEvent(ThinEvent):

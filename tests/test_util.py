@@ -162,8 +162,7 @@ class TestUtil(object):
         [
             ("/v2/core/events", "V2"),
             ("/v1/events", "V1"),
-            ("https://api.stripe.com/v1/events", "V1"),
-            ("https://api.stripe.com/v2/core/events", "V2"),
+            ("/oauth/authorize", "V1"),
             ("something/v2/core/events", "V1"),
         ],
     )

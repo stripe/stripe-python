@@ -418,10 +418,6 @@ def sanitize_id(id):
 
 
 def get_api_mode(url: str) -> ApiMode:
-    # support absolute urls
-    if url.startswith("http"):
-        url = urlparse(url).path
-
     if url.startswith("/v2"):
         return "V2"
 

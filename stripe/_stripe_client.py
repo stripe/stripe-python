@@ -249,7 +249,8 @@ class StripeClient(object):
 
         stripe_context = params.pop("stripe_context", None)
 
-        usage = params.pop("usage", None)
+        # we manually pass usage in event internals, so use those if available
+        usage = params.pop("usage", ["raw_request"])
 
         # stripe-context goes *here* and not in api_requestor. Properties
         # go on api_requestor when you want them to persist onto requests
@@ -267,8 +268,7 @@ class StripeClient(object):
             options=options,
             base_address=base_address,
             api_mode=api_mode,
-            # we manually pass usage in event internals, so use those if available
-            usage=usage or ["raw_request"],
+            usage=usage,
         )
 
         return self._requestor._interpret_response(
