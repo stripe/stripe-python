@@ -192,12 +192,6 @@ else:
         return result == 0
 
 
-def get_thin_event_classes():
-    from stripe.events._event_classes import THIN_EVENT_CLASSES
-
-    return THIN_EVENT_CLASSES
-
-
 def get_object_classes(api_mode):
     # This is here to avoid a circular dependency
     if api_mode == "V2":
@@ -322,8 +316,10 @@ def _convert_to_stripe_object(
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
             if api_mode == "V2" and klass_name == "v2.core.event":
+                from stripe.events._event_classes import V2_EVENT_CLASS_LOOKUP
+
                 event_name = resp.get("type", "")
-                klass = get_thin_event_classes().get(
+                klass = V2_EVENT_CLASS_LOOKUP.get(
                     event_name, stripe.StripeObject
                 )
             else:

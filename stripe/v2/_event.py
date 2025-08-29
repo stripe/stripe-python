@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 
+import json
 from typing import Any, ClassVar, Dict, Optional, cast
 
 from typing_extensions import Literal, TYPE_CHECKING
 
 from stripe._stripe_object import StripeObject
+from stripe._util import get_api_mode
 
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
-
-# This describes the common format for the pull payload of a V2 ThinEvent
-# more specific classes will add `data` and `fetch_related_objects()` as needed
 
 
 # The beginning of the section generated from our OpenAPI spec
@@ -102,9 +101,9 @@ class RelatedObject:
         return f"<RelatedObject id={self.id} type={self.type} url={self.url}>"
 
 
-class ThinEvent:
+class EventNotification:
     """
-    ThinEvent represents the json that's delivered from an Event Destination. It's a basic `dict` with no additional methods or properties. Use it to check basic information about a delivered event. If you want more details, use `stripe.v2.Event.retrieve(thin_event.id)` to fetch the full event object.
+    EventNotification represents the json that's delivered from an Event Destination. It's a basic `dict` with no additional methods or properties. Use it to check basic information about a delivered event. If you want more details, use `stripe.v2.Event.retrieve(thin_event.id)` to fetch the full event object.
     """
 
     id: str
@@ -146,10 +145,28 @@ class ThinEvent:
 
         self._client = client
 
-    def __repr__(self) -> str:
-        return f"<ThinEvent id={self.id} type={self.type} created={self.created} context={self.context} reason={self.reason}>"
+    @staticmethod
+    def from_json(payload: str, client: "StripeClient") -> "EventNotification":
+        """
+        The `from_json` constructor shouldn't be used in production code (since it doesn't validate webhook signatures). But it's useful for testing. It's also called by `StripeClient.parse_event_notification`.
+        """
+        parsed_body = json.loads(payload)
 
-    def pull(self) -> Event:
+        # circular import busting
+        from stripe.events._event_classes import (
+            V2_EVENT_NOTIFICATION_CLASS_LOOKUP,
+        )
+
+        event_class = V2_EVENT_NOTIFICATION_CLASS_LOOKUP.get(
+            parsed_body["type"], UnknownEventNotification
+        )
+
+        return event_class(parsed_body, client)
+
+    def __repr__(self) -> str:
+        return f"<EventNotification id={self.id} type={self.type} created={self.created} context={self.context} reason={self.reason}>"
+
+    def fetch_event(self) -> Event:
         response = self._client.raw_request(
             "get",
             f"/v2/core/events/{self.id}",
@@ -158,7 +175,7 @@ class ThinEvent:
         )
         return cast(Event, self._client.deserialize(response, api_mode="V2"))
 
-    async def pull_async(self) -> Event:
+    async def fetch_event_async(self) -> Event:
         response = await self._client.raw_request_async(
             "get",
             f"/v2/core/events/{self.id}",
@@ -168,7 +185,7 @@ class ThinEvent:
         return cast(Event, self._client.deserialize(response, api_mode="V2"))
 
 
-class UnknownThinEvent(ThinEvent):
+class UnknownEventNotification(EventNotification):
     """
     Represents a Thin Event payload that the SDK doesn't have types for. May have a related object.
     """
@@ -185,3 +202,33 @@ class UnknownThinEvent(ThinEvent):
 
         if parsed_body.get("related_object"):
             self.related_object = RelatedObject(parsed_body["related_object"])
+
+    def fetch_related_object(self) -> Optional[StripeObject]:
+        if self.related_object is None:
+            return None
+
+        response = self._client.raw_request(
+            "get",
+            self.related_object.url,
+            stripe_context=self.context,
+            usage=["fetch_related_object", "unknown_event"],
+        )
+        return self._client.deserialize(
+            response,
+            api_mode=get_api_mode(self.related_object.url),
+        )
+
+    async def fetch_related_object_async(self) -> Optional[StripeObject]:
+        if self.related_object is None:
+            return None
+
+        response = await self._client.raw_request_async(
+            "get",
+            self.related_object.url,
+            stripe_context=self.context,
+            usage=["fetch_related_object", "unknown_event"],
+        )
+        return self._client.deserialize(
+            response,
+            api_mode=get_api_mode(self.related_object.url),
+        )

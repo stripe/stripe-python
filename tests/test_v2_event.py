@@ -11,14 +11,14 @@ from stripe import DEFAULT_API_BASE
 from stripe._error import SignatureVerificationError
 from stripe._stripe_client import StripeClient
 from stripe.events._v1_billing_meter_error_report_triggered_event import (
-    PushedV1BillingMeterErrorReportTriggeredEvent,
+    V1BillingMeterErrorReportTriggeredEventNotification,
     V1BillingMeterErrorReportTriggeredEvent,
 )
-from stripe.v2._event import UnknownThinEvent
-from stripe.events._event_classes import ALL_PUSHED_THIN_EVENTS
+from stripe.v2._event import UnknownEventNotification
+from stripe.events._event_classes import ALL_EVENT_NOTIFICATIONS
 from tests.test_webhook import DUMMY_WEBHOOK_SECRET, generate_header
 
-EventParser = Callable[[str], ALL_PUSHED_THIN_EVENTS]
+EventParser = Callable[[str], ALL_EVENT_NOTIFICATIONS]
 
 
 class TestV2Event(object):
@@ -82,7 +82,7 @@ class TestV2Event(object):
         """
 
         def _parse_thin_event(payload: str):
-            return stripe_client.parse_thin_event(
+            return stripe_client.parse_event_notification(
                 payload, generate_header(payload=payload), DUMMY_WEBHOOK_SECRET
             )
 
@@ -93,7 +93,9 @@ class TestV2Event(object):
     ):
         event = parse_thin_event(v2_payload_no_data)
 
-        assert isinstance(event, PushedV1BillingMeterErrorReportTriggeredEvent)
+        assert isinstance(
+            event, V1BillingMeterErrorReportTriggeredEventNotification
+        )
         assert event.id == "evt_234"
 
         assert event.related_object
@@ -107,7 +109,9 @@ class TestV2Event(object):
     ):
         event = parse_thin_event(v2_payload_with_data)
 
-        assert isinstance(event, PushedV1BillingMeterErrorReportTriggeredEvent)
+        assert isinstance(
+            event, V1BillingMeterErrorReportTriggeredEventNotification
+        )
         # this isn't for constructing events, it's for parsing thin ones
         assert not hasattr(event, "data")
         assert event.reason is None
@@ -135,14 +139,14 @@ class TestV2Event(object):
             )
         )
 
-        assert type(event) is UnknownThinEvent
+        assert type(event) is UnknownEventNotification
         assert event.related_object
 
     def test_validates_signature(
         self, stripe_client: StripeClient, v2_payload_no_data
     ):
         with pytest.raises(SignatureVerificationError):
-            stripe_client.parse_thin_event(
+            stripe_client.parse_event_notification(
                 v2_payload_no_data, "bad header", DUMMY_WEBHOOK_SECRET
             )
 
@@ -215,7 +219,7 @@ class TestV2Event(object):
         thin_event = parse_thin_event(v2_payload_no_data)
         assert thin_event.type == "v1.billing.meter.error_report_triggered"
 
-        event = thin_event.pull()
+        event = thin_event.fetch_event()
         meter = thin_event.fetch_related_object()
 
         if sys.version_info >= (3, 7):
@@ -223,7 +227,7 @@ class TestV2Event(object):
 
             # these are purely type-level checks to ensure our narrowing works for users
             assert_type(
-                thin_event, PushedV1BillingMeterErrorReportTriggeredEvent
+                thin_event, V1BillingMeterErrorReportTriggeredEventNotification
             )
 
             assert_type(event, V1BillingMeterErrorReportTriggeredEvent)

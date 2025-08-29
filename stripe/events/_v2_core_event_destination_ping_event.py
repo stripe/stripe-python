@@ -3,13 +3,13 @@
 from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
 from stripe._util import get_api_mode
-from stripe.v2._event import Event, RelatedObject, ThinEvent
+from stripe.v2._event import Event, EventNotification, RelatedObject
 from stripe.v2._event_destination import EventDestination
 from typing import Any, Dict, cast
-from typing_extensions import Literal
+from typing_extensions import Literal, override
 
 
-class PushedV2CoreEventDestinationPingEvent(ThinEvent):
+class V2CoreEventDestinationPingEventNotification(EventNotification):
     LOOKUP_TYPE = "v2.core.event_destination.ping"
     type: Literal["v2.core.event_destination.ping"]
     related_object: RelatedObject
@@ -23,10 +23,11 @@ class PushedV2CoreEventDestinationPingEvent(ThinEvent):
         )
         self.related_object = RelatedObject(parsed_body["related_object"])
 
-    def pull(self) -> "V2CoreEventDestinationPingEvent":
+    @override
+    def fetch_event(self) -> "V2CoreEventDestinationPingEvent":
         return cast(
             "V2CoreEventDestinationPingEvent",
-            super().pull(),
+            super().fetch_event(),
         )
 
     def fetch_related_object(self) -> "EventDestination":
@@ -44,10 +45,11 @@ class PushedV2CoreEventDestinationPingEvent(ThinEvent):
             ),
         )
 
-    async def pull_async(self) -> "V2CoreEventDestinationPingEvent":
+    @override
+    async def fetch_event_async(self) -> "V2CoreEventDestinationPingEvent":
         return cast(
             "V2CoreEventDestinationPingEvent",
-            await super().pull_async(),
+            await super().fetch_event_async(),
         )
 
     async def fetch_related_object_async(self) -> "EventDestination":

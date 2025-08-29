@@ -27,7 +27,7 @@ from stripe._stripe_response import StripeResponse
 from stripe._util import _convert_to_stripe_object, get_api_mode, deprecated  # noqa: F401
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
-from stripe.v2._event import UnknownThinEvent
+from stripe.v2._event import EventNotification
 
 from typing import Any, Dict, Optional, Union, cast
 from typing_extensions import TYPE_CHECKING
@@ -114,7 +114,7 @@ from stripe._webhook_endpoint_service import WebhookEndpointService
 # services: The end of the section generated from our OpenAPI spec
 
 if TYPE_CHECKING:
-    from stripe.events._event_classes import ALL_PUSHED_THIN_EVENTS
+    from stripe.events._event_classes import ALL_EVENT_NOTIFICATIONS
 
 
 class StripeClient(object):
@@ -195,13 +195,14 @@ class StripeClient(object):
         self.v2 = V2Services(self._requestor)
         # top-level services: The end of the section generated from our OpenAPI spec
 
-    def parse_thin_event(
+    def parse_event_notification(
         self,
         raw: Union[bytes, str, bytearray],
         sig_header: str,
         secret: str,
         tolerance: int = Webhook.DEFAULT_TOLERANCE,
-    ) -> "ALL_PUSHED_THIN_EVENTS":
+    ) -> "ALL_EVENT_NOTIFICATIONS":
+        """ """
         payload = (
             cast(Union[bytes, bytearray], raw).decode("utf-8")
             if hasattr(raw, "decode")
@@ -209,16 +210,11 @@ class StripeClient(object):
         )
 
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
-        parsed_body = json.loads(payload)
 
-        # circular import busting
-        from stripe.events._event_classes import PUSHED_THIN_EVENT_CLASSES
-
-        event_class = PUSHED_THIN_EVENT_CLASSES.get(
-            parsed_body["type"], UnknownThinEvent
+        return cast(
+            "ALL_EVENT_NOTIFICATIONS",
+            EventNotification.from_json(payload, self),
         )
-
-        return event_class(parsed_body, self)
 
     def construct_event(
         self,

@@ -7,12 +7,12 @@ from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
 from stripe.billing._meter import Meter
-from stripe.v2._event import Event, RelatedObject, ThinEvent
+from stripe.v2._event import Event, EventNotification, RelatedObject
 from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from typing_extensions import Literal, override
 
 
-class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
+class V1BillingMeterErrorReportTriggeredEventNotification(EventNotification):
     LOOKUP_TYPE = "v1.billing.meter.error_report_triggered"
     type: Literal["v1.billing.meter.error_report_triggered"]
     related_object: RelatedObject
@@ -26,10 +26,11 @@ class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
         )
         self.related_object = RelatedObject(parsed_body["related_object"])
 
-    def pull(self) -> "V1BillingMeterErrorReportTriggeredEvent":
+    @override
+    def fetch_event(self) -> "V1BillingMeterErrorReportTriggeredEvent":
         return cast(
             "V1BillingMeterErrorReportTriggeredEvent",
-            super().pull(),
+            super().fetch_event(),
         )
 
     def fetch_related_object(self) -> "Meter":
@@ -47,10 +48,13 @@ class PushedV1BillingMeterErrorReportTriggeredEvent(ThinEvent):
             ),
         )
 
-    async def pull_async(self) -> "V1BillingMeterErrorReportTriggeredEvent":
+    @override
+    async def fetch_event_async(
+        self,
+    ) -> "V1BillingMeterErrorReportTriggeredEvent":
         return cast(
             "V1BillingMeterErrorReportTriggeredEvent",
-            await super().pull_async(),
+            await super().fetch_event_async(),
         )
 
     async def fetch_related_object_async(self) -> "Meter":

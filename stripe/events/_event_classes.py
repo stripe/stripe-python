@@ -3,32 +3,32 @@
 from typing import Union
 from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEvent,
-    PushedV1BillingMeterErrorReportTriggeredEvent,
+    V1BillingMeterErrorReportTriggeredEventNotification,
 )
 from stripe.events._v1_billing_meter_no_meter_found_event import (
     V1BillingMeterNoMeterFoundEvent,
-    PushedV1BillingMeterNoMeterFoundEvent,
+    V1BillingMeterNoMeterFoundEventNotification,
 )
 from stripe.events._v2_core_event_destination_ping_event import (
     V2CoreEventDestinationPingEvent,
-    PushedV2CoreEventDestinationPingEvent,
+    V2CoreEventDestinationPingEventNotification,
 )
 
 
-THIN_EVENT_CLASSES = {
+V2_EVENT_CLASS_LOOKUP = {
     V1BillingMeterErrorReportTriggeredEvent.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEvent,
     V1BillingMeterNoMeterFoundEvent.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEvent,
     V2CoreEventDestinationPingEvent.LOOKUP_TYPE: V2CoreEventDestinationPingEvent,
 }
 
-PUSHED_THIN_EVENT_CLASSES = {
-    PushedV1BillingMeterErrorReportTriggeredEvent.LOOKUP_TYPE: PushedV1BillingMeterErrorReportTriggeredEvent,
-    PushedV1BillingMeterNoMeterFoundEvent.LOOKUP_TYPE: PushedV1BillingMeterNoMeterFoundEvent,
-    PushedV2CoreEventDestinationPingEvent.LOOKUP_TYPE: PushedV2CoreEventDestinationPingEvent,
+V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
+    V1BillingMeterErrorReportTriggeredEventNotification.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEventNotification,
+    V1BillingMeterNoMeterFoundEventNotification.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEventNotification,
+    V2CoreEventDestinationPingEventNotification.LOOKUP_TYPE: V2CoreEventDestinationPingEventNotification,
 }
 
-ALL_PUSHED_THIN_EVENTS = Union[
-    PushedV1BillingMeterErrorReportTriggeredEvent,
-    PushedV1BillingMeterNoMeterFoundEvent,
-    PushedV2CoreEventDestinationPingEvent,
+ALL_EVENT_NOTIFICATIONS = Union[
+    V1BillingMeterErrorReportTriggeredEventNotification,
+    V1BillingMeterNoMeterFoundEventNotification,
+    V2CoreEventDestinationPingEventNotification,
 ]
