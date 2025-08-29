@@ -161,6 +161,7 @@ class TestUtil(object):
         ["url", "expected"],
         [
             ("/v2/core/events", "V2"),
+            ("/v2/v1/core/events", "V2"),
             ("/v1/events", "V1"),
             ("/oauth/authorize", "V1"),
             ("something/v2/core/events", "V1"),

@@ -202,7 +202,11 @@ class StripeClient(object):
         secret: str,
         tolerance: int = Webhook.DEFAULT_TOLERANCE,
     ) -> "ALL_EVENT_NOTIFICATIONS":
-        """ """
+        """
+        This should be your main method for interacting with `EventNotifications`. It's the V2 equivalent of `construct_event()`, but with better typing support.
+
+        It returns a union representing all known `EventNotification` classes. They have a `type` property that can be used for narrowing, which will get you very specific type support. If parsing an event the SDK isn't familiar with, it'll instead return `UnknownEventNotification`. That's not reflected in the return type of the function (because it messes up type narrowing) but is otherwise intended.
+        """
         payload = (
             cast(Union[bytes, bytearray], raw).decode("utf-8")
             if hasattr(raw, "decode")
