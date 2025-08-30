@@ -821,7 +821,7 @@ class _APIRequestor(object):
 
         return rcontent, rcode, rheaders
 
-    def _should_handle_code_as_error(self, rcode):
+    def _should_handle_code_as_error(self, rcode: int) -> bool:
         return not 200 <= rcode < 300
 
     def _interpret_response(
