@@ -57,7 +57,7 @@ class AlertService(StripeService):
         """
         recurrence: Literal["one_time"]
         """
-        Whether the alert should only fire only once, or once per billing cycle.
+        Defines how the alert will behave.
         """
 
     class CreateParamsUsageThresholdFilter(TypedDict):

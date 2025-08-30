@@ -12,7 +12,7 @@ from typing_extensions import (
 )
 
 if TYPE_CHECKING:
-    from stripe.billing._meter_usage_row import MeterUsageRow
+    from stripe.billing.analytics._meter_usage_row import MeterUsageRow
 
 
 class MeterUsage(SingletonAPIResource["MeterUsage"]):
@@ -20,8 +20,8 @@ class MeterUsage(SingletonAPIResource["MeterUsage"]):
     A billing meter usage event represents an aggregated view of a customer's billing meter events within a specified timeframe.
     """
 
-    OBJECT_NAME: ClassVar[Literal["billing.meter_usage"]] = (
-        "billing.meter_usage"
+    OBJECT_NAME: ClassVar[Literal["billing.analytics.meter_usage"]] = (
+        "billing.analytics.meter_usage"
     )
 
     class RetrieveParams(RequestOptions):
@@ -688,7 +688,7 @@ class MeterUsage(SingletonAPIResource["MeterUsage"]):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    object: Literal["billing.meter_usage"]
+    object: Literal["billing.analytics.meter_usage"]
     """
     String representing the object's type. Objects of the same type share the same value.
     """
