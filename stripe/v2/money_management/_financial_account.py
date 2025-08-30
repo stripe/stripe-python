@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 class FinancialAccount(StripeObject):
     """
-    The Financial Account is the container that allows for the configuration of money movement.
+    A FinancialAccount represents a balance and can be used as the source or destination for the money management (`/v2/money_management`) APIs.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.money_management.financial_account"]] = (
@@ -521,7 +521,7 @@ class FinancialAccount(StripeObject):
     """
     metadata: Optional[Dict[str, str]]
     """
-    Metadata associated with the FinancialAccount
+    Metadata associated with the FinancialAccount.
     """
     object: Literal["v2.money_management.financial_account"]
     """

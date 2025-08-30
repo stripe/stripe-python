@@ -806,7 +806,7 @@ class Subscription(
         """
         period: NotRequired["Subscription.CreateParamsAddInvoiceItemPeriod"]
         """
-        The period associated with this invoice item. Defaults to the current period of the subscription.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -1866,7 +1866,7 @@ class Subscription(
         """
         period: NotRequired["Subscription.ModifyParamsAddInvoiceItemPeriod"]
         """
-        The period associated with this invoice item. Defaults to the current period of the subscription.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """

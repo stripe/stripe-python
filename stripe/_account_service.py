@@ -2129,23 +2129,15 @@ class AccountService(StripeService):
             ]
         ]
         """
-        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
         """
         weekly_payout_days: NotRequired[
             List[
-                Literal[
-                    "friday",
-                    "monday",
-                    "saturday",
-                    "sunday",
-                    "thursday",
-                    "tuesday",
-                    "wednesday",
-                ]
+                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
             ]
         ]
         """
-        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
         """
 
     class CreateParamsSettingsTaxForms(TypedDict):
@@ -4284,23 +4276,15 @@ class AccountService(StripeService):
             ]
         ]
         """
-        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
         """
         weekly_payout_days: NotRequired[
             List[
-                Literal[
-                    "friday",
-                    "monday",
-                    "saturday",
-                    "sunday",
-                    "thursday",
-                    "tuesday",
-                    "wednesday",
-                ]
+                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
             ]
         ]
         """
-        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
         """
 
     class UpdateParamsSettingsTaxForms(TypedDict):

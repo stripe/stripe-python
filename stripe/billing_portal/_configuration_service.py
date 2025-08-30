@@ -187,6 +187,12 @@ class ConfigurationService(StripeService):
         """
         Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
         """
+        trial_update_behavior: NotRequired[
+            Literal["continue_trial", "end_trial"]
+        ]
+        """
+        The behavior when updating a subscription that is trialing.
+        """
 
     class CreateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
         adjustable_quantity: NotRequired[
@@ -444,6 +450,12 @@ class ConfigurationService(StripeService):
         ]
         """
         Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
+        """
+        trial_update_behavior: NotRequired[
+            Literal["continue_trial", "end_trial"]
+        ]
+        """
+        The behavior when updating a subscription that is trialing.
         """
 
     class UpdateParamsFeaturesSubscriptionUpdateProduct(TypedDict):

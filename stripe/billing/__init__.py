@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe.billing import analytics as analytics
 from stripe.billing._alert import Alert as Alert
 from stripe.billing._alert_service import AlertService as AlertService
 from stripe.billing._alert_triggered import AlertTriggered as AlertTriggered
+from stripe.billing._analytics_service import (
+    AnalyticsService as AnalyticsService,
+)
 from stripe.billing._credit_balance_summary import (
     CreditBalanceSummary as CreditBalanceSummary,
 )
@@ -37,8 +41,3 @@ from stripe.billing._meter_event_summary_service import (
     MeterEventSummaryService as MeterEventSummaryService,
 )
 from stripe.billing._meter_service import MeterService as MeterService
-from stripe.billing._meter_usage import MeterUsage as MeterUsage
-from stripe.billing._meter_usage_row import MeterUsageRow as MeterUsageRow
-from stripe.billing._meter_usage_service import (
-    MeterUsageService as MeterUsageService,
-)
