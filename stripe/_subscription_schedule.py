@@ -1562,7 +1562,7 @@ class SubscriptionSchedule(
             "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPeriod"
         ]
         """
-        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -2416,7 +2416,7 @@ class SubscriptionSchedule(
             "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPeriod"
         ]
         """
-        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
