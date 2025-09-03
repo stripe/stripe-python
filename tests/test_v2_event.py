@@ -38,8 +38,8 @@ class TestV2Event(object):
                     "url": "/v1/billing/meters/mtr_123",
                 },
                 "reason": {
-                    "id": "foo",
-                    "idempotency_key": "bar",
+                    "type": "request",
+                    "request": {"id": "foo", "idempotency_key": "bar"},
                 },
             }
         )
@@ -102,7 +102,10 @@ class TestV2Event(object):
         assert event.related_object.id == "mtr_123"
 
         assert event.reason
-        assert event.reason.id == "foo"
+        assert event.reason.type == "request"
+        assert event.reason.request
+        assert event.reason.request.id == "foo"
+        assert event.reason.request.idempotency_key == "bar"
 
     def test_parses_thin_event_with_data(
         self, parse_thin_event: EventParser, v2_payload_with_data: str
@@ -130,10 +133,6 @@ class TestV2Event(object):
                         "id": "mtr_123",
                         "type": "billing.meter",
                         "url": "/v1/billing/meters/mtr_123",
-                    },
-                    "reason": {
-                        "id": "foo",
-                        "idempotency_key": "bar",
                     },
                 }
             )
@@ -189,7 +188,8 @@ class TestV2Event(object):
         http_client_mock: HTTPClientMock,
         v2_payload_no_data,
         v2_payload_with_data,
-        parse_thin_event: EventParser,
+        # use the real client so we get the real types
+        stripe_client: StripeClient,
     ):
         method = "get"
         path = "/v2/core/events/evt_234"
@@ -216,7 +216,11 @@ class TestV2Event(object):
             rheaders={},
         )
 
-        thin_event = parse_thin_event(v2_payload_no_data)
+        thin_event = stripe_client.parse_event_notification(
+            v2_payload_no_data,
+            generate_header(payload=v2_payload_no_data),
+            DUMMY_WEBHOOK_SECRET,
+        )
         assert thin_event.type == "v1.billing.meter.error_report_triggered"
 
         event = thin_event.fetch_event()

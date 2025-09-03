@@ -75,7 +75,7 @@ class Event(StripeObject):
 # The end of the section generated from our OpenAPI spec
 
 
-class Reason:
+class ReasonRequest:
     id: str
     idempotency_key: str
 
@@ -84,7 +84,20 @@ class Reason:
         self.idempotency_key = d["idempotency_key"]
 
     def __repr__(self) -> str:
-        return f"<Reason id={self.id} idempotency_key={self.idempotency_key}>"
+        return f"<ReasonRequest id={self.id} idempotency_key={self.idempotency_key}>"
+
+
+class Reason:
+    type: Literal["request"]
+    request: Optional[ReasonRequest] = None
+
+    def __init__(self, d) -> None:
+        self.type = d["type"]
+        if self.type == "request":
+            self.request = ReasonRequest(d["request"])
+
+    def __repr__(self) -> str:
+        return f"<Reason type={self.type} request={self.request}>"
 
 
 class RelatedObject:
