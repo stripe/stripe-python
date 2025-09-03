@@ -1478,6 +1478,9 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 "verified_address": VerifiedAddress,
             }
 
+        class Paypay(StripeObject):
+            pass
+
         class Payto(StripeObject):
             bsb_number: Optional[str]
             """
@@ -1807,6 +1810,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
         payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
@@ -1882,6 +1886,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "paypay": Paypay,
             "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,

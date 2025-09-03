@@ -2471,6 +2471,7 @@ class Session(
                     "payco",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "payto",
                     "pix",
                     "promptpay",

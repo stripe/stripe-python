@@ -295,6 +295,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        paypay: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        """
         payto: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataPayto"
         ]
@@ -424,6 +430,7 @@ class ConfirmationTokenService(StripeService):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -821,6 +828,9 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataPayto(TypedDict):

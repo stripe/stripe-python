@@ -2700,6 +2700,9 @@ class PaymentIntent(
             """
             _inner_class_types = {"line_items": LineItem}
 
+        class Paypay(StripeObject):
+            pass
+
         class Payto(StripeObject):
             class MandateOptions(StripeObject):
                 amount: Optional[int]
@@ -3155,6 +3158,7 @@ class PaymentIntent(
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
         payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
@@ -3214,6 +3218,7 @@ class PaymentIntent(
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "paypay": Paypay,
             "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
@@ -5564,6 +5569,12 @@ class PaymentIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        paypay: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        """
         payto: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataPayto"]
         """
         If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -5683,6 +5694,7 @@ class PaymentIntent(
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -6080,6 +6092,9 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataPaypay(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataPayto(TypedDict):
         account_number: NotRequired[str]
         """
@@ -6443,6 +6458,12 @@ class PaymentIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        paypay: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
         """
         payto: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPayto"
@@ -7906,6 +7927,16 @@ class PaymentIntent(
         The tax behavior for the line item.
         """
 
+    class ConfirmParamsPaymentMethodOptionsPaypay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class ConfirmParamsPaymentMethodOptionsPayto(TypedDict):
         mandate_options: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodOptionsPaytoMandateOptions"
@@ -8563,6 +8594,7 @@ class PaymentIntent(
                     "payco",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "payto",
                     "pix",
                     "promptpay",
@@ -9867,6 +9899,12 @@ class PaymentIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        paypay: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        """
         payto: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataPayto"]
         """
         If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -9986,6 +10024,7 @@ class PaymentIntent(
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -10383,6 +10422,9 @@ class PaymentIntent(
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataPaypay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataPayto(TypedDict):
         account_number: NotRequired[str]
         """
@@ -10746,6 +10788,12 @@ class PaymentIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        paypay: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
         """
         payto: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPayto"
@@ -12207,6 +12255,16 @@ class PaymentIntent(
         behavior: Literal["exclusive", "inclusive"]
         """
         The tax behavior for the line item.
+        """
+
+    class CreateParamsPaymentMethodOptionsPaypay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class CreateParamsPaymentMethodOptionsPayto(TypedDict):
@@ -14444,6 +14502,12 @@ class PaymentIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        paypay: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        """
         payto: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataPayto"]
         """
         If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -14563,6 +14627,7 @@ class PaymentIntent(
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -14960,6 +15025,9 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataPaypay(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataPayto(TypedDict):
         account_number: NotRequired[str]
         """
@@ -15323,6 +15391,12 @@ class PaymentIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        paypay: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
         """
         payto: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPayto"
@@ -16786,6 +16860,16 @@ class PaymentIntent(
         The tax behavior for the line item.
         """
 
+    class ModifyParamsPaymentMethodOptionsPaypay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class ModifyParamsPaymentMethodOptionsPayto(TypedDict):
         mandate_options: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodOptionsPaytoMandateOptions"
@@ -17528,6 +17612,7 @@ class PaymentIntent(
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "payto",
                 "pix",
                 "promptpay",

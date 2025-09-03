@@ -225,6 +225,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        paypay: NotRequired["PaymentMethodService.CreateParamsPaypay"]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        """
         payto: NotRequired["PaymentMethodService.CreateParamsPayto"]
         """
         If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -330,6 +334,7 @@ class PaymentMethodService(StripeService):
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "payto",
                 "pix",
                 "promptpay",
@@ -758,6 +763,9 @@ class PaymentMethodService(StripeService):
     class CreateParamsPaypal(TypedDict):
         pass
 
+    class CreateParamsPaypay(TypedDict):
+        pass
+
     class CreateParamsPayto(TypedDict):
         account_number: NotRequired[str]
         """
@@ -943,6 +951,7 @@ class PaymentMethodService(StripeService):
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "payto",
                 "pix",
                 "promptpay",

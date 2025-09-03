@@ -947,6 +947,7 @@ class Customer(
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "payto",
                 "pix",
                 "promptpay",

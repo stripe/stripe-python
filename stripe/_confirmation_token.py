@@ -1270,6 +1270,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class Paypay(StripeObject):
+            pass
+
         class Payto(StripeObject):
             bsb_number: Optional[str]
             """
@@ -1533,6 +1536,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
         payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
@@ -1589,6 +1593,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -1656,6 +1661,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "paypay": Paypay,
             "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
@@ -1994,6 +2000,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        paypay: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        """
         payto: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataPayto"
         ]
@@ -2121,6 +2133,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -2516,6 +2529,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         pass
 
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataPayto(TypedDict):

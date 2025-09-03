@@ -1202,6 +1202,9 @@ class PaymentMethod(
         (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         """
 
+    class Paypay(StripeObject):
+        pass
+
     class Payto(StripeObject):
         bsb_number: Optional[str]
         """
@@ -1631,6 +1634,10 @@ class PaymentMethod(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        paypay: NotRequired["PaymentMethod.CreateParamsPaypay"]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        """
         payto: NotRequired["PaymentMethod.CreateParamsPayto"]
         """
         If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -1732,6 +1739,7 @@ class PaymentMethod(
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "payto",
                 "pix",
                 "promptpay",
@@ -2158,6 +2166,9 @@ class PaymentMethod(
     class CreateParamsPaypal(TypedDict):
         pass
 
+    class CreateParamsPaypay(TypedDict):
+        pass
+
     class CreateParamsPayto(TypedDict):
         account_number: NotRequired[str]
         """
@@ -2343,6 +2354,7 @@ class PaymentMethod(
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "payto",
                 "pix",
                 "promptpay",
@@ -2577,6 +2589,7 @@ class PaymentMethod(
     payco: Optional[Payco]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
+    paypay: Optional[Paypay]
     payto: Optional[Payto]
     pix: Optional[Pix]
     promptpay: Optional[Promptpay]
@@ -2637,6 +2650,7 @@ class PaymentMethod(
         "payco",
         "paynow",
         "paypal",
+        "paypay",
         "payto",
         "pix",
         "promptpay",
@@ -3161,6 +3175,7 @@ class PaymentMethod(
         "payco": Payco,
         "paynow": Paynow,
         "paypal": Paypal,
+        "paypay": Paypay,
         "payto": Payto,
         "pix": Pix,
         "promptpay": Promptpay,
