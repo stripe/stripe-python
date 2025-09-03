@@ -116,7 +116,7 @@ class RelatedObject:
 
 class EventNotification:
     """
-    EventNotification represents the json that's delivered from an Event Destination. It's a basic `dict` with no additional methods or properties. Use it to check basic information about a delivered event. If you want more details, use `stripe.v2.Event.retrieve(thin_event.id)` to fetch the full event object.
+    EventNotification represents the json that's delivered from an Event Destination. It's a basic struct-like object with a few convenience methods. Use `fetch_event()` to get the full event object.
     """
 
     id: str

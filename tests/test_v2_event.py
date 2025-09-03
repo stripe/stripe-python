@@ -75,52 +75,52 @@ class TestV2Event(object):
         )
 
     @pytest.fixture(scope="function")
-    def parse_thin_event(self, stripe_client: StripeClient) -> EventParser:
+    def parse_event_notif(self, stripe_client: StripeClient) -> EventParser:
         """
         helper to simplify parsing and validating events given a payload
         returns a function that has the client pre-bound
         """
 
-        def _parse_thin_event(payload: str):
+        def _parse_event_notif(payload: str):
             return stripe_client.parse_event_notification(
                 payload, generate_header(payload=payload), DUMMY_WEBHOOK_SECRET
             )
 
-        return _parse_thin_event
+        return _parse_event_notif
 
-    def test_parses_thin_event(
-        self, parse_thin_event: EventParser, v2_payload_no_data: str
+    def test_parses_event_notif(
+        self, parse_event_notif: EventParser, v2_payload_no_data: str
     ):
-        event = parse_thin_event(v2_payload_no_data)
+        notif = parse_event_notif(v2_payload_no_data)
 
         assert isinstance(
-            event, V1BillingMeterErrorReportTriggeredEventNotification
+            notif, V1BillingMeterErrorReportTriggeredEventNotification
         )
-        assert event.id == "evt_234"
+        assert notif.id == "evt_234"
 
-        assert event.related_object
-        assert event.related_object.id == "mtr_123"
+        assert notif.related_object
+        assert notif.related_object.id == "mtr_123"
 
-        assert event.reason
-        assert event.reason.type == "request"
-        assert event.reason.request
-        assert event.reason.request.id == "foo"
-        assert event.reason.request.idempotency_key == "bar"
+        assert notif.reason
+        assert notif.reason.type == "request"
+        assert notif.reason.request
+        assert notif.reason.request.id == "foo"
+        assert notif.reason.request.idempotency_key == "bar"
 
-    def test_parses_thin_event_with_data(
-        self, parse_thin_event: EventParser, v2_payload_with_data: str
+    def test_parses_event_notif_with_data(
+        self, parse_event_notif: EventParser, v2_payload_with_data: str
     ):
-        event = parse_thin_event(v2_payload_with_data)
+        notif = parse_event_notif(v2_payload_with_data)
 
         assert isinstance(
-            event, V1BillingMeterErrorReportTriggeredEventNotification
+            notif, V1BillingMeterErrorReportTriggeredEventNotification
         )
         # this isn't for constructing events, it's for parsing thin ones
-        assert not hasattr(event, "data")
-        assert event.reason is None
+        assert not hasattr(notif, "data")
+        assert notif.reason is None
 
-    def test_parses_unknown_thin_event(self, parse_thin_event: EventParser):
-        event = parse_thin_event(
+    def test_parses_unknown_event_notif(self, parse_event_notif: EventParser):
+        event = parse_event_notif(
             json.dumps(
                 {
                     "id": "evt_234",
@@ -216,22 +216,23 @@ class TestV2Event(object):
             rheaders={},
         )
 
-        thin_event = stripe_client.parse_event_notification(
+        event_notif = stripe_client.parse_event_notification(
             v2_payload_no_data,
             generate_header(payload=v2_payload_no_data),
             DUMMY_WEBHOOK_SECRET,
         )
-        assert thin_event.type == "v1.billing.meter.error_report_triggered"
+        assert event_notif.type == "v1.billing.meter.error_report_triggered"
 
-        event = thin_event.fetch_event()
-        meter = thin_event.fetch_related_object()
+        event = event_notif.fetch_event()
+        meter = event_notif.fetch_related_object()
 
         if sys.version_info >= (3, 7):
             from typing_extensions import assert_type  # noqa: SPY103 - this is only available on 3.6 pythons because of typing_extensions version restrictions
 
             # these are purely type-level checks to ensure our narrowing works for users
             assert_type(
-                thin_event, V1BillingMeterErrorReportTriggeredEventNotification
+                event_notif,
+                V1BillingMeterErrorReportTriggeredEventNotification,
             )
 
             assert_type(event, V1BillingMeterErrorReportTriggeredEvent)
