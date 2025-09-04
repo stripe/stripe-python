@@ -331,7 +331,9 @@ class TestAutoPaging:
             self.pageable_model_response(["pm_125", "pm_126"], True), "mykey"
         )
         lo._retrieve_params = {
-            "foo": "bar", "ending_before": "pm_127", "starting_after": None
+            "foo": "bar",
+            "ending_before": "pm_127",
+            "starting_after": None,
         }
 
         http_client_mock.stub_request(
@@ -606,7 +608,9 @@ class TestAutoPagingAsync:
             self.pageable_model_response(["pm_125", "pm_126"], True), "mykey"
         )
         lo._retrieve_params = {
-            "foo": "bar", "ending_before": "pm_127", "starting_after": None
+            "foo": "bar",
+            "ending_before": "pm_127",
+            "starting_after": None,
         }
 
         http_client_mock.stub_request(
