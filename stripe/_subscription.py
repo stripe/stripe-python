@@ -308,6 +308,36 @@ class Subscription(
             class Konbini(StripeObject):
                 pass
 
+            class Pix(StripeObject):
+                class MandateOptions(StripeObject):
+                    amount: Optional[int]
+                    """
+                    Amount to be charged for future payments.
+                    """
+                    amount_includes_iof: Optional[Literal["always", "never"]]
+                    """
+                    Determines if the amount includes the IOF tax.
+                    """
+                    end_date: Optional[str]
+                    """
+                    Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+                    """
+                    payment_schedule: Optional[
+                        Literal[
+                            "halfyearly",
+                            "monthly",
+                            "quarterly",
+                            "weekly",
+                            "yearly",
+                        ]
+                    ]
+                    """
+                    Schedule at which the future payments will be charged.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                _inner_class_types = {"mandate_options": MandateOptions}
+
             class SepaDebit(StripeObject):
                 pass
 
@@ -411,6 +441,10 @@ class Subscription(
             """
             This sub-hash contains details about the Konbini payment method options to pass to invoices created by the subscription.
             """
+            pix: Optional[Pix]
+            """
+            This sub-hash contains details about the Pix payment method options to pass to invoices created by the subscription.
+            """
             sepa_debit: Optional[SepaDebit]
             """
             This sub-hash contains details about the SEPA Direct Debit payment method options to pass to invoices created by the subscription.
@@ -430,6 +464,7 @@ class Subscription(
                 "customer_balance": CustomerBalance,
                 "id_bank_transfer": IdBankTransfer,
                 "konbini": Konbini,
+                "pix": Pix,
                 "sepa_debit": SepaDebit,
                 "upi": Upi,
                 "us_bank_account": UsBankAccount,
@@ -475,6 +510,7 @@ class Subscription(
                     "payco",
                     "paynow",
                     "paypal",
+                    "pix",
                     "promptpay",
                     "revolut_pay",
                     "sepa_credit_transfer",
@@ -1203,7 +1239,7 @@ class Subscription(
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -1251,6 +1287,12 @@ class Subscription(
         ]
         """
         This sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
+        """
+        pix: NotRequired[
+            "Literal['']|Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsPix"
+        ]
+        """
+        This sub-hash contains details about the Pix payment method options to pass to the invoice's PaymentIntent.
         """
         sepa_debit: NotRequired[
             "Literal['']|Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
@@ -1392,6 +1434,36 @@ class Subscription(
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
         pass
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
+        mandate_options: NotRequired[
+            "Subscription.CreateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Configuration options for setting up a mandate
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions(
+        TypedDict,
+    ):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. If not provided, defaults to 40000.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
@@ -2255,7 +2327,7 @@ class Subscription(
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -2303,6 +2375,12 @@ class Subscription(
         ]
         """
         This sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
+        """
+        pix: NotRequired[
+            "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsPix"
+        ]
+        """
+        This sub-hash contains details about the Pix payment method options to pass to the invoice's PaymentIntent.
         """
         sepa_debit: NotRequired[
             "Literal['']|Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
@@ -2444,6 +2522,36 @@ class Subscription(
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
         pass
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
+        mandate_options: NotRequired[
+            "Subscription.ModifyParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Configuration options for setting up a mandate
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions(
+        TypedDict,
+    ):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. If not provided, defaults to 40000.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
