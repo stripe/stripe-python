@@ -289,6 +289,9 @@ Asynchronous versions of request-making methods are available by suffixing the m
 with `_async`.
 
 ```python
+import httpx # default for _async methods
+...
+
 # With StripeClient
 client = StripeClient("sk_test_...")
 customer = await client.customers.retrieve_async("cus_xyz")
@@ -312,7 +315,8 @@ or set it as the global default.
 ```python
 # By default, an explicitly initialized HTTPXClient will raise an exception if you
 # attempt to call a sync method. If you intend to only use async, this is useful to
-# make sure you don't unintentionally make a synchronous request.
+# make sure you don't unintentionally make a synchronous request. To use the
+# HTTPXClient you will need to `import httpx`.
 my_http_client = stripe.HTTPXClient()
 
 # If you want to use httpx to make sync requests, you can disable this
@@ -320,6 +324,7 @@ my_http_client = stripe.HTTPXClient()
 my_http_client = stripe.HTTPXClient(allow_sync_methods=True)
 
 # aiohttp is also available (does not support sync requests)
+# To use it, you must `import aiohttp`
 my_http_client = stripe.AIOHTTPClient()
 
 # With StripeClient
