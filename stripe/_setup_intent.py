@@ -1155,6 +1155,10 @@ class SetupIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        paypay: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataPaypay"]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        """
         payto: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataPayto"]
         """
         If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -1272,6 +1276,7 @@ class SetupIntent(
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -1665,6 +1670,9 @@ class SetupIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataPayto(TypedDict):
@@ -2824,6 +2832,10 @@ class SetupIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        paypay: NotRequired["SetupIntent.CreateParamsPaymentMethodDataPaypay"]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        """
         payto: NotRequired["SetupIntent.CreateParamsPaymentMethodDataPayto"]
         """
         If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -2941,6 +2953,7 @@ class SetupIntent(
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -3334,6 +3347,9 @@ class SetupIntent(
         pass
 
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataPayto(TypedDict):
@@ -4460,6 +4476,10 @@ class SetupIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        paypay: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataPaypay"]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        """
         payto: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataPayto"]
         """
         If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
@@ -4577,6 +4597,7 @@ class SetupIntent(
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -4970,6 +4991,9 @@ class SetupIntent(
         pass
 
     class ModifyParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataPayto(TypedDict):

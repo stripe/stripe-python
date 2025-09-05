@@ -40,8 +40,6 @@ class BalanceSettings(
                         Literal[
                             "friday",
                             "monday",
-                            "saturday",
-                            "sunday",
                             "thursday",
                             "tuesday",
                             "wednesday",
@@ -135,25 +133,17 @@ class BalanceSettings(
         """
         weekly_payout_days: NotRequired[
             List[
-                Literal[
-                    "friday",
-                    "monday",
-                    "saturday",
-                    "sunday",
-                    "thursday",
-                    "tuesday",
-                    "wednesday",
-                ]
+                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
             ]
         ]
         """
-        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
         """
 
     class ModifyParamsPaymentsSettlementTiming(TypedDict):
         delay_days_override: NotRequired[int]
         """
-        The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
+        The number of days charge funds are held before becoming available. The default value is `minimum`, representing the lowest available value for the account. The maximum value is 31. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling delay days](https://docs.stripe.com/connect/manage-payout-schedule).
         """
 
     class RetrieveParams(RequestOptions):

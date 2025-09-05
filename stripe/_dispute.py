@@ -386,6 +386,10 @@ class Dispute(
             """
 
         class Klarna(StripeObject):
+            chargeback_loss_reason_code: Optional[str]
+            """
+            Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
+            """
             reason_code: Optional[str]
             """
             The reason for the dispute as defined by Klarna

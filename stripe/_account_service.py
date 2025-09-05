@@ -548,6 +548,12 @@ class AccountService(StripeService):
         """
         The paypal_payments capability.
         """
+        paypay_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesPaypayPayments"
+        ]
+        """
+        The paypay_payments capability.
+        """
         payto_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesPaytoPayments"
         ]
@@ -982,6 +988,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesPaypalPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPaypayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2129,23 +2141,15 @@ class AccountService(StripeService):
             ]
         ]
         """
-        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
         """
         weekly_payout_days: NotRequired[
             List[
-                Literal[
-                    "friday",
-                    "monday",
-                    "saturday",
-                    "sunday",
-                    "thursday",
-                    "tuesday",
-                    "wednesday",
-                ]
+                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
             ]
         ]
         """
-        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
         """
 
     class CreateParamsSettingsTaxForms(TypedDict):
@@ -2772,6 +2776,12 @@ class AccountService(StripeService):
         """
         The paypal_payments capability.
         """
+        paypay_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesPaypayPayments"
+        ]
+        """
+        The paypay_payments capability.
+        """
         payto_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesPaytoPayments"
         ]
@@ -3206,6 +3216,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesPaypalPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesPaypayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -4284,23 +4300,15 @@ class AccountService(StripeService):
             ]
         ]
         """
-        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
         """
         weekly_payout_days: NotRequired[
             List[
-                Literal[
-                    "friday",
-                    "monday",
-                    "saturday",
-                    "sunday",
-                    "thursday",
-                    "tuesday",
-                    "wednesday",
-                ]
+                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
             ]
         ]
         """
-        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
         """
 
     class UpdateParamsSettingsTaxForms(TypedDict):

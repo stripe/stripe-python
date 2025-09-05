@@ -1474,6 +1474,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 "verified_address": VerifiedAddress,
             }
 
+        class Paypay(StripeObject):
+            pass
+
         class Payto(StripeObject):
             bsb_number: Optional[str]
             """
@@ -1803,6 +1806,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
         payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
@@ -1878,6 +1882,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "paypay": Paypay,
             "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,

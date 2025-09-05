@@ -56,8 +56,7 @@ class Charge(
 ):
     """
     The `Charge` object represents a single attempt to move money into your Stripe account.
-    PaymentIntent confirmation is the most common way to create Charges, but transferring
-    money to a different Stripe account through Connect also creates Charges.
+    PaymentIntent confirmation is the most common way to create Charges, but [Account Debits](https://stripe.com/docs/connect/account-debits) may also create Charges.
     Some legacy payment flows create Charges directly, which is not recommended for new integrations.
     """
 
@@ -1837,6 +1836,9 @@ class Charge(
                 "verified_address": VerifiedAddress,
             }
 
+        class Paypay(StripeObject):
+            pass
+
         class Payto(StripeObject):
             bsb_number: Optional[str]
             """
@@ -2155,6 +2157,7 @@ class Charge(
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
         payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
@@ -2225,6 +2228,7 @@ class Charge(
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "paypay": Paypay,
             "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,

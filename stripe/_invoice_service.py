@@ -633,10 +633,10 @@ class InvoiceService(StripeService):
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
         ]
         """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -675,6 +675,12 @@ class InvoiceService(StripeService):
         ]
         """
         If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
+        """
+        pix: NotRequired[
+            "Literal['']|InvoiceService.CreateParamsPaymentSettingsPaymentMethodOptionsPix"
+        ]
+        """
+        If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice's PaymentIntent.
         """
         sepa_debit: NotRequired[
             "Literal['']|InvoiceService.CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
@@ -814,6 +820,12 @@ class InvoiceService(StripeService):
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
         pass
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
@@ -2369,7 +2381,7 @@ class InvoiceService(StripeService):
             "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriod"
         ]
         """
-        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -3819,10 +3831,10 @@ class InvoiceService(StripeService):
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
         ]
         """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -3861,6 +3873,12 @@ class InvoiceService(StripeService):
         ]
         """
         If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
+        """
+        pix: NotRequired[
+            "Literal['']|InvoiceService.UpdateParamsPaymentSettingsPaymentMethodOptionsPix"
+        ]
+        """
+        If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice's PaymentIntent.
         """
         sepa_debit: NotRequired[
             "Literal['']|InvoiceService.UpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
@@ -4000,6 +4018,12 @@ class InvoiceService(StripeService):
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
         pass
+
+    class UpdateParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
