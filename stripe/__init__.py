@@ -227,6 +227,7 @@ from stripe._error import PermissionError as PermissionError
 from stripe._error import (
     SignatureVerificationError as SignatureVerificationError,
 )
+from stripe._error import RateLimitError as RateLimitError
 
 # HttpClient
 from stripe._http_client import (
@@ -455,7 +456,6 @@ from stripe._error import (
     NonZeroBalanceError as NonZeroBalanceError,
     NotCancelableError as NotCancelableError,
     QuotaExceededError as QuotaExceededError,
-    RateLimitError as RateLimitError,
     RecipientNotNotifiableError as RecipientNotNotifiableError,
     TemporarySessionExpiredError as TemporarySessionExpiredError,
 )
