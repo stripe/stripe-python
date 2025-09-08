@@ -463,6 +463,31 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 ]
                 version: Optional[Literal["1.0.2", "2.1.0", "2.2.0"]]
 
+            class Wallet(StripeObject):
+                class ApplePay(StripeObject):
+                    type: str
+                    """
+                    Type of the apple_pay transaction, one of `apple_pay` or `apple_pay_later`.
+                    """
+
+                class GooglePay(StripeObject):
+                    pass
+
+                apple_pay: Optional[ApplePay]
+                dynamic_last4: Optional[str]
+                """
+                (For tokenized numbers only.) The last four digits of the device account number.
+                """
+                google_pay: Optional[GooglePay]
+                type: str
+                """
+                The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+                """
+                _inner_class_types = {
+                    "apple_pay": ApplePay,
+                    "google_pay": GooglePay,
+                }
+
             brand: Literal[
                 "amex",
                 "cartes_bancaires",
@@ -549,10 +574,15 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             Populated if this transaction used 3D Secure authentication.
             """
+            wallet: Optional[Wallet]
+            """
+            If this Card is part of a card wallet, this contains the details of the card wallet.
+            """
             _inner_class_types = {
                 "checks": Checks,
                 "network_token": NetworkToken,
                 "three_d_secure": ThreeDSecure,
+                "wallet": Wallet,
             }
 
         class CardPresent(StripeObject):
