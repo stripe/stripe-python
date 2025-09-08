@@ -455,6 +455,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class FrMealVoucherConecs(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Giropay(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1396,6 +1418,12 @@ class PaymentMethodConfiguration(
         """
         Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
         """
+        fr_meal_voucher_conecs: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsFrMealVoucherConecs"
+        ]
+        """
+        Meal vouchers in France, or “titres-restaurant”, is a local benefits program commonly offered by employers for their employees to purchase prepared food and beverages on working days. Check this [page](https://stripe.com/docs//payments/benefits/fr-meal-vouchers) for more details.
+        """
         giropay: NotRequired["PaymentMethodConfiguration.CreateParamsGiropay"]
         """
         giropay is a German payment method based on online banking, introduced in 2006. It allows customers to complete transactions online using their online banking environment, with funds debited from their bank account. Depending on their bank, customers confirm payments on giropay using a second factor of authentication or a PIN. giropay accounts for 10% of online checkouts in Germany. Check this [page](https://stripe.com/docs/payments/giropay) for more details.
@@ -1864,6 +1892,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsFpxDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsFrMealVoucherConecs(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsFrMealVoucherConecsDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsFrMealVoucherConecsDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -2532,6 +2574,12 @@ class PaymentMethodConfiguration(
         """
         Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
         """
+        fr_meal_voucher_conecs: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsFrMealVoucherConecs"
+        ]
+        """
+        Meal vouchers in France, or “titres-restaurant”, is a local benefits program commonly offered by employers for their employees to purchase prepared food and beverages on working days. Check this [page](https://stripe.com/docs//payments/benefits/fr-meal-vouchers) for more details.
+        """
         giropay: NotRequired["PaymentMethodConfiguration.ModifyParamsGiropay"]
         """
         giropay is a German payment method based on online banking, introduced in 2006. It allows customers to complete transactions online using their online banking environment, with funds debited from their bank account. Depending on their bank, customers confirm payments on giropay using a second factor of authentication or a PIN. giropay accounts for 10% of online checkouts in Germany. Check this [page](https://stripe.com/docs/payments/giropay) for more details.
@@ -2996,6 +3044,20 @@ class PaymentMethodConfiguration(
         """
 
     class ModifyParamsFpxDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsFrMealVoucherConecs(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsFrMealVoucherConecsDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsFrMealVoucherConecsDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -3566,6 +3628,7 @@ class PaymentMethodConfiguration(
     customer_balance: Optional[CustomerBalance]
     eps: Optional[Eps]
     fpx: Optional[Fpx]
+    fr_meal_voucher_conecs: Optional[FrMealVoucherConecs]
     giropay: Optional[Giropay]
     google_pay: Optional[GooglePay]
     gopay: Optional[Gopay]
@@ -3785,6 +3848,7 @@ class PaymentMethodConfiguration(
         "customer_balance": CustomerBalance,
         "eps": Eps,
         "fpx": Fpx,
+        "fr_meal_voucher_conecs": FrMealVoucherConecs,
         "giropay": Giropay,
         "google_pay": GooglePay,
         "gopay": Gopay,
