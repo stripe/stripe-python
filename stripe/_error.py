@@ -183,6 +183,10 @@ class SignatureVerificationError(StripeError):
         self.sig_header = sig_header
 
 
+class RateLimitError(StripeError):
+    pass
+
+
 # classDefinitions: The beginning of the section generated from our OpenAPI spec
 class AlreadyCanceledError(StripeError):
     pass
@@ -247,10 +251,6 @@ class NotCancelableError(StripeError):
 
 
 class QuotaExceededError(StripeError):
-    pass
-
-
-class RateLimitError(StripeError):
     pass
 
 
