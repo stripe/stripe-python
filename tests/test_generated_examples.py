@@ -44598,7 +44598,7 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.financial_addresses.create(
             {
-                "currency": "stn",
+                "currency": "usd",
                 "financial_account": "financial_account",
             }
         )
@@ -44607,7 +44607,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_addresses",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"currency":"stn","financial_account":"financial_account"}',
+            post_data='{"currency":"usd","financial_account":"financial_account"}',
             is_json=True,
         )
 
@@ -45525,7 +45525,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/core/vault/us_bank_accounts",
-            rbody='{"error":{"type":"blocked_by_stripe","code":"inbound_transfer_not_allowed"}}',
+            rbody='{"error":{"type":"blocked_by_stripe","code":"blocked_payout_method_bank_account"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -45583,7 +45583,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/money_management/financial_accounts",
-            rbody='{"error":{"type":"feature_not_enabled","code":"storer_capability_missing"}}',
+            rbody='{"error":{"type":"feature_not_enabled","code":"recipient_feature_not_active"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -45625,7 +45625,7 @@ class TestGeneratedExamples(object):
         try:
             client.v2.money_management.financial_addresses.create(
                 {
-                    "currency": "stn",
+                    "currency": "usd",
                     "financial_account": "financial_account",
                 }
             )
@@ -45636,7 +45636,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_addresses",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"currency":"stn","financial_account":"financial_account"}',
+            post_data='{"currency":"usd","financial_account":"financial_account"}',
             is_json=True,
         )
 
@@ -45794,7 +45794,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/core/vault/us_bank_accounts",
-            rbody='{"error":{"type":"quota_exceeded","code":"recipient_amount_limit_exceeded"}}',
+            rbody='{"error":{"type":"quota_exceeded","code":"archived_payout_method_card"}}',
             rcode=400,
         )
         client = StripeClient(
