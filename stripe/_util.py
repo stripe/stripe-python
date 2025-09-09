@@ -266,6 +266,7 @@ def _convert_to_stripe_object(
     klass_: Optional[Type["StripeObject"]] = None,
     requestor: "_APIRequestor",
     api_mode: ApiMode,
+    is_v2_deleted_object: bool = False,
 ) -> "StripeObject": ...
 
 
@@ -277,6 +278,7 @@ def _convert_to_stripe_object(
     klass_: Optional[Type["StripeObject"]] = None,
     requestor: "_APIRequestor",
     api_mode: ApiMode,
+    is_v2_deleted_object: bool = False,
 ) -> List["StripeObject"]: ...
 
 
@@ -287,6 +289,8 @@ def _convert_to_stripe_object(
     klass_: Optional[Type["StripeObject"]] = None,
     requestor: "_APIRequestor",
     api_mode: ApiMode,
+    # if true, we should ignore the `object` field for finding the class name. This is set by the API requestor
+    is_v2_deleted_object: bool = False,
 ) -> Union["StripeObject", List["StripeObject"]]:
     # If we get a StripeResponse, we'll want to return a
     # StripeObject with the last_response field filled out with
@@ -315,7 +319,12 @@ def _convert_to_stripe_object(
         resp = resp.copy()
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
-            if api_mode == "V2" and klass_name == "v2.core.event":
+            if is_v2_deleted_object:
+                # circular import
+                from stripe.v2._deleted_object import DeletedObject
+
+                klass = DeletedObject
+            elif api_mode == "V2" and klass_name == "v2.core.event":
                 from stripe.events._event_classes import V2_EVENT_CLASS_LOOKUP
 
                 event_name = resp.get("type", "")

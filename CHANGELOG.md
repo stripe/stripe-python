@@ -1,3 +1,7 @@
+## 12.5.1 - 2025-09-05
+* [#1563](https://github.com/stripe/stripe-python/pull/1563) fix: Paginate backwards if `starting_after == None`
+  * Addresses an [issue](https://github.com/stripe/stripe-python/issues/1562) where List iteration would be forwards when `starting_after` was set to `None` but backwards if it was not set at all. Now, it will paginate backwards in both cases.
+
 ## 12.5.0 - 2025-08-27
 * [#1554](https://github.com/stripe/stripe-python/pull/1554) Add section on private preview SDKs in readme
 * [#1544](https://github.com/stripe/stripe-python/pull/1544) Update generated code. This release changes the pinned API version to `2025-08-27.basil`.
