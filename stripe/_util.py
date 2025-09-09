@@ -9,7 +9,7 @@ import warnings
 
 from stripe._api_mode import ApiMode
 
-from urllib.parse import parse_qsl, quote_plus  # noqa: F401
+from urllib.parse import parse_qsl, quote_plus, urlparse  # noqa: F401
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (
@@ -192,12 +192,6 @@ else:
         return result == 0
 
 
-def get_thin_event_classes():
-    from stripe.events._event_classes import THIN_EVENT_CLASSES
-
-    return THIN_EVENT_CLASSES
-
-
 def get_object_classes(api_mode):
     # This is here to avoid a circular dependency
     if api_mode == "V2":
@@ -331,8 +325,10 @@ def _convert_to_stripe_object(
 
                 klass = DeletedObject
             elif api_mode == "V2" and klass_name == "v2.core.event":
+                from stripe.events._event_classes import V2_EVENT_CLASS_LOOKUP
+
                 event_name = resp.get("type", "")
-                klass = get_thin_event_classes().get(
+                klass = V2_EVENT_CLASS_LOOKUP.get(
                     event_name, stripe.StripeObject
                 )
             else:
@@ -426,9 +422,11 @@ def sanitize_id(id):
     return quotedId
 
 
-def get_api_mode(url):
+def get_api_mode(url: str) -> ApiMode:
     if url.startswith("/v2"):
         return "V2"
+
+    # if urls aren't explicitly marked as v1, they're assumed to be v1
     else:
         return "V1"
 
