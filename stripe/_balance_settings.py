@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
@@ -50,6 +50,10 @@ class BalanceSettings(
                 The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
                 """
 
+            minimum_balance_by_currency: Optional[Dict[str, int]]
+            """
+            The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](https://docs.stripe.com/payouts/minimum-balances-for-automatic-payouts).
+            """
             schedule: Optional[Schedule]
             """
             Details on when funds from charges are available, and when they are paid out to an external account. See our [Setting Bank and Debit Card Payouts](https://stripe.com/docs/connect/bank-transfers#payout-information) documentation for details.
@@ -111,6 +115,12 @@ class BalanceSettings(
         """
 
     class ModifyParamsPaymentsPayouts(TypedDict):
+        minimum_balance_by_currency: NotRequired[
+            "Literal['']|Dict[str, Union[Literal[''], int]]"
+        ]
+        """
+        The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](https://docs.stripe.com/payouts/minimum-balances-for-automatic-payouts).
+        """
         schedule: NotRequired[
             "BalanceSettings.ModifyParamsPaymentsPayoutsSchedule"
         ]

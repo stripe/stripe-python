@@ -3,7 +3,7 @@
 from stripe._balance_settings import BalanceSettings
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import List, cast
+from typing import Dict, List, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -43,6 +43,12 @@ class BalanceSettingsService(StripeService):
         """
 
     class UpdateParamsPaymentsPayouts(TypedDict):
+        minimum_balance_by_currency: NotRequired[
+            "Literal['']|Dict[str, Union[Literal[''], int]]"
+        ]
+        """
+        The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](https://docs.stripe.com/payouts/minimum-balances-for-automatic-payouts).
+        """
         schedule: NotRequired[
             "BalanceSettingsService.UpdateParamsPaymentsPayoutsSchedule"
         ]
