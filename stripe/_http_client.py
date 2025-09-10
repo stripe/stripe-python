@@ -786,7 +786,7 @@ class UrlFetchClient(HTTPClient):
             raise ValueError(
                 "No proxy support in urlfetch library. "
                 "Set stripe.default_http_client to either RequestsClient, "
-                "PycurlClient, or Urllib2Client instance to use a proxy."
+                "PycurlClient, or UrllibClient instance to use a proxy."
             )
 
         self._verify_ssl_certs = verify_ssl_certs

@@ -995,7 +995,7 @@ class TestUrlFetchClient(ClientTestBase):
         return check_call
 
 
-class TestUrllib2Client(ClientTestBase):
+class TestUrllibClient(ClientTestBase):
     REQUEST_CLIENT: Type[_http_client.UrllibClient] = _http_client.UrllibClient
     USE_PROXY = False
 
@@ -1061,7 +1061,7 @@ class TestUrllib2Client(ClientTestBase):
         return _check_call
 
 
-class TestUrllib2ClientHttpsProxy(TestUrllib2Client):
+class TestUrllibClientHttpsProxy(TestUrllibClient):
     USE_PROXY = True
     ALWAYS_INIT_CLIENT = True
 
