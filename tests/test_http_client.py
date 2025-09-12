@@ -717,11 +717,11 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
 
     @pytest.fixture
     def response(self):
-        def response(code=200, headers={}):
+        def response(code=200, headers=None):
             result = Mock()
             result.content = "{}"
             result.status_code = code
-            result.headers = headers
+            result.headers = headers or {}
             result.raw = urllib3.response.HTTPResponse(
                 body=_util.io.BytesIO(str.encode(result.content)),
                 preload_content=False,
@@ -1220,7 +1220,10 @@ class TestHTTPXClient(ClientTestBase):
 
     @pytest.fixture
     def mock_response(self, request_mock):
-        def _mock_response(mock, body={}, code=200):
+        def _mock_response(mock, body=None, code=200):
+            if body is None:
+                body = {}
+
             result = Mock()
             result.content = body
 
@@ -1623,7 +1626,10 @@ class TestAIOHTTPClient(ClientTestBase):
 
     @pytest.fixture
     def mock_response(self, mocker, mocked_request_lib):
-        def mock_response(mock, body={}, code=200):
+        def mock_response(mock, body=None, code=200):
+            if body is None:
+                body = {}
+
             class Content:
                 def __aiter__(self):
                     async def chunk():

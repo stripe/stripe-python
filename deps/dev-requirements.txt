@@ -13,3 +13,5 @@ ruff == 0.9.6
 # linting
 # flake8 7.2.0 bumped to pyflakes 3.3.0, which adds a new lint error around global usage which will need to be manually fixed
 flake8==7.1.2
+# extra linting rules
+flake8-bugbear == 24.12.12
