@@ -53,8 +53,6 @@ class MeterEventSummaryService(StripeService):
         """
         Retrieve a list of billing meter event summaries.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[MeterEventSummary],
             self._request(
@@ -77,8 +75,6 @@ class MeterEventSummaryService(StripeService):
         """
         Retrieve a list of billing meter event summaries.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[MeterEventSummary],
             await self._request_async(

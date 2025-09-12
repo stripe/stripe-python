@@ -1950,10 +1950,6 @@ class RegistrationService(StripeService):
         """
         Returns a list of Tax Registration objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Registration],
             self._request(
@@ -1973,10 +1969,6 @@ class RegistrationService(StripeService):
         """
         Returns a list of Tax Registration objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Registration],
             await self._request_async(
@@ -1996,8 +1988,6 @@ class RegistrationService(StripeService):
         """
         Creates a new Tax Registration object.
         """
-        if options is None:
-            options = {}
         return cast(
             Registration,
             self._request(
@@ -2017,8 +2007,6 @@ class RegistrationService(StripeService):
         """
         Creates a new Tax Registration object.
         """
-        if options is None:
-            options = {}
         return cast(
             Registration,
             await self._request_async(
@@ -2039,10 +2027,6 @@ class RegistrationService(StripeService):
         """
         Returns a Tax Registration object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Registration,
             self._request(
@@ -2063,10 +2047,6 @@ class RegistrationService(StripeService):
         """
         Returns a Tax Registration object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Registration,
             await self._request_async(
@@ -2089,10 +2069,6 @@ class RegistrationService(StripeService):
 
         A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting expires_at.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Registration,
             self._request(
@@ -2115,10 +2091,6 @@ class RegistrationService(StripeService):
 
         A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting expires_at.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Registration,
             await self._request_async(

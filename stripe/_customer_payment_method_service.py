@@ -104,10 +104,6 @@ class CustomerPaymentMethodService(StripeService):
         """
         Returns a list of PaymentMethods for a given Customer
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PaymentMethod],
             self._request(
@@ -130,10 +126,6 @@ class CustomerPaymentMethodService(StripeService):
         """
         Returns a list of PaymentMethods for a given Customer
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PaymentMethod],
             await self._request_async(
@@ -157,10 +149,6 @@ class CustomerPaymentMethodService(StripeService):
         """
         Retrieves a PaymentMethod object for a given Customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethod,
             self._request(
@@ -185,10 +173,6 @@ class CustomerPaymentMethodService(StripeService):
         """
         Retrieves a PaymentMethod object for a given Customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethod,
             await self._request_async(

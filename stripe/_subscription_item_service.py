@@ -329,10 +329,6 @@ class SubscriptionItemService(StripeService):
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SubscriptionItem,
             self._request(
@@ -353,10 +349,6 @@ class SubscriptionItemService(StripeService):
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SubscriptionItem,
             await self._request_async(
@@ -377,10 +369,6 @@ class SubscriptionItemService(StripeService):
         """
         Retrieves the subscription item with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SubscriptionItem,
             self._request(
@@ -401,10 +389,6 @@ class SubscriptionItemService(StripeService):
         """
         Retrieves the subscription item with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SubscriptionItem,
             await self._request_async(
@@ -425,10 +409,6 @@ class SubscriptionItemService(StripeService):
         """
         Updates the plan or quantity of an item on a current subscription.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SubscriptionItem,
             self._request(
@@ -449,10 +429,6 @@ class SubscriptionItemService(StripeService):
         """
         Updates the plan or quantity of an item on a current subscription.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SubscriptionItem,
             await self._request_async(
@@ -472,8 +448,6 @@ class SubscriptionItemService(StripeService):
         """
         Returns a list of your subscription items for a given subscription.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[SubscriptionItem],
             self._request(
@@ -493,8 +467,6 @@ class SubscriptionItemService(StripeService):
         """
         Returns a list of your subscription items for a given subscription.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[SubscriptionItem],
             await self._request_async(
@@ -514,8 +486,6 @@ class SubscriptionItemService(StripeService):
         """
         Adds a new item to an existing subscription. No existing items will be changed or replaced.
         """
-        if options is None:
-            options = {}
         return cast(
             SubscriptionItem,
             self._request(
@@ -535,8 +505,6 @@ class SubscriptionItemService(StripeService):
         """
         Adds a new item to an existing subscription. No existing items will be changed or replaced.
         """
-        if options is None:
-            options = {}
         return cast(
             SubscriptionItem,
             await self._request_async(

@@ -41,8 +41,6 @@ class AccountOwnerService(StripeService):
         """
         Lists all owners for a given Account
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[AccountOwner],
             self._request(
@@ -65,8 +63,6 @@ class AccountOwnerService(StripeService):
         """
         Lists all owners for a given Account
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[AccountOwner],
             await self._request_async(

@@ -438,10 +438,6 @@ class ReaderService(StripeService):
         """
         Deletes a Reader object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reader,
             self._request(
@@ -464,10 +460,6 @@ class ReaderService(StripeService):
         """
         Deletes a Reader object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -490,10 +482,6 @@ class ReaderService(StripeService):
         """
         Retrieves a Reader object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reader,
             self._request(
@@ -516,10 +504,6 @@ class ReaderService(StripeService):
         """
         Retrieves a Reader object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -542,10 +526,6 @@ class ReaderService(StripeService):
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reader,
             self._request(
@@ -568,10 +548,6 @@ class ReaderService(StripeService):
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -593,10 +569,6 @@ class ReaderService(StripeService):
         """
         Returns a list of Reader objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Reader],
             self._request(
@@ -616,10 +588,6 @@ class ReaderService(StripeService):
         """
         Returns a list of Reader objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Reader],
             await self._request_async(
@@ -639,8 +607,6 @@ class ReaderService(StripeService):
         """
         Creates a new Reader object.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             self._request(
@@ -660,8 +626,6 @@ class ReaderService(StripeService):
         """
         Creates a new Reader object.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -682,10 +646,6 @@ class ReaderService(StripeService):
         """
         Cancels the current reader action.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reader,
             self._request(
@@ -708,10 +668,6 @@ class ReaderService(StripeService):
         """
         Cancels the current reader action.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -734,8 +690,6 @@ class ReaderService(StripeService):
         """
         Initiates an input collection flow on a Reader.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             self._request(
@@ -758,8 +712,6 @@ class ReaderService(StripeService):
         """
         Initiates an input collection flow on a Reader.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -782,8 +734,6 @@ class ReaderService(StripeService):
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             self._request(
@@ -806,8 +756,6 @@ class ReaderService(StripeService):
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -830,8 +778,6 @@ class ReaderService(StripeService):
         """
         Finalizes a payment on a Reader.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             self._request(
@@ -854,8 +800,6 @@ class ReaderService(StripeService):
         """
         Finalizes a payment on a Reader.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -878,8 +822,6 @@ class ReaderService(StripeService):
         """
         Initiates a payment flow on a Reader.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             self._request(
@@ -902,8 +844,6 @@ class ReaderService(StripeService):
         """
         Initiates a payment flow on a Reader.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -926,8 +866,6 @@ class ReaderService(StripeService):
         """
         Initiates a setup intent flow on a Reader.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             self._request(
@@ -950,8 +888,6 @@ class ReaderService(StripeService):
         """
         Initiates a setup intent flow on a Reader.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -974,10 +910,6 @@ class ReaderService(StripeService):
         """
         Initiates a refund on a Reader
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reader,
             self._request(
@@ -1000,10 +932,6 @@ class ReaderService(StripeService):
         """
         Initiates a refund on a Reader
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -1026,8 +954,6 @@ class ReaderService(StripeService):
         """
         Sets reader display to show cart details.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             self._request(
@@ -1050,8 +976,6 @@ class ReaderService(StripeService):
         """
         Sets reader display to show cart details.
         """
-        if options is None:
-            options = {}
         return cast(
             Reader,
             await self._request_async(

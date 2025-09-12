@@ -37,10 +37,6 @@ class SourceTransactionService(StripeService):
         """
         List source transactions for a given source.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[SourceTransaction],
             self._request(
@@ -63,10 +59,6 @@ class SourceTransactionService(StripeService):
         """
         List source transactions for a given source.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[SourceTransaction],
             await self._request_async(

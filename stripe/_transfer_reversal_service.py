@@ -75,10 +75,6 @@ class TransferReversalService(StripeService):
         """
         You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Reversal],
             self._request(
@@ -99,10 +95,6 @@ class TransferReversalService(StripeService):
         """
         You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Reversal],
             await self._request_async(
@@ -127,10 +119,6 @@ class TransferReversalService(StripeService):
 
         Once entirely reversed, a transfer can't be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reversal,
             self._request(
@@ -155,10 +143,6 @@ class TransferReversalService(StripeService):
 
         Once entirely reversed, a transfer can't be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reversal,
             await self._request_async(
@@ -180,10 +164,6 @@ class TransferReversalService(StripeService):
         """
         By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reversal,
             self._request(
@@ -208,10 +188,6 @@ class TransferReversalService(StripeService):
         """
         By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reversal,
             await self._request_async(
@@ -238,10 +214,6 @@ class TransferReversalService(StripeService):
 
         This request only accepts metadata and description as arguments.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reversal,
             self._request(
@@ -268,10 +240,6 @@ class TransferReversalService(StripeService):
 
         This request only accepts metadata and description as arguments.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Reversal,
             await self._request_async(

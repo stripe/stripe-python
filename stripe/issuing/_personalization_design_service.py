@@ -200,10 +200,6 @@ class PersonalizationDesignService(StripeService):
         """
         Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PersonalizationDesign],
             self._request(
@@ -223,10 +219,6 @@ class PersonalizationDesignService(StripeService):
         """
         Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PersonalizationDesign],
             await self._request_async(
@@ -246,8 +238,6 @@ class PersonalizationDesignService(StripeService):
         """
         Creates a personalization design object.
         """
-        if options is None:
-            options = {}
         return cast(
             PersonalizationDesign,
             self._request(
@@ -267,8 +257,6 @@ class PersonalizationDesignService(StripeService):
         """
         Creates a personalization design object.
         """
-        if options is None:
-            options = {}
         return cast(
             PersonalizationDesign,
             await self._request_async(
@@ -289,10 +277,6 @@ class PersonalizationDesignService(StripeService):
         """
         Retrieves a personalization design object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PersonalizationDesign,
             self._request(
@@ -315,10 +299,6 @@ class PersonalizationDesignService(StripeService):
         """
         Retrieves a personalization design object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PersonalizationDesign,
             await self._request_async(
@@ -341,10 +321,6 @@ class PersonalizationDesignService(StripeService):
         """
         Updates a card personalization object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PersonalizationDesign,
             self._request(
@@ -367,10 +343,6 @@ class PersonalizationDesignService(StripeService):
         """
         Updates a card personalization object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PersonalizationDesign,
             await self._request_async(

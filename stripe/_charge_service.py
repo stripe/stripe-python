@@ -377,10 +377,6 @@ class ChargeService(StripeService):
         """
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Charge],
             self._request(
@@ -400,10 +396,6 @@ class ChargeService(StripeService):
         """
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Charge],
             await self._request_async(
@@ -425,10 +417,6 @@ class ChargeService(StripeService):
         to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
         object used to request payment.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Charge,
             self._request(
@@ -450,10 +438,6 @@ class ChargeService(StripeService):
         to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
         object used to request payment.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Charge,
             await self._request_async(
@@ -474,10 +458,6 @@ class ChargeService(StripeService):
         """
         Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Charge,
             self._request(
@@ -498,10 +478,6 @@ class ChargeService(StripeService):
         """
         Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Charge,
             await self._request_async(
@@ -522,10 +498,6 @@ class ChargeService(StripeService):
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Charge,
             self._request(
@@ -546,10 +518,6 @@ class ChargeService(StripeService):
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Charge,
             await self._request_async(
@@ -572,8 +540,6 @@ class ChargeService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
-        if options is None:
-            options = {}
         return cast(
             SearchResultObject[Charge],
             self._request(
@@ -596,8 +562,6 @@ class ChargeService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
-        if options is None:
-            options = {}
         return cast(
             SearchResultObject[Charge],
             await self._request_async(
@@ -622,10 +586,6 @@ class ChargeService(StripeService):
 
         Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Charge,
             self._request(
@@ -652,10 +612,6 @@ class ChargeService(StripeService):
 
         Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Charge,
             await self._request_async(

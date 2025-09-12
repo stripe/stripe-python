@@ -510,10 +510,6 @@ class ConfigurationService(StripeService):
         """
         Returns a list of configurations that describe the functionality of the customer portal.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Configuration],
             self._request(
@@ -533,10 +529,6 @@ class ConfigurationService(StripeService):
         """
         Returns a list of configurations that describe the functionality of the customer portal.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Configuration],
             await self._request_async(
@@ -556,8 +548,6 @@ class ConfigurationService(StripeService):
         """
         Creates a configuration that describes the functionality and behavior of a PortalSession
         """
-        if options is None:
-            options = {}
         return cast(
             Configuration,
             self._request(
@@ -577,8 +567,6 @@ class ConfigurationService(StripeService):
         """
         Creates a configuration that describes the functionality and behavior of a PortalSession
         """
-        if options is None:
-            options = {}
         return cast(
             Configuration,
             await self._request_async(
@@ -599,10 +587,6 @@ class ConfigurationService(StripeService):
         """
         Retrieves a configuration that describes the functionality of the customer portal.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Configuration,
             self._request(
@@ -625,10 +609,6 @@ class ConfigurationService(StripeService):
         """
         Retrieves a configuration that describes the functionality of the customer portal.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Configuration,
             await self._request_async(
@@ -651,10 +631,6 @@ class ConfigurationService(StripeService):
         """
         Updates a configuration that describes the functionality of the customer portal.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Configuration,
             self._request(
@@ -677,10 +653,6 @@ class ConfigurationService(StripeService):
         """
         Updates a configuration that describes the functionality of the customer portal.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Configuration,
             await self._request_async(

@@ -107,10 +107,6 @@ class OrderService(StripeService):
         Lists all Climate order objects. The orders are returned sorted by creation date, with the
         most recently created orders appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Order],
             self._request(
@@ -131,10 +127,6 @@ class OrderService(StripeService):
         Lists all Climate order objects. The orders are returned sorted by creation date, with the
         most recently created orders appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Order],
             await self._request_async(
@@ -155,8 +147,6 @@ class OrderService(StripeService):
         Creates a Climate order object for a given Climate product. The order will be processed immediately
         after creation and payment will be deducted your Stripe balance.
         """
-        if options is None:
-            options = {}
         return cast(
             Order,
             self._request(
@@ -177,8 +167,6 @@ class OrderService(StripeService):
         Creates a Climate order object for a given Climate product. The order will be processed immediately
         after creation and payment will be deducted your Stripe balance.
         """
-        if options is None:
-            options = {}
         return cast(
             Order,
             await self._request_async(
@@ -199,10 +187,6 @@ class OrderService(StripeService):
         """
         Retrieves the details of a Climate order object with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Order,
             self._request(
@@ -223,10 +207,6 @@ class OrderService(StripeService):
         """
         Retrieves the details of a Climate order object with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Order,
             await self._request_async(
@@ -247,10 +227,6 @@ class OrderService(StripeService):
         """
         Updates the specified order by setting the values of the parameters passed.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Order,
             self._request(
@@ -271,10 +247,6 @@ class OrderService(StripeService):
         """
         Updates the specified order by setting the values of the parameters passed.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Order,
             await self._request_async(
@@ -298,10 +270,6 @@ class OrderService(StripeService):
         might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
         provides 90 days advance notice and refunds the amount_total.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Order,
             self._request(
@@ -327,10 +295,6 @@ class OrderService(StripeService):
         might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
         provides 90 days advance notice and refunds the amount_total.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Order,
             await self._request_async(

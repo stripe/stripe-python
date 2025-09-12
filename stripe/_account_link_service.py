@@ -60,8 +60,6 @@ class AccountLinkService(StripeService):
         """
         Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.
         """
-        if options is None:
-            options = {}
         return cast(
             AccountLink,
             self._request(
@@ -81,8 +79,6 @@ class AccountLinkService(StripeService):
         """
         Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.
         """
-        if options is None:
-            options = {}
         return cast(
             AccountLink,
             await self._request_async(

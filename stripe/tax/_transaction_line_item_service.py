@@ -37,10 +37,6 @@ class TransactionLineItemService(StripeService):
         """
         Retrieves the line items of a committed standalone transaction as a collection.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[TransactionLineItem],
             self._request(
@@ -63,10 +59,6 @@ class TransactionLineItemService(StripeService):
         """
         Retrieves the line items of a committed standalone transaction as a collection.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[TransactionLineItem],
             await self._request_async(

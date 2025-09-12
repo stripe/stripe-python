@@ -31,8 +31,6 @@ class EventService(StripeService):
         """
         List events, going back up to 30 days.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[Event],
             self._request(
@@ -52,8 +50,6 @@ class EventService(StripeService):
         """
         List events, going back up to 30 days.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[Event],
             await self._request_async(
@@ -74,10 +70,6 @@ class EventService(StripeService):
         """
         Retrieves the details of an event.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Event,
             self._request(
@@ -98,10 +90,6 @@ class EventService(StripeService):
         """
         Retrieves the details of an event.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Event,
             await self._request_async(

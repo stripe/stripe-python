@@ -46,8 +46,6 @@ class ActiveEntitlementService(StripeService):
         """
         Retrieve a list of active entitlements for a customer
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[ActiveEntitlement],
             self._request(
@@ -67,8 +65,6 @@ class ActiveEntitlementService(StripeService):
         """
         Retrieve a list of active entitlements for a customer
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[ActiveEntitlement],
             await self._request_async(
@@ -89,10 +85,6 @@ class ActiveEntitlementService(StripeService):
         """
         Retrieve an active entitlement
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ActiveEntitlement,
             self._request(
@@ -115,10 +107,6 @@ class ActiveEntitlementService(StripeService):
         """
         Retrieve an active entitlement
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ActiveEntitlement,
             await self._request_async(

@@ -754,10 +754,6 @@ class ReportRunService(StripeService):
         """
         Returns a list of Report Runs, with the most recent appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ReportRun],
             self._request(
@@ -777,10 +773,6 @@ class ReportRunService(StripeService):
         """
         Returns a list of Report Runs, with the most recent appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ReportRun],
             await self._request_async(
@@ -800,8 +792,6 @@ class ReportRunService(StripeService):
         """
         Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
         """
-        if options is None:
-            options = {}
         return cast(
             ReportRun,
             self._request(
@@ -821,8 +811,6 @@ class ReportRunService(StripeService):
         """
         Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
         """
-        if options is None:
-            options = {}
         return cast(
             ReportRun,
             await self._request_async(
@@ -843,10 +831,6 @@ class ReportRunService(StripeService):
         """
         Retrieves the details of an existing Report Run.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ReportRun,
             self._request(
@@ -869,10 +853,6 @@ class ReportRunService(StripeService):
         """
         Retrieves the details of an existing Report Run.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ReportRun,
             await self._request_async(

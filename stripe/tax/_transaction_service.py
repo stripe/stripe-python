@@ -127,10 +127,6 @@ class TransactionService(StripeService):
         """
         Retrieves a Tax Transaction object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             self._request(
@@ -153,10 +149,6 @@ class TransactionService(StripeService):
         """
         Retrieves a Tax Transaction object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             await self._request_async(
@@ -178,8 +170,6 @@ class TransactionService(StripeService):
         """
         Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
         """
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             self._request(
@@ -199,8 +189,6 @@ class TransactionService(StripeService):
         """
         Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
         """
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             await self._request_async(
@@ -220,8 +208,6 @@ class TransactionService(StripeService):
         """
         Partially or fully reverses a previously created Transaction.
         """
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             self._request(
@@ -241,8 +227,6 @@ class TransactionService(StripeService):
         """
         Partially or fully reverses a previously created Transaction.
         """
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             await self._request_async(

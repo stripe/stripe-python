@@ -82,8 +82,6 @@ class TransactionService(StripeService):
         """
         Returns a list of Financial Connections Transaction objects.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[Transaction],
             self._request(
@@ -103,8 +101,6 @@ class TransactionService(StripeService):
         """
         Returns a list of Financial Connections Transaction objects.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[Transaction],
             await self._request_async(
@@ -125,10 +121,6 @@ class TransactionService(StripeService):
         """
         Retrieves the details of a Financial Connections Transaction
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             self._request(
@@ -151,10 +143,6 @@ class TransactionService(StripeService):
         """
         Retrieves the details of a Financial Connections Transaction
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             await self._request_async(

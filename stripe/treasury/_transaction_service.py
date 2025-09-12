@@ -108,8 +108,6 @@ class TransactionService(StripeService):
         """
         Retrieves a list of Transaction objects.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[Transaction],
             self._request(
@@ -129,8 +127,6 @@ class TransactionService(StripeService):
         """
         Retrieves a list of Transaction objects.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[Transaction],
             await self._request_async(
@@ -151,10 +147,6 @@ class TransactionService(StripeService):
         """
         Retrieves the details of an existing Transaction.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             self._request(
@@ -175,10 +167,6 @@ class TransactionService(StripeService):
         """
         Retrieves the details of an existing Transaction.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             await self._request_async(

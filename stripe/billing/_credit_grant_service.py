@@ -162,10 +162,6 @@ class CreditGrantService(StripeService):
         """
         Retrieve a list of credit grants.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[CreditGrant],
             self._request(
@@ -185,10 +181,6 @@ class CreditGrantService(StripeService):
         """
         Retrieve a list of credit grants.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[CreditGrant],
             await self._request_async(
@@ -208,8 +200,6 @@ class CreditGrantService(StripeService):
         """
         Creates a credit grant.
         """
-        if options is None:
-            options = {}
         return cast(
             CreditGrant,
             self._request(
@@ -229,8 +219,6 @@ class CreditGrantService(StripeService):
         """
         Creates a credit grant.
         """
-        if options is None:
-            options = {}
         return cast(
             CreditGrant,
             await self._request_async(
@@ -251,10 +239,6 @@ class CreditGrantService(StripeService):
         """
         Retrieves a credit grant.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditGrant,
             self._request(
@@ -275,10 +259,6 @@ class CreditGrantService(StripeService):
         """
         Retrieves a credit grant.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditGrant,
             await self._request_async(
@@ -299,10 +279,6 @@ class CreditGrantService(StripeService):
         """
         Updates a credit grant.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditGrant,
             self._request(
@@ -323,10 +299,6 @@ class CreditGrantService(StripeService):
         """
         Updates a credit grant.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditGrant,
             await self._request_async(
@@ -347,10 +319,6 @@ class CreditGrantService(StripeService):
         """
         Expires a credit grant.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditGrant,
             self._request(
@@ -373,10 +341,6 @@ class CreditGrantService(StripeService):
         """
         Expires a credit grant.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditGrant,
             await self._request_async(
@@ -399,10 +363,6 @@ class CreditGrantService(StripeService):
         """
         Voids a credit grant.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditGrant,
             self._request(
@@ -425,10 +385,6 @@ class CreditGrantService(StripeService):
         """
         Voids a credit grant.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditGrant,
             await self._request_async(

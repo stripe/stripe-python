@@ -134,10 +134,6 @@ class FileService(StripeService):
         """
         Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[File],
             self._request(
@@ -157,10 +153,6 @@ class FileService(StripeService):
         """
         Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[File],
             await self._request_async(
@@ -229,10 +221,6 @@ class FileService(StripeService):
         """
         Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://docs.stripe.com/docs/file-upload#download-file-contents).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             File,
             self._request(
@@ -253,10 +241,6 @@ class FileService(StripeService):
         """
         Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://docs.stripe.com/docs/file-upload#download-file-contents).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             File,
             await self._request_async(

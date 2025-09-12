@@ -3860,10 +3860,6 @@ class AccountService(StripeService):
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             self._request(
@@ -3890,10 +3886,6 @@ class AccountService(StripeService):
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -3914,10 +3906,6 @@ class AccountService(StripeService):
         """
         Retrieves the details of an account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             self._request(
@@ -3938,10 +3926,6 @@ class AccountService(StripeService):
         """
         Retrieves the details of an account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -3974,10 +3958,6 @@ class AccountService(StripeService):
         To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
         [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             self._request(
@@ -4010,10 +3990,6 @@ class AccountService(StripeService):
         To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
         [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -4033,10 +4009,6 @@ class AccountService(StripeService):
         """
         Retrieves the details of an account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             self._request(
@@ -4056,10 +4028,6 @@ class AccountService(StripeService):
         """
         Retrieves the details of an account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -4079,10 +4047,6 @@ class AccountService(StripeService):
         """
         Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Account],
             self._request(
@@ -4102,10 +4066,6 @@ class AccountService(StripeService):
         """
         Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Account],
             await self._request_async(
@@ -4130,10 +4090,6 @@ class AccountService(StripeService):
         creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
         You can prefill any information on the account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             self._request(
@@ -4158,10 +4114,6 @@ class AccountService(StripeService):
         creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
         You can prefill any information on the account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -4184,8 +4136,6 @@ class AccountService(StripeService):
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
-        if options is None:
-            options = {}
         return cast(
             Account,
             self._request(
@@ -4210,8 +4160,6 @@ class AccountService(StripeService):
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
-        if options is None:
-            options = {}
         return cast(
             Account,
             await self._request_async(

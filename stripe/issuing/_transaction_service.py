@@ -86,10 +86,6 @@ class TransactionService(StripeService):
         """
         Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Transaction],
             self._request(
@@ -109,10 +105,6 @@ class TransactionService(StripeService):
         """
         Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Transaction],
             await self._request_async(
@@ -133,10 +125,6 @@ class TransactionService(StripeService):
         """
         Retrieves an Issuing Transaction object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             self._request(
@@ -159,10 +147,6 @@ class TransactionService(StripeService):
         """
         Retrieves an Issuing Transaction object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             await self._request_async(
@@ -185,10 +169,6 @@ class TransactionService(StripeService):
         """
         Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             self._request(
@@ -211,10 +191,6 @@ class TransactionService(StripeService):
         """
         Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             await self._request_async(

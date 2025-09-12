@@ -38,8 +38,6 @@ class CustomerService(StripeService):
         """
         Create an incoming testmode bank transfer
         """
-        if options is None:
-            options = {}
         return cast(
             CustomerCashBalanceTransaction,
             self._request(
@@ -62,8 +60,6 @@ class CustomerService(StripeService):
         """
         Create an incoming testmode bank transfer
         """
-        if options is None:
-            options = {}
         return cast(
             CustomerCashBalanceTransaction,
             await self._request_async(

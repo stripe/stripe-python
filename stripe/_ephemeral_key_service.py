@@ -46,10 +46,6 @@ class EphemeralKeyService(StripeService):
         """
         Invalidates a short-lived API key for a given resource.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EphemeralKey,
             self._request(
@@ -70,10 +66,6 @@ class EphemeralKeyService(StripeService):
         """
         Invalidates a short-lived API key for a given resource.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EphemeralKey,
             await self._request_async(
@@ -93,10 +85,6 @@ class EphemeralKeyService(StripeService):
         """
         Creates a short-lived API key for a given resource.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EphemeralKey,
             self._request(
@@ -116,10 +104,6 @@ class EphemeralKeyService(StripeService):
         """
         Creates a short-lived API key for a given resource.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EphemeralKey,
             await self._request_async(

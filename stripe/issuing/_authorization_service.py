@@ -112,10 +112,6 @@ class AuthorizationService(StripeService):
         """
         Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Authorization],
             self._request(
@@ -135,10 +131,6 @@ class AuthorizationService(StripeService):
         """
         Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Authorization],
             await self._request_async(
@@ -159,10 +151,6 @@ class AuthorizationService(StripeService):
         """
         Retrieves an Issuing Authorization object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             self._request(
@@ -185,10 +173,6 @@ class AuthorizationService(StripeService):
         """
         Retrieves an Issuing Authorization object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             await self._request_async(
@@ -211,10 +195,6 @@ class AuthorizationService(StripeService):
         """
         Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             self._request(
@@ -237,10 +217,6 @@ class AuthorizationService(StripeService):
         """
         Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             await self._request_async(
@@ -264,10 +240,6 @@ class AuthorizationService(StripeService):
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
         This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             self._request(
@@ -291,10 +263,6 @@ class AuthorizationService(StripeService):
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
         This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             await self._request_async(
@@ -318,10 +286,6 @@ class AuthorizationService(StripeService):
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
         This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             self._request(
@@ -345,10 +309,6 @@ class AuthorizationService(StripeService):
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
         This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             await self._request_async(

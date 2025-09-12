@@ -72,10 +72,6 @@ class EarlyFraudWarningService(StripeService):
         """
         Returns a list of early fraud warnings.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[EarlyFraudWarning],
             self._request(
@@ -95,10 +91,6 @@ class EarlyFraudWarningService(StripeService):
         """
         Returns a list of early fraud warnings.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[EarlyFraudWarning],
             await self._request_async(
@@ -121,10 +113,6 @@ class EarlyFraudWarningService(StripeService):
 
         Please refer to the [early fraud warning](https://docs.stripe.com/api#early_fraud_warning_object) object reference for more details.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EarlyFraudWarning,
             self._request(
@@ -149,10 +137,6 @@ class EarlyFraudWarningService(StripeService):
 
         Please refer to the [early fraud warning](https://docs.stripe.com/api#early_fraud_warning_object) object reference for more details.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EarlyFraudWarning,
             await self._request_async(

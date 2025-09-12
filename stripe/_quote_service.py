@@ -633,10 +633,6 @@ class QuoteService(StripeService):
         """
         Returns a list of your quotes.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Quote],
             self._request(
@@ -656,10 +652,6 @@ class QuoteService(StripeService):
         """
         Returns a list of your quotes.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Quote],
             await self._request_async(
@@ -679,10 +671,6 @@ class QuoteService(StripeService):
         """
         A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Quote,
             self._request(
@@ -702,10 +690,6 @@ class QuoteService(StripeService):
         """
         A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Quote,
             await self._request_async(
@@ -726,10 +710,6 @@ class QuoteService(StripeService):
         """
         Retrieves the quote with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Quote,
             self._request(
@@ -750,10 +730,6 @@ class QuoteService(StripeService):
         """
         Retrieves the quote with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Quote,
             await self._request_async(
@@ -774,10 +750,6 @@ class QuoteService(StripeService):
         """
         A quote models prices and services for a customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Quote,
             self._request(
@@ -798,10 +770,6 @@ class QuoteService(StripeService):
         """
         A quote models prices and services for a customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Quote,
             await self._request_async(
@@ -822,10 +790,6 @@ class QuoteService(StripeService):
         """
         Accepts the specified quote.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Quote,
             self._request(
@@ -846,10 +810,6 @@ class QuoteService(StripeService):
         """
         Accepts the specified quote.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Quote,
             await self._request_async(
@@ -870,10 +830,6 @@ class QuoteService(StripeService):
         """
         Cancels the quote.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Quote,
             self._request(
@@ -894,10 +850,6 @@ class QuoteService(StripeService):
         """
         Cancels the quote.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Quote,
             await self._request_async(
@@ -918,10 +870,6 @@ class QuoteService(StripeService):
         """
         Finalizes the quote.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Quote,
             self._request(
@@ -942,10 +890,6 @@ class QuoteService(StripeService):
         """
         Finalizes the quote.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Quote,
             await self._request_async(
@@ -966,10 +910,6 @@ class QuoteService(StripeService):
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Any,
             self._request_stream(
@@ -990,10 +930,6 @@ class QuoteService(StripeService):
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Any,
             await self._request_stream_async(

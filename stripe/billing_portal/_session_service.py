@@ -241,8 +241,6 @@ class SessionService(StripeService):
         """
         Creates a session of the customer portal.
         """
-        if options is None:
-            options = {}
         return cast(
             Session,
             self._request(
@@ -262,8 +260,6 @@ class SessionService(StripeService):
         """
         Creates a session of the customer portal.
         """
-        if options is None:
-            options = {}
         return cast(
             Session,
             await self._request_async(

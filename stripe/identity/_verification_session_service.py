@@ -245,10 +245,6 @@ class VerificationSessionService(StripeService):
         """
         Returns a list of VerificationSessions
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[VerificationSession],
             self._request(
@@ -268,10 +264,6 @@ class VerificationSessionService(StripeService):
         """
         Returns a list of VerificationSessions
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[VerificationSession],
             await self._request_async(
@@ -297,10 +289,6 @@ class VerificationSessionService(StripeService):
 
         Related guide: [Verify your users' identity documents](https://docs.stripe.com/docs/identity/verify-identity-documents)
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             VerificationSession,
             self._request(
@@ -326,10 +314,6 @@ class VerificationSessionService(StripeService):
 
         Related guide: [Verify your users' identity documents](https://docs.stripe.com/docs/identity/verify-identity-documents)
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             VerificationSession,
             await self._request_async(
@@ -353,10 +337,6 @@ class VerificationSessionService(StripeService):
         When the session status is requires_input, you can use this method to retrieve a valid
         client_secret or url to allow re-submission.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             VerificationSession,
             self._request(
@@ -382,10 +362,6 @@ class VerificationSessionService(StripeService):
         When the session status is requires_input, you can use this method to retrieve a valid
         client_secret or url to allow re-submission.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             VerificationSession,
             await self._request_async(
@@ -411,10 +387,6 @@ class VerificationSessionService(StripeService):
         When the session status is requires_input, you can use this method to update the
         verification check and options.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             VerificationSession,
             self._request(
@@ -440,10 +412,6 @@ class VerificationSessionService(StripeService):
         When the session status is requires_input, you can use this method to update the
         verification check and options.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             VerificationSession,
             await self._request_async(
@@ -468,10 +436,6 @@ class VerificationSessionService(StripeService):
 
         Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             VerificationSession,
             self._request(
@@ -496,10 +460,6 @@ class VerificationSessionService(StripeService):
 
         Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             VerificationSession,
             await self._request_async(
@@ -540,10 +500,6 @@ class VerificationSessionService(StripeService):
 
         [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             VerificationSession,
             self._request(
@@ -584,10 +540,6 @@ class VerificationSessionService(StripeService):
 
         [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             VerificationSession,
             await self._request_async(

@@ -1260,10 +1260,6 @@ class TransactionService(StripeService):
         """
         Refund a test-mode Transaction.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             self._request(
@@ -1286,10 +1282,6 @@ class TransactionService(StripeService):
         """
         Refund a test-mode Transaction.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             await self._request_async(
@@ -1311,8 +1303,6 @@ class TransactionService(StripeService):
         """
         Allows the user to capture an arbitrary amount, also known as a forced capture.
         """
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             self._request(
@@ -1332,8 +1322,6 @@ class TransactionService(StripeService):
         """
         Allows the user to capture an arbitrary amount, also known as a forced capture.
         """
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             await self._request_async(
@@ -1353,8 +1341,6 @@ class TransactionService(StripeService):
         """
         Allows the user to refund an arbitrary amount, also known as a unlinked refund.
         """
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             self._request(
@@ -1374,8 +1360,6 @@ class TransactionService(StripeService):
         """
         Allows the user to refund an arbitrary amount, also known as a unlinked refund.
         """
-        if options is None:
-            options = {}
         return cast(
             Transaction,
             await self._request_async(

@@ -64,8 +64,6 @@ class SetupAttemptService(StripeService):
         """
         Returns a list of SetupAttempts that associate with a provided SetupIntent.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[SetupAttempt],
             self._request(
@@ -85,8 +83,6 @@ class SetupAttemptService(StripeService):
         """
         Returns a list of SetupAttempts that associate with a provided SetupIntent.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[SetupAttempt],
             await self._request_async(

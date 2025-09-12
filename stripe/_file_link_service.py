@@ -104,10 +104,6 @@ class FileLinkService(StripeService):
         """
         Returns a list of file links.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[FileLink],
             self._request(
@@ -127,10 +123,6 @@ class FileLinkService(StripeService):
         """
         Returns a list of file links.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[FileLink],
             await self._request_async(
@@ -150,8 +142,6 @@ class FileLinkService(StripeService):
         """
         Creates a new file link object.
         """
-        if options is None:
-            options = {}
         return cast(
             FileLink,
             self._request(
@@ -171,8 +161,6 @@ class FileLinkService(StripeService):
         """
         Creates a new file link object.
         """
-        if options is None:
-            options = {}
         return cast(
             FileLink,
             await self._request_async(
@@ -193,10 +181,6 @@ class FileLinkService(StripeService):
         """
         Retrieves the file link with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FileLink,
             self._request(
@@ -217,10 +201,6 @@ class FileLinkService(StripeService):
         """
         Retrieves the file link with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FileLink,
             await self._request_async(
@@ -241,10 +221,6 @@ class FileLinkService(StripeService):
         """
         Updates an existing file link object. Expired links can no longer be updated.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FileLink,
             self._request(
@@ -265,10 +241,6 @@ class FileLinkService(StripeService):
         """
         Updates an existing file link object. Expired links can no longer be updated.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FileLink,
             await self._request_async(

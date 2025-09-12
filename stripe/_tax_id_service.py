@@ -207,10 +207,6 @@ class TaxIdService(StripeService):
         """
         Deletes an existing account or customer tax_id object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TaxId,
             self._request(
@@ -231,10 +227,6 @@ class TaxIdService(StripeService):
         """
         Deletes an existing account or customer tax_id object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TaxId,
             await self._request_async(
@@ -255,10 +247,6 @@ class TaxIdService(StripeService):
         """
         Retrieves an account or customer tax_id object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TaxId,
             self._request(
@@ -279,10 +267,6 @@ class TaxIdService(StripeService):
         """
         Retrieves an account or customer tax_id object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TaxId,
             await self._request_async(
@@ -302,10 +286,6 @@ class TaxIdService(StripeService):
         """
         Returns a list of tax IDs.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[TaxId],
             self._request(
@@ -325,10 +305,6 @@ class TaxIdService(StripeService):
         """
         Returns a list of tax IDs.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[TaxId],
             await self._request_async(
@@ -348,8 +324,6 @@ class TaxIdService(StripeService):
         """
         Creates a new account or customer tax_id object.
         """
-        if options is None:
-            options = {}
         return cast(
             TaxId,
             self._request(
@@ -369,8 +343,6 @@ class TaxIdService(StripeService):
         """
         Creates a new account or customer tax_id object.
         """
-        if options is None:
-            options = {}
         return cast(
             TaxId,
             await self._request_async(

@@ -477,10 +477,6 @@ class FinancialAccountService(StripeService):
         """
         Returns a list of FinancialAccounts.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[FinancialAccount],
             self._request(
@@ -500,10 +496,6 @@ class FinancialAccountService(StripeService):
         """
         Returns a list of FinancialAccounts.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[FinancialAccount],
             await self._request_async(
@@ -523,8 +515,6 @@ class FinancialAccountService(StripeService):
         """
         Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
         """
-        if options is None:
-            options = {}
         return cast(
             FinancialAccount,
             self._request(
@@ -544,8 +534,6 @@ class FinancialAccountService(StripeService):
         """
         Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
         """
-        if options is None:
-            options = {}
         return cast(
             FinancialAccount,
             await self._request_async(
@@ -566,10 +554,6 @@ class FinancialAccountService(StripeService):
         """
         Retrieves the details of a FinancialAccount.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FinancialAccount,
             self._request(
@@ -592,10 +576,6 @@ class FinancialAccountService(StripeService):
         """
         Retrieves the details of a FinancialAccount.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FinancialAccount,
             await self._request_async(
@@ -618,10 +598,6 @@ class FinancialAccountService(StripeService):
         """
         Updates the details of a FinancialAccount.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FinancialAccount,
             self._request(
@@ -644,10 +620,6 @@ class FinancialAccountService(StripeService):
         """
         Updates the details of a FinancialAccount.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FinancialAccount,
             await self._request_async(
@@ -670,10 +642,6 @@ class FinancialAccountService(StripeService):
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FinancialAccount,
             self._request(
@@ -696,10 +664,6 @@ class FinancialAccountService(StripeService):
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FinancialAccount,
             await self._request_async(

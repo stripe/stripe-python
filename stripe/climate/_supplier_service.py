@@ -42,10 +42,6 @@ class SupplierService(StripeService):
         """
         Lists all available Climate supplier objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Supplier],
             self._request(
@@ -65,10 +61,6 @@ class SupplierService(StripeService):
         """
         Lists all available Climate supplier objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Supplier],
             await self._request_async(
@@ -89,10 +81,6 @@ class SupplierService(StripeService):
         """
         Retrieves a Climate supplier object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Supplier,
             self._request(
@@ -115,10 +103,6 @@ class SupplierService(StripeService):
         """
         Retrieves a Climate supplier object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Supplier,
             await self._request_async(

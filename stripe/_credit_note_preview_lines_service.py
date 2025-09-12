@@ -170,8 +170,6 @@ class CreditNotePreviewLinesService(StripeService):
         """
         When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[CreditNoteLineItem],
             self._request(
@@ -191,8 +189,6 @@ class CreditNotePreviewLinesService(StripeService):
         """
         When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[CreditNoteLineItem],
             await self._request_async(

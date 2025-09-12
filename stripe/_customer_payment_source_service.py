@@ -182,10 +182,6 @@ class CustomerPaymentSourceService(StripeService):
         """
         List sources for a specified customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Union[Account, BankAccount, Card, Source]],
             self._request(
@@ -208,10 +204,6 @@ class CustomerPaymentSourceService(StripeService):
         """
         List sources for a specified customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Union[Account, BankAccount, Card, Source]],
             await self._request_async(
@@ -238,8 +230,6 @@ class CustomerPaymentSourceService(StripeService):
         However, if the owner already has a default, then it will not change.
         To change the default, you should [update the customer](https://docs.stripe.com/docs/api#update_customer) to have a new default_source.
         """
-        if options is None:
-            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             self._request(
@@ -266,8 +256,6 @@ class CustomerPaymentSourceService(StripeService):
         However, if the owner already has a default, then it will not change.
         To change the default, you should [update the customer](https://docs.stripe.com/docs/api#update_customer) to have a new default_source.
         """
-        if options is None:
-            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             await self._request_async(
@@ -291,10 +279,6 @@ class CustomerPaymentSourceService(StripeService):
         """
         Retrieve a specified source for a given customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             self._request(
@@ -319,10 +303,6 @@ class CustomerPaymentSourceService(StripeService):
         """
         Retrieve a specified source for a given customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             await self._request_async(
@@ -347,10 +327,6 @@ class CustomerPaymentSourceService(StripeService):
         """
         Update a specified source for a given customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             self._request(
@@ -375,10 +351,6 @@ class CustomerPaymentSourceService(StripeService):
         """
         Update a specified source for a given customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             await self._request_async(
@@ -403,10 +375,6 @@ class CustomerPaymentSourceService(StripeService):
         """
         Delete a specified source for a given customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             self._request(
@@ -431,10 +399,6 @@ class CustomerPaymentSourceService(StripeService):
         """
         Delete a specified source for a given customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             await self._request_async(
@@ -459,10 +423,6 @@ class CustomerPaymentSourceService(StripeService):
         """
         Verify a specified bank account for a given customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             BankAccount,
             self._request(
@@ -487,10 +447,6 @@ class CustomerPaymentSourceService(StripeService):
         """
         Verify a specified bank account for a given customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             BankAccount,
             await self._request_async(

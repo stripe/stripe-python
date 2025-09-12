@@ -68,8 +68,6 @@ class CreditReversalService(StripeService):
         """
         Returns a list of CreditReversals.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[CreditReversal],
             self._request(
@@ -89,8 +87,6 @@ class CreditReversalService(StripeService):
         """
         Returns a list of CreditReversals.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[CreditReversal],
             await self._request_async(
@@ -110,8 +106,6 @@ class CreditReversalService(StripeService):
         """
         Reverses a ReceivedCredit and creates a CreditReversal object.
         """
-        if options is None:
-            options = {}
         return cast(
             CreditReversal,
             self._request(
@@ -131,8 +125,6 @@ class CreditReversalService(StripeService):
         """
         Reverses a ReceivedCredit and creates a CreditReversal object.
         """
-        if options is None:
-            options = {}
         return cast(
             CreditReversal,
             await self._request_async(
@@ -153,10 +145,6 @@ class CreditReversalService(StripeService):
         """
         Retrieves the details of an existing CreditReversal by passing the unique CreditReversal ID from either the CreditReversal creation request or CreditReversal list
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditReversal,
             self._request(
@@ -179,10 +167,6 @@ class CreditReversalService(StripeService):
         """
         Retrieves the details of an existing CreditReversal by passing the unique CreditReversal ID from either the CreditReversal creation request or CreditReversal list
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditReversal,
             await self._request_async(

@@ -37,10 +37,6 @@ class CreditNoteLineItemService(StripeService):
         """
         When retrieving a credit note, you'll get a lines property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[CreditNoteLineItem],
             self._request(
@@ -63,10 +59,6 @@ class CreditNoteLineItemService(StripeService):
         """
         When retrieving a credit note, you'll get a lines property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[CreditNoteLineItem],
             await self._request_async(

@@ -48,10 +48,6 @@ class CardService(StripeService):
         """
         Updates the shipping status of the specified Issuing Card object to delivered.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             self._request(
@@ -74,10 +70,6 @@ class CardService(StripeService):
         """
         Updates the shipping status of the specified Issuing Card object to delivered.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             await self._request_async(
@@ -100,10 +92,6 @@ class CardService(StripeService):
         """
         Updates the shipping status of the specified Issuing Card object to failure.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             self._request(
@@ -126,10 +114,6 @@ class CardService(StripeService):
         """
         Updates the shipping status of the specified Issuing Card object to failure.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             await self._request_async(
@@ -152,10 +136,6 @@ class CardService(StripeService):
         """
         Updates the shipping status of the specified Issuing Card object to returned.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             self._request(
@@ -178,10 +158,6 @@ class CardService(StripeService):
         """
         Updates the shipping status of the specified Issuing Card object to returned.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             await self._request_async(
@@ -204,10 +180,6 @@ class CardService(StripeService):
         """
         Updates the shipping status of the specified Issuing Card object to shipped.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             self._request(
@@ -230,10 +202,6 @@ class CardService(StripeService):
         """
         Updates the shipping status of the specified Issuing Card object to shipped.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             await self._request_async(
@@ -256,10 +224,6 @@ class CardService(StripeService):
         """
         Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             self._request(
@@ -282,10 +246,6 @@ class CardService(StripeService):
         """
         Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             await self._request_async(

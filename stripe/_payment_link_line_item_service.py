@@ -37,10 +37,6 @@ class PaymentLinkLineItemService(StripeService):
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[LineItem],
             self._request(
@@ -63,10 +59,6 @@ class PaymentLinkLineItemService(StripeService):
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[LineItem],
             await self._request_async(

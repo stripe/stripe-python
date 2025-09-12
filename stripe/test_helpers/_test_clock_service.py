@@ -70,10 +70,6 @@ class TestClockService(StripeService):
         """
         Deletes a test clock.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TestClock,
             self._request(
@@ -96,10 +92,6 @@ class TestClockService(StripeService):
         """
         Deletes a test clock.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TestClock,
             await self._request_async(
@@ -122,10 +114,6 @@ class TestClockService(StripeService):
         """
         Retrieves a test clock.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TestClock,
             self._request(
@@ -148,10 +136,6 @@ class TestClockService(StripeService):
         """
         Retrieves a test clock.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TestClock,
             await self._request_async(
@@ -173,10 +157,6 @@ class TestClockService(StripeService):
         """
         Returns a list of your test clocks.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[TestClock],
             self._request(
@@ -196,10 +176,6 @@ class TestClockService(StripeService):
         """
         Returns a list of your test clocks.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[TestClock],
             await self._request_async(
@@ -219,8 +195,6 @@ class TestClockService(StripeService):
         """
         Creates a new test clock that can be attached to new customers and quotes.
         """
-        if options is None:
-            options = {}
         return cast(
             TestClock,
             self._request(
@@ -240,8 +214,6 @@ class TestClockService(StripeService):
         """
         Creates a new test clock that can be attached to new customers and quotes.
         """
-        if options is None:
-            options = {}
         return cast(
             TestClock,
             await self._request_async(
@@ -262,8 +234,6 @@ class TestClockService(StripeService):
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
         """
-        if options is None:
-            options = {}
         return cast(
             TestClock,
             self._request(
@@ -286,8 +256,6 @@ class TestClockService(StripeService):
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
         """
-        if options is None:
-            options = {}
         return cast(
             TestClock,
             await self._request_async(

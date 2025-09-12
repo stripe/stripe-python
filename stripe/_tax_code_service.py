@@ -42,10 +42,6 @@ class TaxCodeService(StripeService):
         """
         A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[TaxCode],
             self._request(
@@ -65,10 +61,6 @@ class TaxCodeService(StripeService):
         """
         A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[TaxCode],
             await self._request_async(
@@ -89,10 +81,6 @@ class TaxCodeService(StripeService):
         """
         Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TaxCode,
             self._request(
@@ -113,10 +101,6 @@ class TaxCodeService(StripeService):
         """
         Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TaxCode,
             await self._request_async(

@@ -24,10 +24,6 @@ class MandateService(StripeService):
         """
         Retrieves a Mandate object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Mandate,
             self._request(
@@ -48,10 +44,6 @@ class MandateService(StripeService):
         """
         Retrieves a Mandate object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Mandate,
             await self._request_async(

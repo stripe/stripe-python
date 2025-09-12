@@ -30,10 +30,6 @@ class ReportTypeService(StripeService):
         """
         Returns a full list of Report Types.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ReportType],
             self._request(
@@ -53,10 +49,6 @@ class ReportTypeService(StripeService):
         """
         Returns a full list of Report Types.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ReportType],
             await self._request_async(
@@ -77,10 +69,6 @@ class ReportTypeService(StripeService):
         """
         Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ReportType,
             self._request(
@@ -103,10 +91,6 @@ class ReportTypeService(StripeService):
         """
         Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ReportType,
             await self._request_async(

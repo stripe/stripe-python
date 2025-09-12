@@ -24,10 +24,6 @@ class ConfirmationTokenService(StripeService):
         """
         Retrieves an existing ConfirmationToken object
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ConfirmationToken,
             self._request(
@@ -50,10 +46,6 @@ class ConfirmationTokenService(StripeService):
         """
         Retrieves an existing ConfirmationToken object
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ConfirmationToken,
             await self._request_async(

@@ -72,8 +72,6 @@ class CustomerFundingInstructionsService(StripeService):
         funding instructions will be created. If funding instructions have already been created for a given customer, the same
         funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
         """
-        if options is None:
-            options = {}
         return cast(
             FundingInstructions,
             self._request(
@@ -98,8 +96,6 @@ class CustomerFundingInstructionsService(StripeService):
         funding instructions will be created. If funding instructions have already been created for a given customer, the same
         funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
         """
-        if options is None:
-            options = {}
         return cast(
             FundingInstructions,
             await self._request_async(

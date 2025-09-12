@@ -66,8 +66,6 @@ class CreditBalanceSummaryService(StripeService):
         """
         Retrieves the credit balance summary for a customer.
         """
-        if options is None:
-            options = {}
         return cast(
             CreditBalanceSummary,
             self._request(
@@ -87,8 +85,6 @@ class CreditBalanceSummaryService(StripeService):
         """
         Retrieves the credit balance summary for a customer.
         """
-        if options is None:
-            options = {}
         return cast(
             CreditBalanceSummary,
             await self._request_async(

@@ -162,10 +162,6 @@ class PayoutService(StripeService):
         """
         Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Payout],
             self._request(
@@ -185,10 +181,6 @@ class PayoutService(StripeService):
         """
         Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Payout],
             await self._request_async(
@@ -212,8 +204,6 @@ class PayoutService(StripeService):
 
         If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://docs.stripe.com/api#balance_object) details available and pending amounts by source type.
         """
-        if options is None:
-            options = {}
         return cast(
             Payout,
             self._request(
@@ -237,8 +227,6 @@ class PayoutService(StripeService):
 
         If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://docs.stripe.com/api#balance_object) details available and pending amounts by source type.
         """
-        if options is None:
-            options = {}
         return cast(
             Payout,
             await self._request_async(
@@ -259,10 +247,6 @@ class PayoutService(StripeService):
         """
         Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Payout,
             self._request(
@@ -283,10 +267,6 @@ class PayoutService(StripeService):
         """
         Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Payout,
             await self._request_async(
@@ -307,10 +287,6 @@ class PayoutService(StripeService):
         """
         Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Payout,
             self._request(
@@ -331,10 +307,6 @@ class PayoutService(StripeService):
         """
         Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Payout,
             await self._request_async(
@@ -355,10 +327,6 @@ class PayoutService(StripeService):
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Payout,
             self._request(
@@ -381,10 +349,6 @@ class PayoutService(StripeService):
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Payout,
             await self._request_async(
@@ -409,10 +373,6 @@ class PayoutService(StripeService):
 
         By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Payout,
             self._request(
@@ -437,10 +397,6 @@ class PayoutService(StripeService):
 
         By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Payout,
             await self._request_async(

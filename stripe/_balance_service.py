@@ -23,10 +23,6 @@ class BalanceService(StripeService):
         Retrieves the current account balance, based on the authentication that was used to make the request.
          For a sample request, see [Accounting for negative balances](https://docs.stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Balance,
             self._request(
@@ -47,10 +43,6 @@ class BalanceService(StripeService):
         Retrieves the current account balance, based on the authentication that was used to make the request.
          For a sample request, see [Accounting for negative balances](https://docs.stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Balance,
             await self._request_async(

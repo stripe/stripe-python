@@ -118,10 +118,6 @@ class RequestService(StripeService):
         """
         Lists all ForwardingRequest objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Request],
             self._request(
@@ -141,10 +137,6 @@ class RequestService(StripeService):
         """
         Lists all ForwardingRequest objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Request],
             await self._request_async(
@@ -164,8 +156,6 @@ class RequestService(StripeService):
         """
         Creates a ForwardingRequest object.
         """
-        if options is None:
-            options = {}
         return cast(
             Request,
             self._request(
@@ -185,8 +175,6 @@ class RequestService(StripeService):
         """
         Creates a ForwardingRequest object.
         """
-        if options is None:
-            options = {}
         return cast(
             Request,
             await self._request_async(
@@ -207,10 +195,6 @@ class RequestService(StripeService):
         """
         Retrieves a ForwardingRequest object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Request,
             self._request(
@@ -231,10 +215,6 @@ class RequestService(StripeService):
         """
         Retrieves a ForwardingRequest object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Request,
             await self._request_async(

@@ -128,8 +128,6 @@ class OutboundTransferService(StripeService):
         """
         Returns a list of OutboundTransfers sent from the specified FinancialAccount.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[OutboundTransfer],
             self._request(
@@ -149,8 +147,6 @@ class OutboundTransferService(StripeService):
         """
         Returns a list of OutboundTransfers sent from the specified FinancialAccount.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[OutboundTransfer],
             await self._request_async(
@@ -170,8 +166,6 @@ class OutboundTransferService(StripeService):
         """
         Creates an OutboundTransfer.
         """
-        if options is None:
-            options = {}
         return cast(
             OutboundTransfer,
             self._request(
@@ -191,8 +185,6 @@ class OutboundTransferService(StripeService):
         """
         Creates an OutboundTransfer.
         """
-        if options is None:
-            options = {}
         return cast(
             OutboundTransfer,
             await self._request_async(
@@ -213,10 +205,6 @@ class OutboundTransferService(StripeService):
         """
         Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             OutboundTransfer,
             self._request(
@@ -239,10 +227,6 @@ class OutboundTransferService(StripeService):
         """
         Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             OutboundTransfer,
             await self._request_async(
@@ -265,10 +249,6 @@ class OutboundTransferService(StripeService):
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             OutboundTransfer,
             self._request(
@@ -291,10 +271,6 @@ class OutboundTransferService(StripeService):
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             OutboundTransfer,
             await self._request_async(

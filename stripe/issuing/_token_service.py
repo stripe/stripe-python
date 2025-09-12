@@ -84,8 +84,6 @@ class TokenService(StripeService):
         """
         Lists all Issuing Token objects for a given card.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[Token],
             self._request(
@@ -105,8 +103,6 @@ class TokenService(StripeService):
         """
         Lists all Issuing Token objects for a given card.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[Token],
             await self._request_async(
@@ -127,10 +123,6 @@ class TokenService(StripeService):
         """
         Retrieves an Issuing Token object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Token,
             self._request(
@@ -151,10 +143,6 @@ class TokenService(StripeService):
         """
         Retrieves an Issuing Token object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Token,
             await self._request_async(
@@ -175,8 +163,6 @@ class TokenService(StripeService):
         """
         Attempts to update the specified Issuing Token object to the status specified.
         """
-        if options is None:
-            options = {}
         return cast(
             Token,
             self._request(
@@ -197,8 +183,6 @@ class TokenService(StripeService):
         """
         Attempts to update the specified Issuing Token object to the status specified.
         """
-        if options is None:
-            options = {}
         return cast(
             Token,
             await self._request_async(

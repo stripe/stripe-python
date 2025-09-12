@@ -4302,10 +4302,6 @@ class SetupIntentService(StripeService):
         """
         Returns a list of SetupIntents.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[SetupIntent],
             self._request(
@@ -4325,10 +4321,6 @@ class SetupIntentService(StripeService):
         """
         Returns a list of SetupIntents.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[SetupIntent],
             await self._request_async(
@@ -4351,10 +4343,6 @@ class SetupIntentService(StripeService):
         After you create the SetupIntent, attach a payment method and [confirm](https://docs.stripe.com/docs/api/setup_intents/confirm)
         it to collect any required permissions to charge the payment method later.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SetupIntent,
             self._request(
@@ -4377,10 +4365,6 @@ class SetupIntentService(StripeService):
         After you create the SetupIntent, attach a payment method and [confirm](https://docs.stripe.com/docs/api/setup_intents/confirm)
         it to collect any required permissions to charge the payment method later.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SetupIntent,
             await self._request_async(
@@ -4405,10 +4389,6 @@ class SetupIntentService(StripeService):
 
         When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://docs.stripe.com/api#setup_intent_object) object reference for more details.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SetupIntent,
             self._request(
@@ -4435,10 +4415,6 @@ class SetupIntentService(StripeService):
 
         When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://docs.stripe.com/api#setup_intent_object) object reference for more details.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SetupIntent,
             await self._request_async(
@@ -4461,10 +4437,6 @@ class SetupIntentService(StripeService):
         """
         Updates a SetupIntent object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SetupIntent,
             self._request(
@@ -4487,10 +4459,6 @@ class SetupIntentService(StripeService):
         """
         Updates a SetupIntent object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SetupIntent,
             await self._request_async(
@@ -4515,10 +4483,6 @@ class SetupIntentService(StripeService):
 
         After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SetupIntent,
             self._request(
@@ -4543,10 +4507,6 @@ class SetupIntentService(StripeService):
 
         After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SetupIntent,
             await self._request_async(
@@ -4582,10 +4542,6 @@ class SetupIntentService(StripeService):
         requires_payment_method status or the canceled status if the
         confirmation limit is reached.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SetupIntent,
             self._request(
@@ -4621,10 +4577,6 @@ class SetupIntentService(StripeService):
         requires_payment_method status or the canceled status if the
         confirmation limit is reached.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SetupIntent,
             await self._request_async(
@@ -4649,10 +4601,6 @@ class SetupIntentService(StripeService):
         """
         Verifies microdeposits on a SetupIntent object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SetupIntent,
             self._request(
@@ -4677,10 +4625,6 @@ class SetupIntentService(StripeService):
         """
         Verifies microdeposits on a SetupIntent object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             SetupIntent,
             await self._request_async(

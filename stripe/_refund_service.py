@@ -139,10 +139,6 @@ class RefundService(StripeService):
         """
         Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Refund],
             self._request(
@@ -162,10 +158,6 @@ class RefundService(StripeService):
         """
         Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Refund],
             await self._request_async(
@@ -195,10 +187,6 @@ class RefundService(StripeService):
         This method will raise an error when called on an already-refunded charge,
         or when trying to refund more money than is left on a charge.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Refund,
             self._request(
@@ -228,10 +216,6 @@ class RefundService(StripeService):
         This method will raise an error when called on an already-refunded charge,
         or when trying to refund more money than is left on a charge.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Refund,
             await self._request_async(
@@ -252,10 +236,6 @@ class RefundService(StripeService):
         """
         Retrieves the details of an existing refund.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Refund,
             self._request(
@@ -276,10 +256,6 @@ class RefundService(StripeService):
         """
         Retrieves the details of an existing refund.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Refund,
             await self._request_async(
@@ -302,10 +278,6 @@ class RefundService(StripeService):
 
         This request only accepts metadata as an argument.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Refund,
             self._request(
@@ -328,10 +300,6 @@ class RefundService(StripeService):
 
         This request only accepts metadata as an argument.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Refund,
             await self._request_async(
@@ -354,10 +322,6 @@ class RefundService(StripeService):
 
         You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Refund,
             self._request(
@@ -382,10 +346,6 @@ class RefundService(StripeService):
 
         You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Refund,
             await self._request_async(

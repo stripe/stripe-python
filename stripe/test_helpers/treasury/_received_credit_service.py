@@ -74,8 +74,6 @@ class ReceivedCreditService(StripeService):
         """
         Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
         """
-        if options is None:
-            options = {}
         return cast(
             ReceivedCredit,
             self._request(
@@ -95,8 +93,6 @@ class ReceivedCreditService(StripeService):
         """
         Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
         """
-        if options is None:
-            options = {}
         return cast(
             ReceivedCredit,
             await self._request_async(

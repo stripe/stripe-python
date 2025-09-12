@@ -485,10 +485,6 @@ class PriceService(StripeService):
         """
         Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Price],
             self._request(
@@ -508,10 +504,6 @@ class PriceService(StripeService):
         """
         Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Price],
             await self._request_async(
@@ -531,8 +523,6 @@ class PriceService(StripeService):
         """
         Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
         """
-        if options is None:
-            options = {}
         return cast(
             Price,
             self._request(
@@ -552,8 +542,6 @@ class PriceService(StripeService):
         """
         Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
         """
-        if options is None:
-            options = {}
         return cast(
             Price,
             await self._request_async(
@@ -574,10 +562,6 @@ class PriceService(StripeService):
         """
         Retrieves the price with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Price,
             self._request(
@@ -598,10 +582,6 @@ class PriceService(StripeService):
         """
         Retrieves the price with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Price,
             await self._request_async(
@@ -622,10 +602,6 @@ class PriceService(StripeService):
         """
         Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Price,
             self._request(
@@ -646,10 +622,6 @@ class PriceService(StripeService):
         """
         Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Price,
             await self._request_async(
@@ -672,8 +644,6 @@ class PriceService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
-        if options is None:
-            options = {}
         return cast(
             SearchResultObject[Price],
             self._request(
@@ -696,8 +666,6 @@ class PriceService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
-        if options is None:
-            options = {}
         return cast(
             SearchResultObject[Price],
             await self._request_async(

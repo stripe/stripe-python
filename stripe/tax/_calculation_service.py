@@ -327,10 +327,6 @@ class CalculationService(StripeService):
         """
         Retrieves a Tax Calculation object, if the calculation hasn't expired.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Calculation,
             self._request(
@@ -353,10 +349,6 @@ class CalculationService(StripeService):
         """
         Retrieves a Tax Calculation object, if the calculation hasn't expired.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Calculation,
             await self._request_async(
@@ -378,8 +370,6 @@ class CalculationService(StripeService):
         """
         Calculates tax based on the input and returns a Tax Calculation object.
         """
-        if options is None:
-            options = {}
         return cast(
             Calculation,
             self._request(
@@ -399,8 +389,6 @@ class CalculationService(StripeService):
         """
         Calculates tax based on the input and returns a Tax Calculation object.
         """
-        if options is None:
-            options = {}
         return cast(
             Calculation,
             await self._request_async(

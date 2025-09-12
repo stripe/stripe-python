@@ -42,10 +42,6 @@ class ScheduledQueryRunService(StripeService):
         """
         Returns a list of scheduled query runs.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ScheduledQueryRun],
             self._request(
@@ -65,10 +61,6 @@ class ScheduledQueryRunService(StripeService):
         """
         Returns a list of scheduled query runs.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ScheduledQueryRun],
             await self._request_async(
@@ -89,10 +81,6 @@ class ScheduledQueryRunService(StripeService):
         """
         Retrieves the details of an scheduled query run.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ScheduledQueryRun,
             self._request(
@@ -115,10 +103,6 @@ class ScheduledQueryRunService(StripeService):
         """
         Retrieves the details of an scheduled query run.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ScheduledQueryRun,
             await self._request_async(

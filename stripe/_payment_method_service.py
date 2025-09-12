@@ -990,10 +990,6 @@ class PaymentMethodService(StripeService):
         """
         Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PaymentMethod],
             self._request(
@@ -1013,10 +1009,6 @@ class PaymentMethodService(StripeService):
         """
         Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PaymentMethod],
             await self._request_async(
@@ -1038,10 +1030,6 @@ class PaymentMethodService(StripeService):
 
         Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://docs.stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethod,
             self._request(
@@ -1063,10 +1051,6 @@ class PaymentMethodService(StripeService):
 
         Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://docs.stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethod,
             await self._request_async(
@@ -1087,10 +1071,6 @@ class PaymentMethodService(StripeService):
         """
         Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer)
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethod,
             self._request(
@@ -1113,10 +1093,6 @@ class PaymentMethodService(StripeService):
         """
         Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer)
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethod,
             await self._request_async(
@@ -1139,10 +1115,6 @@ class PaymentMethodService(StripeService):
         """
         Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethod,
             self._request(
@@ -1165,10 +1137,6 @@ class PaymentMethodService(StripeService):
         """
         Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethod,
             await self._request_async(
@@ -1203,8 +1171,6 @@ class PaymentMethodService(StripeService):
         set [invoice_settings.default_payment_method](https://docs.stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
         on the Customer to the PaymentMethod's ID.
         """
-        if options is None:
-            options = {}
         return cast(
             PaymentMethod,
             self._request(
@@ -1239,8 +1205,6 @@ class PaymentMethodService(StripeService):
         set [invoice_settings.default_payment_method](https://docs.stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
         on the Customer to the PaymentMethod's ID.
         """
-        if options is None:
-            options = {}
         return cast(
             PaymentMethod,
             await self._request_async(
@@ -1263,10 +1227,6 @@ class PaymentMethodService(StripeService):
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethod,
             self._request(
@@ -1289,10 +1249,6 @@ class PaymentMethodService(StripeService):
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethod,
             await self._request_async(

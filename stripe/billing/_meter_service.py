@@ -129,10 +129,6 @@ class MeterService(StripeService):
         """
         Retrieve a list of billing meters.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Meter],
             self._request(
@@ -152,10 +148,6 @@ class MeterService(StripeService):
         """
         Retrieve a list of billing meters.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Meter],
             await self._request_async(
@@ -175,8 +167,6 @@ class MeterService(StripeService):
         """
         Creates a billing meter.
         """
-        if options is None:
-            options = {}
         return cast(
             Meter,
             self._request(
@@ -196,8 +186,6 @@ class MeterService(StripeService):
         """
         Creates a billing meter.
         """
-        if options is None:
-            options = {}
         return cast(
             Meter,
             await self._request_async(
@@ -218,10 +206,6 @@ class MeterService(StripeService):
         """
         Retrieves a billing meter given an ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Meter,
             self._request(
@@ -242,10 +226,6 @@ class MeterService(StripeService):
         """
         Retrieves a billing meter given an ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Meter,
             await self._request_async(
@@ -266,10 +246,6 @@ class MeterService(StripeService):
         """
         Updates a billing meter.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Meter,
             self._request(
@@ -290,10 +266,6 @@ class MeterService(StripeService):
         """
         Updates a billing meter.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Meter,
             await self._request_async(
@@ -314,10 +286,6 @@ class MeterService(StripeService):
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Meter,
             self._request(
@@ -340,10 +308,6 @@ class MeterService(StripeService):
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Meter,
             await self._request_async(
@@ -366,10 +330,6 @@ class MeterService(StripeService):
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Meter,
             self._request(
@@ -392,10 +352,6 @@ class MeterService(StripeService):
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Meter,
             await self._request_async(

@@ -696,10 +696,6 @@ class CustomerService(StripeService):
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Customer,
             self._request(
@@ -722,10 +718,6 @@ class CustomerService(StripeService):
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Customer,
             await self._request_async(
@@ -748,10 +740,6 @@ class CustomerService(StripeService):
         """
         Retrieves a Customer object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Customer,
             self._request(
@@ -774,10 +762,6 @@ class CustomerService(StripeService):
         """
         Retrieves a Customer object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Customer,
             await self._request_async(
@@ -802,10 +786,6 @@ class CustomerService(StripeService):
 
         This request accepts mostly the same arguments as the customer creation call.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Customer,
             self._request(
@@ -830,10 +810,6 @@ class CustomerService(StripeService):
 
         This request accepts mostly the same arguments as the customer creation call.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Customer,
             await self._request_async(
@@ -856,10 +832,6 @@ class CustomerService(StripeService):
         """
         Removes the currently applied discount on a customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Discount,
             self._request(
@@ -882,10 +854,6 @@ class CustomerService(StripeService):
         """
         Removes the currently applied discount on a customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Discount,
             await self._request_async(
@@ -907,10 +875,6 @@ class CustomerService(StripeService):
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Customer],
             self._request(
@@ -930,10 +894,6 @@ class CustomerService(StripeService):
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Customer],
             await self._request_async(
@@ -953,10 +913,6 @@ class CustomerService(StripeService):
         """
         Creates a new customer object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Customer,
             self._request(
@@ -976,10 +932,6 @@ class CustomerService(StripeService):
         """
         Creates a new customer object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Customer,
             await self._request_async(
@@ -1002,8 +954,6 @@ class CustomerService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
-        if options is None:
-            options = {}
         return cast(
             SearchResultObject[Customer],
             self._request(
@@ -1026,8 +976,6 @@ class CustomerService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
-        if options is None:
-            options = {}
         return cast(
             SearchResultObject[Customer],
             await self._request_async(

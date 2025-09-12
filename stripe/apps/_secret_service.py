@@ -129,8 +129,6 @@ class SecretService(StripeService):
         """
         List all secrets stored on the given scope.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[Secret],
             self._request(
@@ -150,8 +148,6 @@ class SecretService(StripeService):
         """
         List all secrets stored on the given scope.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[Secret],
             await self._request_async(
@@ -171,8 +167,6 @@ class SecretService(StripeService):
         """
         Create or replace a secret in the secret store.
         """
-        if options is None:
-            options = {}
         return cast(
             Secret,
             self._request(
@@ -192,8 +186,6 @@ class SecretService(StripeService):
         """
         Create or replace a secret in the secret store.
         """
-        if options is None:
-            options = {}
         return cast(
             Secret,
             await self._request_async(
@@ -213,8 +205,6 @@ class SecretService(StripeService):
         """
         Finds a secret in the secret store by name and scope.
         """
-        if options is None:
-            options = {}
         return cast(
             Secret,
             self._request(
@@ -234,8 +224,6 @@ class SecretService(StripeService):
         """
         Finds a secret in the secret store by name and scope.
         """
-        if options is None:
-            options = {}
         return cast(
             Secret,
             await self._request_async(
@@ -255,8 +243,6 @@ class SecretService(StripeService):
         """
         Deletes a secret from the secret store by name and scope.
         """
-        if options is None:
-            options = {}
         return cast(
             Secret,
             self._request(
@@ -276,8 +262,6 @@ class SecretService(StripeService):
         """
         Deletes a secret from the secret store by name and scope.
         """
-        if options is None:
-            options = {}
         return cast(
             Secret,
             await self._request_async(

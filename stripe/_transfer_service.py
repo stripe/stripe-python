@@ -129,10 +129,6 @@ class TransferService(StripeService):
         """
         Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Transfer],
             self._request(
@@ -152,10 +148,6 @@ class TransferService(StripeService):
         """
         Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Transfer],
             await self._request_async(
@@ -175,8 +167,6 @@ class TransferService(StripeService):
         """
         To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
         """
-        if options is None:
-            options = {}
         return cast(
             Transfer,
             self._request(
@@ -196,8 +186,6 @@ class TransferService(StripeService):
         """
         To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
         """
-        if options is None:
-            options = {}
         return cast(
             Transfer,
             await self._request_async(
@@ -218,10 +206,6 @@ class TransferService(StripeService):
         """
         Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transfer,
             self._request(
@@ -244,10 +228,6 @@ class TransferService(StripeService):
         """
         Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transfer,
             await self._request_async(
@@ -272,10 +252,6 @@ class TransferService(StripeService):
 
         This request accepts only metadata as an argument.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transfer,
             self._request(
@@ -300,10 +276,6 @@ class TransferService(StripeService):
 
         This request accepts only metadata as an argument.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Transfer,
             await self._request_async(

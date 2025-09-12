@@ -226,10 +226,6 @@ class ShippingRateService(StripeService):
         """
         Returns a list of your shipping rates.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ShippingRate],
             self._request(
@@ -249,10 +245,6 @@ class ShippingRateService(StripeService):
         """
         Returns a list of your shipping rates.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ShippingRate],
             await self._request_async(
@@ -272,8 +264,6 @@ class ShippingRateService(StripeService):
         """
         Creates a new shipping rate object.
         """
-        if options is None:
-            options = {}
         return cast(
             ShippingRate,
             self._request(
@@ -293,8 +283,6 @@ class ShippingRateService(StripeService):
         """
         Creates a new shipping rate object.
         """
-        if options is None:
-            options = {}
         return cast(
             ShippingRate,
             await self._request_async(
@@ -315,10 +303,6 @@ class ShippingRateService(StripeService):
         """
         Returns the shipping rate object with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ShippingRate,
             self._request(
@@ -341,10 +325,6 @@ class ShippingRateService(StripeService):
         """
         Returns the shipping rate object with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ShippingRate,
             await self._request_async(
@@ -367,10 +347,6 @@ class ShippingRateService(StripeService):
         """
         Updates an existing shipping rate object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ShippingRate,
             self._request(
@@ -393,10 +369,6 @@ class ShippingRateService(StripeService):
         """
         Updates an existing shipping rate object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ShippingRate,
             await self._request_async(

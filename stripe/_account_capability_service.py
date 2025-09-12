@@ -43,10 +43,6 @@ class AccountCapabilityService(StripeService):
         """
         Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Capability],
             self._request(
@@ -69,10 +65,6 @@ class AccountCapabilityService(StripeService):
         """
         Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Capability],
             await self._request_async(
@@ -96,10 +88,6 @@ class AccountCapabilityService(StripeService):
         """
         Retrieves information about the specified Account Capability.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Capability,
             self._request(
@@ -124,10 +112,6 @@ class AccountCapabilityService(StripeService):
         """
         Retrieves information about the specified Account Capability.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Capability,
             await self._request_async(
@@ -152,10 +136,6 @@ class AccountCapabilityService(StripeService):
         """
         Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Capability,
             self._request(
@@ -180,10 +160,6 @@ class AccountCapabilityService(StripeService):
         """
         Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Capability,
             await self._request_async(

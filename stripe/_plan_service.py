@@ -237,10 +237,6 @@ class PlanService(StripeService):
         """
         Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Plan,
             self._request(
@@ -261,10 +257,6 @@ class PlanService(StripeService):
         """
         Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Plan,
             await self._request_async(
@@ -285,10 +277,6 @@ class PlanService(StripeService):
         """
         Retrieves the plan with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Plan,
             self._request(
@@ -309,10 +297,6 @@ class PlanService(StripeService):
         """
         Retrieves the plan with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Plan,
             await self._request_async(
@@ -333,10 +317,6 @@ class PlanService(StripeService):
         """
         Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Plan,
             self._request(
@@ -357,10 +337,6 @@ class PlanService(StripeService):
         """
         Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Plan,
             await self._request_async(
@@ -380,10 +356,6 @@ class PlanService(StripeService):
         """
         Returns a list of your plans.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Plan],
             self._request(
@@ -403,10 +375,6 @@ class PlanService(StripeService):
         """
         Returns a list of your plans.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Plan],
             await self._request_async(
@@ -426,8 +394,6 @@ class PlanService(StripeService):
         """
         You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
         """
-        if options is None:
-            options = {}
         return cast(
             Plan,
             self._request(
@@ -447,8 +413,6 @@ class PlanService(StripeService):
         """
         You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
         """
-        if options is None:
-            options = {}
         return cast(
             Plan,
             await self._request_async(

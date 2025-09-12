@@ -47,10 +47,6 @@ class CustomerCashBalanceTransactionService(StripeService):
         """
         Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[CustomerCashBalanceTransaction],
             self._request(
@@ -75,10 +71,6 @@ class CustomerCashBalanceTransactionService(StripeService):
         """
         Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[CustomerCashBalanceTransaction],
             await self._request_async(
@@ -104,10 +96,6 @@ class CustomerCashBalanceTransactionService(StripeService):
         """
         Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CustomerCashBalanceTransaction,
             self._request(
@@ -134,10 +122,6 @@ class CustomerCashBalanceTransactionService(StripeService):
         """
         Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CustomerCashBalanceTransaction,
             await self._request_async(

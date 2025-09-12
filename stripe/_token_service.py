@@ -1187,10 +1187,6 @@ class TokenService(StripeService):
         """
         Retrieves the token with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Token,
             self._request(
@@ -1211,10 +1207,6 @@ class TokenService(StripeService):
         """
         Retrieves the token with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Token,
             await self._request_async(
@@ -1235,10 +1227,6 @@ class TokenService(StripeService):
         Creates a single-use token that represents a bank account's details.
         You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://docs.stripe.com/api#accounts) where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Token,
             self._request(
@@ -1259,10 +1247,6 @@ class TokenService(StripeService):
         Creates a single-use token that represents a bank account's details.
         You can use this token with any v1 API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [connected account](https://docs.stripe.com/api#accounts) where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is application, which includes Custom accounts.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Token,
             await self._request_async(

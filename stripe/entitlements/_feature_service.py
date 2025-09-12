@@ -86,10 +86,6 @@ class FeatureService(StripeService):
         """
         Retrieve a list of features
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Feature],
             self._request(
@@ -109,10 +105,6 @@ class FeatureService(StripeService):
         """
         Retrieve a list of features
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Feature],
             await self._request_async(
@@ -132,8 +124,6 @@ class FeatureService(StripeService):
         """
         Creates a feature
         """
-        if options is None:
-            options = {}
         return cast(
             Feature,
             self._request(
@@ -153,8 +143,6 @@ class FeatureService(StripeService):
         """
         Creates a feature
         """
-        if options is None:
-            options = {}
         return cast(
             Feature,
             await self._request_async(
@@ -175,10 +163,6 @@ class FeatureService(StripeService):
         """
         Retrieves a feature
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Feature,
             self._request(
@@ -199,10 +183,6 @@ class FeatureService(StripeService):
         """
         Retrieves a feature
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Feature,
             await self._request_async(
@@ -223,10 +203,6 @@ class FeatureService(StripeService):
         """
         Update a feature's metadata or permanently deactivate it.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Feature,
             self._request(
@@ -247,10 +223,6 @@ class FeatureService(StripeService):
         """
         Update a feature's metadata or permanently deactivate it.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Feature,
             await self._request_async(

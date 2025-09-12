@@ -384,10 +384,6 @@ class DisputeService(StripeService):
         """
         Returns a list of your disputes.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Dispute],
             self._request(
@@ -407,10 +403,6 @@ class DisputeService(StripeService):
         """
         Returns a list of your disputes.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Dispute],
             await self._request_async(
@@ -431,10 +423,6 @@ class DisputeService(StripeService):
         """
         Retrieves the dispute with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Dispute,
             self._request(
@@ -455,10 +443,6 @@ class DisputeService(StripeService):
         """
         Retrieves the dispute with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Dispute,
             await self._request_async(
@@ -481,10 +465,6 @@ class DisputeService(StripeService):
 
         Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://docs.stripe.com/docs/disputes/categories).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Dispute,
             self._request(
@@ -507,10 +487,6 @@ class DisputeService(StripeService):
 
         Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://docs.stripe.com/docs/disputes/categories).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Dispute,
             await self._request_async(
@@ -533,10 +509,6 @@ class DisputeService(StripeService):
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Dispute,
             self._request(
@@ -561,10 +533,6 @@ class DisputeService(StripeService):
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Dispute,
             await self._request_async(

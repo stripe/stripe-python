@@ -1081,8 +1081,6 @@ class AuthorizationService(StripeService):
         """
         Create a test-mode authorization.
         """
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             self._request(
@@ -1102,8 +1100,6 @@ class AuthorizationService(StripeService):
         """
         Create a test-mode authorization.
         """
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             await self._request_async(
@@ -1124,10 +1120,6 @@ class AuthorizationService(StripeService):
         """
         Capture a test-mode authorization.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             self._request(
@@ -1150,10 +1142,6 @@ class AuthorizationService(StripeService):
         """
         Capture a test-mode authorization.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             await self._request_async(
@@ -1176,10 +1164,6 @@ class AuthorizationService(StripeService):
         """
         Expire a test-mode Authorization.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             self._request(
@@ -1202,10 +1186,6 @@ class AuthorizationService(StripeService):
         """
         Expire a test-mode Authorization.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             await self._request_async(
@@ -1228,8 +1208,6 @@ class AuthorizationService(StripeService):
         """
         Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
         """
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             self._request(
@@ -1252,8 +1230,6 @@ class AuthorizationService(StripeService):
         """
         Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
         """
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             await self._request_async(
@@ -1276,8 +1252,6 @@ class AuthorizationService(StripeService):
         """
         Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
         """
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             self._request(
@@ -1300,8 +1274,6 @@ class AuthorizationService(StripeService):
         """
         Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
         """
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             await self._request_async(
@@ -1324,8 +1296,6 @@ class AuthorizationService(StripeService):
         """
         Increment a test-mode Authorization.
         """
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             self._request(
@@ -1348,8 +1318,6 @@ class AuthorizationService(StripeService):
         """
         Increment a test-mode Authorization.
         """
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             await self._request_async(
@@ -1372,10 +1340,6 @@ class AuthorizationService(StripeService):
         """
         Reverse a test-mode Authorization.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             self._request(
@@ -1398,10 +1362,6 @@ class AuthorizationService(StripeService):
         """
         Reverse a test-mode Authorization.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Authorization,
             await self._request_async(

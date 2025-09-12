@@ -90,10 +90,6 @@ class SessionService(StripeService):
         """
         Retrieves the details of a Financial Connections Session
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Session,
             self._request(
@@ -116,10 +112,6 @@ class SessionService(StripeService):
         """
         Retrieves the details of a Financial Connections Session
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Session,
             await self._request_async(
@@ -141,8 +133,6 @@ class SessionService(StripeService):
         """
         To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
         """
-        if options is None:
-            options = {}
         return cast(
             Session,
             self._request(
@@ -162,8 +152,6 @@ class SessionService(StripeService):
         """
         To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
         """
-        if options is None:
-            options = {}
         return cast(
             Session,
             await self._request_async(

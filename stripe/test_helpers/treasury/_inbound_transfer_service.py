@@ -64,10 +64,6 @@ class InboundTransferService(StripeService):
         """
         Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InboundTransfer,
             self._request(
@@ -90,10 +86,6 @@ class InboundTransferService(StripeService):
         """
         Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InboundTransfer,
             await self._request_async(
@@ -118,10 +110,6 @@ class InboundTransferService(StripeService):
         """
         Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InboundTransfer,
             self._request(
@@ -146,10 +134,6 @@ class InboundTransferService(StripeService):
         """
         Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InboundTransfer,
             await self._request_async(
@@ -172,10 +156,6 @@ class InboundTransferService(StripeService):
         """
         Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InboundTransfer,
             self._request(
@@ -198,10 +178,6 @@ class InboundTransferService(StripeService):
         """
         Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InboundTransfer,
             await self._request_async(

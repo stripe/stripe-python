@@ -1748,10 +1748,6 @@ class SubscriptionService(StripeService):
 
         By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Subscription,
             self._request(
@@ -1780,10 +1776,6 @@ class SubscriptionService(StripeService):
 
         By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Subscription,
             await self._request_async(
@@ -1808,10 +1800,6 @@ class SubscriptionService(StripeService):
         """
         Retrieves the subscription with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Subscription,
             self._request(
@@ -1836,10 +1824,6 @@ class SubscriptionService(StripeService):
         """
         Retrieves the subscription with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Subscription,
             await self._request_async(
@@ -1884,10 +1868,6 @@ class SubscriptionService(StripeService):
 
         Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://docs.stripe.com/docs/rate-limits) instead.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Subscription,
             self._request(
@@ -1932,10 +1912,6 @@ class SubscriptionService(StripeService):
 
         Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://docs.stripe.com/docs/rate-limits) instead.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Subscription,
             await self._request_async(
@@ -1960,10 +1936,6 @@ class SubscriptionService(StripeService):
         """
         Removes the currently applied discount on a subscription.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Discount,
             self._request(
@@ -1988,10 +1960,6 @@ class SubscriptionService(StripeService):
         """
         Removes the currently applied discount on a subscription.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Discount,
             await self._request_async(
@@ -2015,10 +1983,6 @@ class SubscriptionService(StripeService):
         """
         By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Subscription],
             self._request(
@@ -2038,10 +2002,6 @@ class SubscriptionService(StripeService):
         """
         By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Subscription],
             await self._request_async(
@@ -2067,8 +2027,6 @@ class SubscriptionService(StripeService):
         To start subscriptions where the first invoice always begins in a draft status, use [subscription schedules](https://docs.stripe.com/docs/billing/subscriptions/subscription-schedules#managing) instead.
         Schedules provide the flexibility to model more complex billing configurations that change over time.
         """
-        if options is None:
-            options = {}
         return cast(
             Subscription,
             self._request(
@@ -2094,8 +2052,6 @@ class SubscriptionService(StripeService):
         To start subscriptions where the first invoice always begins in a draft status, use [subscription schedules](https://docs.stripe.com/docs/billing/subscriptions/subscription-schedules#managing) instead.
         Schedules provide the flexibility to model more complex billing configurations that change over time.
         """
-        if options is None:
-            options = {}
         return cast(
             Subscription,
             await self._request_async(
@@ -2118,8 +2074,6 @@ class SubscriptionService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
-        if options is None:
-            options = {}
         return cast(
             SearchResultObject[Subscription],
             self._request(
@@ -2142,8 +2096,6 @@ class SubscriptionService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
-        if options is None:
-            options = {}
         return cast(
             SearchResultObject[Subscription],
             await self._request_async(
@@ -2164,8 +2116,6 @@ class SubscriptionService(StripeService):
         """
         Upgrade the billing_mode of an existing subscription.
         """
-        if options is None:
-            options = {}
         return cast(
             Subscription,
             self._request(
@@ -2188,8 +2138,6 @@ class SubscriptionService(StripeService):
         """
         Upgrade the billing_mode of an existing subscription.
         """
-        if options is None:
-            options = {}
         return cast(
             Subscription,
             await self._request_async(
@@ -2212,10 +2160,6 @@ class SubscriptionService(StripeService):
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Subscription,
             self._request(
@@ -2238,10 +2182,6 @@ class SubscriptionService(StripeService):
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Subscription,
             await self._request_async(

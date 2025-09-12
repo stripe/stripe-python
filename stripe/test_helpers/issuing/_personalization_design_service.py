@@ -77,10 +77,6 @@ class PersonalizationDesignService(StripeService):
         """
         Updates the status of the specified testmode personalization design object to active.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PersonalizationDesign,
             self._request(
@@ -103,10 +99,6 @@ class PersonalizationDesignService(StripeService):
         """
         Updates the status of the specified testmode personalization design object to active.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PersonalizationDesign,
             await self._request_async(
@@ -131,10 +123,6 @@ class PersonalizationDesignService(StripeService):
         """
         Updates the status of the specified testmode personalization design object to inactive.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PersonalizationDesign,
             self._request(
@@ -159,10 +147,6 @@ class PersonalizationDesignService(StripeService):
         """
         Updates the status of the specified testmode personalization design object to inactive.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PersonalizationDesign,
             await self._request_async(
@@ -185,8 +169,6 @@ class PersonalizationDesignService(StripeService):
         """
         Updates the status of the specified testmode personalization design object to rejected.
         """
-        if options is None:
-            options = {}
         return cast(
             PersonalizationDesign,
             self._request(
@@ -209,8 +191,6 @@ class PersonalizationDesignService(StripeService):
         """
         Updates the status of the specified testmode personalization design object to rejected.
         """
-        if options is None:
-            options = {}
         return cast(
             PersonalizationDesign,
             await self._request_async(

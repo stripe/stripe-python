@@ -129,10 +129,6 @@ class ValueListService(StripeService):
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ValueList,
             self._request(
@@ -155,10 +151,6 @@ class ValueListService(StripeService):
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ValueList,
             await self._request_async(
@@ -181,10 +173,6 @@ class ValueListService(StripeService):
         """
         Retrieves a ValueList object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ValueList,
             self._request(
@@ -207,10 +195,6 @@ class ValueListService(StripeService):
         """
         Retrieves a ValueList object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ValueList,
             await self._request_async(
@@ -233,10 +217,6 @@ class ValueListService(StripeService):
         """
         Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ValueList,
             self._request(
@@ -259,10 +239,6 @@ class ValueListService(StripeService):
         """
         Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ValueList,
             await self._request_async(
@@ -284,10 +260,6 @@ class ValueListService(StripeService):
         """
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ValueList],
             self._request(
@@ -307,10 +279,6 @@ class ValueListService(StripeService):
         """
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ValueList],
             await self._request_async(
@@ -330,8 +298,6 @@ class ValueListService(StripeService):
         """
         Creates a new ValueList object, which can then be referenced in rules.
         """
-        if options is None:
-            options = {}
         return cast(
             ValueList,
             self._request(
@@ -351,8 +317,6 @@ class ValueListService(StripeService):
         """
         Creates a new ValueList object, which can then be referenced in rules.
         """
-        if options is None:
-            options = {}
         return cast(
             ValueList,
             await self._request_async(

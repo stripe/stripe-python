@@ -42,10 +42,6 @@ class ExchangeRateService(StripeService):
         """
         Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ExchangeRate],
             self._request(
@@ -65,10 +61,6 @@ class ExchangeRateService(StripeService):
         """
         Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ExchangeRate],
             await self._request_async(
@@ -89,10 +81,6 @@ class ExchangeRateService(StripeService):
         """
         Retrieves the exchange rates from the given currency to every supported currency.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ExchangeRate,
             self._request(
@@ -115,10 +103,6 @@ class ExchangeRateService(StripeService):
         """
         Retrieves the exchange rates from the given currency to every supported currency.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ExchangeRate,
             await self._request_async(

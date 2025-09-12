@@ -72,8 +72,6 @@ class DebitReversalService(StripeService):
         """
         Returns a list of DebitReversals.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[DebitReversal],
             self._request(
@@ -93,8 +91,6 @@ class DebitReversalService(StripeService):
         """
         Returns a list of DebitReversals.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[DebitReversal],
             await self._request_async(
@@ -114,8 +110,6 @@ class DebitReversalService(StripeService):
         """
         Reverses a ReceivedDebit and creates a DebitReversal object.
         """
-        if options is None:
-            options = {}
         return cast(
             DebitReversal,
             self._request(
@@ -135,8 +129,6 @@ class DebitReversalService(StripeService):
         """
         Reverses a ReceivedDebit and creates a DebitReversal object.
         """
-        if options is None:
-            options = {}
         return cast(
             DebitReversal,
             await self._request_async(
@@ -157,10 +149,6 @@ class DebitReversalService(StripeService):
         """
         Retrieves a DebitReversal object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             DebitReversal,
             self._request(
@@ -183,10 +171,6 @@ class DebitReversalService(StripeService):
         """
         Retrieves a DebitReversal object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             DebitReversal,
             await self._request_async(

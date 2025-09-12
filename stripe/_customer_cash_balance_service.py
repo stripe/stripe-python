@@ -44,10 +44,6 @@ class CustomerCashBalanceService(StripeService):
         """
         Retrieves a customer's cash balance.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CashBalance,
             self._request(
@@ -70,10 +66,6 @@ class CustomerCashBalanceService(StripeService):
         """
         Retrieves a customer's cash balance.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CashBalance,
             await self._request_async(
@@ -96,10 +88,6 @@ class CustomerCashBalanceService(StripeService):
         """
         Changes the settings on a customer's cash balance.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CashBalance,
             self._request(
@@ -122,10 +110,6 @@ class CustomerCashBalanceService(StripeService):
         """
         Changes the settings on a customer's cash balance.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CashBalance,
             await self._request_async(

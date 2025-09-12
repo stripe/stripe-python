@@ -50,8 +50,6 @@ class ReceivedDebitService(StripeService):
         """
         Returns a list of ReceivedDebits.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[ReceivedDebit],
             self._request(
@@ -71,8 +69,6 @@ class ReceivedDebitService(StripeService):
         """
         Returns a list of ReceivedDebits.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[ReceivedDebit],
             await self._request_async(
@@ -93,10 +89,6 @@ class ReceivedDebitService(StripeService):
         """
         Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ReceivedDebit,
             self._request(
@@ -117,10 +109,6 @@ class ReceivedDebitService(StripeService):
         """
         Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ReceivedDebit,
             await self._request_async(

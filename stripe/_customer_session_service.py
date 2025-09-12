@@ -112,8 +112,6 @@ class CustomerSessionService(StripeService):
         """
         Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
         """
-        if options is None:
-            options = {}
         return cast(
             CustomerSession,
             self._request(
@@ -133,8 +131,6 @@ class CustomerSessionService(StripeService):
         """
         Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
         """
-        if options is None:
-            options = {}
         return cast(
             CustomerSession,
             await self._request_async(

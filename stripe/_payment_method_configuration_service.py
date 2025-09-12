@@ -2112,10 +2112,6 @@ class PaymentMethodConfigurationService(StripeService):
         """
         List payment method configurations
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PaymentMethodConfiguration],
             self._request(
@@ -2137,10 +2133,6 @@ class PaymentMethodConfigurationService(StripeService):
         """
         List payment method configurations
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PaymentMethodConfiguration],
             await self._request_async(
@@ -2162,10 +2154,6 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Creates a payment method configuration
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodConfiguration,
             self._request(
@@ -2187,10 +2175,6 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Creates a payment method configuration
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodConfiguration,
             await self._request_async(
@@ -2213,10 +2197,6 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Retrieve payment method configuration
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodConfiguration,
             self._request(
@@ -2241,10 +2221,6 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Retrieve payment method configuration
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodConfiguration,
             await self._request_async(
@@ -2269,10 +2245,6 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Update payment method configuration
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodConfiguration,
             self._request(
@@ -2297,10 +2269,6 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Update payment method configuration
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodConfiguration,
             await self._request_async(

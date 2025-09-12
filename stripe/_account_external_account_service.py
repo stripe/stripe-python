@@ -212,10 +212,6 @@ class AccountExternalAccountService(StripeService):
         """
         Delete a specified external account for a given account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[BankAccount, Card],
             self._request(
@@ -240,10 +236,6 @@ class AccountExternalAccountService(StripeService):
         """
         Delete a specified external account for a given account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[BankAccount, Card],
             await self._request_async(
@@ -270,10 +262,6 @@ class AccountExternalAccountService(StripeService):
         """
         Retrieve a specified external account for a given account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[BankAccount, Card],
             self._request(
@@ -300,10 +288,6 @@ class AccountExternalAccountService(StripeService):
         """
         Retrieve a specified external account for a given account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[BankAccount, Card],
             await self._request_async(
@@ -335,10 +319,6 @@ class AccountExternalAccountService(StripeService):
         You can re-enable a disabled bank account by performing an update call without providing any
         arguments or changes.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[BankAccount, Card],
             self._request(
@@ -370,10 +350,6 @@ class AccountExternalAccountService(StripeService):
         You can re-enable a disabled bank account by performing an update call without providing any
         arguments or changes.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[BankAccount, Card],
             await self._request_async(
@@ -397,10 +373,6 @@ class AccountExternalAccountService(StripeService):
         """
         List external accounts for an account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Union[BankAccount, Card]],
             self._request(
@@ -423,10 +395,6 @@ class AccountExternalAccountService(StripeService):
         """
         List external accounts for an account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Union[BankAccount, Card]],
             await self._request_async(
@@ -449,8 +417,6 @@ class AccountExternalAccountService(StripeService):
         """
         Create an external account for a given account.
         """
-        if options is None:
-            options = {}
         return cast(
             Union[BankAccount, Card],
             self._request(
@@ -473,8 +439,6 @@ class AccountExternalAccountService(StripeService):
         """
         Create an external account for a given account.
         """
-        if options is None:
-            options = {}
         return cast(
             Union[BankAccount, Card],
             await self._request_async(

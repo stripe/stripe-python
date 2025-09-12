@@ -50,8 +50,6 @@ class CreditBalanceTransactionService(StripeService):
         """
         Retrieve a list of credit balance transactions.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[CreditBalanceTransaction],
             self._request(
@@ -71,8 +69,6 @@ class CreditBalanceTransactionService(StripeService):
         """
         Retrieve a list of credit balance transactions.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[CreditBalanceTransaction],
             await self._request_async(
@@ -95,10 +91,6 @@ class CreditBalanceTransactionService(StripeService):
         """
         Retrieves a credit balance transaction.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditBalanceTransaction,
             self._request(
@@ -123,10 +115,6 @@ class CreditBalanceTransactionService(StripeService):
         """
         Retrieves a credit balance transaction.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditBalanceTransaction,
             await self._request_async(

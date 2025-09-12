@@ -57,10 +57,6 @@ class ProductFeatureService(StripeService):
         """
         Deletes the feature attachment to a product
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ProductFeature,
             self._request(
@@ -85,10 +81,6 @@ class ProductFeatureService(StripeService):
         """
         Deletes the feature attachment to a product
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ProductFeature,
             await self._request_async(
@@ -113,10 +105,6 @@ class ProductFeatureService(StripeService):
         """
         Retrieves a product_feature, which represents a feature attachment to a product
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ProductFeature,
             self._request(
@@ -141,10 +129,6 @@ class ProductFeatureService(StripeService):
         """
         Retrieves a product_feature, which represents a feature attachment to a product
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ProductFeature,
             await self._request_async(
@@ -168,10 +152,6 @@ class ProductFeatureService(StripeService):
         """
         Retrieve a list of features for a product
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ProductFeature],
             self._request(
@@ -194,10 +174,6 @@ class ProductFeatureService(StripeService):
         """
         Retrieve a list of features for a product
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ProductFeature],
             await self._request_async(
@@ -220,8 +196,6 @@ class ProductFeatureService(StripeService):
         """
         Creates a product_feature, which represents a feature attachment to a product
         """
-        if options is None:
-            options = {}
         return cast(
             ProductFeature,
             self._request(
@@ -244,8 +218,6 @@ class ProductFeatureService(StripeService):
         """
         Creates a product_feature, which represents a feature attachment to a product
         """
-        if options is None:
-            options = {}
         return cast(
             ProductFeature,
             await self._request_async(

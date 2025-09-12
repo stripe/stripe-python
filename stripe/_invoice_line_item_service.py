@@ -272,10 +272,6 @@ class InvoiceLineItemService(StripeService):
         """
         When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[InvoiceLineItem],
             self._request(
@@ -298,10 +294,6 @@ class InvoiceLineItemService(StripeService):
         """
         When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[InvoiceLineItem],
             await self._request_async(
@@ -328,10 +320,6 @@ class InvoiceLineItemService(StripeService):
         item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
         Updating an invoice's line item is only possible before the invoice is finalized.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InvoiceLineItem,
             self._request(
@@ -359,10 +347,6 @@ class InvoiceLineItemService(StripeService):
         item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
         Updating an invoice's line item is only possible before the invoice is finalized.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InvoiceLineItem,
             await self._request_async(

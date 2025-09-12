@@ -1005,10 +1005,6 @@ class AccountPersonService(StripeService):
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Person,
             self._request(
@@ -1033,10 +1029,6 @@ class AccountPersonService(StripeService):
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Person,
             await self._request_async(
@@ -1061,10 +1053,6 @@ class AccountPersonService(StripeService):
         """
         Retrieves an existing person.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Person,
             self._request(
@@ -1089,10 +1077,6 @@ class AccountPersonService(StripeService):
         """
         Retrieves an existing person.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Person,
             await self._request_async(
@@ -1117,10 +1101,6 @@ class AccountPersonService(StripeService):
         """
         Updates an existing person.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Person,
             self._request(
@@ -1145,10 +1125,6 @@ class AccountPersonService(StripeService):
         """
         Updates an existing person.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Person,
             await self._request_async(
@@ -1172,10 +1148,6 @@ class AccountPersonService(StripeService):
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Person],
             self._request(
@@ -1198,10 +1170,6 @@ class AccountPersonService(StripeService):
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Person],
             await self._request_async(
@@ -1224,10 +1192,6 @@ class AccountPersonService(StripeService):
         """
         Creates a new person.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Person,
             self._request(
@@ -1250,10 +1214,6 @@ class AccountPersonService(StripeService):
         """
         Creates a new person.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Person,
             await self._request_async(

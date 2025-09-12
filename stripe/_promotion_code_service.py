@@ -188,10 +188,6 @@ class PromotionCodeService(StripeService):
         """
         Returns a list of your promotion codes.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PromotionCode],
             self._request(
@@ -211,10 +207,6 @@ class PromotionCodeService(StripeService):
         """
         Returns a list of your promotion codes.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PromotionCode],
             await self._request_async(
@@ -234,8 +226,6 @@ class PromotionCodeService(StripeService):
         """
         A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
         """
-        if options is None:
-            options = {}
         return cast(
             PromotionCode,
             self._request(
@@ -255,8 +245,6 @@ class PromotionCodeService(StripeService):
         """
         A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
         """
-        if options is None:
-            options = {}
         return cast(
             PromotionCode,
             await self._request_async(
@@ -277,10 +265,6 @@ class PromotionCodeService(StripeService):
         """
         Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://docs.stripe.com/docs/api/promotion_codes/list) with the desired code.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PromotionCode,
             self._request(
@@ -303,10 +287,6 @@ class PromotionCodeService(StripeService):
         """
         Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://docs.stripe.com/docs/api/promotion_codes/list) with the desired code.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PromotionCode,
             await self._request_async(
@@ -329,10 +309,6 @@ class PromotionCodeService(StripeService):
         """
         Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PromotionCode,
             self._request(
@@ -355,10 +331,6 @@ class PromotionCodeService(StripeService):
         """
         Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PromotionCode,
             await self._request_async(

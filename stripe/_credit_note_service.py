@@ -375,10 +375,6 @@ class CreditNoteService(StripeService):
         """
         Returns a list of credit notes.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[CreditNote],
             self._request(
@@ -398,10 +394,6 @@ class CreditNoteService(StripeService):
         """
         Returns a list of credit notes.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[CreditNote],
             await self._request_async(
@@ -433,8 +425,6 @@ class CreditNoteService(StripeService):
         You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
         post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
         """
-        if options is None:
-            options = {}
         return cast(
             CreditNote,
             self._request(
@@ -466,8 +456,6 @@ class CreditNoteService(StripeService):
         You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
         post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
         """
-        if options is None:
-            options = {}
         return cast(
             CreditNote,
             await self._request_async(
@@ -488,10 +476,6 @@ class CreditNoteService(StripeService):
         """
         Retrieves the credit note object with the given identifier.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditNote,
             self._request(
@@ -512,10 +496,6 @@ class CreditNoteService(StripeService):
         """
         Retrieves the credit note object with the given identifier.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditNote,
             await self._request_async(
@@ -536,10 +516,6 @@ class CreditNoteService(StripeService):
         """
         Updates an existing credit note.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditNote,
             self._request(
@@ -560,10 +536,6 @@ class CreditNoteService(StripeService):
         """
         Updates an existing credit note.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditNote,
             await self._request_async(
@@ -583,8 +555,6 @@ class CreditNoteService(StripeService):
         """
         Get a preview of a credit note without creating it.
         """
-        if options is None:
-            options = {}
         return cast(
             CreditNote,
             self._request(
@@ -604,8 +574,6 @@ class CreditNoteService(StripeService):
         """
         Get a preview of a credit note without creating it.
         """
-        if options is None:
-            options = {}
         return cast(
             CreditNote,
             await self._request_async(
@@ -626,10 +594,6 @@ class CreditNoteService(StripeService):
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditNote,
             self._request(
@@ -650,10 +614,6 @@ class CreditNoteService(StripeService):
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CreditNote,
             await self._request_async(

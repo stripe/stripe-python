@@ -142,10 +142,6 @@ class LocationService(StripeService):
         """
         Deletes a Location object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Location,
             self._request(
@@ -168,10 +164,6 @@ class LocationService(StripeService):
         """
         Deletes a Location object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Location,
             await self._request_async(
@@ -194,10 +186,6 @@ class LocationService(StripeService):
         """
         Retrieves a Location object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Location,
             self._request(
@@ -220,10 +208,6 @@ class LocationService(StripeService):
         """
         Retrieves a Location object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Location,
             await self._request_async(
@@ -246,10 +230,6 @@ class LocationService(StripeService):
         """
         Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Location,
             self._request(
@@ -272,10 +252,6 @@ class LocationService(StripeService):
         """
         Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Location,
             await self._request_async(
@@ -297,10 +273,6 @@ class LocationService(StripeService):
         """
         Returns a list of Location objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Location],
             self._request(
@@ -320,10 +292,6 @@ class LocationService(StripeService):
         """
         Returns a list of Location objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Location],
             await self._request_async(
@@ -344,8 +312,6 @@ class LocationService(StripeService):
         Creates a new Location object.
         For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
         """
-        if options is None:
-            options = {}
         return cast(
             Location,
             self._request(
@@ -366,8 +332,6 @@ class LocationService(StripeService):
         Creates a new Location object.
         For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
         """
-        if options is None:
-            options = {}
         return cast(
             Location,
             await self._request_async(

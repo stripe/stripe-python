@@ -80,10 +80,6 @@ class PaymentMethodDomainService(StripeService):
         """
         Lists the details of existing payment method domains.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PaymentMethodDomain],
             self._request(
@@ -103,10 +99,6 @@ class PaymentMethodDomainService(StripeService):
         """
         Lists the details of existing payment method domains.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PaymentMethodDomain],
             await self._request_async(
@@ -126,8 +118,6 @@ class PaymentMethodDomainService(StripeService):
         """
         Creates a payment method domain.
         """
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodDomain,
             self._request(
@@ -147,8 +137,6 @@ class PaymentMethodDomainService(StripeService):
         """
         Creates a payment method domain.
         """
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodDomain,
             await self._request_async(
@@ -169,10 +157,6 @@ class PaymentMethodDomainService(StripeService):
         """
         Retrieves the details of an existing payment method domain.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodDomain,
             self._request(
@@ -195,10 +179,6 @@ class PaymentMethodDomainService(StripeService):
         """
         Retrieves the details of an existing payment method domain.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodDomain,
             await self._request_async(
@@ -221,10 +201,6 @@ class PaymentMethodDomainService(StripeService):
         """
         Updates an existing payment method domain.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodDomain,
             self._request(
@@ -247,10 +223,6 @@ class PaymentMethodDomainService(StripeService):
         """
         Updates an existing payment method domain.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodDomain,
             await self._request_async(
@@ -278,10 +250,6 @@ class PaymentMethodDomainService(StripeService):
 
         Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodDomain,
             self._request(
@@ -309,10 +277,6 @@ class PaymentMethodDomainService(StripeService):
 
         Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentMethodDomain,
             await self._request_async(

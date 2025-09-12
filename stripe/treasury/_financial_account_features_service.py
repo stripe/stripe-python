@@ -174,10 +174,6 @@ class FinancialAccountFeaturesService(StripeService):
         """
         Updates the Features associated with a FinancialAccount.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FinancialAccountFeatures,
             self._request(
@@ -202,10 +198,6 @@ class FinancialAccountFeaturesService(StripeService):
         """
         Updates the Features associated with a FinancialAccount.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FinancialAccountFeatures,
             await self._request_async(
@@ -230,10 +222,6 @@ class FinancialAccountFeaturesService(StripeService):
         """
         Retrieves Features information associated with the FinancialAccount.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FinancialAccountFeatures,
             self._request(
@@ -258,10 +246,6 @@ class FinancialAccountFeaturesService(StripeService):
         """
         Retrieves Features information associated with the FinancialAccount.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             FinancialAccountFeatures,
             await self._request_async(

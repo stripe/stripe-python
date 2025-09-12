@@ -154,10 +154,6 @@ class EventDestinationService(StripeService):
         """
         Lists all event destinations.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[EventDestination],
             self._request(
@@ -177,10 +173,6 @@ class EventDestinationService(StripeService):
         """
         Lists all event destinations.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[EventDestination],
             await self._request_async(
@@ -200,8 +192,6 @@ class EventDestinationService(StripeService):
         """
         Create a new event destination.
         """
-        if options is None:
-            options = {}
         return cast(
             EventDestination,
             self._request(
@@ -221,8 +211,6 @@ class EventDestinationService(StripeService):
         """
         Create a new event destination.
         """
-        if options is None:
-            options = {}
         return cast(
             EventDestination,
             await self._request_async(
@@ -243,10 +231,6 @@ class EventDestinationService(StripeService):
         """
         Delete an event destination.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             DeletedObject,
             self._request(
@@ -267,10 +251,6 @@ class EventDestinationService(StripeService):
         """
         Delete an event destination.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             DeletedObject,
             await self._request_async(
@@ -291,10 +271,6 @@ class EventDestinationService(StripeService):
         """
         Retrieves the details of an event destination.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EventDestination,
             self._request(
@@ -315,10 +291,6 @@ class EventDestinationService(StripeService):
         """
         Retrieves the details of an event destination.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EventDestination,
             await self._request_async(
@@ -339,10 +311,6 @@ class EventDestinationService(StripeService):
         """
         Update the details of an event destination.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EventDestination,
             self._request(
@@ -363,10 +331,6 @@ class EventDestinationService(StripeService):
         """
         Update the details of an event destination.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EventDestination,
             await self._request_async(
@@ -387,10 +351,6 @@ class EventDestinationService(StripeService):
         """
         Disable an event destination.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EventDestination,
             self._request(
@@ -413,10 +373,6 @@ class EventDestinationService(StripeService):
         """
         Disable an event destination.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EventDestination,
             await self._request_async(
@@ -439,10 +395,6 @@ class EventDestinationService(StripeService):
         """
         Enable an event destination.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EventDestination,
             self._request(
@@ -465,10 +417,6 @@ class EventDestinationService(StripeService):
         """
         Enable an event destination.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             EventDestination,
             await self._request_async(
@@ -491,10 +439,6 @@ class EventDestinationService(StripeService):
         """
         Send a `ping` event to an event destination.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Event,
             self._request(
@@ -517,10 +461,6 @@ class EventDestinationService(StripeService):
         """
         Send a `ping` event to an event destination.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Event,
             await self._request_async(

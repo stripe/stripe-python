@@ -54,10 +54,6 @@ class ApplePayDomainService(StripeService):
         """
         Delete an apple pay domain.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ApplePayDomain,
             self._request(
@@ -80,10 +76,6 @@ class ApplePayDomainService(StripeService):
         """
         Delete an apple pay domain.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ApplePayDomain,
             await self._request_async(
@@ -106,10 +98,6 @@ class ApplePayDomainService(StripeService):
         """
         Retrieve an apple pay domain.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ApplePayDomain,
             self._request(
@@ -132,10 +120,6 @@ class ApplePayDomainService(StripeService):
         """
         Retrieve an apple pay domain.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ApplePayDomain,
             await self._request_async(
@@ -157,10 +141,6 @@ class ApplePayDomainService(StripeService):
         """
         List apple pay domains.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ApplePayDomain],
             self._request(
@@ -180,10 +160,6 @@ class ApplePayDomainService(StripeService):
         """
         List apple pay domains.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ApplePayDomain],
             await self._request_async(
@@ -203,8 +179,6 @@ class ApplePayDomainService(StripeService):
         """
         Create an apple pay domain.
         """
-        if options is None:
-            options = {}
         return cast(
             ApplePayDomain,
             self._request(
@@ -224,8 +198,6 @@ class ApplePayDomainService(StripeService):
         """
         Create an apple pay domain.
         """
-        if options is None:
-            options = {}
         return cast(
             ApplePayDomain,
             await self._request_async(

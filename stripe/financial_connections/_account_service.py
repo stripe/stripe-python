@@ -103,10 +103,6 @@ class AccountService(StripeService):
         """
         Returns a list of Financial Connections Account objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Account],
             self._request(
@@ -126,10 +122,6 @@ class AccountService(StripeService):
         """
         Returns a list of Financial Connections Account objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Account],
             await self._request_async(
@@ -150,10 +142,6 @@ class AccountService(StripeService):
         """
         Retrieves the details of an Financial Connections Account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             self._request(
@@ -176,10 +164,6 @@ class AccountService(StripeService):
         """
         Retrieves the details of an Financial Connections Account.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -202,10 +186,6 @@ class AccountService(StripeService):
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             self._request(
@@ -228,10 +208,6 @@ class AccountService(StripeService):
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -254,8 +230,6 @@ class AccountService(StripeService):
         """
         Refreshes the data associated with a Financial Connections Account.
         """
-        if options is None:
-            options = {}
         return cast(
             Account,
             self._request(
@@ -278,8 +252,6 @@ class AccountService(StripeService):
         """
         Refreshes the data associated with a Financial Connections Account.
         """
-        if options is None:
-            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -302,8 +274,6 @@ class AccountService(StripeService):
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
         """
-        if options is None:
-            options = {}
         return cast(
             Account,
             self._request(
@@ -326,8 +296,6 @@ class AccountService(StripeService):
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
         """
-        if options is None:
-            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -350,8 +318,6 @@ class AccountService(StripeService):
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
         """
-        if options is None:
-            options = {}
         return cast(
             Account,
             self._request(
@@ -374,8 +340,6 @@ class AccountService(StripeService):
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
         """
-        if options is None:
-            options = {}
         return cast(
             Account,
             await self._request_async(

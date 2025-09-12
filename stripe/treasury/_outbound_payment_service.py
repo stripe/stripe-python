@@ -260,8 +260,6 @@ class OutboundPaymentService(StripeService):
         """
         Returns a list of OutboundPayments sent from the specified FinancialAccount.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[OutboundPayment],
             self._request(
@@ -281,8 +279,6 @@ class OutboundPaymentService(StripeService):
         """
         Returns a list of OutboundPayments sent from the specified FinancialAccount.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[OutboundPayment],
             await self._request_async(
@@ -302,8 +298,6 @@ class OutboundPaymentService(StripeService):
         """
         Creates an OutboundPayment.
         """
-        if options is None:
-            options = {}
         return cast(
             OutboundPayment,
             self._request(
@@ -323,8 +317,6 @@ class OutboundPaymentService(StripeService):
         """
         Creates an OutboundPayment.
         """
-        if options is None:
-            options = {}
         return cast(
             OutboundPayment,
             await self._request_async(
@@ -345,10 +337,6 @@ class OutboundPaymentService(StripeService):
         """
         Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment creation request or OutboundPayment list.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             OutboundPayment,
             self._request(
@@ -371,10 +359,6 @@ class OutboundPaymentService(StripeService):
         """
         Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment creation request or OutboundPayment list.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             OutboundPayment,
             await self._request_async(
@@ -397,10 +381,6 @@ class OutboundPaymentService(StripeService):
         """
         Cancel an OutboundPayment.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             OutboundPayment,
             self._request(
@@ -423,10 +403,6 @@ class OutboundPaymentService(StripeService):
         """
         Cancel an OutboundPayment.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             OutboundPayment,
             await self._request_async(

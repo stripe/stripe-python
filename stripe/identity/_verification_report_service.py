@@ -76,10 +76,6 @@ class VerificationReportService(StripeService):
         """
         List all verification reports.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[VerificationReport],
             self._request(
@@ -99,10 +95,6 @@ class VerificationReportService(StripeService):
         """
         List all verification reports.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[VerificationReport],
             await self._request_async(
@@ -123,10 +115,6 @@ class VerificationReportService(StripeService):
         """
         Retrieves an existing VerificationReport
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             VerificationReport,
             self._request(
@@ -149,10 +137,6 @@ class VerificationReportService(StripeService):
         """
         Retrieves an existing VerificationReport
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             VerificationReport,
             await self._request_async(

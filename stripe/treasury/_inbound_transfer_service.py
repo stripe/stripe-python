@@ -92,8 +92,6 @@ class InboundTransferService(StripeService):
         """
         Returns a list of InboundTransfers sent from the specified FinancialAccount.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[InboundTransfer],
             self._request(
@@ -113,8 +111,6 @@ class InboundTransferService(StripeService):
         """
         Returns a list of InboundTransfers sent from the specified FinancialAccount.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[InboundTransfer],
             await self._request_async(
@@ -134,8 +130,6 @@ class InboundTransferService(StripeService):
         """
         Creates an InboundTransfer.
         """
-        if options is None:
-            options = {}
         return cast(
             InboundTransfer,
             self._request(
@@ -155,8 +149,6 @@ class InboundTransferService(StripeService):
         """
         Creates an InboundTransfer.
         """
-        if options is None:
-            options = {}
         return cast(
             InboundTransfer,
             await self._request_async(
@@ -177,10 +169,6 @@ class InboundTransferService(StripeService):
         """
         Retrieves the details of an existing InboundTransfer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InboundTransfer,
             self._request(
@@ -203,10 +191,6 @@ class InboundTransferService(StripeService):
         """
         Retrieves the details of an existing InboundTransfer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InboundTransfer,
             await self._request_async(
@@ -229,10 +213,6 @@ class InboundTransferService(StripeService):
         """
         Cancels an InboundTransfer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InboundTransfer,
             self._request(
@@ -255,10 +235,6 @@ class InboundTransferService(StripeService):
         """
         Cancels an InboundTransfer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InboundTransfer,
             await self._request_async(

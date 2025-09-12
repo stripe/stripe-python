@@ -653,8 +653,6 @@ class AccountSessionService(StripeService):
         """
         Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
         """
-        if options is None:
-            options = {}
         return cast(
             AccountSession,
             self._request(
@@ -674,8 +672,6 @@ class AccountSessionService(StripeService):
         """
         Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
         """
-        if options is None:
-            options = {}
         return cast(
             AccountSession,
             await self._request_async(

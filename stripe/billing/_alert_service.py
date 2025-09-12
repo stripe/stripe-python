@@ -116,10 +116,6 @@ class AlertService(StripeService):
         """
         Lists billing active and inactive alerts
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Alert],
             self._request(
@@ -139,10 +135,6 @@ class AlertService(StripeService):
         """
         Lists billing active and inactive alerts
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Alert],
             await self._request_async(
@@ -162,8 +154,6 @@ class AlertService(StripeService):
         """
         Creates a billing alert
         """
-        if options is None:
-            options = {}
         return cast(
             Alert,
             self._request(
@@ -183,8 +173,6 @@ class AlertService(StripeService):
         """
         Creates a billing alert
         """
-        if options is None:
-            options = {}
         return cast(
             Alert,
             await self._request_async(
@@ -205,10 +193,6 @@ class AlertService(StripeService):
         """
         Retrieves a billing alert given an ID
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Alert,
             self._request(
@@ -229,10 +213,6 @@ class AlertService(StripeService):
         """
         Retrieves a billing alert given an ID
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Alert,
             await self._request_async(
@@ -253,10 +233,6 @@ class AlertService(StripeService):
         """
         Reactivates this alert, allowing it to trigger again.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Alert,
             self._request(
@@ -277,10 +253,6 @@ class AlertService(StripeService):
         """
         Reactivates this alert, allowing it to trigger again.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Alert,
             await self._request_async(
@@ -301,10 +273,6 @@ class AlertService(StripeService):
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Alert,
             self._request(
@@ -325,10 +293,6 @@ class AlertService(StripeService):
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Alert,
             await self._request_async(
@@ -349,10 +313,6 @@ class AlertService(StripeService):
         """
         Deactivates this alert, preventing it from triggering.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Alert,
             self._request(
@@ -375,10 +335,6 @@ class AlertService(StripeService):
         """
         Deactivates this alert, preventing it from triggering.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Alert,
             await self._request_async(

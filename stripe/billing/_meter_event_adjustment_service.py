@@ -40,8 +40,6 @@ class MeterEventAdjustmentService(StripeService):
         """
         Creates a billing meter event adjustment.
         """
-        if options is None:
-            options = {}
         return cast(
             MeterEventAdjustment,
             self._request(
@@ -61,8 +59,6 @@ class MeterEventAdjustmentService(StripeService):
         """
         Creates a billing meter event adjustment.
         """
-        if options is None:
-            options = {}
         return cast(
             MeterEventAdjustment,
             await self._request_async(

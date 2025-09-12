@@ -36,8 +36,6 @@ class MeterEventAdjustmentService(StripeService):
         """
         Creates a meter event adjustment to cancel a previously sent meter event.
         """
-        if options is None:
-            options = {}
         return cast(
             MeterEventAdjustment,
             self._request(
@@ -57,8 +55,6 @@ class MeterEventAdjustmentService(StripeService):
         """
         Creates a meter event adjustment to cancel a previously sent meter event.
         """
-        if options is None:
-            options = {}
         return cast(
             MeterEventAdjustment,
             await self._request_async(

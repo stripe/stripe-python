@@ -547,10 +547,6 @@ class SourceService(StripeService):
         """
         Delete a specified source for a given customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             self._request(
@@ -575,10 +571,6 @@ class SourceService(StripeService):
         """
         Delete a specified source for a given customer.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             await self._request_async(
@@ -602,10 +594,6 @@ class SourceService(StripeService):
         """
         Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Source,
             self._request(
@@ -626,10 +614,6 @@ class SourceService(StripeService):
         """
         Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Source,
             await self._request_async(
@@ -652,10 +636,6 @@ class SourceService(StripeService):
 
         This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://docs.stripe.com/docs/sources) for more detail.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Source,
             self._request(
@@ -678,10 +658,6 @@ class SourceService(StripeService):
 
         This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://docs.stripe.com/docs/sources) for more detail.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Source,
             await self._request_async(
@@ -701,10 +677,6 @@ class SourceService(StripeService):
         """
         Creates a new source object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Source,
             self._request(
@@ -724,10 +696,6 @@ class SourceService(StripeService):
         """
         Creates a new source object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Source,
             await self._request_async(
@@ -748,8 +716,6 @@ class SourceService(StripeService):
         """
         Verify a given source.
         """
-        if options is None:
-            options = {}
         return cast(
             Source,
             self._request(
@@ -772,8 +738,6 @@ class SourceService(StripeService):
         """
         Verify a given source.
         """
-        if options is None:
-            options = {}
         return cast(
             Source,
             await self._request_async(

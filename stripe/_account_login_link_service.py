@@ -26,10 +26,6 @@ class AccountLoginLinkService(StripeService):
 
         You can only create login links for accounts that use the [Express Dashboard](https://docs.stripe.com/connect/express-dashboard) and are connected to your platform.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             LoginLink,
             self._request(
@@ -54,10 +50,6 @@ class AccountLoginLinkService(StripeService):
 
         You can only create login links for accounts that use the [Express Dashboard](https://docs.stripe.com/connect/express-dashboard) and are connected to your platform.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             LoginLink,
             await self._request_async(

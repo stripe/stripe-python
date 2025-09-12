@@ -70,10 +70,6 @@ class ReviewService(StripeService):
         """
         Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Review],
             self._request(
@@ -93,10 +89,6 @@ class ReviewService(StripeService):
         """
         Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Review],
             await self._request_async(
@@ -117,10 +109,6 @@ class ReviewService(StripeService):
         """
         Retrieves a Review object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Review,
             self._request(
@@ -141,10 +129,6 @@ class ReviewService(StripeService):
         """
         Retrieves a Review object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Review,
             await self._request_async(
@@ -165,10 +149,6 @@ class ReviewService(StripeService):
         """
         Approves a Review object, closing it and removing it from the list of reviews.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Review,
             self._request(
@@ -191,10 +171,6 @@ class ReviewService(StripeService):
         """
         Approves a Review object, closing it and removing it from the list of reviews.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Review,
             await self._request_async(

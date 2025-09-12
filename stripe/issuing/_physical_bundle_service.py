@@ -50,10 +50,6 @@ class PhysicalBundleService(StripeService):
         """
         Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PhysicalBundle],
             self._request(
@@ -73,10 +69,6 @@ class PhysicalBundleService(StripeService):
         """
         Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PhysicalBundle],
             await self._request_async(
@@ -97,10 +89,6 @@ class PhysicalBundleService(StripeService):
         """
         Retrieves a physical bundle object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PhysicalBundle,
             self._request(
@@ -123,10 +111,6 @@ class PhysicalBundleService(StripeService):
         """
         Retrieves a physical bundle object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PhysicalBundle,
             await self._request_async(

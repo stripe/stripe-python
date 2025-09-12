@@ -68,8 +68,6 @@ class ReceivedCreditService(StripeService):
         """
         Returns a list of ReceivedCredits.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[ReceivedCredit],
             self._request(
@@ -89,8 +87,6 @@ class ReceivedCreditService(StripeService):
         """
         Returns a list of ReceivedCredits.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[ReceivedCredit],
             await self._request_async(
@@ -111,10 +107,6 @@ class ReceivedCreditService(StripeService):
         """
         Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ReceivedCredit,
             self._request(
@@ -137,10 +129,6 @@ class ReceivedCreditService(StripeService):
         """
         Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ReceivedCredit,
             await self._request_async(

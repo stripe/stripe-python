@@ -80,10 +80,6 @@ class SettingsService(StripeService):
         """
         Retrieves Tax Settings for a merchant.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Settings,
             self._request(
@@ -103,10 +99,6 @@ class SettingsService(StripeService):
         """
         Retrieves Tax Settings for a merchant.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Settings,
             await self._request_async(
@@ -126,10 +118,6 @@ class SettingsService(StripeService):
         """
         Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Settings,
             self._request(
@@ -149,10 +137,6 @@ class SettingsService(StripeService):
         """
         Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Settings,
             await self._request_async(

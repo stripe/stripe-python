@@ -42,10 +42,6 @@ class CountrySpecService(StripeService):
         """
         Lists all Country Spec objects available in the API.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[CountrySpec],
             self._request(
@@ -65,10 +61,6 @@ class CountrySpecService(StripeService):
         """
         Lists all Country Spec objects available in the API.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[CountrySpec],
             await self._request_async(
@@ -89,10 +81,6 @@ class CountrySpecService(StripeService):
         """
         Returns a Country Spec for a given Country code.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CountrySpec,
             self._request(
@@ -115,10 +103,6 @@ class CountrySpecService(StripeService):
         """
         Returns a Country Spec for a given Country code.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             CountrySpec,
             await self._request_async(

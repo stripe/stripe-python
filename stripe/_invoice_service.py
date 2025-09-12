@@ -3072,10 +3072,6 @@ class InvoiceService(StripeService):
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3096,10 +3092,6 @@ class InvoiceService(StripeService):
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3120,10 +3112,6 @@ class InvoiceService(StripeService):
         """
         Retrieves the invoice with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3144,10 +3132,6 @@ class InvoiceService(StripeService):
         """
         Retrieves the invoice with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3173,10 +3157,6 @@ class InvoiceService(StripeService):
         sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
         auto_advance=false.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3202,10 +3182,6 @@ class InvoiceService(StripeService):
         sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
         auto_advance=false.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3225,10 +3201,6 @@ class InvoiceService(StripeService):
         """
         You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Invoice],
             self._request(
@@ -3248,10 +3220,6 @@ class InvoiceService(StripeService):
         """
         You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Invoice],
             await self._request_async(
@@ -3271,10 +3239,6 @@ class InvoiceService(StripeService):
         """
         This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3294,10 +3258,6 @@ class InvoiceService(StripeService):
         """
         This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3320,8 +3280,6 @@ class InvoiceService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
-        if options is None:
-            options = {}
         return cast(
             SearchResultObject[Invoice],
             self._request(
@@ -3344,8 +3302,6 @@ class InvoiceService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
-        if options is None:
-            options = {}
         return cast(
             SearchResultObject[Invoice],
             await self._request_async(
@@ -3366,8 +3322,6 @@ class InvoiceService(StripeService):
         """
         Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
         """
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3390,8 +3344,6 @@ class InvoiceService(StripeService):
         """
         Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
         """
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3423,10 +3375,6 @@ class InvoiceService(StripeService):
 
         See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3458,10 +3406,6 @@ class InvoiceService(StripeService):
 
         See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3484,10 +3428,6 @@ class InvoiceService(StripeService):
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3510,10 +3450,6 @@ class InvoiceService(StripeService):
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3536,10 +3472,6 @@ class InvoiceService(StripeService):
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3562,10 +3494,6 @@ class InvoiceService(StripeService):
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3588,10 +3516,6 @@ class InvoiceService(StripeService):
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3614,10 +3538,6 @@ class InvoiceService(StripeService):
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3640,8 +3560,6 @@ class InvoiceService(StripeService):
         """
         Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
         """
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3664,8 +3582,6 @@ class InvoiceService(StripeService):
         """
         Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
         """
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3690,10 +3606,6 @@ class InvoiceService(StripeService):
 
         Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3718,10 +3630,6 @@ class InvoiceService(StripeService):
 
         Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3744,8 +3652,6 @@ class InvoiceService(StripeService):
         """
         Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
         """
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3768,8 +3674,6 @@ class InvoiceService(StripeService):
         """
         Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
         """
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3794,10 +3698,6 @@ class InvoiceService(StripeService):
 
         Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://docs.stripe.com/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3822,10 +3722,6 @@ class InvoiceService(StripeService):
 
         Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://docs.stripe.com/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(
@@ -3855,10 +3751,6 @@ class InvoiceService(StripeService):
 
         Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             self._request(
@@ -3886,10 +3778,6 @@ class InvoiceService(StripeService):
 
         Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Invoice,
             await self._request_async(

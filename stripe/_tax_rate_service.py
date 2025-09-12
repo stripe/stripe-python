@@ -190,10 +190,6 @@ class TaxRateService(StripeService):
         """
         Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[TaxRate],
             self._request(
@@ -213,10 +209,6 @@ class TaxRateService(StripeService):
         """
         Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[TaxRate],
             await self._request_async(
@@ -236,8 +228,6 @@ class TaxRateService(StripeService):
         """
         Creates a new tax rate.
         """
-        if options is None:
-            options = {}
         return cast(
             TaxRate,
             self._request(
@@ -257,8 +247,6 @@ class TaxRateService(StripeService):
         """
         Creates a new tax rate.
         """
-        if options is None:
-            options = {}
         return cast(
             TaxRate,
             await self._request_async(
@@ -279,10 +267,6 @@ class TaxRateService(StripeService):
         """
         Retrieves a tax rate with the given ID
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TaxRate,
             self._request(
@@ -305,10 +289,6 @@ class TaxRateService(StripeService):
         """
         Retrieves a tax rate with the given ID
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TaxRate,
             await self._request_async(
@@ -331,10 +311,6 @@ class TaxRateService(StripeService):
         """
         Updates an existing tax rate.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TaxRate,
             self._request(
@@ -357,10 +333,6 @@ class TaxRateService(StripeService):
         """
         Updates an existing tax rate.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TaxRate,
             await self._request_async(

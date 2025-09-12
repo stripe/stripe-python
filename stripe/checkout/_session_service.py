@@ -2887,10 +2887,6 @@ class SessionService(StripeService):
         """
         Returns a list of Checkout Sessions.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Session],
             self._request(
@@ -2910,10 +2906,6 @@ class SessionService(StripeService):
         """
         Returns a list of Checkout Sessions.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Session],
             await self._request_async(
@@ -2933,10 +2925,6 @@ class SessionService(StripeService):
         """
         Creates a Checkout Session object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Session,
             self._request(
@@ -2956,10 +2944,6 @@ class SessionService(StripeService):
         """
         Creates a Checkout Session object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Session,
             await self._request_async(
@@ -2980,10 +2964,6 @@ class SessionService(StripeService):
         """
         Retrieves a Checkout Session object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Session,
             self._request(
@@ -3006,10 +2986,6 @@ class SessionService(StripeService):
         """
         Retrieves a Checkout Session object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Session,
             await self._request_async(
@@ -3034,10 +3010,6 @@ class SessionService(StripeService):
 
         Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Session,
             self._request(
@@ -3062,10 +3034,6 @@ class SessionService(StripeService):
 
         Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Session,
             await self._request_async(
@@ -3090,10 +3058,6 @@ class SessionService(StripeService):
 
         After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Session,
             self._request(
@@ -3118,10 +3082,6 @@ class SessionService(StripeService):
 
         After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Session,
             await self._request_async(

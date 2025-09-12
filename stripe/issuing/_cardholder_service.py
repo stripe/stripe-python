@@ -2316,10 +2316,6 @@ class CardholderService(StripeService):
         """
         Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Cardholder],
             self._request(
@@ -2339,10 +2335,6 @@ class CardholderService(StripeService):
         """
         Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Cardholder],
             await self._request_async(
@@ -2362,8 +2354,6 @@ class CardholderService(StripeService):
         """
         Creates a new Issuing Cardholder object that can be issued cards.
         """
-        if options is None:
-            options = {}
         return cast(
             Cardholder,
             self._request(
@@ -2383,8 +2373,6 @@ class CardholderService(StripeService):
         """
         Creates a new Issuing Cardholder object that can be issued cards.
         """
-        if options is None:
-            options = {}
         return cast(
             Cardholder,
             await self._request_async(
@@ -2405,10 +2393,6 @@ class CardholderService(StripeService):
         """
         Retrieves an Issuing Cardholder object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Cardholder,
             self._request(
@@ -2431,10 +2415,6 @@ class CardholderService(StripeService):
         """
         Retrieves an Issuing Cardholder object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Cardholder,
             await self._request_async(
@@ -2457,10 +2437,6 @@ class CardholderService(StripeService):
         """
         Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Cardholder,
             self._request(
@@ -2483,10 +2459,6 @@ class CardholderService(StripeService):
         """
         Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Cardholder,
             await self._request_async(

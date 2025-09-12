@@ -42,10 +42,6 @@ class ProductService(StripeService):
         """
         Lists all available Climate product objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Product],
             self._request(
@@ -65,10 +61,6 @@ class ProductService(StripeService):
         """
         Lists all available Climate product objects.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Product],
             await self._request_async(
@@ -89,10 +81,6 @@ class ProductService(StripeService):
         """
         Retrieves the details of a Climate product with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Product,
             self._request(
@@ -115,10 +103,6 @@ class ProductService(StripeService):
         """
         Retrieves the details of a Climate product with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Product,
             await self._request_async(

@@ -445,10 +445,6 @@ class ProductService(StripeService):
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Product,
             self._request(
@@ -469,10 +465,6 @@ class ProductService(StripeService):
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Product,
             await self._request_async(
@@ -493,10 +485,6 @@ class ProductService(StripeService):
         """
         Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Product,
             self._request(
@@ -517,10 +505,6 @@ class ProductService(StripeService):
         """
         Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Product,
             await self._request_async(
@@ -541,10 +525,6 @@ class ProductService(StripeService):
         """
         Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Product,
             self._request(
@@ -565,10 +545,6 @@ class ProductService(StripeService):
         """
         Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Product,
             await self._request_async(
@@ -588,10 +564,6 @@ class ProductService(StripeService):
         """
         Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Product],
             self._request(
@@ -611,10 +583,6 @@ class ProductService(StripeService):
         """
         Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Product],
             await self._request_async(
@@ -634,8 +602,6 @@ class ProductService(StripeService):
         """
         Creates a new product object.
         """
-        if options is None:
-            options = {}
         return cast(
             Product,
             self._request(
@@ -655,8 +621,6 @@ class ProductService(StripeService):
         """
         Creates a new product object.
         """
-        if options is None:
-            options = {}
         return cast(
             Product,
             await self._request_async(
@@ -679,8 +643,6 @@ class ProductService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
-        if options is None:
-            options = {}
         return cast(
             SearchResultObject[Product],
             self._request(
@@ -703,8 +665,6 @@ class ProductService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
-        if options is None:
-            options = {}
         return cast(
             SearchResultObject[Product],
             await self._request_async(

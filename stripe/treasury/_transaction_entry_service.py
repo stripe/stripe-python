@@ -97,8 +97,6 @@ class TransactionEntryService(StripeService):
         """
         Retrieves a list of TransactionEntry objects.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[TransactionEntry],
             self._request(
@@ -118,8 +116,6 @@ class TransactionEntryService(StripeService):
         """
         Retrieves a list of TransactionEntry objects.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[TransactionEntry],
             await self._request_async(
@@ -140,10 +136,6 @@ class TransactionEntryService(StripeService):
         """
         Retrieves a TransactionEntry object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TransactionEntry,
             self._request(
@@ -166,10 +158,6 @@ class TransactionEntryService(StripeService):
         """
         Retrieves a TransactionEntry object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             TransactionEntry,
             await self._request_async(

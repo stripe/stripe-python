@@ -73,10 +73,6 @@ class ApplicationFeeService(StripeService):
         """
         Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ApplicationFee],
             self._request(
@@ -96,10 +92,6 @@ class ApplicationFeeService(StripeService):
         """
         Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[ApplicationFee],
             await self._request_async(
@@ -120,10 +112,6 @@ class ApplicationFeeService(StripeService):
         """
         Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ApplicationFee,
             self._request(
@@ -144,10 +132,6 @@ class ApplicationFeeService(StripeService):
         """
         Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ApplicationFee,
             await self._request_async(

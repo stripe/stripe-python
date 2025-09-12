@@ -1872,10 +1872,6 @@ class PaymentLinkService(StripeService):
         """
         Returns a list of your payment links.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PaymentLink],
             self._request(
@@ -1895,10 +1891,6 @@ class PaymentLinkService(StripeService):
         """
         Returns a list of your payment links.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[PaymentLink],
             await self._request_async(
@@ -1918,8 +1910,6 @@ class PaymentLinkService(StripeService):
         """
         Creates a payment link.
         """
-        if options is None:
-            options = {}
         return cast(
             PaymentLink,
             self._request(
@@ -1939,8 +1929,6 @@ class PaymentLinkService(StripeService):
         """
         Creates a payment link.
         """
-        if options is None:
-            options = {}
         return cast(
             PaymentLink,
             await self._request_async(
@@ -1961,10 +1949,6 @@ class PaymentLinkService(StripeService):
         """
         Retrieve a payment link.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentLink,
             self._request(
@@ -1987,10 +1971,6 @@ class PaymentLinkService(StripeService):
         """
         Retrieve a payment link.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentLink,
             await self._request_async(
@@ -2013,10 +1993,6 @@ class PaymentLinkService(StripeService):
         """
         Updates a payment link.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentLink,
             self._request(
@@ -2039,10 +2015,6 @@ class PaymentLinkService(StripeService):
         """
         Updates a payment link.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             PaymentLink,
             await self._request_async(

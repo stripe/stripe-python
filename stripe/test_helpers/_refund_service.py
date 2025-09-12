@@ -24,10 +24,6 @@ class RefundService(StripeService):
         """
         Expire a refund with a status of requires_action.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Refund,
             self._request(
@@ -50,10 +46,6 @@ class RefundService(StripeService):
         """
         Expire a refund with a status of requires_action.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Refund,
             await self._request_async(

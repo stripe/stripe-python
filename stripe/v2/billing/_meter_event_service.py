@@ -41,8 +41,6 @@ class MeterEventService(StripeService):
         """
         Creates a meter event. Events are validated synchronously, but are processed asynchronously. Supports up to 1,000 events per second in livemode. For higher rate-limits, please use meter event streams instead.
         """
-        if options is None:
-            options = {}
         return cast(
             MeterEvent,
             self._request(
@@ -62,8 +60,6 @@ class MeterEventService(StripeService):
         """
         Creates a meter event. Events are validated synchronously, but are processed asynchronously. Supports up to 1,000 events per second in livemode. For higher rate-limits, please use meter event streams instead.
         """
-        if options is None:
-            options = {}
         return cast(
             MeterEvent,
             await self._request_async(

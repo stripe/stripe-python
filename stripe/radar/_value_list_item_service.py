@@ -90,10 +90,6 @@ class ValueListItemService(StripeService):
         """
         Deletes a ValueListItem object, removing it from its parent value list.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ValueListItem,
             self._request(
@@ -116,10 +112,6 @@ class ValueListItemService(StripeService):
         """
         Deletes a ValueListItem object, removing it from its parent value list.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ValueListItem,
             await self._request_async(
@@ -142,10 +134,6 @@ class ValueListItemService(StripeService):
         """
         Retrieves a ValueListItem object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ValueListItem,
             self._request(
@@ -168,10 +156,6 @@ class ValueListItemService(StripeService):
         """
         Retrieves a ValueListItem object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ValueListItem,
             await self._request_async(
@@ -193,8 +177,6 @@ class ValueListItemService(StripeService):
         """
         Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[ValueListItem],
             self._request(
@@ -214,8 +196,6 @@ class ValueListItemService(StripeService):
         """
         Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if options is None:
-            options = {}
         return cast(
             ListObject[ValueListItem],
             await self._request_async(
@@ -235,8 +215,6 @@ class ValueListItemService(StripeService):
         """
         Creates a new ValueListItem object, which is added to the specified parent value list.
         """
-        if options is None:
-            options = {}
         return cast(
             ValueListItem,
             self._request(
@@ -256,8 +234,6 @@ class ValueListItemService(StripeService):
         """
         Creates a new ValueListItem object, which is added to the specified parent value list.
         """
-        if options is None:
-            options = {}
         return cast(
             ValueListItem,
             await self._request_async(

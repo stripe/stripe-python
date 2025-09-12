@@ -26,10 +26,6 @@ class ConnectionTokenService(StripeService):
         """
         To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ConnectionToken,
             self._request(
@@ -49,10 +45,6 @@ class ConnectionTokenService(StripeService):
         """
         To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ConnectionToken,
             await self._request_async(

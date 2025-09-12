@@ -37,10 +37,6 @@ class CalculationLineItemService(StripeService):
         """
         Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[CalculationLineItem],
             self._request(
@@ -63,10 +59,6 @@ class CalculationLineItemService(StripeService):
         """
         Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[CalculationLineItem],
             await self._request_async(

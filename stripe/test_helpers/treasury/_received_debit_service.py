@@ -74,8 +74,6 @@ class ReceivedDebitService(StripeService):
         """
         Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
         """
-        if options is None:
-            options = {}
         return cast(
             ReceivedDebit,
             self._request(
@@ -95,8 +93,6 @@ class ReceivedDebitService(StripeService):
         """
         Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
         """
-        if options is None:
-            options = {}
         return cast(
             ReceivedDebit,
             await self._request_async(

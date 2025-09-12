@@ -82,10 +82,6 @@ class BalanceTransactionService(StripeService):
 
         Note that this endpoint was previously called “Balance history” and used the path /v1/balance/history.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[BalanceTransaction],
             self._request(
@@ -107,10 +103,6 @@ class BalanceTransactionService(StripeService):
 
         Note that this endpoint was previously called “Balance history” and used the path /v1/balance/history.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[BalanceTransaction],
             await self._request_async(
@@ -133,10 +125,6 @@ class BalanceTransactionService(StripeService):
 
         Note that this endpoint previously used the path /v1/balance/history/:id.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             BalanceTransaction,
             self._request(
@@ -159,10 +147,6 @@ class BalanceTransactionService(StripeService):
 
         Note that this endpoint previously used the path /v1/balance/history/:id.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             BalanceTransaction,
             await self._request_async(

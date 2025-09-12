@@ -2246,10 +2246,6 @@ class CardService(StripeService):
         """
         Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Card],
             self._request(
@@ -2269,10 +2265,6 @@ class CardService(StripeService):
         """
         Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[Card],
             await self._request_async(
@@ -2292,8 +2284,6 @@ class CardService(StripeService):
         """
         Creates an Issuing Card object.
         """
-        if options is None:
-            options = {}
         return cast(
             Card,
             self._request(
@@ -2313,8 +2303,6 @@ class CardService(StripeService):
         """
         Creates an Issuing Card object.
         """
-        if options is None:
-            options = {}
         return cast(
             Card,
             await self._request_async(
@@ -2335,10 +2323,6 @@ class CardService(StripeService):
         """
         Retrieves an Issuing Card object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             self._request(
@@ -2359,10 +2343,6 @@ class CardService(StripeService):
         """
         Retrieves an Issuing Card object.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             await self._request_async(
@@ -2383,10 +2363,6 @@ class CardService(StripeService):
         """
         Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             self._request(
@@ -2407,10 +2383,6 @@ class CardService(StripeService):
         """
         Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             Card,
             await self._request_async(

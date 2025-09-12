@@ -64,10 +64,6 @@ class InvoicePaymentService(StripeService):
         """
         When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[InvoicePayment],
             self._request(
@@ -87,10 +83,6 @@ class InvoicePaymentService(StripeService):
         """
         When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             ListObject[InvoicePayment],
             await self._request_async(
@@ -111,10 +103,6 @@ class InvoicePaymentService(StripeService):
         """
         Retrieves the invoice payment with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InvoicePayment,
             self._request(
@@ -137,10 +125,6 @@ class InvoicePaymentService(StripeService):
         """
         Retrieves the invoice payment with the given ID.
         """
-        if params is None:
-            params = {}
-        if options is None:
-            options = {}
         return cast(
             InvoicePayment,
             await self._request_async(
