@@ -6,7 +6,7 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -8646,12 +8646,16 @@ class PaymentIntentService(StripeService):
 
     def list(
         self,
-        params: "PaymentIntentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentIntent]:
         """
         Returns a list of PaymentIntents.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[PaymentIntent],
             self._request(
@@ -8665,12 +8669,16 @@ class PaymentIntentService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentIntentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentIntent]:
         """
         Returns a list of PaymentIntents.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[PaymentIntent],
             await self._request_async(
@@ -8685,7 +8693,7 @@ class PaymentIntentService(StripeService):
     def create(
         self,
         params: "PaymentIntentService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Creates a PaymentIntent object.
@@ -8699,6 +8707,8 @@ class PaymentIntentService(StripeService):
         available in the [confirm API](https://docs.stripe.com/docs/api/payment_intents/confirm) when you supply
         confirm=true.
         """
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             self._request(
@@ -8713,7 +8723,7 @@ class PaymentIntentService(StripeService):
     async def create_async(
         self,
         params: "PaymentIntentService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Creates a PaymentIntent object.
@@ -8727,6 +8737,8 @@ class PaymentIntentService(StripeService):
         available in the [confirm API](https://docs.stripe.com/docs/api/payment_intents/confirm) when you supply
         confirm=true.
         """
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             await self._request_async(
@@ -8741,8 +8753,8 @@ class PaymentIntentService(StripeService):
     def retrieve(
         self,
         intent: str,
-        params: "PaymentIntentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Retrieves the details of a PaymentIntent that has previously been created.
@@ -8751,6 +8763,10 @@ class PaymentIntentService(StripeService):
 
         If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the [payment intent](https://docs.stripe.com/api#payment_intent_object) object reference for more details.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             self._request(
@@ -8767,8 +8783,8 @@ class PaymentIntentService(StripeService):
     async def retrieve_async(
         self,
         intent: str,
-        params: "PaymentIntentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Retrieves the details of a PaymentIntent that has previously been created.
@@ -8777,6 +8793,10 @@ class PaymentIntentService(StripeService):
 
         If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the [payment intent](https://docs.stripe.com/api#payment_intent_object) object reference for more details.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             await self._request_async(
@@ -8793,8 +8813,8 @@ class PaymentIntentService(StripeService):
     def update(
         self,
         intent: str,
-        params: "PaymentIntentService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Updates properties on a PaymentIntent object without confirming.
@@ -8805,6 +8825,10 @@ class PaymentIntentService(StripeService):
         update and confirm at the same time, we recommend updating properties through
         the [confirm API](https://docs.stripe.com/docs/api/payment_intents/confirm) instead.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             self._request(
@@ -8821,8 +8845,8 @@ class PaymentIntentService(StripeService):
     async def update_async(
         self,
         intent: str,
-        params: "PaymentIntentService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Updates properties on a PaymentIntent object without confirming.
@@ -8833,6 +8857,10 @@ class PaymentIntentService(StripeService):
         update and confirm at the same time, we recommend updating properties through
         the [confirm API](https://docs.stripe.com/docs/api/payment_intents/confirm) instead.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             await self._request_async(
@@ -8849,7 +8877,7 @@ class PaymentIntentService(StripeService):
     def search(
         self,
         params: "PaymentIntentService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[PaymentIntent]:
         """
         Search for PaymentIntents you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -8857,6 +8885,8 @@ class PaymentIntentService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
+        if options is None:
+            options = {}
         return cast(
             SearchResultObject[PaymentIntent],
             self._request(
@@ -8871,7 +8901,7 @@ class PaymentIntentService(StripeService):
     async def search_async(
         self,
         params: "PaymentIntentService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[PaymentIntent]:
         """
         Search for PaymentIntents you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -8879,6 +8909,8 @@ class PaymentIntentService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
+        if options is None:
+            options = {}
         return cast(
             SearchResultObject[PaymentIntent],
             await self._request_async(
@@ -8893,12 +8925,16 @@ class PaymentIntentService(StripeService):
     def apply_customer_balance(
         self,
         intent: str,
-        params: "PaymentIntentService.ApplyCustomerBalanceParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.ApplyCustomerBalanceParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             self._request(
@@ -8915,12 +8951,16 @@ class PaymentIntentService(StripeService):
     async def apply_customer_balance_async(
         self,
         intent: str,
-        params: "PaymentIntentService.ApplyCustomerBalanceParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.ApplyCustomerBalanceParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             await self._request_async(
@@ -8937,8 +8977,8 @@ class PaymentIntentService(StripeService):
     def cancel(
         self,
         intent: str,
-        params: "PaymentIntentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://docs.stripe.com/docs/payments/intents), processing.
@@ -8947,6 +8987,10 @@ class PaymentIntentService(StripeService):
 
         You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             self._request(
@@ -8963,8 +9007,8 @@ class PaymentIntentService(StripeService):
     async def cancel_async(
         self,
         intent: str,
-        params: "PaymentIntentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://docs.stripe.com/docs/payments/intents), processing.
@@ -8973,6 +9017,10 @@ class PaymentIntentService(StripeService):
 
         You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             await self._request_async(
@@ -8989,8 +9037,8 @@ class PaymentIntentService(StripeService):
     def capture(
         self,
         intent: str,
-        params: "PaymentIntentService.CaptureParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.CaptureParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -8999,6 +9047,10 @@ class PaymentIntentService(StripeService):
 
         Learn more about [separate authorization and capture](https://docs.stripe.com/docs/payments/capture-later).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             self._request(
@@ -9015,8 +9067,8 @@ class PaymentIntentService(StripeService):
     async def capture_async(
         self,
         intent: str,
-        params: "PaymentIntentService.CaptureParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.CaptureParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -9025,6 +9077,10 @@ class PaymentIntentService(StripeService):
 
         Learn more about [separate authorization and capture](https://docs.stripe.com/docs/payments/capture-later).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             await self._request_async(
@@ -9041,8 +9097,8 @@ class PaymentIntentService(StripeService):
     def confirm(
         self,
         intent: str,
-        params: "PaymentIntentService.ConfirmParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.ConfirmParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Confirm that your customer intends to pay with current or provided
@@ -9076,6 +9132,10 @@ class PaymentIntentService(StripeService):
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             self._request(
@@ -9092,8 +9152,8 @@ class PaymentIntentService(StripeService):
     async def confirm_async(
         self,
         intent: str,
-        params: "PaymentIntentService.ConfirmParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.ConfirmParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Confirm that your customer intends to pay with current or provided
@@ -9127,6 +9187,10 @@ class PaymentIntentService(StripeService):
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             await self._request_async(
@@ -9144,7 +9208,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: "PaymentIntentService.IncrementAuthorizationParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Perform an incremental authorization on an eligible
@@ -9172,6 +9236,8 @@ class PaymentIntentService(StripeService):
 
         Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
         """
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             self._request(
@@ -9189,7 +9255,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: "PaymentIntentService.IncrementAuthorizationParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Perform an incremental authorization on an eligible
@@ -9217,6 +9283,8 @@ class PaymentIntentService(StripeService):
 
         Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
         """
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             await self._request_async(
@@ -9233,12 +9301,16 @@ class PaymentIntentService(StripeService):
     def verify_microdeposits(
         self,
         intent: str,
-        params: "PaymentIntentService.VerifyMicrodepositsParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.VerifyMicrodepositsParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Verifies microdeposits on a PaymentIntent object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             self._request(
@@ -9255,12 +9327,16 @@ class PaymentIntentService(StripeService):
     async def verify_microdeposits_async(
         self,
         intent: str,
-        params: "PaymentIntentService.VerifyMicrodepositsParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentIntentService.VerifyMicrodepositsParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Verifies microdeposits on a PaymentIntent object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentIntent,
             await self._request_async(

@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._dispute import Dispute
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -630,12 +630,16 @@ class DisputeService(StripeService):
 
     def list(
         self,
-        params: "DisputeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "DisputeService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Dispute]:
         """
         Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Dispute],
             self._request(
@@ -649,12 +653,16 @@ class DisputeService(StripeService):
 
     async def list_async(
         self,
-        params: "DisputeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "DisputeService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Dispute]:
         """
         Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Dispute],
             await self._request_async(
@@ -668,12 +676,16 @@ class DisputeService(StripeService):
 
     def create(
         self,
-        params: "DisputeService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "DisputeService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
         Creates an Issuing Dispute object. Individual pieces of evidence within the evidence object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence) for more details about evidence requirements.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Dispute,
             self._request(
@@ -687,12 +699,16 @@ class DisputeService(StripeService):
 
     async def create_async(
         self,
-        params: "DisputeService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "DisputeService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
         Creates an Issuing Dispute object. Individual pieces of evidence within the evidence object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence) for more details about evidence requirements.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Dispute,
             await self._request_async(
@@ -707,12 +723,16 @@ class DisputeService(StripeService):
     def retrieve(
         self,
         dispute: str,
-        params: "DisputeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "DisputeService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
         Retrieves an Issuing Dispute object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Dispute,
             self._request(
@@ -729,12 +749,16 @@ class DisputeService(StripeService):
     async def retrieve_async(
         self,
         dispute: str,
-        params: "DisputeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "DisputeService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
         Retrieves an Issuing Dispute object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Dispute,
             await self._request_async(
@@ -751,12 +775,16 @@ class DisputeService(StripeService):
     def update(
         self,
         dispute: str,
-        params: "DisputeService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "DisputeService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
         Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Dispute,
             self._request(
@@ -773,12 +801,16 @@ class DisputeService(StripeService):
     async def update_async(
         self,
         dispute: str,
-        params: "DisputeService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "DisputeService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
         Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Dispute,
             await self._request_async(
@@ -795,12 +827,16 @@ class DisputeService(StripeService):
     def submit(
         self,
         dispute: str,
-        params: "DisputeService.SubmitParams" = {},
-        options: RequestOptions = {},
+        params: "DisputeService.SubmitParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Dispute,
             self._request(
@@ -817,12 +853,16 @@ class DisputeService(StripeService):
     async def submit_async(
         self,
         dispute: str,
-        params: "DisputeService.SubmitParams" = {},
-        options: RequestOptions = {},
+        params: "DisputeService.SubmitParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Dispute,
             await self._request_async(

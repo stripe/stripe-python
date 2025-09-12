@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -37,12 +37,16 @@ class AccountCapabilityService(StripeService):
     def list(
         self,
         account: str,
-        params: "AccountCapabilityService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "AccountCapabilityService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Capability]:
         """
         Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Capability],
             self._request(
@@ -59,12 +63,16 @@ class AccountCapabilityService(StripeService):
     async def list_async(
         self,
         account: str,
-        params: "AccountCapabilityService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "AccountCapabilityService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Capability]:
         """
         Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Capability],
             await self._request_async(
@@ -82,12 +90,16 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
-        params: "AccountCapabilityService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "AccountCapabilityService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Capability:
         """
         Retrieves information about the specified Account Capability.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Capability,
             self._request(
@@ -106,12 +118,16 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
-        params: "AccountCapabilityService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "AccountCapabilityService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Capability:
         """
         Retrieves information about the specified Account Capability.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Capability,
             await self._request_async(
@@ -130,12 +146,16 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
-        params: "AccountCapabilityService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "AccountCapabilityService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Capability:
         """
         Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Capability,
             self._request(
@@ -154,12 +174,16 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
-        params: "AccountCapabilityService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "AccountCapabilityService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Capability:
         """
         Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Capability,
             await self._request_async(

@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._tax_id import TaxId
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -166,12 +166,16 @@ class CustomerTaxIdService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerTaxIdService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerTaxIdService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> TaxId:
         """
         Deletes an existing tax_id object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             TaxId,
             self._request(
@@ -190,12 +194,16 @@ class CustomerTaxIdService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerTaxIdService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerTaxIdService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> TaxId:
         """
         Deletes an existing tax_id object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             TaxId,
             await self._request_async(
@@ -214,12 +222,16 @@ class CustomerTaxIdService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerTaxIdService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerTaxIdService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> TaxId:
         """
         Retrieves the tax_id object with the given identifier.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             TaxId,
             self._request(
@@ -238,12 +250,16 @@ class CustomerTaxIdService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerTaxIdService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerTaxIdService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> TaxId:
         """
         Retrieves the tax_id object with the given identifier.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             TaxId,
             await self._request_async(
@@ -261,12 +277,16 @@ class CustomerTaxIdService(StripeService):
     def list(
         self,
         customer: str,
-        params: "CustomerTaxIdService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerTaxIdService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TaxId]:
         """
         Returns a list of tax IDs for a customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[TaxId],
             self._request(
@@ -283,12 +303,16 @@ class CustomerTaxIdService(StripeService):
     async def list_async(
         self,
         customer: str,
-        params: "CustomerTaxIdService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerTaxIdService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TaxId]:
         """
         Returns a list of tax IDs for a customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[TaxId],
             await self._request_async(
@@ -306,11 +330,13 @@ class CustomerTaxIdService(StripeService):
         self,
         customer: str,
         params: "CustomerTaxIdService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> TaxId:
         """
         Creates a new tax_id object for a customer.
         """
+        if options is None:
+            options = {}
         return cast(
             TaxId,
             self._request(
@@ -328,11 +354,13 @@ class CustomerTaxIdService(StripeService):
         self,
         customer: str,
         params: "CustomerTaxIdService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> TaxId:
         """
         Creates a new tax_id object for a customer.
         """
+        if options is None:
+            options = {}
         return cast(
             TaxId,
             await self._request_async(

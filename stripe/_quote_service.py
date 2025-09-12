@@ -9,7 +9,7 @@ from stripe._quote_line_item_service import QuoteLineItemService
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Any, Dict, List, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -627,12 +627,16 @@ class QuoteService(StripeService):
 
     def list(
         self,
-        params: "QuoteService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Quote]:
         """
         Returns a list of your quotes.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Quote],
             self._request(
@@ -646,12 +650,16 @@ class QuoteService(StripeService):
 
     async def list_async(
         self,
-        params: "QuoteService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Quote]:
         """
         Returns a list of your quotes.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Quote],
             await self._request_async(
@@ -665,12 +673,16 @@ class QuoteService(StripeService):
 
     def create(
         self,
-        params: "QuoteService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
         A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Quote,
             self._request(
@@ -684,12 +696,16 @@ class QuoteService(StripeService):
 
     async def create_async(
         self,
-        params: "QuoteService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
         A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Quote,
             await self._request_async(
@@ -704,12 +720,16 @@ class QuoteService(StripeService):
     def retrieve(
         self,
         quote: str,
-        params: "QuoteService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
         Retrieves the quote with the given ID.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Quote,
             self._request(
@@ -724,12 +744,16 @@ class QuoteService(StripeService):
     async def retrieve_async(
         self,
         quote: str,
-        params: "QuoteService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
         Retrieves the quote with the given ID.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Quote,
             await self._request_async(
@@ -744,12 +768,16 @@ class QuoteService(StripeService):
     def update(
         self,
         quote: str,
-        params: "QuoteService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
         A quote models prices and services for a customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Quote,
             self._request(
@@ -764,12 +792,16 @@ class QuoteService(StripeService):
     async def update_async(
         self,
         quote: str,
-        params: "QuoteService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
         A quote models prices and services for a customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Quote,
             await self._request_async(
@@ -784,12 +816,16 @@ class QuoteService(StripeService):
     def accept(
         self,
         quote: str,
-        params: "QuoteService.AcceptParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.AcceptParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
         Accepts the specified quote.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Quote,
             self._request(
@@ -804,12 +840,16 @@ class QuoteService(StripeService):
     async def accept_async(
         self,
         quote: str,
-        params: "QuoteService.AcceptParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.AcceptParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
         Accepts the specified quote.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Quote,
             await self._request_async(
@@ -824,12 +864,16 @@ class QuoteService(StripeService):
     def cancel(
         self,
         quote: str,
-        params: "QuoteService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
         Cancels the quote.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Quote,
             self._request(
@@ -844,12 +888,16 @@ class QuoteService(StripeService):
     async def cancel_async(
         self,
         quote: str,
-        params: "QuoteService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
         Cancels the quote.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Quote,
             await self._request_async(
@@ -864,12 +912,16 @@ class QuoteService(StripeService):
     def finalize_quote(
         self,
         quote: str,
-        params: "QuoteService.FinalizeQuoteParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.FinalizeQuoteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
         Finalizes the quote.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Quote,
             self._request(
@@ -884,12 +936,16 @@ class QuoteService(StripeService):
     async def finalize_quote_async(
         self,
         quote: str,
-        params: "QuoteService.FinalizeQuoteParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.FinalizeQuoteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
         Finalizes the quote.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Quote,
             await self._request_async(
@@ -904,12 +960,16 @@ class QuoteService(StripeService):
     def pdf(
         self,
         quote: str,
-        params: "QuoteService.PdfParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.PdfParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Any,
             self._request_stream(
@@ -924,12 +984,16 @@ class QuoteService(StripeService):
     async def pdf_async(
         self,
         quote: str,
-        params: "QuoteService.PdfParams" = {},
-        options: RequestOptions = {},
+        params: "QuoteService.PdfParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Any:
         """
         Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Any,
             await self._request_stream_async(

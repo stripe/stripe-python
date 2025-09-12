@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._outbound_payment import OutboundPayment
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -104,11 +104,13 @@ class OutboundPaymentService(StripeService):
         self,
         id: str,
         params: "OutboundPaymentService.UpdateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
         """
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             self._request(
@@ -126,11 +128,13 @@ class OutboundPaymentService(StripeService):
         self,
         id: str,
         params: "OutboundPaymentService.UpdateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
         """
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             await self._request_async(
@@ -147,12 +151,16 @@ class OutboundPaymentService(StripeService):
     def fail(
         self,
         id: str,
-        params: "OutboundPaymentService.FailParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundPaymentService.FailParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             self._request(
@@ -169,12 +177,16 @@ class OutboundPaymentService(StripeService):
     async def fail_async(
         self,
         id: str,
-        params: "OutboundPaymentService.FailParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundPaymentService.FailParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             await self._request_async(
@@ -191,12 +203,16 @@ class OutboundPaymentService(StripeService):
     def post(
         self,
         id: str,
-        params: "OutboundPaymentService.PostParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundPaymentService.PostParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             self._request(
@@ -213,12 +229,16 @@ class OutboundPaymentService(StripeService):
     async def post_async(
         self,
         id: str,
-        params: "OutboundPaymentService.PostParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundPaymentService.PostParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             await self._request_async(
@@ -235,12 +255,16 @@ class OutboundPaymentService(StripeService):
     def return_outbound_payment(
         self,
         id: str,
-        params: "OutboundPaymentService.ReturnOutboundPaymentParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundPaymentService.ReturnOutboundPaymentParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             self._request(
@@ -257,12 +281,16 @@ class OutboundPaymentService(StripeService):
     async def return_outbound_payment_async(
         self,
         id: str,
-        params: "OutboundPaymentService.ReturnOutboundPaymentParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundPaymentService.ReturnOutboundPaymentParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             await self._request_async(

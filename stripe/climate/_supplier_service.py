@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.climate._supplier import Supplier
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -36,12 +36,16 @@ class SupplierService(StripeService):
 
     def list(
         self,
-        params: "SupplierService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "SupplierService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Supplier]:
         """
         Lists all available Climate supplier objects.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Supplier],
             self._request(
@@ -55,12 +59,16 @@ class SupplierService(StripeService):
 
     async def list_async(
         self,
-        params: "SupplierService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "SupplierService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Supplier]:
         """
         Lists all available Climate supplier objects.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Supplier],
             await self._request_async(
@@ -75,12 +83,16 @@ class SupplierService(StripeService):
     def retrieve(
         self,
         supplier: str,
-        params: "SupplierService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SupplierService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Supplier:
         """
         Retrieves a Climate supplier object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Supplier,
             self._request(
@@ -97,12 +109,16 @@ class SupplierService(StripeService):
     async def retrieve_async(
         self,
         supplier: str,
-        params: "SupplierService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SupplierService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Supplier:
         """
         Retrieves a Climate supplier object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Supplier,
             await self._request_async(

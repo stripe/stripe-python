@@ -6,7 +6,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.checkout._session import Session
 from stripe.checkout._session_line_item_service import SessionLineItemService
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -2881,12 +2881,16 @@ class SessionService(StripeService):
 
     def list(
         self,
-        params: "SessionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "SessionService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Session]:
         """
         Returns a list of Checkout Sessions.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Session],
             self._request(
@@ -2900,12 +2904,16 @@ class SessionService(StripeService):
 
     async def list_async(
         self,
-        params: "SessionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "SessionService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Session]:
         """
         Returns a list of Checkout Sessions.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Session],
             await self._request_async(
@@ -2919,12 +2927,16 @@ class SessionService(StripeService):
 
     def create(
         self,
-        params: "SessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "SessionService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Creates a Checkout Session object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Session,
             self._request(
@@ -2938,12 +2950,16 @@ class SessionService(StripeService):
 
     async def create_async(
         self,
-        params: "SessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "SessionService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Creates a Checkout Session object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Session,
             await self._request_async(
@@ -2958,12 +2974,16 @@ class SessionService(StripeService):
     def retrieve(
         self,
         session: str,
-        params: "SessionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SessionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Retrieves a Checkout Session object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Session,
             self._request(
@@ -2980,12 +3000,16 @@ class SessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
-        params: "SessionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SessionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Retrieves a Checkout Session object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Session,
             await self._request_async(
@@ -3002,14 +3026,18 @@ class SessionService(StripeService):
     def update(
         self,
         session: str,
-        params: "SessionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "SessionService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Updates a Checkout Session object.
 
         Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Session,
             self._request(
@@ -3026,14 +3054,18 @@ class SessionService(StripeService):
     async def update_async(
         self,
         session: str,
-        params: "SessionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "SessionService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Updates a Checkout Session object.
 
         Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Session,
             await self._request_async(
@@ -3050,14 +3082,18 @@ class SessionService(StripeService):
     def expire(
         self,
         session: str,
-        params: "SessionService.ExpireParams" = {},
-        options: RequestOptions = {},
+        params: "SessionService.ExpireParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         A Checkout Session can be expired when it is in one of these statuses: open
 
         After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Session,
             self._request(
@@ -3074,14 +3110,18 @@ class SessionService(StripeService):
     async def expire_async(
         self,
         session: str,
-        params: "SessionService.ExpireParams" = {},
-        options: RequestOptions = {},
+        params: "SessionService.ExpireParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         A Checkout Session can be expired when it is in one of these statuses: open
 
         After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Session,
             await self._request_async(

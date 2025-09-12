@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -48,12 +48,16 @@ class ApplePayDomainService(StripeService):
     def delete(
         self,
         domain: str,
-        params: "ApplePayDomainService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "ApplePayDomainService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
         Delete an apple pay domain.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ApplePayDomain,
             self._request(
@@ -70,12 +74,16 @@ class ApplePayDomainService(StripeService):
     async def delete_async(
         self,
         domain: str,
-        params: "ApplePayDomainService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "ApplePayDomainService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
         Delete an apple pay domain.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ApplePayDomain,
             await self._request_async(
@@ -92,12 +100,16 @@ class ApplePayDomainService(StripeService):
     def retrieve(
         self,
         domain: str,
-        params: "ApplePayDomainService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ApplePayDomainService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
         Retrieve an apple pay domain.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ApplePayDomain,
             self._request(
@@ -114,12 +126,16 @@ class ApplePayDomainService(StripeService):
     async def retrieve_async(
         self,
         domain: str,
-        params: "ApplePayDomainService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ApplePayDomainService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
         Retrieve an apple pay domain.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ApplePayDomain,
             await self._request_async(
@@ -135,12 +151,16 @@ class ApplePayDomainService(StripeService):
 
     def list(
         self,
-        params: "ApplePayDomainService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ApplePayDomainService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplePayDomain]:
         """
         List apple pay domains.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ApplePayDomain],
             self._request(
@@ -154,12 +174,16 @@ class ApplePayDomainService(StripeService):
 
     async def list_async(
         self,
-        params: "ApplePayDomainService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ApplePayDomainService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplePayDomain]:
         """
         List apple pay domains.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ApplePayDomain],
             await self._request_async(
@@ -174,11 +198,13 @@ class ApplePayDomainService(StripeService):
     def create(
         self,
         params: "ApplePayDomainService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
         Create an apple pay domain.
         """
+        if options is None:
+            options = {}
         return cast(
             ApplePayDomain,
             self._request(
@@ -193,11 +219,13 @@ class ApplePayDomainService(StripeService):
     async def create_async(
         self,
         params: "ApplePayDomainService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
         Create an apple pay domain.
         """
+        if options is None:
+            options = {}
         return cast(
             ApplePayDomain,
             await self._request_async(

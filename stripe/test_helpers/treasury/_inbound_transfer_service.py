@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._inbound_transfer import InboundTransfer
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -58,12 +58,16 @@ class InboundTransferService(StripeService):
     def fail(
         self,
         id: str,
-        params: "InboundTransferService.FailParams" = {},
-        options: RequestOptions = {},
+        params: "InboundTransferService.FailParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             InboundTransfer,
             self._request(
@@ -80,12 +84,16 @@ class InboundTransferService(StripeService):
     async def fail_async(
         self,
         id: str,
-        params: "InboundTransferService.FailParams" = {},
-        options: RequestOptions = {},
+        params: "InboundTransferService.FailParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             InboundTransfer,
             await self._request_async(
@@ -102,12 +110,16 @@ class InboundTransferService(StripeService):
     def return_inbound_transfer(
         self,
         id: str,
-        params: "InboundTransferService.ReturnInboundTransferParams" = {},
-        options: RequestOptions = {},
+        params: "InboundTransferService.ReturnInboundTransferParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             InboundTransfer,
             self._request(
@@ -124,12 +136,16 @@ class InboundTransferService(StripeService):
     async def return_inbound_transfer_async(
         self,
         id: str,
-        params: "InboundTransferService.ReturnInboundTransferParams" = {},
-        options: RequestOptions = {},
+        params: "InboundTransferService.ReturnInboundTransferParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             InboundTransfer,
             await self._request_async(
@@ -146,12 +162,16 @@ class InboundTransferService(StripeService):
     def succeed(
         self,
         id: str,
-        params: "InboundTransferService.SucceedParams" = {},
-        options: RequestOptions = {},
+        params: "InboundTransferService.SucceedParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             InboundTransfer,
             self._request(
@@ -168,12 +188,16 @@ class InboundTransferService(StripeService):
     async def succeed_async(
         self,
         id: str,
-        params: "InboundTransferService.SucceedParams" = {},
-        options: RequestOptions = {},
+        params: "InboundTransferService.SucceedParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             InboundTransfer,
             await self._request_async(

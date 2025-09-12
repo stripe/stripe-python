@@ -4,7 +4,7 @@ from stripe._funding_instructions import FundingInstructions
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -65,13 +65,15 @@ class CustomerFundingInstructionsService(StripeService):
         self,
         customer: str,
         params: "CustomerFundingInstructionsService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FundingInstructions:
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
         funding instructions will be created. If funding instructions have already been created for a given customer, the same
         funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
         """
+        if options is None:
+            options = {}
         return cast(
             FundingInstructions,
             self._request(
@@ -89,13 +91,15 @@ class CustomerFundingInstructionsService(StripeService):
         self,
         customer: str,
         params: "CustomerFundingInstructionsService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FundingInstructions:
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
         funding instructions will be created. If funding instructions have already been created for a given customer, the same
         funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
         """
+        if options is None:
+            options = {}
         return cast(
             FundingInstructions,
             await self._request_async(

@@ -4,7 +4,7 @@ from stripe._cash_balance import CashBalance
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -38,12 +38,16 @@ class CustomerCashBalanceService(StripeService):
     def retrieve(
         self,
         customer: str,
-        params: "CustomerCashBalanceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerCashBalanceService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> CashBalance:
         """
         Retrieves a customer's cash balance.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             CashBalance,
             self._request(
@@ -60,12 +64,16 @@ class CustomerCashBalanceService(StripeService):
     async def retrieve_async(
         self,
         customer: str,
-        params: "CustomerCashBalanceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerCashBalanceService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> CashBalance:
         """
         Retrieves a customer's cash balance.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             CashBalance,
             await self._request_async(
@@ -82,12 +90,16 @@ class CustomerCashBalanceService(StripeService):
     def update(
         self,
         customer: str,
-        params: "CustomerCashBalanceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerCashBalanceService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> CashBalance:
         """
         Changes the settings on a customer's cash balance.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             CashBalance,
             self._request(
@@ -104,12 +116,16 @@ class CustomerCashBalanceService(StripeService):
     async def update_async(
         self,
         customer: str,
-        params: "CustomerCashBalanceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerCashBalanceService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> CashBalance:
         """
         Changes the settings on a customer's cash balance.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             CashBalance,
             await self._request_async(

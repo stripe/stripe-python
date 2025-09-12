@@ -5,7 +5,7 @@ from stripe._payment_method import PaymentMethod
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -98,12 +98,16 @@ class CustomerPaymentMethodService(StripeService):
     def list(
         self,
         customer: str,
-        params: "CustomerPaymentMethodService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentMethodService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethod]:
         """
         Returns a list of PaymentMethods for a given Customer
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[PaymentMethod],
             self._request(
@@ -120,12 +124,16 @@ class CustomerPaymentMethodService(StripeService):
     async def list_async(
         self,
         customer: str,
-        params: "CustomerPaymentMethodService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentMethodService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethod]:
         """
         Returns a list of PaymentMethods for a given Customer
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[PaymentMethod],
             await self._request_async(
@@ -143,12 +151,16 @@ class CustomerPaymentMethodService(StripeService):
         self,
         customer: str,
         payment_method: str,
-        params: "CustomerPaymentMethodService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentMethodService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
         Retrieves a PaymentMethod object for a given Customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentMethod,
             self._request(
@@ -167,12 +179,16 @@ class CustomerPaymentMethodService(StripeService):
         self,
         customer: str,
         payment_method: str,
-        params: "CustomerPaymentMethodService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentMethodService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
         Retrieves a PaymentMethod object for a given Customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PaymentMethod,
             await self._request_async(

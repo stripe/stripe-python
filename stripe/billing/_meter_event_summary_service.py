@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing._meter_event_summary import MeterEventSummary
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -48,11 +48,13 @@ class MeterEventSummaryService(StripeService):
         self,
         id: str,
         params: "MeterEventSummaryService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[MeterEventSummary]:
         """
         Retrieve a list of billing meter event summaries.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[MeterEventSummary],
             self._request(
@@ -70,11 +72,13 @@ class MeterEventSummaryService(StripeService):
         self,
         id: str,
         params: "MeterEventSummaryService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[MeterEventSummary]:
         """
         Retrieve a list of billing meter event summaries.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[MeterEventSummary],
             await self._request_async(

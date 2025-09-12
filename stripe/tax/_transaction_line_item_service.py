@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.tax._transaction_line_item import TransactionLineItem
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -31,12 +31,16 @@ class TransactionLineItemService(StripeService):
     def list(
         self,
         transaction: str,
-        params: "TransactionLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionLineItemService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TransactionLineItem]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[TransactionLineItem],
             self._request(
@@ -53,12 +57,16 @@ class TransactionLineItemService(StripeService):
     async def list_async(
         self,
         transaction: str,
-        params: "TransactionLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionLineItemService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TransactionLineItem]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[TransactionLineItem],
             await self._request_async(

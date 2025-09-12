@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.tax._settings import Settings
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -74,12 +74,16 @@ class SettingsService(StripeService):
 
     def retrieve(
         self,
-        params: "SettingsService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SettingsService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Settings:
         """
         Retrieves Tax Settings for a merchant.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Settings,
             self._request(
@@ -93,12 +97,16 @@ class SettingsService(StripeService):
 
     async def retrieve_async(
         self,
-        params: "SettingsService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SettingsService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Settings:
         """
         Retrieves Tax Settings for a merchant.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Settings,
             await self._request_async(
@@ -112,12 +120,16 @@ class SettingsService(StripeService):
 
     def update(
         self,
-        params: "SettingsService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "SettingsService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Settings:
         """
         Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Settings,
             self._request(
@@ -131,12 +143,16 @@ class SettingsService(StripeService):
 
     async def update_async(
         self,
-        params: "SettingsService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "SettingsService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Settings:
         """
         Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Settings,
             await self._request_async(

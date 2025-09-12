@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -73,12 +73,16 @@ class CustomerBalanceTransactionService(StripeService):
     def list(
         self,
         customer: str,
-        params: "CustomerBalanceTransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerBalanceTransactionService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CustomerBalanceTransaction]:
         """
         Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[CustomerBalanceTransaction],
             self._request(
@@ -95,12 +99,16 @@ class CustomerBalanceTransactionService(StripeService):
     async def list_async(
         self,
         customer: str,
-        params: "CustomerBalanceTransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerBalanceTransactionService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CustomerBalanceTransaction]:
         """
         Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[CustomerBalanceTransaction],
             await self._request_async(
@@ -118,11 +126,13 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         params: "CustomerBalanceTransactionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
         """
+        if options is None:
+            options = {}
         return cast(
             CustomerBalanceTransaction,
             self._request(
@@ -140,11 +150,13 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         params: "CustomerBalanceTransactionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
         """
+        if options is None:
+            options = {}
         return cast(
             CustomerBalanceTransaction,
             await self._request_async(
@@ -162,12 +174,16 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
-        params: "CustomerBalanceTransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerBalanceTransactionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             CustomerBalanceTransaction,
             self._request(
@@ -186,12 +202,16 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
-        params: "CustomerBalanceTransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerBalanceTransactionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             CustomerBalanceTransaction,
             await self._request_async(
@@ -210,12 +230,16 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
-        params: "CustomerBalanceTransactionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerBalanceTransactionService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             CustomerBalanceTransaction,
             self._request(
@@ -234,12 +258,16 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
-        params: "CustomerBalanceTransactionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerBalanceTransactionService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             CustomerBalanceTransaction,
             await self._request_async(

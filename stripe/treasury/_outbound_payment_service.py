@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._outbound_payment import OutboundPayment
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -255,11 +255,13 @@ class OutboundPaymentService(StripeService):
     def list(
         self,
         params: "OutboundPaymentService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[OutboundPayment]:
         """
         Returns a list of OutboundPayments sent from the specified FinancialAccount.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[OutboundPayment],
             self._request(
@@ -274,11 +276,13 @@ class OutboundPaymentService(StripeService):
     async def list_async(
         self,
         params: "OutboundPaymentService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[OutboundPayment]:
         """
         Returns a list of OutboundPayments sent from the specified FinancialAccount.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[OutboundPayment],
             await self._request_async(
@@ -293,11 +297,13 @@ class OutboundPaymentService(StripeService):
     def create(
         self,
         params: "OutboundPaymentService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Creates an OutboundPayment.
         """
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             self._request(
@@ -312,11 +318,13 @@ class OutboundPaymentService(StripeService):
     async def create_async(
         self,
         params: "OutboundPaymentService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Creates an OutboundPayment.
         """
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             await self._request_async(
@@ -331,12 +339,16 @@ class OutboundPaymentService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "OutboundPaymentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundPaymentService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment creation request or OutboundPayment list.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             self._request(
@@ -353,12 +365,16 @@ class OutboundPaymentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "OutboundPaymentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundPaymentService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment creation request or OutboundPayment list.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             await self._request_async(
@@ -375,12 +391,16 @@ class OutboundPaymentService(StripeService):
     def cancel(
         self,
         id: str,
-        params: "OutboundPaymentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundPaymentService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Cancel an OutboundPayment.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             self._request(
@@ -397,12 +417,16 @@ class OutboundPaymentService(StripeService):
     async def cancel_async(
         self,
         id: str,
-        params: "OutboundPaymentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundPaymentService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Cancel an OutboundPayment.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundPayment,
             await self._request_async(

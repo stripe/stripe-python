@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._setup_intent import SetupIntent
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -4296,12 +4296,16 @@ class SetupIntentService(StripeService):
 
     def list(
         self,
-        params: "SetupIntentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SetupIntent]:
         """
         Returns a list of SetupIntents.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[SetupIntent],
             self._request(
@@ -4315,12 +4319,16 @@ class SetupIntentService(StripeService):
 
     async def list_async(
         self,
-        params: "SetupIntentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SetupIntent]:
         """
         Returns a list of SetupIntents.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[SetupIntent],
             await self._request_async(
@@ -4334,8 +4342,8 @@ class SetupIntentService(StripeService):
 
     def create(
         self,
-        params: "SetupIntentService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Creates a SetupIntent object.
@@ -4343,6 +4351,10 @@ class SetupIntentService(StripeService):
         After you create the SetupIntent, attach a payment method and [confirm](https://docs.stripe.com/docs/api/setup_intents/confirm)
         it to collect any required permissions to charge the payment method later.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SetupIntent,
             self._request(
@@ -4356,8 +4368,8 @@ class SetupIntentService(StripeService):
 
     async def create_async(
         self,
-        params: "SetupIntentService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Creates a SetupIntent object.
@@ -4365,6 +4377,10 @@ class SetupIntentService(StripeService):
         After you create the SetupIntent, attach a payment method and [confirm](https://docs.stripe.com/docs/api/setup_intents/confirm)
         it to collect any required permissions to charge the payment method later.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SetupIntent,
             await self._request_async(
@@ -4379,8 +4395,8 @@ class SetupIntentService(StripeService):
     def retrieve(
         self,
         intent: str,
-        params: "SetupIntentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Retrieves the details of a SetupIntent that has previously been created.
@@ -4389,6 +4405,10 @@ class SetupIntentService(StripeService):
 
         When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://docs.stripe.com/api#setup_intent_object) object reference for more details.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SetupIntent,
             self._request(
@@ -4405,8 +4425,8 @@ class SetupIntentService(StripeService):
     async def retrieve_async(
         self,
         intent: str,
-        params: "SetupIntentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Retrieves the details of a SetupIntent that has previously been created.
@@ -4415,6 +4435,10 @@ class SetupIntentService(StripeService):
 
         When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://docs.stripe.com/api#setup_intent_object) object reference for more details.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SetupIntent,
             await self._request_async(
@@ -4431,12 +4455,16 @@ class SetupIntentService(StripeService):
     def update(
         self,
         intent: str,
-        params: "SetupIntentService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Updates a SetupIntent object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SetupIntent,
             self._request(
@@ -4453,12 +4481,16 @@ class SetupIntentService(StripeService):
     async def update_async(
         self,
         intent: str,
-        params: "SetupIntentService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Updates a SetupIntent object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SetupIntent,
             await self._request_async(
@@ -4475,14 +4507,18 @@ class SetupIntentService(StripeService):
     def cancel(
         self,
         intent: str,
-        params: "SetupIntentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
         After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SetupIntent,
             self._request(
@@ -4499,14 +4535,18 @@ class SetupIntentService(StripeService):
     async def cancel_async(
         self,
         intent: str,
-        params: "SetupIntentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
         After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SetupIntent,
             await self._request_async(
@@ -4523,8 +4563,8 @@ class SetupIntentService(StripeService):
     def confirm(
         self,
         intent: str,
-        params: "SetupIntentService.ConfirmParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.ConfirmParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Confirm that your customer intends to set up the current or
@@ -4542,6 +4582,10 @@ class SetupIntentService(StripeService):
         requires_payment_method status or the canceled status if the
         confirmation limit is reached.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SetupIntent,
             self._request(
@@ -4558,8 +4602,8 @@ class SetupIntentService(StripeService):
     async def confirm_async(
         self,
         intent: str,
-        params: "SetupIntentService.ConfirmParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.ConfirmParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Confirm that your customer intends to set up the current or
@@ -4577,6 +4621,10 @@ class SetupIntentService(StripeService):
         requires_payment_method status or the canceled status if the
         confirmation limit is reached.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SetupIntent,
             await self._request_async(
@@ -4593,12 +4641,16 @@ class SetupIntentService(StripeService):
     def verify_microdeposits(
         self,
         intent: str,
-        params: "SetupIntentService.VerifyMicrodepositsParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.VerifyMicrodepositsParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Verifies microdeposits on a SetupIntent object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SetupIntent,
             self._request(
@@ -4615,12 +4667,16 @@ class SetupIntentService(StripeService):
     async def verify_microdeposits_async(
         self,
         intent: str,
-        params: "SetupIntentService.VerifyMicrodepositsParams" = {},
-        options: RequestOptions = {},
+        params: "SetupIntentService.VerifyMicrodepositsParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Verifies microdeposits on a SetupIntent object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SetupIntent,
             await self._request_async(

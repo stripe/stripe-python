@@ -5,7 +5,7 @@ from stripe._product_feature import ProductFeature
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -51,12 +51,16 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
-        params: "ProductFeatureService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "ProductFeatureService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
         Deletes the feature attachment to a product
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ProductFeature,
             self._request(
@@ -75,12 +79,16 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
-        params: "ProductFeatureService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "ProductFeatureService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
         Deletes the feature attachment to a product
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ProductFeature,
             await self._request_async(
@@ -99,12 +107,16 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
-        params: "ProductFeatureService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ProductFeatureService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
         Retrieves a product_feature, which represents a feature attachment to a product
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ProductFeature,
             self._request(
@@ -123,12 +135,16 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
-        params: "ProductFeatureService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ProductFeatureService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
         Retrieves a product_feature, which represents a feature attachment to a product
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ProductFeature,
             await self._request_async(
@@ -146,12 +162,16 @@ class ProductFeatureService(StripeService):
     def list(
         self,
         product: str,
-        params: "ProductFeatureService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ProductFeatureService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ProductFeature]:
         """
         Retrieve a list of features for a product
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ProductFeature],
             self._request(
@@ -168,12 +188,16 @@ class ProductFeatureService(StripeService):
     async def list_async(
         self,
         product: str,
-        params: "ProductFeatureService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ProductFeatureService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ProductFeature]:
         """
         Retrieve a list of features for a product
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ProductFeature],
             await self._request_async(
@@ -191,11 +215,13 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         params: "ProductFeatureService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
         Creates a product_feature, which represents a feature attachment to a product
         """
+        if options is None:
+            options = {}
         return cast(
             ProductFeature,
             self._request(
@@ -213,11 +239,13 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         params: "ProductFeatureService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
         Creates a product_feature, which represents a feature attachment to a product
         """
+        if options is None:
+            options = {}
         return cast(
             ProductFeature,
             await self._request_async(

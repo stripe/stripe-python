@@ -6,7 +6,7 @@ from stripe._stripe_service import StripeService
 from stripe._transfer import Transfer
 from stripe._transfer_reversal_service import TransferReversalService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -123,12 +123,16 @@ class TransferService(StripeService):
 
     def list(
         self,
-        params: "TransferService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "TransferService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transfer]:
         """
         Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Transfer],
             self._request(
@@ -142,12 +146,16 @@ class TransferService(StripeService):
 
     async def list_async(
         self,
-        params: "TransferService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "TransferService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transfer]:
         """
         Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Transfer],
             await self._request_async(
@@ -162,11 +170,13 @@ class TransferService(StripeService):
     def create(
         self,
         params: "TransferService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
         To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
         """
+        if options is None:
+            options = {}
         return cast(
             Transfer,
             self._request(
@@ -181,11 +191,13 @@ class TransferService(StripeService):
     async def create_async(
         self,
         params: "TransferService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
         To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
         """
+        if options is None:
+            options = {}
         return cast(
             Transfer,
             await self._request_async(
@@ -200,12 +212,16 @@ class TransferService(StripeService):
     def retrieve(
         self,
         transfer: str,
-        params: "TransferService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TransferService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
         Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transfer,
             self._request(
@@ -222,12 +238,16 @@ class TransferService(StripeService):
     async def retrieve_async(
         self,
         transfer: str,
-        params: "TransferService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TransferService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
         Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transfer,
             await self._request_async(
@@ -244,14 +264,18 @@ class TransferService(StripeService):
     def update(
         self,
         transfer: str,
-        params: "TransferService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "TransferService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
         Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
         This request accepts only metadata as an argument.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transfer,
             self._request(
@@ -268,14 +292,18 @@ class TransferService(StripeService):
     async def update_async(
         self,
         transfer: str,
-        params: "TransferService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "TransferService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
         Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
         This request accepts only metadata as an argument.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transfer,
             await self._request_async(

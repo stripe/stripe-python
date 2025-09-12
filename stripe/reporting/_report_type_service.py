@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.reporting._report_type import ReportType
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -24,12 +24,16 @@ class ReportTypeService(StripeService):
 
     def list(
         self,
-        params: "ReportTypeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ReportTypeService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReportType]:
         """
         Returns a full list of Report Types.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ReportType],
             self._request(
@@ -43,12 +47,16 @@ class ReportTypeService(StripeService):
 
     async def list_async(
         self,
-        params: "ReportTypeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ReportTypeService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReportType]:
         """
         Returns a full list of Report Types.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ReportType],
             await self._request_async(
@@ -63,12 +71,16 @@ class ReportTypeService(StripeService):
     def retrieve(
         self,
         report_type: str,
-        params: "ReportTypeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ReportTypeService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReportType:
         """
         Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ReportType,
             self._request(
@@ -85,12 +97,16 @@ class ReportTypeService(StripeService):
     async def retrieve_async(
         self,
         report_type: str,
-        params: "ReportTypeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ReportTypeService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReportType:
         """
         Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ReportType,
             await self._request_async(

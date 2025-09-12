@@ -6,7 +6,7 @@ from stripe._customer_cash_balance_transaction import (
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -33,11 +33,13 @@ class CustomerService(StripeService):
         self,
         customer: str,
         params: "CustomerService.FundCashBalanceParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CustomerCashBalanceTransaction:
         """
         Create an incoming testmode bank transfer
         """
+        if options is None:
+            options = {}
         return cast(
             CustomerCashBalanceTransaction,
             self._request(
@@ -55,11 +57,13 @@ class CustomerService(StripeService):
         self,
         customer: str,
         params: "CustomerService.FundCashBalanceParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CustomerCashBalanceTransaction:
         """
         Create an incoming testmode bank transfer
         """
+        if options is None:
+            options = {}
         return cast(
             CustomerCashBalanceTransaction,
             await self._request_async(

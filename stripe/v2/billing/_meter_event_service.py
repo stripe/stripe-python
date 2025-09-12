@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.v2.billing._meter_event import MeterEvent
-from typing import Dict, cast
+from typing import Dict, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -36,11 +36,13 @@ class MeterEventService(StripeService):
     def create(
         self,
         params: "MeterEventService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> MeterEvent:
         """
         Creates a meter event. Events are validated synchronously, but are processed asynchronously. Supports up to 1,000 events per second in livemode. For higher rate-limits, please use meter event streams instead.
         """
+        if options is None:
+            options = {}
         return cast(
             MeterEvent,
             self._request(
@@ -55,11 +57,13 @@ class MeterEventService(StripeService):
     async def create_async(
         self,
         params: "MeterEventService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> MeterEvent:
         """
         Creates a meter event. Events are validated synchronously, but are processed asynchronously. Supports up to 1,000 events per second in livemode. For higher rate-limits, please use meter event streams instead.
         """
+        if options is None:
+            options = {}
         return cast(
             MeterEvent,
             await self._request_async(

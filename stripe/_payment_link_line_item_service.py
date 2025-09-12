@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -31,12 +31,16 @@ class PaymentLinkLineItemService(StripeService):
     def list(
         self,
         payment_link: str,
-        params: "PaymentLinkLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentLinkLineItemService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[LineItem]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[LineItem],
             self._request(
@@ -53,12 +57,16 @@ class PaymentLinkLineItemService(StripeService):
     async def list_async(
         self,
         payment_link: str,
-        params: "PaymentLinkLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "PaymentLinkLineItemService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[LineItem]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[LineItem],
             await self._request_async(

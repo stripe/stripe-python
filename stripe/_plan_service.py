@@ -5,7 +5,7 @@ from stripe._plan import Plan
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -231,12 +231,16 @@ class PlanService(StripeService):
     def delete(
         self,
         plan: str,
-        params: "PlanService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "PlanService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
         Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Plan,
             self._request(
@@ -251,12 +255,16 @@ class PlanService(StripeService):
     async def delete_async(
         self,
         plan: str,
-        params: "PlanService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "PlanService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
         Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Plan,
             await self._request_async(
@@ -271,12 +279,16 @@ class PlanService(StripeService):
     def retrieve(
         self,
         plan: str,
-        params: "PlanService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "PlanService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
         Retrieves the plan with the given ID.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Plan,
             self._request(
@@ -291,12 +303,16 @@ class PlanService(StripeService):
     async def retrieve_async(
         self,
         plan: str,
-        params: "PlanService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "PlanService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
         Retrieves the plan with the given ID.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Plan,
             await self._request_async(
@@ -311,12 +327,16 @@ class PlanService(StripeService):
     def update(
         self,
         plan: str,
-        params: "PlanService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "PlanService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
         Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Plan,
             self._request(
@@ -331,12 +351,16 @@ class PlanService(StripeService):
     async def update_async(
         self,
         plan: str,
-        params: "PlanService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "PlanService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
         Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Plan,
             await self._request_async(
@@ -350,12 +374,16 @@ class PlanService(StripeService):
 
     def list(
         self,
-        params: "PlanService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "PlanService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Plan]:
         """
         Returns a list of your plans.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Plan],
             self._request(
@@ -369,12 +397,16 @@ class PlanService(StripeService):
 
     async def list_async(
         self,
-        params: "PlanService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "PlanService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Plan]:
         """
         Returns a list of your plans.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Plan],
             await self._request_async(
@@ -387,11 +419,15 @@ class PlanService(StripeService):
         )
 
     def create(
-        self, params: "PlanService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "PlanService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
         You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
         """
+        if options is None:
+            options = {}
         return cast(
             Plan,
             self._request(
@@ -404,11 +440,15 @@ class PlanService(StripeService):
         )
 
     async def create_async(
-        self, params: "PlanService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "PlanService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
         You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
         """
+        if options is None:
+            options = {}
         return cast(
             Plan,
             await self._request_async(

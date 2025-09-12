@@ -8,7 +8,7 @@ from stripe.treasury._financial_account import FinancialAccount
 from stripe.treasury._financial_account_features_service import (
     FinancialAccountFeaturesService,
 )
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -471,12 +471,16 @@ class FinancialAccountService(StripeService):
 
     def list(
         self,
-        params: "FinancialAccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "FinancialAccountService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAccount]:
         """
         Returns a list of FinancialAccounts.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[FinancialAccount],
             self._request(
@@ -490,12 +494,16 @@ class FinancialAccountService(StripeService):
 
     async def list_async(
         self,
-        params: "FinancialAccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "FinancialAccountService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAccount]:
         """
         Returns a list of FinancialAccounts.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[FinancialAccount],
             await self._request_async(
@@ -510,11 +518,13 @@ class FinancialAccountService(StripeService):
     def create(
         self,
         params: "FinancialAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
         """
+        if options is None:
+            options = {}
         return cast(
             FinancialAccount,
             self._request(
@@ -529,11 +539,13 @@ class FinancialAccountService(StripeService):
     async def create_async(
         self,
         params: "FinancialAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
         """
+        if options is None:
+            options = {}
         return cast(
             FinancialAccount,
             await self._request_async(
@@ -548,12 +560,16 @@ class FinancialAccountService(StripeService):
     def retrieve(
         self,
         financial_account: str,
-        params: "FinancialAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "FinancialAccountService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Retrieves the details of a FinancialAccount.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             FinancialAccount,
             self._request(
@@ -570,12 +586,16 @@ class FinancialAccountService(StripeService):
     async def retrieve_async(
         self,
         financial_account: str,
-        params: "FinancialAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "FinancialAccountService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Retrieves the details of a FinancialAccount.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             FinancialAccount,
             await self._request_async(
@@ -592,12 +612,16 @@ class FinancialAccountService(StripeService):
     def update(
         self,
         financial_account: str,
-        params: "FinancialAccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "FinancialAccountService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Updates the details of a FinancialAccount.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             FinancialAccount,
             self._request(
@@ -614,12 +638,16 @@ class FinancialAccountService(StripeService):
     async def update_async(
         self,
         financial_account: str,
-        params: "FinancialAccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "FinancialAccountService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Updates the details of a FinancialAccount.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             FinancialAccount,
             await self._request_async(
@@ -636,12 +664,16 @@ class FinancialAccountService(StripeService):
     def close(
         self,
         financial_account: str,
-        params: "FinancialAccountService.CloseParams" = {},
-        options: RequestOptions = {},
+        params: "FinancialAccountService.CloseParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             FinancialAccount,
             self._request(
@@ -658,12 +690,16 @@ class FinancialAccountService(StripeService):
     async def close_async(
         self,
         financial_account: str,
-        params: "FinancialAccountService.CloseParams" = {},
-        options: RequestOptions = {},
+        params: "FinancialAccountService.CloseParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             FinancialAccount,
             await self._request_async(

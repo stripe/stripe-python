@@ -7,7 +7,7 @@ from stripe.tax._calculation import Calculation
 from stripe.tax._calculation_line_item_service import (
     CalculationLineItemService,
 )
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -321,12 +321,16 @@ class CalculationService(StripeService):
     def retrieve(
         self,
         calculation: str,
-        params: "CalculationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CalculationService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Calculation:
         """
         Retrieves a Tax Calculation object, if the calculation hasn't expired.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Calculation,
             self._request(
@@ -343,12 +347,16 @@ class CalculationService(StripeService):
     async def retrieve_async(
         self,
         calculation: str,
-        params: "CalculationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CalculationService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Calculation:
         """
         Retrieves a Tax Calculation object, if the calculation hasn't expired.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Calculation,
             await self._request_async(
@@ -365,11 +373,13 @@ class CalculationService(StripeService):
     def create(
         self,
         params: "CalculationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Calculation:
         """
         Calculates tax based on the input and returns a Tax Calculation object.
         """
+        if options is None:
+            options = {}
         return cast(
             Calculation,
             self._request(
@@ -384,11 +394,13 @@ class CalculationService(StripeService):
     async def create_async(
         self,
         params: "CalculationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Calculation:
         """
         Calculates tax based on the input and returns a Tax Calculation object.
         """
+        if options is None:
+            options = {}
         return cast(
             Calculation,
             await self._request_async(

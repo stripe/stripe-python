@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._subscription_schedule import SubscriptionSchedule
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -1302,12 +1302,16 @@ class SubscriptionScheduleService(StripeService):
 
     def list(
         self,
-        params: "SubscriptionScheduleService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionScheduleService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SubscriptionSchedule]:
         """
         Retrieves the list of your subscription schedules.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[SubscriptionSchedule],
             self._request(
@@ -1321,12 +1325,16 @@ class SubscriptionScheduleService(StripeService):
 
     async def list_async(
         self,
-        params: "SubscriptionScheduleService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionScheduleService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SubscriptionSchedule]:
         """
         Retrieves the list of your subscription schedules.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[SubscriptionSchedule],
             await self._request_async(
@@ -1340,12 +1348,16 @@ class SubscriptionScheduleService(StripeService):
 
     def create(
         self,
-        params: "SubscriptionScheduleService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionScheduleService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SubscriptionSchedule,
             self._request(
@@ -1359,12 +1371,16 @@ class SubscriptionScheduleService(StripeService):
 
     async def create_async(
         self,
-        params: "SubscriptionScheduleService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionScheduleService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SubscriptionSchedule,
             await self._request_async(
@@ -1379,12 +1395,16 @@ class SubscriptionScheduleService(StripeService):
     def retrieve(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionScheduleService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SubscriptionSchedule,
             self._request(
@@ -1401,12 +1421,16 @@ class SubscriptionScheduleService(StripeService):
     async def retrieve_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionScheduleService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SubscriptionSchedule,
             await self._request_async(
@@ -1423,12 +1447,16 @@ class SubscriptionScheduleService(StripeService):
     def update(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionScheduleService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Updates an existing subscription schedule.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SubscriptionSchedule,
             self._request(
@@ -1445,12 +1473,16 @@ class SubscriptionScheduleService(StripeService):
     async def update_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionScheduleService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Updates an existing subscription schedule.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SubscriptionSchedule,
             await self._request_async(
@@ -1467,12 +1499,16 @@ class SubscriptionScheduleService(StripeService):
     def cancel(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionScheduleService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SubscriptionSchedule,
             self._request(
@@ -1489,12 +1525,16 @@ class SubscriptionScheduleService(StripeService):
     async def cancel_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionScheduleService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SubscriptionSchedule,
             await self._request_async(
@@ -1511,12 +1551,16 @@ class SubscriptionScheduleService(StripeService):
     def release(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.ReleaseParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionScheduleService.ReleaseParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SubscriptionSchedule,
             self._request(
@@ -1533,12 +1577,16 @@ class SubscriptionScheduleService(StripeService):
     async def release_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.ReleaseParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionScheduleService.ReleaseParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             SubscriptionSchedule,
             await self._request_async(

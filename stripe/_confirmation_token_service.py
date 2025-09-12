@@ -4,7 +4,7 @@ from stripe._confirmation_token import ConfirmationToken
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -18,12 +18,16 @@ class ConfirmationTokenService(StripeService):
     def retrieve(
         self,
         confirmation_token: str,
-        params: "ConfirmationTokenService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ConfirmationTokenService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ConfirmationToken:
         """
         Retrieves an existing ConfirmationToken object
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ConfirmationToken,
             self._request(
@@ -40,12 +44,16 @@ class ConfirmationTokenService(StripeService):
     async def retrieve_async(
         self,
         confirmation_token: str,
-        params: "ConfirmationTokenService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ConfirmationTokenService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ConfirmationToken:
         """
         Retrieves an existing ConfirmationToken object
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ConfirmationToken,
             await self._request_async(

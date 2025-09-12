@@ -8,7 +8,7 @@ from stripe._source import Source
 from stripe._source_transaction_service import SourceTransactionService
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -541,12 +541,16 @@ class SourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "SourceService.DetachParams" = {},
-        options: RequestOptions = {},
+        params: "SourceService.DetachParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Delete a specified source for a given customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             self._request(
@@ -565,12 +569,16 @@ class SourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "SourceService.DetachParams" = {},
-        options: RequestOptions = {},
+        params: "SourceService.DetachParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Delete a specified source for a given customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             await self._request_async(
@@ -588,12 +596,16 @@ class SourceService(StripeService):
     def retrieve(
         self,
         source: str,
-        params: "SourceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SourceService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Source:
         """
         Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Source,
             self._request(
@@ -608,12 +620,16 @@ class SourceService(StripeService):
     async def retrieve_async(
         self,
         source: str,
-        params: "SourceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SourceService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Source:
         """
         Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Source,
             await self._request_async(
@@ -628,14 +644,18 @@ class SourceService(StripeService):
     def update(
         self,
         source: str,
-        params: "SourceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "SourceService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Source:
         """
         Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
         This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://docs.stripe.com/docs/sources) for more detail.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Source,
             self._request(
@@ -650,14 +670,18 @@ class SourceService(StripeService):
     async def update_async(
         self,
         source: str,
-        params: "SourceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "SourceService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Source:
         """
         Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
         This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://docs.stripe.com/docs/sources) for more detail.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Source,
             await self._request_async(
@@ -671,12 +695,16 @@ class SourceService(StripeService):
 
     def create(
         self,
-        params: "SourceService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "SourceService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Source:
         """
         Creates a new source object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Source,
             self._request(
@@ -690,12 +718,16 @@ class SourceService(StripeService):
 
     async def create_async(
         self,
-        params: "SourceService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "SourceService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Source:
         """
         Creates a new source object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Source,
             await self._request_async(
@@ -711,11 +743,13 @@ class SourceService(StripeService):
         self,
         source: str,
         params: "SourceService.VerifyParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Source:
         """
         Verify a given source.
         """
+        if options is None:
+            options = {}
         return cast(
             Source,
             self._request(
@@ -733,11 +767,13 @@ class SourceService(StripeService):
         self,
         source: str,
         params: "SourceService.VerifyParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Source:
         """
         Verify a given source.
         """
+        if options is None:
+            options = {}
         return cast(
             Source,
             await self._request_async(

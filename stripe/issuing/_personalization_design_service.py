@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._personalization_design import PersonalizationDesign
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -194,12 +194,16 @@ class PersonalizationDesignService(StripeService):
 
     def list(
         self,
-        params: "PersonalizationDesignService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "PersonalizationDesignService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PersonalizationDesign]:
         """
         Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[PersonalizationDesign],
             self._request(
@@ -213,12 +217,16 @@ class PersonalizationDesignService(StripeService):
 
     async def list_async(
         self,
-        params: "PersonalizationDesignService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "PersonalizationDesignService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PersonalizationDesign]:
         """
         Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[PersonalizationDesign],
             await self._request_async(
@@ -233,11 +241,13 @@ class PersonalizationDesignService(StripeService):
     def create(
         self,
         params: "PersonalizationDesignService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
         Creates a personalization design object.
         """
+        if options is None:
+            options = {}
         return cast(
             PersonalizationDesign,
             self._request(
@@ -252,11 +262,13 @@ class PersonalizationDesignService(StripeService):
     async def create_async(
         self,
         params: "PersonalizationDesignService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
         Creates a personalization design object.
         """
+        if options is None:
+            options = {}
         return cast(
             PersonalizationDesign,
             await self._request_async(
@@ -271,12 +283,16 @@ class PersonalizationDesignService(StripeService):
     def retrieve(
         self,
         personalization_design: str,
-        params: "PersonalizationDesignService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "PersonalizationDesignService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
         Retrieves a personalization design object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PersonalizationDesign,
             self._request(
@@ -293,12 +309,16 @@ class PersonalizationDesignService(StripeService):
     async def retrieve_async(
         self,
         personalization_design: str,
-        params: "PersonalizationDesignService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "PersonalizationDesignService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
         Retrieves a personalization design object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PersonalizationDesign,
             await self._request_async(
@@ -315,12 +335,16 @@ class PersonalizationDesignService(StripeService):
     def update(
         self,
         personalization_design: str,
-        params: "PersonalizationDesignService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "PersonalizationDesignService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
         Updates a card personalization object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PersonalizationDesign,
             self._request(
@@ -337,12 +361,16 @@ class PersonalizationDesignService(StripeService):
     async def update_async(
         self,
         personalization_design: str,
-        params: "PersonalizationDesignService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "PersonalizationDesignService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
         Updates a card personalization object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PersonalizationDesign,
             await self._request_async(

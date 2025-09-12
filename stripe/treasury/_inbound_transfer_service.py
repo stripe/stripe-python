@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._inbound_transfer import InboundTransfer
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -87,11 +87,13 @@ class InboundTransferService(StripeService):
     def list(
         self,
         params: "InboundTransferService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[InboundTransfer]:
         """
         Returns a list of InboundTransfers sent from the specified FinancialAccount.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[InboundTransfer],
             self._request(
@@ -106,11 +108,13 @@ class InboundTransferService(StripeService):
     async def list_async(
         self,
         params: "InboundTransferService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[InboundTransfer]:
         """
         Returns a list of InboundTransfers sent from the specified FinancialAccount.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[InboundTransfer],
             await self._request_async(
@@ -125,11 +129,13 @@ class InboundTransferService(StripeService):
     def create(
         self,
         params: "InboundTransferService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Creates an InboundTransfer.
         """
+        if options is None:
+            options = {}
         return cast(
             InboundTransfer,
             self._request(
@@ -144,11 +150,13 @@ class InboundTransferService(StripeService):
     async def create_async(
         self,
         params: "InboundTransferService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Creates an InboundTransfer.
         """
+        if options is None:
+            options = {}
         return cast(
             InboundTransfer,
             await self._request_async(
@@ -163,12 +171,16 @@ class InboundTransferService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "InboundTransferService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "InboundTransferService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Retrieves the details of an existing InboundTransfer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             InboundTransfer,
             self._request(
@@ -185,12 +197,16 @@ class InboundTransferService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "InboundTransferService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "InboundTransferService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Retrieves the details of an existing InboundTransfer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             InboundTransfer,
             await self._request_async(
@@ -207,12 +223,16 @@ class InboundTransferService(StripeService):
     def cancel(
         self,
         inbound_transfer: str,
-        params: "InboundTransferService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "InboundTransferService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Cancels an InboundTransfer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             InboundTransfer,
             self._request(
@@ -229,12 +249,16 @@ class InboundTransferService(StripeService):
     async def cancel_async(
         self,
         inbound_transfer: str,
-        params: "InboundTransferService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "InboundTransferService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Cancels an InboundTransfer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             InboundTransfer,
             await self._request_async(

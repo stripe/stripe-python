@@ -3,7 +3,7 @@
 from stripe._confirmation_token import ConfirmationToken
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -902,12 +902,16 @@ class ConfirmationTokenService(StripeService):
 
     def create(
         self,
-        params: "ConfirmationTokenService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "ConfirmationTokenService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ConfirmationToken:
         """
         Creates a test mode Confirmation Token server side for your integration tests.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ConfirmationToken,
             self._request(
@@ -921,12 +925,16 @@ class ConfirmationTokenService(StripeService):
 
     async def create_async(
         self,
-        params: "ConfirmationTokenService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "ConfirmationTokenService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ConfirmationToken:
         """
         Creates a test mode Confirmation Token server side for your integration tests.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ConfirmationToken,
             await self._request_async(

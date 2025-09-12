@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._physical_bundle import PhysicalBundle
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -44,12 +44,16 @@ class PhysicalBundleService(StripeService):
 
     def list(
         self,
-        params: "PhysicalBundleService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "PhysicalBundleService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PhysicalBundle]:
         """
         Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[PhysicalBundle],
             self._request(
@@ -63,12 +67,16 @@ class PhysicalBundleService(StripeService):
 
     async def list_async(
         self,
-        params: "PhysicalBundleService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "PhysicalBundleService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PhysicalBundle]:
         """
         Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[PhysicalBundle],
             await self._request_async(
@@ -83,12 +91,16 @@ class PhysicalBundleService(StripeService):
     def retrieve(
         self,
         physical_bundle: str,
-        params: "PhysicalBundleService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "PhysicalBundleService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PhysicalBundle:
         """
         Retrieves a physical bundle object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PhysicalBundle,
             self._request(
@@ -105,12 +117,16 @@ class PhysicalBundleService(StripeService):
     async def retrieve_async(
         self,
         physical_bundle: str,
-        params: "PhysicalBundleService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "PhysicalBundleService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> PhysicalBundle:
         """
         Retrieves a physical bundle object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             PhysicalBundle,
             await self._request_async(

@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._card import Card
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -42,12 +42,16 @@ class CardService(StripeService):
     def deliver_card(
         self,
         card: str,
-        params: "CardService.DeliverCardParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.DeliverCardParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Updates the shipping status of the specified Issuing Card object to delivered.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             self._request(
@@ -64,12 +68,16 @@ class CardService(StripeService):
     async def deliver_card_async(
         self,
         card: str,
-        params: "CardService.DeliverCardParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.DeliverCardParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Updates the shipping status of the specified Issuing Card object to delivered.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             await self._request_async(
@@ -86,12 +94,16 @@ class CardService(StripeService):
     def fail_card(
         self,
         card: str,
-        params: "CardService.FailCardParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.FailCardParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Updates the shipping status of the specified Issuing Card object to failure.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             self._request(
@@ -108,12 +120,16 @@ class CardService(StripeService):
     async def fail_card_async(
         self,
         card: str,
-        params: "CardService.FailCardParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.FailCardParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Updates the shipping status of the specified Issuing Card object to failure.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             await self._request_async(
@@ -130,12 +146,16 @@ class CardService(StripeService):
     def return_card(
         self,
         card: str,
-        params: "CardService.ReturnCardParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.ReturnCardParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Updates the shipping status of the specified Issuing Card object to returned.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             self._request(
@@ -152,12 +172,16 @@ class CardService(StripeService):
     async def return_card_async(
         self,
         card: str,
-        params: "CardService.ReturnCardParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.ReturnCardParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Updates the shipping status of the specified Issuing Card object to returned.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             await self._request_async(
@@ -174,12 +198,16 @@ class CardService(StripeService):
     def ship_card(
         self,
         card: str,
-        params: "CardService.ShipCardParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.ShipCardParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Updates the shipping status of the specified Issuing Card object to shipped.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             self._request(
@@ -196,12 +224,16 @@ class CardService(StripeService):
     async def ship_card_async(
         self,
         card: str,
-        params: "CardService.ShipCardParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.ShipCardParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Updates the shipping status of the specified Issuing Card object to shipped.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             await self._request_async(
@@ -218,12 +250,16 @@ class CardService(StripeService):
     def submit_card(
         self,
         card: str,
-        params: "CardService.SubmitCardParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.SubmitCardParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             self._request(
@@ -240,12 +276,16 @@ class CardService(StripeService):
     async def submit_card_async(
         self,
         card: str,
-        params: "CardService.SubmitCardParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.SubmitCardParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             await self._request_async(

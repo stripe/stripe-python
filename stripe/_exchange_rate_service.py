@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -36,12 +36,16 @@ class ExchangeRateService(StripeService):
 
     def list(
         self,
-        params: "ExchangeRateService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ExchangeRateService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ExchangeRate]:
         """
         Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ExchangeRate],
             self._request(
@@ -55,12 +59,16 @@ class ExchangeRateService(StripeService):
 
     async def list_async(
         self,
-        params: "ExchangeRateService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ExchangeRateService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ExchangeRate]:
         """
         Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ExchangeRate],
             await self._request_async(
@@ -75,12 +83,16 @@ class ExchangeRateService(StripeService):
     def retrieve(
         self,
         rate_id: str,
-        params: "ExchangeRateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ExchangeRateService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ExchangeRate:
         """
         Retrieves the exchange rates from the given currency to every supported currency.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ExchangeRate,
             self._request(
@@ -97,12 +109,16 @@ class ExchangeRateService(StripeService):
     async def retrieve_async(
         self,
         rate_id: str,
-        params: "ExchangeRateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ExchangeRateService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ExchangeRate:
         """
         Retrieves the exchange rates from the given currency to every supported currency.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ExchangeRate,
             await self._request_async(

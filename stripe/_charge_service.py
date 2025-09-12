@@ -6,7 +6,7 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -371,12 +371,16 @@ class ChargeService(StripeService):
 
     def list(
         self,
-        params: "ChargeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ChargeService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Charge]:
         """
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Charge],
             self._request(
@@ -390,12 +394,16 @@ class ChargeService(StripeService):
 
     async def list_async(
         self,
-        params: "ChargeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ChargeService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Charge]:
         """
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Charge],
             await self._request_async(
@@ -409,14 +417,18 @@ class ChargeService(StripeService):
 
     def create(
         self,
-        params: "ChargeService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "ChargeService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
         to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
         object used to request payment.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Charge,
             self._request(
@@ -430,14 +442,18 @@ class ChargeService(StripeService):
 
     async def create_async(
         self,
-        params: "ChargeService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "ChargeService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
         to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
         object used to request payment.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Charge,
             await self._request_async(
@@ -452,12 +468,16 @@ class ChargeService(StripeService):
     def retrieve(
         self,
         charge: str,
-        params: "ChargeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ChargeService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Charge,
             self._request(
@@ -472,12 +492,16 @@ class ChargeService(StripeService):
     async def retrieve_async(
         self,
         charge: str,
-        params: "ChargeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ChargeService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Charge,
             await self._request_async(
@@ -492,12 +516,16 @@ class ChargeService(StripeService):
     def update(
         self,
         charge: str,
-        params: "ChargeService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "ChargeService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Charge,
             self._request(
@@ -512,12 +540,16 @@ class ChargeService(StripeService):
     async def update_async(
         self,
         charge: str,
-        params: "ChargeService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "ChargeService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Charge,
             await self._request_async(
@@ -532,7 +564,7 @@ class ChargeService(StripeService):
     def search(
         self,
         params: "ChargeService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Charge]:
         """
         Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -540,6 +572,8 @@ class ChargeService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
+        if options is None:
+            options = {}
         return cast(
             SearchResultObject[Charge],
             self._request(
@@ -554,7 +588,7 @@ class ChargeService(StripeService):
     async def search_async(
         self,
         params: "ChargeService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Charge]:
         """
         Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -562,6 +596,8 @@ class ChargeService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
+        if options is None:
+            options = {}
         return cast(
             SearchResultObject[Charge],
             await self._request_async(
@@ -576,8 +612,8 @@ class ChargeService(StripeService):
     def capture(
         self,
         charge: str,
-        params: "ChargeService.CaptureParams" = {},
-        options: RequestOptions = {},
+        params: "ChargeService.CaptureParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -586,6 +622,10 @@ class ChargeService(StripeService):
 
         Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Charge,
             self._request(
@@ -602,8 +642,8 @@ class ChargeService(StripeService):
     async def capture_async(
         self,
         charge: str,
-        params: "ChargeService.CaptureParams" = {},
-        options: RequestOptions = {},
+        params: "ChargeService.CaptureParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -612,6 +652,10 @@ class ChargeService(StripeService):
 
         Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Charge,
             await self._request_async(

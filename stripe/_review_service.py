@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._review import Review
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -64,12 +64,16 @@ class ReviewService(StripeService):
 
     def list(
         self,
-        params: "ReviewService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ReviewService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Review]:
         """
         Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Review],
             self._request(
@@ -83,12 +87,16 @@ class ReviewService(StripeService):
 
     async def list_async(
         self,
-        params: "ReviewService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ReviewService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Review]:
         """
         Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Review],
             await self._request_async(
@@ -103,12 +111,16 @@ class ReviewService(StripeService):
     def retrieve(
         self,
         review: str,
-        params: "ReviewService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ReviewService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Review:
         """
         Retrieves a Review object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Review,
             self._request(
@@ -123,12 +135,16 @@ class ReviewService(StripeService):
     async def retrieve_async(
         self,
         review: str,
-        params: "ReviewService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ReviewService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Review:
         """
         Retrieves a Review object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Review,
             await self._request_async(
@@ -143,12 +159,16 @@ class ReviewService(StripeService):
     def approve(
         self,
         review: str,
-        params: "ReviewService.ApproveParams" = {},
-        options: RequestOptions = {},
+        params: "ReviewService.ApproveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Review:
         """
         Approves a Review object, closing it and removing it from the list of reviews.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Review,
             self._request(
@@ -165,12 +185,16 @@ class ReviewService(StripeService):
     async def approve_async(
         self,
         review: str,
-        params: "ReviewService.ApproveParams" = {},
-        options: RequestOptions = {},
+        params: "ReviewService.ApproveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Review:
         """
         Approves a Review object, closing it and removing it from the list of reviews.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Review,
             await self._request_async(

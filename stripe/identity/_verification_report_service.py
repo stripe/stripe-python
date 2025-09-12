@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.identity._verification_report import VerificationReport
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -70,12 +70,16 @@ class VerificationReportService(StripeService):
 
     def list(
         self,
-        params: "VerificationReportService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationReportService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[VerificationReport]:
         """
         List all verification reports.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[VerificationReport],
             self._request(
@@ -89,12 +93,16 @@ class VerificationReportService(StripeService):
 
     async def list_async(
         self,
-        params: "VerificationReportService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationReportService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[VerificationReport]:
         """
         List all verification reports.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[VerificationReport],
             await self._request_async(
@@ -109,12 +117,16 @@ class VerificationReportService(StripeService):
     def retrieve(
         self,
         report: str,
-        params: "VerificationReportService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationReportService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationReport:
         """
         Retrieves an existing VerificationReport
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             VerificationReport,
             self._request(
@@ -131,12 +143,16 @@ class VerificationReportService(StripeService):
     async def retrieve_async(
         self,
         report: str,
-        params: "VerificationReportService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationReportService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationReport:
         """
         Retrieves an existing VerificationReport
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             VerificationReport,
             await self._request_async(

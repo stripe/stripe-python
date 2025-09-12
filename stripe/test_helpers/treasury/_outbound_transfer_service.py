@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._outbound_transfer import OutboundTransfer
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -104,11 +104,13 @@ class OutboundTransferService(StripeService):
         self,
         outbound_transfer: str,
         params: "OutboundTransferService.UpdateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
         """
+        if options is None:
+            options = {}
         return cast(
             OutboundTransfer,
             self._request(
@@ -126,11 +128,13 @@ class OutboundTransferService(StripeService):
         self,
         outbound_transfer: str,
         params: "OutboundTransferService.UpdateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
         """
+        if options is None:
+            options = {}
         return cast(
             OutboundTransfer,
             await self._request_async(
@@ -147,12 +151,16 @@ class OutboundTransferService(StripeService):
     def fail(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.FailParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundTransferService.FailParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundTransfer,
             self._request(
@@ -169,12 +177,16 @@ class OutboundTransferService(StripeService):
     async def fail_async(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.FailParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundTransferService.FailParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundTransfer,
             await self._request_async(
@@ -191,12 +203,16 @@ class OutboundTransferService(StripeService):
     def post(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.PostParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundTransferService.PostParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundTransfer,
             self._request(
@@ -213,12 +229,16 @@ class OutboundTransferService(StripeService):
     async def post_async(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.PostParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundTransferService.PostParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundTransfer,
             await self._request_async(
@@ -235,12 +255,16 @@ class OutboundTransferService(StripeService):
     def return_outbound_transfer(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.ReturnOutboundTransferParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundTransferService.ReturnOutboundTransferParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundTransfer,
             self._request(
@@ -257,12 +281,16 @@ class OutboundTransferService(StripeService):
     async def return_outbound_transfer_async(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.ReturnOutboundTransferParams" = {},
-        options: RequestOptions = {},
+        params: "OutboundTransferService.ReturnOutboundTransferParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             OutboundTransfer,
             await self._request_async(

@@ -3,7 +3,7 @@
 from stripe._balance import Balance
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -16,13 +16,17 @@ class BalanceService(StripeService):
 
     def retrieve(
         self,
-        params: "BalanceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "BalanceService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Balance:
         """
         Retrieves the current account balance, based on the authentication that was used to make the request.
          For a sample request, see [Accounting for negative balances](https://docs.stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Balance,
             self._request(
@@ -36,13 +40,17 @@ class BalanceService(StripeService):
 
     async def retrieve_async(
         self,
-        params: "BalanceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "BalanceService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Balance:
         """
         Retrieves the current account balance, based on the authentication that was used to make the request.
          For a sample request, see [Accounting for negative balances](https://docs.stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Balance,
             await self._request_async(

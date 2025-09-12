@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._transaction_entry import TransactionEntry
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -92,11 +92,13 @@ class TransactionEntryService(StripeService):
     def list(
         self,
         params: "TransactionEntryService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TransactionEntry]:
         """
         Retrieves a list of TransactionEntry objects.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[TransactionEntry],
             self._request(
@@ -111,11 +113,13 @@ class TransactionEntryService(StripeService):
     async def list_async(
         self,
         params: "TransactionEntryService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TransactionEntry]:
         """
         Retrieves a list of TransactionEntry objects.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[TransactionEntry],
             await self._request_async(
@@ -130,12 +134,16 @@ class TransactionEntryService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "TransactionEntryService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionEntryService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> TransactionEntry:
         """
         Retrieves a TransactionEntry object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             TransactionEntry,
             self._request(
@@ -152,12 +160,16 @@ class TransactionEntryService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "TransactionEntryService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionEntryService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> TransactionEntry:
         """
         Retrieves a TransactionEntry object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             TransactionEntry,
             await self._request_async(

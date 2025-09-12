@@ -7,7 +7,7 @@ from stripe.tax._transaction import Transaction
 from stripe.tax._transaction_line_item_service import (
     TransactionLineItemService,
 )
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -121,12 +121,16 @@ class TransactionService(StripeService):
     def retrieve(
         self,
         transaction: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves a Tax Transaction object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             self._request(
@@ -143,12 +147,16 @@ class TransactionService(StripeService):
     async def retrieve_async(
         self,
         transaction: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves a Tax Transaction object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             await self._request_async(
@@ -165,11 +173,13 @@ class TransactionService(StripeService):
     def create_from_calculation(
         self,
         params: "TransactionService.CreateFromCalculationParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
         """
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             self._request(
@@ -184,11 +194,13 @@ class TransactionService(StripeService):
     async def create_from_calculation_async(
         self,
         params: "TransactionService.CreateFromCalculationParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
         """
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             await self._request_async(
@@ -203,11 +215,13 @@ class TransactionService(StripeService):
     def create_reversal(
         self,
         params: "TransactionService.CreateReversalParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Partially or fully reverses a previously created Transaction.
         """
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             self._request(
@@ -222,11 +236,13 @@ class TransactionService(StripeService):
     async def create_reversal_async(
         self,
         params: "TransactionService.CreateReversalParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Partially or fully reverses a previously created Transaction.
         """
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             await self._request_async(

@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._transaction import Transaction
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -1254,12 +1254,16 @@ class TransactionService(StripeService):
     def refund(
         self,
         transaction: str,
-        params: "TransactionService.RefundParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionService.RefundParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Refund a test-mode Transaction.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             self._request(
@@ -1276,12 +1280,16 @@ class TransactionService(StripeService):
     async def refund_async(
         self,
         transaction: str,
-        params: "TransactionService.RefundParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionService.RefundParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Refund a test-mode Transaction.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             await self._request_async(
@@ -1298,11 +1306,13 @@ class TransactionService(StripeService):
     def create_force_capture(
         self,
         params: "TransactionService.CreateForceCaptureParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Allows the user to capture an arbitrary amount, also known as a forced capture.
         """
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             self._request(
@@ -1317,11 +1327,13 @@ class TransactionService(StripeService):
     async def create_force_capture_async(
         self,
         params: "TransactionService.CreateForceCaptureParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Allows the user to capture an arbitrary amount, also known as a forced capture.
         """
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             await self._request_async(
@@ -1336,11 +1348,13 @@ class TransactionService(StripeService):
     def create_unlinked_refund(
         self,
         params: "TransactionService.CreateUnlinkedRefundParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Allows the user to refund an arbitrary amount, also known as a unlinked refund.
         """
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             self._request(
@@ -1355,11 +1369,13 @@ class TransactionService(StripeService):
     async def create_unlinked_refund_async(
         self,
         params: "TransactionService.CreateUnlinkedRefundParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Allows the user to refund an arbitrary amount, also known as a unlinked refund.
         """
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             await self._request_async(

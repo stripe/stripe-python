@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -98,12 +98,16 @@ class FileLinkService(StripeService):
 
     def list(
         self,
-        params: "FileLinkService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "FileLinkService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FileLink]:
         """
         Returns a list of file links.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[FileLink],
             self._request(
@@ -117,12 +121,16 @@ class FileLinkService(StripeService):
 
     async def list_async(
         self,
-        params: "FileLinkService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "FileLinkService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FileLink]:
         """
         Returns a list of file links.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[FileLink],
             await self._request_async(
@@ -137,11 +145,13 @@ class FileLinkService(StripeService):
     def create(
         self,
         params: "FileLinkService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FileLink:
         """
         Creates a new file link object.
         """
+        if options is None:
+            options = {}
         return cast(
             FileLink,
             self._request(
@@ -156,11 +166,13 @@ class FileLinkService(StripeService):
     async def create_async(
         self,
         params: "FileLinkService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FileLink:
         """
         Creates a new file link object.
         """
+        if options is None:
+            options = {}
         return cast(
             FileLink,
             await self._request_async(
@@ -175,12 +187,16 @@ class FileLinkService(StripeService):
     def retrieve(
         self,
         link: str,
-        params: "FileLinkService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "FileLinkService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> FileLink:
         """
         Retrieves the file link with the given ID.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             FileLink,
             self._request(
@@ -195,12 +211,16 @@ class FileLinkService(StripeService):
     async def retrieve_async(
         self,
         link: str,
-        params: "FileLinkService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "FileLinkService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> FileLink:
         """
         Retrieves the file link with the given ID.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             FileLink,
             await self._request_async(
@@ -215,12 +235,16 @@ class FileLinkService(StripeService):
     def update(
         self,
         link: str,
-        params: "FileLinkService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "FileLinkService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> FileLink:
         """
         Updates an existing file link object. Expired links can no longer be updated.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             FileLink,
             self._request(
@@ -235,12 +259,16 @@ class FileLinkService(StripeService):
     async def update_async(
         self,
         link: str,
-        params: "FileLinkService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "FileLinkService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> FileLink:
         """
         Updates an existing file link object. Expired links can no longer be updated.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             FileLink,
             await self._request_async(

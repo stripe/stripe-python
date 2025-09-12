@@ -5,7 +5,7 @@ from stripe._person import Person
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -999,12 +999,16 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "AccountPersonService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Person,
             self._request(
@@ -1023,12 +1027,16 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "AccountPersonService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Person,
             await self._request_async(
@@ -1047,12 +1055,16 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "AccountPersonService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Retrieves an existing person.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Person,
             self._request(
@@ -1071,12 +1083,16 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "AccountPersonService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Retrieves an existing person.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Person,
             await self._request_async(
@@ -1095,12 +1111,16 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "AccountPersonService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Updates an existing person.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Person,
             self._request(
@@ -1119,12 +1139,16 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "AccountPersonService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Updates an existing person.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Person,
             await self._request_async(
@@ -1142,12 +1166,16 @@ class AccountPersonService(StripeService):
     def list(
         self,
         account: str,
-        params: "AccountPersonService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "AccountPersonService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Person]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Person],
             self._request(
@@ -1164,12 +1192,16 @@ class AccountPersonService(StripeService):
     async def list_async(
         self,
         account: str,
-        params: "AccountPersonService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "AccountPersonService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Person]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Person],
             await self._request_async(
@@ -1186,12 +1218,16 @@ class AccountPersonService(StripeService):
     def create(
         self,
         account: str,
-        params: "AccountPersonService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "AccountPersonService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Creates a new person.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Person,
             self._request(
@@ -1208,12 +1244,16 @@ class AccountPersonService(StripeService):
     async def create_async(
         self,
         account: str,
-        params: "AccountPersonService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "AccountPersonService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Creates a new person.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Person,
             await self._request_async(

@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._shipping_rate import ShippingRate
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -220,12 +220,16 @@ class ShippingRateService(StripeService):
 
     def list(
         self,
-        params: "ShippingRateService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ShippingRateService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ShippingRate]:
         """
         Returns a list of your shipping rates.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ShippingRate],
             self._request(
@@ -239,12 +243,16 @@ class ShippingRateService(StripeService):
 
     async def list_async(
         self,
-        params: "ShippingRateService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ShippingRateService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ShippingRate]:
         """
         Returns a list of your shipping rates.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ShippingRate],
             await self._request_async(
@@ -259,11 +267,13 @@ class ShippingRateService(StripeService):
     def create(
         self,
         params: "ShippingRateService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
         Creates a new shipping rate object.
         """
+        if options is None:
+            options = {}
         return cast(
             ShippingRate,
             self._request(
@@ -278,11 +288,13 @@ class ShippingRateService(StripeService):
     async def create_async(
         self,
         params: "ShippingRateService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
         Creates a new shipping rate object.
         """
+        if options is None:
+            options = {}
         return cast(
             ShippingRate,
             await self._request_async(
@@ -297,12 +309,16 @@ class ShippingRateService(StripeService):
     def retrieve(
         self,
         shipping_rate_token: str,
-        params: "ShippingRateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ShippingRateService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
         Returns the shipping rate object with the given ID.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ShippingRate,
             self._request(
@@ -319,12 +335,16 @@ class ShippingRateService(StripeService):
     async def retrieve_async(
         self,
         shipping_rate_token: str,
-        params: "ShippingRateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ShippingRateService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
         Returns the shipping rate object with the given ID.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ShippingRate,
             await self._request_async(
@@ -341,12 +361,16 @@ class ShippingRateService(StripeService):
     def update(
         self,
         shipping_rate_token: str,
-        params: "ShippingRateService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "ShippingRateService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
         Updates an existing shipping rate object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ShippingRate,
             self._request(
@@ -363,12 +387,16 @@ class ShippingRateService(StripeService):
     async def update_async(
         self,
         shipping_rate_token: str,
-        params: "ShippingRateService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "ShippingRateService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
         Updates an existing shipping rate object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ShippingRate,
             await self._request_async(

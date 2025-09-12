@@ -3,7 +3,7 @@
 from stripe._account_session import AccountSession
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -648,11 +648,13 @@ class AccountSessionService(StripeService):
     def create(
         self,
         params: "AccountSessionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> AccountSession:
         """
         Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
         """
+        if options is None:
+            options = {}
         return cast(
             AccountSession,
             self._request(
@@ -667,11 +669,13 @@ class AccountSessionService(StripeService):
     async def create_async(
         self,
         params: "AccountSessionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> AccountSession:
         """
         Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
         """
+        if options is None:
+            options = {}
         return cast(
             AccountSession,
             await self._request_async(

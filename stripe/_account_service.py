@@ -11,7 +11,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -3848,8 +3848,8 @@ class AccountService(StripeService):
     def delete(
         self,
         account: str,
-        params: "AccountService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "AccountService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -3860,6 +3860,10 @@ class AccountService(StripeService):
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Account,
             self._request(
@@ -3874,8 +3878,8 @@ class AccountService(StripeService):
     async def delete_async(
         self,
         account: str,
-        params: "AccountService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "AccountService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -3886,6 +3890,10 @@ class AccountService(StripeService):
 
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -3900,12 +3908,16 @@ class AccountService(StripeService):
     def retrieve(
         self,
         account: str,
-        params: "AccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "AccountService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Retrieves the details of an account.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Account,
             self._request(
@@ -3920,12 +3932,16 @@ class AccountService(StripeService):
     async def retrieve_async(
         self,
         account: str,
-        params: "AccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "AccountService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Retrieves the details of an account.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -3940,8 +3956,8 @@ class AccountService(StripeService):
     def update(
         self,
         account: str,
-        params: "AccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "AccountService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
@@ -3958,6 +3974,10 @@ class AccountService(StripeService):
         To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
         [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Account,
             self._request(
@@ -3972,8 +3992,8 @@ class AccountService(StripeService):
     async def update_async(
         self,
         account: str,
-        params: "AccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "AccountService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
@@ -3990,6 +4010,10 @@ class AccountService(StripeService):
         To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
         [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -4003,12 +4027,16 @@ class AccountService(StripeService):
 
     def retrieve_current(
         self,
-        params: "AccountService.RetrieveCurrentParams" = {},
-        options: RequestOptions = {},
+        params: "AccountService.RetrieveCurrentParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Retrieves the details of an account.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Account,
             self._request(
@@ -4022,12 +4050,16 @@ class AccountService(StripeService):
 
     async def retrieve_current_async(
         self,
-        params: "AccountService.RetrieveCurrentParams" = {},
-        options: RequestOptions = {},
+        params: "AccountService.RetrieveCurrentParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Retrieves the details of an account.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -4041,12 +4073,16 @@ class AccountService(StripeService):
 
     def list(
         self,
-        params: "AccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "AccountService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Account]:
         """
         Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Account],
             self._request(
@@ -4060,12 +4096,16 @@ class AccountService(StripeService):
 
     async def list_async(
         self,
-        params: "AccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "AccountService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Account]:
         """
         Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Account],
             await self._request_async(
@@ -4079,8 +4119,8 @@ class AccountService(StripeService):
 
     def create(
         self,
-        params: "AccountService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "AccountService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
@@ -4090,6 +4130,10 @@ class AccountService(StripeService):
         creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
         You can prefill any information on the account.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Account,
             self._request(
@@ -4103,8 +4147,8 @@ class AccountService(StripeService):
 
     async def create_async(
         self,
-        params: "AccountService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "AccountService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
@@ -4114,6 +4158,10 @@ class AccountService(StripeService):
         creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
         You can prefill any information on the account.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Account,
             await self._request_async(
@@ -4129,13 +4177,15 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountService.RejectParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
+        if options is None:
+            options = {}
         return cast(
             Account,
             self._request(
@@ -4153,13 +4203,15 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountService.RejectParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
+        if options is None:
+            options = {}
         return cast(
             Account,
             await self._request_async(

@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._cardholder import Cardholder
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -2310,12 +2310,16 @@ class CardholderService(StripeService):
 
     def list(
         self,
-        params: "CardholderService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CardholderService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Cardholder]:
         """
         Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Cardholder],
             self._request(
@@ -2329,12 +2333,16 @@ class CardholderService(StripeService):
 
     async def list_async(
         self,
-        params: "CardholderService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CardholderService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Cardholder]:
         """
         Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Cardholder],
             await self._request_async(
@@ -2349,11 +2357,13 @@ class CardholderService(StripeService):
     def create(
         self,
         params: "CardholderService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
         Creates a new Issuing Cardholder object that can be issued cards.
         """
+        if options is None:
+            options = {}
         return cast(
             Cardholder,
             self._request(
@@ -2368,11 +2378,13 @@ class CardholderService(StripeService):
     async def create_async(
         self,
         params: "CardholderService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
         Creates a new Issuing Cardholder object that can be issued cards.
         """
+        if options is None:
+            options = {}
         return cast(
             Cardholder,
             await self._request_async(
@@ -2387,12 +2399,16 @@ class CardholderService(StripeService):
     def retrieve(
         self,
         cardholder: str,
-        params: "CardholderService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CardholderService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
         Retrieves an Issuing Cardholder object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Cardholder,
             self._request(
@@ -2409,12 +2425,16 @@ class CardholderService(StripeService):
     async def retrieve_async(
         self,
         cardholder: str,
-        params: "CardholderService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CardholderService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
         Retrieves an Issuing Cardholder object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Cardholder,
             await self._request_async(
@@ -2431,12 +2451,16 @@ class CardholderService(StripeService):
     def update(
         self,
         cardholder: str,
-        params: "CardholderService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "CardholderService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
         Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Cardholder,
             self._request(
@@ -2453,12 +2477,16 @@ class CardholderService(StripeService):
     async def update_async(
         self,
         cardholder: str,
-        params: "CardholderService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "CardholderService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
         Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Cardholder,
             await self._request_async(

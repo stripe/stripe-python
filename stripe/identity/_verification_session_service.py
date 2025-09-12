@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.identity._verification_session import VerificationSession
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -239,12 +239,16 @@ class VerificationSessionService(StripeService):
 
     def list(
         self,
-        params: "VerificationSessionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationSessionService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[VerificationSession]:
         """
         Returns a list of VerificationSessions
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[VerificationSession],
             self._request(
@@ -258,12 +262,16 @@ class VerificationSessionService(StripeService):
 
     async def list_async(
         self,
-        params: "VerificationSessionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationSessionService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[VerificationSession]:
         """
         Returns a list of VerificationSessions
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[VerificationSession],
             await self._request_async(
@@ -277,8 +285,8 @@ class VerificationSessionService(StripeService):
 
     def create(
         self,
-        params: "VerificationSessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationSessionService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Creates a VerificationSession object.
@@ -289,6 +297,10 @@ class VerificationSessionService(StripeService):
 
         Related guide: [Verify your users' identity documents](https://docs.stripe.com/docs/identity/verify-identity-documents)
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             VerificationSession,
             self._request(
@@ -302,8 +314,8 @@ class VerificationSessionService(StripeService):
 
     async def create_async(
         self,
-        params: "VerificationSessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationSessionService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Creates a VerificationSession object.
@@ -314,6 +326,10 @@ class VerificationSessionService(StripeService):
 
         Related guide: [Verify your users' identity documents](https://docs.stripe.com/docs/identity/verify-identity-documents)
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             VerificationSession,
             await self._request_async(
@@ -328,8 +344,8 @@ class VerificationSessionService(StripeService):
     def retrieve(
         self,
         session: str,
-        params: "VerificationSessionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationSessionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Retrieves the details of a VerificationSession that was previously created.
@@ -337,6 +353,10 @@ class VerificationSessionService(StripeService):
         When the session status is requires_input, you can use this method to retrieve a valid
         client_secret or url to allow re-submission.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             VerificationSession,
             self._request(
@@ -353,8 +373,8 @@ class VerificationSessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
-        params: "VerificationSessionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationSessionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Retrieves the details of a VerificationSession that was previously created.
@@ -362,6 +382,10 @@ class VerificationSessionService(StripeService):
         When the session status is requires_input, you can use this method to retrieve a valid
         client_secret or url to allow re-submission.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             VerificationSession,
             await self._request_async(
@@ -378,8 +402,8 @@ class VerificationSessionService(StripeService):
     def update(
         self,
         session: str,
-        params: "VerificationSessionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationSessionService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Updates a VerificationSession object.
@@ -387,6 +411,10 @@ class VerificationSessionService(StripeService):
         When the session status is requires_input, you can use this method to update the
         verification check and options.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             VerificationSession,
             self._request(
@@ -403,8 +431,8 @@ class VerificationSessionService(StripeService):
     async def update_async(
         self,
         session: str,
-        params: "VerificationSessionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationSessionService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Updates a VerificationSession object.
@@ -412,6 +440,10 @@ class VerificationSessionService(StripeService):
         When the session status is requires_input, you can use this method to update the
         verification check and options.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             VerificationSession,
             await self._request_async(
@@ -428,14 +460,18 @@ class VerificationSessionService(StripeService):
     def cancel(
         self,
         session: str,
-        params: "VerificationSessionService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationSessionService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
 
         Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             VerificationSession,
             self._request(
@@ -452,14 +488,18 @@ class VerificationSessionService(StripeService):
     async def cancel_async(
         self,
         session: str,
-        params: "VerificationSessionService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationSessionService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
 
         Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             VerificationSession,
             await self._request_async(
@@ -476,8 +516,8 @@ class VerificationSessionService(StripeService):
     def redact(
         self,
         session: str,
-        params: "VerificationSessionService.RedactParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationSessionService.RedactParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -500,6 +540,10 @@ class VerificationSessionService(StripeService):
 
         [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             VerificationSession,
             self._request(
@@ -516,8 +560,8 @@ class VerificationSessionService(StripeService):
     async def redact_async(
         self,
         session: str,
-        params: "VerificationSessionService.RedactParams" = {},
-        options: RequestOptions = {},
+        params: "VerificationSessionService.RedactParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -540,6 +584,10 @@ class VerificationSessionService(StripeService):
 
         [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             VerificationSession,
             await self._request_async(

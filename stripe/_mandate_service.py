@@ -4,7 +4,7 @@ from stripe._mandate import Mandate
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -18,12 +18,16 @@ class MandateService(StripeService):
     def retrieve(
         self,
         mandate: str,
-        params: "MandateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "MandateService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Mandate:
         """
         Retrieves a Mandate object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Mandate,
             self._request(
@@ -38,12 +42,16 @@ class MandateService(StripeService):
     async def retrieve_async(
         self,
         mandate: str,
-        params: "MandateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "MandateService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Mandate:
         """
         Retrieves a Mandate object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Mandate,
             await self._request_async(

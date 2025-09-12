@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.terminal._location import Location
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -136,12 +136,16 @@ class LocationService(StripeService):
     def delete(
         self,
         location: str,
-        params: "LocationService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "LocationService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Location:
         """
         Deletes a Location object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Location,
             self._request(
@@ -158,12 +162,16 @@ class LocationService(StripeService):
     async def delete_async(
         self,
         location: str,
-        params: "LocationService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "LocationService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Location:
         """
         Deletes a Location object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Location,
             await self._request_async(
@@ -180,12 +188,16 @@ class LocationService(StripeService):
     def retrieve(
         self,
         location: str,
-        params: "LocationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "LocationService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Location:
         """
         Retrieves a Location object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Location,
             self._request(
@@ -202,12 +214,16 @@ class LocationService(StripeService):
     async def retrieve_async(
         self,
         location: str,
-        params: "LocationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "LocationService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Location:
         """
         Retrieves a Location object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Location,
             await self._request_async(
@@ -224,12 +240,16 @@ class LocationService(StripeService):
     def update(
         self,
         location: str,
-        params: "LocationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "LocationService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Location:
         """
         Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Location,
             self._request(
@@ -246,12 +266,16 @@ class LocationService(StripeService):
     async def update_async(
         self,
         location: str,
-        params: "LocationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "LocationService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Location:
         """
         Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Location,
             await self._request_async(
@@ -267,12 +291,16 @@ class LocationService(StripeService):
 
     def list(
         self,
-        params: "LocationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "LocationService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Location]:
         """
         Returns a list of Location objects.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Location],
             self._request(
@@ -286,12 +314,16 @@ class LocationService(StripeService):
 
     async def list_async(
         self,
-        params: "LocationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "LocationService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Location]:
         """
         Returns a list of Location objects.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Location],
             await self._request_async(
@@ -306,12 +338,14 @@ class LocationService(StripeService):
     def create(
         self,
         params: "LocationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Location:
         """
         Creates a new Location object.
         For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
         """
+        if options is None:
+            options = {}
         return cast(
             Location,
             self._request(
@@ -326,12 +360,14 @@ class LocationService(StripeService):
     async def create_async(
         self,
         params: "LocationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Location:
         """
         Creates a new Location object.
         For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.
         """
+        if options is None:
+            options = {}
         return cast(
             Location,
             await self._request_async(

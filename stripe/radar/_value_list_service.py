@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.radar._value_list import ValueList
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -123,12 +123,16 @@ class ValueListService(StripeService):
     def delete(
         self,
         value_list: str,
-        params: "ValueListService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "ValueListService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ValueList,
             self._request(
@@ -145,12 +149,16 @@ class ValueListService(StripeService):
     async def delete_async(
         self,
         value_list: str,
-        params: "ValueListService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "ValueListService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ValueList,
             await self._request_async(
@@ -167,12 +175,16 @@ class ValueListService(StripeService):
     def retrieve(
         self,
         value_list: str,
-        params: "ValueListService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ValueListService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Retrieves a ValueList object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ValueList,
             self._request(
@@ -189,12 +201,16 @@ class ValueListService(StripeService):
     async def retrieve_async(
         self,
         value_list: str,
-        params: "ValueListService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ValueListService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Retrieves a ValueList object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ValueList,
             await self._request_async(
@@ -211,12 +227,16 @@ class ValueListService(StripeService):
     def update(
         self,
         value_list: str,
-        params: "ValueListService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "ValueListService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ValueList,
             self._request(
@@ -233,12 +253,16 @@ class ValueListService(StripeService):
     async def update_async(
         self,
         value_list: str,
-        params: "ValueListService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "ValueListService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ValueList,
             await self._request_async(
@@ -254,12 +278,16 @@ class ValueListService(StripeService):
 
     def list(
         self,
-        params: "ValueListService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ValueListService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ValueList]:
         """
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ValueList],
             self._request(
@@ -273,12 +301,16 @@ class ValueListService(StripeService):
 
     async def list_async(
         self,
-        params: "ValueListService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ValueListService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ValueList]:
         """
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ValueList],
             await self._request_async(
@@ -293,11 +325,13 @@ class ValueListService(StripeService):
     def create(
         self,
         params: "ValueListService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Creates a new ValueList object, which can then be referenced in rules.
         """
+        if options is None:
+            options = {}
         return cast(
             ValueList,
             self._request(
@@ -312,11 +346,13 @@ class ValueListService(StripeService):
     async def create_async(
         self,
         params: "ValueListService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Creates a new ValueList object, which can then be referenced in rules.
         """
+        if options is None:
+            options = {}
         return cast(
             ValueList,
             await self._request_async(

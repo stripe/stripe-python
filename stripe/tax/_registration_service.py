@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.tax._registration import Registration
-from typing import List, Union, cast
+from typing import List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -1944,12 +1944,16 @@ class RegistrationService(StripeService):
 
     def list(
         self,
-        params: "RegistrationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "RegistrationService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Registration]:
         """
         Returns a list of Tax Registration objects.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Registration],
             self._request(
@@ -1963,12 +1967,16 @@ class RegistrationService(StripeService):
 
     async def list_async(
         self,
-        params: "RegistrationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "RegistrationService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Registration]:
         """
         Returns a list of Tax Registration objects.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Registration],
             await self._request_async(
@@ -1983,11 +1991,13 @@ class RegistrationService(StripeService):
     def create(
         self,
         params: "RegistrationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Registration:
         """
         Creates a new Tax Registration object.
         """
+        if options is None:
+            options = {}
         return cast(
             Registration,
             self._request(
@@ -2002,11 +2012,13 @@ class RegistrationService(StripeService):
     async def create_async(
         self,
         params: "RegistrationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Registration:
         """
         Creates a new Tax Registration object.
         """
+        if options is None:
+            options = {}
         return cast(
             Registration,
             await self._request_async(
@@ -2021,12 +2033,16 @@ class RegistrationService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "RegistrationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "RegistrationService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Registration:
         """
         Returns a Tax Registration object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Registration,
             self._request(
@@ -2041,12 +2057,16 @@ class RegistrationService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "RegistrationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "RegistrationService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Registration:
         """
         Returns a Tax Registration object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Registration,
             await self._request_async(
@@ -2061,14 +2081,18 @@ class RegistrationService(StripeService):
     def update(
         self,
         id: str,
-        params: "RegistrationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "RegistrationService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Registration:
         """
         Updates an existing Tax Registration object.
 
         A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting expires_at.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Registration,
             self._request(
@@ -2083,14 +2107,18 @@ class RegistrationService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "RegistrationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "RegistrationService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Registration:
         """
         Updates an existing Tax Registration object.
 
         A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting expires_at.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Registration,
             await self._request_async(

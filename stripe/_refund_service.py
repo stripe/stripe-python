@@ -5,7 +5,7 @@ from stripe._refund import Refund
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -133,12 +133,16 @@ class RefundService(StripeService):
 
     def list(
         self,
-        params: "RefundService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "RefundService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Refund]:
         """
         Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Refund],
             self._request(
@@ -152,12 +156,16 @@ class RefundService(StripeService):
 
     async def list_async(
         self,
-        params: "RefundService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "RefundService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Refund]:
         """
         Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Refund],
             await self._request_async(
@@ -171,8 +179,8 @@ class RefundService(StripeService):
 
     def create(
         self,
-        params: "RefundService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "RefundService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.
@@ -187,6 +195,10 @@ class RefundService(StripeService):
         This method will raise an error when called on an already-refunded charge,
         or when trying to refund more money than is left on a charge.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Refund,
             self._request(
@@ -200,8 +212,8 @@ class RefundService(StripeService):
 
     async def create_async(
         self,
-        params: "RefundService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "RefundService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.
@@ -216,6 +228,10 @@ class RefundService(StripeService):
         This method will raise an error when called on an already-refunded charge,
         or when trying to refund more money than is left on a charge.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Refund,
             await self._request_async(
@@ -230,12 +246,16 @@ class RefundService(StripeService):
     def retrieve(
         self,
         refund: str,
-        params: "RefundService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "RefundService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Retrieves the details of an existing refund.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Refund,
             self._request(
@@ -250,12 +270,16 @@ class RefundService(StripeService):
     async def retrieve_async(
         self,
         refund: str,
-        params: "RefundService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "RefundService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Retrieves the details of an existing refund.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Refund,
             await self._request_async(
@@ -270,14 +294,18 @@ class RefundService(StripeService):
     def update(
         self,
         refund: str,
-        params: "RefundService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "RefundService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
 
         This request only accepts metadata as an argument.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Refund,
             self._request(
@@ -292,14 +320,18 @@ class RefundService(StripeService):
     async def update_async(
         self,
         refund: str,
-        params: "RefundService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "RefundService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
 
         This request only accepts metadata as an argument.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Refund,
             await self._request_async(
@@ -314,14 +346,18 @@ class RefundService(StripeService):
     def cancel(
         self,
         refund: str,
-        params: "RefundService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "RefundService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Cancels a refund with a status of requires_action.
 
         You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Refund,
             self._request(
@@ -338,14 +374,18 @@ class RefundService(StripeService):
     async def cancel_async(
         self,
         refund: str,
-        params: "RefundService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "RefundService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Cancels a refund with a status of requires_action.
 
         You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Refund,
             await self._request_async(

@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.treasury._received_credit import ReceivedCredit
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -69,11 +69,13 @@ class ReceivedCreditService(StripeService):
     def create(
         self,
         params: "ReceivedCreditService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedCredit:
         """
         Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
         """
+        if options is None:
+            options = {}
         return cast(
             ReceivedCredit,
             self._request(
@@ -88,11 +90,13 @@ class ReceivedCreditService(StripeService):
     async def create_async(
         self,
         params: "ReceivedCreditService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedCredit:
         """
         Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
         """
+        if options is None:
+            options = {}
         return cast(
             ReceivedCredit,
             await self._request_async(

@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._transaction import Transaction
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -80,12 +80,16 @@ class TransactionService(StripeService):
 
     def list(
         self,
-        params: "TransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transaction]:
         """
         Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Transaction],
             self._request(
@@ -99,12 +103,16 @@ class TransactionService(StripeService):
 
     async def list_async(
         self,
-        params: "TransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transaction]:
         """
         Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Transaction],
             await self._request_async(
@@ -119,12 +127,16 @@ class TransactionService(StripeService):
     def retrieve(
         self,
         transaction: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves an Issuing Transaction object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             self._request(
@@ -141,12 +153,16 @@ class TransactionService(StripeService):
     async def retrieve_async(
         self,
         transaction: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves an Issuing Transaction object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             await self._request_async(
@@ -163,12 +179,16 @@ class TransactionService(StripeService):
     def update(
         self,
         transaction: str,
-        params: "TransactionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             self._request(
@@ -185,12 +205,16 @@ class TransactionService(StripeService):
     async def update_async(
         self,
         transaction: str,
-        params: "TransactionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             await self._request_async(

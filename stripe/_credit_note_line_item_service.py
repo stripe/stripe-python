@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -31,12 +31,16 @@ class CreditNoteLineItemService(StripeService):
     def list(
         self,
         credit_note: str,
-        params: "CreditNoteLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CreditNoteLineItemService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditNoteLineItem]:
         """
         When retrieving a credit note, you'll get a lines property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[CreditNoteLineItem],
             self._request(
@@ -53,12 +57,16 @@ class CreditNoteLineItemService(StripeService):
     async def list_async(
         self,
         credit_note: str,
-        params: "CreditNoteLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CreditNoteLineItemService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditNoteLineItem]:
         """
         When retrieving a credit note, you'll get a lines property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[CreditNoteLineItem],
             await self._request_async(

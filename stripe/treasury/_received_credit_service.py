@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._received_credit import ReceivedCredit
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -63,11 +63,13 @@ class ReceivedCreditService(StripeService):
     def list(
         self,
         params: "ReceivedCreditService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReceivedCredit]:
         """
         Returns a list of ReceivedCredits.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[ReceivedCredit],
             self._request(
@@ -82,11 +84,13 @@ class ReceivedCreditService(StripeService):
     async def list_async(
         self,
         params: "ReceivedCreditService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReceivedCredit]:
         """
         Returns a list of ReceivedCredits.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[ReceivedCredit],
             await self._request_async(
@@ -101,12 +105,16 @@ class ReceivedCreditService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ReceivedCreditService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ReceivedCreditService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedCredit:
         """
         Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ReceivedCredit,
             self._request(
@@ -123,12 +131,16 @@ class ReceivedCreditService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ReceivedCreditService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ReceivedCreditService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedCredit:
         """
         Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ReceivedCredit,
             await self._request_async(

@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.entitlements._active_entitlement import ActiveEntitlement
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -41,11 +41,13 @@ class ActiveEntitlementService(StripeService):
     def list(
         self,
         params: "ActiveEntitlementService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ActiveEntitlement]:
         """
         Retrieve a list of active entitlements for a customer
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[ActiveEntitlement],
             self._request(
@@ -60,11 +62,13 @@ class ActiveEntitlementService(StripeService):
     async def list_async(
         self,
         params: "ActiveEntitlementService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ActiveEntitlement]:
         """
         Retrieve a list of active entitlements for a customer
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[ActiveEntitlement],
             await self._request_async(
@@ -79,12 +83,16 @@ class ActiveEntitlementService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ActiveEntitlementService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ActiveEntitlementService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ActiveEntitlement:
         """
         Retrieve an active entitlement
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ActiveEntitlement,
             self._request(
@@ -101,12 +109,16 @@ class ActiveEntitlementService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ActiveEntitlementService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ActiveEntitlementService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ActiveEntitlement:
         """
         Retrieve an active entitlement
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ActiveEntitlement,
             await self._request_async(

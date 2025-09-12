@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.terminal._reader import Reader
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -88,12 +88,16 @@ class ReaderService(StripeService):
     def present_payment_method(
         self,
         reader: str,
-        params: "ReaderService.PresentPaymentMethodParams" = {},
-        options: RequestOptions = {},
+        params: "ReaderService.PresentPaymentMethodParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
         Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Reader,
             self._request(
@@ -110,12 +114,16 @@ class ReaderService(StripeService):
     async def present_payment_method_async(
         self,
         reader: str,
-        params: "ReaderService.PresentPaymentMethodParams" = {},
-        options: RequestOptions = {},
+        params: "ReaderService.PresentPaymentMethodParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
         Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -132,12 +140,16 @@ class ReaderService(StripeService):
     def succeed_input_collection(
         self,
         reader: str,
-        params: "ReaderService.SucceedInputCollectionParams" = {},
-        options: RequestOptions = {},
+        params: "ReaderService.SucceedInputCollectionParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
         Use this endpoint to trigger a successful input collection on a simulated reader.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Reader,
             self._request(
@@ -154,12 +166,16 @@ class ReaderService(StripeService):
     async def succeed_input_collection_async(
         self,
         reader: str,
-        params: "ReaderService.SucceedInputCollectionParams" = {},
-        options: RequestOptions = {},
+        params: "ReaderService.SucceedInputCollectionParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
         Use this endpoint to trigger a successful input collection on a simulated reader.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Reader,
             await self._request_async(
@@ -176,12 +192,16 @@ class ReaderService(StripeService):
     def timeout_input_collection(
         self,
         reader: str,
-        params: "ReaderService.TimeoutInputCollectionParams" = {},
-        options: RequestOptions = {},
+        params: "ReaderService.TimeoutInputCollectionParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
         Use this endpoint to complete an input collection with a timeout error on a simulated reader.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Reader,
             self._request(
@@ -198,12 +218,16 @@ class ReaderService(StripeService):
     async def timeout_input_collection_async(
         self,
         reader: str,
-        params: "ReaderService.TimeoutInputCollectionParams" = {},
-        options: RequestOptions = {},
+        params: "ReaderService.TimeoutInputCollectionParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
         Use this endpoint to complete an input collection with a timeout error on a simulated reader.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Reader,
             await self._request_async(

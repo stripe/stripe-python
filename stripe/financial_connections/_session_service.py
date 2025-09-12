@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.financial_connections._session import Session
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -84,12 +84,16 @@ class SessionService(StripeService):
     def retrieve(
         self,
         session: str,
-        params: "SessionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SessionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Retrieves the details of a Financial Connections Session
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Session,
             self._request(
@@ -106,12 +110,16 @@ class SessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
-        params: "SessionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SessionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Retrieves the details of a Financial Connections Session
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Session,
             await self._request_async(
@@ -128,11 +136,13 @@ class SessionService(StripeService):
     def create(
         self,
         params: "SessionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
         """
+        if options is None:
+            options = {}
         return cast(
             Session,
             self._request(
@@ -147,11 +157,13 @@ class SessionService(StripeService):
     async def create_async(
         self,
         params: "SessionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
         """
+        if options is None:
+            options = {}
         return cast(
             Session,
             await self._request_async(

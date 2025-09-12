@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._tax_code import TaxCode
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -36,12 +36,16 @@ class TaxCodeService(StripeService):
 
     def list(
         self,
-        params: "TaxCodeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "TaxCodeService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TaxCode]:
         """
         A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[TaxCode],
             self._request(
@@ -55,12 +59,16 @@ class TaxCodeService(StripeService):
 
     async def list_async(
         self,
-        params: "TaxCodeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "TaxCodeService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TaxCode]:
         """
         A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[TaxCode],
             await self._request_async(
@@ -75,12 +83,16 @@ class TaxCodeService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "TaxCodeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TaxCodeService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> TaxCode:
         """
         Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             TaxCode,
             self._request(
@@ -95,12 +107,16 @@ class TaxCodeService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "TaxCodeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TaxCodeService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> TaxCode:
         """
         Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             TaxCode,
             await self._request_async(

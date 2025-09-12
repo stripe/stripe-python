@@ -148,12 +148,16 @@ class EventDestinationService(StripeService):
 
     def list(
         self,
-        params: "EventDestinationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[EventDestination]:
         """
         Lists all event destinations.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[EventDestination],
             self._request(
@@ -167,12 +171,16 @@ class EventDestinationService(StripeService):
 
     async def list_async(
         self,
-        params: "EventDestinationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[EventDestination]:
         """
         Lists all event destinations.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[EventDestination],
             await self._request_async(
@@ -187,11 +195,13 @@ class EventDestinationService(StripeService):
     def create(
         self,
         params: "EventDestinationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Create a new event destination.
         """
+        if options is None:
+            options = {}
         return cast(
             EventDestination,
             self._request(
@@ -206,11 +216,13 @@ class EventDestinationService(StripeService):
     async def create_async(
         self,
         params: "EventDestinationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Create a new event destination.
         """
+        if options is None:
+            options = {}
         return cast(
             EventDestination,
             await self._request_async(
@@ -225,12 +237,16 @@ class EventDestinationService(StripeService):
     def delete(
         self,
         id: str,
-        params: "EventDestinationService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> DeletedObject:
         """
         Delete an event destination.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             DeletedObject,
             self._request(
@@ -245,12 +261,16 @@ class EventDestinationService(StripeService):
     async def delete_async(
         self,
         id: str,
-        params: "EventDestinationService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> DeletedObject:
         """
         Delete an event destination.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             DeletedObject,
             await self._request_async(
@@ -265,12 +285,16 @@ class EventDestinationService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "EventDestinationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Retrieves the details of an event destination.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             EventDestination,
             self._request(
@@ -285,12 +309,16 @@ class EventDestinationService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "EventDestinationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Retrieves the details of an event destination.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             EventDestination,
             await self._request_async(
@@ -305,12 +333,16 @@ class EventDestinationService(StripeService):
     def update(
         self,
         id: str,
-        params: "EventDestinationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Update the details of an event destination.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             EventDestination,
             self._request(
@@ -325,12 +357,16 @@ class EventDestinationService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "EventDestinationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Update the details of an event destination.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             EventDestination,
             await self._request_async(
@@ -345,12 +381,16 @@ class EventDestinationService(StripeService):
     def disable(
         self,
         id: str,
-        params: "EventDestinationService.DisableParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.DisableParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Disable an event destination.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             EventDestination,
             self._request(
@@ -367,12 +407,16 @@ class EventDestinationService(StripeService):
     async def disable_async(
         self,
         id: str,
-        params: "EventDestinationService.DisableParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.DisableParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Disable an event destination.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             EventDestination,
             await self._request_async(
@@ -389,12 +433,16 @@ class EventDestinationService(StripeService):
     def enable(
         self,
         id: str,
-        params: "EventDestinationService.EnableParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.EnableParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Enable an event destination.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             EventDestination,
             self._request(
@@ -411,12 +459,16 @@ class EventDestinationService(StripeService):
     async def enable_async(
         self,
         id: str,
-        params: "EventDestinationService.EnableParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.EnableParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Enable an event destination.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             EventDestination,
             await self._request_async(
@@ -433,12 +485,16 @@ class EventDestinationService(StripeService):
     def ping(
         self,
         id: str,
-        params: "EventDestinationService.PingParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.PingParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Event:
         """
         Send a `ping` event to an event destination.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Event,
             self._request(
@@ -455,12 +511,16 @@ class EventDestinationService(StripeService):
     async def ping_async(
         self,
         id: str,
-        params: "EventDestinationService.PingParams" = {},
-        options: RequestOptions = {},
+        params: "EventDestinationService.PingParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Event:
         """
         Send a `ping` event to an event destination.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Event,
             await self._request_async(

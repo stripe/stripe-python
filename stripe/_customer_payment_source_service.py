@@ -8,7 +8,7 @@ from stripe._request_options import RequestOptions
 from stripe._source import Source
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -176,12 +176,16 @@ class CustomerPaymentSourceService(StripeService):
     def list(
         self,
         customer: str,
-        params: "CustomerPaymentSourceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentSourceService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Union[Account, BankAccount, Card, Source]]:
         """
         List sources for a specified customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Union[Account, BankAccount, Card, Source]],
             self._request(
@@ -198,12 +202,16 @@ class CustomerPaymentSourceService(StripeService):
     async def list_async(
         self,
         customer: str,
-        params: "CustomerPaymentSourceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentSourceService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Union[Account, BankAccount, Card, Source]]:
         """
         List sources for a specified customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Union[Account, BankAccount, Card, Source]],
             await self._request_async(
@@ -221,7 +229,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         params: "CustomerPaymentSourceService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         When you create a new credit card, you must specify a customer or recipient on which to create it.
@@ -230,6 +238,8 @@ class CustomerPaymentSourceService(StripeService):
         However, if the owner already has a default, then it will not change.
         To change the default, you should [update the customer](https://docs.stripe.com/docs/api#update_customer) to have a new default_source.
         """
+        if options is None:
+            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             self._request(
@@ -247,7 +257,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         params: "CustomerPaymentSourceService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         When you create a new credit card, you must specify a customer or recipient on which to create it.
@@ -256,6 +266,8 @@ class CustomerPaymentSourceService(StripeService):
         However, if the owner already has a default, then it will not change.
         To change the default, you should [update the customer](https://docs.stripe.com/docs/api#update_customer) to have a new default_source.
         """
+        if options is None:
+            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             await self._request_async(
@@ -273,12 +285,16 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentSourceService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Retrieve a specified source for a given customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             self._request(
@@ -297,12 +313,16 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentSourceService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Retrieve a specified source for a given customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             await self._request_async(
@@ -321,12 +341,16 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentSourceService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Update a specified source for a given customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             self._request(
@@ -345,12 +369,16 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentSourceService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Update a specified source for a given customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             await self._request_async(
@@ -369,12 +397,16 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentSourceService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Delete a specified source for a given customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             self._request(
@@ -393,12 +425,16 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentSourceService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Delete a specified source for a given customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[Account, BankAccount, Card, Source],
             await self._request_async(
@@ -417,12 +453,16 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.VerifyParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentSourceService.VerifyParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> BankAccount:
         """
         Verify a specified bank account for a given customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             BankAccount,
             self._request(
@@ -441,12 +481,16 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.VerifyParams" = {},
-        options: RequestOptions = {},
+        params: "CustomerPaymentSourceService.VerifyParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> BankAccount:
         """
         Verify a specified bank account for a given customer.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             BankAccount,
             await self._request_async(

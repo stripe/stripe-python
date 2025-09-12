@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -74,14 +74,18 @@ class BalanceTransactionService(StripeService):
 
     def list(
         self,
-        params: "BalanceTransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "BalanceTransactionService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[BalanceTransaction]:
         """
         Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
 
         Note that this endpoint was previously called “Balance history” and used the path /v1/balance/history.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[BalanceTransaction],
             self._request(
@@ -95,14 +99,18 @@ class BalanceTransactionService(StripeService):
 
     async def list_async(
         self,
-        params: "BalanceTransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "BalanceTransactionService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[BalanceTransaction]:
         """
         Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
 
         Note that this endpoint was previously called “Balance history” and used the path /v1/balance/history.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[BalanceTransaction],
             await self._request_async(
@@ -117,14 +125,18 @@ class BalanceTransactionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "BalanceTransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "BalanceTransactionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> BalanceTransaction:
         """
         Retrieves the balance transaction with the given ID.
 
         Note that this endpoint previously used the path /v1/balance/history/:id.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             BalanceTransaction,
             self._request(
@@ -139,14 +151,18 @@ class BalanceTransactionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "BalanceTransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "BalanceTransactionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> BalanceTransaction:
         """
         Retrieves the balance transaction with the given ID.
 
         Note that this endpoint previously used the path /v1/balance/history/:id.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             BalanceTransaction,
             await self._request_async(

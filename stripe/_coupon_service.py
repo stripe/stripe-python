@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -156,12 +156,16 @@ class CouponService(StripeService):
     def delete(
         self,
         coupon: str,
-        params: "CouponService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "CouponService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Coupon,
             self._request(
@@ -176,12 +180,16 @@ class CouponService(StripeService):
     async def delete_async(
         self,
         coupon: str,
-        params: "CouponService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "CouponService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Coupon,
             await self._request_async(
@@ -196,12 +204,16 @@ class CouponService(StripeService):
     def retrieve(
         self,
         coupon: str,
-        params: "CouponService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CouponService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         Retrieves the coupon with the given ID.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Coupon,
             self._request(
@@ -216,12 +228,16 @@ class CouponService(StripeService):
     async def retrieve_async(
         self,
         coupon: str,
-        params: "CouponService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CouponService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         Retrieves the coupon with the given ID.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Coupon,
             await self._request_async(
@@ -236,12 +252,16 @@ class CouponService(StripeService):
     def update(
         self,
         coupon: str,
-        params: "CouponService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "CouponService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Coupon,
             self._request(
@@ -256,12 +276,16 @@ class CouponService(StripeService):
     async def update_async(
         self,
         coupon: str,
-        params: "CouponService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "CouponService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Coupon,
             await self._request_async(
@@ -275,12 +299,16 @@ class CouponService(StripeService):
 
     def list(
         self,
-        params: "CouponService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CouponService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Coupon]:
         """
         Returns a list of your coupons.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Coupon],
             self._request(
@@ -294,12 +322,16 @@ class CouponService(StripeService):
 
     async def list_async(
         self,
-        params: "CouponService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CouponService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Coupon]:
         """
         Returns a list of your coupons.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Coupon],
             await self._request_async(
@@ -313,14 +345,18 @@ class CouponService(StripeService):
 
     def create(
         self,
-        params: "CouponService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "CouponService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.
 
         A coupon has either a percent_off or an amount_off and currency. If you set an amount_off, that amount will be subtracted from any invoice's subtotal. For example, an invoice with a subtotal of 100 will have a final total of 0 if a coupon with an amount_off of 200 is applied to it and an invoice with a subtotal of 300 will have a final total of 100 if a coupon with an amount_off of 200 is applied to it.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Coupon,
             self._request(
@@ -334,14 +370,18 @@ class CouponService(StripeService):
 
     async def create_async(
         self,
-        params: "CouponService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: "CouponService.CreateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.
 
         A coupon has either a percent_off or an amount_off and currency. If you set an amount_off, that amount will be subtracted from any invoice's subtotal. For example, an invoice with a subtotal of 100 will have a final total of 0 if a coupon with an amount_off of 200 is applied to it and an invoice with a subtotal of 300 will have a final total of 100 if a coupon with an amount_off of 200 is applied to it.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Coupon,
             await self._request_async(

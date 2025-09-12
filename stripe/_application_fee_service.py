@@ -6,7 +6,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -67,12 +67,16 @@ class ApplicationFeeService(StripeService):
 
     def list(
         self,
-        params: "ApplicationFeeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ApplicationFeeService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplicationFee]:
         """
         Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ApplicationFee],
             self._request(
@@ -86,12 +90,16 @@ class ApplicationFeeService(StripeService):
 
     async def list_async(
         self,
-        params: "ApplicationFeeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ApplicationFeeService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplicationFee]:
         """
         Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ApplicationFee],
             await self._request_async(
@@ -106,12 +114,16 @@ class ApplicationFeeService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ApplicationFeeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ApplicationFeeService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ApplicationFee:
         """
         Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ApplicationFee,
             self._request(
@@ -126,12 +138,16 @@ class ApplicationFeeService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ApplicationFeeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ApplicationFeeService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ApplicationFee:
         """
         Retrieves the details of an application fee that your account has collected. The same information is returned when refunding the application fee.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ApplicationFee,
             await self._request_async(

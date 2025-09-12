@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.sigma._scheduled_query_run import ScheduledQueryRun
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -36,12 +36,16 @@ class ScheduledQueryRunService(StripeService):
 
     def list(
         self,
-        params: "ScheduledQueryRunService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ScheduledQueryRunService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ScheduledQueryRun]:
         """
         Returns a list of scheduled query runs.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ScheduledQueryRun],
             self._request(
@@ -55,12 +59,16 @@ class ScheduledQueryRunService(StripeService):
 
     async def list_async(
         self,
-        params: "ScheduledQueryRunService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ScheduledQueryRunService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ScheduledQueryRun]:
         """
         Returns a list of scheduled query runs.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[ScheduledQueryRun],
             await self._request_async(
@@ -75,12 +83,16 @@ class ScheduledQueryRunService(StripeService):
     def retrieve(
         self,
         scheduled_query_run: str,
-        params: "ScheduledQueryRunService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ScheduledQueryRunService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ScheduledQueryRun:
         """
         Retrieves the details of an scheduled query run.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ScheduledQueryRun,
             self._request(
@@ -97,12 +109,16 @@ class ScheduledQueryRunService(StripeService):
     async def retrieve_async(
         self,
         scheduled_query_run: str,
-        params: "ScheduledQueryRunService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ScheduledQueryRunService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ScheduledQueryRun:
         """
         Retrieves the details of an scheduled query run.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ScheduledQueryRun,
             await self._request_async(

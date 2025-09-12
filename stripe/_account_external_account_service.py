@@ -6,7 +6,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -206,12 +206,16 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "AccountExternalAccountService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Delete a specified external account for a given account.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[BankAccount, Card],
             self._request(
@@ -230,12 +234,16 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "AccountExternalAccountService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Delete a specified external account for a given account.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[BankAccount, Card],
             await self._request_async(
@@ -254,12 +262,16 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "AccountExternalAccountService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Retrieve a specified external account for a given account.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[BankAccount, Card],
             self._request(
@@ -278,12 +290,16 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "AccountExternalAccountService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Retrieve a specified external account for a given account.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[BankAccount, Card],
             await self._request_async(
@@ -302,8 +318,8 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "AccountExternalAccountService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Updates the metadata, account holder name, account holder type of a bank account belonging to
@@ -315,6 +331,10 @@ class AccountExternalAccountService(StripeService):
         You can re-enable a disabled bank account by performing an update call without providing any
         arguments or changes.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[BankAccount, Card],
             self._request(
@@ -333,8 +353,8 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "AccountExternalAccountService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Updates the metadata, account holder name, account holder type of a bank account belonging to
@@ -346,6 +366,10 @@ class AccountExternalAccountService(StripeService):
         You can re-enable a disabled bank account by performing an update call without providing any
         arguments or changes.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Union[BankAccount, Card],
             await self._request_async(
@@ -363,12 +387,16 @@ class AccountExternalAccountService(StripeService):
     def list(
         self,
         account: str,
-        params: "AccountExternalAccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "AccountExternalAccountService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Union[BankAccount, Card]]:
         """
         List external accounts for an account.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Union[BankAccount, Card]],
             self._request(
@@ -385,12 +413,16 @@ class AccountExternalAccountService(StripeService):
     async def list_async(
         self,
         account: str,
-        params: "AccountExternalAccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "AccountExternalAccountService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Union[BankAccount, Card]]:
         """
         List external accounts for an account.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Union[BankAccount, Card]],
             await self._request_async(
@@ -408,11 +440,13 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         params: "AccountExternalAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Create an external account for a given account.
         """
+        if options is None:
+            options = {}
         return cast(
             Union[BankAccount, Card],
             self._request(
@@ -430,11 +464,13 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         params: "AccountExternalAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Create an external account for a given account.
         """
+        if options is None:
+            options = {}
         return cast(
             Union[BankAccount, Card],
             await self._request_async(

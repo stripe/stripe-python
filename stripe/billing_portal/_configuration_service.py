@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing_portal._configuration import Configuration
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -504,12 +504,16 @@ class ConfigurationService(StripeService):
 
     def list(
         self,
-        params: "ConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ConfigurationService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Configuration]:
         """
         Returns a list of configurations that describe the functionality of the customer portal.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Configuration],
             self._request(
@@ -523,12 +527,16 @@ class ConfigurationService(StripeService):
 
     async def list_async(
         self,
-        params: "ConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "ConfigurationService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Configuration]:
         """
         Returns a list of configurations that describe the functionality of the customer portal.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Configuration],
             await self._request_async(
@@ -543,11 +551,13 @@ class ConfigurationService(StripeService):
     def create(
         self,
         params: "ConfigurationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Creates a configuration that describes the functionality and behavior of a PortalSession
         """
+        if options is None:
+            options = {}
         return cast(
             Configuration,
             self._request(
@@ -562,11 +572,13 @@ class ConfigurationService(StripeService):
     async def create_async(
         self,
         params: "ConfigurationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Creates a configuration that describes the functionality and behavior of a PortalSession
         """
+        if options is None:
+            options = {}
         return cast(
             Configuration,
             await self._request_async(
@@ -581,12 +593,16 @@ class ConfigurationService(StripeService):
     def retrieve(
         self,
         configuration: str,
-        params: "ConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ConfigurationService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Retrieves a configuration that describes the functionality of the customer portal.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Configuration,
             self._request(
@@ -603,12 +619,16 @@ class ConfigurationService(StripeService):
     async def retrieve_async(
         self,
         configuration: str,
-        params: "ConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "ConfigurationService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Retrieves a configuration that describes the functionality of the customer portal.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Configuration,
             await self._request_async(
@@ -625,12 +645,16 @@ class ConfigurationService(StripeService):
     def update(
         self,
         configuration: str,
-        params: "ConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "ConfigurationService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Updates a configuration that describes the functionality of the customer portal.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Configuration,
             self._request(
@@ -647,12 +671,16 @@ class ConfigurationService(StripeService):
     async def update_async(
         self,
         configuration: str,
-        params: "ConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "ConfigurationService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Updates a configuration that describes the functionality of the customer portal.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Configuration,
             await self._request_async(

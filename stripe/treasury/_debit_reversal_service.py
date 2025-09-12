@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._debit_reversal import DebitReversal
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -67,11 +67,13 @@ class DebitReversalService(StripeService):
     def list(
         self,
         params: "DebitReversalService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[DebitReversal]:
         """
         Returns a list of DebitReversals.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[DebitReversal],
             self._request(
@@ -86,11 +88,13 @@ class DebitReversalService(StripeService):
     async def list_async(
         self,
         params: "DebitReversalService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[DebitReversal]:
         """
         Returns a list of DebitReversals.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[DebitReversal],
             await self._request_async(
@@ -105,11 +109,13 @@ class DebitReversalService(StripeService):
     def create(
         self,
         params: "DebitReversalService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> DebitReversal:
         """
         Reverses a ReceivedDebit and creates a DebitReversal object.
         """
+        if options is None:
+            options = {}
         return cast(
             DebitReversal,
             self._request(
@@ -124,11 +130,13 @@ class DebitReversalService(StripeService):
     async def create_async(
         self,
         params: "DebitReversalService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> DebitReversal:
         """
         Reverses a ReceivedDebit and creates a DebitReversal object.
         """
+        if options is None:
+            options = {}
         return cast(
             DebitReversal,
             await self._request_async(
@@ -143,12 +151,16 @@ class DebitReversalService(StripeService):
     def retrieve(
         self,
         debit_reversal: str,
-        params: "DebitReversalService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "DebitReversalService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> DebitReversal:
         """
         Retrieves a DebitReversal object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             DebitReversal,
             self._request(
@@ -165,12 +177,16 @@ class DebitReversalService(StripeService):
     async def retrieve_async(
         self,
         debit_reversal: str,
-        params: "DebitReversalService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "DebitReversalService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> DebitReversal:
         """
         Retrieves a DebitReversal object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             DebitReversal,
             await self._request_async(

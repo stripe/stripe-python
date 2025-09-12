@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.test_helpers._test_clock import TestClock
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -64,12 +64,16 @@ class TestClockService(StripeService):
     def delete(
         self,
         test_clock: str,
-        params: "TestClockService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "TestClockService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> TestClock:
         """
         Deletes a test clock.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             TestClock,
             self._request(
@@ -86,12 +90,16 @@ class TestClockService(StripeService):
     async def delete_async(
         self,
         test_clock: str,
-        params: "TestClockService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: "TestClockService.DeleteParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> TestClock:
         """
         Deletes a test clock.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             TestClock,
             await self._request_async(
@@ -108,12 +116,16 @@ class TestClockService(StripeService):
     def retrieve(
         self,
         test_clock: str,
-        params: "TestClockService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TestClockService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> TestClock:
         """
         Retrieves a test clock.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             TestClock,
             self._request(
@@ -130,12 +142,16 @@ class TestClockService(StripeService):
     async def retrieve_async(
         self,
         test_clock: str,
-        params: "TestClockService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TestClockService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> TestClock:
         """
         Retrieves a test clock.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             TestClock,
             await self._request_async(
@@ -151,12 +167,16 @@ class TestClockService(StripeService):
 
     def list(
         self,
-        params: "TestClockService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "TestClockService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TestClock]:
         """
         Returns a list of your test clocks.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[TestClock],
             self._request(
@@ -170,12 +190,16 @@ class TestClockService(StripeService):
 
     async def list_async(
         self,
-        params: "TestClockService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "TestClockService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TestClock]:
         """
         Returns a list of your test clocks.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[TestClock],
             await self._request_async(
@@ -190,11 +214,13 @@ class TestClockService(StripeService):
     def create(
         self,
         params: "TestClockService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> TestClock:
         """
         Creates a new test clock that can be attached to new customers and quotes.
         """
+        if options is None:
+            options = {}
         return cast(
             TestClock,
             self._request(
@@ -209,11 +235,13 @@ class TestClockService(StripeService):
     async def create_async(
         self,
         params: "TestClockService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> TestClock:
         """
         Creates a new test clock that can be attached to new customers and quotes.
         """
+        if options is None:
+            options = {}
         return cast(
             TestClock,
             await self._request_async(
@@ -229,11 +257,13 @@ class TestClockService(StripeService):
         self,
         test_clock: str,
         params: "TestClockService.AdvanceParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> TestClock:
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
         """
+        if options is None:
+            options = {}
         return cast(
             TestClock,
             self._request(
@@ -251,11 +281,13 @@ class TestClockService(StripeService):
         self,
         test_clock: str,
         params: "TestClockService.AdvanceParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> TestClock:
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
         """
+        if options is None:
+            options = {}
         return cast(
             TestClock,
             await self._request_async(

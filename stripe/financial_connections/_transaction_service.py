@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.financial_connections._transaction import Transaction
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -77,11 +77,13 @@ class TransactionService(StripeService):
     def list(
         self,
         params: "TransactionService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transaction]:
         """
         Returns a list of Financial Connections Transaction objects.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[Transaction],
             self._request(
@@ -96,11 +98,13 @@ class TransactionService(StripeService):
     async def list_async(
         self,
         params: "TransactionService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transaction]:
         """
         Returns a list of Financial Connections Transaction objects.
         """
+        if options is None:
+            options = {}
         return cast(
             ListObject[Transaction],
             await self._request_async(
@@ -115,12 +119,16 @@ class TransactionService(StripeService):
     def retrieve(
         self,
         transaction: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves the details of a Financial Connections Transaction
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             self._request(
@@ -137,12 +145,16 @@ class TransactionService(StripeService):
     async def retrieve_async(
         self,
         transaction: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "TransactionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves the details of a Financial Connections Transaction
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Transaction,
             await self._request_async(

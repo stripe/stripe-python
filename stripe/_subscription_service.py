@@ -7,7 +7,7 @@ from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._subscription import Subscription
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -1738,8 +1738,8 @@ class SubscriptionService(StripeService):
     def cancel(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -1748,6 +1748,10 @@ class SubscriptionService(StripeService):
 
         By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Subscription,
             self._request(
@@ -1766,8 +1770,8 @@ class SubscriptionService(StripeService):
     async def cancel_async(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionService.CancelParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -1776,6 +1780,10 @@ class SubscriptionService(StripeService):
 
         By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Subscription,
             await self._request_async(
@@ -1794,12 +1802,16 @@ class SubscriptionService(StripeService):
     def retrieve(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Retrieves the subscription with the given ID.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Subscription,
             self._request(
@@ -1818,12 +1830,16 @@ class SubscriptionService(StripeService):
     async def retrieve_async(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Retrieves the subscription with the given ID.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Subscription,
             await self._request_async(
@@ -1842,8 +1858,8 @@ class SubscriptionService(StripeService):
     def update(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Updates an existing subscription to match the specified parameters.
@@ -1868,6 +1884,10 @@ class SubscriptionService(StripeService):
 
         Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://docs.stripe.com/docs/rate-limits) instead.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Subscription,
             self._request(
@@ -1886,8 +1906,8 @@ class SubscriptionService(StripeService):
     async def update_async(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Updates an existing subscription to match the specified parameters.
@@ -1912,6 +1932,10 @@ class SubscriptionService(StripeService):
 
         Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://docs.stripe.com/docs/rate-limits) instead.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Subscription,
             await self._request_async(
@@ -1930,12 +1954,16 @@ class SubscriptionService(StripeService):
     def delete_discount(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.DeleteDiscountParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionService.DeleteDiscountParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Discount:
         """
         Removes the currently applied discount on a subscription.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Discount,
             self._request(
@@ -1954,12 +1982,16 @@ class SubscriptionService(StripeService):
     async def delete_discount_async(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.DeleteDiscountParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionService.DeleteDiscountParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Discount:
         """
         Removes the currently applied discount on a subscription.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Discount,
             await self._request_async(
@@ -1977,12 +2009,16 @@ class SubscriptionService(StripeService):
 
     def list(
         self,
-        params: "SubscriptionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Subscription]:
         """
         By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Subscription],
             self._request(
@@ -1996,12 +2032,16 @@ class SubscriptionService(StripeService):
 
     async def list_async(
         self,
-        params: "SubscriptionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Subscription]:
         """
         By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Subscription],
             await self._request_async(
@@ -2016,7 +2056,7 @@ class SubscriptionService(StripeService):
     def create(
         self,
         params: "SubscriptionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
@@ -2027,6 +2067,8 @@ class SubscriptionService(StripeService):
         To start subscriptions where the first invoice always begins in a draft status, use [subscription schedules](https://docs.stripe.com/docs/billing/subscriptions/subscription-schedules#managing) instead.
         Schedules provide the flexibility to model more complex billing configurations that change over time.
         """
+        if options is None:
+            options = {}
         return cast(
             Subscription,
             self._request(
@@ -2041,7 +2083,7 @@ class SubscriptionService(StripeService):
     async def create_async(
         self,
         params: "SubscriptionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
@@ -2052,6 +2094,8 @@ class SubscriptionService(StripeService):
         To start subscriptions where the first invoice always begins in a draft status, use [subscription schedules](https://docs.stripe.com/docs/billing/subscriptions/subscription-schedules#managing) instead.
         Schedules provide the flexibility to model more complex billing configurations that change over time.
         """
+        if options is None:
+            options = {}
         return cast(
             Subscription,
             await self._request_async(
@@ -2066,7 +2110,7 @@ class SubscriptionService(StripeService):
     def search(
         self,
         params: "SubscriptionService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Subscription]:
         """
         Search for subscriptions you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -2074,6 +2118,8 @@ class SubscriptionService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
+        if options is None:
+            options = {}
         return cast(
             SearchResultObject[Subscription],
             self._request(
@@ -2088,7 +2134,7 @@ class SubscriptionService(StripeService):
     async def search_async(
         self,
         params: "SubscriptionService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Subscription]:
         """
         Search for subscriptions you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -2096,6 +2142,8 @@ class SubscriptionService(StripeService):
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
+        if options is None:
+            options = {}
         return cast(
             SearchResultObject[Subscription],
             await self._request_async(
@@ -2111,11 +2159,13 @@ class SubscriptionService(StripeService):
         self,
         subscription: str,
         params: "SubscriptionService.MigrateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Upgrade the billing_mode of an existing subscription.
         """
+        if options is None:
+            options = {}
         return cast(
             Subscription,
             self._request(
@@ -2133,11 +2183,13 @@ class SubscriptionService(StripeService):
         self,
         subscription: str,
         params: "SubscriptionService.MigrateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Upgrade the billing_mode of an existing subscription.
         """
+        if options is None:
+            options = {}
         return cast(
             Subscription,
             await self._request_async(
@@ -2154,12 +2206,16 @@ class SubscriptionService(StripeService):
     def resume(
         self,
         subscription: str,
-        params: "SubscriptionService.ResumeParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionService.ResumeParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Subscription,
             self._request(
@@ -2176,12 +2232,16 @@ class SubscriptionService(StripeService):
     async def resume_async(
         self,
         subscription: str,
-        params: "SubscriptionService.ResumeParams" = {},
-        options: RequestOptions = {},
+        params: "SubscriptionService.ResumeParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Subscription,
             await self._request_async(

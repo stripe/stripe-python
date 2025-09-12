@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._card import Card
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -2240,12 +2240,16 @@ class CardService(StripeService):
 
     def list(
         self,
-        params: "CardService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Card]:
         """
         Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Card],
             self._request(
@@ -2259,12 +2263,16 @@ class CardService(StripeService):
 
     async def list_async(
         self,
-        params: "CardService.ListParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.ListParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Card]:
         """
         Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             ListObject[Card],
             await self._request_async(
@@ -2277,11 +2285,15 @@ class CardService(StripeService):
         )
 
     def create(
-        self, params: "CardService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "CardService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Creates an Issuing Card object.
         """
+        if options is None:
+            options = {}
         return cast(
             Card,
             self._request(
@@ -2294,11 +2306,15 @@ class CardService(StripeService):
         )
 
     async def create_async(
-        self, params: "CardService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "CardService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Creates an Issuing Card object.
         """
+        if options is None:
+            options = {}
         return cast(
             Card,
             await self._request_async(
@@ -2313,12 +2329,16 @@ class CardService(StripeService):
     def retrieve(
         self,
         card: str,
-        params: "CardService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Retrieves an Issuing Card object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             self._request(
@@ -2333,12 +2353,16 @@ class CardService(StripeService):
     async def retrieve_async(
         self,
         card: str,
-        params: "CardService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.RetrieveParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Retrieves an Issuing Card object.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             await self._request_async(
@@ -2353,12 +2377,16 @@ class CardService(StripeService):
     def update(
         self,
         card: str,
-        params: "CardService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             self._request(
@@ -2373,12 +2401,16 @@ class CardService(StripeService):
     async def update_async(
         self,
         card: str,
-        params: "CardService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "CardService.UpdateParams" = None,
+        options: Optional[RequestOptions] = None,
     ) -> Card:
         """
         Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
         return cast(
             Card,
             await self._request_async(
