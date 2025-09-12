@@ -1122,7 +1122,7 @@ class ConfigurationService(StripeService):
     def delete(
         self,
         configuration: str,
-        params: "ConfigurationService.DeleteParams" = None,
+        params: Optional["ConfigurationService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
@@ -1148,7 +1148,7 @@ class ConfigurationService(StripeService):
     async def delete_async(
         self,
         configuration: str,
-        params: "ConfigurationService.DeleteParams" = None,
+        params: Optional["ConfigurationService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
@@ -1174,7 +1174,7 @@ class ConfigurationService(StripeService):
     def retrieve(
         self,
         configuration: str,
-        params: "ConfigurationService.RetrieveParams" = None,
+        params: Optional["ConfigurationService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
@@ -1200,7 +1200,7 @@ class ConfigurationService(StripeService):
     async def retrieve_async(
         self,
         configuration: str,
-        params: "ConfigurationService.RetrieveParams" = None,
+        params: Optional["ConfigurationService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
@@ -1226,7 +1226,7 @@ class ConfigurationService(StripeService):
     def update(
         self,
         configuration: str,
-        params: "ConfigurationService.UpdateParams" = None,
+        params: Optional["ConfigurationService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
@@ -1252,7 +1252,7 @@ class ConfigurationService(StripeService):
     async def update_async(
         self,
         configuration: str,
-        params: "ConfigurationService.UpdateParams" = None,
+        params: Optional["ConfigurationService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
@@ -1277,7 +1277,7 @@ class ConfigurationService(StripeService):
 
     def list(
         self,
-        params: "ConfigurationService.ListParams" = None,
+        params: Optional["ConfigurationService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Configuration]:
         """
@@ -1300,7 +1300,7 @@ class ConfigurationService(StripeService):
 
     async def list_async(
         self,
-        params: "ConfigurationService.ListParams" = None,
+        params: Optional["ConfigurationService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Configuration]:
         """
@@ -1323,7 +1323,7 @@ class ConfigurationService(StripeService):
 
     def create(
         self,
-        params: "ConfigurationService.CreateParams" = None,
+        params: Optional["ConfigurationService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
@@ -1346,7 +1346,7 @@ class ConfigurationService(StripeService):
 
     async def create_async(
         self,
-        params: "ConfigurationService.CreateParams" = None,
+        params: Optional["ConfigurationService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """

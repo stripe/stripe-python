@@ -207,7 +207,7 @@ class OutboundTransferService(StripeService):
     def retrieve(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.RetrieveParams" = None,
+        params: Optional["OutboundTransferService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
@@ -233,7 +233,7 @@ class OutboundTransferService(StripeService):
     async def retrieve_async(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.RetrieveParams" = None,
+        params: Optional["OutboundTransferService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
@@ -259,7 +259,7 @@ class OutboundTransferService(StripeService):
     def cancel(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.CancelParams" = None,
+        params: Optional["OutboundTransferService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
@@ -285,7 +285,7 @@ class OutboundTransferService(StripeService):
     async def cancel_async(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.CancelParams" = None,
+        params: Optional["OutboundTransferService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """

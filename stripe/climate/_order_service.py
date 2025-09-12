@@ -100,7 +100,7 @@ class OrderService(StripeService):
 
     def list(
         self,
-        params: "OrderService.ListParams" = None,
+        params: Optional["OrderService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Order]:
         """
@@ -124,7 +124,7 @@ class OrderService(StripeService):
 
     async def list_async(
         self,
-        params: "OrderService.ListParams" = None,
+        params: Optional["OrderService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Order]:
         """
@@ -193,7 +193,7 @@ class OrderService(StripeService):
     def retrieve(
         self,
         order: str,
-        params: "OrderService.RetrieveParams" = None,
+        params: Optional["OrderService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """
@@ -217,7 +217,7 @@ class OrderService(StripeService):
     async def retrieve_async(
         self,
         order: str,
-        params: "OrderService.RetrieveParams" = None,
+        params: Optional["OrderService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """
@@ -241,7 +241,7 @@ class OrderService(StripeService):
     def update(
         self,
         order: str,
-        params: "OrderService.UpdateParams" = None,
+        params: Optional["OrderService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """
@@ -265,7 +265,7 @@ class OrderService(StripeService):
     async def update_async(
         self,
         order: str,
-        params: "OrderService.UpdateParams" = None,
+        params: Optional["OrderService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """
@@ -289,7 +289,7 @@ class OrderService(StripeService):
     def cancel(
         self,
         order: str,
-        params: "OrderService.CancelParams" = None,
+        params: Optional["OrderService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """
@@ -318,7 +318,7 @@ class OrderService(StripeService):
     async def cancel_async(
         self,
         order: str,
-        params: "OrderService.CancelParams" = None,
+        params: Optional["OrderService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """

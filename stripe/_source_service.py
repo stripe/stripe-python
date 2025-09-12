@@ -541,7 +541,7 @@ class SourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "SourceService.DetachParams" = None,
+        params: Optional["SourceService.DetachParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
@@ -569,7 +569,7 @@ class SourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "SourceService.DetachParams" = None,
+        params: Optional["SourceService.DetachParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
@@ -596,7 +596,7 @@ class SourceService(StripeService):
     def retrieve(
         self,
         source: str,
-        params: "SourceService.RetrieveParams" = None,
+        params: Optional["SourceService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Source:
         """
@@ -620,7 +620,7 @@ class SourceService(StripeService):
     async def retrieve_async(
         self,
         source: str,
-        params: "SourceService.RetrieveParams" = None,
+        params: Optional["SourceService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Source:
         """
@@ -644,7 +644,7 @@ class SourceService(StripeService):
     def update(
         self,
         source: str,
-        params: "SourceService.UpdateParams" = None,
+        params: Optional["SourceService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Source:
         """
@@ -670,7 +670,7 @@ class SourceService(StripeService):
     async def update_async(
         self,
         source: str,
-        params: "SourceService.UpdateParams" = None,
+        params: Optional["SourceService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Source:
         """
@@ -695,7 +695,7 @@ class SourceService(StripeService):
 
     def create(
         self,
-        params: "SourceService.CreateParams" = None,
+        params: Optional["SourceService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Source:
         """
@@ -718,7 +718,7 @@ class SourceService(StripeService):
 
     async def create_async(
         self,
-        params: "SourceService.CreateParams" = None,
+        params: Optional["SourceService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Source:
         """

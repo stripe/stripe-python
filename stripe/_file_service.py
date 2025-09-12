@@ -128,7 +128,7 @@ class FileService(StripeService):
 
     def list(
         self,
-        params: "FileService.ListParams" = None,
+        params: Optional["FileService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[File]:
         """
@@ -151,7 +151,7 @@ class FileService(StripeService):
 
     async def list_async(
         self,
-        params: "FileService.ListParams" = None,
+        params: Optional["FileService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[File]:
         """
@@ -223,7 +223,7 @@ class FileService(StripeService):
     def retrieve(
         self,
         file: str,
-        params: "FileService.RetrieveParams" = None,
+        params: Optional["FileService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> File:
         """
@@ -247,7 +247,7 @@ class FileService(StripeService):
     async def retrieve_async(
         self,
         file: str,
-        params: "FileService.RetrieveParams" = None,
+        params: Optional["FileService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> File:
         """

@@ -1944,7 +1944,7 @@ class RegistrationService(StripeService):
 
     def list(
         self,
-        params: "RegistrationService.ListParams" = None,
+        params: Optional["RegistrationService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Registration]:
         """
@@ -1967,7 +1967,7 @@ class RegistrationService(StripeService):
 
     async def list_async(
         self,
-        params: "RegistrationService.ListParams" = None,
+        params: Optional["RegistrationService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Registration]:
         """
@@ -2033,7 +2033,7 @@ class RegistrationService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "RegistrationService.RetrieveParams" = None,
+        params: Optional["RegistrationService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Registration:
         """
@@ -2057,7 +2057,7 @@ class RegistrationService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "RegistrationService.RetrieveParams" = None,
+        params: Optional["RegistrationService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Registration:
         """
@@ -2081,7 +2081,7 @@ class RegistrationService(StripeService):
     def update(
         self,
         id: str,
-        params: "RegistrationService.UpdateParams" = None,
+        params: Optional["RegistrationService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Registration:
         """
@@ -2107,7 +2107,7 @@ class RegistrationService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "RegistrationService.UpdateParams" = None,
+        params: Optional["RegistrationService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Registration:
         """

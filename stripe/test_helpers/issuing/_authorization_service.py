@@ -1118,7 +1118,7 @@ class AuthorizationService(StripeService):
     def capture(
         self,
         authorization: str,
-        params: "AuthorizationService.CaptureParams" = None,
+        params: Optional["AuthorizationService.CaptureParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
@@ -1144,7 +1144,7 @@ class AuthorizationService(StripeService):
     async def capture_async(
         self,
         authorization: str,
-        params: "AuthorizationService.CaptureParams" = None,
+        params: Optional["AuthorizationService.CaptureParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
@@ -1170,7 +1170,7 @@ class AuthorizationService(StripeService):
     def expire(
         self,
         authorization: str,
-        params: "AuthorizationService.ExpireParams" = None,
+        params: Optional["AuthorizationService.ExpireParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
@@ -1196,7 +1196,7 @@ class AuthorizationService(StripeService):
     async def expire_async(
         self,
         authorization: str,
-        params: "AuthorizationService.ExpireParams" = None,
+        params: Optional["AuthorizationService.ExpireParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
@@ -1366,7 +1366,7 @@ class AuthorizationService(StripeService):
     def reverse(
         self,
         authorization: str,
-        params: "AuthorizationService.ReverseParams" = None,
+        params: Optional["AuthorizationService.ReverseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
@@ -1392,7 +1392,7 @@ class AuthorizationService(StripeService):
     async def reverse_async(
         self,
         authorization: str,
-        params: "AuthorizationService.ReverseParams" = None,
+        params: Optional["AuthorizationService.ReverseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """

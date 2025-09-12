@@ -123,7 +123,7 @@ class MeterService(StripeService):
 
     def list(
         self,
-        params: "MeterService.ListParams" = None,
+        params: Optional["MeterService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Meter]:
         """
@@ -146,7 +146,7 @@ class MeterService(StripeService):
 
     async def list_async(
         self,
-        params: "MeterService.ListParams" = None,
+        params: Optional["MeterService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Meter]:
         """
@@ -212,7 +212,7 @@ class MeterService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "MeterService.RetrieveParams" = None,
+        params: Optional["MeterService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -236,7 +236,7 @@ class MeterService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "MeterService.RetrieveParams" = None,
+        params: Optional["MeterService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -260,7 +260,7 @@ class MeterService(StripeService):
     def update(
         self,
         id: str,
-        params: "MeterService.UpdateParams" = None,
+        params: Optional["MeterService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -284,7 +284,7 @@ class MeterService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "MeterService.UpdateParams" = None,
+        params: Optional["MeterService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -308,7 +308,7 @@ class MeterService(StripeService):
     def deactivate(
         self,
         id: str,
-        params: "MeterService.DeactivateParams" = None,
+        params: Optional["MeterService.DeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -334,7 +334,7 @@ class MeterService(StripeService):
     async def deactivate_async(
         self,
         id: str,
-        params: "MeterService.DeactivateParams" = None,
+        params: Optional["MeterService.DeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -360,7 +360,7 @@ class MeterService(StripeService):
     def reactivate(
         self,
         id: str,
-        params: "MeterService.ReactivateParams" = None,
+        params: Optional["MeterService.ReactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -386,7 +386,7 @@ class MeterService(StripeService):
     async def reactivate_async(
         self,
         id: str,
-        params: "MeterService.ReactivateParams" = None,
+        params: Optional["MeterService.ReactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """

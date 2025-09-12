@@ -98,7 +98,7 @@ class CustomerPaymentMethodService(StripeService):
     def list(
         self,
         customer: str,
-        params: "CustomerPaymentMethodService.ListParams" = None,
+        params: Optional["CustomerPaymentMethodService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethod]:
         """
@@ -124,7 +124,7 @@ class CustomerPaymentMethodService(StripeService):
     async def list_async(
         self,
         customer: str,
-        params: "CustomerPaymentMethodService.ListParams" = None,
+        params: Optional["CustomerPaymentMethodService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethod]:
         """
@@ -151,7 +151,7 @@ class CustomerPaymentMethodService(StripeService):
         self,
         customer: str,
         payment_method: str,
-        params: "CustomerPaymentMethodService.RetrieveParams" = None,
+        params: Optional["CustomerPaymentMethodService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
@@ -179,7 +179,7 @@ class CustomerPaymentMethodService(StripeService):
         self,
         customer: str,
         payment_method: str,
-        params: "CustomerPaymentMethodService.RetrieveParams" = None,
+        params: Optional["CustomerPaymentMethodService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """

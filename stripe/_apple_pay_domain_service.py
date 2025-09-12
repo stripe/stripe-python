@@ -48,7 +48,7 @@ class ApplePayDomainService(StripeService):
     def delete(
         self,
         domain: str,
-        params: "ApplePayDomainService.DeleteParams" = None,
+        params: Optional["ApplePayDomainService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
@@ -74,7 +74,7 @@ class ApplePayDomainService(StripeService):
     async def delete_async(
         self,
         domain: str,
-        params: "ApplePayDomainService.DeleteParams" = None,
+        params: Optional["ApplePayDomainService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
@@ -100,7 +100,7 @@ class ApplePayDomainService(StripeService):
     def retrieve(
         self,
         domain: str,
-        params: "ApplePayDomainService.RetrieveParams" = None,
+        params: Optional["ApplePayDomainService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
@@ -126,7 +126,7 @@ class ApplePayDomainService(StripeService):
     async def retrieve_async(
         self,
         domain: str,
-        params: "ApplePayDomainService.RetrieveParams" = None,
+        params: Optional["ApplePayDomainService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
@@ -151,7 +151,7 @@ class ApplePayDomainService(StripeService):
 
     def list(
         self,
-        params: "ApplePayDomainService.ListParams" = None,
+        params: Optional["ApplePayDomainService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplePayDomain]:
         """
@@ -174,7 +174,7 @@ class ApplePayDomainService(StripeService):
 
     async def list_async(
         self,
-        params: "ApplePayDomainService.ListParams" = None,
+        params: Optional["ApplePayDomainService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplePayDomain]:
         """

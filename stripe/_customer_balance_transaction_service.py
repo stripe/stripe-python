@@ -73,7 +73,9 @@ class CustomerBalanceTransactionService(StripeService):
     def list(
         self,
         customer: str,
-        params: "CustomerBalanceTransactionService.ListParams" = None,
+        params: Optional[
+            "CustomerBalanceTransactionService.ListParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CustomerBalanceTransaction]:
         """
@@ -99,7 +101,9 @@ class CustomerBalanceTransactionService(StripeService):
     async def list_async(
         self,
         customer: str,
-        params: "CustomerBalanceTransactionService.ListParams" = None,
+        params: Optional[
+            "CustomerBalanceTransactionService.ListParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CustomerBalanceTransaction]:
         """
@@ -174,7 +178,9 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
-        params: "CustomerBalanceTransactionService.RetrieveParams" = None,
+        params: Optional[
+            "CustomerBalanceTransactionService.RetrieveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
@@ -202,7 +208,9 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
-        params: "CustomerBalanceTransactionService.RetrieveParams" = None,
+        params: Optional[
+            "CustomerBalanceTransactionService.RetrieveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
@@ -230,7 +238,9 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
-        params: "CustomerBalanceTransactionService.UpdateParams" = None,
+        params: Optional[
+            "CustomerBalanceTransactionService.UpdateParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
@@ -258,7 +268,9 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
-        params: "CustomerBalanceTransactionService.UpdateParams" = None,
+        params: Optional[
+            "CustomerBalanceTransactionService.UpdateParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """

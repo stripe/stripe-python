@@ -31,7 +31,7 @@ class CalculationLineItemService(StripeService):
     def list(
         self,
         calculation: str,
-        params: "CalculationLineItemService.ListParams" = None,
+        params: Optional["CalculationLineItemService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CalculationLineItem]:
         """
@@ -57,7 +57,7 @@ class CalculationLineItemService(StripeService):
     async def list_async(
         self,
         calculation: str,
-        params: "CalculationLineItemService.ListParams" = None,
+        params: Optional["CalculationLineItemService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CalculationLineItem]:
         """

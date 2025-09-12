@@ -8646,7 +8646,7 @@ class PaymentIntentService(StripeService):
 
     def list(
         self,
-        params: "PaymentIntentService.ListParams" = None,
+        params: Optional["PaymentIntentService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentIntent]:
         """
@@ -8669,7 +8669,7 @@ class PaymentIntentService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentIntentService.ListParams" = None,
+        params: Optional["PaymentIntentService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentIntent]:
         """
@@ -8753,7 +8753,7 @@ class PaymentIntentService(StripeService):
     def retrieve(
         self,
         intent: str,
-        params: "PaymentIntentService.RetrieveParams" = None,
+        params: Optional["PaymentIntentService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -8783,7 +8783,7 @@ class PaymentIntentService(StripeService):
     async def retrieve_async(
         self,
         intent: str,
-        params: "PaymentIntentService.RetrieveParams" = None,
+        params: Optional["PaymentIntentService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -8813,7 +8813,7 @@ class PaymentIntentService(StripeService):
     def update(
         self,
         intent: str,
-        params: "PaymentIntentService.UpdateParams" = None,
+        params: Optional["PaymentIntentService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -8845,7 +8845,7 @@ class PaymentIntentService(StripeService):
     async def update_async(
         self,
         intent: str,
-        params: "PaymentIntentService.UpdateParams" = None,
+        params: Optional["PaymentIntentService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -8925,7 +8925,9 @@ class PaymentIntentService(StripeService):
     def apply_customer_balance(
         self,
         intent: str,
-        params: "PaymentIntentService.ApplyCustomerBalanceParams" = None,
+        params: Optional[
+            "PaymentIntentService.ApplyCustomerBalanceParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -8951,7 +8953,9 @@ class PaymentIntentService(StripeService):
     async def apply_customer_balance_async(
         self,
         intent: str,
-        params: "PaymentIntentService.ApplyCustomerBalanceParams" = None,
+        params: Optional[
+            "PaymentIntentService.ApplyCustomerBalanceParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -8977,7 +8981,7 @@ class PaymentIntentService(StripeService):
     def cancel(
         self,
         intent: str,
-        params: "PaymentIntentService.CancelParams" = None,
+        params: Optional["PaymentIntentService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -9007,7 +9011,7 @@ class PaymentIntentService(StripeService):
     async def cancel_async(
         self,
         intent: str,
-        params: "PaymentIntentService.CancelParams" = None,
+        params: Optional["PaymentIntentService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -9037,7 +9041,7 @@ class PaymentIntentService(StripeService):
     def capture(
         self,
         intent: str,
-        params: "PaymentIntentService.CaptureParams" = None,
+        params: Optional["PaymentIntentService.CaptureParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -9067,7 +9071,7 @@ class PaymentIntentService(StripeService):
     async def capture_async(
         self,
         intent: str,
-        params: "PaymentIntentService.CaptureParams" = None,
+        params: Optional["PaymentIntentService.CaptureParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -9097,7 +9101,7 @@ class PaymentIntentService(StripeService):
     def confirm(
         self,
         intent: str,
-        params: "PaymentIntentService.ConfirmParams" = None,
+        params: Optional["PaymentIntentService.ConfirmParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -9152,7 +9156,7 @@ class PaymentIntentService(StripeService):
     async def confirm_async(
         self,
         intent: str,
-        params: "PaymentIntentService.ConfirmParams" = None,
+        params: Optional["PaymentIntentService.ConfirmParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -9301,7 +9305,9 @@ class PaymentIntentService(StripeService):
     def verify_microdeposits(
         self,
         intent: str,
-        params: "PaymentIntentService.VerifyMicrodepositsParams" = None,
+        params: Optional[
+            "PaymentIntentService.VerifyMicrodepositsParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -9327,7 +9333,9 @@ class PaymentIntentService(StripeService):
     async def verify_microdeposits_async(
         self,
         intent: str,
-        params: "PaymentIntentService.VerifyMicrodepositsParams" = None,
+        params: Optional[
+            "PaymentIntentService.VerifyMicrodepositsParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """

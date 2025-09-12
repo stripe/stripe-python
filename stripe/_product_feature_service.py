@@ -51,7 +51,7 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
-        params: "ProductFeatureService.DeleteParams" = None,
+        params: Optional["ProductFeatureService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
@@ -79,7 +79,7 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
-        params: "ProductFeatureService.DeleteParams" = None,
+        params: Optional["ProductFeatureService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
@@ -107,7 +107,7 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
-        params: "ProductFeatureService.RetrieveParams" = None,
+        params: Optional["ProductFeatureService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
@@ -135,7 +135,7 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
-        params: "ProductFeatureService.RetrieveParams" = None,
+        params: Optional["ProductFeatureService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
@@ -162,7 +162,7 @@ class ProductFeatureService(StripeService):
     def list(
         self,
         product: str,
-        params: "ProductFeatureService.ListParams" = None,
+        params: Optional["ProductFeatureService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ProductFeature]:
         """
@@ -188,7 +188,7 @@ class ProductFeatureService(StripeService):
     async def list_async(
         self,
         product: str,
-        params: "ProductFeatureService.ListParams" = None,
+        params: Optional["ProductFeatureService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ProductFeature]:
         """

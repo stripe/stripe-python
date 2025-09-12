@@ -70,7 +70,7 @@ class EventService(StripeService):
 
     def list(
         self,
-        params: "EventService.ListParams" = None,
+        params: Optional["EventService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Event]:
         """
@@ -93,7 +93,7 @@ class EventService(StripeService):
 
     async def list_async(
         self,
-        params: "EventService.ListParams" = None,
+        params: Optional["EventService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Event]:
         """
@@ -117,7 +117,7 @@ class EventService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "EventService.RetrieveParams" = None,
+        params: Optional["EventService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Event:
         """
@@ -141,7 +141,7 @@ class EventService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "EventService.RetrieveParams" = None,
+        params: Optional["EventService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Event:
         """

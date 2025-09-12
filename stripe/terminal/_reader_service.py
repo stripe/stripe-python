@@ -432,7 +432,7 @@ class ReaderService(StripeService):
     def delete(
         self,
         reader: str,
-        params: "ReaderService.DeleteParams" = None,
+        params: Optional["ReaderService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -458,7 +458,7 @@ class ReaderService(StripeService):
     async def delete_async(
         self,
         reader: str,
-        params: "ReaderService.DeleteParams" = None,
+        params: Optional["ReaderService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -484,7 +484,7 @@ class ReaderService(StripeService):
     def retrieve(
         self,
         reader: str,
-        params: "ReaderService.RetrieveParams" = None,
+        params: Optional["ReaderService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -510,7 +510,7 @@ class ReaderService(StripeService):
     async def retrieve_async(
         self,
         reader: str,
-        params: "ReaderService.RetrieveParams" = None,
+        params: Optional["ReaderService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -536,7 +536,7 @@ class ReaderService(StripeService):
     def update(
         self,
         reader: str,
-        params: "ReaderService.UpdateParams" = None,
+        params: Optional["ReaderService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -562,7 +562,7 @@ class ReaderService(StripeService):
     async def update_async(
         self,
         reader: str,
-        params: "ReaderService.UpdateParams" = None,
+        params: Optional["ReaderService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -587,7 +587,7 @@ class ReaderService(StripeService):
 
     def list(
         self,
-        params: "ReaderService.ListParams" = None,
+        params: Optional["ReaderService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Reader]:
         """
@@ -610,7 +610,7 @@ class ReaderService(StripeService):
 
     async def list_async(
         self,
-        params: "ReaderService.ListParams" = None,
+        params: Optional["ReaderService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Reader]:
         """
@@ -676,7 +676,7 @@ class ReaderService(StripeService):
     def cancel_action(
         self,
         reader: str,
-        params: "ReaderService.CancelActionParams" = None,
+        params: Optional["ReaderService.CancelActionParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -702,7 +702,7 @@ class ReaderService(StripeService):
     async def cancel_action_async(
         self,
         reader: str,
-        params: "ReaderService.CancelActionParams" = None,
+        params: Optional["ReaderService.CancelActionParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -968,7 +968,7 @@ class ReaderService(StripeService):
     def refund_payment(
         self,
         reader: str,
-        params: "ReaderService.RefundPaymentParams" = None,
+        params: Optional["ReaderService.RefundPaymentParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -994,7 +994,7 @@ class ReaderService(StripeService):
     async def refund_payment_async(
         self,
         reader: str,
-        params: "ReaderService.RefundPaymentParams" = None,
+        params: Optional["ReaderService.RefundPaymentParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """

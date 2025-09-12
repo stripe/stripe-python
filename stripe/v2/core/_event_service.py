@@ -68,7 +68,7 @@ class EventService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "EventService.RetrieveParams" = None,
+        params: Optional["EventService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Event:
         """
@@ -92,7 +92,7 @@ class EventService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "EventService.RetrieveParams" = None,
+        params: Optional["EventService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Event:
         """

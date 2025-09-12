@@ -220,7 +220,7 @@ class ShippingRateService(StripeService):
 
     def list(
         self,
-        params: "ShippingRateService.ListParams" = None,
+        params: Optional["ShippingRateService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ShippingRate]:
         """
@@ -243,7 +243,7 @@ class ShippingRateService(StripeService):
 
     async def list_async(
         self,
-        params: "ShippingRateService.ListParams" = None,
+        params: Optional["ShippingRateService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ShippingRate]:
         """
@@ -309,7 +309,7 @@ class ShippingRateService(StripeService):
     def retrieve(
         self,
         shipping_rate_token: str,
-        params: "ShippingRateService.RetrieveParams" = None,
+        params: Optional["ShippingRateService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
@@ -335,7 +335,7 @@ class ShippingRateService(StripeService):
     async def retrieve_async(
         self,
         shipping_rate_token: str,
-        params: "ShippingRateService.RetrieveParams" = None,
+        params: Optional["ShippingRateService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
@@ -361,7 +361,7 @@ class ShippingRateService(StripeService):
     def update(
         self,
         shipping_rate_token: str,
-        params: "ShippingRateService.UpdateParams" = None,
+        params: Optional["ShippingRateService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
@@ -387,7 +387,7 @@ class ShippingRateService(StripeService):
     async def update_async(
         self,
         shipping_rate_token: str,
-        params: "ShippingRateService.UpdateParams" = None,
+        params: Optional["ShippingRateService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """

@@ -134,7 +134,7 @@ class TransactionEntryService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "TransactionEntryService.RetrieveParams" = None,
+        params: Optional["TransactionEntryService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TransactionEntry:
         """
@@ -160,7 +160,7 @@ class TransactionEntryService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "TransactionEntryService.RetrieveParams" = None,
+        params: Optional["TransactionEntryService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TransactionEntry:
         """

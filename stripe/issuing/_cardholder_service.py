@@ -2310,7 +2310,7 @@ class CardholderService(StripeService):
 
     def list(
         self,
-        params: "CardholderService.ListParams" = None,
+        params: Optional["CardholderService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Cardholder]:
         """
@@ -2333,7 +2333,7 @@ class CardholderService(StripeService):
 
     async def list_async(
         self,
-        params: "CardholderService.ListParams" = None,
+        params: Optional["CardholderService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Cardholder]:
         """
@@ -2399,7 +2399,7 @@ class CardholderService(StripeService):
     def retrieve(
         self,
         cardholder: str,
-        params: "CardholderService.RetrieveParams" = None,
+        params: Optional["CardholderService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
@@ -2425,7 +2425,7 @@ class CardholderService(StripeService):
     async def retrieve_async(
         self,
         cardholder: str,
-        params: "CardholderService.RetrieveParams" = None,
+        params: Optional["CardholderService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
@@ -2451,7 +2451,7 @@ class CardholderService(StripeService):
     def update(
         self,
         cardholder: str,
-        params: "CardholderService.UpdateParams" = None,
+        params: Optional["CardholderService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
@@ -2477,7 +2477,7 @@ class CardholderService(StripeService):
     async def update_async(
         self,
         cardholder: str,
-        params: "CardholderService.UpdateParams" = None,
+        params: Optional["CardholderService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """

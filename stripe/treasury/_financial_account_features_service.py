@@ -166,7 +166,9 @@ class FinancialAccountFeaturesService(StripeService):
     def update(
         self,
         financial_account: str,
-        params: "FinancialAccountFeaturesService.UpdateParams" = None,
+        params: Optional[
+            "FinancialAccountFeaturesService.UpdateParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccountFeatures:
         """
@@ -192,7 +194,9 @@ class FinancialAccountFeaturesService(StripeService):
     async def update_async(
         self,
         financial_account: str,
-        params: "FinancialAccountFeaturesService.UpdateParams" = None,
+        params: Optional[
+            "FinancialAccountFeaturesService.UpdateParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccountFeatures:
         """
@@ -218,7 +222,9 @@ class FinancialAccountFeaturesService(StripeService):
     def retrieve(
         self,
         financial_account: str,
-        params: "FinancialAccountFeaturesService.RetrieveParams" = None,
+        params: Optional[
+            "FinancialAccountFeaturesService.RetrieveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccountFeatures:
         """
@@ -244,7 +250,9 @@ class FinancialAccountFeaturesService(StripeService):
     async def retrieve_async(
         self,
         financial_account: str,
-        params: "FinancialAccountFeaturesService.RetrieveParams" = None,
+        params: Optional[
+            "FinancialAccountFeaturesService.RetrieveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccountFeatures:
         """

@@ -84,7 +84,7 @@ class ValueListItemService(StripeService):
     def delete(
         self,
         item: str,
-        params: "ValueListItemService.DeleteParams" = None,
+        params: Optional["ValueListItemService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueListItem:
         """
@@ -110,7 +110,7 @@ class ValueListItemService(StripeService):
     async def delete_async(
         self,
         item: str,
-        params: "ValueListItemService.DeleteParams" = None,
+        params: Optional["ValueListItemService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueListItem:
         """
@@ -136,7 +136,7 @@ class ValueListItemService(StripeService):
     def retrieve(
         self,
         item: str,
-        params: "ValueListItemService.RetrieveParams" = None,
+        params: Optional["ValueListItemService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueListItem:
         """
@@ -162,7 +162,7 @@ class ValueListItemService(StripeService):
     async def retrieve_async(
         self,
         item: str,
-        params: "ValueListItemService.RetrieveParams" = None,
+        params: Optional["ValueListItemService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueListItem:
         """

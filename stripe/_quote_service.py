@@ -627,7 +627,7 @@ class QuoteService(StripeService):
 
     def list(
         self,
-        params: "QuoteService.ListParams" = None,
+        params: Optional["QuoteService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Quote]:
         """
@@ -650,7 +650,7 @@ class QuoteService(StripeService):
 
     async def list_async(
         self,
-        params: "QuoteService.ListParams" = None,
+        params: Optional["QuoteService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Quote]:
         """
@@ -673,7 +673,7 @@ class QuoteService(StripeService):
 
     def create(
         self,
-        params: "QuoteService.CreateParams" = None,
+        params: Optional["QuoteService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
@@ -696,7 +696,7 @@ class QuoteService(StripeService):
 
     async def create_async(
         self,
-        params: "QuoteService.CreateParams" = None,
+        params: Optional["QuoteService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
@@ -720,7 +720,7 @@ class QuoteService(StripeService):
     def retrieve(
         self,
         quote: str,
-        params: "QuoteService.RetrieveParams" = None,
+        params: Optional["QuoteService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
@@ -744,7 +744,7 @@ class QuoteService(StripeService):
     async def retrieve_async(
         self,
         quote: str,
-        params: "QuoteService.RetrieveParams" = None,
+        params: Optional["QuoteService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
@@ -768,7 +768,7 @@ class QuoteService(StripeService):
     def update(
         self,
         quote: str,
-        params: "QuoteService.UpdateParams" = None,
+        params: Optional["QuoteService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
@@ -792,7 +792,7 @@ class QuoteService(StripeService):
     async def update_async(
         self,
         quote: str,
-        params: "QuoteService.UpdateParams" = None,
+        params: Optional["QuoteService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
@@ -816,7 +816,7 @@ class QuoteService(StripeService):
     def accept(
         self,
         quote: str,
-        params: "QuoteService.AcceptParams" = None,
+        params: Optional["QuoteService.AcceptParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
@@ -840,7 +840,7 @@ class QuoteService(StripeService):
     async def accept_async(
         self,
         quote: str,
-        params: "QuoteService.AcceptParams" = None,
+        params: Optional["QuoteService.AcceptParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
@@ -864,7 +864,7 @@ class QuoteService(StripeService):
     def cancel(
         self,
         quote: str,
-        params: "QuoteService.CancelParams" = None,
+        params: Optional["QuoteService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
@@ -888,7 +888,7 @@ class QuoteService(StripeService):
     async def cancel_async(
         self,
         quote: str,
-        params: "QuoteService.CancelParams" = None,
+        params: Optional["QuoteService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
@@ -912,7 +912,7 @@ class QuoteService(StripeService):
     def finalize_quote(
         self,
         quote: str,
-        params: "QuoteService.FinalizeQuoteParams" = None,
+        params: Optional["QuoteService.FinalizeQuoteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
@@ -936,7 +936,7 @@ class QuoteService(StripeService):
     async def finalize_quote_async(
         self,
         quote: str,
-        params: "QuoteService.FinalizeQuoteParams" = None,
+        params: Optional["QuoteService.FinalizeQuoteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Quote:
         """
@@ -960,7 +960,7 @@ class QuoteService(StripeService):
     def pdf(
         self,
         quote: str,
-        params: "QuoteService.PdfParams" = None,
+        params: Optional["QuoteService.PdfParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Any:
         """
@@ -984,7 +984,7 @@ class QuoteService(StripeService):
     async def pdf_async(
         self,
         quote: str,
-        params: "QuoteService.PdfParams" = None,
+        params: Optional["QuoteService.PdfParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Any:
         """

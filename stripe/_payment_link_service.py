@@ -1866,7 +1866,7 @@ class PaymentLinkService(StripeService):
 
     def list(
         self,
-        params: "PaymentLinkService.ListParams" = None,
+        params: Optional["PaymentLinkService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentLink]:
         """
@@ -1889,7 +1889,7 @@ class PaymentLinkService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentLinkService.ListParams" = None,
+        params: Optional["PaymentLinkService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentLink]:
         """
@@ -1955,7 +1955,7 @@ class PaymentLinkService(StripeService):
     def retrieve(
         self,
         payment_link: str,
-        params: "PaymentLinkService.RetrieveParams" = None,
+        params: Optional["PaymentLinkService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentLink:
         """
@@ -1981,7 +1981,7 @@ class PaymentLinkService(StripeService):
     async def retrieve_async(
         self,
         payment_link: str,
-        params: "PaymentLinkService.RetrieveParams" = None,
+        params: Optional["PaymentLinkService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentLink:
         """
@@ -2007,7 +2007,7 @@ class PaymentLinkService(StripeService):
     def update(
         self,
         payment_link: str,
-        params: "PaymentLinkService.UpdateParams" = None,
+        params: Optional["PaymentLinkService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentLink:
         """
@@ -2033,7 +2033,7 @@ class PaymentLinkService(StripeService):
     async def update_async(
         self,
         payment_link: str,
-        params: "PaymentLinkService.UpdateParams" = None,
+        params: Optional["PaymentLinkService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentLink:
         """

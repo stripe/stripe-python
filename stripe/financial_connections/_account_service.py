@@ -97,7 +97,7 @@ class AccountService(StripeService):
 
     def list(
         self,
-        params: "AccountService.ListParams" = None,
+        params: Optional["AccountService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Account]:
         """
@@ -120,7 +120,7 @@ class AccountService(StripeService):
 
     async def list_async(
         self,
-        params: "AccountService.ListParams" = None,
+        params: Optional["AccountService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Account]:
         """
@@ -144,7 +144,7 @@ class AccountService(StripeService):
     def retrieve(
         self,
         account: str,
-        params: "AccountService.RetrieveParams" = None,
+        params: Optional["AccountService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -170,7 +170,7 @@ class AccountService(StripeService):
     async def retrieve_async(
         self,
         account: str,
-        params: "AccountService.RetrieveParams" = None,
+        params: Optional["AccountService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -196,7 +196,7 @@ class AccountService(StripeService):
     def disconnect(
         self,
         account: str,
-        params: "AccountService.DisconnectParams" = None,
+        params: Optional["AccountService.DisconnectParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -222,7 +222,7 @@ class AccountService(StripeService):
     async def disconnect_async(
         self,
         account: str,
-        params: "AccountService.DisconnectParams" = None,
+        params: Optional["AccountService.DisconnectParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """

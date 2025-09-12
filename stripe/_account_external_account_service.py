@@ -206,7 +206,7 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.DeleteParams" = None,
+        params: Optional["AccountExternalAccountService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
@@ -234,7 +234,7 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.DeleteParams" = None,
+        params: Optional["AccountExternalAccountService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
@@ -262,7 +262,9 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.RetrieveParams" = None,
+        params: Optional[
+            "AccountExternalAccountService.RetrieveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
@@ -290,7 +292,9 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.RetrieveParams" = None,
+        params: Optional[
+            "AccountExternalAccountService.RetrieveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
@@ -318,7 +322,7 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.UpdateParams" = None,
+        params: Optional["AccountExternalAccountService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
@@ -353,7 +357,7 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.UpdateParams" = None,
+        params: Optional["AccountExternalAccountService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
@@ -387,7 +391,7 @@ class AccountExternalAccountService(StripeService):
     def list(
         self,
         account: str,
-        params: "AccountExternalAccountService.ListParams" = None,
+        params: Optional["AccountExternalAccountService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Union[BankAccount, Card]]:
         """
@@ -413,7 +417,7 @@ class AccountExternalAccountService(StripeService):
     async def list_async(
         self,
         account: str,
-        params: "AccountExternalAccountService.ListParams" = None,
+        params: Optional["AccountExternalAccountService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Union[BankAccount, Card]]:
         """

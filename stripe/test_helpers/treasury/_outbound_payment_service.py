@@ -151,7 +151,7 @@ class OutboundPaymentService(StripeService):
     def fail(
         self,
         id: str,
-        params: "OutboundPaymentService.FailParams" = None,
+        params: Optional["OutboundPaymentService.FailParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
@@ -177,7 +177,7 @@ class OutboundPaymentService(StripeService):
     async def fail_async(
         self,
         id: str,
-        params: "OutboundPaymentService.FailParams" = None,
+        params: Optional["OutboundPaymentService.FailParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
@@ -203,7 +203,7 @@ class OutboundPaymentService(StripeService):
     def post(
         self,
         id: str,
-        params: "OutboundPaymentService.PostParams" = None,
+        params: Optional["OutboundPaymentService.PostParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
@@ -229,7 +229,7 @@ class OutboundPaymentService(StripeService):
     async def post_async(
         self,
         id: str,
-        params: "OutboundPaymentService.PostParams" = None,
+        params: Optional["OutboundPaymentService.PostParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
@@ -255,7 +255,9 @@ class OutboundPaymentService(StripeService):
     def return_outbound_payment(
         self,
         id: str,
-        params: "OutboundPaymentService.ReturnOutboundPaymentParams" = None,
+        params: Optional[
+            "OutboundPaymentService.ReturnOutboundPaymentParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
@@ -281,7 +283,9 @@ class OutboundPaymentService(StripeService):
     async def return_outbound_payment_async(
         self,
         id: str,
-        params: "OutboundPaymentService.ReturnOutboundPaymentParams" = None,
+        params: Optional[
+            "OutboundPaymentService.ReturnOutboundPaymentParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """

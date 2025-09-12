@@ -67,7 +67,7 @@ class ApplicationFeeService(StripeService):
 
     def list(
         self,
-        params: "ApplicationFeeService.ListParams" = None,
+        params: Optional["ApplicationFeeService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplicationFee]:
         """
@@ -90,7 +90,7 @@ class ApplicationFeeService(StripeService):
 
     async def list_async(
         self,
-        params: "ApplicationFeeService.ListParams" = None,
+        params: Optional["ApplicationFeeService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplicationFee]:
         """
@@ -114,7 +114,7 @@ class ApplicationFeeService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ApplicationFeeService.RetrieveParams" = None,
+        params: Optional["ApplicationFeeService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplicationFee:
         """
@@ -138,7 +138,7 @@ class ApplicationFeeService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ApplicationFeeService.RetrieveParams" = None,
+        params: Optional["ApplicationFeeService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplicationFee:
         """

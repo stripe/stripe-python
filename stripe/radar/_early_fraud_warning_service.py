@@ -66,7 +66,7 @@ class EarlyFraudWarningService(StripeService):
 
     def list(
         self,
-        params: "EarlyFraudWarningService.ListParams" = None,
+        params: Optional["EarlyFraudWarningService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[EarlyFraudWarning]:
         """
@@ -89,7 +89,7 @@ class EarlyFraudWarningService(StripeService):
 
     async def list_async(
         self,
-        params: "EarlyFraudWarningService.ListParams" = None,
+        params: Optional["EarlyFraudWarningService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[EarlyFraudWarning]:
         """
@@ -113,7 +113,7 @@ class EarlyFraudWarningService(StripeService):
     def retrieve(
         self,
         early_fraud_warning: str,
-        params: "EarlyFraudWarningService.RetrieveParams" = None,
+        params: Optional["EarlyFraudWarningService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> EarlyFraudWarning:
         """
@@ -141,7 +141,7 @@ class EarlyFraudWarningService(StripeService):
     async def retrieve_async(
         self,
         early_fraud_warning: str,
-        params: "EarlyFraudWarningService.RetrieveParams" = None,
+        params: Optional["EarlyFraudWarningService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> EarlyFraudWarning:
         """

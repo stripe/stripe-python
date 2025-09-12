@@ -31,7 +31,7 @@ class SessionLineItemService(StripeService):
     def list(
         self,
         session: str,
-        params: "SessionLineItemService.ListParams" = None,
+        params: Optional["SessionLineItemService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[LineItem]:
         """
@@ -57,7 +57,7 @@ class SessionLineItemService(StripeService):
     async def list_async(
         self,
         session: str,
-        params: "SessionLineItemService.ListParams" = None,
+        params: Optional["SessionLineItemService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[LineItem]:
         """

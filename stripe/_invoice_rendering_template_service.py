@@ -50,7 +50,7 @@ class InvoiceRenderingTemplateService(StripeService):
 
     def list(
         self,
-        params: "InvoiceRenderingTemplateService.ListParams" = None,
+        params: Optional["InvoiceRenderingTemplateService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoiceRenderingTemplate]:
         """
@@ -73,7 +73,7 @@ class InvoiceRenderingTemplateService(StripeService):
 
     async def list_async(
         self,
-        params: "InvoiceRenderingTemplateService.ListParams" = None,
+        params: Optional["InvoiceRenderingTemplateService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoiceRenderingTemplate]:
         """
@@ -97,7 +97,9 @@ class InvoiceRenderingTemplateService(StripeService):
     def retrieve(
         self,
         template: str,
-        params: "InvoiceRenderingTemplateService.RetrieveParams" = None,
+        params: Optional[
+            "InvoiceRenderingTemplateService.RetrieveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceRenderingTemplate:
         """
@@ -123,7 +125,9 @@ class InvoiceRenderingTemplateService(StripeService):
     async def retrieve_async(
         self,
         template: str,
-        params: "InvoiceRenderingTemplateService.RetrieveParams" = None,
+        params: Optional[
+            "InvoiceRenderingTemplateService.RetrieveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceRenderingTemplate:
         """
@@ -149,7 +153,9 @@ class InvoiceRenderingTemplateService(StripeService):
     def archive(
         self,
         template: str,
-        params: "InvoiceRenderingTemplateService.ArchiveParams" = None,
+        params: Optional[
+            "InvoiceRenderingTemplateService.ArchiveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceRenderingTemplate:
         """
@@ -175,7 +181,9 @@ class InvoiceRenderingTemplateService(StripeService):
     async def archive_async(
         self,
         template: str,
-        params: "InvoiceRenderingTemplateService.ArchiveParams" = None,
+        params: Optional[
+            "InvoiceRenderingTemplateService.ArchiveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceRenderingTemplate:
         """
@@ -201,7 +209,9 @@ class InvoiceRenderingTemplateService(StripeService):
     def unarchive(
         self,
         template: str,
-        params: "InvoiceRenderingTemplateService.UnarchiveParams" = None,
+        params: Optional[
+            "InvoiceRenderingTemplateService.UnarchiveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceRenderingTemplate:
         """
@@ -227,7 +237,9 @@ class InvoiceRenderingTemplateService(StripeService):
     async def unarchive_async(
         self,
         template: str,
-        params: "InvoiceRenderingTemplateService.UnarchiveParams" = None,
+        params: Optional[
+            "InvoiceRenderingTemplateService.UnarchiveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceRenderingTemplate:
         """

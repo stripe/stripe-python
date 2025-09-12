@@ -140,7 +140,7 @@ class TopupService(StripeService):
 
     def list(
         self,
-        params: "TopupService.ListParams" = None,
+        params: Optional["TopupService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Topup]:
         """
@@ -163,7 +163,7 @@ class TopupService(StripeService):
 
     async def list_async(
         self,
-        params: "TopupService.ListParams" = None,
+        params: Optional["TopupService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Topup]:
         """
@@ -229,7 +229,7 @@ class TopupService(StripeService):
     def retrieve(
         self,
         topup: str,
-        params: "TopupService.RetrieveParams" = None,
+        params: Optional["TopupService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
@@ -253,7 +253,7 @@ class TopupService(StripeService):
     async def retrieve_async(
         self,
         topup: str,
-        params: "TopupService.RetrieveParams" = None,
+        params: Optional["TopupService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
@@ -277,7 +277,7 @@ class TopupService(StripeService):
     def update(
         self,
         topup: str,
-        params: "TopupService.UpdateParams" = None,
+        params: Optional["TopupService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
@@ -301,7 +301,7 @@ class TopupService(StripeService):
     async def update_async(
         self,
         topup: str,
-        params: "TopupService.UpdateParams" = None,
+        params: Optional["TopupService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
@@ -325,7 +325,7 @@ class TopupService(StripeService):
     def cancel(
         self,
         topup: str,
-        params: "TopupService.CancelParams" = None,
+        params: Optional["TopupService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
@@ -349,7 +349,7 @@ class TopupService(StripeService):
     async def cancel_async(
         self,
         topup: str,
-        params: "TopupService.CancelParams" = None,
+        params: Optional["TopupService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Topup:
         """

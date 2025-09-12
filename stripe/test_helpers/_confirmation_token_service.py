@@ -902,7 +902,7 @@ class ConfirmationTokenService(StripeService):
 
     def create(
         self,
-        params: "ConfirmationTokenService.CreateParams" = None,
+        params: Optional["ConfirmationTokenService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ConfirmationToken:
         """
@@ -925,7 +925,7 @@ class ConfirmationTokenService(StripeService):
 
     async def create_async(
         self,
-        params: "ConfirmationTokenService.CreateParams" = None,
+        params: Optional["ConfirmationTokenService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ConfirmationToken:
         """

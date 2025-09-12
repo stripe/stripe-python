@@ -44,7 +44,7 @@ class PhysicalBundleService(StripeService):
 
     def list(
         self,
-        params: "PhysicalBundleService.ListParams" = None,
+        params: Optional["PhysicalBundleService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PhysicalBundle]:
         """
@@ -67,7 +67,7 @@ class PhysicalBundleService(StripeService):
 
     async def list_async(
         self,
-        params: "PhysicalBundleService.ListParams" = None,
+        params: Optional["PhysicalBundleService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PhysicalBundle]:
         """
@@ -91,7 +91,7 @@ class PhysicalBundleService(StripeService):
     def retrieve(
         self,
         physical_bundle: str,
-        params: "PhysicalBundleService.RetrieveParams" = None,
+        params: Optional["PhysicalBundleService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PhysicalBundle:
         """
@@ -117,7 +117,7 @@ class PhysicalBundleService(StripeService):
     async def retrieve_async(
         self,
         physical_bundle: str,
-        params: "PhysicalBundleService.RetrieveParams" = None,
+        params: Optional["PhysicalBundleService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PhysicalBundle:
         """

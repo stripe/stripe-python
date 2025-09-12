@@ -630,7 +630,7 @@ class DisputeService(StripeService):
 
     def list(
         self,
-        params: "DisputeService.ListParams" = None,
+        params: Optional["DisputeService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Dispute]:
         """
@@ -653,7 +653,7 @@ class DisputeService(StripeService):
 
     async def list_async(
         self,
-        params: "DisputeService.ListParams" = None,
+        params: Optional["DisputeService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Dispute]:
         """
@@ -676,7 +676,7 @@ class DisputeService(StripeService):
 
     def create(
         self,
-        params: "DisputeService.CreateParams" = None,
+        params: Optional["DisputeService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
@@ -699,7 +699,7 @@ class DisputeService(StripeService):
 
     async def create_async(
         self,
-        params: "DisputeService.CreateParams" = None,
+        params: Optional["DisputeService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
@@ -723,7 +723,7 @@ class DisputeService(StripeService):
     def retrieve(
         self,
         dispute: str,
-        params: "DisputeService.RetrieveParams" = None,
+        params: Optional["DisputeService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
@@ -749,7 +749,7 @@ class DisputeService(StripeService):
     async def retrieve_async(
         self,
         dispute: str,
-        params: "DisputeService.RetrieveParams" = None,
+        params: Optional["DisputeService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
@@ -775,7 +775,7 @@ class DisputeService(StripeService):
     def update(
         self,
         dispute: str,
-        params: "DisputeService.UpdateParams" = None,
+        params: Optional["DisputeService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
@@ -801,7 +801,7 @@ class DisputeService(StripeService):
     async def update_async(
         self,
         dispute: str,
-        params: "DisputeService.UpdateParams" = None,
+        params: Optional["DisputeService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
@@ -827,7 +827,7 @@ class DisputeService(StripeService):
     def submit(
         self,
         dispute: str,
-        params: "DisputeService.SubmitParams" = None,
+        params: Optional["DisputeService.SubmitParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
@@ -853,7 +853,7 @@ class DisputeService(StripeService):
     async def submit_async(
         self,
         dispute: str,
-        params: "DisputeService.SubmitParams" = None,
+        params: Optional["DisputeService.SubmitParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """

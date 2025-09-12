@@ -24,7 +24,7 @@ class ReportTypeService(StripeService):
 
     def list(
         self,
-        params: "ReportTypeService.ListParams" = None,
+        params: Optional["ReportTypeService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ReportType]:
         """
@@ -47,7 +47,7 @@ class ReportTypeService(StripeService):
 
     async def list_async(
         self,
-        params: "ReportTypeService.ListParams" = None,
+        params: Optional["ReportTypeService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ReportType]:
         """
@@ -71,7 +71,7 @@ class ReportTypeService(StripeService):
     def retrieve(
         self,
         report_type: str,
-        params: "ReportTypeService.RetrieveParams" = None,
+        params: Optional["ReportTypeService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReportType:
         """
@@ -97,7 +97,7 @@ class ReportTypeService(StripeService):
     async def retrieve_async(
         self,
         report_type: str,
-        params: "ReportTypeService.RetrieveParams" = None,
+        params: Optional["ReportTypeService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReportType:
         """

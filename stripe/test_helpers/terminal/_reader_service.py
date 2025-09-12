@@ -88,7 +88,7 @@ class ReaderService(StripeService):
     def present_payment_method(
         self,
         reader: str,
-        params: "ReaderService.PresentPaymentMethodParams" = None,
+        params: Optional["ReaderService.PresentPaymentMethodParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -114,7 +114,7 @@ class ReaderService(StripeService):
     async def present_payment_method_async(
         self,
         reader: str,
-        params: "ReaderService.PresentPaymentMethodParams" = None,
+        params: Optional["ReaderService.PresentPaymentMethodParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -140,7 +140,7 @@ class ReaderService(StripeService):
     def succeed_input_collection(
         self,
         reader: str,
-        params: "ReaderService.SucceedInputCollectionParams" = None,
+        params: Optional["ReaderService.SucceedInputCollectionParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -166,7 +166,7 @@ class ReaderService(StripeService):
     async def succeed_input_collection_async(
         self,
         reader: str,
-        params: "ReaderService.SucceedInputCollectionParams" = None,
+        params: Optional["ReaderService.SucceedInputCollectionParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -192,7 +192,7 @@ class ReaderService(StripeService):
     def timeout_input_collection(
         self,
         reader: str,
-        params: "ReaderService.TimeoutInputCollectionParams" = None,
+        params: Optional["ReaderService.TimeoutInputCollectionParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """
@@ -218,7 +218,7 @@ class ReaderService(StripeService):
     async def timeout_input_collection_async(
         self,
         reader: str,
-        params: "ReaderService.TimeoutInputCollectionParams" = None,
+        params: Optional["ReaderService.TimeoutInputCollectionParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reader:
         """

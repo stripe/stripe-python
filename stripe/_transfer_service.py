@@ -123,7 +123,7 @@ class TransferService(StripeService):
 
     def list(
         self,
-        params: "TransferService.ListParams" = None,
+        params: Optional["TransferService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Transfer]:
         """
@@ -146,7 +146,7 @@ class TransferService(StripeService):
 
     async def list_async(
         self,
-        params: "TransferService.ListParams" = None,
+        params: Optional["TransferService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Transfer]:
         """
@@ -212,7 +212,7 @@ class TransferService(StripeService):
     def retrieve(
         self,
         transfer: str,
-        params: "TransferService.RetrieveParams" = None,
+        params: Optional["TransferService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
@@ -238,7 +238,7 @@ class TransferService(StripeService):
     async def retrieve_async(
         self,
         transfer: str,
-        params: "TransferService.RetrieveParams" = None,
+        params: Optional["TransferService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
@@ -264,7 +264,7 @@ class TransferService(StripeService):
     def update(
         self,
         transfer: str,
-        params: "TransferService.UpdateParams" = None,
+        params: Optional["TransferService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
@@ -292,7 +292,7 @@ class TransferService(StripeService):
     async def update_async(
         self,
         transfer: str,
-        params: "TransferService.UpdateParams" = None,
+        params: Optional["TransferService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """

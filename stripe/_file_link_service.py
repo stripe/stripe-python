@@ -98,7 +98,7 @@ class FileLinkService(StripeService):
 
     def list(
         self,
-        params: "FileLinkService.ListParams" = None,
+        params: Optional["FileLinkService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[FileLink]:
         """
@@ -121,7 +121,7 @@ class FileLinkService(StripeService):
 
     async def list_async(
         self,
-        params: "FileLinkService.ListParams" = None,
+        params: Optional["FileLinkService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[FileLink]:
         """
@@ -187,7 +187,7 @@ class FileLinkService(StripeService):
     def retrieve(
         self,
         link: str,
-        params: "FileLinkService.RetrieveParams" = None,
+        params: Optional["FileLinkService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FileLink:
         """
@@ -211,7 +211,7 @@ class FileLinkService(StripeService):
     async def retrieve_async(
         self,
         link: str,
-        params: "FileLinkService.RetrieveParams" = None,
+        params: Optional["FileLinkService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FileLink:
         """
@@ -235,7 +235,7 @@ class FileLinkService(StripeService):
     def update(
         self,
         link: str,
-        params: "FileLinkService.UpdateParams" = None,
+        params: Optional["FileLinkService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FileLink:
         """
@@ -259,7 +259,7 @@ class FileLinkService(StripeService):
     async def update_async(
         self,
         link: str,
-        params: "FileLinkService.UpdateParams" = None,
+        params: Optional["FileLinkService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FileLink:
         """

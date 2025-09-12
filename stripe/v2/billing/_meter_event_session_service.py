@@ -13,7 +13,7 @@ class MeterEventSessionService(StripeService):
 
     def create(
         self,
-        params: "MeterEventSessionService.CreateParams" = None,
+        params: Optional["MeterEventSessionService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> MeterEventSession:
         """
@@ -36,7 +36,7 @@ class MeterEventSessionService(StripeService):
 
     async def create_async(
         self,
-        params: "MeterEventSessionService.CreateParams" = None,
+        params: Optional["MeterEventSessionService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> MeterEventSession:
         """

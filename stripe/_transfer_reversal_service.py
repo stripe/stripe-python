@@ -69,7 +69,7 @@ class TransferReversalService(StripeService):
     def list(
         self,
         id: str,
-        params: "TransferReversalService.ListParams" = None,
+        params: Optional["TransferReversalService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Reversal]:
         """
@@ -93,7 +93,7 @@ class TransferReversalService(StripeService):
     async def list_async(
         self,
         id: str,
-        params: "TransferReversalService.ListParams" = None,
+        params: Optional["TransferReversalService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Reversal]:
         """
@@ -117,7 +117,7 @@ class TransferReversalService(StripeService):
     def create(
         self,
         id: str,
-        params: "TransferReversalService.CreateParams" = None,
+        params: Optional["TransferReversalService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reversal:
         """
@@ -145,7 +145,7 @@ class TransferReversalService(StripeService):
     async def create_async(
         self,
         id: str,
-        params: "TransferReversalService.CreateParams" = None,
+        params: Optional["TransferReversalService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reversal:
         """
@@ -174,7 +174,7 @@ class TransferReversalService(StripeService):
         self,
         transfer: str,
         id: str,
-        params: "TransferReversalService.RetrieveParams" = None,
+        params: Optional["TransferReversalService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reversal:
         """
@@ -202,7 +202,7 @@ class TransferReversalService(StripeService):
         self,
         transfer: str,
         id: str,
-        params: "TransferReversalService.RetrieveParams" = None,
+        params: Optional["TransferReversalService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reversal:
         """
@@ -230,7 +230,7 @@ class TransferReversalService(StripeService):
         self,
         transfer: str,
         id: str,
-        params: "TransferReversalService.UpdateParams" = None,
+        params: Optional["TransferReversalService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reversal:
         """
@@ -260,7 +260,7 @@ class TransferReversalService(StripeService):
         self,
         transfer: str,
         id: str,
-        params: "TransferReversalService.UpdateParams" = None,
+        params: Optional["TransferReversalService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Reversal:
         """

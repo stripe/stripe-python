@@ -105,7 +105,7 @@ class ReceivedCreditService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ReceivedCreditService.RetrieveParams" = None,
+        params: Optional["ReceivedCreditService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReceivedCredit:
         """
@@ -131,7 +131,7 @@ class ReceivedCreditService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ReceivedCreditService.RetrieveParams" = None,
+        params: Optional["ReceivedCreditService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReceivedCredit:
         """

@@ -182,7 +182,7 @@ class PromotionCodeService(StripeService):
 
     def list(
         self,
-        params: "PromotionCodeService.ListParams" = None,
+        params: Optional["PromotionCodeService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PromotionCode]:
         """
@@ -205,7 +205,7 @@ class PromotionCodeService(StripeService):
 
     async def list_async(
         self,
-        params: "PromotionCodeService.ListParams" = None,
+        params: Optional["PromotionCodeService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PromotionCode]:
         """
@@ -271,7 +271,7 @@ class PromotionCodeService(StripeService):
     def retrieve(
         self,
         promotion_code: str,
-        params: "PromotionCodeService.RetrieveParams" = None,
+        params: Optional["PromotionCodeService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -297,7 +297,7 @@ class PromotionCodeService(StripeService):
     async def retrieve_async(
         self,
         promotion_code: str,
-        params: "PromotionCodeService.RetrieveParams" = None,
+        params: Optional["PromotionCodeService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -323,7 +323,7 @@ class PromotionCodeService(StripeService):
     def update(
         self,
         promotion_code: str,
-        params: "PromotionCodeService.UpdateParams" = None,
+        params: Optional["PromotionCodeService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -349,7 +349,7 @@ class PromotionCodeService(StripeService):
     async def update_async(
         self,
         promotion_code: str,
-        params: "PromotionCodeService.UpdateParams" = None,
+        params: Optional["PromotionCodeService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """

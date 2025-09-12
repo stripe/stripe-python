@@ -194,7 +194,7 @@ class PersonalizationDesignService(StripeService):
 
     def list(
         self,
-        params: "PersonalizationDesignService.ListParams" = None,
+        params: Optional["PersonalizationDesignService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PersonalizationDesign]:
         """
@@ -217,7 +217,7 @@ class PersonalizationDesignService(StripeService):
 
     async def list_async(
         self,
-        params: "PersonalizationDesignService.ListParams" = None,
+        params: Optional["PersonalizationDesignService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PersonalizationDesign]:
         """
@@ -283,7 +283,7 @@ class PersonalizationDesignService(StripeService):
     def retrieve(
         self,
         personalization_design: str,
-        params: "PersonalizationDesignService.RetrieveParams" = None,
+        params: Optional["PersonalizationDesignService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
@@ -309,7 +309,7 @@ class PersonalizationDesignService(StripeService):
     async def retrieve_async(
         self,
         personalization_design: str,
-        params: "PersonalizationDesignService.RetrieveParams" = None,
+        params: Optional["PersonalizationDesignService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
@@ -335,7 +335,7 @@ class PersonalizationDesignService(StripeService):
     def update(
         self,
         personalization_design: str,
-        params: "PersonalizationDesignService.UpdateParams" = None,
+        params: Optional["PersonalizationDesignService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
@@ -361,7 +361,7 @@ class PersonalizationDesignService(StripeService):
     async def update_async(
         self,
         personalization_design: str,
-        params: "PersonalizationDesignService.UpdateParams" = None,
+        params: Optional["PersonalizationDesignService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """

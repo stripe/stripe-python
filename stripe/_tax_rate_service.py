@@ -184,7 +184,7 @@ class TaxRateService(StripeService):
 
     def list(
         self,
-        params: "TaxRateService.ListParams" = None,
+        params: Optional["TaxRateService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TaxRate]:
         """
@@ -207,7 +207,7 @@ class TaxRateService(StripeService):
 
     async def list_async(
         self,
-        params: "TaxRateService.ListParams" = None,
+        params: Optional["TaxRateService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TaxRate]:
         """
@@ -273,7 +273,7 @@ class TaxRateService(StripeService):
     def retrieve(
         self,
         tax_rate: str,
-        params: "TaxRateService.RetrieveParams" = None,
+        params: Optional["TaxRateService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TaxRate:
         """
@@ -299,7 +299,7 @@ class TaxRateService(StripeService):
     async def retrieve_async(
         self,
         tax_rate: str,
-        params: "TaxRateService.RetrieveParams" = None,
+        params: Optional["TaxRateService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TaxRate:
         """
@@ -325,7 +325,7 @@ class TaxRateService(StripeService):
     def update(
         self,
         tax_rate: str,
-        params: "TaxRateService.UpdateParams" = None,
+        params: Optional["TaxRateService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TaxRate:
         """
@@ -351,7 +351,7 @@ class TaxRateService(StripeService):
     async def update_async(
         self,
         tax_rate: str,
-        params: "TaxRateService.UpdateParams" = None,
+        params: Optional["TaxRateService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TaxRate:
         """

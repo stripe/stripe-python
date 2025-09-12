@@ -999,7 +999,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.DeleteParams" = None,
+        params: Optional["AccountPersonService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Person:
         """
@@ -1027,7 +1027,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.DeleteParams" = None,
+        params: Optional["AccountPersonService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Person:
         """
@@ -1055,7 +1055,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.RetrieveParams" = None,
+        params: Optional["AccountPersonService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Person:
         """
@@ -1083,7 +1083,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.RetrieveParams" = None,
+        params: Optional["AccountPersonService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Person:
         """
@@ -1111,7 +1111,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.UpdateParams" = None,
+        params: Optional["AccountPersonService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Person:
         """
@@ -1139,7 +1139,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.UpdateParams" = None,
+        params: Optional["AccountPersonService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Person:
         """
@@ -1166,7 +1166,7 @@ class AccountPersonService(StripeService):
     def list(
         self,
         account: str,
-        params: "AccountPersonService.ListParams" = None,
+        params: Optional["AccountPersonService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Person]:
         """
@@ -1192,7 +1192,7 @@ class AccountPersonService(StripeService):
     async def list_async(
         self,
         account: str,
-        params: "AccountPersonService.ListParams" = None,
+        params: Optional["AccountPersonService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Person]:
         """
@@ -1218,7 +1218,7 @@ class AccountPersonService(StripeService):
     def create(
         self,
         account: str,
-        params: "AccountPersonService.CreateParams" = None,
+        params: Optional["AccountPersonService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Person:
         """
@@ -1244,7 +1244,7 @@ class AccountPersonService(StripeService):
     async def create_async(
         self,
         account: str,
-        params: "AccountPersonService.CreateParams" = None,
+        params: Optional["AccountPersonService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Person:
         """

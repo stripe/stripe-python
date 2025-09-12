@@ -64,7 +64,7 @@ class TestClockService(StripeService):
     def delete(
         self,
         test_clock: str,
-        params: "TestClockService.DeleteParams" = None,
+        params: Optional["TestClockService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TestClock:
         """
@@ -90,7 +90,7 @@ class TestClockService(StripeService):
     async def delete_async(
         self,
         test_clock: str,
-        params: "TestClockService.DeleteParams" = None,
+        params: Optional["TestClockService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TestClock:
         """
@@ -116,7 +116,7 @@ class TestClockService(StripeService):
     def retrieve(
         self,
         test_clock: str,
-        params: "TestClockService.RetrieveParams" = None,
+        params: Optional["TestClockService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TestClock:
         """
@@ -142,7 +142,7 @@ class TestClockService(StripeService):
     async def retrieve_async(
         self,
         test_clock: str,
-        params: "TestClockService.RetrieveParams" = None,
+        params: Optional["TestClockService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TestClock:
         """
@@ -167,7 +167,7 @@ class TestClockService(StripeService):
 
     def list(
         self,
-        params: "TestClockService.ListParams" = None,
+        params: Optional["TestClockService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TestClock]:
         """
@@ -190,7 +190,7 @@ class TestClockService(StripeService):
 
     async def list_async(
         self,
-        params: "TestClockService.ListParams" = None,
+        params: Optional["TestClockService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TestClock]:
         """

@@ -31,7 +31,9 @@ class QuoteComputedUpfrontLineItemsService(StripeService):
     def list(
         self,
         quote: str,
-        params: "QuoteComputedUpfrontLineItemsService.ListParams" = None,
+        params: Optional[
+            "QuoteComputedUpfrontLineItemsService.ListParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[LineItem]:
         """
@@ -57,7 +59,9 @@ class QuoteComputedUpfrontLineItemsService(StripeService):
     async def list_async(
         self,
         quote: str,
-        params: "QuoteComputedUpfrontLineItemsService.ListParams" = None,
+        params: Optional[
+            "QuoteComputedUpfrontLineItemsService.ListParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[LineItem]:
         """

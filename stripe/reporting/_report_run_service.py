@@ -748,7 +748,7 @@ class ReportRunService(StripeService):
 
     def list(
         self,
-        params: "ReportRunService.ListParams" = None,
+        params: Optional["ReportRunService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ReportRun]:
         """
@@ -771,7 +771,7 @@ class ReportRunService(StripeService):
 
     async def list_async(
         self,
-        params: "ReportRunService.ListParams" = None,
+        params: Optional["ReportRunService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ReportRun]:
         """
@@ -837,7 +837,7 @@ class ReportRunService(StripeService):
     def retrieve(
         self,
         report_run: str,
-        params: "ReportRunService.RetrieveParams" = None,
+        params: Optional["ReportRunService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReportRun:
         """
@@ -863,7 +863,7 @@ class ReportRunService(StripeService):
     async def retrieve_async(
         self,
         report_run: str,
-        params: "ReportRunService.RetrieveParams" = None,
+        params: Optional["ReportRunService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReportRun:
         """

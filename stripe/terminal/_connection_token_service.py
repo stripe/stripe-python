@@ -20,7 +20,7 @@ class ConnectionTokenService(StripeService):
 
     def create(
         self,
-        params: "ConnectionTokenService.CreateParams" = None,
+        params: Optional["ConnectionTokenService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ConnectionToken:
         """
@@ -43,7 +43,7 @@ class ConnectionTokenService(StripeService):
 
     async def create_async(
         self,
-        params: "ConnectionTokenService.CreateParams" = None,
+        params: Optional["ConnectionTokenService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ConnectionToken:
         """

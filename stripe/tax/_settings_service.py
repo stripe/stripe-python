@@ -74,7 +74,7 @@ class SettingsService(StripeService):
 
     def retrieve(
         self,
-        params: "SettingsService.RetrieveParams" = None,
+        params: Optional["SettingsService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Settings:
         """
@@ -97,7 +97,7 @@ class SettingsService(StripeService):
 
     async def retrieve_async(
         self,
-        params: "SettingsService.RetrieveParams" = None,
+        params: Optional["SettingsService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Settings:
         """
@@ -120,7 +120,7 @@ class SettingsService(StripeService):
 
     def update(
         self,
-        params: "SettingsService.UpdateParams" = None,
+        params: Optional["SettingsService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Settings:
         """
@@ -143,7 +143,7 @@ class SettingsService(StripeService):
 
     async def update_async(
         self,
-        params: "SettingsService.UpdateParams" = None,
+        params: Optional["SettingsService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Settings:
         """

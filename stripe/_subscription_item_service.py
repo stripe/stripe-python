@@ -323,7 +323,7 @@ class SubscriptionItemService(StripeService):
     def delete(
         self,
         item: str,
-        params: "SubscriptionItemService.DeleteParams" = None,
+        params: Optional["SubscriptionItemService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
@@ -347,7 +347,7 @@ class SubscriptionItemService(StripeService):
     async def delete_async(
         self,
         item: str,
-        params: "SubscriptionItemService.DeleteParams" = None,
+        params: Optional["SubscriptionItemService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
@@ -371,7 +371,7 @@ class SubscriptionItemService(StripeService):
     def retrieve(
         self,
         item: str,
-        params: "SubscriptionItemService.RetrieveParams" = None,
+        params: Optional["SubscriptionItemService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
@@ -395,7 +395,7 @@ class SubscriptionItemService(StripeService):
     async def retrieve_async(
         self,
         item: str,
-        params: "SubscriptionItemService.RetrieveParams" = None,
+        params: Optional["SubscriptionItemService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
@@ -419,7 +419,7 @@ class SubscriptionItemService(StripeService):
     def update(
         self,
         item: str,
-        params: "SubscriptionItemService.UpdateParams" = None,
+        params: Optional["SubscriptionItemService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
@@ -443,7 +443,7 @@ class SubscriptionItemService(StripeService):
     async def update_async(
         self,
         item: str,
-        params: "SubscriptionItemService.UpdateParams" = None,
+        params: Optional["SubscriptionItemService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """

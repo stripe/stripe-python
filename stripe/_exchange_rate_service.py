@@ -36,7 +36,7 @@ class ExchangeRateService(StripeService):
 
     def list(
         self,
-        params: "ExchangeRateService.ListParams" = None,
+        params: Optional["ExchangeRateService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ExchangeRate]:
         """
@@ -59,7 +59,7 @@ class ExchangeRateService(StripeService):
 
     async def list_async(
         self,
-        params: "ExchangeRateService.ListParams" = None,
+        params: Optional["ExchangeRateService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ExchangeRate]:
         """
@@ -83,7 +83,7 @@ class ExchangeRateService(StripeService):
     def retrieve(
         self,
         rate_id: str,
-        params: "ExchangeRateService.RetrieveParams" = None,
+        params: Optional["ExchangeRateService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ExchangeRate:
         """
@@ -109,7 +109,7 @@ class ExchangeRateService(StripeService):
     async def retrieve_async(
         self,
         rate_id: str,
-        params: "ExchangeRateService.RetrieveParams" = None,
+        params: Optional["ExchangeRateService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ExchangeRate:
         """

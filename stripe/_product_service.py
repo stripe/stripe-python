@@ -439,7 +439,7 @@ class ProductService(StripeService):
     def delete(
         self,
         id: str,
-        params: "ProductService.DeleteParams" = None,
+        params: Optional["ProductService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Product:
         """
@@ -463,7 +463,7 @@ class ProductService(StripeService):
     async def delete_async(
         self,
         id: str,
-        params: "ProductService.DeleteParams" = None,
+        params: Optional["ProductService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Product:
         """
@@ -487,7 +487,7 @@ class ProductService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ProductService.RetrieveParams" = None,
+        params: Optional["ProductService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Product:
         """
@@ -511,7 +511,7 @@ class ProductService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ProductService.RetrieveParams" = None,
+        params: Optional["ProductService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Product:
         """
@@ -535,7 +535,7 @@ class ProductService(StripeService):
     def update(
         self,
         id: str,
-        params: "ProductService.UpdateParams" = None,
+        params: Optional["ProductService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Product:
         """
@@ -559,7 +559,7 @@ class ProductService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "ProductService.UpdateParams" = None,
+        params: Optional["ProductService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Product:
         """
@@ -582,7 +582,7 @@ class ProductService(StripeService):
 
     def list(
         self,
-        params: "ProductService.ListParams" = None,
+        params: Optional["ProductService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Product]:
         """
@@ -605,7 +605,7 @@ class ProductService(StripeService):
 
     async def list_async(
         self,
-        params: "ProductService.ListParams" = None,
+        params: Optional["ProductService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Product]:
         """

@@ -156,7 +156,7 @@ class PayoutService(StripeService):
 
     def list(
         self,
-        params: "PayoutService.ListParams" = None,
+        params: Optional["PayoutService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Payout]:
         """
@@ -179,7 +179,7 @@ class PayoutService(StripeService):
 
     async def list_async(
         self,
-        params: "PayoutService.ListParams" = None,
+        params: Optional["PayoutService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Payout]:
         """
@@ -253,7 +253,7 @@ class PayoutService(StripeService):
     def retrieve(
         self,
         payout: str,
-        params: "PayoutService.RetrieveParams" = None,
+        params: Optional["PayoutService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -277,7 +277,7 @@ class PayoutService(StripeService):
     async def retrieve_async(
         self,
         payout: str,
-        params: "PayoutService.RetrieveParams" = None,
+        params: Optional["PayoutService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -301,7 +301,7 @@ class PayoutService(StripeService):
     def update(
         self,
         payout: str,
-        params: "PayoutService.UpdateParams" = None,
+        params: Optional["PayoutService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -325,7 +325,7 @@ class PayoutService(StripeService):
     async def update_async(
         self,
         payout: str,
-        params: "PayoutService.UpdateParams" = None,
+        params: Optional["PayoutService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -349,7 +349,7 @@ class PayoutService(StripeService):
     def cancel(
         self,
         payout: str,
-        params: "PayoutService.CancelParams" = None,
+        params: Optional["PayoutService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -375,7 +375,7 @@ class PayoutService(StripeService):
     async def cancel_async(
         self,
         payout: str,
-        params: "PayoutService.CancelParams" = None,
+        params: Optional["PayoutService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -401,7 +401,7 @@ class PayoutService(StripeService):
     def reverse(
         self,
         payout: str,
-        params: "PayoutService.ReverseParams" = None,
+        params: Optional["PayoutService.ReverseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -429,7 +429,7 @@ class PayoutService(StripeService):
     async def reverse_async(
         self,
         payout: str,
-        params: "PayoutService.ReverseParams" = None,
+        params: Optional["PayoutService.ReverseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """

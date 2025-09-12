@@ -64,7 +64,7 @@ class ReviewService(StripeService):
 
     def list(
         self,
-        params: "ReviewService.ListParams" = None,
+        params: Optional["ReviewService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Review]:
         """
@@ -87,7 +87,7 @@ class ReviewService(StripeService):
 
     async def list_async(
         self,
-        params: "ReviewService.ListParams" = None,
+        params: Optional["ReviewService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Review]:
         """
@@ -111,7 +111,7 @@ class ReviewService(StripeService):
     def retrieve(
         self,
         review: str,
-        params: "ReviewService.RetrieveParams" = None,
+        params: Optional["ReviewService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Review:
         """
@@ -135,7 +135,7 @@ class ReviewService(StripeService):
     async def retrieve_async(
         self,
         review: str,
-        params: "ReviewService.RetrieveParams" = None,
+        params: Optional["ReviewService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Review:
         """
@@ -159,7 +159,7 @@ class ReviewService(StripeService):
     def approve(
         self,
         review: str,
-        params: "ReviewService.ApproveParams" = None,
+        params: Optional["ReviewService.ApproveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Review:
         """
@@ -185,7 +185,7 @@ class ReviewService(StripeService):
     async def approve_async(
         self,
         review: str,
-        params: "ReviewService.ApproveParams" = None,
+        params: Optional["ReviewService.ApproveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Review:
         """

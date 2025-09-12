@@ -151,7 +151,7 @@ class OutboundTransferService(StripeService):
     def fail(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.FailParams" = None,
+        params: Optional["OutboundTransferService.FailParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
@@ -177,7 +177,7 @@ class OutboundTransferService(StripeService):
     async def fail_async(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.FailParams" = None,
+        params: Optional["OutboundTransferService.FailParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
@@ -203,7 +203,7 @@ class OutboundTransferService(StripeService):
     def post(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.PostParams" = None,
+        params: Optional["OutboundTransferService.PostParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
@@ -229,7 +229,7 @@ class OutboundTransferService(StripeService):
     async def post_async(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.PostParams" = None,
+        params: Optional["OutboundTransferService.PostParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
@@ -255,7 +255,9 @@ class OutboundTransferService(StripeService):
     def return_outbound_transfer(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.ReturnOutboundTransferParams" = None,
+        params: Optional[
+            "OutboundTransferService.ReturnOutboundTransferParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
@@ -281,7 +283,9 @@ class OutboundTransferService(StripeService):
     async def return_outbound_transfer_async(
         self,
         outbound_transfer: str,
-        params: "OutboundTransferService.ReturnOutboundTransferParams" = None,
+        params: Optional[
+            "OutboundTransferService.ReturnOutboundTransferParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """

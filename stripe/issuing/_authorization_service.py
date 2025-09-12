@@ -106,7 +106,7 @@ class AuthorizationService(StripeService):
 
     def list(
         self,
-        params: "AuthorizationService.ListParams" = None,
+        params: Optional["AuthorizationService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Authorization]:
         """
@@ -129,7 +129,7 @@ class AuthorizationService(StripeService):
 
     async def list_async(
         self,
-        params: "AuthorizationService.ListParams" = None,
+        params: Optional["AuthorizationService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Authorization]:
         """
@@ -153,7 +153,7 @@ class AuthorizationService(StripeService):
     def retrieve(
         self,
         authorization: str,
-        params: "AuthorizationService.RetrieveParams" = None,
+        params: Optional["AuthorizationService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
@@ -179,7 +179,7 @@ class AuthorizationService(StripeService):
     async def retrieve_async(
         self,
         authorization: str,
-        params: "AuthorizationService.RetrieveParams" = None,
+        params: Optional["AuthorizationService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
@@ -205,7 +205,7 @@ class AuthorizationService(StripeService):
     def update(
         self,
         authorization: str,
-        params: "AuthorizationService.UpdateParams" = None,
+        params: Optional["AuthorizationService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
@@ -231,7 +231,7 @@ class AuthorizationService(StripeService):
     async def update_async(
         self,
         authorization: str,
-        params: "AuthorizationService.UpdateParams" = None,
+        params: Optional["AuthorizationService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
@@ -257,7 +257,7 @@ class AuthorizationService(StripeService):
     def approve(
         self,
         authorization: str,
-        params: "AuthorizationService.ApproveParams" = None,
+        params: Optional["AuthorizationService.ApproveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
@@ -284,7 +284,7 @@ class AuthorizationService(StripeService):
     async def approve_async(
         self,
         authorization: str,
-        params: "AuthorizationService.ApproveParams" = None,
+        params: Optional["AuthorizationService.ApproveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
@@ -311,7 +311,7 @@ class AuthorizationService(StripeService):
     def decline(
         self,
         authorization: str,
-        params: "AuthorizationService.DeclineParams" = None,
+        params: Optional["AuthorizationService.DeclineParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
@@ -338,7 +338,7 @@ class AuthorizationService(StripeService):
     async def decline_async(
         self,
         authorization: str,
-        params: "AuthorizationService.DeclineParams" = None,
+        params: Optional["AuthorizationService.DeclineParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """

@@ -1738,7 +1738,7 @@ class SubscriptionService(StripeService):
     def cancel(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.CancelParams" = None,
+        params: Optional["SubscriptionService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -1770,7 +1770,7 @@ class SubscriptionService(StripeService):
     async def cancel_async(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.CancelParams" = None,
+        params: Optional["SubscriptionService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -1802,7 +1802,7 @@ class SubscriptionService(StripeService):
     def retrieve(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.RetrieveParams" = None,
+        params: Optional["SubscriptionService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -1830,7 +1830,7 @@ class SubscriptionService(StripeService):
     async def retrieve_async(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.RetrieveParams" = None,
+        params: Optional["SubscriptionService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -1858,7 +1858,7 @@ class SubscriptionService(StripeService):
     def update(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.UpdateParams" = None,
+        params: Optional["SubscriptionService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -1906,7 +1906,7 @@ class SubscriptionService(StripeService):
     async def update_async(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.UpdateParams" = None,
+        params: Optional["SubscriptionService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -1954,7 +1954,7 @@ class SubscriptionService(StripeService):
     def delete_discount(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.DeleteDiscountParams" = None,
+        params: Optional["SubscriptionService.DeleteDiscountParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Discount:
         """
@@ -1982,7 +1982,7 @@ class SubscriptionService(StripeService):
     async def delete_discount_async(
         self,
         subscription_exposed_id: str,
-        params: "SubscriptionService.DeleteDiscountParams" = None,
+        params: Optional["SubscriptionService.DeleteDiscountParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Discount:
         """
@@ -2009,7 +2009,7 @@ class SubscriptionService(StripeService):
 
     def list(
         self,
-        params: "SubscriptionService.ListParams" = None,
+        params: Optional["SubscriptionService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Subscription]:
         """
@@ -2032,7 +2032,7 @@ class SubscriptionService(StripeService):
 
     async def list_async(
         self,
-        params: "SubscriptionService.ListParams" = None,
+        params: Optional["SubscriptionService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Subscription]:
         """
@@ -2206,7 +2206,7 @@ class SubscriptionService(StripeService):
     def resume(
         self,
         subscription: str,
-        params: "SubscriptionService.ResumeParams" = None,
+        params: Optional["SubscriptionService.ResumeParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -2232,7 +2232,7 @@ class SubscriptionService(StripeService):
     async def resume_async(
         self,
         subscription: str,
-        params: "SubscriptionService.ResumeParams" = None,
+        params: Optional["SubscriptionService.ResumeParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """

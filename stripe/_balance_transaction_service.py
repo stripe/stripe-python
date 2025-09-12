@@ -74,7 +74,7 @@ class BalanceTransactionService(StripeService):
 
     def list(
         self,
-        params: "BalanceTransactionService.ListParams" = None,
+        params: Optional["BalanceTransactionService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[BalanceTransaction]:
         """
@@ -99,7 +99,7 @@ class BalanceTransactionService(StripeService):
 
     async def list_async(
         self,
-        params: "BalanceTransactionService.ListParams" = None,
+        params: Optional["BalanceTransactionService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[BalanceTransaction]:
         """
@@ -125,7 +125,7 @@ class BalanceTransactionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "BalanceTransactionService.RetrieveParams" = None,
+        params: Optional["BalanceTransactionService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BalanceTransaction:
         """
@@ -151,7 +151,7 @@ class BalanceTransactionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "BalanceTransactionService.RetrieveParams" = None,
+        params: Optional["BalanceTransactionService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BalanceTransaction:
         """

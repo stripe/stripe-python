@@ -36,7 +36,7 @@ class TaxCodeService(StripeService):
 
     def list(
         self,
-        params: "TaxCodeService.ListParams" = None,
+        params: Optional["TaxCodeService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TaxCode]:
         """
@@ -59,7 +59,7 @@ class TaxCodeService(StripeService):
 
     async def list_async(
         self,
-        params: "TaxCodeService.ListParams" = None,
+        params: Optional["TaxCodeService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TaxCode]:
         """
@@ -83,7 +83,7 @@ class TaxCodeService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "TaxCodeService.RetrieveParams" = None,
+        params: Optional["TaxCodeService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TaxCode:
         """
@@ -107,7 +107,7 @@ class TaxCodeService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "TaxCodeService.RetrieveParams" = None,
+        params: Optional["TaxCodeService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TaxCode:
         """

@@ -1181,7 +1181,7 @@ class TokenService(StripeService):
     def retrieve(
         self,
         token: str,
-        params: "TokenService.RetrieveParams" = None,
+        params: Optional["TokenService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Token:
         """
@@ -1205,7 +1205,7 @@ class TokenService(StripeService):
     async def retrieve_async(
         self,
         token: str,
-        params: "TokenService.RetrieveParams" = None,
+        params: Optional["TokenService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Token:
         """
@@ -1228,7 +1228,7 @@ class TokenService(StripeService):
 
     def create(
         self,
-        params: "TokenService.CreateParams" = None,
+        params: Optional["TokenService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Token:
         """
@@ -1252,7 +1252,7 @@ class TokenService(StripeService):
 
     async def create_async(
         self,
-        params: "TokenService.CreateParams" = None,
+        params: Optional["TokenService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Token:
         """

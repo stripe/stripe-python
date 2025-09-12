@@ -1254,7 +1254,7 @@ class TransactionService(StripeService):
     def refund(
         self,
         transaction: str,
-        params: "TransactionService.RefundParams" = None,
+        params: Optional["TransactionService.RefundParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
@@ -1280,7 +1280,7 @@ class TransactionService(StripeService):
     async def refund_async(
         self,
         transaction: str,
-        params: "TransactionService.RefundParams" = None,
+        params: Optional["TransactionService.RefundParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """

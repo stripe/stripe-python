@@ -121,7 +121,7 @@ class TokenService(StripeService):
     def retrieve(
         self,
         token: str,
-        params: "TokenService.RetrieveParams" = None,
+        params: Optional["TokenService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Token:
         """
@@ -145,7 +145,7 @@ class TokenService(StripeService):
     async def retrieve_async(
         self,
         token: str,
-        params: "TokenService.RetrieveParams" = None,
+        params: Optional["TokenService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Token:
         """

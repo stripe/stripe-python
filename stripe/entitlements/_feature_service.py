@@ -80,7 +80,7 @@ class FeatureService(StripeService):
 
     def list(
         self,
-        params: "FeatureService.ListParams" = None,
+        params: Optional["FeatureService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Feature]:
         """
@@ -103,7 +103,7 @@ class FeatureService(StripeService):
 
     async def list_async(
         self,
-        params: "FeatureService.ListParams" = None,
+        params: Optional["FeatureService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Feature]:
         """
@@ -169,7 +169,7 @@ class FeatureService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "FeatureService.RetrieveParams" = None,
+        params: Optional["FeatureService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Feature:
         """
@@ -193,7 +193,7 @@ class FeatureService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "FeatureService.RetrieveParams" = None,
+        params: Optional["FeatureService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Feature:
         """
@@ -217,7 +217,7 @@ class FeatureService(StripeService):
     def update(
         self,
         id: str,
-        params: "FeatureService.UpdateParams" = None,
+        params: Optional["FeatureService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Feature:
         """
@@ -241,7 +241,7 @@ class FeatureService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "FeatureService.UpdateParams" = None,
+        params: Optional["FeatureService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Feature:
         """

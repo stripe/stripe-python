@@ -123,7 +123,7 @@ class ValueListService(StripeService):
     def delete(
         self,
         value_list: str,
-        params: "ValueListService.DeleteParams" = None,
+        params: Optional["ValueListService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -149,7 +149,7 @@ class ValueListService(StripeService):
     async def delete_async(
         self,
         value_list: str,
-        params: "ValueListService.DeleteParams" = None,
+        params: Optional["ValueListService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -175,7 +175,7 @@ class ValueListService(StripeService):
     def retrieve(
         self,
         value_list: str,
-        params: "ValueListService.RetrieveParams" = None,
+        params: Optional["ValueListService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -201,7 +201,7 @@ class ValueListService(StripeService):
     async def retrieve_async(
         self,
         value_list: str,
-        params: "ValueListService.RetrieveParams" = None,
+        params: Optional["ValueListService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -227,7 +227,7 @@ class ValueListService(StripeService):
     def update(
         self,
         value_list: str,
-        params: "ValueListService.UpdateParams" = None,
+        params: Optional["ValueListService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -253,7 +253,7 @@ class ValueListService(StripeService):
     async def update_async(
         self,
         value_list: str,
-        params: "ValueListService.UpdateParams" = None,
+        params: Optional["ValueListService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -278,7 +278,7 @@ class ValueListService(StripeService):
 
     def list(
         self,
-        params: "ValueListService.ListParams" = None,
+        params: Optional["ValueListService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ValueList]:
         """
@@ -301,7 +301,7 @@ class ValueListService(StripeService):
 
     async def list_async(
         self,
-        params: "ValueListService.ListParams" = None,
+        params: Optional["ValueListService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ValueList]:
         """

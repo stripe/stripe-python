@@ -58,7 +58,7 @@ class InboundTransferService(StripeService):
     def fail(
         self,
         id: str,
-        params: "InboundTransferService.FailParams" = None,
+        params: Optional["InboundTransferService.FailParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
@@ -84,7 +84,7 @@ class InboundTransferService(StripeService):
     async def fail_async(
         self,
         id: str,
-        params: "InboundTransferService.FailParams" = None,
+        params: Optional["InboundTransferService.FailParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
@@ -110,7 +110,9 @@ class InboundTransferService(StripeService):
     def return_inbound_transfer(
         self,
         id: str,
-        params: "InboundTransferService.ReturnInboundTransferParams" = None,
+        params: Optional[
+            "InboundTransferService.ReturnInboundTransferParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
@@ -136,7 +138,9 @@ class InboundTransferService(StripeService):
     async def return_inbound_transfer_async(
         self,
         id: str,
-        params: "InboundTransferService.ReturnInboundTransferParams" = None,
+        params: Optional[
+            "InboundTransferService.ReturnInboundTransferParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
@@ -162,7 +166,7 @@ class InboundTransferService(StripeService):
     def succeed(
         self,
         id: str,
-        params: "InboundTransferService.SucceedParams" = None,
+        params: Optional["InboundTransferService.SucceedParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
@@ -188,7 +192,7 @@ class InboundTransferService(StripeService):
     async def succeed_async(
         self,
         id: str,
-        params: "InboundTransferService.SucceedParams" = None,
+        params: Optional["InboundTransferService.SucceedParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """

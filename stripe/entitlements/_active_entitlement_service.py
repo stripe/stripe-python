@@ -83,7 +83,7 @@ class ActiveEntitlementService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ActiveEntitlementService.RetrieveParams" = None,
+        params: Optional["ActiveEntitlementService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ActiveEntitlement:
         """
@@ -109,7 +109,7 @@ class ActiveEntitlementService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ActiveEntitlementService.RetrieveParams" = None,
+        params: Optional["ActiveEntitlementService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ActiveEntitlement:
         """

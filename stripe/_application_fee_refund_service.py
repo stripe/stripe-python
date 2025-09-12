@@ -62,7 +62,7 @@ class ApplicationFeeRefundService(StripeService):
         self,
         fee: str,
         id: str,
-        params: "ApplicationFeeRefundService.RetrieveParams" = None,
+        params: Optional["ApplicationFeeRefundService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplicationFeeRefund:
         """
@@ -90,7 +90,7 @@ class ApplicationFeeRefundService(StripeService):
         self,
         fee: str,
         id: str,
-        params: "ApplicationFeeRefundService.RetrieveParams" = None,
+        params: Optional["ApplicationFeeRefundService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplicationFeeRefund:
         """
@@ -118,7 +118,7 @@ class ApplicationFeeRefundService(StripeService):
         self,
         fee: str,
         id: str,
-        params: "ApplicationFeeRefundService.UpdateParams" = None,
+        params: Optional["ApplicationFeeRefundService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplicationFeeRefund:
         """
@@ -148,7 +148,7 @@ class ApplicationFeeRefundService(StripeService):
         self,
         fee: str,
         id: str,
-        params: "ApplicationFeeRefundService.UpdateParams" = None,
+        params: Optional["ApplicationFeeRefundService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplicationFeeRefund:
         """
@@ -177,7 +177,7 @@ class ApplicationFeeRefundService(StripeService):
     def list(
         self,
         id: str,
-        params: "ApplicationFeeRefundService.ListParams" = None,
+        params: Optional["ApplicationFeeRefundService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplicationFeeRefund]:
         """
@@ -201,7 +201,7 @@ class ApplicationFeeRefundService(StripeService):
     async def list_async(
         self,
         id: str,
-        params: "ApplicationFeeRefundService.ListParams" = None,
+        params: Optional["ApplicationFeeRefundService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplicationFeeRefund]:
         """
@@ -225,7 +225,7 @@ class ApplicationFeeRefundService(StripeService):
     def create(
         self,
         id: str,
-        params: "ApplicationFeeRefundService.CreateParams" = None,
+        params: Optional["ApplicationFeeRefundService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplicationFeeRefund:
         """
@@ -257,7 +257,7 @@ class ApplicationFeeRefundService(StripeService):
     async def create_async(
         self,
         id: str,
-        params: "ApplicationFeeRefundService.CreateParams" = None,
+        params: Optional["ApplicationFeeRefundService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplicationFeeRefund:
         """

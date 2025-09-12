@@ -2104,7 +2104,9 @@ class PaymentMethodConfigurationService(StripeService):
 
     def list(
         self,
-        params: "PaymentMethodConfigurationService.ListParams" = None,
+        params: Optional[
+            "PaymentMethodConfigurationService.ListParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethodConfiguration]:
         """
@@ -2127,7 +2129,9 @@ class PaymentMethodConfigurationService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentMethodConfigurationService.ListParams" = None,
+        params: Optional[
+            "PaymentMethodConfigurationService.ListParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethodConfiguration]:
         """
@@ -2150,7 +2154,9 @@ class PaymentMethodConfigurationService(StripeService):
 
     def create(
         self,
-        params: "PaymentMethodConfigurationService.CreateParams" = None,
+        params: Optional[
+            "PaymentMethodConfigurationService.CreateParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
@@ -2173,7 +2179,9 @@ class PaymentMethodConfigurationService(StripeService):
 
     async def create_async(
         self,
-        params: "PaymentMethodConfigurationService.CreateParams" = None,
+        params: Optional[
+            "PaymentMethodConfigurationService.CreateParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
@@ -2197,7 +2205,9 @@ class PaymentMethodConfigurationService(StripeService):
     def retrieve(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.RetrieveParams" = None,
+        params: Optional[
+            "PaymentMethodConfigurationService.RetrieveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
@@ -2223,7 +2233,9 @@ class PaymentMethodConfigurationService(StripeService):
     async def retrieve_async(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.RetrieveParams" = None,
+        params: Optional[
+            "PaymentMethodConfigurationService.RetrieveParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
@@ -2249,7 +2261,9 @@ class PaymentMethodConfigurationService(StripeService):
     def update(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.UpdateParams" = None,
+        params: Optional[
+            "PaymentMethodConfigurationService.UpdateParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
@@ -2275,7 +2289,9 @@ class PaymentMethodConfigurationService(StripeService):
     async def update_async(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.UpdateParams" = None,
+        params: Optional[
+            "PaymentMethodConfigurationService.UpdateParams"
+        ] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """

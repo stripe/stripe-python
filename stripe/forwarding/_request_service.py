@@ -112,7 +112,7 @@ class RequestService(StripeService):
 
     def list(
         self,
-        params: "RequestService.ListParams" = None,
+        params: Optional["RequestService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Request]:
         """
@@ -135,7 +135,7 @@ class RequestService(StripeService):
 
     async def list_async(
         self,
-        params: "RequestService.ListParams" = None,
+        params: Optional["RequestService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Request]:
         """
@@ -201,7 +201,7 @@ class RequestService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "RequestService.RetrieveParams" = None,
+        params: Optional["RequestService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Request:
         """
@@ -225,7 +225,7 @@ class RequestService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "RequestService.RetrieveParams" = None,
+        params: Optional["RequestService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Request:
         """

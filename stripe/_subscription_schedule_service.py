@@ -1302,7 +1302,7 @@ class SubscriptionScheduleService(StripeService):
 
     def list(
         self,
-        params: "SubscriptionScheduleService.ListParams" = None,
+        params: Optional["SubscriptionScheduleService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[SubscriptionSchedule]:
         """
@@ -1325,7 +1325,7 @@ class SubscriptionScheduleService(StripeService):
 
     async def list_async(
         self,
-        params: "SubscriptionScheduleService.ListParams" = None,
+        params: Optional["SubscriptionScheduleService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[SubscriptionSchedule]:
         """
@@ -1348,7 +1348,7 @@ class SubscriptionScheduleService(StripeService):
 
     def create(
         self,
-        params: "SubscriptionScheduleService.CreateParams" = None,
+        params: Optional["SubscriptionScheduleService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
@@ -1371,7 +1371,7 @@ class SubscriptionScheduleService(StripeService):
 
     async def create_async(
         self,
-        params: "SubscriptionScheduleService.CreateParams" = None,
+        params: Optional["SubscriptionScheduleService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
@@ -1395,7 +1395,7 @@ class SubscriptionScheduleService(StripeService):
     def retrieve(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.RetrieveParams" = None,
+        params: Optional["SubscriptionScheduleService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
@@ -1421,7 +1421,7 @@ class SubscriptionScheduleService(StripeService):
     async def retrieve_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.RetrieveParams" = None,
+        params: Optional["SubscriptionScheduleService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
@@ -1447,7 +1447,7 @@ class SubscriptionScheduleService(StripeService):
     def update(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.UpdateParams" = None,
+        params: Optional["SubscriptionScheduleService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
@@ -1473,7 +1473,7 @@ class SubscriptionScheduleService(StripeService):
     async def update_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.UpdateParams" = None,
+        params: Optional["SubscriptionScheduleService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
@@ -1499,7 +1499,7 @@ class SubscriptionScheduleService(StripeService):
     def cancel(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.CancelParams" = None,
+        params: Optional["SubscriptionScheduleService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
@@ -1525,7 +1525,7 @@ class SubscriptionScheduleService(StripeService):
     async def cancel_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.CancelParams" = None,
+        params: Optional["SubscriptionScheduleService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
@@ -1551,7 +1551,7 @@ class SubscriptionScheduleService(StripeService):
     def release(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.ReleaseParams" = None,
+        params: Optional["SubscriptionScheduleService.ReleaseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
@@ -1577,7 +1577,7 @@ class SubscriptionScheduleService(StripeService):
     async def release_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.ReleaseParams" = None,
+        params: Optional["SubscriptionScheduleService.ReleaseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """

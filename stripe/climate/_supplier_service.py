@@ -36,7 +36,7 @@ class SupplierService(StripeService):
 
     def list(
         self,
-        params: "SupplierService.ListParams" = None,
+        params: Optional["SupplierService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Supplier]:
         """
@@ -59,7 +59,7 @@ class SupplierService(StripeService):
 
     async def list_async(
         self,
-        params: "SupplierService.ListParams" = None,
+        params: Optional["SupplierService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Supplier]:
         """
@@ -83,7 +83,7 @@ class SupplierService(StripeService):
     def retrieve(
         self,
         supplier: str,
-        params: "SupplierService.RetrieveParams" = None,
+        params: Optional["SupplierService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Supplier:
         """
@@ -109,7 +109,7 @@ class SupplierService(StripeService):
     async def retrieve_async(
         self,
         supplier: str,
-        params: "SupplierService.RetrieveParams" = None,
+        params: Optional["SupplierService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Supplier:
         """

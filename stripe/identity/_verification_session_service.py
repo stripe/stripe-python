@@ -239,7 +239,7 @@ class VerificationSessionService(StripeService):
 
     def list(
         self,
-        params: "VerificationSessionService.ListParams" = None,
+        params: Optional["VerificationSessionService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[VerificationSession]:
         """
@@ -262,7 +262,7 @@ class VerificationSessionService(StripeService):
 
     async def list_async(
         self,
-        params: "VerificationSessionService.ListParams" = None,
+        params: Optional["VerificationSessionService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[VerificationSession]:
         """
@@ -285,7 +285,7 @@ class VerificationSessionService(StripeService):
 
     def create(
         self,
-        params: "VerificationSessionService.CreateParams" = None,
+        params: Optional["VerificationSessionService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -314,7 +314,7 @@ class VerificationSessionService(StripeService):
 
     async def create_async(
         self,
-        params: "VerificationSessionService.CreateParams" = None,
+        params: Optional["VerificationSessionService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -344,7 +344,7 @@ class VerificationSessionService(StripeService):
     def retrieve(
         self,
         session: str,
-        params: "VerificationSessionService.RetrieveParams" = None,
+        params: Optional["VerificationSessionService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -373,7 +373,7 @@ class VerificationSessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
-        params: "VerificationSessionService.RetrieveParams" = None,
+        params: Optional["VerificationSessionService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -402,7 +402,7 @@ class VerificationSessionService(StripeService):
     def update(
         self,
         session: str,
-        params: "VerificationSessionService.UpdateParams" = None,
+        params: Optional["VerificationSessionService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -431,7 +431,7 @@ class VerificationSessionService(StripeService):
     async def update_async(
         self,
         session: str,
-        params: "VerificationSessionService.UpdateParams" = None,
+        params: Optional["VerificationSessionService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -460,7 +460,7 @@ class VerificationSessionService(StripeService):
     def cancel(
         self,
         session: str,
-        params: "VerificationSessionService.CancelParams" = None,
+        params: Optional["VerificationSessionService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -488,7 +488,7 @@ class VerificationSessionService(StripeService):
     async def cancel_async(
         self,
         session: str,
-        params: "VerificationSessionService.CancelParams" = None,
+        params: Optional["VerificationSessionService.CancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -516,7 +516,7 @@ class VerificationSessionService(StripeService):
     def redact(
         self,
         session: str,
-        params: "VerificationSessionService.RedactParams" = None,
+        params: Optional["VerificationSessionService.RedactParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -560,7 +560,7 @@ class VerificationSessionService(StripeService):
     async def redact_async(
         self,
         session: str,
-        params: "VerificationSessionService.RedactParams" = None,
+        params: Optional["VerificationSessionService.RedactParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """

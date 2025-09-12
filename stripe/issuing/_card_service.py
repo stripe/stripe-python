@@ -2240,7 +2240,7 @@ class CardService(StripeService):
 
     def list(
         self,
-        params: "CardService.ListParams" = None,
+        params: Optional["CardService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Card]:
         """
@@ -2263,7 +2263,7 @@ class CardService(StripeService):
 
     async def list_async(
         self,
-        params: "CardService.ListParams" = None,
+        params: Optional["CardService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Card]:
         """
@@ -2329,7 +2329,7 @@ class CardService(StripeService):
     def retrieve(
         self,
         card: str,
-        params: "CardService.RetrieveParams" = None,
+        params: Optional["CardService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """
@@ -2353,7 +2353,7 @@ class CardService(StripeService):
     async def retrieve_async(
         self,
         card: str,
-        params: "CardService.RetrieveParams" = None,
+        params: Optional["CardService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """
@@ -2377,7 +2377,7 @@ class CardService(StripeService):
     def update(
         self,
         card: str,
-        params: "CardService.UpdateParams" = None,
+        params: Optional["CardService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """
@@ -2401,7 +2401,7 @@ class CardService(StripeService):
     async def update_async(
         self,
         card: str,
-        params: "CardService.UpdateParams" = None,
+        params: Optional["CardService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """

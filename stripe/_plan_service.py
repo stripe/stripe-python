@@ -231,7 +231,7 @@ class PlanService(StripeService):
     def delete(
         self,
         plan: str,
-        params: "PlanService.DeleteParams" = None,
+        params: Optional["PlanService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
@@ -255,7 +255,7 @@ class PlanService(StripeService):
     async def delete_async(
         self,
         plan: str,
-        params: "PlanService.DeleteParams" = None,
+        params: Optional["PlanService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
@@ -279,7 +279,7 @@ class PlanService(StripeService):
     def retrieve(
         self,
         plan: str,
-        params: "PlanService.RetrieveParams" = None,
+        params: Optional["PlanService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
@@ -303,7 +303,7 @@ class PlanService(StripeService):
     async def retrieve_async(
         self,
         plan: str,
-        params: "PlanService.RetrieveParams" = None,
+        params: Optional["PlanService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
@@ -327,7 +327,7 @@ class PlanService(StripeService):
     def update(
         self,
         plan: str,
-        params: "PlanService.UpdateParams" = None,
+        params: Optional["PlanService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
@@ -351,7 +351,7 @@ class PlanService(StripeService):
     async def update_async(
         self,
         plan: str,
-        params: "PlanService.UpdateParams" = None,
+        params: Optional["PlanService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Plan:
         """
@@ -374,7 +374,7 @@ class PlanService(StripeService):
 
     def list(
         self,
-        params: "PlanService.ListParams" = None,
+        params: Optional["PlanService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Plan]:
         """
@@ -397,7 +397,7 @@ class PlanService(StripeService):
 
     async def list_async(
         self,
-        params: "PlanService.ListParams" = None,
+        params: Optional["PlanService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Plan]:
         """

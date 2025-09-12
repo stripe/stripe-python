@@ -87,7 +87,7 @@ class ReceivedDebitService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ReceivedDebitService.RetrieveParams" = None,
+        params: Optional["ReceivedDebitService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReceivedDebit:
         """
@@ -111,7 +111,7 @@ class ReceivedDebitService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ReceivedDebitService.RetrieveParams" = None,
+        params: Optional["ReceivedDebitService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReceivedDebit:
         """

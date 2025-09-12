@@ -722,7 +722,7 @@ class WebhookEndpointService(StripeService):
     def delete(
         self,
         webhook_endpoint: str,
-        params: "WebhookEndpointService.DeleteParams" = None,
+        params: Optional["WebhookEndpointService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
@@ -748,7 +748,7 @@ class WebhookEndpointService(StripeService):
     async def delete_async(
         self,
         webhook_endpoint: str,
-        params: "WebhookEndpointService.DeleteParams" = None,
+        params: Optional["WebhookEndpointService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
@@ -774,7 +774,7 @@ class WebhookEndpointService(StripeService):
     def retrieve(
         self,
         webhook_endpoint: str,
-        params: "WebhookEndpointService.RetrieveParams" = None,
+        params: Optional["WebhookEndpointService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
@@ -800,7 +800,7 @@ class WebhookEndpointService(StripeService):
     async def retrieve_async(
         self,
         webhook_endpoint: str,
-        params: "WebhookEndpointService.RetrieveParams" = None,
+        params: Optional["WebhookEndpointService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
@@ -826,7 +826,7 @@ class WebhookEndpointService(StripeService):
     def update(
         self,
         webhook_endpoint: str,
-        params: "WebhookEndpointService.UpdateParams" = None,
+        params: Optional["WebhookEndpointService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
@@ -852,7 +852,7 @@ class WebhookEndpointService(StripeService):
     async def update_async(
         self,
         webhook_endpoint: str,
-        params: "WebhookEndpointService.UpdateParams" = None,
+        params: Optional["WebhookEndpointService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
@@ -877,7 +877,7 @@ class WebhookEndpointService(StripeService):
 
     def list(
         self,
-        params: "WebhookEndpointService.ListParams" = None,
+        params: Optional["WebhookEndpointService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[WebhookEndpoint]:
         """
@@ -900,7 +900,7 @@ class WebhookEndpointService(StripeService):
 
     async def list_async(
         self,
-        params: "WebhookEndpointService.ListParams" = None,
+        params: Optional["WebhookEndpointService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[WebhookEndpoint]:
         """

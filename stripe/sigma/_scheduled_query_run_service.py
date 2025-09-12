@@ -36,7 +36,7 @@ class ScheduledQueryRunService(StripeService):
 
     def list(
         self,
-        params: "ScheduledQueryRunService.ListParams" = None,
+        params: Optional["ScheduledQueryRunService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ScheduledQueryRun]:
         """
@@ -59,7 +59,7 @@ class ScheduledQueryRunService(StripeService):
 
     async def list_async(
         self,
-        params: "ScheduledQueryRunService.ListParams" = None,
+        params: Optional["ScheduledQueryRunService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ScheduledQueryRun]:
         """
@@ -83,7 +83,7 @@ class ScheduledQueryRunService(StripeService):
     def retrieve(
         self,
         scheduled_query_run: str,
-        params: "ScheduledQueryRunService.RetrieveParams" = None,
+        params: Optional["ScheduledQueryRunService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ScheduledQueryRun:
         """
@@ -109,7 +109,7 @@ class ScheduledQueryRunService(StripeService):
     async def retrieve_async(
         self,
         scheduled_query_run: str,
-        params: "ScheduledQueryRunService.RetrieveParams" = None,
+        params: Optional["ScheduledQueryRunService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ScheduledQueryRun:
         """

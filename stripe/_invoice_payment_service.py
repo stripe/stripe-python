@@ -58,7 +58,7 @@ class InvoicePaymentService(StripeService):
 
     def list(
         self,
-        params: "InvoicePaymentService.ListParams" = None,
+        params: Optional["InvoicePaymentService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoicePayment]:
         """
@@ -81,7 +81,7 @@ class InvoicePaymentService(StripeService):
 
     async def list_async(
         self,
-        params: "InvoicePaymentService.ListParams" = None,
+        params: Optional["InvoicePaymentService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoicePayment]:
         """
@@ -105,7 +105,7 @@ class InvoicePaymentService(StripeService):
     def retrieve(
         self,
         invoice_payment: str,
-        params: "InvoicePaymentService.RetrieveParams" = None,
+        params: Optional["InvoicePaymentService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoicePayment:
         """
@@ -131,7 +131,7 @@ class InvoicePaymentService(StripeService):
     async def retrieve_async(
         self,
         invoice_payment: str,
-        params: "InvoicePaymentService.RetrieveParams" = None,
+        params: Optional["InvoicePaymentService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoicePayment:
         """

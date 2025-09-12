@@ -1220,10 +1220,7 @@ class TestHTTPXClient(ClientTestBase):
 
     @pytest.fixture
     def mock_response(self, request_mock):
-        def _mock_response(mock, body=None, code=200):
-            if body is None:
-                body = {}
-
+        def _mock_response(mock, body="", code=200):
             result = Mock()
             result.content = body
 

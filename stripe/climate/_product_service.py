@@ -36,7 +36,7 @@ class ProductService(StripeService):
 
     def list(
         self,
-        params: "ProductService.ListParams" = None,
+        params: Optional["ProductService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Product]:
         """
@@ -59,7 +59,7 @@ class ProductService(StripeService):
 
     async def list_async(
         self,
-        params: "ProductService.ListParams" = None,
+        params: Optional["ProductService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Product]:
         """
@@ -83,7 +83,7 @@ class ProductService(StripeService):
     def retrieve(
         self,
         product: str,
-        params: "ProductService.RetrieveParams" = None,
+        params: Optional["ProductService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Product:
         """
@@ -109,7 +109,7 @@ class ProductService(StripeService):
     async def retrieve_async(
         self,
         product: str,
-        params: "ProductService.RetrieveParams" = None,
+        params: Optional["ProductService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Product:
         """

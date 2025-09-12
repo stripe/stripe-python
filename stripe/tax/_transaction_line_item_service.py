@@ -31,7 +31,7 @@ class TransactionLineItemService(StripeService):
     def list(
         self,
         transaction: str,
-        params: "TransactionLineItemService.ListParams" = None,
+        params: Optional["TransactionLineItemService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TransactionLineItem]:
         """
@@ -57,7 +57,7 @@ class TransactionLineItemService(StripeService):
     async def list_async(
         self,
         transaction: str,
-        params: "TransactionLineItemService.ListParams" = None,
+        params: Optional["TransactionLineItemService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TransactionLineItem]:
         """

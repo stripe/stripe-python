@@ -690,7 +690,7 @@ class CustomerService(StripeService):
     def delete(
         self,
         customer: str,
-        params: "CustomerService.DeleteParams" = None,
+        params: Optional["CustomerService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -716,7 +716,7 @@ class CustomerService(StripeService):
     async def delete_async(
         self,
         customer: str,
-        params: "CustomerService.DeleteParams" = None,
+        params: Optional["CustomerService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -742,7 +742,7 @@ class CustomerService(StripeService):
     def retrieve(
         self,
         customer: str,
-        params: "CustomerService.RetrieveParams" = None,
+        params: Optional["CustomerService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -768,7 +768,7 @@ class CustomerService(StripeService):
     async def retrieve_async(
         self,
         customer: str,
-        params: "CustomerService.RetrieveParams" = None,
+        params: Optional["CustomerService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -794,7 +794,7 @@ class CustomerService(StripeService):
     def update(
         self,
         customer: str,
-        params: "CustomerService.UpdateParams" = None,
+        params: Optional["CustomerService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -822,7 +822,7 @@ class CustomerService(StripeService):
     async def update_async(
         self,
         customer: str,
-        params: "CustomerService.UpdateParams" = None,
+        params: Optional["CustomerService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -850,7 +850,7 @@ class CustomerService(StripeService):
     def delete_discount(
         self,
         customer: str,
-        params: "CustomerService.DeleteDiscountParams" = None,
+        params: Optional["CustomerService.DeleteDiscountParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Discount:
         """
@@ -876,7 +876,7 @@ class CustomerService(StripeService):
     async def delete_discount_async(
         self,
         customer: str,
-        params: "CustomerService.DeleteDiscountParams" = None,
+        params: Optional["CustomerService.DeleteDiscountParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Discount:
         """
@@ -901,7 +901,7 @@ class CustomerService(StripeService):
 
     def list(
         self,
-        params: "CustomerService.ListParams" = None,
+        params: Optional["CustomerService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Customer]:
         """
@@ -924,7 +924,7 @@ class CustomerService(StripeService):
 
     async def list_async(
         self,
-        params: "CustomerService.ListParams" = None,
+        params: Optional["CustomerService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Customer]:
         """
@@ -947,7 +947,7 @@ class CustomerService(StripeService):
 
     def create(
         self,
-        params: "CustomerService.CreateParams" = None,
+        params: Optional["CustomerService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -970,7 +970,7 @@ class CustomerService(StripeService):
 
     async def create_async(
         self,
-        params: "CustomerService.CreateParams" = None,
+        params: Optional["CustomerService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """

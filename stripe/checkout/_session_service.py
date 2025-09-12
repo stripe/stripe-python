@@ -2881,7 +2881,7 @@ class SessionService(StripeService):
 
     def list(
         self,
-        params: "SessionService.ListParams" = None,
+        params: Optional["SessionService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Session]:
         """
@@ -2904,7 +2904,7 @@ class SessionService(StripeService):
 
     async def list_async(
         self,
-        params: "SessionService.ListParams" = None,
+        params: Optional["SessionService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Session]:
         """
@@ -2927,7 +2927,7 @@ class SessionService(StripeService):
 
     def create(
         self,
-        params: "SessionService.CreateParams" = None,
+        params: Optional["SessionService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -2950,7 +2950,7 @@ class SessionService(StripeService):
 
     async def create_async(
         self,
-        params: "SessionService.CreateParams" = None,
+        params: Optional["SessionService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -2974,7 +2974,7 @@ class SessionService(StripeService):
     def retrieve(
         self,
         session: str,
-        params: "SessionService.RetrieveParams" = None,
+        params: Optional["SessionService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -3000,7 +3000,7 @@ class SessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
-        params: "SessionService.RetrieveParams" = None,
+        params: Optional["SessionService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -3026,7 +3026,7 @@ class SessionService(StripeService):
     def update(
         self,
         session: str,
-        params: "SessionService.UpdateParams" = None,
+        params: Optional["SessionService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -3054,7 +3054,7 @@ class SessionService(StripeService):
     async def update_async(
         self,
         session: str,
-        params: "SessionService.UpdateParams" = None,
+        params: Optional["SessionService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -3082,7 +3082,7 @@ class SessionService(StripeService):
     def expire(
         self,
         session: str,
-        params: "SessionService.ExpireParams" = None,
+        params: Optional["SessionService.ExpireParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -3110,7 +3110,7 @@ class SessionService(StripeService):
     async def expire_async(
         self,
         session: str,
-        params: "SessionService.ExpireParams" = None,
+        params: Optional["SessionService.ExpireParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """

@@ -70,7 +70,7 @@ class VerificationReportService(StripeService):
 
     def list(
         self,
-        params: "VerificationReportService.ListParams" = None,
+        params: Optional["VerificationReportService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[VerificationReport]:
         """
@@ -93,7 +93,7 @@ class VerificationReportService(StripeService):
 
     async def list_async(
         self,
-        params: "VerificationReportService.ListParams" = None,
+        params: Optional["VerificationReportService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[VerificationReport]:
         """
@@ -117,7 +117,7 @@ class VerificationReportService(StripeService):
     def retrieve(
         self,
         report: str,
-        params: "VerificationReportService.RetrieveParams" = None,
+        params: Optional["VerificationReportService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationReport:
         """
@@ -143,7 +143,7 @@ class VerificationReportService(StripeService):
     async def retrieve_async(
         self,
         report: str,
-        params: "VerificationReportService.RetrieveParams" = None,
+        params: Optional["VerificationReportService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationReport:
         """

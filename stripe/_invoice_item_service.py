@@ -322,7 +322,7 @@ class InvoiceItemService(StripeService):
     def delete(
         self,
         invoiceitem: str,
-        params: "InvoiceItemService.DeleteParams" = None,
+        params: Optional["InvoiceItemService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceItem:
         """
@@ -348,7 +348,7 @@ class InvoiceItemService(StripeService):
     async def delete_async(
         self,
         invoiceitem: str,
-        params: "InvoiceItemService.DeleteParams" = None,
+        params: Optional["InvoiceItemService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceItem:
         """
@@ -374,7 +374,7 @@ class InvoiceItemService(StripeService):
     def retrieve(
         self,
         invoiceitem: str,
-        params: "InvoiceItemService.RetrieveParams" = None,
+        params: Optional["InvoiceItemService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceItem:
         """
@@ -400,7 +400,7 @@ class InvoiceItemService(StripeService):
     async def retrieve_async(
         self,
         invoiceitem: str,
-        params: "InvoiceItemService.RetrieveParams" = None,
+        params: Optional["InvoiceItemService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceItem:
         """
@@ -426,7 +426,7 @@ class InvoiceItemService(StripeService):
     def update(
         self,
         invoiceitem: str,
-        params: "InvoiceItemService.UpdateParams" = None,
+        params: Optional["InvoiceItemService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceItem:
         """
@@ -452,7 +452,7 @@ class InvoiceItemService(StripeService):
     async def update_async(
         self,
         invoiceitem: str,
-        params: "InvoiceItemService.UpdateParams" = None,
+        params: Optional["InvoiceItemService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceItem:
         """
@@ -477,7 +477,7 @@ class InvoiceItemService(StripeService):
 
     def list(
         self,
-        params: "InvoiceItemService.ListParams" = None,
+        params: Optional["InvoiceItemService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoiceItem]:
         """
@@ -500,7 +500,7 @@ class InvoiceItemService(StripeService):
 
     async def list_async(
         self,
-        params: "InvoiceItemService.ListParams" = None,
+        params: Optional["InvoiceItemService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoiceItem]:
         """

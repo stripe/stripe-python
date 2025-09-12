@@ -136,7 +136,7 @@ class LocationService(StripeService):
     def delete(
         self,
         location: str,
-        params: "LocationService.DeleteParams" = None,
+        params: Optional["LocationService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Location:
         """
@@ -162,7 +162,7 @@ class LocationService(StripeService):
     async def delete_async(
         self,
         location: str,
-        params: "LocationService.DeleteParams" = None,
+        params: Optional["LocationService.DeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Location:
         """
@@ -188,7 +188,7 @@ class LocationService(StripeService):
     def retrieve(
         self,
         location: str,
-        params: "LocationService.RetrieveParams" = None,
+        params: Optional["LocationService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Location:
         """
@@ -214,7 +214,7 @@ class LocationService(StripeService):
     async def retrieve_async(
         self,
         location: str,
-        params: "LocationService.RetrieveParams" = None,
+        params: Optional["LocationService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Location:
         """
@@ -240,7 +240,7 @@ class LocationService(StripeService):
     def update(
         self,
         location: str,
-        params: "LocationService.UpdateParams" = None,
+        params: Optional["LocationService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Location:
         """
@@ -266,7 +266,7 @@ class LocationService(StripeService):
     async def update_async(
         self,
         location: str,
-        params: "LocationService.UpdateParams" = None,
+        params: Optional["LocationService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Location:
         """
@@ -291,7 +291,7 @@ class LocationService(StripeService):
 
     def list(
         self,
-        params: "LocationService.ListParams" = None,
+        params: Optional["LocationService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Location]:
         """
@@ -314,7 +314,7 @@ class LocationService(StripeService):
 
     async def list_async(
         self,
-        params: "LocationService.ListParams" = None,
+        params: Optional["LocationService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Location]:
         """

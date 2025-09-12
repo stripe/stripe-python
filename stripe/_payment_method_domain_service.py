@@ -74,7 +74,7 @@ class PaymentMethodDomainService(StripeService):
 
     def list(
         self,
-        params: "PaymentMethodDomainService.ListParams" = None,
+        params: Optional["PaymentMethodDomainService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethodDomain]:
         """
@@ -97,7 +97,7 @@ class PaymentMethodDomainService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentMethodDomainService.ListParams" = None,
+        params: Optional["PaymentMethodDomainService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethodDomain]:
         """
@@ -163,7 +163,7 @@ class PaymentMethodDomainService(StripeService):
     def retrieve(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.RetrieveParams" = None,
+        params: Optional["PaymentMethodDomainService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
@@ -189,7 +189,7 @@ class PaymentMethodDomainService(StripeService):
     async def retrieve_async(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.RetrieveParams" = None,
+        params: Optional["PaymentMethodDomainService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
@@ -215,7 +215,7 @@ class PaymentMethodDomainService(StripeService):
     def update(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.UpdateParams" = None,
+        params: Optional["PaymentMethodDomainService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
@@ -241,7 +241,7 @@ class PaymentMethodDomainService(StripeService):
     async def update_async(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.UpdateParams" = None,
+        params: Optional["PaymentMethodDomainService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
@@ -267,7 +267,7 @@ class PaymentMethodDomainService(StripeService):
     def validate(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.ValidateParams" = None,
+        params: Optional["PaymentMethodDomainService.ValidateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
@@ -298,7 +298,7 @@ class PaymentMethodDomainService(StripeService):
     async def validate_async(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.ValidateParams" = None,
+        params: Optional["PaymentMethodDomainService.ValidateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """

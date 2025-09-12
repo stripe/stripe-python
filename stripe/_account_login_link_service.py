@@ -18,7 +18,7 @@ class AccountLoginLinkService(StripeService):
     def create(
         self,
         account: str,
-        params: "AccountLoginLinkService.CreateParams" = None,
+        params: Optional["AccountLoginLinkService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> LoginLink:
         """
@@ -46,7 +46,7 @@ class AccountLoginLinkService(StripeService):
     async def create_async(
         self,
         account: str,
-        params: "AccountLoginLinkService.CreateParams" = None,
+        params: Optional["AccountLoginLinkService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> LoginLink:
         """

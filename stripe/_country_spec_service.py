@@ -36,7 +36,7 @@ class CountrySpecService(StripeService):
 
     def list(
         self,
-        params: "CountrySpecService.ListParams" = None,
+        params: Optional["CountrySpecService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CountrySpec]:
         """
@@ -59,7 +59,7 @@ class CountrySpecService(StripeService):
 
     async def list_async(
         self,
-        params: "CountrySpecService.ListParams" = None,
+        params: Optional["CountrySpecService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CountrySpec]:
         """
@@ -83,7 +83,7 @@ class CountrySpecService(StripeService):
     def retrieve(
         self,
         country: str,
-        params: "CountrySpecService.RetrieveParams" = None,
+        params: Optional["CountrySpecService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CountrySpec:
         """
@@ -109,7 +109,7 @@ class CountrySpecService(StripeService):
     async def retrieve_async(
         self,
         country: str,
-        params: "CountrySpecService.RetrieveParams" = None,
+        params: Optional["CountrySpecService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CountrySpec:
         """

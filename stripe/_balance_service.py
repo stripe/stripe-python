@@ -16,7 +16,7 @@ class BalanceService(StripeService):
 
     def retrieve(
         self,
-        params: "BalanceService.RetrieveParams" = None,
+        params: Optional["BalanceService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Balance:
         """
@@ -40,7 +40,7 @@ class BalanceService(StripeService):
 
     async def retrieve_async(
         self,
-        params: "BalanceService.RetrieveParams" = None,
+        params: Optional["BalanceService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Balance:
         """

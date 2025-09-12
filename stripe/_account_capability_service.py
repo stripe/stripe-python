@@ -37,7 +37,7 @@ class AccountCapabilityService(StripeService):
     def list(
         self,
         account: str,
-        params: "AccountCapabilityService.ListParams" = None,
+        params: Optional["AccountCapabilityService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Capability]:
         """
@@ -63,7 +63,7 @@ class AccountCapabilityService(StripeService):
     async def list_async(
         self,
         account: str,
-        params: "AccountCapabilityService.ListParams" = None,
+        params: Optional["AccountCapabilityService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Capability]:
         """
@@ -90,7 +90,7 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
-        params: "AccountCapabilityService.RetrieveParams" = None,
+        params: Optional["AccountCapabilityService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Capability:
         """
@@ -118,7 +118,7 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
-        params: "AccountCapabilityService.RetrieveParams" = None,
+        params: Optional["AccountCapabilityService.RetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Capability:
         """
@@ -146,7 +146,7 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
-        params: "AccountCapabilityService.UpdateParams" = None,
+        params: Optional["AccountCapabilityService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Capability:
         """
@@ -174,7 +174,7 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
-        params: "AccountCapabilityService.UpdateParams" = None,
+        params: Optional["AccountCapabilityService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Capability:
         """

@@ -31,7 +31,7 @@ class SourceTransactionService(StripeService):
     def list(
         self,
         source: str,
-        params: "SourceTransactionService.ListParams" = None,
+        params: Optional["SourceTransactionService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[SourceTransaction]:
         """
@@ -57,7 +57,7 @@ class SourceTransactionService(StripeService):
     async def list_async(
         self,
         source: str,
-        params: "SourceTransactionService.ListParams" = None,
+        params: Optional["SourceTransactionService.ListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[SourceTransaction]:
         """
