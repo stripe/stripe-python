@@ -111,13 +111,13 @@ client.v1.customers.retrieve(
 ### Configuring an HTTP Client
 
 You can configure your `StripeClient` to use `urlfetch`, `requests`, `pycurl`, or
-`urllib2` with the `http_client` option:
+`urllib` with the `http_client` option:
 
 ```python
-client = StripeClient("sk_test_...", http_client=stripe.UrlFetchClient())
-client = StripeClient("sk_test_...", http_client=stripe.RequestsClient())
-client = StripeClient("sk_test_...", http_client=stripe.PycurlClient())
-client = StripeClient("sk_test_...", http_client=stripe.UrllibClient())
+client = StripeClient("sk_test_...", http_client=stripe.http_client.UrlFetchClient())
+client = StripeClient("sk_test_...", http_client=stripe.http_client.RequestsClient())
+client = StripeClient("sk_test_...", http_client=stripe.http_client.PycurlClient())
+client = StripeClient("sk_test_...", http_client=stripe.http_client.UrllibClient())
 ```
 
 Without a configured client, by default the library will attempt to load
