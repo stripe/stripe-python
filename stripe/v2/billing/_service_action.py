@@ -68,6 +68,10 @@ class ServiceAction(StripeObject):
         """
         Defines the scope where the credit grant is applicable.
         """
+        category: Optional[Literal["paid", "promotional"]]
+        """
+        The category of the credit grant.
+        """
         expiry_config: ExpiryConfig
         """
         The expiry configuration for the credit grant.
@@ -75,6 +79,10 @@ class ServiceAction(StripeObject):
         name: str
         """
         A descriptive name shown in dashboard.
+        """
+        priority: Optional[int]
+        """
+        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
         """
         _inner_class_types = {
             "amount": Amount,
@@ -139,6 +147,10 @@ class ServiceAction(StripeObject):
         """
         Defines the scope where the credit grant is applicable.
         """
+        category: Optional[Literal["paid", "promotional"]]
+        """
+        The category of the credit grant.
+        """
         expiry_config: ExpiryConfig
         """
         The expiry configuration for the credit grant.
@@ -146,6 +158,10 @@ class ServiceAction(StripeObject):
         name: str
         """
         Customer-facing name for the credit grant.
+        """
+        priority: Optional[int]
+        """
+        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
         """
         _inner_class_types = {
             "amount": Amount,

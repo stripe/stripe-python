@@ -15,9 +15,6 @@ from stripe.events._v2_billing_cadence_canceled_event import (
 from stripe.events._v2_billing_cadence_created_event import (
     V2BillingCadenceCreatedEvent,
 )
-from stripe.events._v2_billing_cadence_errored_event import (
-    V2BillingCadenceErroredEvent,
-)
 from stripe.events._v2_billing_license_fee_created_event import (
     V2BillingLicenseFeeCreatedEvent,
 )
@@ -368,7 +365,6 @@ THIN_EVENT_CLASSES = {
     V2BillingCadenceBilledEvent.LOOKUP_TYPE: V2BillingCadenceBilledEvent,
     V2BillingCadenceCanceledEvent.LOOKUP_TYPE: V2BillingCadenceCanceledEvent,
     V2BillingCadenceCreatedEvent.LOOKUP_TYPE: V2BillingCadenceCreatedEvent,
-    V2BillingCadenceErroredEvent.LOOKUP_TYPE: V2BillingCadenceErroredEvent,
     V2BillingLicensedItemCreatedEvent.LOOKUP_TYPE: V2BillingLicensedItemCreatedEvent,
     V2BillingLicensedItemUpdatedEvent.LOOKUP_TYPE: V2BillingLicensedItemUpdatedEvent,
     V2BillingLicenseFeeCreatedEvent.LOOKUP_TYPE: V2BillingLicenseFeeCreatedEvent,

@@ -15,9 +15,6 @@ from stripe.events._v2_billing_cadence_canceled_event import (
 from stripe.events._v2_billing_cadence_created_event import (
     V2BillingCadenceCreatedEvent as V2BillingCadenceCreatedEvent,
 )
-from stripe.events._v2_billing_cadence_errored_event import (
-    V2BillingCadenceErroredEvent as V2BillingCadenceErroredEvent,
-)
 from stripe.events._v2_billing_license_fee_created_event import (
     V2BillingLicenseFeeCreatedEvent as V2BillingLicenseFeeCreatedEvent,
 )
