@@ -456,7 +456,6 @@ from stripe._error import (
     NonZeroBalanceError as NonZeroBalanceError,
     NotCancelableError as NotCancelableError,
     QuotaExceededError as QuotaExceededError,
-    RateLimitError as RateLimitError,
     RecipientNotNotifiableError as RecipientNotNotifiableError,
     TemporarySessionExpiredError as TemporarySessionExpiredError,
 )
