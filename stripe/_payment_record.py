@@ -435,6 +435,9 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
             class NetworkToken(StripeObject):
                 used: bool
+                """
+                Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
+                """
 
             class ThreeDSecure(StripeObject):
                 authentication_flow: Optional[
