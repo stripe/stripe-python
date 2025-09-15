@@ -19,7 +19,7 @@ class BalanceSettingsService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        payments: "BalanceSettingsService.UpdateParamsPayments"
+        payments: NotRequired["BalanceSettingsService.UpdateParamsPayments"]
         """
         Settings that apply to the [Payments Balance](https://docs.stripe.com/api/balance).
         """
@@ -79,9 +79,9 @@ class BalanceSettingsService(StripeService):
         """
 
     class UpdateParamsPaymentsSettlementTiming(TypedDict):
-        delay_days_override: NotRequired[int]
+        delay_days_override: NotRequired["Literal['']|int"]
         """
-        The number of days charge funds are held before becoming available. The default value is `minimum`, representing the lowest available value for the account. The maximum value is 31. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling delay days](https://docs.stripe.com/connect/manage-payout-schedule).
+        Change `delay_days` for this account, which determines the number of days charge funds are held before becoming available. The maximum value is 31. Passing an empty string to `delay_days_override` will return `delay_days` to the default, which is the lowest available value for the account. [Learn more about controlling delay days](https://docs.stripe.com/connect/manage-payout-schedule).
         """
 
     def retrieve(
@@ -126,7 +126,7 @@ class BalanceSettingsService(StripeService):
 
     def update(
         self,
-        params: "BalanceSettingsService.UpdateParams",
+        params: "BalanceSettingsService.UpdateParams" = {},
         options: RequestOptions = {},
     ) -> BalanceSettings:
         """
@@ -146,7 +146,7 @@ class BalanceSettingsService(StripeService):
 
     async def update_async(
         self,
-        params: "BalanceSettingsService.UpdateParams",
+        params: "BalanceSettingsService.UpdateParams" = {},
         options: RequestOptions = {},
     ) -> BalanceSettings:
         """

@@ -3486,7 +3486,7 @@ class Invoice(
     class CreatePreviewParamsScheduleDetailsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         """
 
     class CreatePreviewParamsScheduleDetailsPhase(TypedDict):
@@ -3565,10 +3565,6 @@ class Invoice(
         items: List["Invoice.CreatePreviewParamsScheduleDetailsPhaseItem"]
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
-        """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -4200,7 +4196,7 @@ class Invoice(
     class CreatePreviewParamsSubscriptionDetailsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         """
 
     class CreatePreviewParamsSubscriptionDetailsItem(TypedDict):

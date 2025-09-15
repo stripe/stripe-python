@@ -1300,7 +1300,7 @@ class SubscriptionSchedule(
     class CreateParamsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         """
 
     class CreateParamsDefaultSettings(TypedDict):
@@ -1495,10 +1495,6 @@ class SubscriptionSchedule(
         items: List["SubscriptionSchedule.CreateParamsPhaseItem"]
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
-        """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -2345,10 +2341,6 @@ class SubscriptionSchedule(
         items: List["SubscriptionSchedule.ModifyParamsPhaseItem"]
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
-        """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
         """
         metadata: NotRequired[Dict[str, str]]
         """

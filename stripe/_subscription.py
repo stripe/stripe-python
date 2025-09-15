@@ -673,7 +673,7 @@ class Subscription(
             "Subscription.CreateParamsBillingCycleAnchorConfig"
         ]
         """
-        Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
+        Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
         """
         billing_mode: NotRequired["Subscription.CreateParamsBillingMode"]
         """
@@ -1010,7 +1010,7 @@ class Subscription(
     class CreateParamsBillingMode(TypedDict):
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
         """
 
     class CreateParamsBillingThresholds(TypedDict):
