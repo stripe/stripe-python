@@ -99,7 +99,7 @@ class PaymentIntent(
 
         discount_amount: Optional[int]
         """
-        The amount an item was discounted for.
+        The total discount applied on the transaction.
         """
         line_items: Optional[ListObject["PaymentIntentAmountDetailsLineItem"]]
         """
@@ -3418,7 +3418,7 @@ class PaymentIntent(
     class CaptureParamsAmountDetails(TypedDict):
         discount_amount: NotRequired["Literal['']|int"]
         """
-        The amount an item was discounted for.
+        The total discount applied on the transaction.
         """
         line_items: NotRequired[
             "Literal['']|List[PaymentIntent.CaptureParamsAmountDetailsLineItem]"
@@ -4421,7 +4421,7 @@ class PaymentIntent(
     class ConfirmParamsAmountDetails(TypedDict):
         discount_amount: NotRequired["Literal['']|int"]
         """
-        The amount an item was discounted for.
+        The total discount applied on the transaction.
         """
         line_items: NotRequired[
             "Literal['']|List[PaymentIntent.ConfirmParamsAmountDetailsLineItem]"
@@ -8747,7 +8747,7 @@ class PaymentIntent(
     class CreateParamsAmountDetails(TypedDict):
         discount_amount: NotRequired["Literal['']|int"]
         """
-        The amount an item was discounted for.
+        The total discount applied on the transaction.
         """
         line_items: NotRequired[
             "Literal['']|List[PaymentIntent.CreateParamsAmountDetailsLineItem]"
@@ -12956,7 +12956,7 @@ class PaymentIntent(
     class IncrementAuthorizationParamsAmountDetails(TypedDict):
         discount_amount: NotRequired["Literal['']|int"]
         """
-        The amount an item was discounted for.
+        The total discount applied on the transaction.
         """
         line_items: NotRequired[
             "Literal['']|List[PaymentIntent.IncrementAuthorizationParamsAmountDetailsLineItem]"
@@ -13377,7 +13377,7 @@ class PaymentIntent(
     class ModifyParamsAmountDetails(TypedDict):
         discount_amount: NotRequired["Literal['']|int"]
         """
-        The amount an item was discounted for.
+        The total discount applied on the transaction.
         """
         line_items: NotRequired[
             "Literal['']|List[PaymentIntent.ModifyParamsAmountDetailsLineItem]"

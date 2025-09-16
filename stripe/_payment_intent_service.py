@@ -112,7 +112,7 @@ class PaymentIntentService(StripeService):
     class CaptureParamsAmountDetails(TypedDict):
         discount_amount: NotRequired["Literal['']|int"]
         """
-        The amount an item was discounted for.
+        The total discount applied on the transaction.
         """
         line_items: NotRequired[
             "Literal['']|List[PaymentIntentService.CaptureParamsAmountDetailsLineItem]"
@@ -1127,7 +1127,7 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsAmountDetails(TypedDict):
         discount_amount: NotRequired["Literal['']|int"]
         """
-        The amount an item was discounted for.
+        The total discount applied on the transaction.
         """
         line_items: NotRequired[
             "Literal['']|List[PaymentIntentService.ConfirmParamsAmountDetailsLineItem]"
@@ -5501,7 +5501,7 @@ class PaymentIntentService(StripeService):
     class CreateParamsAmountDetails(TypedDict):
         discount_amount: NotRequired["Literal['']|int"]
         """
-        The amount an item was discounted for.
+        The total discount applied on the transaction.
         """
         line_items: NotRequired[
             "Literal['']|List[PaymentIntentService.CreateParamsAmountDetailsLineItem]"
@@ -9762,7 +9762,7 @@ class PaymentIntentService(StripeService):
     class IncrementAuthorizationParamsAmountDetails(TypedDict):
         discount_amount: NotRequired["Literal['']|int"]
         """
-        The amount an item was discounted for.
+        The total discount applied on the transaction.
         """
         line_items: NotRequired[
             "Literal['']|List[PaymentIntentService.IncrementAuthorizationParamsAmountDetailsLineItem]"
@@ -10221,7 +10221,7 @@ class PaymentIntentService(StripeService):
     class UpdateParamsAmountDetails(TypedDict):
         discount_amount: NotRequired["Literal['']|int"]
         """
-        The amount an item was discounted for.
+        The total discount applied on the transaction.
         """
         line_items: NotRequired[
             "Literal['']|List[PaymentIntentService.UpdateParamsAmountDetailsLineItem]"
