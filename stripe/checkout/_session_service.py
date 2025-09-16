@@ -2922,6 +2922,10 @@ class SessionService(StripeService):
         """
 
     class UpdateParams(TypedDict):
+        automatic_tax: NotRequired["SessionService.UpdateParamsAutomaticTax"]
+        """
+        Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
+        """
         collected_information: NotRequired[
             "SessionService.UpdateParamsCollectedInformation"
         ]
@@ -2937,6 +2941,12 @@ class SessionService(StripeService):
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        invoice_creation: NotRequired[
+            "SessionService.UpdateParamsInvoiceCreation"
+        ]
+        """
+        Generate a post-purchase Invoice for one-time payments.
         """
         line_items: NotRequired[List["SessionService.UpdateParamsLineItem"]]
         """
@@ -2969,6 +2979,24 @@ class SessionService(StripeService):
         ]
         """
         A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
+        """
+
+    class UpdateParamsAutomaticTax(TypedDict):
+        liability: NotRequired[
+            "SessionService.UpdateParamsAutomaticTaxLiability"
+        ]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+
+    class UpdateParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class UpdateParamsCollectedInformation(TypedDict):
@@ -3051,6 +3079,32 @@ class SessionService(StripeService):
         percent_off: NotRequired[float]
         """
         A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
+        """
+
+    class UpdateParamsInvoiceCreation(TypedDict):
+        invoice_data: NotRequired[
+            "SessionService.UpdateParamsInvoiceCreationInvoiceData"
+        ]
+        """
+        Parameters passed when creating invoices for payment-mode Checkout Sessions.
+        """
+
+    class UpdateParamsInvoiceCreationInvoiceData(TypedDict):
+        issuer: NotRequired[
+            "SessionService.UpdateParamsInvoiceCreationInvoiceDataIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+
+    class UpdateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class UpdateParamsLineItem(TypedDict):
@@ -3289,6 +3343,12 @@ class SessionService(StripeService):
         """
 
     class UpdateParamsSubscriptionData(TypedDict):
+        invoice_settings: NotRequired[
+            "SessionService.UpdateParamsSubscriptionDataInvoiceSettings"
+        ]
+        """
+        All invoices will be billed using the specified settings.
+        """
         trial_end: NotRequired[int]
         """
         Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
@@ -3296,6 +3356,24 @@ class SessionService(StripeService):
         trial_period_days: NotRequired["Literal['']|int"]
         """
         Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+        """
+
+    class UpdateParamsSubscriptionDataInvoiceSettings(TypedDict):
+        issuer: NotRequired[
+            "SessionService.UpdateParamsSubscriptionDataInvoiceSettingsIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+
+    class UpdateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     def list(
