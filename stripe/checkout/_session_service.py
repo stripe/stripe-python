@@ -118,6 +118,69 @@ class SessionService(StripeService):
         """
         The coupon or promotion code to apply to this Session. Currently, only up to one may be specified.
         """
+        excluded_payment_method_types: NotRequired[
+            List[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "mb_way",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "sepa_debit",
+                    "shopeepay",
+                    "sofort",
+                    "swish",
+                    "twint",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ]
+            ]
+        ]
+        """
+        A list of the types of payment methods (e.g., `card`) that should be excluded from this Checkout Session. This should only be used when payment methods for this Checkout Session are managed through the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
