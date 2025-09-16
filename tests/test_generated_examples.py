@@ -45733,6 +45733,26 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_core_claimable_sandbox_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/claimable_sandboxes/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.claimable_sandboxes.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/claimable_sandboxes/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_core_event_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
