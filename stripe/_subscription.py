@@ -1757,6 +1757,9 @@ class Subscription(
 
     class MigrateParamsBillingMode(TypedDict):
         type: Literal["flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class ModifyParams(RequestOptions):
         add_invoice_items: NotRequired[

@@ -1173,6 +1173,9 @@ class SubscriptionService(StripeService):
 
     class MigrateParamsBillingMode(TypedDict):
         type: Literal["flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
 
     class ResumeParams(TypedDict):
         billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
