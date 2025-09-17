@@ -54,6 +54,10 @@ class CustomerService(StripeService):
         """
         An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
         """
+        business_name: NotRequired["Literal['']|str"]
+        """
+        The customer's business name. This may be up to *150 characters*.
+        """
         cash_balance: NotRequired["CustomerService.CreateParamsCashBalance"]
         """
         Balance information and default balance settings for this customer.
@@ -69,6 +73,10 @@ class CustomerService(StripeService):
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        individual_name: NotRequired["Literal['']|str"]
+        """
+        The customer's full name. This may be up to *150 characters*.
         """
         invoice_prefix: NotRequired[str]
         """
@@ -475,6 +483,10 @@ class CustomerService(StripeService):
         """
         An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
         """
+        business_name: NotRequired["Literal['']|str"]
+        """
+        The customer's business name. This may be up to *150 characters*.
+        """
         cash_balance: NotRequired["CustomerService.UpdateParamsCashBalance"]
         """
         Balance information and default balance settings for this customer.
@@ -498,6 +510,10 @@ class CustomerService(StripeService):
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        individual_name: NotRequired["Literal['']|str"]
+        """
+        The customer's full name. This may be up to *150 characters*.
         """
         invoice_prefix: NotRequired[str]
         """
