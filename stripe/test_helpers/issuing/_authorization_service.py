@@ -874,7 +874,7 @@ class AuthorizationService(StripeService):
         The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
         """
         risk_level: Literal[
-            "elevated", "high", "highest", "normal", "not_assessed", "unknown"
+            "elevated", "highest", "normal", "not_assessed", "unknown"
         ]
         """
         The likelihood that authorizations from this merchant will result in a dispute based on their history on Stripe Issuing.
