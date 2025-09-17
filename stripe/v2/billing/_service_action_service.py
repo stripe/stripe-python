@@ -51,6 +51,10 @@ class ServiceActionService(StripeService):
         """
         Defines the scope where the credit grant is applicable.
         """
+        category: NotRequired[Literal["paid", "promotional"]]
+        """
+        The category of the credit grant.
+        """
         expiry_config: (
             "ServiceActionService.CreateParamsCreditGrantExpiryConfig"
         )
@@ -60,6 +64,10 @@ class ServiceActionService(StripeService):
         name: str
         """
         A descriptive name shown in dashboard.
+        """
+        priority: NotRequired[int]
+        """
+        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
         """
 
     class CreateParamsCreditGrantAmount(TypedDict):
@@ -119,6 +127,10 @@ class ServiceActionService(StripeService):
         """
         Defines the scope where the credit grant is applicable.
         """
+        category: NotRequired[Literal["paid", "promotional"]]
+        """
+        The category of the credit grant.
+        """
         expiry_config: (
             "ServiceActionService.CreateParamsCreditGrantPerTenantExpiryConfig"
         )
@@ -132,6 +144,10 @@ class ServiceActionService(StripeService):
         name: str
         """
         Customer-facing name for the credit grant.
+        """
+        priority: NotRequired[int]
+        """
+        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
         """
 
     class CreateParamsCreditGrantPerTenantAmount(TypedDict):

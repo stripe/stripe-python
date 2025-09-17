@@ -15,9 +15,6 @@ from stripe.events._v2_billing_cadence_canceled_event import (
 from stripe.events._v2_billing_cadence_created_event import (
     V2BillingCadenceCreatedEvent,
 )
-from stripe.events._v2_billing_cadence_errored_event import (
-    V2BillingCadenceErroredEvent,
-)
 from stripe.events._v2_billing_license_fee_created_event import (
     V2BillingLicenseFeeCreatedEvent,
 )
@@ -173,6 +170,18 @@ from stripe.events._v2_core_account_person_deleted_event import (
 )
 from stripe.events._v2_core_account_person_updated_event import (
     V2CoreAccountPersonUpdatedEvent,
+)
+from stripe.events._v2_core_claimable_sandbox_claimed_event import (
+    V2CoreClaimableSandboxClaimedEvent,
+)
+from stripe.events._v2_core_claimable_sandbox_expired_event import (
+    V2CoreClaimableSandboxExpiredEvent,
+)
+from stripe.events._v2_core_claimable_sandbox_expiring_event import (
+    V2CoreClaimableSandboxExpiringEvent,
+)
+from stripe.events._v2_core_claimable_sandbox_sandbox_details_owner_account_updated_event import (
+    V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent,
 )
 from stripe.events._v2_core_event_destination_ping_event import (
     V2CoreEventDestinationPingEvent,
@@ -368,7 +377,6 @@ THIN_EVENT_CLASSES = {
     V2BillingCadenceBilledEvent.LOOKUP_TYPE: V2BillingCadenceBilledEvent,
     V2BillingCadenceCanceledEvent.LOOKUP_TYPE: V2BillingCadenceCanceledEvent,
     V2BillingCadenceCreatedEvent.LOOKUP_TYPE: V2BillingCadenceCreatedEvent,
-    V2BillingCadenceErroredEvent.LOOKUP_TYPE: V2BillingCadenceErroredEvent,
     V2BillingLicensedItemCreatedEvent.LOOKUP_TYPE: V2BillingLicensedItemCreatedEvent,
     V2BillingLicensedItemUpdatedEvent.LOOKUP_TYPE: V2BillingLicensedItemUpdatedEvent,
     V2BillingLicenseFeeCreatedEvent.LOOKUP_TYPE: V2BillingLicenseFeeCreatedEvent,
@@ -421,6 +429,10 @@ THIN_EVENT_CLASSES = {
     V2CoreAccountPersonDeletedEvent.LOOKUP_TYPE: V2CoreAccountPersonDeletedEvent,
     V2CoreAccountPersonUpdatedEvent.LOOKUP_TYPE: V2CoreAccountPersonUpdatedEvent,
     V2CoreAccountUpdatedEvent.LOOKUP_TYPE: V2CoreAccountUpdatedEvent,
+    V2CoreClaimableSandboxClaimedEvent.LOOKUP_TYPE: V2CoreClaimableSandboxClaimedEvent,
+    V2CoreClaimableSandboxExpiredEvent.LOOKUP_TYPE: V2CoreClaimableSandboxExpiredEvent,
+    V2CoreClaimableSandboxExpiringEvent.LOOKUP_TYPE: V2CoreClaimableSandboxExpiringEvent,
+    V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent.LOOKUP_TYPE: V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent,
     V2CoreEventDestinationPingEvent.LOOKUP_TYPE: V2CoreEventDestinationPingEvent,
     V2CoreHealthApiErrorFiringEvent.LOOKUP_TYPE: V2CoreHealthApiErrorFiringEvent,
     V2CoreHealthApiErrorResolvedEvent.LOOKUP_TYPE: V2CoreHealthApiErrorResolvedEvent,

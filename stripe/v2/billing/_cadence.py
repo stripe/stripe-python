@@ -59,6 +59,11 @@ class Cadence(StripeObject):
             If this number is greater than the number of days in the month being billed,
             this will anchor to the last day of the month.
             """
+            month_of_year: Optional[int]
+            """
+            The month to anchor the billing on for a type="month" billing cycle from
+            1-12. Occurrences are calculated from the month anchor.
+            """
             time: Time
             """
             The time at which the billing cycle ends.

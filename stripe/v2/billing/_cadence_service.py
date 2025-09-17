@@ -100,6 +100,13 @@ class CadenceService(StripeService):
         billed, this will anchor to the last day of the month. If not provided,
         this will default to the day the cadence was created.
         """
+        month_of_year: NotRequired[int]
+        """
+        The month to anchor the billing on for a type="month" billing cycle from
+        1-12. If not provided, this will default to the month the cadence was created.
+        This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
+        All occurrences will be calculated from month provided.
+        """
         time: NotRequired["CadenceService.CreateParamsBillingCycleMonthTime"]
         """
         The time at which the billing cycle ends.

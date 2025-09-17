@@ -125,7 +125,7 @@ class LicenseFeeService(StripeService):
         pass
 
     class UpdateParams(TypedDict):
-        display_name: str
+        display_name: NotRequired[str]
         """
         A customer-facing name for the License Fee.
         This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
@@ -315,7 +315,7 @@ class LicenseFeeService(StripeService):
     def update(
         self,
         id: str,
-        params: "LicenseFeeService.UpdateParams",
+        params: "LicenseFeeService.UpdateParams" = {},
         options: RequestOptions = {},
     ) -> LicenseFee:
         """
@@ -335,7 +335,7 @@ class LicenseFeeService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "LicenseFeeService.UpdateParams",
+        params: "LicenseFeeService.UpdateParams" = {},
         options: RequestOptions = {},
     ) -> LicenseFee:
         """
