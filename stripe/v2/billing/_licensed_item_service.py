@@ -63,7 +63,7 @@ class LicensedItemService(StripeService):
         Description that customers will see in the invoice line item.
         Maximum length of 250 characters.
         """
-        lookup_key: NotRequired[Optional[str]]
+        lookup_key: NotRequired[str]
         """
         An internal key you can use to search for a particular billable item.
         Maximum length of 200 characters.
@@ -77,7 +77,7 @@ class LicensedItemService(StripeService):
         """
         Stripe Tax details.
         """
-        unit_label: NotRequired[Optional[str]]
+        unit_label: NotRequired[str]
         """
         The unit to use when displaying prices for this billable item in places like Checkout. For example, set this field
         to "seat" for Checkout to display "(price) per seat", or "environment" to display "(price) per environment".

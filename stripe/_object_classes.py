@@ -205,8 +205,8 @@ V2_OBJECT_CLASSES = {
     stripe.v2.billing.ServiceAction.OBJECT_NAME: stripe.v2.billing.ServiceAction,
     stripe.v2.core.Account.OBJECT_NAME: stripe.v2.core.Account,
     stripe.v2.core.AccountLink.OBJECT_NAME: stripe.v2.core.AccountLink,
+    stripe.v2.core.AccountPerson.OBJECT_NAME: stripe.v2.core.AccountPerson,
     stripe.v2.core.ClaimableSandbox.OBJECT_NAME: stripe.v2.core.ClaimableSandbox,
-    stripe.v2.core.Person.OBJECT_NAME: stripe.v2.core.Person,
     stripe.v2.core.vault.GbBankAccount.OBJECT_NAME: stripe.v2.core.vault.GbBankAccount,
     stripe.v2.core.vault.UsBankAccount.OBJECT_NAME: stripe.v2.core.vault.UsBankAccount,
     stripe.v2.Event.OBJECT_NAME: stripe.v2.Event,
@@ -228,8 +228,6 @@ V2_OBJECT_CLASSES = {
     stripe.v2.money_management.Transaction.OBJECT_NAME: stripe.v2.money_management.Transaction,
     stripe.v2.money_management.TransactionEntry.OBJECT_NAME: stripe.v2.money_management.TransactionEntry,
     stripe.v2.payments.OffSessionPayment.OBJECT_NAME: stripe.v2.payments.OffSessionPayment,
-    stripe.v2.reporting.Report.OBJECT_NAME: stripe.v2.reporting.Report,
-    stripe.v2.reporting.ReportRun.OBJECT_NAME: stripe.v2.reporting.ReportRun,
     stripe.v2.tax.AutomaticRule.OBJECT_NAME: stripe.v2.tax.AutomaticRule,
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }

@@ -69,13 +69,13 @@ class ProfileService(StripeService):
         """
         The ID of the payment method object.
         """
-        display_name: NotRequired[Optional[str]]
+        display_name: NotRequired[str]
         """
         A customer-facing name for the billing profile.
         Maximum length of 250 characters.
         To remove the display_name from the object, set it to null in the request.
         """
-        lookup_key: NotRequired[Optional[str]]
+        lookup_key: NotRequired[str]
         """
         An internal key you can use to search for a particular billing profile. It must be unique among billing profiles for a given customer.
         Maximum length of 200 characters.

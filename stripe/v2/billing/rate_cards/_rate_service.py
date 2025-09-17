@@ -3,6 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
+from stripe.v2._deleted_object import DeletedObject
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._rate_card_rate import RateCardRate
 from typing import Dict, List, cast
@@ -208,12 +209,12 @@ class RateService(StripeService):
         id: str,
         params: "RateService.DeleteParams" = {},
         options: RequestOptions = {},
-    ) -> RateCardRate:
+    ) -> DeletedObject:
         """
         Remove an existing Rate from a Rate Card. This will create a new Rate Card Version without that Rate.
         """
         return cast(
-            RateCardRate,
+            DeletedObject,
             self._request(
                 "delete",
                 "/v2/billing/rate_cards/{rate_card_id}/rates/{id}".format(
@@ -232,12 +233,12 @@ class RateService(StripeService):
         id: str,
         params: "RateService.DeleteParams" = {},
         options: RequestOptions = {},
-    ) -> RateCardRate:
+    ) -> DeletedObject:
         """
         Remove an existing Rate from a Rate Card. This will create a new Rate Card Version without that Rate.
         """
         return cast(
-            RateCardRate,
+            DeletedObject,
             await self._request_async(
                 "delete",
                 "/v2/billing/rate_cards/{rate_card_id}/rates/{id}".format(

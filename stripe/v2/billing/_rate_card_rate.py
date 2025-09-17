@@ -75,7 +75,8 @@ class RateCardRate(StripeObject):
     """
     metered_item: "MeteredItem"
     """
-    The Metered Item that this rate binds to.
+    A Metered Item represents a billable item whose pricing is based on usage, measured by a meter. You can use rate cards
+    to specify the pricing and create subscriptions to these items.
     """
     object: Literal["v2.billing.rate_card_rate"]
     """

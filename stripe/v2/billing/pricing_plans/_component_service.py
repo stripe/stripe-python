@@ -3,6 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
+from stripe.v2._deleted_object import DeletedObject
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._pricing_plan_component import PricingPlanComponent
 from typing import Dict, List, Optional, cast
@@ -190,12 +191,12 @@ class ComponentService(StripeService):
         id: str,
         params: "ComponentService.DeleteParams" = {},
         options: RequestOptions = {},
-    ) -> PricingPlanComponent:
+    ) -> DeletedObject:
         """
         Remove a Pricing Plan Component from the latest version of a Pricing Plan.
         """
         return cast(
-            PricingPlanComponent,
+            DeletedObject,
             self._request(
                 "delete",
                 "/v2/billing/pricing_plans/{pricing_plan_id}/components/{id}".format(
@@ -214,12 +215,12 @@ class ComponentService(StripeService):
         id: str,
         params: "ComponentService.DeleteParams" = {},
         options: RequestOptions = {},
-    ) -> PricingPlanComponent:
+    ) -> DeletedObject:
         """
         Remove a Pricing Plan Component from the latest version of a Pricing Plan.
         """
         return cast(
-            PricingPlanComponent,
+            DeletedObject,
             await self._request_async(
                 "delete",
                 "/v2/billing/pricing_plans/{pricing_plan_id}/components/{id}".format(

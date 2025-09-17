@@ -100,13 +100,6 @@ class CadenceService(StripeService):
         billed, this will anchor to the last day of the month. If not provided,
         this will default to the day the cadence was created.
         """
-        month_of_year: NotRequired[int]
-        """
-        The month to anchor the billing on for a type="month" billing cycle from
-        1-12. If not provided, this will default to the month the cadence was created.
-        This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
-        All occurrences will be calculated from month provided.
-        """
         time: NotRequired["CadenceService.CreateParamsBillingCycleMonthTime"]
         """
         The time at which the billing cycle ends.
@@ -317,12 +310,12 @@ class CadenceService(StripeService):
         """
 
     class UpdateParamsSettings(TypedDict):
-        bill: NotRequired[Optional["CadenceService.UpdateParamsSettingsBill"]]
+        bill: NotRequired["CadenceService.UpdateParamsSettingsBill"]
         """
         Settings that configure bills generation, which includes calculating totals, tax, and presenting invoices. If null is provided, the current bill settings will be removed from the billing cadence.
         """
         collection: NotRequired[
-            Optional["CadenceService.UpdateParamsSettingsCollection"]
+            "CadenceService.UpdateParamsSettingsCollection"
         ]
         """
         Settings that configure and manage the behavior of collecting payments. If null is provided, the current collection settings will be removed from the billing cadence.
@@ -333,7 +326,7 @@ class CadenceService(StripeService):
         """
         The ID of the referenced settings object.
         """
-        version: NotRequired[Optional[str]]
+        version: NotRequired[str]
         """
         An optional field to specify the version of Settings to use.
         If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
@@ -346,7 +339,7 @@ class CadenceService(StripeService):
         """
         The ID of the referenced settings object.
         """
-        version: NotRequired[Optional[str]]
+        version: NotRequired[str]
         """
         An optional field to specify the version of Settings to use.
         If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
