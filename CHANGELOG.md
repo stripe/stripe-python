@@ -1,3 +1,104 @@
+## 12.5.1 - 2025-09-05
+* [#1563](https://github.com/stripe/stripe-python/pull/1563) fix: Paginate backwards if `starting_after == None`
+  * Addresses an [issue](https://github.com/stripe/stripe-python/issues/1562) where List iteration would be forwards when `starting_after` was set to `None` but backwards if it was not set at all. Now, it will paginate backwards in both cases.
+
+## 12.5.0 - 2025-08-27
+* [#1554](https://github.com/stripe/stripe-python/pull/1554) Add section on private preview SDKs in readme
+* [#1544](https://github.com/stripe/stripe-python/pull/1544) Update generated code. This release changes the pinned API version to `2025-08-27.basil`.
+  * Add support for `balance_report`, `payout_details`, and `payout_reconciliation_report` on `AccountSession.Component` and `AccountSession.CreateParamsComponent`
+  * Add support for `name` on `BillingPortal.Configuration`, `billing_portal.Configuration.CreateParams`, and `billing_portal.Configuration.ModifyParams`
+  * Add support for `installments` on `Charge.PaymentMethodDetail.Alma`
+  * Add support for `transaction_id` on `Charge.PaymentMethodDetail.Alma`, `Charge.PaymentMethodDetail.AmazonPay`, `Charge.PaymentMethodDetail.Billie`, `Charge.PaymentMethodDetail.KakaoPay`, `Charge.PaymentMethodDetail.KrCard`, `Charge.PaymentMethodDetail.NaverPay`, `Charge.PaymentMethodDetail.Payco`, `Charge.PaymentMethodDetail.RevolutPay`, `Charge.PaymentMethodDetail.SamsungPay`, and `Charge.PaymentMethodDetail.Satispay`
+  * Add support for `location` and `reader` on `Charge.PaymentMethodDetail.Paynow`
+  * Add support for `amount_includes_iof` on `Checkout.Session.PaymentMethodOption.Pix`, `PaymentIntent.ConfirmParamsPaymentMethodOptionPix`, `PaymentIntent.CreateParamsPaymentMethodOptionPix`, `PaymentIntent.ModifyParamsPaymentMethodOptionPix`, `PaymentIntent.PaymentMethodOption.Pix`, and `checkout.Session.CreateParamsPaymentMethodOptionPix`
+  * Add support for new values `block` and `resolution` on enum `Dispute.PaymentMethodDetail.Card.case_type`
+  * Add support for new value `terminal_android_apk` on enums `File.ListParams.purpose` and `File.purpose`
+  * Add support for new value `terminal_android_apk` on enum `File.CreateParams.purpose`
+  * Add support for `metadata` and `period` on `Invoice.CreatePreviewParamsScheduleDetailPhaseAddInvoiceItem`, `Subscription.CreateParamsAddInvoiceItem`, `Subscription.ModifyParamsAddInvoiceItem`, `SubscriptionSchedule.CreateParamsPhaseAddInvoiceItem`, `SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItem`, and `SubscriptionSchedule.Phase.AddInvoiceItem`
+  * Add support for `exp_month` and `exp_year` on `issuing.Card.CreateParams`
+  * Add support for `excluded_payment_method_types` on `PaymentIntent.CreateParams` and `PaymentIntent`
+  * Add support for `payout_method` on `Payout.CreateParams` and `Payout`
+  * Add support for `mxn` on `Terminal.Configuration.Tipping`, `terminal.Configuration.CreateParamsTipping`, and `terminal.Configuration.ModifyParamsTipping`
+  * Add support for `card` on `terminal.Reader.PresentPaymentMethodParams`
+  * Add support for new value `card` on enum `terminal.Reader.PresentPaymentMethodParams.type`
+  * Add support for new value `2025-08-27.basil` on enum `WebhookEndpoint.CreateParams.api_version`
+  * Add support for error codes `customer_session_expired` and `india_recurring_payment_mandate_canceled` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
+* [#1553](https://github.com/stripe/stripe-python/pull/1553) Import available http libraries more efficiently
+* [#1549](https://github.com/stripe/stripe-python/pull/1549) Introduce V1 namespaces in StripeClient
+  - All the top level non-namespaced services under StripeClient services(eg. customers, products) are copied under the new V1 namespace. These top level non-namespaced services will be marked as deprecated in the next major release and will be removed in a future release. Eg.
+  ```diff
+  client = StripeClient("sk_test...")
+
+  # Accessing V1 Stripe services on a StripeClient should be through the V1 namespace
+  - client.customers.list()
+  + client.v1.customers.list()
+  ```
+  Refer to the [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for help upgrading.
+
+## 12.4.0 - 2025-07-30
+This release changes the pinned API version to `2025-07-30.basil`.
+
+* [#1541](https://github.com/stripe/stripe-python/pull/1541) Update generated code
+  * Add support for `instant_payouts_promotion` on `AccountSession.Component` and `AccountSession.CreateParamsComponent`
+  * Add support for `adjustable_quantity` on `BillingPortal.Configuration.Feature.SubscriptionUpdate.Product`, `billing_portal.Configuration.CreateParamsFeatureSubscriptionUpdateProduct`, and `billing_portal.Configuration.ModifyParamsFeatureSubscriptionUpdateProduct`
+  * Remove support for value `disabled` from enum `Capability.status`
+  * Add support for `transaction_id` on `Charge.PaymentMethodDetail.Cashapp`
+  * Add support for `origin_context` on `Checkout.Session` and `checkout.Session.CreateParams`
+  * Add support for `template` on `Checkout.Session.InvoiceCreation.InvoiceDatum.RenderingOption`, `PaymentLink.CreateParamsInvoiceCreationInvoiceDatumRenderingOption`, `PaymentLink.InvoiceCreation.InvoiceDatum.RenderingOption`, `PaymentLink.ModifyParamsInvoiceCreationInvoiceDatumRenderingOption`, and `checkout.Session.CreateParamsInvoiceCreationInvoiceDatumRenderingOption`
+  * Add support for `setup_future_usage` on `Checkout.Session.PaymentMethodOption.Pix` and `checkout.Session.CreateParamsPaymentMethodOptionPix`
+  * Add support for new value `nz_bank_account` on enum `checkout.Session.CreateParams.payment_method_types`
+  * Change `Identity.VerificationSession.RelatedPerson.account` to be required
+  * Change `Identity.VerificationSession.RelatedPerson.person` to be required
+  * Add support for `duration` on `Invoice.CreatePreviewParamsScheduleDetailPhase`, `SubscriptionSchedule.CreateParamsPhase`, and `SubscriptionSchedule.ModifyParamsPhase`
+  * Change type of `Invoice.CreatePreviewParamsSubscriptionDetail.cancel_at`, `Subscription.CreateParams.cancel_at`, and `Subscription.ModifyParams.cancel_at` from `DateTime` to `DateTime | enum('max_period_end'|'min_period_end')`
+  * Add support for `price_data` on `PaymentLink.CreateParamsLineItem`
+  * Change `PaymentLink.CreateParamsLineItem.price` to be optional
+  * Add support for new value `America/Coyhaique` on enum `reporting.ReportRun.CreateParamsParameter.timezone`
+  * Add support for `standard` on `Tax.Registration.CountryOption.Ae`, `Tax.Registration.CountryOption.Au`, `Tax.Registration.CountryOption.Ch`, `Tax.Registration.CountryOption.Gb`, `Tax.Registration.CountryOption.Jp`, `Tax.Registration.CountryOption.No`, `Tax.Registration.CountryOption.Nz`, `Tax.Registration.CountryOption.Sg`, `tax.Registration.CreateParamsCountryOptionAe`, `tax.Registration.CreateParamsCountryOptionAl`, `tax.Registration.CreateParamsCountryOptionAo`, `tax.Registration.CreateParamsCountryOptionAu`, `tax.Registration.CreateParamsCountryOptionAw`, `tax.Registration.CreateParamsCountryOptionB`, `tax.Registration.CreateParamsCountryOptionBa`, `tax.Registration.CreateParamsCountryOptionBb`, `tax.Registration.CreateParamsCountryOptionBd`, `tax.Registration.CreateParamsCountryOptionBf`, `tax.Registration.CreateParamsCountryOptionBh`, `tax.Registration.CreateParamsCountryOptionCd`, `tax.Registration.CreateParamsCountryOptionCh`, `tax.Registration.CreateParamsCountryOptionEt`, `tax.Registration.CreateParamsCountryOptionGb`, `tax.Registration.CreateParamsCountryOptionGn`, `tax.Registration.CreateParamsCountryOptionIs`, `tax.Registration.CreateParamsCountryOptionJp`, `tax.Registration.CreateParamsCountryOptionMe`, `tax.Registration.CreateParamsCountryOptionMk`, `tax.Registration.CreateParamsCountryOptionMr`, `tax.Registration.CreateParamsCountryOptionNo`, `tax.Registration.CreateParamsCountryOptionNz`, `tax.Registration.CreateParamsCountryOptionOm`, `tax.Registration.CreateParamsCountryOptionR`, `tax.Registration.CreateParamsCountryOptionSg`, `tax.Registration.CreateParamsCountryOptionSr`, `tax.Registration.CreateParamsCountryOptionUy`, `tax.Registration.CreateParamsCountryOptionZa`, and `tax.Registration.CreateParamsCountryOptionZw`
+  * Add support for new value `inbound_goods` on enums `Tax.Registration.CountryOption.At.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Be.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Bg.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Cy.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Cz.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.De.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Dk.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.E.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Ee.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Fi.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Fr.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Gr.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Hr.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Hu.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Ie.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.It.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Lt.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Lu.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Lv.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Mt.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Nl.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Pl.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Pt.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Ro.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Se.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Si.Standard.place_of_supply_scheme`, `Tax.Registration.CountryOption.Sk.Standard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionAtStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionBeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionBgStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionCyStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionCzStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionDeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionDkStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionEStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionEeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionFiStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionFrStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionGrStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionHrStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionHuStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionIeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionItStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionLtStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionLuStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionLvStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionMtStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionNlStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionPlStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionPtStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionRoStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionSeStandard.place_of_supply_scheme`, `tax.Registration.CreateParamsCountryOptionSiStandard.place_of_supply_scheme`, and `tax.Registration.CreateParamsCountryOptionSkStandard.place_of_supply_scheme`
+  * Add support for `aed`, `bgn`, `huf`, and `ron` on `Terminal.Configuration.Tipping`, `terminal.Configuration.CreateParamsTipping`, and `terminal.Configuration.ModifyParamsTipping`
+  * Add support for new value `2025-07-30.basil` on enum `WebhookEndpoint.CreateParams.api_version`
+* [#1537](https://github.com/stripe/stripe-python/pull/1537) Fix timeout type hint in RequestsClient
+
+## 12.3.0 - 2025-07-01
+This release changes the pinned API version to `2025-06-30.basil`.
+
+* [#1526](https://github.com/stripe/stripe-python/pull/1526) Update generated code
+  * Add support for `migrate` method on resource `Subscription`
+  * Add support for `collect_payment_method` and `confirm_payment_intent` methods on resource `terminal.Reader`
+  * Add support for `crypto_payments` on `Account.Capability`, `Account.CreateParamsCapability`, and `Account.ModifyParamsCapability`
+  * Add support for `proof_of_address` on `Account.CreateParamsDocument` and `Account.ModifyParamsDocument`
+  * Add support for `monthly_payout_days` and `weekly_payout_days` on `Account.CreateParamsSettingPayoutSchedule`, `Account.ModifyParamsSettingPayoutSchedule`, and `Account.Setting.Payout.Schedule`
+  * Change `Account.Setting.Invoice.hosted_payment_method_save` to be required
+  * Add support for `crypto` on `Charge.PaymentMethodDetail`, `ConfirmationToken.CreateParamsPaymentMethodDatum`, `ConfirmationToken.PaymentMethodPreview`, `PaymentIntent.ConfirmParamsPaymentMethodDatum`, `PaymentIntent.ConfirmParamsPaymentMethodOption`, `PaymentIntent.CreateParamsPaymentMethodDatum`, `PaymentIntent.CreateParamsPaymentMethodOption`, `PaymentIntent.ModifyParamsPaymentMethodDatum`, `PaymentIntent.ModifyParamsPaymentMethodOption`, `PaymentIntent.PaymentMethodOption`, `PaymentMethod.CreateParams`, `PaymentMethod`, `SetupIntent.ConfirmParamsPaymentMethodDatum`, `SetupIntent.CreateParamsPaymentMethodDatum`, and `SetupIntent.ModifyParamsPaymentMethodDatum`
+  * Change type of `Charge.PaymentMethodDetail.Card.Installment.Plan.type`, `ConfirmationToken.CreateParamsPaymentMethodOptionCardInstallmentPlan.type`, `ConfirmationToken.PaymentMethodOption.Card.Installment.Plan.type`, `Invoice.CreateParamsPaymentSettingPaymentMethodOptionCardInstallmentPlan.type`, `Invoice.ModifyParamsPaymentSettingPaymentMethodOptionCardInstallmentPlan.type`, `PaymentIntent.ConfirmParamsPaymentMethodOptionCardInstallmentPlan.type`, `PaymentIntent.CreateParamsPaymentMethodOptionCardInstallmentPlan.type`, `PaymentIntent.ModifyParamsPaymentMethodOptionCardInstallmentPlan.type`, `PaymentIntent.PaymentMethodOption.Card.Installment.AvailablePlan.type`, and `PaymentIntent.PaymentMethodOption.Card.Installment.Plan.type` from `literal('fixed_count')` to `enum('bonus'|'fixed_count'|'revolving')`
+  * Add support for new value `buut` on enums `Charge.PaymentMethodDetail.Ideal.bank`, `ConfirmationToken.CreateParamsPaymentMethodDatumIdeal.bank`, `ConfirmationToken.PaymentMethodPreview.Ideal.bank`, `PaymentIntent.ConfirmParamsPaymentMethodDatumIdeal.bank`, `PaymentIntent.CreateParamsPaymentMethodDatumIdeal.bank`, `PaymentIntent.ModifyParamsPaymentMethodDatumIdeal.bank`, `PaymentMethod.CreateParamsIdeal.bank`, `PaymentMethod.Ideal.bank`, `SetupAttempt.PaymentMethodDetail.Ideal.bank`, `SetupIntent.ConfirmParamsPaymentMethodDatumIdeal.bank`, `SetupIntent.CreateParamsPaymentMethodDatumIdeal.bank`, and `SetupIntent.ModifyParamsPaymentMethodDatumIdeal.bank`
+  * Add support for new value `BUUTNL2A` on enums `Charge.PaymentMethodDetail.Ideal.bic`, `ConfirmationToken.PaymentMethodPreview.Ideal.bic`, `PaymentMethod.Ideal.bic`, and `SetupAttempt.PaymentMethodDetail.Ideal.bic`
+  * Add support for `subscriptions` on `PaymentIntent.ConfirmParamsPaymentMethodOptionKlarna`, `PaymentIntent.CreateParamsPaymentMethodOptionKlarna`, `PaymentIntent.ModifyParamsPaymentMethodOptionKlarna`, and `checkout.Session.CreateParamsPaymentMethodOptionKlarna`
+  * Add support for new value `crypto` on enum `checkout.Session.CreateParams.payment_method_types`
+  * Add support for `billing_mode` on `Invoice.CreatePreviewParamsScheduleDetail`, `Invoice.CreatePreviewParamsSubscriptionDetail`, `Quote.CreateParamsSubscriptionDatum`, `Quote.SubscriptionDatum`, `Subscription.CreateParams`, `SubscriptionSchedule.CreateParams`, `SubscriptionSchedule`, `Subscription`, and `checkout.Session.CreateParamsSubscriptionDatum`
+  * Add support for new value `crypto` on enums `ConfirmationToken.CreateParamsPaymentMethodDatum.type`, `PaymentIntent.ConfirmParamsPaymentMethodDatum.type`, `PaymentIntent.CreateParamsPaymentMethodDatum.type`, `PaymentIntent.ModifyParamsPaymentMethodDatum.type`, `SetupIntent.ConfirmParamsPaymentMethodDatum.type`, `SetupIntent.CreateParamsPaymentMethodDatum.type`, and `SetupIntent.ModifyParamsPaymentMethodDatum.type`
+  * Add support for new value `crypto` on enums `ConfirmationToken.PaymentMethodPreview.type` and `PaymentMethod.type`
+  * Add support for new value `crypto` on enums `Customer.ListPaymentMethodsParams.type`, `PaymentMethod.CreateParams.type`, and `PaymentMethod.ListParams.type`
+  * Change type of `Dispute.enhanced_eligibility_types` from `literal('visa_compelling_evidence_3')` to `enum('visa_compelling_evidence_3'|'visa_compliance')`
+  * Add support for new value `compliance` on enum `Dispute.PaymentMethodDetail.Card.case_type`
+  * Add support for new value `terminal.reader.action_updated` on enum `Event.type`
+  * Add support for `related_person` on `Identity.VerificationSession` and `identity.VerificationSession.CreateParams`
+  * Add support for `matching` on `Identity.VerificationSession.Option`
+  * Add support for new value `crypto` on enums `Invoice.CreateParamsPaymentSetting.payment_method_types`, `Invoice.ModifyParamsPaymentSetting.payment_method_types`, `Invoice.PaymentSetting.payment_method_types`, `Subscription.CreateParamsPaymentSetting.payment_method_types`, `Subscription.ModifyParamsPaymentSetting.payment_method_types`, and `Subscription.PaymentSetting.payment_method_types`
+  * Add support for `klarna` on `Mandate.PaymentMethodDetail`, `SetupIntent.ConfirmParamsPaymentMethodOption`, `SetupIntent.CreateParamsPaymentMethodOption`, `SetupIntent.ModifyParamsPaymentMethodOption`, and `SetupIntent.PaymentMethodOption`
+  * Add support for `on_demand` on `PaymentIntent.ConfirmParamsPaymentMethodOptionKlarna`, `PaymentIntent.CreateParamsPaymentMethodOptionKlarna`, and `PaymentIntent.ModifyParamsPaymentMethodOptionKlarna`
+  * Change type of `PaymentIntent.ConfirmParamsPaymentMethodOptionKlarna.setup_future_usage`, `PaymentIntent.CreateParamsPaymentMethodOptionKlarna.setup_future_usage`, `PaymentIntent.ModifyParamsPaymentMethodOptionKlarna.setup_future_usage`, and `PaymentIntent.PaymentMethodOption.Klarna.setup_future_usage` from `literal('none')` to `enum('none'|'off_session'|'on_session')`
+  * Add support for `ua` on `Tax.Registration.CountryOption` and `tax.Registration.CreateParamsCountryOption`
+  * Change type of `terminal.Location.ModifyParams.display_name` from `string` to `emptyable(string)`
+  * Add support for `collect_payment_method` and `confirm_payment_intent` on `Terminal.Reader.Action`
+  * Add support for new values `collect_payment_method` and `confirm_payment_intent` on enum `Terminal.Reader.Action.type`
+  * Add support for `status` on `treasury.FinancialAccount.ListParams`
+  * Add support for new value `terminal.reader.action_updated` on enums `WebhookEndpoint.CreateParams.enabled_events` and `WebhookEndpoint.ModifyParams.enabled_events`
+  * Add support for new value `2025-06-30.basil` on enum `WebhookEndpoint.CreateParams.api_version`
+  * Add support for snapshot event `terminal.reader.action_updated` with resource `terminal.Reader`
+* [#1534](https://github.com/stripe/stripe-python/pull/1534) Fix the link to releases page from readme
+
 ## 12.2.0 - 2025-05-29
  This release changes the pinned API version to `2025-05-28.basil`.
 
@@ -398,7 +499,7 @@ This release changes the pinned API version to `2025-04-30.basil`.
 ## 11.0.0 - 2024-10-01
 * [#1404](https://github.com/stripe/stripe-python/pull/1404) Support for APIs in the new API version 2024-09-30.acacia
 
-  This release changes the pinned API version to `2024-09-30.acacia`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-09-30.acacia) and carefully review the API changes before upgrading.
+  This release changes the pinned API version to `2024-09-30.acacia`. Please read the [API Changelog](https://docs.stripe.com/changelog/acacia#2024-09-30.acacia) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes due to changes in the API
 
@@ -553,7 +654,7 @@ This release changes the pinned API version to `2025-04-30.basil`.
 ## 10.0.0 - 2024-06-24
 * [#1350](https://github.com/stripe/stripe-python/pull/1350) Update generated code
 
-  This release changes the pinned API version to 2024-06-20. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-06-20) and carefully review the API changes before upgrading.
+  This release changes the pinned API version to 2024-06-20. Please read the [API Changelog](https://docs.stripe.com/changelog/2024-06-20) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes
 
@@ -724,7 +825,7 @@ This release changes the pinned API version to `2025-04-30.basil`.
 ## 9.0.0 - 2024-04-10
 * [#1286](https://github.com/stripe/stripe-python/pull/1286)
 
-  * This release changes the pinned API version to `2024-04-10`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2024-04-10) and carefully review the API changes before upgrading.
+  * This release changes the pinned API version to `2024-04-10`. Please read the [API Changelog](https://docs.stripe.com/changelog/2024-04-10) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes
 
@@ -1181,7 +1282,7 @@ This release changes the pinned API version to `2025-04-30.basil`.
 
 # Changelog
 ## 7.0.0 - 2023-10-16
-* This release changes the pinned API version to `2023-10-16`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2023-10-16) and carefully review the API changes before upgrading `stripe-python`.
+* This release changes the pinned API version to `2023-10-16`. Please read the [API Changelog](https://docs.stripe.com/changelog/2023-10-16) and carefully review the API changes before upgrading `stripe-python`.
 * [#1085](https://github.com/stripe/stripe-python/pull/1085) Update generated code
   - Updated pinned API version
 
@@ -1300,7 +1401,7 @@ This release changes the pinned API version to `2025-04-30.basil`.
 
 ## 5.0.0 - 2022-11-16
 
-Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-11-15.
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://docs.stripe.com/changelog/2022-11-15.
 
 "⚠️" symbol highlights breaking changes.
 
@@ -1352,7 +1453,7 @@ Breaking changes that arose during code generation of the library that we postpo
 
 ## 4.0.0 - 2022-08-02
 
-Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v4. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-08-01.
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v4. For changes to the Stripe products, read more at https://docs.stripe.com/changelog/2022-08-01.
 
 "⚠️" symbol highlights breaking changes.
 

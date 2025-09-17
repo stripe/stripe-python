@@ -37,6 +37,10 @@ class ConfigurationService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        name: NotRequired["Literal['']|str"]
+        """
+        The name of the configuration.
+        """
 
     class CreateParamsBusinessProfile(TypedDict):
         headline: NotRequired["Literal['']|str"]
@@ -185,6 +189,12 @@ class ConfigurationService(StripeService):
         """
 
     class CreateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
+        adjustable_quantity: NotRequired[
+            "ConfigurationService.CreateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity"
+        ]
+        """
+        Control whether the quantity of the product can be adjusted.
+        """
         prices: List[str]
         """
         The list of price IDs for the product that a subscription can be updated to.
@@ -192,6 +202,22 @@ class ConfigurationService(StripeService):
         product: str
         """
         The product id.
+        """
+
+    class CreateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity(
+        TypedDict,
+    ):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative integer.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity that can be set for the product.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity that can be set for the product.
         """
 
     class CreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd(TypedDict):
@@ -280,6 +306,10 @@ class ConfigurationService(StripeService):
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: NotRequired["Literal['']|str"]
+        """
+        The name of the configuration.
         """
 
     class UpdateParamsBusinessProfile(TypedDict):
@@ -417,6 +447,12 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
+        adjustable_quantity: NotRequired[
+            "ConfigurationService.UpdateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity"
+        ]
+        """
+        Control whether the quantity of the product can be adjusted.
+        """
         prices: List[str]
         """
         The list of price IDs for the product that a subscription can be updated to.
@@ -424,6 +460,22 @@ class ConfigurationService(StripeService):
         product: str
         """
         The product id.
+        """
+
+    class UpdateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity(
+        TypedDict,
+    ):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative integer.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity that can be set for the product.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity that can be set for the product.
         """
 
     class UpdateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd(TypedDict):

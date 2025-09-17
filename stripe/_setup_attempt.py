@@ -177,7 +177,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
             brand: Optional[str]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
             checks: Optional[Checks]
             """
@@ -269,6 +269,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                     "abn_amro",
                     "asn_bank",
                     "bunq",
+                    "buut",
                     "handelsbanken",
                     "ing",
                     "knab",
@@ -285,7 +286,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 ]
             ]
             """
-            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
             """
             bic: Optional[
                 Literal[
@@ -293,6 +294,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                     "ASNBNL21",
                     "BITSNL2A",
                     "BUNQNL2A",
+                    "BUUTNL2A",
                     "FVLBNL22",
                     "HANDNL2A",
                     "INGBNL2A",
@@ -501,6 +503,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "coupon_expired",
                 "customer_max_payment_methods",
                 "customer_max_subscriptions",
+                "customer_session_expired",
                 "customer_tax_location_invalid",
                 "debit_not_authorized",
                 "email_invalid",
@@ -518,6 +521,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "incorrect_cvc",
                 "incorrect_number",
                 "incorrect_zip",
+                "india_recurring_payment_mandate_canceled",
                 "instant_payouts_config_disabled",
                 "instant_payouts_currency_disabled",
                 "instant_payouts_limit_exceeded",
@@ -657,7 +661,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         """
         network_decline_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
         """
         param: Optional[str]
         """

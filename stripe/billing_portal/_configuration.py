@@ -116,6 +116,21 @@ class Configuration(
 
         class SubscriptionUpdate(StripeObject):
             class Product(StripeObject):
+                class AdjustableQuantity(StripeObject):
+                    enabled: bool
+                    """
+                    If true, the quantity can be adjusted to any non-negative integer.
+                    """
+                    maximum: Optional[int]
+                    """
+                    The maximum quantity that can be set for the product.
+                    """
+                    minimum: int
+                    """
+                    The minimum quantity that can be set for the product.
+                    """
+
+                adjustable_quantity: AdjustableQuantity
                 prices: List[str]
                 """
                 The list of price IDs which, when subscribed to, a subscription can be updated.
@@ -124,6 +139,9 @@ class Configuration(
                 """
                 The product ID.
                 """
+                _inner_class_types = {
+                    "adjustable_quantity": AdjustableQuantity
+                }
 
             class ScheduleAtPeriodEnd(StripeObject):
                 class Condition(StripeObject):
@@ -217,6 +235,10 @@ class Configuration(
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: NotRequired["Literal['']|str"]
+        """
+        The name of the configuration.
         """
 
     class CreateParamsBusinessProfile(TypedDict):
@@ -366,6 +388,12 @@ class Configuration(
         """
 
     class CreateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
+        adjustable_quantity: NotRequired[
+            "Configuration.CreateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity"
+        ]
+        """
+        Control whether the quantity of the product can be adjusted.
+        """
         prices: List[str]
         """
         The list of price IDs for the product that a subscription can be updated to.
@@ -373,6 +401,22 @@ class Configuration(
         product: str
         """
         The product id.
+        """
+
+    class CreateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity(
+        TypedDict,
+    ):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative integer.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity that can be set for the product.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity that can be set for the product.
         """
 
     class CreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd(TypedDict):
@@ -455,6 +499,10 @@ class Configuration(
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: NotRequired["Literal['']|str"]
+        """
+        The name of the configuration.
         """
 
     class ModifyParamsBusinessProfile(TypedDict):
@@ -592,6 +640,12 @@ class Configuration(
         """
 
     class ModifyParamsFeaturesSubscriptionUpdateProduct(TypedDict):
+        adjustable_quantity: NotRequired[
+            "Configuration.ModifyParamsFeaturesSubscriptionUpdateProductAdjustableQuantity"
+        ]
+        """
+        Control whether the quantity of the product can be adjusted.
+        """
         prices: List[str]
         """
         The list of price IDs for the product that a subscription can be updated to.
@@ -599,6 +653,22 @@ class Configuration(
         product: str
         """
         The product id.
+        """
+
+    class ModifyParamsFeaturesSubscriptionUpdateProductAdjustableQuantity(
+        TypedDict,
+    ):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative integer.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity that can be set for the product.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity that can be set for the product.
         """
 
     class ModifyParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd(TypedDict):
@@ -665,6 +735,10 @@ class Configuration(
     metadata: Optional[Dict[str, str]]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
+    name: Optional[str]
+    """
+    The name of the configuration.
     """
     object: Literal["billing_portal.configuration"]
     """

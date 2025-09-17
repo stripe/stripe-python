@@ -141,6 +141,7 @@ class PaymentIntent(
                 "coupon_expired",
                 "customer_max_payment_methods",
                 "customer_max_subscriptions",
+                "customer_session_expired",
                 "customer_tax_location_invalid",
                 "debit_not_authorized",
                 "email_invalid",
@@ -158,6 +159,7 @@ class PaymentIntent(
                 "incorrect_cvc",
                 "incorrect_number",
                 "incorrect_zip",
+                "india_recurring_payment_mandate_canceled",
                 "instant_payouts_config_disabled",
                 "instant_payouts_currency_disabled",
                 "instant_payouts_limit_exceeded",
@@ -297,7 +299,7 @@ class PaymentIntent(
         """
         network_decline_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
         """
         param: Optional[str]
         """
@@ -1572,9 +1574,9 @@ class PaymentIntent(
                     For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
                     One of `month`.
                     """
-                    type: Literal["fixed_count"]
+                    type: Literal["bonus", "fixed_count", "revolving"]
                     """
-                    Type of installment plan, one of `fixed_count`.
+                    Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                     """
 
                 class Plan(StripeObject):
@@ -1587,9 +1589,9 @@ class PaymentIntent(
                     For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
                     One of `month`.
                     """
-                    type: Literal["fixed_count"]
+                    type: Literal["bonus", "fixed_count", "revolving"]
                     """
-                    Type of installment plan, one of `fixed_count`.
+                    Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                     """
 
                 available_plans: Optional[List[AvailablePlan]]
@@ -1653,7 +1655,7 @@ class PaymentIntent(
             """
             installments: Optional[Installments]
             """
-            Installment details for this payment (Mexico only).
+            Installment details for this payment.
 
             For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
             """
@@ -1764,6 +1766,18 @@ class PaymentIntent(
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
             ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
+        class Crypto(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1920,7 +1934,9 @@ class PaymentIntent(
             """
             Preferred locale of the Klarna checkout page that the customer is redirected to.
             """
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2131,6 +2147,10 @@ class PaymentIntent(
             """
 
         class Pix(StripeObject):
+            amount_includes_iof: Optional[Literal["always", "never"]]
+            """
+            Determines if the amount includes the IOF tax.
+            """
             expires_after_seconds: Optional[int]
             """
             The number of seconds (between 10 and 1209600) after which Pix payment will expire.
@@ -2386,6 +2406,7 @@ class PaymentIntent(
         card: Optional[Card]
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
+        crypto: Optional[Crypto]
         customer_balance: Optional[CustomerBalance]
         eps: Optional[Eps]
         fpx: Optional[Fpx]
@@ -2436,6 +2457,7 @@ class PaymentIntent(
             "card": Card,
             "card_present": CardPresent,
             "cashapp": Cashapp,
+            "crypto": Crypto,
             "customer_balance": CustomerBalance,
             "eps": Eps,
             "fpx": Fpx,
@@ -2475,7 +2497,7 @@ class PaymentIntent(
     class PresentmentDetails(StripeObject):
         presentment_amount: int
         """
-        Amount intended to be collected by this payment, denominated in presentment_currency.
+        Amount intended to be collected by this payment, denominated in `presentment_currency`.
         """
         presentment_currency: str
         """
@@ -2692,7 +2714,7 @@ class PaymentIntent(
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, a card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        The list of payment method types (for example, a card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
         """
         radar_options: NotRequired["PaymentIntent.ConfirmParamsRadarOptions"]
         """
@@ -2862,6 +2884,12 @@ class PaymentIntent(
         ]
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
+        """
+        crypto: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
         """
         customer_balance: NotRequired[
             "PaymentIntent.ConfirmParamsPaymentMethodDataCustomerBalance"
@@ -3053,6 +3081,7 @@ class PaymentIntent(
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -3224,6 +3253,9 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodDataCashapp(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataCrypto(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataCustomerBalance(TypedDict):
         pass
 
@@ -3309,6 +3341,7 @@ class PaymentIntent(
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -3607,6 +3640,12 @@ class PaymentIntent(
         ]
         """
         If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
+        """
+        crypto: NotRequired[
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCrypto"
+        ]
+        """
+        If this is a `crypto` PaymentMethod, this sub-hash contains details about the Crypto payment method options.
         """
         customer_balance: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalance"
@@ -4105,7 +4144,7 @@ class PaymentIntent(
             "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
+        Installment configuration for payments attempted on this PaymentIntent.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -4226,9 +4265,9 @@ class PaymentIntent(
         For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
-        type: Literal["fixed_count"]
+        type: Literal["bonus", "fixed_count", "revolving"]
         """
-        Type of installment plan, one of `fixed_count`.
+        Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
         """
 
     class ConfirmParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
@@ -4383,6 +4422,20 @@ class PaymentIntent(
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
         ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCrypto(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4571,6 +4624,12 @@ class PaymentIntent(
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
+        on_demand: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsKlarnaOnDemand"
+        ]
+        """
+        On-demand details if setting up or charging an on-demand payment.
+        """
         preferred_locale: NotRequired[
             Literal[
                 "cs-CZ",
@@ -4624,7 +4683,9 @@ class PaymentIntent(
         """
         Preferred language of the Klarna authorization page that the customer is redirected to
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        setup_future_usage: NotRequired[
+            Literal["none", "off_session", "on_session"]
+        ]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4635,6 +4696,70 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+        subscriptions: NotRequired[
+            "Literal['']|List[PaymentIntent.ConfirmParamsPaymentMethodOptionsKlarnaSubscription]"
+        ]
+        """
+        Subscription details if setting up or charging a subscription.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
+        average_amount: NotRequired[int]
+        """
+        Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        maximum_amount: NotRequired[int]
+        """
+        The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        minimum_amount: NotRequired[int]
+        """
+        The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        purchase_interval: NotRequired[Literal["day", "month", "week", "year"]]
+        """
+        Interval at which the customer is making purchases
+        """
+        purchase_interval_count: NotRequired[int]
+        """
+        The number of `purchase_interval` between charges
+        """
+
+    class ConfirmParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Unit of time between subscription charges.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+        """
+        name: NotRequired[str]
+        """
+        Name for subscription.
+        """
+        next_billing: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling"
+        ]
+        """
+        Describes the upcoming charge for this subscription.
+        """
+        reference: str
+        """
+        A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The amount of the next charge for the subscription.
+        """
+        date: str
+        """
+        The date of the next charge for the subscription in YYYY-MM-DD format.
         """
 
     class ConfirmParamsPaymentMethodOptionsKonbini(TypedDict):
@@ -4915,6 +5040,10 @@ class PaymentIntent(
         """
 
     class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
         expires_after_seconds: NotRequired[int]
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
@@ -5327,6 +5456,62 @@ class PaymentIntent(
         """
         Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. Use this parameter for simpler integrations that don't handle customer actions, such as [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication). This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-confirm).
         """
+        excluded_payment_method_types: NotRequired[
+            List[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "grabpay",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "pix",
+                    "promptpay",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "sepa_debit",
+                    "sofort",
+                    "swish",
+                    "twint",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ]
+            ]
+        ]
+        """
+        The list of payment method types to exclude from use with this payment.
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -5381,7 +5566,7 @@ class PaymentIntent(
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
+        The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
         """
         radar_options: NotRequired["PaymentIntent.CreateParamsRadarOptions"]
         """
@@ -5575,6 +5760,12 @@ class PaymentIntent(
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer_balance: NotRequired[
             "PaymentIntent.CreateParamsPaymentMethodDataCustomerBalance"
         ]
@@ -5765,6 +5956,7 @@ class PaymentIntent(
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -5936,6 +6128,9 @@ class PaymentIntent(
     class CreateParamsPaymentMethodDataCashapp(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataCrypto(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):
         pass
 
@@ -6021,6 +6216,7 @@ class PaymentIntent(
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -6319,6 +6515,12 @@ class PaymentIntent(
         ]
         """
         If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
+        """
+        crypto: NotRequired[
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCrypto"
+        ]
+        """
+        If this is a `crypto` PaymentMethod, this sub-hash contains details about the Crypto payment method options.
         """
         customer_balance: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalance"
@@ -6817,7 +7019,7 @@ class PaymentIntent(
             "PaymentIntent.CreateParamsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
+        Installment configuration for payments attempted on this PaymentIntent.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -6938,9 +7140,9 @@ class PaymentIntent(
         For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
-        type: Literal["fixed_count"]
+        type: Literal["bonus", "fixed_count", "revolving"]
         """
-        Type of installment plan, one of `fixed_count`.
+        Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
         """
 
     class CreateParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
@@ -7095,6 +7297,20 @@ class PaymentIntent(
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
         ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsCrypto(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -7283,6 +7499,12 @@ class PaymentIntent(
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
+        on_demand: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsKlarnaOnDemand"
+        ]
+        """
+        On-demand details if setting up or charging an on-demand payment.
+        """
         preferred_locale: NotRequired[
             Literal[
                 "cs-CZ",
@@ -7336,7 +7558,9 @@ class PaymentIntent(
         """
         Preferred language of the Klarna authorization page that the customer is redirected to
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        setup_future_usage: NotRequired[
+            Literal["none", "off_session", "on_session"]
+        ]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -7347,6 +7571,70 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+        subscriptions: NotRequired[
+            "Literal['']|List[PaymentIntent.CreateParamsPaymentMethodOptionsKlarnaSubscription]"
+        ]
+        """
+        Subscription details if setting up or charging a subscription.
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
+        average_amount: NotRequired[int]
+        """
+        Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        maximum_amount: NotRequired[int]
+        """
+        The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        minimum_amount: NotRequired[int]
+        """
+        The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        purchase_interval: NotRequired[Literal["day", "month", "week", "year"]]
+        """
+        Interval at which the customer is making purchases
+        """
+        purchase_interval_count: NotRequired[int]
+        """
+        The number of `purchase_interval` between charges
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Unit of time between subscription charges.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+        """
+        name: NotRequired[str]
+        """
+        Name for subscription.
+        """
+        next_billing: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling"
+        ]
+        """
+        Describes the upcoming charge for this subscription.
+        """
+        reference: str
+        """
+        A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The amount of the next charge for the subscription.
+        """
+        date: str
+        """
+        The date of the next charge for the subscription in YYYY-MM-DD format.
         """
 
     class CreateParamsPaymentMethodOptionsKonbini(TypedDict):
@@ -7627,6 +7915,10 @@ class PaymentIntent(
         """
 
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
         expires_after_seconds: NotRequired[int]
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
@@ -8149,7 +8441,7 @@ class PaymentIntent(
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
         """
         receipt_email: NotRequired["Literal['']|str"]
         """
@@ -8278,6 +8570,12 @@ class PaymentIntent(
         ]
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
+        """
+        crypto: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodDataCrypto"
+        ]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
         """
         customer_balance: NotRequired[
             "PaymentIntent.ModifyParamsPaymentMethodDataCustomerBalance"
@@ -8469,6 +8767,7 @@ class PaymentIntent(
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -8640,6 +8939,9 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodDataCashapp(TypedDict):
         pass
 
+    class ModifyParamsPaymentMethodDataCrypto(TypedDict):
+        pass
+
     class ModifyParamsPaymentMethodDataCustomerBalance(TypedDict):
         pass
 
@@ -8725,6 +9027,7 @@ class PaymentIntent(
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -9023,6 +9326,12 @@ class PaymentIntent(
         ]
         """
         If this is a `cashapp` PaymentMethod, this sub-hash contains details about the Cash App Pay payment method options.
+        """
+        crypto: NotRequired[
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCrypto"
+        ]
+        """
+        If this is a `crypto` PaymentMethod, this sub-hash contains details about the Crypto payment method options.
         """
         customer_balance: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalance"
@@ -9521,7 +9830,7 @@ class PaymentIntent(
             "PaymentIntent.ModifyParamsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this PaymentIntent (Mexico Only).
+        Installment configuration for payments attempted on this PaymentIntent.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -9642,9 +9951,9 @@ class PaymentIntent(
         For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
-        type: Literal["fixed_count"]
+        type: Literal["bonus", "fixed_count", "revolving"]
         """
-        Type of installment plan, one of `fixed_count`.
+        Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
         """
 
     class ModifyParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
@@ -9799,6 +10108,20 @@ class PaymentIntent(
         setup_future_usage: NotRequired[
             "Literal['']|Literal['none', 'off_session', 'on_session']"
         ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCrypto(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -9987,6 +10310,12 @@ class PaymentIntent(
 
         If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
+        on_demand: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsKlarnaOnDemand"
+        ]
+        """
+        On-demand details if setting up or charging an on-demand payment.
+        """
         preferred_locale: NotRequired[
             Literal[
                 "cs-CZ",
@@ -10040,7 +10369,9 @@ class PaymentIntent(
         """
         Preferred language of the Klarna authorization page that the customer is redirected to
         """
-        setup_future_usage: NotRequired[Literal["none"]]
+        setup_future_usage: NotRequired[
+            Literal["none", "off_session", "on_session"]
+        ]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -10051,6 +10382,70 @@ class PaymentIntent(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+        subscriptions: NotRequired[
+            "Literal['']|List[PaymentIntent.ModifyParamsPaymentMethodOptionsKlarnaSubscription]"
+        ]
+        """
+        Subscription details if setting up or charging a subscription.
+        """
+
+    class ModifyParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
+        average_amount: NotRequired[int]
+        """
+        Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        maximum_amount: NotRequired[int]
+        """
+        The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        minimum_amount: NotRequired[int]
+        """
+        The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        purchase_interval: NotRequired[Literal["day", "month", "week", "year"]]
+        """
+        Interval at which the customer is making purchases
+        """
+        purchase_interval_count: NotRequired[int]
+        """
+        The number of `purchase_interval` between charges
+        """
+
+    class ModifyParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Unit of time between subscription charges.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+        """
+        name: NotRequired[str]
+        """
+        Name for subscription.
+        """
+        next_billing: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling"
+        ]
+        """
+        Describes the upcoming charge for this subscription.
+        """
+        reference: str
+        """
+        A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+        """
+
+    class ModifyParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The amount of the next charge for the subscription.
+        """
+        date: str
+        """
+        The date of the next charge for the subscription in YYYY-MM-DD format.
         """
 
     class ModifyParamsPaymentMethodOptionsKonbini(TypedDict):
@@ -10331,6 +10726,10 @@ class PaymentIntent(
         """
 
     class ModifyParamsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
         expires_after_seconds: NotRequired[int]
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
@@ -10809,6 +11208,62 @@ class PaymentIntent(
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
+    """
+    excluded_payment_method_types: Optional[
+        List[
+            Literal[
+                "acss_debit",
+                "affirm",
+                "afterpay_clearpay",
+                "alipay",
+                "alma",
+                "amazon_pay",
+                "au_becs_debit",
+                "bacs_debit",
+                "bancontact",
+                "billie",
+                "blik",
+                "boleto",
+                "card",
+                "cashapp",
+                "crypto",
+                "customer_balance",
+                "eps",
+                "fpx",
+                "giropay",
+                "grabpay",
+                "ideal",
+                "kakao_pay",
+                "klarna",
+                "konbini",
+                "kr_card",
+                "mobilepay",
+                "multibanco",
+                "naver_pay",
+                "nz_bank_account",
+                "oxxo",
+                "p24",
+                "pay_by_bank",
+                "payco",
+                "paynow",
+                "paypal",
+                "pix",
+                "promptpay",
+                "revolut_pay",
+                "samsung_pay",
+                "satispay",
+                "sepa_debit",
+                "sofort",
+                "swish",
+                "twint",
+                "us_bank_account",
+                "wechat_pay",
+                "zip",
+            ]
+        ]
+    ]
+    """
+    The list of payment method types to exclude from use with this payment.
     """
     id: str
     """
@@ -11334,6 +11789,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -11341,18 +11797,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -11377,6 +11837,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -11384,18 +11845,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -11410,6 +11875,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -11417,18 +11883,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -11443,6 +11913,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -11450,18 +11921,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -11485,6 +11960,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -11492,18 +11968,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -11528,6 +12008,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -11535,18 +12016,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -11561,6 +12046,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -11568,18 +12054,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.
@@ -11594,6 +12084,7 @@ class PaymentIntent(
         Confirm that your customer intends to pay with current or provided
         payment method. Upon confirmation, the PaymentIntent will attempt to initiate
         a payment.
+
         If the selected payment method requires additional authentication steps, the
         PaymentIntent will transition to the requires_action status and
         suggest additional actions via next_action. If payment fails,
@@ -11601,18 +12092,22 @@ class PaymentIntent(
         canceled status if the confirmation limit is reached. If
         payment succeeds, the PaymentIntent will transition to the succeeded
         status (or requires_capture, if capture_method is set to manual).
+
         If the confirmation_method is automatic, payment may be attempted
         using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
         and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
         After next_actions are handled by the client, no additional
         confirmation is required to complete the payment.
+
         If the confirmation_method is manual, all payment attempts must be
         initiated using a secret key.
+
         If any actions are required for the payment, the PaymentIntent will
         return to the requires_confirmation state
         after those actions are completed. Your server needs to then
         explicitly re-confirm the PaymentIntent to initiate the next payment
         attempt.
+
         There is a variable upper limit on how many times a PaymentIntent can be confirmed.
         After this limit is reached, any further calls to this endpoint will
         transition the PaymentIntent to the canceled state.

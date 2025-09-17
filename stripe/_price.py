@@ -663,6 +663,10 @@ class Price(
     """
     When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     id: str
     """
     Unique identifier for the object.
@@ -722,10 +726,6 @@ class Price(
     unit_amount_decimal: Optional[str]
     """
     The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

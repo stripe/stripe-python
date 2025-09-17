@@ -58,7 +58,7 @@ class ValueList(
             ]
         ]
         """
-        Type of the items in the value list. One of `card_fingerprint`, `us_bank_account_fingerprint`, `sepa_debit_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`. Use `string` if the item type is unknown or mixed.
+        Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`. Use `string` if the item type is unknown or mixed.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -156,6 +156,10 @@ class ValueList(
     """
     The name or email address of the user who created this value list.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     id: str
     """
     Unique identifier for the object.
@@ -173,7 +177,7 @@ class ValueList(
         "us_bank_account_fingerprint",
     ]
     """
-    The type of items in the value list. One of `card_fingerprint`, `us_bank_account_fingerprint`, `sepa_debit_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`.
+    The type of items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`.
     """
     list_items: ListObject["ValueListItem"]
     """
@@ -194,10 +198,6 @@ class ValueList(
     object: Literal["radar.value_list"]
     """
     String representing the object's type. Objects of the same type share the same value.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

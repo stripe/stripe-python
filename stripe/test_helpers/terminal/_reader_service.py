@@ -14,6 +14,10 @@ class ReaderService(StripeService):
         """
         Simulated on-reader tip amount.
         """
+        card: NotRequired["ReaderService.PresentPaymentMethodParamsCard"]
+        """
+        Simulated data for the card payment method.
+        """
         card_present: NotRequired[
             "ReaderService.PresentPaymentMethodParamsCardPresent"
         ]
@@ -30,9 +34,27 @@ class ReaderService(StripeService):
         """
         Simulated data for the interac_present payment method.
         """
-        type: NotRequired[Literal["card_present", "interac_present"]]
+        type: NotRequired[Literal["card", "card_present", "interac_present"]]
         """
         Simulated payment type.
+        """
+
+    class PresentPaymentMethodParamsCard(TypedDict):
+        cvc: NotRequired[str]
+        """
+        Card security code.
+        """
+        exp_month: int
+        """
+        Two-digit number representing the card's expiration month.
+        """
+        exp_year: int
+        """
+        Two- or four-digit number representing the card's expiration year.
+        """
+        number: str
+        """
+        The card number, as a string without any separators.
         """
 
     class PresentPaymentMethodParamsCardPresent(TypedDict):

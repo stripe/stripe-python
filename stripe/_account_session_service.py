@@ -27,103 +27,127 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsAccountManagement"
         ]
         """
-        Configuration for the account management embedded component.
+        Configuration for the [account management](https://docs.stripe.com/connect/supported-embedded-components/account-management/) embedded component.
         """
         account_onboarding: NotRequired[
             "AccountSessionService.CreateParamsComponentsAccountOnboarding"
         ]
         """
-        Configuration for the account onboarding embedded component.
+        Configuration for the [account onboarding](https://docs.stripe.com/connect/supported-embedded-components/account-onboarding/) embedded component.
+        """
+        balance_report: NotRequired[
+            "AccountSessionService.CreateParamsComponentsBalanceReport"
+        ]
+        """
+        Configuration for the [balance report](https://docs.stripe.com/connect/supported-embedded-components/financial-reports#balance-report) embedded component.
         """
         balances: NotRequired[
             "AccountSessionService.CreateParamsComponentsBalances"
         ]
         """
-        Configuration for the balances embedded component.
+        Configuration for the [balances](https://docs.stripe.com/connect/supported-embedded-components/balances/) embedded component.
         """
         disputes_list: NotRequired[
             "AccountSessionService.CreateParamsComponentsDisputesList"
         ]
         """
-        Configuration for the disputes list embedded component.
+        Configuration for the [disputes list](https://docs.stripe.com/connect/supported-embedded-components/disputes-list/) embedded component.
         """
         documents: NotRequired[
             "AccountSessionService.CreateParamsComponentsDocuments"
         ]
         """
-        Configuration for the documents embedded component.
+        Configuration for the [documents](https://docs.stripe.com/connect/supported-embedded-components/documents/) embedded component.
         """
         financial_account: NotRequired[
             "AccountSessionService.CreateParamsComponentsFinancialAccount"
         ]
         """
-        Configuration for the financial account embedded component.
+        Configuration for the [financial account](https://docs.stripe.com/connect/supported-embedded-components/financial-account/) embedded component.
         """
         financial_account_transactions: NotRequired[
             "AccountSessionService.CreateParamsComponentsFinancialAccountTransactions"
         ]
         """
-        Configuration for the financial account transactions embedded component.
+        Configuration for the [financial account transactions](https://docs.stripe.com/connect/supported-embedded-components/financial-account-transactions/) embedded component.
+        """
+        instant_payouts_promotion: NotRequired[
+            "AccountSessionService.CreateParamsComponentsInstantPayoutsPromotion"
+        ]
+        """
+        Configuration for the [instant payouts promotion](https://docs.stripe.com/connect/supported-embedded-components/instant-payouts-promotion/) embedded component.
         """
         issuing_card: NotRequired[
             "AccountSessionService.CreateParamsComponentsIssuingCard"
         ]
         """
-        Configuration for the issuing card embedded component.
+        Configuration for the [issuing card](https://docs.stripe.com/connect/supported-embedded-components/issuing-card/) embedded component.
         """
         issuing_cards_list: NotRequired[
             "AccountSessionService.CreateParamsComponentsIssuingCardsList"
         ]
         """
-        Configuration for the issuing cards list embedded component.
+        Configuration for the [issuing cards list](https://docs.stripe.com/connect/supported-embedded-components/issuing-cards-list/) embedded component.
         """
         notification_banner: NotRequired[
             "AccountSessionService.CreateParamsComponentsNotificationBanner"
         ]
         """
-        Configuration for the notification banner embedded component.
+        Configuration for the [notification banner](https://docs.stripe.com/connect/supported-embedded-components/notification-banner/) embedded component.
         """
         payment_details: NotRequired[
             "AccountSessionService.CreateParamsComponentsPaymentDetails"
         ]
         """
-        Configuration for the payment details embedded component.
+        Configuration for the [payment details](https://docs.stripe.com/connect/supported-embedded-components/payment-details/) embedded component.
         """
         payment_disputes: NotRequired[
             "AccountSessionService.CreateParamsComponentsPaymentDisputes"
         ]
         """
-        Configuration for the payment disputes embedded component.
+        Configuration for the [payment disputes](https://docs.stripe.com/connect/supported-embedded-components/payment-disputes/) embedded component.
         """
         payments: NotRequired[
             "AccountSessionService.CreateParamsComponentsPayments"
         ]
         """
-        Configuration for the payments embedded component.
+        Configuration for the [payments](https://docs.stripe.com/connect/supported-embedded-components/payments/) embedded component.
+        """
+        payout_details: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPayoutDetails"
+        ]
+        """
+        Configuration for the [payout details](https://docs.stripe.com/connect/supported-embedded-components/payout-details/) embedded component.
+        """
+        payout_reconciliation_report: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPayoutReconciliationReport"
+        ]
+        """
+        Configuration for the [payout reconciliation report](https://docs.stripe.com/connect/supported-embedded-components/financial-reports#payout-reconciliation-report) embedded component.
         """
         payouts: NotRequired[
             "AccountSessionService.CreateParamsComponentsPayouts"
         ]
         """
-        Configuration for the payouts embedded component.
+        Configuration for the [payouts](https://docs.stripe.com/connect/supported-embedded-components/payouts/) embedded component.
         """
         payouts_list: NotRequired[
             "AccountSessionService.CreateParamsComponentsPayoutsList"
         ]
         """
-        Configuration for the payouts list embedded component.
+        Configuration for the [payouts list](https://docs.stripe.com/connect/supported-embedded-components/payouts-list/) embedded component.
         """
         tax_registrations: NotRequired[
             "AccountSessionService.CreateParamsComponentsTaxRegistrations"
         ]
         """
-        Configuration for the tax registrations embedded component.
+        Configuration for the [tax registrations](https://docs.stripe.com/connect/supported-embedded-components/tax-registrations/) embedded component.
         """
         tax_settings: NotRequired[
             "AccountSessionService.CreateParamsComponentsTaxSettings"
         ]
         """
-        Configuration for the tax settings embedded component.
+        Configuration for the [tax settings](https://docs.stripe.com/connect/supported-embedded-components/tax-settings/) embedded component.
         """
 
     class CreateParamsComponentsAccountManagement(TypedDict):
@@ -141,11 +165,11 @@ class AccountSessionService(StripeService):
     class CreateParamsComponentsAccountManagementFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+        Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
         """
         external_account_collection: NotRequired[bool]
         """
-        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+        Whether external account collection is enabled. This feature can only be `false` for accounts where you're responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
         """
 
     class CreateParamsComponentsAccountOnboarding(TypedDict):
@@ -163,12 +187,27 @@ class AccountSessionService(StripeService):
     class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+        Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
         """
         external_account_collection: NotRequired[bool]
         """
-        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+        Whether external account collection is enabled. This feature can only be `false` for accounts where you're responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
         """
+
+    class CreateParamsComponentsBalanceReport(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsBalanceReportFeatures"
+        ]
+        """
+        An empty list, because this embedded component has no features.
+        """
+
+    class CreateParamsComponentsBalanceReportFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsBalances(TypedDict):
         enabled: bool
@@ -185,23 +224,23 @@ class AccountSessionService(StripeService):
     class CreateParamsComponentsBalancesFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+        Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
         """
         edit_payout_schedule: NotRequired[bool]
         """
-        Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
         """
         external_account_collection: NotRequired[bool]
         """
-        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+        Whether external account collection is enabled. This feature can only be `false` for accounts where you're responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
         """
         instant_payouts: NotRequired[bool]
         """
-        Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
         """
         standard_payouts: NotRequired[bool]
         """
-        Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
         """
 
     class CreateParamsComponentsDisputesList(TypedDict):
@@ -223,15 +262,15 @@ class AccountSessionService(StripeService):
         """
         destination_on_behalf_of_charge_management: NotRequired[bool]
         """
-        Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+        Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
         """
         dispute_management: NotRequired[bool]
         """
-        Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+        Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
         """
         refund_management: NotRequired[bool]
         """
-        Whether to allow sending refunds. This is `true` by default.
+        Whether sending refunds is enabled. This is `true` by default.
         """
 
     class CreateParamsComponentsDocuments(TypedDict):
@@ -243,7 +282,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsDocumentsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsDocumentsFeatures(TypedDict):
@@ -264,11 +303,11 @@ class AccountSessionService(StripeService):
     class CreateParamsComponentsFinancialAccountFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+        Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
         """
         external_account_collection: NotRequired[bool]
         """
-        Whether to allow external accounts to be linked for money transfer.
+        Whether external account collection is enabled. This feature can only be `false` for accounts where you're responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
         """
         send_money: NotRequired[bool]
         """
@@ -297,6 +336,32 @@ class AccountSessionService(StripeService):
         card_spend_dispute_management: NotRequired[bool]
         """
         Whether to allow card spend dispute management features.
+        """
+
+    class CreateParamsComponentsInstantPayoutsPromotion(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsInstantPayoutsPromotionFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsInstantPayoutsPromotionFeatures(TypedDict):
+        disable_stripe_user_authentication: NotRequired[bool]
+        """
+        Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
+        """
+        external_account_collection: NotRequired[bool]
+        """
+        Whether external account collection is enabled. This feature can only be `false` for accounts where you're responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
+        """
+        instant_payouts: NotRequired[bool]
+        """
+        Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
         """
 
     class CreateParamsComponentsIssuingCard(TypedDict):
@@ -356,7 +421,7 @@ class AccountSessionService(StripeService):
         """
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts.
+        Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
         """
         spend_control_management: NotRequired[bool]
         """
@@ -378,11 +443,11 @@ class AccountSessionService(StripeService):
     class CreateParamsComponentsNotificationBannerFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+        Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
         """
         external_account_collection: NotRequired[bool]
         """
-        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+        Whether external account collection is enabled. This feature can only be `false` for accounts where you're responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
         """
 
     class CreateParamsComponentsPaymentDetails(TypedDict):
@@ -404,15 +469,15 @@ class AccountSessionService(StripeService):
         """
         destination_on_behalf_of_charge_management: NotRequired[bool]
         """
-        Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+        Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
         """
         dispute_management: NotRequired[bool]
         """
-        Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+        Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
         """
         refund_management: NotRequired[bool]
         """
-        Whether to allow sending refunds. This is `true` by default.
+        Whether sending refunds is enabled. This is `true` by default.
         """
 
     class CreateParamsComponentsPaymentDisputes(TypedDict):
@@ -430,15 +495,15 @@ class AccountSessionService(StripeService):
     class CreateParamsComponentsPaymentDisputesFeatures(TypedDict):
         destination_on_behalf_of_charge_management: NotRequired[bool]
         """
-        Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+        Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
         """
         dispute_management: NotRequired[bool]
         """
-        Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+        Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
         """
         refund_management: NotRequired[bool]
         """
-        Whether to allow sending refunds. This is `true` by default.
+        Whether sending refunds is enabled. This is `true` by default.
         """
 
     class CreateParamsComponentsPayments(TypedDict):
@@ -460,16 +525,46 @@ class AccountSessionService(StripeService):
         """
         destination_on_behalf_of_charge_management: NotRequired[bool]
         """
-        Whether to allow connected accounts to manage destination charges that are created on behalf of them. This is `false` by default.
+        Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
         """
         dispute_management: NotRequired[bool]
         """
-        Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+        Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
         """
         refund_management: NotRequired[bool]
         """
-        Whether to allow sending refunds. This is `true` by default.
+        Whether sending refunds is enabled. This is `true` by default.
         """
+
+    class CreateParamsComponentsPayoutDetails(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPayoutDetailsFeatures"
+        ]
+        """
+        An empty list, because this embedded component has no features.
+        """
+
+    class CreateParamsComponentsPayoutDetailsFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsPayoutReconciliationReport(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSessionService.CreateParamsComponentsPayoutReconciliationReportFeatures"
+        ]
+        """
+        An empty list, because this embedded component has no features.
+        """
+
+    class CreateParamsComponentsPayoutReconciliationReportFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsPayouts(TypedDict):
         enabled: bool
@@ -486,23 +581,23 @@ class AccountSessionService(StripeService):
     class CreateParamsComponentsPayoutsFeatures(TypedDict):
         disable_stripe_user_authentication: NotRequired[bool]
         """
-        Disables Stripe user authentication for this embedded component. This value can only be true for accounts where `controller.requirement_collection` is `application`. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to true and `disable_stripe_user_authentication` defaults to false.
+        Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
         """
         edit_payout_schedule: NotRequired[bool]
         """
-        Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
         """
         external_account_collection: NotRequired[bool]
         """
-        Whether to allow platforms to control bank account collection for their connected accounts. This feature can only be false for accounts where you're responsible for collecting updated information when requirements are due or change, like custom accounts. Otherwise, bank account collection is determined by compliance requirements. The default value for this feature is `true`.
+        Whether external account collection is enabled. This feature can only be `false` for accounts where you're responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
         """
         instant_payouts: NotRequired[bool]
         """
-        Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
         """
         standard_payouts: NotRequired[bool]
         """
-        Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
         """
 
     class CreateParamsComponentsPayoutsList(TypedDict):
@@ -514,7 +609,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsPayoutsListFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsPayoutsListFeatures(TypedDict):
@@ -529,7 +624,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsTaxRegistrationsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsTaxRegistrationsFeatures(TypedDict):
@@ -544,7 +639,7 @@ class AccountSessionService(StripeService):
             "AccountSessionService.CreateParamsComponentsTaxSettingsFeatures"
         ]
         """
-        The list of features enabled in the embedded component.
+        An empty list, because this embedded component has no features.
         """
 
     class CreateParamsComponentsTaxSettingsFeatures(TypedDict):

@@ -922,6 +922,7 @@ class Customer(
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",
@@ -1413,7 +1414,7 @@ class Customer(
     """
     balance: Optional[int]
     """
-    The current balance, if any, that's stored on the customer. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that's added to their next invoice. The balance only considers amounts that Stripe hasn't successfully applied to any invoice. It doesn't reflect unpaid invoices. This balance is only taken into account after invoices finalize.
+    The current balance, if any, that's stored on the customer in their default currency. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that's added to their next invoice. The balance only considers amounts that Stripe hasn't successfully applied to any invoice. It doesn't reflect unpaid invoices. This balance is only taken into account after invoices finalize. For multi-currency balances, see [invoice_credit_balance](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance).
     """
     cash_balance: Optional["CashBalance"]
     """
@@ -1434,6 +1435,10 @@ class Customer(
     ID of the default payment source for the customer.
 
     If you use payment methods created through the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
+    """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
     """
     delinquent: Optional[bool]
     """
@@ -1522,10 +1527,6 @@ class Customer(
     test_clock: Optional[ExpandableField["TestClock"]]
     """
     ID of the test clock that this customer belongs to.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

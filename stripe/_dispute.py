@@ -366,9 +366,11 @@ class Dispute(
         class Card(StripeObject):
             brand: str
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
-            case_type: Literal["chargeback", "inquiry"]
+            case_type: Literal[
+                "block", "chargeback", "compliance", "inquiry", "resolution"
+            ]
             """
             The type of dispute opened. Different case types may have varying fees and financial impact.
             """
@@ -794,7 +796,9 @@ class Dispute(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    enhanced_eligibility_types: List[Literal["visa_compelling_evidence_3"]]
+    enhanced_eligibility_types: List[
+        Literal["visa_compelling_evidence_3", "visa_compliance"]
+    ]
     """
     List of eligibility types that are included in `enhanced_evidence`.
     """
@@ -843,7 +847,7 @@ class Dispute(
         "won",
     ]
     """
-    Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, or `lost`.
+    The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
     """
 
     @classmethod

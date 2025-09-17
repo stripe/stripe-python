@@ -59,11 +59,11 @@ class SubscriptionService(StripeService):
             "SubscriptionService.CreateParamsAutomaticTax"
         ]
         """
-        Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
+        Automatic tax settings for this subscription.
         """
         backdate_start_date: NotRequired[int]
         """
-        For new subscriptions, a past timestamp to backdate the subscription's start date to. If set, the first invoice will contain a proration for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
+        A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
         """
         billing_cycle_anchor: NotRequired[int]
         """
@@ -75,19 +75,27 @@ class SubscriptionService(StripeService):
         """
         Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
         """
+        billing_mode: NotRequired[
+            "SubscriptionService.CreateParamsBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         billing_thresholds: NotRequired[
             "Literal['']|SubscriptionService.CreateParamsBillingThresholds"
         ]
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
-        cancel_at: NotRequired[int]
+        cancel_at: NotRequired[
+            "int|Literal['max_period_end', 'min_period_end']"
+        ]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -226,6 +234,16 @@ class SubscriptionService(StripeService):
         """
         The coupons to redeem into discounts for the item.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "SubscriptionService.CreateParamsAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. Defaults to the current period of the subscription.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -257,6 +275,36 @@ class SubscriptionService(StripeService):
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsAddInvoiceItemPeriod(TypedDict):
+        end: "SubscriptionService.CreateParamsAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: "SubscriptionService.CreateParamsAddInvoiceItemPeriodStart"
+        """
+        Start of the invoice item period.
+        """
+
+    class CreateParamsAddInvoiceItemPeriodEnd(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class CreateParamsAddInvoiceItemPeriodStart(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "now", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class CreateParamsAddInvoiceItemPriceData(TypedDict):
@@ -308,23 +356,29 @@ class SubscriptionService(StripeService):
     class CreateParamsBillingCycleAnchorConfig(TypedDict):
         day_of_month: int
         """
-        The day of the month the billing_cycle_anchor should be. Ranges from 1 to 31.
+        The day of the month the anchor should be. Ranges from 1 to 31.
         """
         hour: NotRequired[int]
         """
-        The hour of the day the billing_cycle_anchor should be. Ranges from 0 to 23.
+        The hour of the day the anchor should be. Ranges from 0 to 23.
         """
         minute: NotRequired[int]
         """
-        The minute of the hour the billing_cycle_anchor should be. Ranges from 0 to 59.
+        The minute of the hour the anchor should be. Ranges from 0 to 59.
         """
         month: NotRequired[int]
         """
-        The month to start full cycle billing periods. Ranges from 1 to 12.
+        The month to start full cycle periods. Ranges from 1 to 12.
         """
         second: NotRequired[int]
         """
-        The second of the minute the billing_cycle_anchor should be. Ranges from 0 to 59.
+        The second of the minute the anchor should be. Ranges from 0 to 59.
+        """
+
+    class CreateParamsBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
         """
 
     class CreateParamsBillingThresholds(TypedDict):
@@ -479,7 +533,7 @@ class SubscriptionService(StripeService):
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -765,13 +819,13 @@ class SubscriptionService(StripeService):
             "SubscriptionService.ListParamsCurrentPeriodEnd|int"
         ]
         """
-        Only return subscriptions whose current_period_end falls within the given date interval.
+        Only return subscriptions whose minimum item current_period_end falls within the given date interval.
         """
         current_period_start: NotRequired[
             "SubscriptionService.ListParamsCurrentPeriodStart|int"
         ]
         """
-        Only return subscriptions whose current_period_start falls within the given date interval.
+        Only return subscriptions whose maximum item current_period_start falls within the given date interval.
         """
         customer: NotRequired[str]
         """
@@ -883,6 +937,19 @@ class SubscriptionService(StripeService):
         Maximum value to filter by (inclusive)
         """
 
+    class MigrateParams(TypedDict):
+        billing_mode: "SubscriptionService.MigrateParamsBillingMode"
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
+    class MigrateParamsBillingMode(TypedDict):
+        type: Literal["flexible"]
+
     class ResumeParams(TypedDict):
         billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
         """
@@ -954,13 +1021,15 @@ class SubscriptionService(StripeService):
         """
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
         """
-        cancel_at: NotRequired["Literal['']|int"]
+        cancel_at: NotRequired[
+            "Literal['']|int|Literal['max_period_end', 'min_period_end']"
+        ]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         """
         cancellation_details: NotRequired[
             "SubscriptionService.UpdateParamsCancellationDetails"
@@ -1047,7 +1116,7 @@ class SubscriptionService(StripeService):
 
         Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
 
-        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://docs.stripe.com/changelog/2019-03-14) to learn more.
         """
         payment_settings: NotRequired[
             "SubscriptionService.UpdateParamsPaymentSettings"
@@ -1099,6 +1168,16 @@ class SubscriptionService(StripeService):
         """
         The coupons to redeem into discounts for the item.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "SubscriptionService.UpdateParamsAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. Defaults to the current period of the subscription.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -1130,6 +1209,36 @@ class SubscriptionService(StripeService):
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class UpdateParamsAddInvoiceItemPeriod(TypedDict):
+        end: "SubscriptionService.UpdateParamsAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: "SubscriptionService.UpdateParamsAddInvoiceItemPeriodStart"
+        """
+        Start of the invoice item period.
+        """
+
+    class UpdateParamsAddInvoiceItemPeriodEnd(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class UpdateParamsAddInvoiceItemPeriodStart(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "now", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class UpdateParamsAddInvoiceItemPriceData(TypedDict):
@@ -1364,7 +1473,7 @@ class SubscriptionService(StripeService):
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -1992,6 +2101,50 @@ class SubscriptionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/subscriptions/search",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def migrate(
+        self,
+        subscription: str,
+        params: "SubscriptionService.MigrateParams",
+        options: RequestOptions = {},
+    ) -> Subscription:
+        """
+        Upgrade the billing_mode of an existing subscription.
+        """
+        return cast(
+            Subscription,
+            self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/migrate".format(
+                    subscription=sanitize_id(subscription),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def migrate_async(
+        self,
+        subscription: str,
+        params: "SubscriptionService.MigrateParams",
+        options: RequestOptions = {},
+    ) -> Subscription:
+        """
+        Upgrade the billing_mode of an existing subscription.
+        """
+        return cast(
+            Subscription,
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/migrate".format(
+                    subscription=sanitize_id(subscription),
+                ),
                 base_address="api",
                 params=params,
                 options=options,

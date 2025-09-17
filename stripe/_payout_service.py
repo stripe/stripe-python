@@ -45,6 +45,10 @@ class PayoutService(StripeService):
         """
         The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
         """
+        payout_method: NotRequired[str]
+        """
+        The ID of a v2 FinancialAccount to send funds to.
+        """
         source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
         """
         The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.

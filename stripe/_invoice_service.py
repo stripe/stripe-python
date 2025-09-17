@@ -284,7 +284,7 @@ class InvoiceService(StripeService):
         """
         auto_advance: NotRequired[bool]
         """
-        Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
+        Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. Defaults to false.
         """
         automatic_tax: NotRequired["InvoiceService.CreateParamsAutomaticTax"]
         """
@@ -292,7 +292,7 @@ class InvoiceService(StripeService):
         """
         automatically_finalizes_at: NotRequired[int]
         """
-        The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state.
+        The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -493,7 +493,7 @@ class InvoiceService(StripeService):
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -576,7 +576,7 @@ class InvoiceService(StripeService):
             "InvoiceService.CreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this invoice (Mexico Only).
+        Installment configuration for payments attempted on this invoice.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -614,9 +614,9 @@ class InvoiceService(StripeService):
         For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
-        type: Literal["fixed_count"]
+        type: Literal["bonus", "fixed_count", "revolving"]
         """
-        Type of installment plan, one of `fixed_count`.
+        Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(
@@ -1376,6 +1376,12 @@ class InvoiceService(StripeService):
         """
 
     class CreatePreviewParamsScheduleDetails(TypedDict):
+        billing_mode: NotRequired[
+            "InvoiceService.CreatePreviewParamsScheduleDetailsBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         end_behavior: NotRequired[Literal["cancel", "release"]]
         """
         Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
@@ -1391,6 +1397,12 @@ class InvoiceService(StripeService):
         ]
         """
         In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
+        """
+
+    class CreatePreviewParamsScheduleDetailsBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
         """
 
     class CreatePreviewParamsScheduleDetailsPhase(TypedDict):
@@ -1450,6 +1462,12 @@ class InvoiceService(StripeService):
         """
         The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
+        duration: NotRequired[
+            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseDuration"
+        ]
+        """
+        The number of intervals the phase should last. If set, `end_date` must not be set.
+        """
         end_date: NotRequired["int|Literal['now']"]
         """
         The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
@@ -1468,7 +1486,7 @@ class InvoiceService(StripeService):
         """
         iterations: NotRequired[int]
         """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
+        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -1512,6 +1530,16 @@ class InvoiceService(StripeService):
         """
         The coupons to redeem into discounts for the item.
         """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        """
         price: NotRequired[str]
         """
         The ID of the price object. One of `price` or `price_data` is required.
@@ -1545,6 +1573,42 @@ class InvoiceService(StripeService):
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriod(
+        TypedDict,
+    ):
+        end: "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodStart"
+        """
+        Start of the invoice item period.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodEnd(
+        TypedDict,
+    ):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "phase_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodStart(
+        TypedDict,
+    ):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "phase_start", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPriceData(
@@ -1619,6 +1683,16 @@ class InvoiceService(StripeService):
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies phase duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseInvoiceSettings(TypedDict):
@@ -1766,13 +1840,21 @@ class InvoiceService(StripeService):
         """
         For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
         """
-        cancel_at: NotRequired["Literal['']|int"]
+        billing_mode: NotRequired[
+            "InvoiceService.CreatePreviewParamsSubscriptionDetailsBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
+        cancel_at: NotRequired[
+            "Literal['']|int|Literal['max_period_end', 'min_period_end']"
+        ]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
         cancel_at_period_end: NotRequired[bool]
         """
-        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`. This param will be removed in a future API version. Please use `cancel_at` instead.
+        Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
         """
         cancel_now: NotRequired[bool]
         """
@@ -1809,6 +1891,12 @@ class InvoiceService(StripeService):
         trial_end: NotRequired["Literal['now']|int"]
         """
         If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_details.items` or `subscription` is required.
+        """
+
+    class CreatePreviewParamsSubscriptionDetailsBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
         """
 
     class CreatePreviewParamsSubscriptionDetailsItem(TypedDict):
@@ -2379,7 +2467,7 @@ class InvoiceService(StripeService):
         """
         automatically_finalizes_at: NotRequired[int]
         """
-        The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state. To turn off automatic finalization, set `auto_advance` to false.
+        The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state. To turn off automatic finalization, set `auto_advance` to false.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -2552,7 +2640,7 @@ class InvoiceService(StripeService):
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -2635,7 +2723,7 @@ class InvoiceService(StripeService):
             "InvoiceService.UpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this invoice (Mexico Only).
+        Installment configuration for payments attempted on this invoice.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -2673,9 +2761,9 @@ class InvoiceService(StripeService):
         For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
-        type: Literal["fixed_count"]
+        type: Literal["bonus", "fixed_count", "revolving"]
         """
-        Type of installment plan, one of `fixed_count`.
+        Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(

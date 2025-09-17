@@ -269,6 +269,10 @@ class TaxId(
     """
     ID of the customer.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     id: str
     """
     Unique identifier for the object.
@@ -408,10 +412,6 @@ class TaxId(
     verification: Optional[Verification]
     """
     Tax ID verification information.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

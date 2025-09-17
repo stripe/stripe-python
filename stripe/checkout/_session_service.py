@@ -130,7 +130,7 @@ class SessionService(StripeService):
         """
         line_items: NotRequired[List["SessionService.CreateParamsLineItem"]]
         """
-        A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+        A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices). The parameter is required for `payment` and `subscription` mode.
 
         For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
 
@@ -204,6 +204,10 @@ class SessionService(StripeService):
 
         For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
         """
+        origin_context: NotRequired[Literal["mobile_app", "web"]]
+        """
+        Where the user is coming from. This informs the optimizations that are applied to the session.
+        """
         payment_intent_data: NotRequired[
             "SessionService.CreateParamsPaymentIntentData"
         ]
@@ -254,6 +258,7 @@ class SessionService(StripeService):
                     "boleto",
                     "card",
                     "cashapp",
+                    "crypto",
                     "customer_balance",
                     "eps",
                     "fpx",
@@ -268,6 +273,7 @@ class SessionService(StripeService):
                     "mobilepay",
                     "multibanco",
                     "naver_pay",
+                    "nz_bank_account",
                     "oxxo",
                     "p24",
                     "pay_by_bank",
@@ -394,7 +400,7 @@ class SessionService(StripeService):
     class CreateParamsAdaptivePricing(TypedDict):
         enabled: NotRequired[bool]
         """
-        Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
+        If set to `true`, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
         """
 
     class CreateParamsAfterExpiration(TypedDict):
@@ -705,6 +711,10 @@ class SessionService(StripeService):
         ]
         """
         How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+        """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for this invoice.
         """
 
     class CreateParamsLineItem(TypedDict):
@@ -1657,6 +1667,46 @@ class SessionService(StripeService):
 
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
+        subscriptions: NotRequired[
+            "Literal['']|List[SessionService.CreateParamsPaymentMethodOptionsKlarnaSubscription]"
+        ]
+        """
+        Subscription details if the Checkout Session sets up a future subscription.
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Unit of time between subscription charges.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+        """
+        name: NotRequired[str]
+        """
+        Name for subscription.
+        """
+        next_billing: "SessionService.CreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling"
+        """
+        Describes the upcoming charge for this subscription.
+        """
+        reference: str
+        """
+        A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The amount of the next charge for the subscription.
+        """
+        date: str
+        """
+        The date of the next charge for the subscription in YYYY-MM-DD format.
+        """
 
     class CreateParamsPaymentMethodOptionsKonbini(TypedDict):
         expires_after_days: NotRequired[int]
@@ -1852,9 +1902,23 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
         expires_after_seconds: NotRequired[int]
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+        """
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
@@ -2419,6 +2483,12 @@ class SessionService(StripeService):
         """
         A future timestamp to anchor the subscription's billing cycle for new subscriptions.
         """
+        billing_mode: NotRequired[
+            "SessionService.CreateParamsSubscriptionDataBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         default_tax_rates: NotRequired[List[str]]
         """
         The tax rates that will apply to any subscription item that does not have
@@ -2457,20 +2527,23 @@ class SessionService(StripeService):
         """
         trial_end: NotRequired[int]
         """
-        Unix timestamp representing the end of the trial period the customer
-        will get before being charged for the first time. Has to be at least
-        48 hours in the future.
+        Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
         """
         trial_period_days: NotRequired[int]
         """
-        Integer representing the number of trial period days before the
-        customer is charged for the first time. Has to be at least 1.
+        Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         """
         trial_settings: NotRequired[
             "SessionService.CreateParamsSubscriptionDataTrialSettings"
         ]
         """
         Settings related to subscription trials.
+        """
+
+    class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
         """
 
     class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):

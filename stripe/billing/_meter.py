@@ -82,7 +82,7 @@ class Meter(
         """
         event_time_window: NotRequired[Literal["day", "hour"]]
         """
-        The time window to pre-aggregate meter events for, if any.
+        The time window which meter events have been pre-aggregated for, if any.
         """
         expand: NotRequired[List[str]]
         """
@@ -215,7 +215,7 @@ class Meter(
     """
     event_time_window: Optional[Literal["day", "hour"]]
     """
-    The time window to pre-aggregate meter events for, if any.
+    The time window which meter events have been pre-aggregated for, if any.
     """
     id: str
     """
