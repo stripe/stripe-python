@@ -1,5 +1,20 @@
 # Changelog
 
+## 12.6.0a2 - 2025-09-17
+* [#1571](https://github.com/stripe/stripe-python/pull/1571) generate private-preview SDK w/ mid Sept changes
+  * Add support for `retrieve` method on resource `V2.Core.ClaimableSandbox`
+  * Add support for `month_of_year` on `V2.Billing.Cadence#create.billing_cycle.month` and `V2.Billing.Cadence.billing_cycle.month`
+  * Add support for `claimed_at`, `expires_at`, `sandbox_details`, and `status` on `V2.Core.ClaimableSandbox`
+  * Remove support for `api_keys` on `V2.Core.ClaimableSandbox`
+  * Change type of `V2.Core.ClaimableSandbox.claim_url` from `string` to `nullable(string)`
+  * Add support for new value `current_billing_period_end` on enums `V2.Billing.Intent#create.actions[].deactivate.effective_at.type` and `V2.Billing.IntentAction.deactivate.effective_at.type`
+  * Add support for `will_activate_at` and `will_cancel_at` on `V2.Billing.PricingPlanSubscription.servicing_status_transitions` and `V2.Billing.RateCardSubscription.servicing_status_transitions`
+  * Add support for `category` and `priority` on `V2.Billing.ServiceAction#create.credit_grant_per_tenant`, `V2.Billing.ServiceAction#create.credit_grant`, `V2.Billing.ServiceAction.credit_grant_per_tenant`, and `V2.Billing.ServiceAction.credit_grant`
+  * Change `V2.Billing.LicenseFee#update.display_name` to be optional
+  * Add support for `invoices` on `EventsV2BillingCadenceBilledEvent`
+  * Add support for thin events `V2CoreClaimableSandboxClaimedEvent`, `V2CoreClaimableSandboxExpiredEvent`, `V2CoreClaimableSandboxExpiringEvent`, and `V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent` with related object `V2.Core.ClaimableSandbox`
+  * Remove support for thin event `V2BillingCadenceErroredEvent` with related object `V2.Billing.Cadence`
+
 ## 12.6.0a1 - 2025-08-27
 * [#1556](https://github.com/stripe/stripe-python/pull/1556) Use the right API version 2025-08-27.preview
 * [#1552](https://github.com/stripe/stripe-python/pull/1552) Update generated code for private-preview
@@ -265,7 +280,7 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Change type of `Privacy.RedactionJobValidationError.code` from `string` to `enum`
   * Change type of `Privacy.RedactionJobValidationError.erroring_object` from `map(string: string)` to `RedactionResourceErroringObject`
   * Remove support for `status_details` and `status` on `Tax.Association`
-  
+
   ### Other changes
   * Add support for `migrate` method on resource `Subscription`
   * Add support for `distance`, `pickup_location_name`, `return_location_name`, and `vehicle_identification_number` on `Charge.CaptureParamsPaymentDetailCarRental`, `Charge.ModifyParamsPaymentDetailCarRental`, `PaymentIntent.CaptureParamsPaymentDetailCarRental`, `PaymentIntent.ConfirmParamsPaymentDetailCarRental`, `PaymentIntent.CreateParamsPaymentDetailCarRental`, `PaymentIntent.ModifyParamsPaymentDetailCarRental`, and `PaymentIntent.PaymentDetail.CarRental`
@@ -281,7 +296,7 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Add support for `billing_thresholds` on `QuotePreviewSubscriptionSchedule.DefaultSetting`, `QuotePreviewSubscriptionSchedule.Phase.Item`, and `QuotePreviewSubscriptionSchedule.Phase`
   * Add support for `billing_mode_details` on `Subscription`
   * Add support for `tax_transaction_attempts` on `Tax.Association`
-  * Add support for `confirm_config` on `Terminal.Reader.Action.ConfirmPaymentIntent` and `terminal.Reader.ConfirmPaymentIntentParams`  
+  * Add support for `confirm_config` on `Terminal.Reader.Action.ConfirmPaymentIntent` and `terminal.Reader.ConfirmPaymentIntentParams`
   * Add support for error code `forwarding_api_upstream_error` on `QuotePreviewInvoice.LastFinalizationError`
 
 ## 12.2.0 - 2025-05-29
@@ -389,11 +404,11 @@ This release changes the pinned API version to `2025-04-30.basil`.
 
 ## 12.1.0b2 - 2025-04-10
 * [#1489](https://github.com/stripe/stripe-python/pull/1489) Update generated code for beta
-  
+
   ### Breaking changes
   * Change type of `V2MoneyManagementReceivedDebit.status_transitions` from `an object` to `nullable(an object)`
   * Remove support for values `bank_accounts.local_uk`, `bank_accounts.wire_uk`, `cards_uk`, and `crypto_wallets_v2` from enum `EventsV2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent.updated_capability`
-  
+
   ### Additions
   * Add support for new resources `Privacy.RedactionJobRootObjects`, `Privacy.RedactionJobValidationError`, and `Privacy.RedactionJob`
   * Add support for `cancel`, `create`, `list`, `modify`, `retrieve`, `run`, and `validate` methods on resource `RedactionJob`
