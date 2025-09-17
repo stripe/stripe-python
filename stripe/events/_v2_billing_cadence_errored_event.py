@@ -2,14 +2,14 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._event import Event
-from stripe.v2.core._claimable_sandbox import ClaimableSandbox
+from stripe.v2.billing._cadence import Cadence
 from typing import cast
 from typing_extensions import Literal
 
 
-class V2CoreClaimableSandboxClaimedEvent(Event):
-    LOOKUP_TYPE = "v2.core.claimable_sandbox.claimed"
-    type: Literal["v2.core.claimable_sandbox.claimed"]
+class V2BillingCadenceErroredEvent(Event):
+    LOOKUP_TYPE = "v2.billing.cadence.errored"
+    type: Literal["v2.billing.cadence.errored"]
 
     class RelatedObject(StripeObject):
         id: str
@@ -30,12 +30,12 @@ class V2CoreClaimableSandboxClaimedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> ClaimableSandbox:
+    def fetch_related_object(self) -> Cadence:
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            ClaimableSandbox,
+            Cadence,
             self._requestor.request(
                 "get",
                 self.related_object.url,

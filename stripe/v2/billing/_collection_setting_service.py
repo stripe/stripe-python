@@ -8,7 +8,7 @@ from stripe.v2.billing._collection_setting import CollectionSetting
 from stripe.v2.billing.collection_settings._version_service import (
     VersionService,
 )
-from typing import List, Optional, cast
+from typing import Any, Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -95,15 +95,11 @@ class CollectionSettingService(StripeService):
         """
         This sub-hash contains details about the Bank transfer payment method options.
         """
-        konbini: NotRequired[
-            "CollectionSettingService.CreateParamsPaymentMethodOptionsKonbini"
-        ]
+        konbini: NotRequired[Dict[str, Any]]
         """
         This sub-hash contains details about the Konbini payment method options.
         """
-        sepa_debit: NotRequired[
-            "CollectionSettingService.CreateParamsPaymentMethodOptionsSepaDebit"
-        ]
+        sepa_debit: NotRequired[Dict[str, Any]]
         """
         This sub-hash contains details about the SEPA Direct Debit payment method options.
         """
@@ -217,12 +213,6 @@ class CollectionSettingService(StripeService):
         The desired country code of the bank account information.
         """
 
-    class CreateParamsPaymentMethodOptionsKonbini(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
-        pass
-
     class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: "CollectionSettingService.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
         """
@@ -297,7 +287,7 @@ class CollectionSettingService(StripeService):
         Maximum length of 250 characters.
         """
         email_delivery: NotRequired[
-            Optional["CollectionSettingService.UpdateParamsEmailDelivery"]
+            "CollectionSettingService.UpdateParamsEmailDelivery"
         ]
         """
         Email delivery settings.
@@ -367,15 +357,11 @@ class CollectionSettingService(StripeService):
         """
         This sub-hash contains details about the Bank transfer payment method options.
         """
-        konbini: NotRequired[
-            "CollectionSettingService.UpdateParamsPaymentMethodOptionsKonbini"
-        ]
+        konbini: NotRequired[Dict[str, Any]]
         """
         This sub-hash contains details about the Konbini payment method options.
         """
-        sepa_debit: NotRequired[
-            "CollectionSettingService.UpdateParamsPaymentMethodOptionsSepaDebit"
-        ]
+        sepa_debit: NotRequired[Dict[str, Any]]
         """
         This sub-hash contains details about the SEPA Direct Debit payment method options.
         """
@@ -488,12 +474,6 @@ class CollectionSettingService(StripeService):
         """
         The desired country code of the bank account information.
         """
-
-    class UpdateParamsPaymentMethodOptionsKonbini(TypedDict):
-        pass
-
-    class UpdateParamsPaymentMethodOptionsSepaDebit(TypedDict):
-        pass
 
     class UpdateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: "CollectionSettingService.UpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"

@@ -54,7 +54,7 @@ class CustomPricingUnitService(StripeService):
         """
         Description that customers will see in the invoice line item.
         """
-        lookup_key: NotRequired[Optional[str]]
+        lookup_key: NotRequired[str]
         """
         An internal key you can use to search for a particular CustomPricingUnit item.
         """

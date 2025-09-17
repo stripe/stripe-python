@@ -323,6 +323,38 @@ class TestAutoPaging:
 
         assert seen == ["pm_126", "pm_125", "pm_124", "pm_123"]
 
+    def test_iter_reverse_none_starting_after(self, http_client_mock):
+        """Test that if `starting_after` is present in the retrieve params, but is
+        `None`, that reverse pagination still occurs as expected.
+        """
+        lo = stripe.ListObject.construct_from(
+            self.pageable_model_response(["pm_125", "pm_126"], True), "mykey"
+        )
+        lo._retrieve_params = {
+            "foo": "bar",
+            "ending_before": "pm_127",
+            "starting_after": None,
+        }
+
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="ending_before=pm_125&foo=bar",
+            rbody=json.dumps(
+                self.pageable_model_response(["pm_123", "pm_124"], False)
+            ),
+        )
+
+        seen = [item["id"] for item in lo.auto_paging_iter()]
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="ending_before=pm_125&foo=bar",
+        )
+
+        assert seen == ["pm_126", "pm_125", "pm_124", "pm_123"]
+
     def test_class_method_two_pages(self, http_client_mock):
         http_client_mock.stub_request(
             "get",
@@ -547,6 +579,39 @@ class TestAutoPagingAsync:
             self.pageable_model_response(["pm_125", "pm_126"], True), "mykey"
         )
         lo._retrieve_params = {"foo": "bar", "ending_before": "pm_127"}
+
+        http_client_mock.stub_request(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="ending_before=pm_125&foo=bar",
+            rbody=json.dumps(
+                self.pageable_model_response(["pm_123", "pm_124"], False)
+            ),
+        )
+
+        seen = [item["id"] async for item in lo.auto_paging_iter()]
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/pageablemodels",
+            query_string="ending_before=pm_125&foo=bar",
+        )
+
+        assert seen == ["pm_126", "pm_125", "pm_124", "pm_123"]
+
+    @pytest.mark.anyio
+    async def test_iter_reverse_none_starting_after(self, http_client_mock):
+        """Test that if `starting_after` is present in the retrieve params, but is
+        `None`, that reverse pagination still occurs as expected.
+        """
+        lo = stripe.ListObject.construct_from(
+            self.pageable_model_response(["pm_125", "pm_126"], True), "mykey"
+        )
+        lo._retrieve_params = {
+            "foo": "bar",
+            "ending_before": "pm_127",
+            "starting_after": None,
+        }
 
         http_client_mock.stub_request(
             "get",

@@ -18,7 +18,13 @@ class PayoutMethodsBankAccountSpec(StripeObject):
         class Field(StripeObject):
             class LocalNameHuman(StripeObject):
                 content: str
+                """
+                The default content of the localizable string.
+                """
                 localization_key: str
+                """
+                A unique key representing the instance of this localizable string.
+                """
 
             local_name: str
             """
