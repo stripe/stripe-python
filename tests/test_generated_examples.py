@@ -29031,8 +29031,7 @@ class TestGeneratedExamples(object):
                     {
                         "items": [
                             {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
-                        ],
-                        "iterations": 12,
+                        ]
                     },
                 ],
             }
@@ -29042,7 +29041,7 @@ class TestGeneratedExamples(object):
             path="/v1/subscription_schedules",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     def test_subscription_schedules_post(
@@ -29053,17 +29052,14 @@ class TestGeneratedExamples(object):
             start_date=1676070661,
             end_behavior="release",
             phases=[
-                {
-                    "items": [{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
-                    "iterations": 12,
-                },
+                {"items": [{"price": "price_xxxxxxxxxxxxx", "quantity": 1}]},
             ],
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/subscription_schedules",
             query_string="",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     def test_subscription_schedules_post_service(
@@ -29087,8 +29083,7 @@ class TestGeneratedExamples(object):
                     {
                         "items": [
                             {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
-                        ],
-                        "iterations": 12,
+                        ]
                     },
                 ],
             }
@@ -29098,7 +29093,7 @@ class TestGeneratedExamples(object):
             path="/v1/subscription_schedules",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     @pytest.mark.anyio
@@ -29110,17 +29105,14 @@ class TestGeneratedExamples(object):
             start_date=1676070661,
             end_behavior="release",
             phases=[
-                {
-                    "items": [{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
-                    "iterations": 12,
-                },
+                {"items": [{"price": "price_xxxxxxxxxxxxx", "quantity": 1}]},
             ],
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/subscription_schedules",
             query_string="",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     @pytest.mark.anyio
@@ -29145,8 +29137,7 @@ class TestGeneratedExamples(object):
                     {
                         "items": [
                             {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
-                        ],
-                        "iterations": 12,
+                        ]
                     },
                 ],
             }
@@ -29156,7 +29147,7 @@ class TestGeneratedExamples(object):
             path="/v1/subscription_schedules",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     def test_subscription_schedules_post_2_service_non_namespaced(
