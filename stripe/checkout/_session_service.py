@@ -40,6 +40,12 @@ class SessionService(StripeService):
         """
         Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
         """
+        branding_settings: NotRequired[
+            "SessionService.CreateParamsBrandingSettings"
+        ]
+        """
+        The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `custom`.
+        """
         cancel_url: NotRequired[str]
         """
         If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
@@ -529,6 +535,68 @@ class SessionService(StripeService):
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
+        """
+
+    class CreateParamsBrandingSettings(TypedDict):
+        background_color: NotRequired["Literal['']|str"]
+        """
+        A hex color value starting with `#` representing the background color for the Checkout Session.
+        """
+        border_style: NotRequired[
+            "Literal['']|Literal['pill', 'rectangular', 'rounded']"
+        ]
+        """
+        The border style for the Checkout Session.
+        """
+        button_color: NotRequired["Literal['']|str"]
+        """
+        A hex color value starting with `#` representing the button color for the Checkout Session.
+        """
+        display_name: NotRequired[str]
+        """
+        A string to override the business name shown on the Checkout Session.
+        """
+        font_family: NotRequired[
+            "Literal['']|Literal['be_vietnam_pro', 'bitter', 'chakra_petch', 'default', 'hahmlet', 'inconsolata', 'inter', 'lato', 'lora', 'm_plus_1_code', 'montserrat', 'noto_sans', 'noto_sans_jp', 'noto_serif', 'nunito', 'open_sans', 'pridi', 'pt_sans', 'pt_serif', 'raleway', 'roboto', 'roboto_slab', 'source_sans_pro', 'titillium_web', 'ubuntu_mono', 'zen_maru_gothic']"
+        ]
+        """
+        The font family for the Checkout Session corresponding to one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
+        """
+        icon: NotRequired["SessionService.CreateParamsBrandingSettingsIcon"]
+        """
+        The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+        """
+        logo: NotRequired["SessionService.CreateParamsBrandingSettingsLogo"]
+        """
+        The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+        """
+
+    class CreateParamsBrandingSettingsIcon(TypedDict):
+        file: NotRequired[str]
+        """
+        The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
+        """
+        type: Literal["file", "url"]
+        """
+        The type of image for the icon. Must be one of `file` or `url`.
+        """
+        url: NotRequired[str]
+        """
+        The URL of the image. Required if `type` is `url` and disallowed otherwise.
+        """
+
+    class CreateParamsBrandingSettingsLogo(TypedDict):
+        file: NotRequired[str]
+        """
+        The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
+        """
+        type: Literal["file", "url"]
+        """
+        The type of image for the logo. Must be one of `file` or `url`.
+        """
+        url: NotRequired[str]
+        """
+        The URL of the image. Required if `type` is `url` and disallowed otherwise.
         """
 
     class CreateParamsConsentCollection(TypedDict):
