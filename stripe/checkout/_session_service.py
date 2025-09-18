@@ -40,6 +40,12 @@ class SessionService(StripeService):
         """
         Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
         """
+        branding_settings: NotRequired[
+            "SessionService.CreateParamsBrandingSettings"
+        ]
+        """
+        The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `custom`.
+        """
         cancel_url: NotRequired[str]
         """
         If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
@@ -118,6 +124,69 @@ class SessionService(StripeService):
         """
         The coupon or promotion code to apply to this Session. Currently, only up to one may be specified.
         """
+        excluded_payment_method_types: NotRequired[
+            List[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "mb_way",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "sepa_debit",
+                    "shopeepay",
+                    "sofort",
+                    "swish",
+                    "twint",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ]
+            ]
+        ]
+        """
+        A list of the types of payment methods (e.g., `card`) that should be excluded from this Checkout Session. This should only be used when payment methods for this Checkout Session are managed through the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -195,6 +264,16 @@ class SessionService(StripeService):
         mode: NotRequired[Literal["payment", "setup", "subscription"]]
         """
         The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
+        """
+        name_collection: NotRequired[
+            "SessionService.CreateParamsNameCollection"
+        ]
+        """
+        Controls name collection settings for the session.
+
+        You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
+
+        If a [Customer](https://stripe.com/docs/api/customers) is created or provided, the names can be saved to the Customer object as well.
         """
         optional_items: NotRequired[
             List["SessionService.CreateParamsOptionalItem"]
@@ -286,6 +365,7 @@ class SessionService(StripeService):
                     "payco",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "payto",
                     "pix",
                     "promptpay",
@@ -455,6 +535,68 @@ class SessionService(StripeService):
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
+        """
+
+    class CreateParamsBrandingSettings(TypedDict):
+        background_color: NotRequired["Literal['']|str"]
+        """
+        A hex color value starting with `#` representing the background color for the Checkout Session.
+        """
+        border_style: NotRequired[
+            "Literal['']|Literal['pill', 'rectangular', 'rounded']"
+        ]
+        """
+        The border style for the Checkout Session.
+        """
+        button_color: NotRequired["Literal['']|str"]
+        """
+        A hex color value starting with `#` representing the button color for the Checkout Session.
+        """
+        display_name: NotRequired[str]
+        """
+        A string to override the business name shown on the Checkout Session.
+        """
+        font_family: NotRequired[
+            "Literal['']|Literal['be_vietnam_pro', 'bitter', 'chakra_petch', 'default', 'hahmlet', 'inconsolata', 'inter', 'lato', 'lora', 'm_plus_1_code', 'montserrat', 'noto_sans', 'noto_sans_jp', 'noto_serif', 'nunito', 'open_sans', 'pridi', 'pt_sans', 'pt_serif', 'raleway', 'roboto', 'roboto_slab', 'source_sans_pro', 'titillium_web', 'ubuntu_mono', 'zen_maru_gothic']"
+        ]
+        """
+        The font family for the Checkout Session corresponding to one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
+        """
+        icon: NotRequired["SessionService.CreateParamsBrandingSettingsIcon"]
+        """
+        The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+        """
+        logo: NotRequired["SessionService.CreateParamsBrandingSettingsLogo"]
+        """
+        The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+        """
+
+    class CreateParamsBrandingSettingsIcon(TypedDict):
+        file: NotRequired[str]
+        """
+        The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
+        """
+        type: Literal["file", "url"]
+        """
+        The type of image for the icon. Must be one of `file` or `url`.
+        """
+        url: NotRequired[str]
+        """
+        The URL of the image. Required if `type` is `url` and disallowed otherwise.
+        """
+
+    class CreateParamsBrandingSettingsLogo(TypedDict):
+        file: NotRequired[str]
+        """
+        The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
+        """
+        type: Literal["file", "url"]
+        """
+        The type of image for the logo. Must be one of `file` or `url`.
+        """
+        url: NotRequired[str]
+        """
+        The URL of the image. Required if `type` is `url` and disallowed otherwise.
         """
 
     class CreateParamsConsentCollection(TypedDict):
@@ -873,6 +1015,40 @@ class SessionService(StripeService):
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
+    class CreateParamsNameCollection(TypedDict):
+        business: NotRequired[
+            "SessionService.CreateParamsNameCollectionBusiness"
+        ]
+        """
+        Controls settings applied for collecting the customer's business name on the session.
+        """
+        individual: NotRequired[
+            "SessionService.CreateParamsNameCollectionIndividual"
+        ]
+        """
+        Controls settings applied for collecting the customer's individual name on the session.
+        """
+
+    class CreateParamsNameCollectionBusiness(TypedDict):
+        enabled: bool
+        """
+        Enable business name collection on the Checkout Session. Defaults to `false`.
+        """
+        optional: NotRequired[bool]
+        """
+        Whether the customer is required to provide a business name before completing the Checkout Session. Defaults to `false`.
+        """
+
+    class CreateParamsNameCollectionIndividual(TypedDict):
+        enabled: bool
+        """
+        Enable individual name collection on the Checkout Session. Defaults to `false`.
+        """
+        optional: NotRequired[bool]
+        """
+        Whether the customer is required to provide their name before completing the Checkout Session. Defaults to `false`.
+        """
+
     class CreateParamsOptionalItem(TypedDict):
         adjustable_quantity: NotRequired[
             "SessionService.CreateParamsOptionalItemAdjustableQuantity"
@@ -1016,11 +1192,11 @@ class SessionService(StripeService):
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2765,9 +2941,21 @@ class SessionService(StripeService):
         """
 
     class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SessionService.CreateParamsSubscriptionDataBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsSubscriptionDataBillingModeFlexible(TypedDict):
+        consistent_proration_discount_amounts: NotRequired[bool]
+        """
+        Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
         """
 
     class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
@@ -2921,6 +3109,10 @@ class SessionService(StripeService):
         """
 
     class UpdateParams(TypedDict):
+        automatic_tax: NotRequired["SessionService.UpdateParamsAutomaticTax"]
+        """
+        Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
+        """
         collected_information: NotRequired[
             "SessionService.UpdateParamsCollectedInformation"
         ]
@@ -2936,6 +3128,12 @@ class SessionService(StripeService):
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        invoice_creation: NotRequired[
+            "SessionService.UpdateParamsInvoiceCreation"
+        ]
+        """
+        Generate a post-purchase Invoice for one-time payments.
         """
         line_items: NotRequired[List["SessionService.UpdateParamsLineItem"]]
         """
@@ -2970,6 +3168,24 @@ class SessionService(StripeService):
         A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
         """
 
+    class UpdateParamsAutomaticTax(TypedDict):
+        liability: NotRequired[
+            "SessionService.UpdateParamsAutomaticTaxLiability"
+        ]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+
+    class UpdateParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
+        """
+
     class UpdateParamsCollectedInformation(TypedDict):
         shipping_details: NotRequired[
             "SessionService.UpdateParamsCollectedInformationShippingDetails"
@@ -2999,11 +3215,11 @@ class SessionService(StripeService):
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -3050,6 +3266,32 @@ class SessionService(StripeService):
         percent_off: NotRequired[float]
         """
         A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
+        """
+
+    class UpdateParamsInvoiceCreation(TypedDict):
+        invoice_data: NotRequired[
+            "SessionService.UpdateParamsInvoiceCreationInvoiceData"
+        ]
+        """
+        Parameters passed when creating invoices for payment-mode Checkout Sessions.
+        """
+
+    class UpdateParamsInvoiceCreationInvoiceData(TypedDict):
+        issuer: NotRequired[
+            "SessionService.UpdateParamsInvoiceCreationInvoiceDataIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+
+    class UpdateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class UpdateParamsLineItem(TypedDict):
@@ -3288,6 +3530,12 @@ class SessionService(StripeService):
         """
 
     class UpdateParamsSubscriptionData(TypedDict):
+        invoice_settings: NotRequired[
+            "SessionService.UpdateParamsSubscriptionDataInvoiceSettings"
+        ]
+        """
+        All invoices will be billed using the specified settings.
+        """
         trial_end: NotRequired[int]
         """
         Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
@@ -3295,6 +3543,24 @@ class SessionService(StripeService):
         trial_period_days: NotRequired["Literal['']|int"]
         """
         Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+        """
+
+    class UpdateParamsSubscriptionDataInvoiceSettings(TypedDict):
+        issuer: NotRequired[
+            "SessionService.UpdateParamsSubscriptionDataInvoiceSettingsIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+
+    class UpdateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     def list(

@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from stripe.billing._meter_usage import MeterUsage
+from stripe.billing.analytics._meter_usage import MeterUsage
 from typing import Dict, List, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 

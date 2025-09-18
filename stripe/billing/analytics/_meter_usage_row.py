@@ -6,8 +6,8 @@ from typing_extensions import Literal
 
 
 class MeterUsageRow(StripeObject):
-    OBJECT_NAME: ClassVar[Literal["billing.meter_usage_row"]] = (
-        "billing.meter_usage_row"
+    OBJECT_NAME: ClassVar[Literal["billing.analytics.meter_usage_row"]] = (
+        "billing.analytics.meter_usage_row"
     )
     bucket_end_time: int
     """
@@ -33,7 +33,7 @@ class MeterUsageRow(StripeObject):
     """
     The unique identifier for the meter. Null if no meters were provided and usage was aggregated across all meters.
     """
-    object: Literal["billing.meter_usage_row"]
+    object: Literal["billing.analytics.meter_usage_row"]
     """
     String representing the object's type. Objects of the same type share the same value.
     """

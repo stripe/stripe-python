@@ -179,6 +179,10 @@ class Configuration(
             Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. Defaults to a value of `none` if you don't set it during creation.
             """
             schedule_at_period_end: ScheduleAtPeriodEnd
+            trial_update_behavior: Literal["continue_trial", "end_trial"]
+            """
+            Determines how handle updates to trialing subscriptions. Valid values are `end_trial` and `continue_trial`. Defaults to a value of `end_trial` if you don't set it during creation.
+            """
             _inner_class_types = {
                 "products": Product,
                 "schedule_at_period_end": ScheduleAtPeriodEnd,
@@ -385,6 +389,12 @@ class Configuration(
         ]
         """
         Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
+        """
+        trial_update_behavior: NotRequired[
+            Literal["continue_trial", "end_trial"]
+        ]
+        """
+        The behavior when updating a subscription that is trialing.
         """
 
     class CreateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
@@ -637,6 +647,12 @@ class Configuration(
         ]
         """
         Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
+        """
+        trial_update_behavior: NotRequired[
+            Literal["continue_trial", "end_trial"]
+        ]
+        """
+        The behavior when updating a subscription that is trialing.
         """
 
     class ModifyParamsFeaturesSubscriptionUpdateProduct(TypedDict):

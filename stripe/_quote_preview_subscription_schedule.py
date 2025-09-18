@@ -42,6 +42,16 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         """
 
     class BillingMode(StripeObject):
+        class Flexible(StripeObject):
+            consistent_proration_discount_amounts: Optional[bool]
+            """
+            When true, proration line items will show accurate discount amounts and use gross amounts, making them consistent with non-proration line items.
+            """
+
+        flexible: Optional[Flexible]
+        """
+        Configure behavior for flexible billing mode
+        """
         type: Literal["classic", "flexible"]
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
@@ -50,6 +60,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         """
         Details on when the current billing_mode was adopted.
         """
+        _inner_class_types = {"flexible": Flexible}
 
     class CurrentPhase(StripeObject):
         end_date: int

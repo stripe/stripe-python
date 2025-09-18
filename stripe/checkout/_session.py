@@ -122,6 +122,43 @@ class Session(
         """
         _inner_class_types = {"liability": Liability}
 
+    class BrandingSettings(StripeObject):
+        class Icon(StripeObject):
+            pass
+
+        class Logo(StripeObject):
+            pass
+
+        background_color: str
+        """
+        A hex color value starting with `#` representing the background color for the Checkout Session.
+        """
+        border_style: Literal["pill", "rectangular", "rounded"]
+        """
+        The border style for the Checkout Session. Must be one of `rounded`, `rectangular`, or `pill`.
+        """
+        button_color: str
+        """
+        A hex color value starting with `#` representing the button color for the Checkout Session.
+        """
+        display_name: str
+        """
+        The display name shown on the Checkout Session.
+        """
+        font_family: str
+        """
+        The font family for the Checkout Session. Must be one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
+        """
+        icon: Optional[Icon]
+        """
+        The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+        """
+        logo: Optional[Logo]
+        """
+        The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+        """
+        _inner_class_types = {"icon": Icon, "logo": Logo}
+
     class CollectedInformation(StripeObject):
         class ShippingDetails(StripeObject):
             class Address(StripeObject):
@@ -135,11 +172,11 @@ class Session(
                 """
                 line1: Optional[str]
                 """
-                Address line 1 (e.g., street, PO Box, or company name).
+                Address line 1, such as the street, PO Box, or company name.
                 """
                 line2: Optional[str]
                 """
-                Address line 2 (e.g., apartment, suite, unit, or building).
+                Address line 2, such as the apartment, suite, unit, or building.
                 """
                 postal_code: Optional[str]
                 """
@@ -286,6 +323,10 @@ class Session(
         email: Optional[str]
         """
         Customer's email for this Checkout Session
+        """
+        individual_name: Optional[str]
+        """
+        Customer's individual name for this Checkout Session
         """
         phone: Optional[str]
         """
@@ -515,11 +556,11 @@ class Session(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -656,10 +697,18 @@ class Session(
         """
         The customer's address after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022.
         """
+        business_name: Optional[str]
+        """
+        The customer's business name after a completed Checkout Session.
+        """
         email: Optional[str]
         """
         The email associated with the Customer, if one exists, on the Checkout Session after a completed Checkout Session or at time of session expiry.
         Otherwise, if the customer has consented to promotional content, this value is the most recent valid email provided by the customer on the Checkout form.
+        """
+        individual_name: Optional[str]
+        """
+        The customer's individual name after a completed Checkout Session.
         """
         name: Optional[str]
         """
@@ -761,6 +810,31 @@ class Session(
         """
         invoice_data: InvoiceData
         _inner_class_types = {"invoice_data": InvoiceData}
+
+    class NameCollection(StripeObject):
+        class Business(StripeObject):
+            enabled: bool
+            """
+            Indicates whether business name collection is enabled for the session
+            """
+            optional: bool
+            """
+            Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+            """
+
+        class Individual(StripeObject):
+            enabled: bool
+            """
+            Indicates whether individual name collection is enabled for the session
+            """
+            optional: bool
+            """
+            Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+            """
+
+        business: Optional[Business]
+        individual: Optional[Individual]
+        _inner_class_types = {"business": Business, "individual": Individual}
 
     class OptionalItem(StripeObject):
         class AdjustableQuantity(StripeObject):
@@ -2233,6 +2307,10 @@ class Session(
         """
         Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
         """
+        branding_settings: NotRequired["Session.CreateParamsBrandingSettings"]
+        """
+        The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `custom`.
+        """
         cancel_url: NotRequired[str]
         """
         If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
@@ -2306,6 +2384,69 @@ class Session(
         discounts: NotRequired[List["Session.CreateParamsDiscount"]]
         """
         The coupon or promotion code to apply to this Session. Currently, only up to one may be specified.
+        """
+        excluded_payment_method_types: NotRequired[
+            List[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "mb_way",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "sepa_debit",
+                    "shopeepay",
+                    "sofort",
+                    "swish",
+                    "twint",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ]
+            ]
+        ]
+        """
+        A list of the types of payment methods (e.g., `card`) that should be excluded from this Checkout Session. This should only be used when payment methods for this Checkout Session are managed through the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
         """
         expand: NotRequired[List[str]]
         """
@@ -2382,6 +2523,14 @@ class Session(
         mode: NotRequired[Literal["payment", "setup", "subscription"]]
         """
         The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
+        """
+        name_collection: NotRequired["Session.CreateParamsNameCollection"]
+        """
+        Controls name collection settings for the session.
+
+        You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
+
+        If a [Customer](https://stripe.com/docs/api/customers) is created or provided, the names can be saved to the Customer object as well.
         """
         optional_items: NotRequired[List["Session.CreateParamsOptionalItem"]]
         """
@@ -2471,6 +2620,7 @@ class Session(
                     "payco",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "payto",
                     "pix",
                     "promptpay",
@@ -2630,6 +2780,68 @@ class Session(
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
+        """
+
+    class CreateParamsBrandingSettings(TypedDict):
+        background_color: NotRequired["Literal['']|str"]
+        """
+        A hex color value starting with `#` representing the background color for the Checkout Session.
+        """
+        border_style: NotRequired[
+            "Literal['']|Literal['pill', 'rectangular', 'rounded']"
+        ]
+        """
+        The border style for the Checkout Session.
+        """
+        button_color: NotRequired["Literal['']|str"]
+        """
+        A hex color value starting with `#` representing the button color for the Checkout Session.
+        """
+        display_name: NotRequired[str]
+        """
+        A string to override the business name shown on the Checkout Session.
+        """
+        font_family: NotRequired[
+            "Literal['']|Literal['be_vietnam_pro', 'bitter', 'chakra_petch', 'default', 'hahmlet', 'inconsolata', 'inter', 'lato', 'lora', 'm_plus_1_code', 'montserrat', 'noto_sans', 'noto_sans_jp', 'noto_serif', 'nunito', 'open_sans', 'pridi', 'pt_sans', 'pt_serif', 'raleway', 'roboto', 'roboto_slab', 'source_sans_pro', 'titillium_web', 'ubuntu_mono', 'zen_maru_gothic']"
+        ]
+        """
+        The font family for the Checkout Session corresponding to one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
+        """
+        icon: NotRequired["Session.CreateParamsBrandingSettingsIcon"]
+        """
+        The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+        """
+        logo: NotRequired["Session.CreateParamsBrandingSettingsLogo"]
+        """
+        The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+        """
+
+    class CreateParamsBrandingSettingsIcon(TypedDict):
+        file: NotRequired[str]
+        """
+        The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
+        """
+        type: Literal["file", "url"]
+        """
+        The type of image for the icon. Must be one of `file` or `url`.
+        """
+        url: NotRequired[str]
+        """
+        The URL of the image. Required if `type` is `url` and disallowed otherwise.
+        """
+
+    class CreateParamsBrandingSettingsLogo(TypedDict):
+        file: NotRequired[str]
+        """
+        The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
+        """
+        type: Literal["file", "url"]
+        """
+        The type of image for the logo. Must be one of `file` or `url`.
+        """
+        url: NotRequired[str]
+        """
+        The URL of the image. Required if `type` is `url` and disallowed otherwise.
         """
 
     class CreateParamsConsentCollection(TypedDict):
@@ -3044,6 +3256,36 @@ class Session(
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
+    class CreateParamsNameCollection(TypedDict):
+        business: NotRequired["Session.CreateParamsNameCollectionBusiness"]
+        """
+        Controls settings applied for collecting the customer's business name on the session.
+        """
+        individual: NotRequired["Session.CreateParamsNameCollectionIndividual"]
+        """
+        Controls settings applied for collecting the customer's individual name on the session.
+        """
+
+    class CreateParamsNameCollectionBusiness(TypedDict):
+        enabled: bool
+        """
+        Enable business name collection on the Checkout Session. Defaults to `false`.
+        """
+        optional: NotRequired[bool]
+        """
+        Whether the customer is required to provide a business name before completing the Checkout Session. Defaults to `false`.
+        """
+
+    class CreateParamsNameCollectionIndividual(TypedDict):
+        enabled: bool
+        """
+        Enable individual name collection on the Checkout Session. Defaults to `false`.
+        """
+        optional: NotRequired[bool]
+        """
+        Whether the customer is required to provide their name before completing the Checkout Session. Defaults to `false`.
+        """
+
     class CreateParamsOptionalItem(TypedDict):
         adjustable_quantity: NotRequired[
             "Session.CreateParamsOptionalItemAdjustableQuantity"
@@ -3185,11 +3427,11 @@ class Session(
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -4896,9 +5138,21 @@ class Session(
         """
 
     class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        flexible: NotRequired[
+            "Session.CreateParamsSubscriptionDataBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsSubscriptionDataBillingModeFlexible(TypedDict):
+        consistent_proration_discount_amounts: NotRequired[bool]
+        """
+        Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
         """
 
     class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
@@ -5064,6 +5318,10 @@ class Session(
         """
 
     class ModifyParams(RequestOptions):
+        automatic_tax: NotRequired["Session.ModifyParamsAutomaticTax"]
+        """
+        Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
+        """
         collected_information: NotRequired[
             "Session.ModifyParamsCollectedInformation"
         ]
@@ -5079,6 +5337,10 @@ class Session(
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        invoice_creation: NotRequired["Session.ModifyParamsInvoiceCreation"]
+        """
+        Generate a post-purchase Invoice for one-time payments.
         """
         line_items: NotRequired[List["Session.ModifyParamsLineItem"]]
         """
@@ -5109,6 +5371,22 @@ class Session(
         subscription_data: NotRequired["Session.ModifyParamsSubscriptionData"]
         """
         A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
+        """
+
+    class ModifyParamsAutomaticTax(TypedDict):
+        liability: NotRequired["Session.ModifyParamsAutomaticTaxLiability"]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+
+    class ModifyParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class ModifyParamsCollectedInformation(TypedDict):
@@ -5142,11 +5420,11 @@ class Session(
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -5191,6 +5469,32 @@ class Session(
         percent_off: NotRequired[float]
         """
         A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
+        """
+
+    class ModifyParamsInvoiceCreation(TypedDict):
+        invoice_data: NotRequired[
+            "Session.ModifyParamsInvoiceCreationInvoiceData"
+        ]
+        """
+        Parameters passed when creating invoices for payment-mode Checkout Sessions.
+        """
+
+    class ModifyParamsInvoiceCreationInvoiceData(TypedDict):
+        issuer: NotRequired[
+            "Session.ModifyParamsInvoiceCreationInvoiceDataIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+
+    class ModifyParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class ModifyParamsLineItem(TypedDict):
@@ -5429,6 +5733,12 @@ class Session(
         """
 
     class ModifyParamsSubscriptionData(TypedDict):
+        invoice_settings: NotRequired[
+            "Session.ModifyParamsSubscriptionDataInvoiceSettings"
+        ]
+        """
+        All invoices will be billed using the specified settings.
+        """
         trial_end: NotRequired[int]
         """
         Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
@@ -5436,6 +5746,24 @@ class Session(
         trial_period_days: NotRequired["Literal['']|int"]
         """
         Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+        """
+
+    class ModifyParamsSubscriptionDataInvoiceSettings(TypedDict):
+        issuer: NotRequired[
+            "Session.ModifyParamsSubscriptionDataInvoiceSettingsIssuer"
+        ]
+        """
+        The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        """
+
+    class ModifyParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
+        account: NotRequired[str]
+        """
+        The connected account being referenced when `type` is `account`.
+        """
+        type: Literal["account", "self"]
+        """
+        Type of the account referenced in the request.
         """
 
     class RetrieveParams(RequestOptions):
@@ -5469,6 +5797,7 @@ class Session(
     """
     Describes whether Checkout should collect the customer's billing address. Defaults to `auto`.
     """
+    branding_settings: Optional[BrandingSettings]
     cancel_url: Optional[str]
     """
     If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website.
@@ -5544,6 +5873,10 @@ class Session(
     discounts: Optional[List[Discount]]
     """
     List of coupons and promotion codes attached to the Checkout Session.
+    """
+    excluded_payment_method_types: Optional[List[str]]
+    """
+    A list of the types of payment methods (e.g., `card`) that should be excluded from this Checkout Session. This should only be used when payment methods for this Checkout Session are managed through the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
     """
     expires_at: int
     """
@@ -5625,6 +5958,7 @@ class Session(
     """
     The mode of the Checkout Session.
     """
+    name_collection: Optional[NameCollection]
     object: Literal["checkout.session"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -6117,6 +6451,7 @@ class Session(
         "adaptive_pricing": AdaptivePricing,
         "after_expiration": AfterExpiration,
         "automatic_tax": AutomaticTax,
+        "branding_settings": BrandingSettings,
         "collected_information": CollectedInformation,
         "consent": Consent,
         "consent_collection": ConsentCollection,
@@ -6126,6 +6461,7 @@ class Session(
         "customer_details": CustomerDetails,
         "discounts": Discount,
         "invoice_creation": InvoiceCreation,
+        "name_collection": NameCollection,
         "optional_items": OptionalItem,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,

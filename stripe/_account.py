@@ -93,11 +93,11 @@ class Account(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -388,6 +388,10 @@ class Account(
         """
         The status of the PayPal payments capability of the account, or whether the account can directly process PayPal charges.
         """
+        paypay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Paypay capability of the account, or whether the account can directly process Paypay payments.
+        """
         payto_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
@@ -521,11 +525,11 @@ class Account(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -862,6 +866,7 @@ class Account(
 
         class Error(StripeObject):
             code: Literal[
+                "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
@@ -904,6 +909,7 @@ class Account(
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "unsupported_business_type",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
                 "verification_document_address_missing",
@@ -1041,6 +1047,7 @@ class Account(
 
         class Error(StripeObject):
             code: Literal[
+                "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
@@ -1083,6 +1090,7 @@ class Account(
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "unsupported_business_type",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
                 "verification_document_address_missing",
@@ -1397,8 +1405,6 @@ class Account(
                         Literal[
                             "friday",
                             "monday",
-                            "saturday",
-                            "sunday",
                             "thursday",
                             "tuesday",
                             "wednesday",
@@ -1796,11 +1802,11 @@ class Account(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2099,6 +2105,12 @@ class Account(
         ]
         """
         The paypal_payments capability.
+        """
+        paypay_payments: NotRequired[
+            "Account.CreateParamsCapabilitiesPaypayPayments"
+        ]
+        """
+        The paypay_payments capability.
         """
         payto_payments: NotRequired[
             "Account.CreateParamsCapabilitiesPaytoPayments"
@@ -2535,6 +2547,12 @@ class Account(
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesPaypayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesPaytoPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2821,11 +2839,11 @@ class Account(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -3247,11 +3265,11 @@ class Account(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -3347,11 +3365,11 @@ class Account(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -3653,23 +3671,15 @@ class Account(
             ]
         ]
         """
-        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
         """
         weekly_payout_days: NotRequired[
             List[
-                Literal[
-                    "friday",
-                    "monday",
-                    "saturday",
-                    "sunday",
-                    "thursday",
-                    "tuesday",
-                    "wednesday",
-                ]
+                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
             ]
         ]
         """
-        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
         """
 
     class CreateParamsSettingsTaxForms(TypedDict):
@@ -3873,11 +3883,11 @@ class Account(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -4007,11 +4017,11 @@ class Account(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -4545,11 +4555,11 @@ class Account(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -4679,11 +4689,11 @@ class Account(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
