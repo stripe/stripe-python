@@ -862,7 +862,7 @@ class AuthorizationService(StripeService):
         The % of declines due to incorrect verification data (like CVV or expiry) in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of bad actors attempting to utilize valid card credentials at merchants with verification requirements. Takes on values between 0 and 100.
         """
         risk_level: Literal[
-            "elevated", "high", "highest", "normal", "not_assessed", "unknown"
+            "elevated", "highest", "normal", "not_assessed", "unknown"
         ]
         """
         The likelihood that this authorization is associated with card testing activity. This is assessed by evaluating decline activity over the last hour.
