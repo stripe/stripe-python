@@ -135,11 +135,11 @@ class Session(
                 """
                 line1: Optional[str]
                 """
-                Address line 1 (e.g., street, PO Box, or company name).
+                Address line 1, such as the street, PO Box, or company name.
                 """
                 line2: Optional[str]
                 """
-                Address line 2 (e.g., apartment, suite, unit, or building).
+                Address line 2, such as the apartment, suite, unit, or building.
                 """
                 postal_code: Optional[str]
                 """
@@ -286,6 +286,10 @@ class Session(
         email: Optional[str]
         """
         Customer's email for this Checkout Session
+        """
+        individual_name: Optional[str]
+        """
+        Customer's individual name for this Checkout Session
         """
         phone: Optional[str]
         """
@@ -515,11 +519,11 @@ class Session(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -656,10 +660,18 @@ class Session(
         """
         The customer's address after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022.
         """
+        business_name: Optional[str]
+        """
+        The customer's business name after a completed Checkout Session.
+        """
         email: Optional[str]
         """
         The email associated with the Customer, if one exists, on the Checkout Session after a completed Checkout Session or at time of session expiry.
         Otherwise, if the customer has consented to promotional content, this value is the most recent valid email provided by the customer on the Checkout form.
+        """
+        individual_name: Optional[str]
+        """
+        The customer's individual name after a completed Checkout Session.
         """
         name: Optional[str]
         """
@@ -761,6 +773,31 @@ class Session(
         """
         invoice_data: InvoiceData
         _inner_class_types = {"invoice_data": InvoiceData}
+
+    class NameCollection(StripeObject):
+        class Business(StripeObject):
+            enabled: bool
+            """
+            Indicates whether business name collection is enabled for the session
+            """
+            optional: bool
+            """
+            Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+            """
+
+        class Individual(StripeObject):
+            enabled: bool
+            """
+            Indicates whether individual name collection is enabled for the session
+            """
+            optional: bool
+            """
+            Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+            """
+
+        business: Optional[Business]
+        individual: Optional[Individual]
+        _inner_class_types = {"business": Business, "individual": Individual}
 
     class OptionalItem(StripeObject):
         class AdjustableQuantity(StripeObject):
@@ -2446,6 +2483,14 @@ class Session(
         """
         The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
         """
+        name_collection: NotRequired["Session.CreateParamsNameCollection"]
+        """
+        Controls name collection settings for the session.
+
+        You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
+
+        If a [Customer](https://stripe.com/docs/api/customers) is created or provided, the names can be saved to the Customer object as well.
+        """
         optional_items: NotRequired[List["Session.CreateParamsOptionalItem"]]
         """
         A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
@@ -3108,6 +3153,36 @@ class Session(
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
+    class CreateParamsNameCollection(TypedDict):
+        business: NotRequired["Session.CreateParamsNameCollectionBusiness"]
+        """
+        Controls settings applied for collecting the customer's business name on the session.
+        """
+        individual: NotRequired["Session.CreateParamsNameCollectionIndividual"]
+        """
+        Controls settings applied for collecting the customer's individual name on the session.
+        """
+
+    class CreateParamsNameCollectionBusiness(TypedDict):
+        enabled: bool
+        """
+        Enable business name collection on the Checkout Session. Defaults to `false`.
+        """
+        optional: NotRequired[bool]
+        """
+        Whether the customer is required to provide a business name before completing the Checkout Session. Defaults to `false`.
+        """
+
+    class CreateParamsNameCollectionIndividual(TypedDict):
+        enabled: bool
+        """
+        Enable individual name collection on the Checkout Session. Defaults to `false`.
+        """
+        optional: NotRequired[bool]
+        """
+        Whether the customer is required to provide their name before completing the Checkout Session. Defaults to `false`.
+        """
+
     class CreateParamsOptionalItem(TypedDict):
         adjustable_quantity: NotRequired[
             "Session.CreateParamsOptionalItemAdjustableQuantity"
@@ -3249,11 +3324,11 @@ class Session(
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -4960,9 +5035,21 @@ class Session(
         """
 
     class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        flexible: NotRequired[
+            "Session.CreateParamsSubscriptionDataBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
         Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsSubscriptionDataBillingModeFlexible(TypedDict):
+        consistent_proration_discount_amounts: NotRequired[bool]
+        """
+        Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
         """
 
     class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
@@ -5230,11 +5317,11 @@ class Session(
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -5767,6 +5854,7 @@ class Session(
     """
     The mode of the Checkout Session.
     """
+    name_collection: Optional[NameCollection]
     object: Literal["checkout.session"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -6268,6 +6356,7 @@ class Session(
         "customer_details": CustomerDetails,
         "discounts": Discount,
         "invoice_creation": InvoiceCreation,
+        "name_collection": NameCollection,
         "optional_items": OptionalItem,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,

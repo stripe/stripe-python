@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._singleton_api_resource import SingletonAPIResource
 from typing import ClassVar, Dict, List
@@ -30,7 +29,7 @@ class MeterUsage(SingletonAPIResource["MeterUsage"]):
         """
         The customer id to fetch meter usage data for.
         """
-        ends_at: int
+        end_time: int
         """
         The timestamp from when to stop aggregating meter events (exclusive). Must be aligned with minute boundaries.
         """
@@ -42,7 +41,7 @@ class MeterUsage(SingletonAPIResource["MeterUsage"]):
         """
         An array of meter parameters to specify which meters to include in the usage data. If not specified, usage across all meters for the customer is included.
         """
-        starts_at: int
+        start_time: int
         """
         The timestamp from when to start aggregating meter events (inclusive). Must be aligned with minute boundaries.
         """
@@ -668,7 +667,7 @@ class MeterUsage(SingletonAPIResource["MeterUsage"]):
         """
         List of meter dimension keys to group by. If specified, usage events will be grouped by the given meter dimension key's values.
         """
-        meter: str
+        meter_id: str
         """
         Meter id to query usage for.
         """
@@ -677,6 +676,14 @@ class MeterUsage(SingletonAPIResource["MeterUsage"]):
         Key-value pairs used to filter usage events by high cardinality tenant dimension values. If specified, usage will be filtered for matching usage events.
         """
 
+    data: List["MeterUsageRow"]
+    """
+    The aggregated meter usage data for the specified customer and time range.
+    """
+    data_refreshed_at: int
+    """
+    Timestamp indicating how fresh the data is. Measured in seconds since the Unix epoch.
+    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -685,11 +692,6 @@ class MeterUsage(SingletonAPIResource["MeterUsage"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    refreshed_at: int
-    """
-    Timestamp indicating how fresh the data is. Measured in seconds since the Unix epoch.
-    """
-    rows: ListObject["MeterUsageRow"]
 
     @classmethod
     def retrieve(

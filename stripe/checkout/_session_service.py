@@ -259,6 +259,16 @@ class SessionService(StripeService):
         """
         The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
         """
+        name_collection: NotRequired[
+            "SessionService.CreateParamsNameCollection"
+        ]
+        """
+        Controls name collection settings for the session.
+
+        You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
+
+        If a [Customer](https://stripe.com/docs/api/customers) is created or provided, the names can be saved to the Customer object as well.
+        """
         optional_items: NotRequired[
             List["SessionService.CreateParamsOptionalItem"]
         ]
@@ -937,6 +947,40 @@ class SessionService(StripeService):
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
         """
 
+    class CreateParamsNameCollection(TypedDict):
+        business: NotRequired[
+            "SessionService.CreateParamsNameCollectionBusiness"
+        ]
+        """
+        Controls settings applied for collecting the customer's business name on the session.
+        """
+        individual: NotRequired[
+            "SessionService.CreateParamsNameCollectionIndividual"
+        ]
+        """
+        Controls settings applied for collecting the customer's individual name on the session.
+        """
+
+    class CreateParamsNameCollectionBusiness(TypedDict):
+        enabled: bool
+        """
+        Enable business name collection on the Checkout Session. Defaults to `false`.
+        """
+        optional: NotRequired[bool]
+        """
+        Whether the customer is required to provide a business name before completing the Checkout Session. Defaults to `false`.
+        """
+
+    class CreateParamsNameCollectionIndividual(TypedDict):
+        enabled: bool
+        """
+        Enable individual name collection on the Checkout Session. Defaults to `false`.
+        """
+        optional: NotRequired[bool]
+        """
+        Whether the customer is required to provide their name before completing the Checkout Session. Defaults to `false`.
+        """
+
     class CreateParamsOptionalItem(TypedDict):
         adjustable_quantity: NotRequired[
             "SessionService.CreateParamsOptionalItemAdjustableQuantity"
@@ -1080,11 +1124,11 @@ class SessionService(StripeService):
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2829,9 +2873,21 @@ class SessionService(StripeService):
         """
 
     class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SessionService.CreateParamsSubscriptionDataBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
         Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsSubscriptionDataBillingModeFlexible(TypedDict):
+        consistent_proration_discount_amounts: NotRequired[bool]
+        """
+        Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
         """
 
     class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
@@ -3091,11 +3147,11 @@ class SessionService(StripeService):
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """

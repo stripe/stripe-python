@@ -50,6 +50,16 @@ class SubscriptionSchedule(
     )
 
     class BillingMode(StripeObject):
+        class Flexible(StripeObject):
+            consistent_proration_discount_amounts: Optional[bool]
+            """
+            When true, proration line items will show accurate discount amounts and use gross amounts, making them consistent with non-proration line items.
+            """
+
+        flexible: Optional[Flexible]
+        """
+        Configure behavior for flexible billing mode
+        """
         type: Literal["classic", "flexible"]
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
@@ -58,6 +68,7 @@ class SubscriptionSchedule(
         """
         Details on when the current billing_mode was adopted.
         """
+        _inner_class_types = {"flexible": Flexible}
 
     class CurrentPhase(StripeObject):
         end_date: int
@@ -1298,9 +1309,21 @@ class SubscriptionSchedule(
         """
 
     class CreateParamsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SubscriptionSchedule.CreateParamsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
         Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsBillingModeFlexible(TypedDict):
+        consistent_proration_discount_amounts: NotRequired[bool]
+        """
+        Set to `true` to display gross amounts, net amounts, and discount amounts consistently between prorations and non-proration items on invoices, line items, and invoice items. Once set to `true`, you can't change it back to `false`.
         """
 
     class CreateParamsDefaultSettings(TypedDict):
