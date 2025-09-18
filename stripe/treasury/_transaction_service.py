@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._transaction import Transaction
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -103,7 +103,7 @@ class TransactionService(StripeService):
     def list(
         self,
         params: "TransactionService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transaction]:
         """
         Retrieves a list of Transaction objects.
@@ -122,7 +122,7 @@ class TransactionService(StripeService):
     async def list_async(
         self,
         params: "TransactionService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transaction]:
         """
         Retrieves a list of Transaction objects.
@@ -141,8 +141,8 @@ class TransactionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves the details of an existing Transaction.
@@ -161,8 +161,8 @@ class TransactionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves the details of an existing Transaction.

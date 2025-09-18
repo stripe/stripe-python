@@ -5,7 +5,7 @@ from stripe._payment_method_configuration import PaymentMethodConfiguration
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -2104,8 +2104,10 @@ class PaymentMethodConfigurationService(StripeService):
 
     def list(
         self,
-        params: "PaymentMethodConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.ListParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethodConfiguration]:
         """
         List payment method configurations
@@ -2123,8 +2125,10 @@ class PaymentMethodConfigurationService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentMethodConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.ListParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethodConfiguration]:
         """
         List payment method configurations
@@ -2142,8 +2146,10 @@ class PaymentMethodConfigurationService(StripeService):
 
     def create(
         self,
-        params: "PaymentMethodConfigurationService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.CreateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Creates a payment method configuration
@@ -2161,8 +2167,10 @@ class PaymentMethodConfigurationService(StripeService):
 
     async def create_async(
         self,
-        params: "PaymentMethodConfigurationService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.CreateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Creates a payment method configuration
@@ -2181,8 +2189,10 @@ class PaymentMethodConfigurationService(StripeService):
     def retrieve(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Retrieve payment method configuration
@@ -2203,8 +2213,10 @@ class PaymentMethodConfigurationService(StripeService):
     async def retrieve_async(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Retrieve payment method configuration
@@ -2225,8 +2237,10 @@ class PaymentMethodConfigurationService(StripeService):
     def update(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.UpdateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Update payment method configuration
@@ -2247,8 +2261,10 @@ class PaymentMethodConfigurationService(StripeService):
     async def update_async(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.UpdateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Update payment method configuration

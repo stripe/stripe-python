@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing._alert import Alert
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -110,8 +110,8 @@ class AlertService(StripeService):
 
     def list(
         self,
-        params: "AlertService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AlertService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Alert]:
         """
         Lists billing active and inactive alerts
@@ -129,8 +129,8 @@ class AlertService(StripeService):
 
     async def list_async(
         self,
-        params: "AlertService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AlertService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Alert]:
         """
         Lists billing active and inactive alerts
@@ -147,7 +147,9 @@ class AlertService(StripeService):
         )
 
     def create(
-        self, params: "AlertService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "AlertService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
         Creates a billing alert
@@ -164,7 +166,9 @@ class AlertService(StripeService):
         )
 
     async def create_async(
-        self, params: "AlertService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "AlertService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
         Creates a billing alert
@@ -183,8 +187,8 @@ class AlertService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "AlertService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AlertService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
         Retrieves a billing alert given an ID
@@ -203,8 +207,8 @@ class AlertService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "AlertService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AlertService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
         Retrieves a billing alert given an ID
@@ -223,8 +227,8 @@ class AlertService(StripeService):
     def activate(
         self,
         id: str,
-        params: "AlertService.ActivateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AlertService.ActivateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
         Reactivates this alert, allowing it to trigger again.
@@ -243,8 +247,8 @@ class AlertService(StripeService):
     async def activate_async(
         self,
         id: str,
-        params: "AlertService.ActivateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AlertService.ActivateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
         Reactivates this alert, allowing it to trigger again.
@@ -263,8 +267,8 @@ class AlertService(StripeService):
     def archive(
         self,
         id: str,
-        params: "AlertService.ArchiveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AlertService.ArchiveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -283,8 +287,8 @@ class AlertService(StripeService):
     async def archive_async(
         self,
         id: str,
-        params: "AlertService.ArchiveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AlertService.ArchiveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -303,8 +307,8 @@ class AlertService(StripeService):
     def deactivate(
         self,
         id: str,
-        params: "AlertService.DeactivateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AlertService.DeactivateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
         Deactivates this alert, preventing it from triggering.
@@ -325,8 +329,8 @@ class AlertService(StripeService):
     async def deactivate_async(
         self,
         id: str,
-        params: "AlertService.DeactivateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AlertService.DeactivateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
         Deactivates this alert, preventing it from triggering.

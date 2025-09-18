@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.terminal._configuration import Configuration
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -1122,8 +1122,8 @@ class ConfigurationService(StripeService):
     def delete(
         self,
         configuration: str,
-        params: "ConfigurationService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Deletes a Configuration object.
@@ -1144,8 +1144,8 @@ class ConfigurationService(StripeService):
     async def delete_async(
         self,
         configuration: str,
-        params: "ConfigurationService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Deletes a Configuration object.
@@ -1166,8 +1166,8 @@ class ConfigurationService(StripeService):
     def retrieve(
         self,
         configuration: str,
-        params: "ConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Retrieves a Configuration object.
@@ -1188,8 +1188,8 @@ class ConfigurationService(StripeService):
     async def retrieve_async(
         self,
         configuration: str,
-        params: "ConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Retrieves a Configuration object.
@@ -1210,8 +1210,8 @@ class ConfigurationService(StripeService):
     def update(
         self,
         configuration: str,
-        params: "ConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Updates a new Configuration object.
@@ -1232,8 +1232,8 @@ class ConfigurationService(StripeService):
     async def update_async(
         self,
         configuration: str,
-        params: "ConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Updates a new Configuration object.
@@ -1253,8 +1253,8 @@ class ConfigurationService(StripeService):
 
     def list(
         self,
-        params: "ConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Configuration]:
         """
         Returns a list of Configuration objects.
@@ -1272,8 +1272,8 @@ class ConfigurationService(StripeService):
 
     async def list_async(
         self,
-        params: "ConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Configuration]:
         """
         Returns a list of Configuration objects.
@@ -1291,8 +1291,8 @@ class ConfigurationService(StripeService):
 
     def create(
         self,
-        params: "ConfigurationService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Creates a new Configuration object.
@@ -1310,8 +1310,8 @@ class ConfigurationService(StripeService):
 
     async def create_async(
         self,
-        params: "ConfigurationService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Creates a new Configuration object.

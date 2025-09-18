@@ -6,7 +6,7 @@ from stripe._util import sanitize_id
 from stripe.treasury._financial_account_features import (
     FinancialAccountFeatures,
 )
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -166,8 +166,10 @@ class FinancialAccountFeaturesService(StripeService):
     def update(
         self,
         financial_account: str,
-        params: "FinancialAccountFeaturesService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "FinancialAccountFeaturesService.UpdateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccountFeatures:
         """
         Updates the Features associated with a FinancialAccount.
@@ -188,8 +190,10 @@ class FinancialAccountFeaturesService(StripeService):
     async def update_async(
         self,
         financial_account: str,
-        params: "FinancialAccountFeaturesService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "FinancialAccountFeaturesService.UpdateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccountFeatures:
         """
         Updates the Features associated with a FinancialAccount.
@@ -210,8 +214,10 @@ class FinancialAccountFeaturesService(StripeService):
     def retrieve(
         self,
         financial_account: str,
-        params: "FinancialAccountFeaturesService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "FinancialAccountFeaturesService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccountFeatures:
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -232,8 +238,10 @@ class FinancialAccountFeaturesService(StripeService):
     async def retrieve_async(
         self,
         financial_account: str,
-        params: "FinancialAccountFeaturesService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "FinancialAccountFeaturesService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccountFeatures:
         """
         Retrieves Features information associated with the FinancialAccount.

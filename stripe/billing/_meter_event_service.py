@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.billing._meter_event import MeterEvent
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -33,7 +33,7 @@ class MeterEventService(StripeService):
     def create(
         self,
         params: "MeterEventService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> MeterEvent:
         """
         Creates a billing meter event.
@@ -52,7 +52,7 @@ class MeterEventService(StripeService):
     async def create_async(
         self,
         params: "MeterEventService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> MeterEvent:
         """
         Creates a billing meter event.

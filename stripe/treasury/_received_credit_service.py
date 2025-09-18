@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._received_credit import ReceivedCredit
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -63,7 +63,7 @@ class ReceivedCreditService(StripeService):
     def list(
         self,
         params: "ReceivedCreditService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReceivedCredit]:
         """
         Returns a list of ReceivedCredits.
@@ -82,7 +82,7 @@ class ReceivedCreditService(StripeService):
     async def list_async(
         self,
         params: "ReceivedCreditService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReceivedCredit]:
         """
         Returns a list of ReceivedCredits.
@@ -101,8 +101,8 @@ class ReceivedCreditService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ReceivedCreditService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReceivedCreditService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedCredit:
         """
         Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
@@ -123,8 +123,8 @@ class ReceivedCreditService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ReceivedCreditService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReceivedCreditService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedCredit:
         """
         Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.

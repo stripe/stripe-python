@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -156,8 +156,8 @@ class CouponService(StripeService):
     def delete(
         self,
         coupon: str,
-        params: "CouponService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CouponService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
@@ -176,8 +176,8 @@ class CouponService(StripeService):
     async def delete_async(
         self,
         coupon: str,
-        params: "CouponService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CouponService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
@@ -196,8 +196,8 @@ class CouponService(StripeService):
     def retrieve(
         self,
         coupon: str,
-        params: "CouponService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CouponService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         Retrieves the coupon with the given ID.
@@ -216,8 +216,8 @@ class CouponService(StripeService):
     async def retrieve_async(
         self,
         coupon: str,
-        params: "CouponService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CouponService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         Retrieves the coupon with the given ID.
@@ -236,8 +236,8 @@ class CouponService(StripeService):
     def update(
         self,
         coupon: str,
-        params: "CouponService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CouponService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
@@ -256,8 +256,8 @@ class CouponService(StripeService):
     async def update_async(
         self,
         coupon: str,
-        params: "CouponService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CouponService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
@@ -275,8 +275,8 @@ class CouponService(StripeService):
 
     def list(
         self,
-        params: "CouponService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CouponService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Coupon]:
         """
         Returns a list of your coupons.
@@ -294,8 +294,8 @@ class CouponService(StripeService):
 
     async def list_async(
         self,
-        params: "CouponService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CouponService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Coupon]:
         """
         Returns a list of your coupons.
@@ -313,8 +313,8 @@ class CouponService(StripeService):
 
     def create(
         self,
-        params: "CouponService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CouponService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.
@@ -334,8 +334,8 @@ class CouponService(StripeService):
 
     async def create_async(
         self,
-        params: "CouponService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CouponService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
         You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.

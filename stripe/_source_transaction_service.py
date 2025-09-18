@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._source_transaction import SourceTransaction
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -31,8 +31,8 @@ class SourceTransactionService(StripeService):
     def list(
         self,
         source: str,
-        params: "SourceTransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SourceTransactionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SourceTransaction]:
         """
         List source transactions for a given source.
@@ -53,8 +53,8 @@ class SourceTransactionService(StripeService):
     async def list_async(
         self,
         source: str,
-        params: "SourceTransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SourceTransactionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SourceTransaction]:
         """
         List source transactions for a given source.

@@ -46,9 +46,14 @@ class OAuthService(StripeService):
 
     def authorize_url(
         self,
-        params: OAuth.OAuthAuthorizeUrlParams = {},
-        options: OAuthAuthorizeUrlOptions = {},
+        params: Optional[OAuth.OAuthAuthorizeUrlParams] = None,
+        options: Optional[OAuthAuthorizeUrlOptions] = None,
     ) -> str:
+        if params is None:
+            params = {}
+        if options is None:
+            options = {}
+
         if options.get("express"):
             path = "/express/oauth/authorize"
         else:
@@ -68,8 +73,12 @@ class OAuthService(StripeService):
         return url
 
     def token(
-        self, params: OAuth.OAuthTokenParams, options: RequestOptions = {}
+        self,
+        params: OAuth.OAuthTokenParams,
+        options: Optional[RequestOptions] = None,
     ) -> OAuth.OAuthToken:
+        if options is None:
+            options = {}
         return cast(
             OAuth.OAuthToken,
             self._requestor.request(
@@ -84,8 +93,10 @@ class OAuthService(StripeService):
     def deauthorize(
         self,
         params: OAuth.OAuthDeauthorizeParams,
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OAuth.OAuthDeauthorization:
+        if options is None:
+            options = {}
         self._set_client_id(params)
         return cast(
             OAuth.OAuthDeauthorization,

@@ -121,7 +121,7 @@ class StripeClient(object):
         stripe_account: Optional[str] = None,
         stripe_context: Optional[str] = None,
         stripe_version: Optional[str] = None,
-        base_addresses: BaseAddresses = {},
+        base_addresses: Optional[BaseAddresses] = None,
         client_id: Optional[str] = None,
         verify_ssl_certs: bool = True,
         proxy: Optional[str] = None,
@@ -152,7 +152,7 @@ class StripeClient(object):
             "connect": DEFAULT_CONNECT_API_BASE,
             "files": DEFAULT_UPLOAD_API_BASE,
             "meter_events": DEFAULT_METER_EVENTS_API_BASE,
-            **base_addresses,
+            **(base_addresses or {}),
         }
 
         requestor_options = RequestorOptions(

@@ -6,7 +6,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.checkout._session import Session
 from stripe.checkout._session_line_item_service import SessionLineItemService
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -2881,8 +2881,8 @@ class SessionService(StripeService):
 
     def list(
         self,
-        params: "SessionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Session]:
         """
         Returns a list of Checkout Sessions.
@@ -2900,8 +2900,8 @@ class SessionService(StripeService):
 
     async def list_async(
         self,
-        params: "SessionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Session]:
         """
         Returns a list of Checkout Sessions.
@@ -2919,8 +2919,8 @@ class SessionService(StripeService):
 
     def create(
         self,
-        params: "SessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Creates a Checkout Session object.
@@ -2938,8 +2938,8 @@ class SessionService(StripeService):
 
     async def create_async(
         self,
-        params: "SessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Creates a Checkout Session object.
@@ -2958,8 +2958,8 @@ class SessionService(StripeService):
     def retrieve(
         self,
         session: str,
-        params: "SessionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Retrieves a Checkout Session object.
@@ -2980,8 +2980,8 @@ class SessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
-        params: "SessionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Retrieves a Checkout Session object.
@@ -3002,8 +3002,8 @@ class SessionService(StripeService):
     def update(
         self,
         session: str,
-        params: "SessionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Updates a Checkout Session object.
@@ -3026,8 +3026,8 @@ class SessionService(StripeService):
     async def update_async(
         self,
         session: str,
-        params: "SessionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Updates a Checkout Session object.
@@ -3050,8 +3050,8 @@ class SessionService(StripeService):
     def expire(
         self,
         session: str,
-        params: "SessionService.ExpireParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.ExpireParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -3074,8 +3074,8 @@ class SessionService(StripeService):
     async def expire_async(
         self,
         session: str,
-        params: "SessionService.ExpireParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.ExpireParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         A Checkout Session can be expired when it is in one of these statuses: open
