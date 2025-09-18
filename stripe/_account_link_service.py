@@ -3,7 +3,7 @@
 from stripe._account_link import AccountLink
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -55,7 +55,7 @@ class AccountLinkService(StripeService):
     def create(
         self,
         params: "AccountLinkService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> AccountLink:
         """
         Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.
@@ -74,7 +74,7 @@ class AccountLinkService(StripeService):
     async def create_async(
         self,
         params: "AccountLinkService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> AccountLink:
         """
         Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.

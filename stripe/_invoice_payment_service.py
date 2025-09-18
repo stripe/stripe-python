@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -58,8 +58,8 @@ class InvoicePaymentService(StripeService):
 
     def list(
         self,
-        params: "InvoicePaymentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoicePaymentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoicePayment]:
         """
         When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
@@ -77,8 +77,8 @@ class InvoicePaymentService(StripeService):
 
     async def list_async(
         self,
-        params: "InvoicePaymentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoicePaymentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoicePayment]:
         """
         When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
@@ -97,8 +97,8 @@ class InvoicePaymentService(StripeService):
     def retrieve(
         self,
         invoice_payment: str,
-        params: "InvoicePaymentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoicePaymentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> InvoicePayment:
         """
         Retrieves the invoice payment with the given ID.
@@ -119,8 +119,8 @@ class InvoicePaymentService(StripeService):
     async def retrieve_async(
         self,
         invoice_payment: str,
-        params: "InvoicePaymentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoicePaymentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> InvoicePayment:
         """
         Retrieves the invoice payment with the given ID.

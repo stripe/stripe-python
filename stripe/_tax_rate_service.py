@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._tax_rate import TaxRate
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -184,8 +184,8 @@ class TaxRateService(StripeService):
 
     def list(
         self,
-        params: "TaxRateService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TaxRateService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TaxRate]:
         """
         Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
@@ -203,8 +203,8 @@ class TaxRateService(StripeService):
 
     async def list_async(
         self,
-        params: "TaxRateService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TaxRateService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TaxRate]:
         """
         Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
@@ -223,7 +223,7 @@ class TaxRateService(StripeService):
     def create(
         self,
         params: "TaxRateService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> TaxRate:
         """
         Creates a new tax rate.
@@ -242,7 +242,7 @@ class TaxRateService(StripeService):
     async def create_async(
         self,
         params: "TaxRateService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> TaxRate:
         """
         Creates a new tax rate.
@@ -261,8 +261,8 @@ class TaxRateService(StripeService):
     def retrieve(
         self,
         tax_rate: str,
-        params: "TaxRateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TaxRateService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> TaxRate:
         """
         Retrieves a tax rate with the given ID
@@ -283,8 +283,8 @@ class TaxRateService(StripeService):
     async def retrieve_async(
         self,
         tax_rate: str,
-        params: "TaxRateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TaxRateService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> TaxRate:
         """
         Retrieves a tax rate with the given ID
@@ -305,8 +305,8 @@ class TaxRateService(StripeService):
     def update(
         self,
         tax_rate: str,
-        params: "TaxRateService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TaxRateService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> TaxRate:
         """
         Updates an existing tax rate.
@@ -327,8 +327,8 @@ class TaxRateService(StripeService):
     async def update_async(
         self,
         tax_rate: str,
-        params: "TaxRateService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TaxRateService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> TaxRate:
         """
         Updates an existing tax rate.

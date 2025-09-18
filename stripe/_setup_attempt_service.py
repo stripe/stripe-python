@@ -4,7 +4,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._setup_attempt import SetupAttempt
 from stripe._stripe_service import StripeService
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -59,7 +59,7 @@ class SetupAttemptService(StripeService):
     def list(
         self,
         params: "SetupAttemptService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SetupAttempt]:
         """
         Returns a list of SetupAttempts that associate with a provided SetupIntent.
@@ -78,7 +78,7 @@ class SetupAttemptService(StripeService):
     async def list_async(
         self,
         params: "SetupAttemptService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SetupAttempt]:
         """
         Returns a list of SetupAttempts that associate with a provided SetupIntent.

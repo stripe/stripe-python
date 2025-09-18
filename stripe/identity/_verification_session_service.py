@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.identity._verification_session import VerificationSession
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -239,8 +239,8 @@ class VerificationSessionService(StripeService):
 
     def list(
         self,
-        params: "VerificationSessionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VerificationSessionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[VerificationSession]:
         """
         Returns a list of VerificationSessions
@@ -258,8 +258,8 @@ class VerificationSessionService(StripeService):
 
     async def list_async(
         self,
-        params: "VerificationSessionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VerificationSessionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[VerificationSession]:
         """
         Returns a list of VerificationSessions
@@ -277,8 +277,8 @@ class VerificationSessionService(StripeService):
 
     def create(
         self,
-        params: "VerificationSessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VerificationSessionService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Creates a VerificationSession object.
@@ -302,8 +302,8 @@ class VerificationSessionService(StripeService):
 
     async def create_async(
         self,
-        params: "VerificationSessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VerificationSessionService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Creates a VerificationSession object.
@@ -328,8 +328,8 @@ class VerificationSessionService(StripeService):
     def retrieve(
         self,
         session: str,
-        params: "VerificationSessionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VerificationSessionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Retrieves the details of a VerificationSession that was previously created.
@@ -353,8 +353,8 @@ class VerificationSessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
-        params: "VerificationSessionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VerificationSessionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Retrieves the details of a VerificationSession that was previously created.
@@ -378,8 +378,8 @@ class VerificationSessionService(StripeService):
     def update(
         self,
         session: str,
-        params: "VerificationSessionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VerificationSessionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Updates a VerificationSession object.
@@ -403,8 +403,8 @@ class VerificationSessionService(StripeService):
     async def update_async(
         self,
         session: str,
-        params: "VerificationSessionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VerificationSessionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Updates a VerificationSession object.
@@ -428,8 +428,8 @@ class VerificationSessionService(StripeService):
     def cancel(
         self,
         session: str,
-        params: "VerificationSessionService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VerificationSessionService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
@@ -452,8 +452,8 @@ class VerificationSessionService(StripeService):
     async def cancel_async(
         self,
         session: str,
-        params: "VerificationSessionService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VerificationSessionService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
@@ -476,8 +476,8 @@ class VerificationSessionService(StripeService):
     def redact(
         self,
         session: str,
-        params: "VerificationSessionService.RedactParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VerificationSessionService.RedactParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -516,8 +516,8 @@ class VerificationSessionService(StripeService):
     async def redact_async(
         self,
         session: str,
-        params: "VerificationSessionService.RedactParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VerificationSessionService.RedactParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact

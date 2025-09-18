@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing._credit_balance_transaction import CreditBalanceTransaction
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -45,7 +45,7 @@ class CreditBalanceTransactionService(StripeService):
     def list(
         self,
         params: "CreditBalanceTransactionService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditBalanceTransaction]:
         """
         Retrieve a list of credit balance transactions.
@@ -64,7 +64,7 @@ class CreditBalanceTransactionService(StripeService):
     async def list_async(
         self,
         params: "CreditBalanceTransactionService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditBalanceTransaction]:
         """
         Retrieve a list of credit balance transactions.
@@ -83,8 +83,10 @@ class CreditBalanceTransactionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "CreditBalanceTransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "CreditBalanceTransactionService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditBalanceTransaction:
         """
         Retrieves a credit balance transaction.
@@ -105,8 +107,10 @@ class CreditBalanceTransactionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "CreditBalanceTransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "CreditBalanceTransactionService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditBalanceTransaction:
         """
         Retrieves a credit balance transaction.

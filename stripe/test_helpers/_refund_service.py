@@ -4,7 +4,7 @@ from stripe._refund import Refund
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -18,8 +18,8 @@ class RefundService(StripeService):
     def expire(
         self,
         refund: str,
-        params: "RefundService.ExpireParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RefundService.ExpireParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Expire a refund with a status of requires_action.
@@ -40,8 +40,8 @@ class RefundService(StripeService):
     async def expire_async(
         self,
         refund: str,
-        params: "RefundService.ExpireParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RefundService.ExpireParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Expire a refund with a status of requires_action.

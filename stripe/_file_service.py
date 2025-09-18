@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Any, Dict, List, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -128,8 +128,8 @@ class FileService(StripeService):
 
     def list(
         self,
-        params: "FileService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FileService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[File]:
         """
         Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
@@ -147,8 +147,8 @@ class FileService(StripeService):
 
     async def list_async(
         self,
-        params: "FileService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FileService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[File]:
         """
         Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
@@ -165,13 +165,17 @@ class FileService(StripeService):
         )
 
     def create(
-        self, params: "FileService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "FileService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> File:
         """
         To upload a file to Stripe, you need to send a request of type multipart/form-data. Include the file you want to upload in the request, and the parameters for creating a file.
 
         All of Stripe's officially supported Client libraries support sending multipart/form-data.
         """
+        if options is None:
+            options = {}
         options["content_type"] = "multipart/form-data"
         return cast(
             File,
@@ -185,13 +189,17 @@ class FileService(StripeService):
         )
 
     async def create_async(
-        self, params: "FileService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "FileService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> File:
         """
         To upload a file to Stripe, you need to send a request of type multipart/form-data. Include the file you want to upload in the request, and the parameters for creating a file.
 
         All of Stripe's officially supported Client libraries support sending multipart/form-data.
         """
+        if options is None:
+            options = {}
         options["content_type"] = "multipart/form-data"
         return cast(
             File,
@@ -207,8 +215,8 @@ class FileService(StripeService):
     def retrieve(
         self,
         file: str,
-        params: "FileService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FileService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> File:
         """
         Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://docs.stripe.com/docs/file-upload#download-file-contents).
@@ -227,8 +235,8 @@ class FileService(StripeService):
     async def retrieve_async(
         self,
         file: str,
-        params: "FileService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FileService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> File:
         """
         Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://docs.stripe.com/docs/file-upload#download-file-contents).
