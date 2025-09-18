@@ -20,6 +20,14 @@ class Discount(StripeObject):
     """
 
     OBJECT_NAME: ClassVar[Literal["discount"]] = "discount"
+
+    class Source(StripeObject):
+        coupon: Optional[ExpandableField["Coupon"]]
+        """
+        The coupon that was redeemed to create this discount.
+        """
+        type: Literal["coupon"]
+
     checkout_session: Optional[str]
     """
     The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode.
@@ -66,6 +74,7 @@ class Discount(StripeObject):
     """
     The promotion code applied to create this discount.
     """
+    source: Source
     start: int
     """
     Date that the coupon was applied.
@@ -78,3 +87,4 @@ class Discount(StripeObject):
     """
     The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
     """
+    _inner_class_types = {"source": Source}
