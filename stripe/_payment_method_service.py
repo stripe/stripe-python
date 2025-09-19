@@ -1289,8 +1289,8 @@ class PaymentMethodService(StripeService):
     def attach(
         self,
         payment_method: str,
-        params: "PaymentMethodService.AttachParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodService.AttachParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
         Attaches a PaymentMethod object to a Customer.
@@ -1323,8 +1323,8 @@ class PaymentMethodService(StripeService):
     async def attach_async(
         self,
         payment_method: str,
-        params: "PaymentMethodService.AttachParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodService.AttachParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
         Attaches a PaymentMethod object to a Customer.

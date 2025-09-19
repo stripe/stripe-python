@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._license_fee_version import LicenseFeeVersion
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -22,8 +22,8 @@ class VersionService(StripeService):
     def list(
         self,
         license_fee_id: str,
-        params: "VersionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[LicenseFeeVersion]:
         """
         List all versions of a License Fee object.
@@ -44,8 +44,8 @@ class VersionService(StripeService):
     async def list_async(
         self,
         license_fee_id: str,
-        params: "VersionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[LicenseFeeVersion]:
         """
         List all versions of a License Fee object.
@@ -67,8 +67,8 @@ class VersionService(StripeService):
         self,
         license_fee_id: str,
         id: str,
-        params: "VersionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> LicenseFeeVersion:
         """
         Retrieve a License Fee Version object.
@@ -91,8 +91,8 @@ class VersionService(StripeService):
         self,
         license_fee_id: str,
         id: str,
-        params: "VersionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> LicenseFeeVersion:
         """
         Retrieve a License Fee Version object.

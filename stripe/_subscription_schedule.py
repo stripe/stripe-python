@@ -265,35 +265,6 @@ class SubscriptionSchedule(
                 start: Start
                 _inner_class_types = {"end": End, "start": Start}
 
-            class Period(StripeObject):
-                class End(StripeObject):
-                    timestamp: Optional[int]
-                    """
-                    A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
-                    """
-                    type: Literal[
-                        "min_item_period_end", "phase_end", "timestamp"
-                    ]
-                    """
-                    Select how to calculate the end of the invoice item period.
-                    """
-
-                class Start(StripeObject):
-                    timestamp: Optional[int]
-                    """
-                    A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
-                    """
-                    type: Literal[
-                        "max_item_period_start", "phase_start", "timestamp"
-                    ]
-                    """
-                    Select how to calculate the start of the invoice item period.
-                    """
-
-                end: End
-                start: Start
-                _inner_class_types = {"end": End, "start": Start}
-
             discounts: List[Discount]
             """
             The stackable discounts that will be applied to the item.

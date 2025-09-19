@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Any, Dict, List, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 

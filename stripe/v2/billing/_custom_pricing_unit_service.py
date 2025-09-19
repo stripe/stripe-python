@@ -54,7 +54,7 @@ class CustomPricingUnitService(StripeService):
         """
         Description that customers will see in the invoice line item.
         """
-        lookup_key: NotRequired[Optional[str]]
+        lookup_key: NotRequired[str]
         """
         An internal key you can use to search for a particular CustomPricingUnit item.
         """
@@ -65,8 +65,8 @@ class CustomPricingUnitService(StripeService):
 
     def list(
         self,
-        params: "CustomPricingUnitService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomPricingUnitService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CustomPricingUnit]:
         """
         List all Custom Pricing Unit objects.
@@ -84,8 +84,8 @@ class CustomPricingUnitService(StripeService):
 
     async def list_async(
         self,
-        params: "CustomPricingUnitService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomPricingUnitService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CustomPricingUnit]:
         """
         List all Custom Pricing Unit objects.
@@ -104,7 +104,7 @@ class CustomPricingUnitService(StripeService):
     def create(
         self,
         params: "CustomPricingUnitService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CustomPricingUnit:
         """
         Create a Custom Pricing Unit object.
@@ -123,7 +123,7 @@ class CustomPricingUnitService(StripeService):
     async def create_async(
         self,
         params: "CustomPricingUnitService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CustomPricingUnit:
         """
         Create a Custom Pricing Unit object.
@@ -142,8 +142,8 @@ class CustomPricingUnitService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "CustomPricingUnitService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomPricingUnitService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CustomPricingUnit:
         """
         Retrieve a Custom Pricing Unit object.
@@ -164,8 +164,8 @@ class CustomPricingUnitService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "CustomPricingUnitService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomPricingUnitService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CustomPricingUnit:
         """
         Retrieve a Custom Pricing Unit object.
@@ -186,8 +186,8 @@ class CustomPricingUnitService(StripeService):
     def update(
         self,
         id: str,
-        params: "CustomPricingUnitService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomPricingUnitService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CustomPricingUnit:
         """
         Update a Custom Pricing Unit object.
@@ -208,8 +208,8 @@ class CustomPricingUnitService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "CustomPricingUnitService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomPricingUnitService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CustomPricingUnit:
         """
         Update a Custom Pricing Unit object.

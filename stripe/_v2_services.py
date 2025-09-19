@@ -5,7 +5,6 @@ from stripe.v2._billing_service import BillingService
 from stripe.v2._core_service import CoreService
 from stripe.v2._money_management_service import MoneyManagementService
 from stripe.v2._payment_service import PaymentService
-from stripe.v2._reporting_service import ReportingService
 from stripe.v2._tax_service import TaxService
 from stripe.v2._test_helper_service import TestHelperService
 
@@ -17,6 +16,5 @@ class V2Services(StripeService):
         self.core = CoreService(self._requestor)
         self.money_management = MoneyManagementService(self._requestor)
         self.payments = PaymentService(self._requestor)
-        self.reporting = ReportingService(self._requestor)
         self.tax = TaxService(self._requestor)
         self.test_helpers = TestHelperService(self._requestor)

@@ -571,8 +571,8 @@ class InvoiceItemService(StripeService):
 
     def create(
         self,
-        params: "InvoiceItemService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceItemService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> InvoiceItem:
         """
         Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
@@ -590,8 +590,8 @@ class InvoiceItemService(StripeService):
 
     async def create_async(
         self,
-        params: "InvoiceItemService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceItemService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> InvoiceItem:
         """
         Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.

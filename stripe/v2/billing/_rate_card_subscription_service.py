@@ -81,8 +81,8 @@ class RateCardSubscriptionService(StripeService):
 
     def list(
         self,
-        params: "RateCardSubscriptionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardSubscriptionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[RateCardSubscription]:
         """
         List all Rate Card Subscription objects.
@@ -100,8 +100,8 @@ class RateCardSubscriptionService(StripeService):
 
     async def list_async(
         self,
-        params: "RateCardSubscriptionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardSubscriptionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[RateCardSubscription]:
         """
         List all Rate Card Subscription objects.
@@ -120,7 +120,7 @@ class RateCardSubscriptionService(StripeService):
     def create(
         self,
         params: "RateCardSubscriptionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
         Create a Rate Card Subscription to bill a Rate Card on a specified Billing Cadence.
@@ -139,7 +139,7 @@ class RateCardSubscriptionService(StripeService):
     async def create_async(
         self,
         params: "RateCardSubscriptionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
         Create a Rate Card Subscription to bill a Rate Card on a specified Billing Cadence.
@@ -158,8 +158,8 @@ class RateCardSubscriptionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "RateCardSubscriptionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardSubscriptionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
         Retrieve a Rate Card Subscription by ID.
@@ -180,8 +180,8 @@ class RateCardSubscriptionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "RateCardSubscriptionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardSubscriptionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
         Retrieve a Rate Card Subscription by ID.
@@ -202,8 +202,8 @@ class RateCardSubscriptionService(StripeService):
     def update(
         self,
         id: str,
-        params: "RateCardSubscriptionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardSubscriptionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
         Update fields on an existing, active Rate Card Subscription.
@@ -224,8 +224,8 @@ class RateCardSubscriptionService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "RateCardSubscriptionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardSubscriptionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
         Update fields on an existing, active Rate Card Subscription.
@@ -246,8 +246,8 @@ class RateCardSubscriptionService(StripeService):
     def cancel(
         self,
         id: str,
-        params: "RateCardSubscriptionService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardSubscriptionService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
         Cancel an existing, active Rate Card Subscription.
@@ -268,8 +268,8 @@ class RateCardSubscriptionService(StripeService):
     async def cancel_async(
         self,
         id: str,
-        params: "RateCardSubscriptionService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardSubscriptionService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
         Cancel an existing, active Rate Card Subscription.

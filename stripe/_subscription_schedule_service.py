@@ -2435,8 +2435,8 @@ class SubscriptionScheduleService(StripeService):
     def amend(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.AmendParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.AmendParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Amends an existing subscription schedule.
@@ -2457,8 +2457,8 @@ class SubscriptionScheduleService(StripeService):
     async def amend_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.AmendParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.AmendParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Amends an existing subscription schedule.

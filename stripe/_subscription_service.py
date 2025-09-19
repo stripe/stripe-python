@@ -2383,8 +2383,8 @@ class SubscriptionService(StripeService):
 
     def create(
         self,
-        params: "SubscriptionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
@@ -2408,8 +2408,8 @@ class SubscriptionService(StripeService):
 
     async def create_async(
         self,
-        params: "SubscriptionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
@@ -2479,7 +2479,7 @@ class SubscriptionService(StripeService):
         self,
         subscription: str,
         params: "SubscriptionService.AttachCadenceParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
@@ -2501,7 +2501,7 @@ class SubscriptionService(StripeService):
         self,
         subscription: str,
         params: "SubscriptionService.AttachCadenceParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
         Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.

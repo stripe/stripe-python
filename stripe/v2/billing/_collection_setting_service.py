@@ -8,7 +8,7 @@ from stripe.v2.billing._collection_setting import CollectionSetting
 from stripe.v2.billing.collection_settings._version_service import (
     VersionService,
 )
-from typing import List, Optional, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -95,15 +95,11 @@ class CollectionSettingService(StripeService):
         """
         This sub-hash contains details about the Bank transfer payment method options.
         """
-        konbini: NotRequired[
-            "CollectionSettingService.CreateParamsPaymentMethodOptionsKonbini"
-        ]
+        konbini: NotRequired[Dict[str, Any]]
         """
         This sub-hash contains details about the Konbini payment method options.
         """
-        sepa_debit: NotRequired[
-            "CollectionSettingService.CreateParamsPaymentMethodOptionsSepaDebit"
-        ]
+        sepa_debit: NotRequired[Dict[str, Any]]
         """
         This sub-hash contains details about the SEPA Direct Debit payment method options.
         """
@@ -217,12 +213,6 @@ class CollectionSettingService(StripeService):
         The desired country code of the bank account information.
         """
 
-    class CreateParamsPaymentMethodOptionsKonbini(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
-        pass
-
     class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: "CollectionSettingService.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
         """
@@ -297,7 +287,7 @@ class CollectionSettingService(StripeService):
         Maximum length of 250 characters.
         """
         email_delivery: NotRequired[
-            Optional["CollectionSettingService.UpdateParamsEmailDelivery"]
+            "CollectionSettingService.UpdateParamsEmailDelivery"
         ]
         """
         Email delivery settings.
@@ -367,15 +357,11 @@ class CollectionSettingService(StripeService):
         """
         This sub-hash contains details about the Bank transfer payment method options.
         """
-        konbini: NotRequired[
-            "CollectionSettingService.UpdateParamsPaymentMethodOptionsKonbini"
-        ]
+        konbini: NotRequired[Dict[str, Any]]
         """
         This sub-hash contains details about the Konbini payment method options.
         """
-        sepa_debit: NotRequired[
-            "CollectionSettingService.UpdateParamsPaymentMethodOptionsSepaDebit"
-        ]
+        sepa_debit: NotRequired[Dict[str, Any]]
         """
         This sub-hash contains details about the SEPA Direct Debit payment method options.
         """
@@ -489,12 +475,6 @@ class CollectionSettingService(StripeService):
         The desired country code of the bank account information.
         """
 
-    class UpdateParamsPaymentMethodOptionsKonbini(TypedDict):
-        pass
-
-    class UpdateParamsPaymentMethodOptionsSepaDebit(TypedDict):
-        pass
-
     class UpdateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: "CollectionSettingService.UpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
         """
@@ -543,8 +523,8 @@ class CollectionSettingService(StripeService):
 
     def list(
         self,
-        params: "CollectionSettingService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CollectionSetting]:
         """
         List all CollectionSetting objects.
@@ -562,8 +542,8 @@ class CollectionSettingService(StripeService):
 
     async def list_async(
         self,
-        params: "CollectionSettingService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CollectionSetting]:
         """
         List all CollectionSetting objects.
@@ -581,8 +561,8 @@ class CollectionSettingService(StripeService):
 
     def create(
         self,
-        params: "CollectionSettingService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSetting:
         """
         Create a CollectionSetting object.
@@ -600,8 +580,8 @@ class CollectionSettingService(StripeService):
 
     async def create_async(
         self,
-        params: "CollectionSettingService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSetting:
         """
         Create a CollectionSetting object.
@@ -620,8 +600,8 @@ class CollectionSettingService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "CollectionSettingService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSetting:
         """
         Retrieve a CollectionSetting by ID.
@@ -642,8 +622,8 @@ class CollectionSettingService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "CollectionSettingService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSetting:
         """
         Retrieve a CollectionSetting by ID.
@@ -664,8 +644,8 @@ class CollectionSettingService(StripeService):
     def update(
         self,
         id: str,
-        params: "CollectionSettingService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSetting:
         """
         Update fields on an existing CollectionSetting.
@@ -686,8 +666,8 @@ class CollectionSettingService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "CollectionSettingService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSetting:
         """
         Update fields on an existing CollectionSetting.

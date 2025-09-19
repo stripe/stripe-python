@@ -8,7 +8,6 @@ from stripe.v2 import (
     core as core,
     money_management as money_management,
     payments as payments,
-    reporting as reporting,
     tax as tax,
     test_helpers as test_helpers,
 )
@@ -27,7 +26,6 @@ from stripe.v2._money_management_service import (
     MoneyManagementService as MoneyManagementService,
 )
 from stripe.v2._payment_service import PaymentService as PaymentService
-from stripe.v2._reporting_service import ReportingService as ReportingService
 from stripe.v2._tax_service import TaxService as TaxService
 from stripe.v2._test_helper_service import (
     TestHelperService as TestHelperService,

@@ -74,10 +74,7 @@ class IntentAction(StripeObject):
             The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
             """
             type: Literal[
-                "current_billing_period_end",
-                "current_billing_period_start",
-                "on_reserve",
-                "timestamp",
+                "current_billing_period_start", "on_reserve", "timestamp"
             ]
             """
             When the deactivate action will take effect.

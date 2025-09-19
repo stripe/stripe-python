@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.terminal._onboarding_link import OnboardingLink
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -47,7 +47,7 @@ class OnboardingLinkService(StripeService):
     def create(
         self,
         params: "OnboardingLinkService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OnboardingLink:
         """
         Creates a new OnboardingLink object that contains a redirect_url used for onboarding onto Tap to Pay on iPhone.
@@ -66,7 +66,7 @@ class OnboardingLinkService(StripeService):
     async def create_async(
         self,
         params: "OnboardingLinkService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OnboardingLink:
         """
         Creates a new OnboardingLink object that contains a redirect_url used for onboarding onto Tap to Pay on iPhone.

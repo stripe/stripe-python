@@ -6,7 +6,7 @@ from stripe._util import sanitize_id
 from stripe.treasury._financial_account_features import (
     FinancialAccountFeatures,
 )
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 

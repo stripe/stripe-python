@@ -1182,14 +1182,6 @@ class Card(
         """
         The currency for the card.
         """
-        exp_month: NotRequired[int]
-        """
-        The desired expiration month (1-12) for this card if [specifying a custom expiration date](https://docs.stripe.com/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
-        """
-        exp_year: NotRequired[int]
-        """
-        The desired 4-digit expiration year for this card if [specifying a custom expiration date](https://docs.stripe.com/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
-        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.

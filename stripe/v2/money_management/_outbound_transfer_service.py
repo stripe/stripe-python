@@ -6,7 +6,7 @@ from stripe._util import sanitize_id
 from stripe.v2._amount import AmountParam
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._outbound_transfer import OutboundTransfer
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -121,8 +121,8 @@ class OutboundTransferService(StripeService):
 
     def list(
         self,
-        params: "OutboundTransferService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundTransferService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[OutboundTransfer]:
         """
         Returns a list of OutboundTransfers that match the provided filters.
@@ -140,8 +140,8 @@ class OutboundTransferService(StripeService):
 
     async def list_async(
         self,
-        params: "OutboundTransferService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundTransferService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[OutboundTransfer]:
         """
         Returns a list of OutboundTransfers that match the provided filters.
@@ -160,7 +160,7 @@ class OutboundTransferService(StripeService):
     def create(
         self,
         params: "OutboundTransferService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Creates an OutboundTransfer.
@@ -179,7 +179,7 @@ class OutboundTransferService(StripeService):
     async def create_async(
         self,
         params: "OutboundTransferService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Creates an OutboundTransfer.
@@ -198,8 +198,8 @@ class OutboundTransferService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "OutboundTransferService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundTransferService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundPayment create or list response.
@@ -220,8 +220,8 @@ class OutboundTransferService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "OutboundTransferService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundTransferService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundPayment create or list response.
@@ -242,8 +242,8 @@ class OutboundTransferService(StripeService):
     def cancel(
         self,
         id: str,
-        params: "OutboundTransferService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundTransferService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Cancels an OutboundTransfer. Only processing OutboundTransfers can be canceled.
@@ -264,8 +264,8 @@ class OutboundTransferService(StripeService):
     async def cancel_async(
         self,
         id: str,
-        params: "OutboundTransferService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundTransferService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundTransfer:
         """
         Cancels an OutboundTransfer. Only processing OutboundTransfers can be canceled.

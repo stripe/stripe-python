@@ -239,8 +239,8 @@ class SessionService(StripeService):
 
     def create(
         self,
-        params: "SessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Creates a session of the customer portal.
@@ -258,8 +258,8 @@ class SessionService(StripeService):
 
     async def create_async(
         self,
-        params: "SessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Creates a session of the customer portal.

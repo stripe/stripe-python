@@ -9,7 +9,7 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -14752,7 +14752,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: "PaymentIntentService.DecrementAuthorizationParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Perform a decremental authorization on an eligible
@@ -14789,7 +14789,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: "PaymentIntentService.DecrementAuthorizationParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Perform a decremental authorization on an eligible
@@ -14964,7 +14964,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: "PaymentIntentService.TriggerActionParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Trigger an external action on a PaymentIntent.
@@ -14986,7 +14986,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: "PaymentIntentService.TriggerActionParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Trigger an external action on a PaymentIntent.

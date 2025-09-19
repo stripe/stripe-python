@@ -3,7 +3,7 @@
 from stripe._account_session import AccountSession
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 

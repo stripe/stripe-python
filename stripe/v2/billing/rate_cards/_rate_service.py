@@ -3,9 +3,10 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
+from stripe.v2._deleted_object import DeletedObject
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._rate_card_rate import RateCardRate
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -115,8 +116,8 @@ class RateService(StripeService):
     def list(
         self,
         rate_card_id: str,
-        params: "RateService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[RateCardRate]:
         """
         List all Rates associated with a Rate Card for a specific version (defaults to latest). Rates remain active for all subsequent versions until a new rate is created for the same Metered Item.
@@ -137,8 +138,8 @@ class RateService(StripeService):
     async def list_async(
         self,
         rate_card_id: str,
-        params: "RateService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[RateCardRate]:
         """
         List all Rates associated with a Rate Card for a specific version (defaults to latest). Rates remain active for all subsequent versions until a new rate is created for the same Metered Item.
@@ -159,8 +160,8 @@ class RateService(StripeService):
     def create(
         self,
         rate_card_id: str,
-        params: "RateService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCardRate:
         """
         Set the Rate for a Metered Item on the latest version of a Rate Card object. This will create a new Rate Card version
@@ -182,8 +183,8 @@ class RateService(StripeService):
     async def create_async(
         self,
         rate_card_id: str,
-        params: "RateService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCardRate:
         """
         Set the Rate for a Metered Item on the latest version of a Rate Card object. This will create a new Rate Card version
@@ -206,14 +207,14 @@ class RateService(StripeService):
         self,
         rate_card_id: str,
         id: str,
-        params: "RateService.DeleteParams" = {},
-        options: RequestOptions = {},
-    ) -> RateCardRate:
+        params: Optional["RateService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> DeletedObject:
         """
         Remove an existing Rate from a Rate Card. This will create a new Rate Card Version without that Rate.
         """
         return cast(
-            RateCardRate,
+            DeletedObject,
             self._request(
                 "delete",
                 "/v2/billing/rate_cards/{rate_card_id}/rates/{id}".format(
@@ -230,14 +231,14 @@ class RateService(StripeService):
         self,
         rate_card_id: str,
         id: str,
-        params: "RateService.DeleteParams" = {},
-        options: RequestOptions = {},
-    ) -> RateCardRate:
+        params: Optional["RateService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> DeletedObject:
         """
         Remove an existing Rate from a Rate Card. This will create a new Rate Card Version without that Rate.
         """
         return cast(
-            RateCardRate,
+            DeletedObject,
             await self._request_async(
                 "delete",
                 "/v2/billing/rate_cards/{rate_card_id}/rates/{id}".format(
@@ -254,8 +255,8 @@ class RateService(StripeService):
         self,
         rate_card_id: str,
         id: str,
-        params: "RateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCardRate:
         """
         Retrieve a Rate object.
@@ -278,8 +279,8 @@ class RateService(StripeService):
         self,
         rate_card_id: str,
         id: str,
-        params: "RateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCardRate:
         """
         Retrieve a Rate object.

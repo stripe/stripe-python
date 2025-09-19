@@ -7,7 +7,7 @@ from stripe.v2._list_object import ListObject
 from stripe.v2.billing._pricing_plan_subscription import (
     PricingPlanSubscription,
 )
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -55,8 +55,8 @@ class PricingPlanSubscriptionService(StripeService):
 
     def list(
         self,
-        params: "PricingPlanSubscriptionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PricingPlanSubscriptionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PricingPlanSubscription]:
         """
         List all Pricing Plan Subscription objects.
@@ -74,8 +74,8 @@ class PricingPlanSubscriptionService(StripeService):
 
     async def list_async(
         self,
-        params: "PricingPlanSubscriptionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PricingPlanSubscriptionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PricingPlanSubscription]:
         """
         List all Pricing Plan Subscription objects.
@@ -94,8 +94,10 @@ class PricingPlanSubscriptionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "PricingPlanSubscriptionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PricingPlanSubscriptionService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PricingPlanSubscription:
         """
         Retrieve a Pricing Plan Subscription object.
@@ -116,8 +118,10 @@ class PricingPlanSubscriptionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "PricingPlanSubscriptionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PricingPlanSubscriptionService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PricingPlanSubscription:
         """
         Retrieve a Pricing Plan Subscription object.
