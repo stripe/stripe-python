@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._received_credit import ReceivedCredit
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -46,8 +46,8 @@ class ReceivedCreditService(StripeService):
 
     def list(
         self,
-        params: "ReceivedCreditService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReceivedCreditService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReceivedCredit]:
         """
         Retrieves a list of ReceivedCredits.
@@ -65,8 +65,8 @@ class ReceivedCreditService(StripeService):
 
     async def list_async(
         self,
-        params: "ReceivedCreditService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReceivedCreditService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReceivedCredit]:
         """
         Retrieves a list of ReceivedCredits.
@@ -85,8 +85,8 @@ class ReceivedCreditService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ReceivedCreditService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReceivedCreditService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedCredit:
         """
         Retrieve a ReceivedCredit by ID.
@@ -107,8 +107,8 @@ class ReceivedCreditService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ReceivedCreditService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReceivedCreditService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedCredit:
         """
         Retrieve a ReceivedCredit by ID.

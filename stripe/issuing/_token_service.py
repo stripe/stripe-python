@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._token import Token
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -77,7 +77,9 @@ class TokenService(StripeService):
         """
 
     def list(
-        self, params: "TokenService.ListParams", options: RequestOptions = {}
+        self,
+        params: "TokenService.ListParams",
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Token]:
         """
         Lists all Issuing Token objects for a given card.
@@ -94,7 +96,9 @@ class TokenService(StripeService):
         )
 
     async def list_async(
-        self, params: "TokenService.ListParams", options: RequestOptions = {}
+        self,
+        params: "TokenService.ListParams",
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Token]:
         """
         Lists all Issuing Token objects for a given card.
@@ -113,8 +117,8 @@ class TokenService(StripeService):
     def retrieve(
         self,
         token: str,
-        params: "TokenService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TokenService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Token:
         """
         Retrieves an Issuing Token object.
@@ -133,8 +137,8 @@ class TokenService(StripeService):
     async def retrieve_async(
         self,
         token: str,
-        params: "TokenService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TokenService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Token:
         """
         Retrieves an Issuing Token object.
@@ -154,7 +158,7 @@ class TokenService(StripeService):
         self,
         token: str,
         params: "TokenService.UpdateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Token:
         """
         Attempts to update the specified Issuing Token object to the status specified.
@@ -174,7 +178,7 @@ class TokenService(StripeService):
         self,
         token: str,
         params: "TokenService.UpdateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Token:
         """
         Attempts to update the specified Issuing Token object to the status specified.

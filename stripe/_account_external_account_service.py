@@ -6,7 +6,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -206,8 +206,8 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountExternalAccountService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Delete a specified external account for a given account.
@@ -230,8 +230,8 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountExternalAccountService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Delete a specified external account for a given account.
@@ -254,8 +254,10 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "AccountExternalAccountService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Retrieve a specified external account for a given account.
@@ -278,8 +280,10 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "AccountExternalAccountService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Retrieve a specified external account for a given account.
@@ -302,8 +306,8 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountExternalAccountService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Updates the metadata, account holder name, account holder type of a bank account belonging to
@@ -333,8 +337,8 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         id: str,
-        params: "AccountExternalAccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountExternalAccountService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Updates the metadata, account holder name, account holder type of a bank account belonging to
@@ -363,8 +367,8 @@ class AccountExternalAccountService(StripeService):
     def list(
         self,
         account: str,
-        params: "AccountExternalAccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountExternalAccountService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Union[BankAccount, Card]]:
         """
         List external accounts for an account.
@@ -385,8 +389,8 @@ class AccountExternalAccountService(StripeService):
     async def list_async(
         self,
         account: str,
-        params: "AccountExternalAccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountExternalAccountService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Union[BankAccount, Card]]:
         """
         List external accounts for an account.
@@ -408,7 +412,7 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         params: "AccountExternalAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Create an external account for a given account.
@@ -430,7 +434,7 @@ class AccountExternalAccountService(StripeService):
         self,
         account: str,
         params: "AccountExternalAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Union[BankAccount, Card]:
         """
         Create an external account for a given account.

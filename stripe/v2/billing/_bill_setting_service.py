@@ -6,7 +6,7 @@ from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._bill_setting import BillSetting
 from stripe.v2.billing.bill_settings._version_service import VersionService
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -147,8 +147,8 @@ class BillSettingService(StripeService):
 
     def list(
         self,
-        params: "BillSettingService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BillSettingService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[BillSetting]:
         """
         List all BillSetting objects.
@@ -166,8 +166,8 @@ class BillSettingService(StripeService):
 
     async def list_async(
         self,
-        params: "BillSettingService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BillSettingService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[BillSetting]:
         """
         List all BillSetting objects.
@@ -185,8 +185,8 @@ class BillSettingService(StripeService):
 
     def create(
         self,
-        params: "BillSettingService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BillSettingService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BillSetting:
         """
         Create a BillSetting object.
@@ -204,8 +204,8 @@ class BillSettingService(StripeService):
 
     async def create_async(
         self,
-        params: "BillSettingService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BillSettingService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BillSetting:
         """
         Create a BillSetting object.
@@ -224,8 +224,8 @@ class BillSettingService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "BillSettingService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BillSettingService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BillSetting:
         """
         Retrieve a BillSetting object by ID.
@@ -244,8 +244,8 @@ class BillSettingService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "BillSettingService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BillSettingService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BillSetting:
         """
         Retrieve a BillSetting object by ID.
@@ -264,8 +264,8 @@ class BillSettingService(StripeService):
     def update(
         self,
         id: str,
-        params: "BillSettingService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BillSettingService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BillSetting:
         """
         Update fields on an existing BillSetting object.
@@ -284,8 +284,8 @@ class BillSettingService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "BillSettingService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BillSettingService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BillSetting:
         """
         Update fields on an existing BillSetting object.

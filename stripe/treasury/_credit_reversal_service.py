@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._credit_reversal import CreditReversal
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -63,7 +63,7 @@ class CreditReversalService(StripeService):
     def list(
         self,
         params: "CreditReversalService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditReversal]:
         """
         Returns a list of CreditReversals.
@@ -82,7 +82,7 @@ class CreditReversalService(StripeService):
     async def list_async(
         self,
         params: "CreditReversalService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditReversal]:
         """
         Returns a list of CreditReversals.
@@ -101,7 +101,7 @@ class CreditReversalService(StripeService):
     def create(
         self,
         params: "CreditReversalService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditReversal:
         """
         Reverses a ReceivedCredit and creates a CreditReversal object.
@@ -120,7 +120,7 @@ class CreditReversalService(StripeService):
     async def create_async(
         self,
         params: "CreditReversalService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditReversal:
         """
         Reverses a ReceivedCredit and creates a CreditReversal object.
@@ -139,8 +139,8 @@ class CreditReversalService(StripeService):
     def retrieve(
         self,
         credit_reversal: str,
-        params: "CreditReversalService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CreditReversalService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditReversal:
         """
         Retrieves the details of an existing CreditReversal by passing the unique CreditReversal ID from either the CreditReversal creation request or CreditReversal list
@@ -161,8 +161,8 @@ class CreditReversalService(StripeService):
     async def retrieve_async(
         self,
         credit_reversal: str,
-        params: "CreditReversalService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CreditReversalService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditReversal:
         """
         Retrieves the details of an existing CreditReversal by passing the unique CreditReversal ID from either the CreditReversal creation request or CreditReversal list

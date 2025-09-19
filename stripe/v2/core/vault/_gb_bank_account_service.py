@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2.core.vault._gb_bank_account import GbBankAccount
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -68,7 +68,7 @@ class GbBankAccountService(StripeService):
     def create(
         self,
         params: "GbBankAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
         Create a GB bank account.
@@ -87,7 +87,7 @@ class GbBankAccountService(StripeService):
     async def create_async(
         self,
         params: "GbBankAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
         Create a GB bank account.
@@ -106,8 +106,8 @@ class GbBankAccountService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "GbBankAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["GbBankAccountService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
         Retrieve a GB bank account.
@@ -128,8 +128,8 @@ class GbBankAccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "GbBankAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["GbBankAccountService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
         Retrieve a GB bank account.
@@ -150,8 +150,10 @@ class GbBankAccountService(StripeService):
     def acknowledge_confirmation_of_payee(
         self,
         id: str,
-        params: "GbBankAccountService.AcknowledgeConfirmationOfPayeeParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "GbBankAccountService.AcknowledgeConfirmationOfPayeeParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
         Confirm that you have received the result of the Confirmation of Payee request, and that you are okay with
@@ -175,8 +177,10 @@ class GbBankAccountService(StripeService):
     async def acknowledge_confirmation_of_payee_async(
         self,
         id: str,
-        params: "GbBankAccountService.AcknowledgeConfirmationOfPayeeParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "GbBankAccountService.AcknowledgeConfirmationOfPayeeParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
         Confirm that you have received the result of the Confirmation of Payee request, and that you are okay with
@@ -200,8 +204,8 @@ class GbBankAccountService(StripeService):
     def archive(
         self,
         id: str,
-        params: "GbBankAccountService.ArchiveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["GbBankAccountService.ArchiveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
         Archive a GBBankAccount object. Archived GBBankAccount objects cannot be used as outbound destinations
@@ -223,8 +227,8 @@ class GbBankAccountService(StripeService):
     async def archive_async(
         self,
         id: str,
-        params: "GbBankAccountService.ArchiveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["GbBankAccountService.ArchiveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
         Archive a GBBankAccount object. Archived GBBankAccount objects cannot be used as outbound destinations
@@ -246,8 +250,10 @@ class GbBankAccountService(StripeService):
     def initiate_confirmation_of_payee(
         self,
         id: str,
-        params: "GbBankAccountService.InitiateConfirmationOfPayeeParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "GbBankAccountService.InitiateConfirmationOfPayeeParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
         Initiate Confirmation of Payee (CoP) in order to verify that the owner of a UK bank account matches
@@ -271,8 +277,10 @@ class GbBankAccountService(StripeService):
     async def initiate_confirmation_of_payee_async(
         self,
         id: str,
-        params: "GbBankAccountService.InitiateConfirmationOfPayeeParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "GbBankAccountService.InitiateConfirmationOfPayeeParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
         Initiate Confirmation of Payee (CoP) in order to verify that the owner of a UK bank account matches

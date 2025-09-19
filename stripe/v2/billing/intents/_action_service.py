@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._intent_action import IntentAction
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -22,8 +22,8 @@ class ActionService(StripeService):
     def list(
         self,
         intent_id: str,
-        params: "ActionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ActionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[IntentAction]:
         """
         List Billing Intent Actions.
@@ -44,8 +44,8 @@ class ActionService(StripeService):
     async def list_async(
         self,
         intent_id: str,
-        params: "ActionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ActionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[IntentAction]:
         """
         List Billing Intent Actions.
@@ -67,8 +67,8 @@ class ActionService(StripeService):
         self,
         intent_id: str,
         id: str,
-        params: "ActionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ActionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> IntentAction:
         """
         Retrieve a Billing Intent Action.
@@ -91,8 +91,8 @@ class ActionService(StripeService):
         self,
         intent_id: str,
         id: str,
-        params: "ActionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ActionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> IntentAction:
         """
         Retrieve a Billing Intent Action.

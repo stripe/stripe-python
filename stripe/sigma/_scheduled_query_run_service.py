@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.sigma._scheduled_query_run import ScheduledQueryRun
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -36,8 +36,8 @@ class ScheduledQueryRunService(StripeService):
 
     def list(
         self,
-        params: "ScheduledQueryRunService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ScheduledQueryRunService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ScheduledQueryRun]:
         """
         Returns a list of scheduled query runs.
@@ -55,8 +55,8 @@ class ScheduledQueryRunService(StripeService):
 
     async def list_async(
         self,
-        params: "ScheduledQueryRunService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ScheduledQueryRunService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ScheduledQueryRun]:
         """
         Returns a list of scheduled query runs.
@@ -75,8 +75,8 @@ class ScheduledQueryRunService(StripeService):
     def retrieve(
         self,
         scheduled_query_run: str,
-        params: "ScheduledQueryRunService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ScheduledQueryRunService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ScheduledQueryRun:
         """
         Retrieves the details of an scheduled query run.
@@ -97,8 +97,8 @@ class ScheduledQueryRunService(StripeService):
     async def retrieve_async(
         self,
         scheduled_query_run: str,
-        params: "ScheduledQueryRunService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ScheduledQueryRunService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ScheduledQueryRun:
         """
         Retrieves the details of an scheduled query run.

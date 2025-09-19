@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.climate._product import Product
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -36,8 +36,8 @@ class ProductService(StripeService):
 
     def list(
         self,
-        params: "ProductService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Product]:
         """
         Lists all available Climate product objects.
@@ -55,8 +55,8 @@ class ProductService(StripeService):
 
     async def list_async(
         self,
-        params: "ProductService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Product]:
         """
         Lists all available Climate product objects.
@@ -75,8 +75,8 @@ class ProductService(StripeService):
     def retrieve(
         self,
         product: str,
-        params: "ProductService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Product:
         """
         Retrieves the details of a Climate product with the given ID.
@@ -97,8 +97,8 @@ class ProductService(StripeService):
     async def retrieve_async(
         self,
         product: str,
-        params: "ProductService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Product:
         """
         Retrieves the details of a Climate product with the given ID.

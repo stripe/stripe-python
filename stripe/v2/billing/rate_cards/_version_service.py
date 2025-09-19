@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._rate_card_version import RateCardVersion
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -22,8 +22,8 @@ class VersionService(StripeService):
     def list(
         self,
         rate_card_id: str,
-        params: "VersionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[RateCardVersion]:
         """
         List the versions of a Rate Card object. Results are sorted in reverse chronological order (most recent first).
@@ -44,8 +44,8 @@ class VersionService(StripeService):
     async def list_async(
         self,
         rate_card_id: str,
-        params: "VersionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[RateCardVersion]:
         """
         List the versions of a Rate Card object. Results are sorted in reverse chronological order (most recent first).
@@ -67,8 +67,8 @@ class VersionService(StripeService):
         self,
         rate_card_id: str,
         id: str,
-        params: "VersionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCardVersion:
         """
         Retrieve a specific version of a Rate Card object.
@@ -91,8 +91,8 @@ class VersionService(StripeService):
         self,
         rate_card_id: str,
         id: str,
-        params: "VersionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCardVersion:
         """
         Retrieve a specific version of a Rate Card object.

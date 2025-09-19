@@ -4,7 +4,7 @@ from stripe._login_link import LoginLink
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -18,8 +18,8 @@ class AccountLoginLinkService(StripeService):
     def create(
         self,
         account: str,
-        params: "AccountLoginLinkService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountLoginLinkService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> LoginLink:
         """
         Creates a login link for a connected account to access the Express Dashboard.
@@ -42,8 +42,8 @@ class AccountLoginLinkService(StripeService):
     async def create_async(
         self,
         account: str,
-        params: "AccountLoginLinkService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountLoginLinkService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> LoginLink:
         """
         Creates a login link for a connected account to access the Express Dashboard.

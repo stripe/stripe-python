@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._bill_setting_version import BillSettingVersion
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -22,8 +22,8 @@ class VersionService(StripeService):
     def list(
         self,
         bill_setting_id: str,
-        params: "VersionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[BillSettingVersion]:
         """
         List all BillSettingVersions by BillSetting ID.
@@ -44,8 +44,8 @@ class VersionService(StripeService):
     async def list_async(
         self,
         bill_setting_id: str,
-        params: "VersionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[BillSettingVersion]:
         """
         List all BillSettingVersions by BillSetting ID.
@@ -67,8 +67,8 @@ class VersionService(StripeService):
         self,
         bill_setting_id: str,
         id: str,
-        params: "VersionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BillSettingVersion:
         """
         Retrieve a BillSettingVersion by ID.
@@ -91,8 +91,8 @@ class VersionService(StripeService):
         self,
         bill_setting_id: str,
         id: str,
-        params: "VersionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BillSettingVersion:
         """
         Retrieve a BillSettingVersion by ID.

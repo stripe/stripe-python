@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.tax._form import Form
-from typing import Any, List, cast
+from typing import Any, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -74,7 +74,9 @@ class FormService(StripeService):
         """
 
     def list(
-        self, params: "FormService.ListParams", options: RequestOptions = {}
+        self,
+        params: "FormService.ListParams",
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Form]:
         """
         Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
@@ -91,7 +93,9 @@ class FormService(StripeService):
         )
 
     async def list_async(
-        self, params: "FormService.ListParams", options: RequestOptions = {}
+        self,
+        params: "FormService.ListParams",
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Form]:
         """
         Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
@@ -110,8 +114,8 @@ class FormService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "FormService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FormService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Form:
         """
         Retrieves the details of a tax form that has previously been created. Supply the unique tax form ID that was returned from your previous request, and Stripe will return the corresponding tax form information.
@@ -130,8 +134,8 @@ class FormService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "FormService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FormService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Form:
         """
         Retrieves the details of a tax form that has previously been created. Supply the unique tax form ID that was returned from your previous request, and Stripe will return the corresponding tax form information.
@@ -150,8 +154,8 @@ class FormService(StripeService):
     def pdf(
         self,
         id: str,
-        params: "FormService.PdfParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FormService.PdfParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Any:
         """
         Download the PDF for a tax form.
@@ -170,8 +174,8 @@ class FormService(StripeService):
     async def pdf_async(
         self,
         id: str,
-        params: "FormService.PdfParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FormService.PdfParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Any:
         """
         Download the PDF for a tax form.

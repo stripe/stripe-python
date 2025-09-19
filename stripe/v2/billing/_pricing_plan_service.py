@@ -89,8 +89,8 @@ class PricingPlanService(StripeService):
 
     def list(
         self,
-        params: "PricingPlanService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PricingPlanService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PricingPlan]:
         """
         List all Pricing Plan objects.
@@ -108,8 +108,8 @@ class PricingPlanService(StripeService):
 
     async def list_async(
         self,
-        params: "PricingPlanService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PricingPlanService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PricingPlan]:
         """
         List all Pricing Plan objects.
@@ -128,7 +128,7 @@ class PricingPlanService(StripeService):
     def create(
         self,
         params: "PricingPlanService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PricingPlan:
         """
         Create a Pricing Plan object.
@@ -147,7 +147,7 @@ class PricingPlanService(StripeService):
     async def create_async(
         self,
         params: "PricingPlanService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PricingPlan:
         """
         Create a Pricing Plan object.
@@ -166,8 +166,8 @@ class PricingPlanService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "PricingPlanService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PricingPlanService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PricingPlan:
         """
         Retrieve a Pricing Plan object.
@@ -186,8 +186,8 @@ class PricingPlanService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "PricingPlanService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PricingPlanService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PricingPlan:
         """
         Retrieve a Pricing Plan object.
@@ -206,8 +206,8 @@ class PricingPlanService(StripeService):
     def update(
         self,
         id: str,
-        params: "PricingPlanService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PricingPlanService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PricingPlan:
         """
         Update a Pricing Plan object.
@@ -226,8 +226,8 @@ class PricingPlanService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "PricingPlanService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PricingPlanService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PricingPlan:
         """
         Update a Pricing Plan object.

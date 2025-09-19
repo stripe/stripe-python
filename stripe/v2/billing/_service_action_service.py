@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._amount import AmountParam
 from stripe.v2.billing._service_action import ServiceAction
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -51,10 +51,6 @@ class ServiceActionService(StripeService):
         """
         Defines the scope where the credit grant is applicable.
         """
-        category: NotRequired[Literal["paid", "promotional"]]
-        """
-        The category of the credit grant.
-        """
         expiry_config: (
             "ServiceActionService.CreateParamsCreditGrantExpiryConfig"
         )
@@ -64,10 +60,6 @@ class ServiceActionService(StripeService):
         name: str
         """
         A descriptive name shown in dashboard.
-        """
-        priority: NotRequired[int]
-        """
-        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
         """
 
     class CreateParamsCreditGrantAmount(TypedDict):
@@ -127,10 +119,6 @@ class ServiceActionService(StripeService):
         """
         Defines the scope where the credit grant is applicable.
         """
-        category: NotRequired[Literal["paid", "promotional"]]
-        """
-        The category of the credit grant.
-        """
         expiry_config: (
             "ServiceActionService.CreateParamsCreditGrantPerTenantExpiryConfig"
         )
@@ -144,10 +132,6 @@ class ServiceActionService(StripeService):
         name: str
         """
         Customer-facing name for the credit grant.
-        """
-        priority: NotRequired[int]
-        """
-        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
         """
 
     class CreateParamsCreditGrantPerTenantAmount(TypedDict):
@@ -252,7 +236,7 @@ class ServiceActionService(StripeService):
     def create(
         self,
         params: "ServiceActionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
         Create a Service Action object.
@@ -271,7 +255,7 @@ class ServiceActionService(StripeService):
     async def create_async(
         self,
         params: "ServiceActionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
         Create a Service Action object.
@@ -290,8 +274,8 @@ class ServiceActionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ServiceActionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ServiceActionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
         Retrieve a Service Action object.
@@ -310,8 +294,8 @@ class ServiceActionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ServiceActionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ServiceActionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
         Retrieve a Service Action object.

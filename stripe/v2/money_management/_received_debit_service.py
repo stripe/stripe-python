@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._received_debit import ReceivedDebit
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -21,8 +21,8 @@ class ReceivedDebitService(StripeService):
 
     def list(
         self,
-        params: "ReceivedDebitService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReceivedDebitService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReceivedDebit]:
         """
         Retrieves a list of ReceivedDebits, given the selected filters.
@@ -40,8 +40,8 @@ class ReceivedDebitService(StripeService):
 
     async def list_async(
         self,
-        params: "ReceivedDebitService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReceivedDebitService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReceivedDebit]:
         """
         Retrieves a list of ReceivedDebits, given the selected filters.
@@ -60,8 +60,8 @@ class ReceivedDebitService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ReceivedDebitService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReceivedDebitService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedDebit:
         """
         Retrieves a single ReceivedDebit by ID.
@@ -82,8 +82,8 @@ class ReceivedDebitService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ReceivedDebitService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReceivedDebitService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedDebit:
         """
         Retrieves a single ReceivedDebit by ID.

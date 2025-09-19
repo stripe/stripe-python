@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._shipping_rate import ShippingRate
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -220,8 +220,8 @@ class ShippingRateService(StripeService):
 
     def list(
         self,
-        params: "ShippingRateService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ShippingRateService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ShippingRate]:
         """
         Returns a list of your shipping rates.
@@ -239,8 +239,8 @@ class ShippingRateService(StripeService):
 
     async def list_async(
         self,
-        params: "ShippingRateService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ShippingRateService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ShippingRate]:
         """
         Returns a list of your shipping rates.
@@ -259,7 +259,7 @@ class ShippingRateService(StripeService):
     def create(
         self,
         params: "ShippingRateService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
         Creates a new shipping rate object.
@@ -278,7 +278,7 @@ class ShippingRateService(StripeService):
     async def create_async(
         self,
         params: "ShippingRateService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
         Creates a new shipping rate object.
@@ -297,8 +297,8 @@ class ShippingRateService(StripeService):
     def retrieve(
         self,
         shipping_rate_token: str,
-        params: "ShippingRateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ShippingRateService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
         Returns the shipping rate object with the given ID.
@@ -319,8 +319,8 @@ class ShippingRateService(StripeService):
     async def retrieve_async(
         self,
         shipping_rate_token: str,
-        params: "ShippingRateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ShippingRateService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
         Returns the shipping rate object with the given ID.
@@ -341,8 +341,8 @@ class ShippingRateService(StripeService):
     def update(
         self,
         shipping_rate_token: str,
-        params: "ShippingRateService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ShippingRateService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
         Updates an existing shipping rate object.
@@ -363,8 +363,8 @@ class ShippingRateService(StripeService):
     async def update_async(
         self,
         shipping_rate_token: str,
-        params: "ShippingRateService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ShippingRateService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ShippingRate:
         """
         Updates an existing shipping rate object.

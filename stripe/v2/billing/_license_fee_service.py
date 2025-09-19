@@ -125,7 +125,7 @@ class LicenseFeeService(StripeService):
         pass
 
     class UpdateParams(TypedDict):
-        display_name: NotRequired[str]
+        display_name: str
         """
         A customer-facing name for the License Fee.
         This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
@@ -199,7 +199,7 @@ class LicenseFeeService(StripeService):
     def list(
         self,
         params: "LicenseFeeService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[LicenseFee]:
         """
         List all License Fee objects.
@@ -218,7 +218,7 @@ class LicenseFeeService(StripeService):
     async def list_async(
         self,
         params: "LicenseFeeService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[LicenseFee]:
         """
         List all License Fee objects.
@@ -237,7 +237,7 @@ class LicenseFeeService(StripeService):
     def create(
         self,
         params: "LicenseFeeService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> LicenseFee:
         """
         Create a License Fee object.
@@ -256,7 +256,7 @@ class LicenseFeeService(StripeService):
     async def create_async(
         self,
         params: "LicenseFeeService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> LicenseFee:
         """
         Create a License Fee object.
@@ -275,8 +275,8 @@ class LicenseFeeService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "LicenseFeeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["LicenseFeeService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> LicenseFee:
         """
         Retrieve a License Fee object.
@@ -295,8 +295,8 @@ class LicenseFeeService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "LicenseFeeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["LicenseFeeService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> LicenseFee:
         """
         Retrieve a License Fee object.
@@ -315,8 +315,8 @@ class LicenseFeeService(StripeService):
     def update(
         self,
         id: str,
-        params: "LicenseFeeService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "LicenseFeeService.UpdateParams",
+        options: Optional[RequestOptions] = None,
     ) -> LicenseFee:
         """
         Update a License Fee object.
@@ -335,8 +335,8 @@ class LicenseFeeService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "LicenseFeeService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: "LicenseFeeService.UpdateParams",
+        options: Optional[RequestOptions] = None,
     ) -> LicenseFee:
         """
         Update a License Fee object.

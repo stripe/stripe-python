@@ -75,16 +75,16 @@ class RequestMock(object):
             requestor, method, url, *args, **kwargs
         )
 
-    def stub_request(self, method, url, rbody={}, rcode=200, rheaders={}):
+    def stub_request(self, method, url, rbody=None, rcode=200, rheaders=None):
         self._stub_request_handler.register(
-            method, url, rbody, rcode, rheaders, is_streaming=False
+            method, url, rbody or {}, rcode, rheaders or {}, is_streaming=False
         )
 
     def stub_request_stream(
-        self, method, url, rbody={}, rcode=200, rheaders={}
+        self, method, url, rbody=None, rcode=200, rheaders=None
     ):
         self._stub_request_handler.register(
-            method, url, rbody, rcode, rheaders, is_streaming=True
+            method, url, rbody or {}, rcode, rheaders or {}, is_streaming=True
         )
 
     def assert_api_base(self, expected_api_base):
@@ -230,9 +230,20 @@ class StubRequestHandler(object):
         self._entries = {}
 
     def register(
-        self, method, url, rbody={}, rcode=200, rheaders={}, is_streaming=False
+        self,
+        method,
+        url,
+        rbody=None,
+        rcode=200,
+        rheaders=None,
+        is_streaming=False,
     ):
-        self._entries[(method, url)] = (rbody, rcode, rheaders, is_streaming)
+        self._entries[(method, url)] = (
+            rbody or {},
+            rcode,
+            rheaders or {},
+            is_streaming,
+        )
 
     def get_response(self, method, url, expect_stream=False):
         if (method, url) in self._entries:

@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.forwarding._request import Request
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -112,8 +112,8 @@ class RequestService(StripeService):
 
     def list(
         self,
-        params: "RequestService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RequestService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Request]:
         """
         Lists all ForwardingRequest objects.
@@ -131,8 +131,8 @@ class RequestService(StripeService):
 
     async def list_async(
         self,
-        params: "RequestService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RequestService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Request]:
         """
         Lists all ForwardingRequest objects.
@@ -151,7 +151,7 @@ class RequestService(StripeService):
     def create(
         self,
         params: "RequestService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Request:
         """
         Creates a ForwardingRequest object.
@@ -170,7 +170,7 @@ class RequestService(StripeService):
     async def create_async(
         self,
         params: "RequestService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Request:
         """
         Creates a ForwardingRequest object.
@@ -189,8 +189,8 @@ class RequestService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "RequestService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RequestService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Request:
         """
         Retrieves a ForwardingRequest object.
@@ -209,8 +209,8 @@ class RequestService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "RequestService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RequestService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Request:
         """
         Retrieves a ForwardingRequest object.

@@ -51,13 +51,13 @@ from stripe import StripeClient
 client = StripeClient("sk_test_...")
 
 # list customers
-customers = client.customers.list()
+customers = client.v1.customers.list()
 
 # print the first customer's email
 print(customers.data[0].email)
 
 # retrieve specific Customer
-customer = client.customers.retrieve("cus_123456789")
+customer = client.v1.customers.retrieve("cus_123456789")
 
 # print that customer's email
 print(customer.email)
@@ -89,7 +89,7 @@ from stripe import StripeClient
 client = StripeClient("sk_test_...")
 
 # list customers
-client.customers.list(
+client.v1.customers.list(
     options={
         "api_key": "sk_test_...",
         "stripe_account": "acct_...",
@@ -98,7 +98,7 @@ client.customers.list(
 )
 
 # retrieve single customer
-client.customers.retrieve(
+client.v1.customers.retrieve(
     "cus_123456789",
     options={
         "api_key": "sk_test_...",
@@ -181,7 +181,7 @@ There are a few options for enabling it:
 You can access the HTTP response code and headers using the `last_response` property of the returned resource.
 
 ```python
-customer = client.customers.retrieve(
+customer = client.v1.customers.retrieve(
     "cus_123456789"
 )
 
@@ -248,10 +248,10 @@ be aware that the data you see at runtime may not match the types.
 
 ### Public Preview SDKs
 
-Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `-bX` suffix like `12.2.0b2`.
+Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `bX` suffix like `12.2.0b2`.
 We would love for you to try these as we incrementally release new features and improve them based on your feedback.
 
-To install, choose the version that includes support for the preview feature you are interested in by reviewing the [releases page](https://github.com/stripe/stripe-python/releases/) and then use it in the `pip install` command:
+To install, pick the latest version with the `bX` suffix by reviewing the [releases page](https://github.com/stripe/stripe-python/releases/) and then use it in the `pip install` command:
 
 ```
 pip install stripe==<replace-with-the-version-of-your-choice>
@@ -265,6 +265,9 @@ Some preview features require a name and version to be set in the `Stripe-Versio
 ```python
 stripe.add_beta_version("feature_beta", "v3")
 ```
+### Private Preview SDKs
+
+Stripe has features in the [private preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `aX` suffix like `12.2.0a2`. These are invite-only features. Once invited, you can install the private preview SDKs by following the same instructions as for the [public preview SDKs](https://github.com/stripe/stripe-python?tab=readme-ov-file#public-preview-sdks) above and replacing the suffix `b` with `a` in package versions.
 
 ### Custom requests
 
@@ -288,7 +291,7 @@ with `_async`.
 ```python
 # With StripeClient
 client = StripeClient("sk_test_...")
-customer = await client.customers.retrieve_async("cus_xyz")
+customer = await client.v1.customers.retrieve_async("cus_xyz")
 
 # With global client
 stripe.api_key = "sk_test_..."

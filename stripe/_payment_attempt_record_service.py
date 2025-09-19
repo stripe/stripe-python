@@ -5,7 +5,7 @@ from stripe._payment_attempt_record import PaymentAttemptRecord
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -33,7 +33,7 @@ class PaymentAttemptRecordService(StripeService):
     def list(
         self,
         params: "PaymentAttemptRecordService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentAttemptRecord]:
         """
         List all the Payment Attempt Records attached to the specified Payment Record.
@@ -52,7 +52,7 @@ class PaymentAttemptRecordService(StripeService):
     async def list_async(
         self,
         params: "PaymentAttemptRecordService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentAttemptRecord]:
         """
         List all the Payment Attempt Records attached to the specified Payment Record.
@@ -71,8 +71,8 @@ class PaymentAttemptRecordService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "PaymentAttemptRecordService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentAttemptRecordService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentAttemptRecord:
         """
         Retrieves a Payment Attempt Record with the given ID
@@ -91,8 +91,8 @@ class PaymentAttemptRecordService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "PaymentAttemptRecordService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentAttemptRecordService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentAttemptRecord:
         """
         Retrieves a Payment Attempt Record with the given ID

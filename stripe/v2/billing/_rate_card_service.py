@@ -98,8 +98,8 @@ class RateCardService(StripeService):
 
     def list(
         self,
-        params: "RateCardService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[RateCard]:
         """
         List all Rate Card objects.
@@ -117,8 +117,8 @@ class RateCardService(StripeService):
 
     async def list_async(
         self,
-        params: "RateCardService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[RateCard]:
         """
         List all Rate Card objects.
@@ -137,7 +137,7 @@ class RateCardService(StripeService):
     def create(
         self,
         params: "RateCardService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> RateCard:
         """
         Create a Rate Card object.
@@ -156,7 +156,7 @@ class RateCardService(StripeService):
     async def create_async(
         self,
         params: "RateCardService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> RateCard:
         """
         Create a Rate Card object.
@@ -175,8 +175,8 @@ class RateCardService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "RateCardService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCard:
         """
         Retrieve the latest version of a Rate Card object.
@@ -195,8 +195,8 @@ class RateCardService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "RateCardService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCard:
         """
         Retrieve the latest version of a Rate Card object.
@@ -215,8 +215,8 @@ class RateCardService(StripeService):
     def update(
         self,
         id: str,
-        params: "RateCardService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCard:
         """
         Update a Rate Card object.
@@ -235,8 +235,8 @@ class RateCardService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "RateCardService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RateCardService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RateCard:
         """
         Update a Rate Card object.

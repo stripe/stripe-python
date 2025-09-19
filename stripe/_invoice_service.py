@@ -7,7 +7,7 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -4305,8 +4305,8 @@ class InvoiceService(StripeService):
     def delete(
         self,
         invoice: str,
-        params: "InvoiceService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
@@ -4325,8 +4325,8 @@ class InvoiceService(StripeService):
     async def delete_async(
         self,
         invoice: str,
-        params: "InvoiceService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
@@ -4345,8 +4345,8 @@ class InvoiceService(StripeService):
     def retrieve(
         self,
         invoice: str,
-        params: "InvoiceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Retrieves the invoice with the given ID.
@@ -4365,8 +4365,8 @@ class InvoiceService(StripeService):
     async def retrieve_async(
         self,
         invoice: str,
-        params: "InvoiceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Retrieves the invoice with the given ID.
@@ -4385,8 +4385,8 @@ class InvoiceService(StripeService):
     def update(
         self,
         invoice: str,
-        params: "InvoiceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
@@ -4410,8 +4410,8 @@ class InvoiceService(StripeService):
     async def update_async(
         self,
         invoice: str,
-        params: "InvoiceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
@@ -4434,8 +4434,8 @@ class InvoiceService(StripeService):
 
     def list(
         self,
-        params: "InvoiceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Invoice]:
         """
         You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
@@ -4453,8 +4453,8 @@ class InvoiceService(StripeService):
 
     async def list_async(
         self,
-        params: "InvoiceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Invoice]:
         """
         You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
@@ -4472,8 +4472,8 @@ class InvoiceService(StripeService):
 
     def create(
         self,
-        params: "InvoiceService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
@@ -4491,8 +4491,8 @@ class InvoiceService(StripeService):
 
     async def create_async(
         self,
-        params: "InvoiceService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
@@ -4511,7 +4511,7 @@ class InvoiceService(StripeService):
     def search(
         self,
         params: "InvoiceService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Invoice]:
         """
         Search for invoices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -4533,7 +4533,7 @@ class InvoiceService(StripeService):
     async def search_async(
         self,
         params: "InvoiceService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Invoice]:
         """
         Search for invoices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -4556,7 +4556,7 @@ class InvoiceService(StripeService):
         self,
         invoice: str,
         params: "InvoiceService.AddLinesParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
@@ -4578,7 +4578,7 @@ class InvoiceService(StripeService):
         self,
         invoice: str,
         params: "InvoiceService.AddLinesParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
@@ -4599,8 +4599,8 @@ class InvoiceService(StripeService):
     def attach_payment(
         self,
         invoice: str,
-        params: "InvoiceService.AttachPaymentParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.AttachPaymentParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
@@ -4630,8 +4630,8 @@ class InvoiceService(StripeService):
     async def attach_payment_async(
         self,
         invoice: str,
-        params: "InvoiceService.AttachPaymentParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.AttachPaymentParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
@@ -4661,8 +4661,8 @@ class InvoiceService(StripeService):
     def finalize_invoice(
         self,
         invoice: str,
-        params: "InvoiceService.FinalizeInvoiceParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.FinalizeInvoiceParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -4683,8 +4683,8 @@ class InvoiceService(StripeService):
     async def finalize_invoice_async(
         self,
         invoice: str,
-        params: "InvoiceService.FinalizeInvoiceParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.FinalizeInvoiceParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -4705,8 +4705,8 @@ class InvoiceService(StripeService):
     def mark_uncollectible(
         self,
         invoice: str,
-        params: "InvoiceService.MarkUncollectibleParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.MarkUncollectibleParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -4727,8 +4727,8 @@ class InvoiceService(StripeService):
     async def mark_uncollectible_async(
         self,
         invoice: str,
-        params: "InvoiceService.MarkUncollectibleParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.MarkUncollectibleParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -4749,8 +4749,8 @@ class InvoiceService(StripeService):
     def pay(
         self,
         invoice: str,
-        params: "InvoiceService.PayParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.PayParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -4771,8 +4771,8 @@ class InvoiceService(StripeService):
     async def pay_async(
         self,
         invoice: str,
-        params: "InvoiceService.PayParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.PayParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -4794,7 +4794,7 @@ class InvoiceService(StripeService):
         self,
         invoice: str,
         params: "InvoiceService.RemoveLinesParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
@@ -4816,7 +4816,7 @@ class InvoiceService(StripeService):
         self,
         invoice: str,
         params: "InvoiceService.RemoveLinesParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
@@ -4837,8 +4837,8 @@ class InvoiceService(StripeService):
     def send_invoice(
         self,
         invoice: str,
-        params: "InvoiceService.SendInvoiceParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.SendInvoiceParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -4861,8 +4861,8 @@ class InvoiceService(StripeService):
     async def send_invoice_async(
         self,
         invoice: str,
-        params: "InvoiceService.SendInvoiceParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.SendInvoiceParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -4886,7 +4886,7 @@ class InvoiceService(StripeService):
         self,
         invoice: str,
         params: "InvoiceService.UpdateLinesParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
@@ -4908,7 +4908,7 @@ class InvoiceService(StripeService):
         self,
         invoice: str,
         params: "InvoiceService.UpdateLinesParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
@@ -4929,8 +4929,8 @@ class InvoiceService(StripeService):
     def void_invoice(
         self,
         invoice: str,
-        params: "InvoiceService.VoidInvoiceParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.VoidInvoiceParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -4953,8 +4953,8 @@ class InvoiceService(StripeService):
     async def void_invoice_async(
         self,
         invoice: str,
-        params: "InvoiceService.VoidInvoiceParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.VoidInvoiceParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -4976,8 +4976,8 @@ class InvoiceService(StripeService):
 
     def create_preview(
         self,
-        params: "InvoiceService.CreatePreviewParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.CreatePreviewParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         At any time, you can preview the upcoming invoice for a subscription or subscription schedule. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
@@ -5003,8 +5003,8 @@ class InvoiceService(StripeService):
 
     async def create_preview_async(
         self,
-        params: "InvoiceService.CreatePreviewParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.CreatePreviewParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         At any time, you can preview the upcoming invoice for a subscription or subscription schedule. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.

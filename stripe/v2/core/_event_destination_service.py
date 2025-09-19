@@ -3,6 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
+from stripe.v2._deleted_object import DeletedObject
 from stripe.v2._event import Event
 from stripe.v2._event_destination import EventDestination
 from stripe.v2._list_object import ListObject
@@ -147,8 +148,8 @@ class EventDestinationService(StripeService):
 
     def list(
         self,
-        params: "EventDestinationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventDestinationService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[EventDestination]:
         """
         Lists all event destinations.
@@ -166,8 +167,8 @@ class EventDestinationService(StripeService):
 
     async def list_async(
         self,
-        params: "EventDestinationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventDestinationService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[EventDestination]:
         """
         Lists all event destinations.
@@ -186,7 +187,7 @@ class EventDestinationService(StripeService):
     def create(
         self,
         params: "EventDestinationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Create a new event destination.
@@ -205,7 +206,7 @@ class EventDestinationService(StripeService):
     async def create_async(
         self,
         params: "EventDestinationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Create a new event destination.
@@ -224,14 +225,14 @@ class EventDestinationService(StripeService):
     def delete(
         self,
         id: str,
-        params: "EventDestinationService.DeleteParams" = {},
-        options: RequestOptions = {},
-    ) -> EventDestination:
+        params: Optional["EventDestinationService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> DeletedObject:
         """
         Delete an event destination.
         """
         return cast(
-            EventDestination,
+            DeletedObject,
             self._request(
                 "delete",
                 "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
@@ -244,14 +245,14 @@ class EventDestinationService(StripeService):
     async def delete_async(
         self,
         id: str,
-        params: "EventDestinationService.DeleteParams" = {},
-        options: RequestOptions = {},
-    ) -> EventDestination:
+        params: Optional["EventDestinationService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> DeletedObject:
         """
         Delete an event destination.
         """
         return cast(
-            EventDestination,
+            DeletedObject,
             await self._request_async(
                 "delete",
                 "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
@@ -264,8 +265,8 @@ class EventDestinationService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "EventDestinationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventDestinationService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Retrieves the details of an event destination.
@@ -284,8 +285,8 @@ class EventDestinationService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "EventDestinationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventDestinationService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Retrieves the details of an event destination.
@@ -304,8 +305,8 @@ class EventDestinationService(StripeService):
     def update(
         self,
         id: str,
-        params: "EventDestinationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventDestinationService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Update the details of an event destination.
@@ -324,8 +325,8 @@ class EventDestinationService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "EventDestinationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventDestinationService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Update the details of an event destination.
@@ -344,8 +345,8 @@ class EventDestinationService(StripeService):
     def disable(
         self,
         id: str,
-        params: "EventDestinationService.DisableParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventDestinationService.DisableParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Disable an event destination.
@@ -366,8 +367,8 @@ class EventDestinationService(StripeService):
     async def disable_async(
         self,
         id: str,
-        params: "EventDestinationService.DisableParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventDestinationService.DisableParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Disable an event destination.
@@ -388,8 +389,8 @@ class EventDestinationService(StripeService):
     def enable(
         self,
         id: str,
-        params: "EventDestinationService.EnableParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventDestinationService.EnableParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Enable an event destination.
@@ -410,8 +411,8 @@ class EventDestinationService(StripeService):
     async def enable_async(
         self,
         id: str,
-        params: "EventDestinationService.EnableParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventDestinationService.EnableParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> EventDestination:
         """
         Enable an event destination.
@@ -432,8 +433,8 @@ class EventDestinationService(StripeService):
     def ping(
         self,
         id: str,
-        params: "EventDestinationService.PingParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventDestinationService.PingParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Event:
         """
         Send a `ping` event to an event destination.
@@ -454,8 +455,8 @@ class EventDestinationService(StripeService):
     async def ping_async(
         self,
         id: str,
-        params: "EventDestinationService.PingParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventDestinationService.PingParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Event:
         """
         Send a `ping` event to an event destination.

@@ -7,7 +7,7 @@ from stripe._payment_intent_amount_details_line_item import (
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -33,8 +33,10 @@ class PaymentIntentAmountDetailsLineItemService(StripeService):
     def list(
         self,
         intent: str,
-        params: "PaymentIntentAmountDetailsLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentIntentAmountDetailsLineItemService.ListParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentIntentAmountDetailsLineItem]:
         """
         Lists all LineItems of a given PaymentIntent.
@@ -55,8 +57,10 @@ class PaymentIntentAmountDetailsLineItemService(StripeService):
     async def list_async(
         self,
         intent: str,
-        params: "PaymentIntentAmountDetailsLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentIntentAmountDetailsLineItemService.ListParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentIntentAmountDetailsLineItem]:
         """
         Lists all LineItems of a given PaymentIntent.

@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -62,8 +62,8 @@ class ApplicationFeeRefundService(StripeService):
         self,
         fee: str,
         id: str,
-        params: "ApplicationFeeRefundService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ApplicationFeeRefundService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ApplicationFeeRefund:
         """
         By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.
@@ -86,8 +86,8 @@ class ApplicationFeeRefundService(StripeService):
         self,
         fee: str,
         id: str,
-        params: "ApplicationFeeRefundService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ApplicationFeeRefundService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ApplicationFeeRefund:
         """
         By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.
@@ -110,8 +110,8 @@ class ApplicationFeeRefundService(StripeService):
         self,
         fee: str,
         id: str,
-        params: "ApplicationFeeRefundService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ApplicationFeeRefundService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ApplicationFeeRefund:
         """
         Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -136,8 +136,8 @@ class ApplicationFeeRefundService(StripeService):
         self,
         fee: str,
         id: str,
-        params: "ApplicationFeeRefundService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ApplicationFeeRefundService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ApplicationFeeRefund:
         """
         Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -161,8 +161,8 @@ class ApplicationFeeRefundService(StripeService):
     def list(
         self,
         id: str,
-        params: "ApplicationFeeRefundService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ApplicationFeeRefundService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplicationFeeRefund]:
         """
         You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
@@ -181,8 +181,8 @@ class ApplicationFeeRefundService(StripeService):
     async def list_async(
         self,
         id: str,
-        params: "ApplicationFeeRefundService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ApplicationFeeRefundService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplicationFeeRefund]:
         """
         You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
@@ -201,8 +201,8 @@ class ApplicationFeeRefundService(StripeService):
     def create(
         self,
         id: str,
-        params: "ApplicationFeeRefundService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ApplicationFeeRefundService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ApplicationFeeRefund:
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -229,8 +229,8 @@ class ApplicationFeeRefundService(StripeService):
     async def create_async(
         self,
         id: str,
-        params: "ApplicationFeeRefundService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ApplicationFeeRefundService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ApplicationFeeRefund:
         """
         Refunds an application fee that has previously been collected but not yet refunded.

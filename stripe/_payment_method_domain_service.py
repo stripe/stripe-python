@@ -5,7 +5,7 @@ from stripe._payment_method_domain import PaymentMethodDomain
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -74,8 +74,8 @@ class PaymentMethodDomainService(StripeService):
 
     def list(
         self,
-        params: "PaymentMethodDomainService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodDomainService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethodDomain]:
         """
         Lists the details of existing payment method domains.
@@ -93,8 +93,8 @@ class PaymentMethodDomainService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentMethodDomainService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodDomainService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethodDomain]:
         """
         Lists the details of existing payment method domains.
@@ -113,7 +113,7 @@ class PaymentMethodDomainService(StripeService):
     def create(
         self,
         params: "PaymentMethodDomainService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
         Creates a payment method domain.
@@ -132,7 +132,7 @@ class PaymentMethodDomainService(StripeService):
     async def create_async(
         self,
         params: "PaymentMethodDomainService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
         Creates a payment method domain.
@@ -151,8 +151,8 @@ class PaymentMethodDomainService(StripeService):
     def retrieve(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodDomainService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
         Retrieves the details of an existing payment method domain.
@@ -173,8 +173,8 @@ class PaymentMethodDomainService(StripeService):
     async def retrieve_async(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodDomainService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
         Retrieves the details of an existing payment method domain.
@@ -195,8 +195,8 @@ class PaymentMethodDomainService(StripeService):
     def update(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodDomainService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
         Updates an existing payment method domain.
@@ -217,8 +217,8 @@ class PaymentMethodDomainService(StripeService):
     async def update_async(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodDomainService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
         Updates an existing payment method domain.
@@ -239,8 +239,8 @@ class PaymentMethodDomainService(StripeService):
     def validate(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.ValidateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodDomainService.ValidateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -266,8 +266,8 @@ class PaymentMethodDomainService(StripeService):
     async def validate_async(
         self,
         payment_method_domain: str,
-        params: "PaymentMethodDomainService.ValidateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodDomainService.ValidateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodDomain:
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.

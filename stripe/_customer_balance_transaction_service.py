@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -73,8 +73,10 @@ class CustomerBalanceTransactionService(StripeService):
     def list(
         self,
         customer: str,
-        params: "CustomerBalanceTransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "CustomerBalanceTransactionService.ListParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CustomerBalanceTransaction]:
         """
         Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
@@ -95,8 +97,10 @@ class CustomerBalanceTransactionService(StripeService):
     async def list_async(
         self,
         customer: str,
-        params: "CustomerBalanceTransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "CustomerBalanceTransactionService.ListParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CustomerBalanceTransaction]:
         """
         Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
@@ -118,7 +122,7 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         params: "CustomerBalanceTransactionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
@@ -140,7 +144,7 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         params: "CustomerBalanceTransactionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
@@ -162,8 +166,10 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
-        params: "CustomerBalanceTransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "CustomerBalanceTransactionService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
@@ -186,8 +192,10 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
-        params: "CustomerBalanceTransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "CustomerBalanceTransactionService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
@@ -210,8 +218,10 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
-        params: "CustomerBalanceTransactionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "CustomerBalanceTransactionService.UpdateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
@@ -234,8 +244,10 @@ class CustomerBalanceTransactionService(StripeService):
         self,
         customer: str,
         transaction: str,
-        params: "CustomerBalanceTransactionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "CustomerBalanceTransactionService.UpdateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CustomerBalanceTransaction:
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.

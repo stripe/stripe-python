@@ -100,13 +100,6 @@ class CadenceService(StripeService):
         billed, this will anchor to the last day of the month. If not provided,
         this will default to the day the cadence was created.
         """
-        month_of_year: NotRequired[int]
-        """
-        The month to anchor the billing on for a type="month" billing cycle from
-        1-12. If not provided, this will default to the month the cadence was created.
-        This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
-        All occurrences will be calculated from month provided.
-        """
         time: NotRequired["CadenceService.CreateParamsBillingCycleMonthTime"]
         """
         The time at which the billing cycle ends.
@@ -317,12 +310,12 @@ class CadenceService(StripeService):
         """
 
     class UpdateParamsSettings(TypedDict):
-        bill: NotRequired[Optional["CadenceService.UpdateParamsSettingsBill"]]
+        bill: NotRequired["CadenceService.UpdateParamsSettingsBill"]
         """
         Settings that configure bills generation, which includes calculating totals, tax, and presenting invoices. If null is provided, the current bill settings will be removed from the billing cadence.
         """
         collection: NotRequired[
-            Optional["CadenceService.UpdateParamsSettingsCollection"]
+            "CadenceService.UpdateParamsSettingsCollection"
         ]
         """
         Settings that configure and manage the behavior of collecting payments. If null is provided, the current collection settings will be removed from the billing cadence.
@@ -333,7 +326,7 @@ class CadenceService(StripeService):
         """
         The ID of the referenced settings object.
         """
-        version: NotRequired[Optional[str]]
+        version: NotRequired[str]
         """
         An optional field to specify the version of Settings to use.
         If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
@@ -346,7 +339,7 @@ class CadenceService(StripeService):
         """
         The ID of the referenced settings object.
         """
-        version: NotRequired[Optional[str]]
+        version: NotRequired[str]
         """
         An optional field to specify the version of Settings to use.
         If not provided, this will always default to the `live_version` specified on the setting, any time the settings are used.
@@ -356,8 +349,8 @@ class CadenceService(StripeService):
 
     def list(
         self,
-        params: "CadenceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Cadence]:
         """
         List Billing Cadences.
@@ -375,8 +368,8 @@ class CadenceService(StripeService):
 
     async def list_async(
         self,
-        params: "CadenceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Cadence]:
         """
         List Billing Cadences.
@@ -395,7 +388,7 @@ class CadenceService(StripeService):
     def create(
         self,
         params: "CadenceService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Create a Billing Cadence object.
@@ -414,7 +407,7 @@ class CadenceService(StripeService):
     async def create_async(
         self,
         params: "CadenceService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Create a Billing Cadence object.
@@ -433,8 +426,8 @@ class CadenceService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "CadenceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Retrieve a Billing Cadence object.
@@ -453,8 +446,8 @@ class CadenceService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "CadenceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Retrieve a Billing Cadence object.
@@ -473,8 +466,8 @@ class CadenceService(StripeService):
     def update(
         self,
         id: str,
-        params: "CadenceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Update a Billing Cadence object.
@@ -493,8 +486,8 @@ class CadenceService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "CadenceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Update a Billing Cadence object.
@@ -513,8 +506,8 @@ class CadenceService(StripeService):
     def cancel(
         self,
         id: str,
-        params: "CadenceService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Cancel the Billing Cadence.
@@ -533,8 +526,8 @@ class CadenceService(StripeService):
     async def cancel_async(
         self,
         id: str,
-        params: "CadenceService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Cancel the Billing Cadence.
