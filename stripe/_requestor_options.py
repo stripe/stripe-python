@@ -19,7 +19,7 @@ class RequestorOptions(object):
         stripe_account: Optional[str] = None,
         stripe_context: Optional[str] = None,
         stripe_version: Optional[str] = None,
-        base_addresses: BaseAddresses = {},
+        base_addresses: Optional[BaseAddresses] = None,
         max_network_retries: Optional[int] = None,
     ):
         self.api_key = api_key
@@ -28,18 +28,19 @@ class RequestorOptions(object):
         self.stripe_version = stripe_version
         self.base_addresses = {}
 
-        # Base addresses can be unset (for correct merging).
-        # If they are not set, then we will use default API bases defined on stripe.
-        if base_addresses.get("api"):
-            self.base_addresses["api"] = base_addresses.get("api")
-        if base_addresses.get("connect") is not None:
-            self.base_addresses["connect"] = base_addresses.get("connect")
-        if base_addresses.get("files") is not None:
-            self.base_addresses["files"] = base_addresses.get("files")
-        if base_addresses.get("meter_events") is not None:
-            self.base_addresses["meter_events"] = base_addresses.get(
-                "meter_events"
-            )
+        if base_addresses:
+            # Base addresses can be unset (for correct merging).
+            # If they are not set, then we will use default API bases defined on stripe.
+            if base_addresses.get("api"):
+                self.base_addresses["api"] = base_addresses.get("api")
+            if base_addresses.get("connect") is not None:
+                self.base_addresses["connect"] = base_addresses.get("connect")
+            if base_addresses.get("files") is not None:
+                self.base_addresses["files"] = base_addresses.get("files")
+            if base_addresses.get("meter_events") is not None:
+                self.base_addresses["meter_events"] = base_addresses.get(
+                    "meter_events"
+                )
 
         self.max_network_retries = max_network_retries
 

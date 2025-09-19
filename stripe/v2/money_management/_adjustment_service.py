@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._adjustment import Adjustment
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -50,8 +50,8 @@ class AdjustmentService(StripeService):
 
     def list(
         self,
-        params: "AdjustmentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AdjustmentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Adjustment]:
         """
         Returns a list of Adjustments that match the provided filters.
@@ -69,8 +69,8 @@ class AdjustmentService(StripeService):
 
     async def list_async(
         self,
-        params: "AdjustmentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AdjustmentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Adjustment]:
         """
         Returns a list of Adjustments that match the provided filters.
@@ -89,8 +89,8 @@ class AdjustmentService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "AdjustmentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AdjustmentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Adjustment:
         """
         Retrieves the details of an Adjustment by ID.
@@ -111,8 +111,8 @@ class AdjustmentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "AdjustmentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AdjustmentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Adjustment:
         """
         Retrieves the details of an Adjustment by ID.

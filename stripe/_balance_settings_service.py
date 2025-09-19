@@ -3,7 +3,7 @@
 from stripe._balance_settings import BalanceSettings
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -88,8 +88,8 @@ class BalanceSettingsService(StripeService):
 
     def retrieve(
         self,
-        params: "BalanceSettingsService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BalanceSettingsService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BalanceSettings:
         """
         Retrieves balance settings for a given connected account.
@@ -108,8 +108,8 @@ class BalanceSettingsService(StripeService):
 
     async def retrieve_async(
         self,
-        params: "BalanceSettingsService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BalanceSettingsService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BalanceSettings:
         """
         Retrieves balance settings for a given connected account.
@@ -129,7 +129,7 @@ class BalanceSettingsService(StripeService):
     def update(
         self,
         params: "BalanceSettingsService.UpdateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> BalanceSettings:
         """
         Updates balance settings for a given connected account.
@@ -149,7 +149,7 @@ class BalanceSettingsService(StripeService):
     async def update_async(
         self,
         params: "BalanceSettingsService.UpdateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> BalanceSettings:
         """
         Updates balance settings for a given connected account.

@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -72,8 +72,8 @@ class AccountNoticeService(StripeService):
 
     def list(
         self,
-        params: "AccountNoticeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountNoticeService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[AccountNotice]:
         """
         Retrieves a list of AccountNotice objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
@@ -91,8 +91,8 @@ class AccountNoticeService(StripeService):
 
     async def list_async(
         self,
-        params: "AccountNoticeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountNoticeService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[AccountNotice]:
         """
         Retrieves a list of AccountNotice objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
@@ -111,8 +111,8 @@ class AccountNoticeService(StripeService):
     def retrieve(
         self,
         account_notice: str,
-        params: "AccountNoticeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountNoticeService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> AccountNotice:
         """
         Retrieves an AccountNotice object.
@@ -133,8 +133,8 @@ class AccountNoticeService(StripeService):
     async def retrieve_async(
         self,
         account_notice: str,
-        params: "AccountNoticeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountNoticeService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> AccountNotice:
         """
         Retrieves an AccountNotice object.
@@ -156,7 +156,7 @@ class AccountNoticeService(StripeService):
         self,
         account_notice: str,
         params: "AccountNoticeService.UpdateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> AccountNotice:
         """
         Updates an AccountNotice object.
@@ -178,7 +178,7 @@ class AccountNoticeService(StripeService):
         self,
         account_notice: str,
         params: "AccountNoticeService.UpdateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> AccountNotice:
         """
         Updates an AccountNotice object.

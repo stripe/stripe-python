@@ -5,7 +5,7 @@ from stripe._margin import Margin
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -80,8 +80,8 @@ class MarginService(StripeService):
 
     def list(
         self,
-        params: "MarginService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MarginService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Margin]:
         """
         Retrieve a list of your margins.
@@ -99,8 +99,8 @@ class MarginService(StripeService):
 
     async def list_async(
         self,
-        params: "MarginService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MarginService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Margin]:
         """
         Retrieve a list of your margins.
@@ -119,7 +119,7 @@ class MarginService(StripeService):
     def create(
         self,
         params: "MarginService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Margin:
         """
         Create a margin object to be used with invoices, invoice items, and invoice line items for a customer to represent a partner discount. A margin has a percent_off which is the percent that will be taken off the subtotal after all items and other discounts and promotions) of any invoices for a customer. Calculation of prorations do not include any partner margins applied on the original invoice item.
@@ -138,7 +138,7 @@ class MarginService(StripeService):
     async def create_async(
         self,
         params: "MarginService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Margin:
         """
         Create a margin object to be used with invoices, invoice items, and invoice line items for a customer to represent a partner discount. A margin has a percent_off which is the percent that will be taken off the subtotal after all items and other discounts and promotions) of any invoices for a customer. Calculation of prorations do not include any partner margins applied on the original invoice item.
@@ -157,8 +157,8 @@ class MarginService(StripeService):
     def retrieve(
         self,
         margin: str,
-        params: "MarginService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MarginService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Margin:
         """
         Retrieve a margin object with the given ID.
@@ -179,8 +179,8 @@ class MarginService(StripeService):
     async def retrieve_async(
         self,
         margin: str,
-        params: "MarginService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MarginService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Margin:
         """
         Retrieve a margin object with the given ID.
@@ -201,8 +201,8 @@ class MarginService(StripeService):
     def update(
         self,
         margin: str,
-        params: "MarginService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MarginService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Margin:
         """
         Update the specified margin object. Certain fields of the margin object are not editable.
@@ -223,8 +223,8 @@ class MarginService(StripeService):
     async def update_async(
         self,
         margin: str,
-        params: "MarginService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MarginService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Margin:
         """
         Update the specified margin object. Certain fields of the margin object are not editable.

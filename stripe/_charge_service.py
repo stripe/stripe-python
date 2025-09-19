@@ -6,7 +6,7 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -1777,8 +1777,8 @@ class ChargeService(StripeService):
 
     def list(
         self,
-        params: "ChargeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ChargeService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Charge]:
         """
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
@@ -1796,8 +1796,8 @@ class ChargeService(StripeService):
 
     async def list_async(
         self,
-        params: "ChargeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ChargeService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Charge]:
         """
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
@@ -1815,8 +1815,8 @@ class ChargeService(StripeService):
 
     def create(
         self,
-        params: "ChargeService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ChargeService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
@@ -1836,8 +1836,8 @@ class ChargeService(StripeService):
 
     async def create_async(
         self,
-        params: "ChargeService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ChargeService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
@@ -1858,8 +1858,8 @@ class ChargeService(StripeService):
     def retrieve(
         self,
         charge: str,
-        params: "ChargeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ChargeService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
@@ -1878,8 +1878,8 @@ class ChargeService(StripeService):
     async def retrieve_async(
         self,
         charge: str,
-        params: "ChargeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ChargeService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
@@ -1898,8 +1898,8 @@ class ChargeService(StripeService):
     def update(
         self,
         charge: str,
-        params: "ChargeService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ChargeService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1918,8 +1918,8 @@ class ChargeService(StripeService):
     async def update_async(
         self,
         charge: str,
-        params: "ChargeService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ChargeService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1938,7 +1938,7 @@ class ChargeService(StripeService):
     def search(
         self,
         params: "ChargeService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Charge]:
         """
         Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -1960,7 +1960,7 @@ class ChargeService(StripeService):
     async def search_async(
         self,
         params: "ChargeService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Charge]:
         """
         Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -1982,8 +1982,8 @@ class ChargeService(StripeService):
     def capture(
         self,
         charge: str,
-        params: "ChargeService.CaptureParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ChargeService.CaptureParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -2008,8 +2008,8 @@ class ChargeService(StripeService):
     async def capture_async(
         self,
         charge: str,
-        params: "ChargeService.CaptureParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ChargeService.CaptureParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.

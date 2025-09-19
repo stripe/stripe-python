@@ -4,7 +4,7 @@ from stripe._payment_record import PaymentRecord
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -479,8 +479,8 @@ class PaymentRecordService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "PaymentRecordService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentRecordService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentRecord:
         """
         Retrieves a Payment Record with the given ID
@@ -499,8 +499,8 @@ class PaymentRecordService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "PaymentRecordService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentRecordService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentRecord:
         """
         Retrieves a Payment Record with the given ID
@@ -520,7 +520,7 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordService.ReportPaymentAttemptParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentRecord:
         """
         Report a new payment attempt on the specified Payment Record. A new payment
@@ -543,7 +543,7 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordService.ReportPaymentAttemptParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentRecord:
         """
         Report a new payment attempt on the specified Payment Record. A new payment
@@ -566,7 +566,7 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordService.ReportPaymentAttemptCanceledParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentRecord:
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -589,7 +589,7 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordService.ReportPaymentAttemptCanceledParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentRecord:
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -612,7 +612,7 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordService.ReportPaymentAttemptFailedParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentRecord:
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -635,7 +635,7 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordService.ReportPaymentAttemptFailedParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentRecord:
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -658,7 +658,7 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordService.ReportPaymentAttemptGuaranteedParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentRecord:
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -681,7 +681,7 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordService.ReportPaymentAttemptGuaranteedParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentRecord:
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -703,7 +703,7 @@ class PaymentRecordService(StripeService):
     def report_payment(
         self,
         params: "PaymentRecordService.ReportPaymentParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentRecord:
         """
         Report a new Payment Record. You may report a Payment Record as it is
@@ -724,7 +724,7 @@ class PaymentRecordService(StripeService):
     async def report_payment_async(
         self,
         params: "PaymentRecordService.ReportPaymentParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentRecord:
         """
         Report a new Payment Record. You may report a Payment Record as it is

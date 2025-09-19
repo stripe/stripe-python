@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._token import Token
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -1181,8 +1181,8 @@ class TokenService(StripeService):
     def retrieve(
         self,
         token: str,
-        params: "TokenService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TokenService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Token:
         """
         Retrieves the token with the given ID.
@@ -1201,8 +1201,8 @@ class TokenService(StripeService):
     async def retrieve_async(
         self,
         token: str,
-        params: "TokenService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TokenService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Token:
         """
         Retrieves the token with the given ID.
@@ -1220,8 +1220,8 @@ class TokenService(StripeService):
 
     def create(
         self,
-        params: "TokenService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TokenService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Token:
         """
         Creates a single-use token that represents a bank account's details.
@@ -1240,8 +1240,8 @@ class TokenService(StripeService):
 
     async def create_async(
         self,
-        params: "TokenService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TokenService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Token:
         """
         Creates a single-use token that represents a bank account's details.

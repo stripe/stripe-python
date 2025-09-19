@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.capital._financing_offer import FinancingOffer
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -85,8 +85,8 @@ class FinancingOfferService(StripeService):
 
     def list(
         self,
-        params: "FinancingOfferService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancingOfferService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancingOffer]:
         """
         Retrieves the financing offers available for Connected accounts that belong to your platform.
@@ -104,8 +104,8 @@ class FinancingOfferService(StripeService):
 
     async def list_async(
         self,
-        params: "FinancingOfferService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancingOfferService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancingOffer]:
         """
         Retrieves the financing offers available for Connected accounts that belong to your platform.
@@ -124,8 +124,8 @@ class FinancingOfferService(StripeService):
     def retrieve(
         self,
         financing_offer: str,
-        params: "FinancingOfferService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancingOfferService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancingOffer:
         """
         Get the details of the financing offer
@@ -146,8 +146,8 @@ class FinancingOfferService(StripeService):
     async def retrieve_async(
         self,
         financing_offer: str,
-        params: "FinancingOfferService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancingOfferService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancingOffer:
         """
         Get the details of the financing offer
@@ -168,8 +168,8 @@ class FinancingOfferService(StripeService):
     def mark_delivered(
         self,
         financing_offer: str,
-        params: "FinancingOfferService.MarkDeliveredParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancingOfferService.MarkDeliveredParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancingOffer:
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -191,8 +191,8 @@ class FinancingOfferService(StripeService):
     async def mark_delivered_async(
         self,
         financing_offer: str,
-        params: "FinancingOfferService.MarkDeliveredParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancingOfferService.MarkDeliveredParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancingOffer:
         """
         Acknowledges that platform has received and delivered the financing_offer to

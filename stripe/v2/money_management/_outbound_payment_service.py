@@ -6,7 +6,7 @@ from stripe._util import sanitize_id
 from stripe.v2._amount import AmountParam
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._outbound_payment import OutboundPayment
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -146,8 +146,8 @@ class OutboundPaymentService(StripeService):
 
     def list(
         self,
-        params: "OutboundPaymentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundPaymentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[OutboundPayment]:
         """
         Returns a list of OutboundPayments that match the provided filters.
@@ -165,8 +165,8 @@ class OutboundPaymentService(StripeService):
 
     async def list_async(
         self,
-        params: "OutboundPaymentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundPaymentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[OutboundPayment]:
         """
         Returns a list of OutboundPayments that match the provided filters.
@@ -185,7 +185,7 @@ class OutboundPaymentService(StripeService):
     def create(
         self,
         params: "OutboundPaymentService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Creates an OutboundPayment.
@@ -204,7 +204,7 @@ class OutboundPaymentService(StripeService):
     async def create_async(
         self,
         params: "OutboundPaymentService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Creates an OutboundPayment.
@@ -223,8 +223,8 @@ class OutboundPaymentService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "OutboundPaymentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundPaymentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment create or list response.
@@ -245,8 +245,8 @@ class OutboundPaymentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "OutboundPaymentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundPaymentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment create or list response.
@@ -267,8 +267,8 @@ class OutboundPaymentService(StripeService):
     def cancel(
         self,
         id: str,
-        params: "OutboundPaymentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundPaymentService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Cancels an OutboundPayment. Only processing OutboundPayments can be canceled.
@@ -289,8 +289,8 @@ class OutboundPaymentService(StripeService):
     async def cancel_async(
         self,
         id: str,
-        params: "OutboundPaymentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundPaymentService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
         Cancels an OutboundPayment. Only processing OutboundPayments can be canceled.

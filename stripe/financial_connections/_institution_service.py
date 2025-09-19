@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.financial_connections._institution import Institution
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -36,8 +36,8 @@ class InstitutionService(StripeService):
 
     def list(
         self,
-        params: "InstitutionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InstitutionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Institution]:
         """
         Returns a list of Financial Connections Institution objects.
@@ -55,8 +55,8 @@ class InstitutionService(StripeService):
 
     async def list_async(
         self,
-        params: "InstitutionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InstitutionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Institution]:
         """
         Returns a list of Financial Connections Institution objects.
@@ -75,8 +75,8 @@ class InstitutionService(StripeService):
     def retrieve(
         self,
         institution: str,
-        params: "InstitutionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InstitutionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Institution:
         """
         Retrieves the details of a Financial Connections Institution.
@@ -97,8 +97,8 @@ class InstitutionService(StripeService):
     async def retrieve_async(
         self,
         institution: str,
-        params: "InstitutionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InstitutionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Institution:
         """
         Retrieves the details of a Financial Connections Institution.

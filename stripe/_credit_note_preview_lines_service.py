@@ -4,7 +4,7 @@ from stripe._credit_note_line_item import CreditNoteLineItem
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -165,7 +165,7 @@ class CreditNotePreviewLinesService(StripeService):
     def list(
         self,
         params: "CreditNotePreviewLinesService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditNoteLineItem]:
         """
         When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.
@@ -184,7 +184,7 @@ class CreditNotePreviewLinesService(StripeService):
     async def list_async(
         self,
         params: "CreditNotePreviewLinesService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditNoteLineItem]:
         """
         When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.

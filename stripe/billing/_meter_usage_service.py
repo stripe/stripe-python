@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.billing._meter_usage import MeterUsage
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -663,7 +663,7 @@ class MeterUsageService(StripeService):
     def retrieve(
         self,
         params: "MeterUsageService.RetrieveParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> MeterUsage:
         """
         Returns aggregated meter usage data for a customer within a specified time interval. The data can be grouped by various dimensions and can include multiple meters if specified.
@@ -682,7 +682,7 @@ class MeterUsageService(StripeService):
     async def retrieve_async(
         self,
         params: "MeterUsageService.RetrieveParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> MeterUsage:
         """
         Returns aggregated meter usage data for a customer within a specified time interval. The data can be grouped by various dimensions and can include multiple meters if specified.

@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.billing_portal._session import Session
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -239,8 +239,8 @@ class SessionService(StripeService):
 
     def create(
         self,
-        params: "SessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Creates a session of the customer portal.
@@ -258,8 +258,8 @@ class SessionService(StripeService):
 
     async def create_async(
         self,
-        params: "SessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Creates a session of the customer portal.

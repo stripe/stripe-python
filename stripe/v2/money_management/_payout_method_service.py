@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._payout_method import PayoutMethod
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -45,8 +45,8 @@ class PayoutMethodService(StripeService):
 
     def list(
         self,
-        params: "PayoutMethodService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutMethodService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PayoutMethod]:
         """
         List objects that adhere to the PayoutMethod interface.
@@ -64,8 +64,8 @@ class PayoutMethodService(StripeService):
 
     async def list_async(
         self,
-        params: "PayoutMethodService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutMethodService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PayoutMethod]:
         """
         List objects that adhere to the PayoutMethod interface.
@@ -84,8 +84,8 @@ class PayoutMethodService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "PayoutMethodService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutMethodService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PayoutMethod:
         """
         Retrieve a PayoutMethod object.
@@ -106,8 +106,8 @@ class PayoutMethodService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "PayoutMethodService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutMethodService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PayoutMethod:
         """
         Retrieve a PayoutMethod object.
@@ -128,8 +128,8 @@ class PayoutMethodService(StripeService):
     def archive(
         self,
         id: str,
-        params: "PayoutMethodService.ArchiveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutMethodService.ArchiveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PayoutMethod:
         """
         Archive a PayoutMethod object. Archived objects cannot be used as payout methods
@@ -151,8 +151,8 @@ class PayoutMethodService(StripeService):
     async def archive_async(
         self,
         id: str,
-        params: "PayoutMethodService.ArchiveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutMethodService.ArchiveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PayoutMethod:
         """
         Archive a PayoutMethod object. Archived objects cannot be used as payout methods
@@ -174,8 +174,8 @@ class PayoutMethodService(StripeService):
     def unarchive(
         self,
         id: str,
-        params: "PayoutMethodService.UnarchiveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutMethodService.UnarchiveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PayoutMethod:
         """
         Unarchive an PayoutMethod object.
@@ -196,8 +196,8 @@ class PayoutMethodService(StripeService):
     async def unarchive_async(
         self,
         id: str,
-        params: "PayoutMethodService.UnarchiveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutMethodService.UnarchiveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PayoutMethod:
         """
         Unarchive an PayoutMethod object.

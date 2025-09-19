@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -70,8 +70,8 @@ class EventService(StripeService):
 
     def list(
         self,
-        params: "EventService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Event]:
         """
         List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
@@ -89,8 +89,8 @@ class EventService(StripeService):
 
     async def list_async(
         self,
-        params: "EventService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Event]:
         """
         List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
@@ -109,8 +109,8 @@ class EventService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "EventService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Event:
         """
         Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.
@@ -129,8 +129,8 @@ class EventService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "EventService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Event:
         """
         Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.

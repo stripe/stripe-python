@@ -7,7 +7,7 @@ from stripe._util import sanitize_id
 from stripe.financial_connections._account_inferred_balance import (
     AccountInferredBalance,
 )
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -33,8 +33,8 @@ class AccountInferredBalanceService(StripeService):
     def list(
         self,
         account: str,
-        params: "AccountInferredBalanceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountInferredBalanceService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[AccountInferredBalance]:
         """
         Lists the recorded inferred balances for a Financial Connections Account.
@@ -55,8 +55,8 @@ class AccountInferredBalanceService(StripeService):
     async def list_async(
         self,
         account: str,
-        params: "AccountInferredBalanceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountInferredBalanceService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[AccountInferredBalance]:
         """
         Lists the recorded inferred balances for a Financial Connections Account.

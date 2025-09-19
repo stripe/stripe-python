@@ -8,7 +8,7 @@ from stripe.privacy._redaction_job import RedactionJob
 from stripe.privacy._redaction_job_validation_error_service import (
     RedactionJobValidationErrorService,
 )
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -111,8 +111,8 @@ class RedactionJobService(StripeService):
 
     def list(
         self,
-        params: "RedactionJobService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RedactionJobService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[RedactionJob]:
         """
         Returns a list of redaction jobs.
@@ -130,8 +130,8 @@ class RedactionJobService(StripeService):
 
     async def list_async(
         self,
-        params: "RedactionJobService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RedactionJobService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[RedactionJob]:
         """
         Returns a list of redaction jobs.
@@ -150,7 +150,7 @@ class RedactionJobService(StripeService):
     def create(
         self,
         params: "RedactionJobService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
         Creates a redaction job. When a job is created, it will start to validate.
@@ -169,7 +169,7 @@ class RedactionJobService(StripeService):
     async def create_async(
         self,
         params: "RedactionJobService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
         Creates a redaction job. When a job is created, it will start to validate.
@@ -188,8 +188,8 @@ class RedactionJobService(StripeService):
     def retrieve(
         self,
         job: str,
-        params: "RedactionJobService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RedactionJobService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
         Retrieves the details of a previously created redaction job.
@@ -210,8 +210,8 @@ class RedactionJobService(StripeService):
     async def retrieve_async(
         self,
         job: str,
-        params: "RedactionJobService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RedactionJobService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
         Retrieves the details of a previously created redaction job.
@@ -232,8 +232,8 @@ class RedactionJobService(StripeService):
     def update(
         self,
         job: str,
-        params: "RedactionJobService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RedactionJobService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
         Updates the properties of a redaction job without running or canceling the job.
@@ -256,8 +256,8 @@ class RedactionJobService(StripeService):
     async def update_async(
         self,
         job: str,
-        params: "RedactionJobService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RedactionJobService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
         Updates the properties of a redaction job without running or canceling the job.
@@ -280,8 +280,8 @@ class RedactionJobService(StripeService):
     def cancel(
         self,
         job: str,
-        params: "RedactionJobService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RedactionJobService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -304,8 +304,8 @@ class RedactionJobService(StripeService):
     async def cancel_async(
         self,
         job: str,
-        params: "RedactionJobService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RedactionJobService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -328,8 +328,8 @@ class RedactionJobService(StripeService):
     def run(
         self,
         job: str,
-        params: "RedactionJobService.RunParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RedactionJobService.RunParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
         Run a redaction job in a ready status.
@@ -354,8 +354,8 @@ class RedactionJobService(StripeService):
     async def run_async(
         self,
         job: str,
-        params: "RedactionJobService.RunParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RedactionJobService.RunParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
         Run a redaction job in a ready status.
@@ -380,8 +380,8 @@ class RedactionJobService(StripeService):
     def validate(
         self,
         job: str,
-        params: "RedactionJobService.ValidateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RedactionJobService.ValidateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
         Validate a redaction job when it is in a failed status.
@@ -406,8 +406,8 @@ class RedactionJobService(StripeService):
     async def validate_async(
         self,
         job: str,
-        params: "RedactionJobService.ValidateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RedactionJobService.ValidateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
         Validate a redaction job when it is in a failed status.

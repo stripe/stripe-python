@@ -182,7 +182,7 @@ V2_OBJECT_CLASSES = {
     stripe.v2.billing.MeterEventSession.OBJECT_NAME: stripe.v2.billing.MeterEventSession,
     stripe.v2.core.Account.OBJECT_NAME: stripe.v2.core.Account,
     stripe.v2.core.AccountLink.OBJECT_NAME: stripe.v2.core.AccountLink,
-    stripe.v2.core.Person.OBJECT_NAME: stripe.v2.core.Person,
+    stripe.v2.core.AccountPerson.OBJECT_NAME: stripe.v2.core.AccountPerson,
     stripe.v2.core.vault.GbBankAccount.OBJECT_NAME: stripe.v2.core.vault.GbBankAccount,
     stripe.v2.core.vault.UsBankAccount.OBJECT_NAME: stripe.v2.core.vault.UsBankAccount,
     stripe.v2.Event.OBJECT_NAME: stripe.v2.Event,

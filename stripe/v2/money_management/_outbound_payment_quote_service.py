@@ -7,7 +7,7 @@ from stripe.v2._amount import AmountParam
 from stripe.v2.money_management._outbound_payment_quote import (
     OutboundPaymentQuote,
 )
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -75,7 +75,7 @@ class OutboundPaymentQuoteService(StripeService):
     def create(
         self,
         params: "OutboundPaymentQuoteService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPaymentQuote:
         """
         Creates an OutboundPaymentQuote usable in an OutboundPayment.
@@ -94,7 +94,7 @@ class OutboundPaymentQuoteService(StripeService):
     async def create_async(
         self,
         params: "OutboundPaymentQuoteService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPaymentQuote:
         """
         Creates an OutboundPaymentQuote usable in an OutboundPayment.
@@ -113,8 +113,8 @@ class OutboundPaymentQuoteService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "OutboundPaymentQuoteService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundPaymentQuoteService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPaymentQuote:
         """
         Retrieves the details of an existing OutboundPaymentQuote by passing the unique OutboundPaymentQuote ID.
@@ -135,8 +135,8 @@ class OutboundPaymentQuoteService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "OutboundPaymentQuoteService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundPaymentQuoteService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundPaymentQuote:
         """
         Retrieves the details of an existing OutboundPaymentQuote by passing the unique OutboundPaymentQuote ID.

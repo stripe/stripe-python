@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._received_debit import ReceivedDebit
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -45,7 +45,7 @@ class ReceivedDebitService(StripeService):
     def list(
         self,
         params: "ReceivedDebitService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReceivedDebit]:
         """
         Returns a list of ReceivedDebits.
@@ -64,7 +64,7 @@ class ReceivedDebitService(StripeService):
     async def list_async(
         self,
         params: "ReceivedDebitService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReceivedDebit]:
         """
         Returns a list of ReceivedDebits.
@@ -83,8 +83,8 @@ class ReceivedDebitService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ReceivedDebitService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReceivedDebitService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedDebit:
         """
         Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list
@@ -103,8 +103,8 @@ class ReceivedDebitService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ReceivedDebitService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReceivedDebitService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedDebit:
         """
         Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list

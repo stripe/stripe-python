@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._transaction import Transaction
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -84,8 +84,8 @@ class TransactionService(StripeService):
 
     def list(
         self,
-        params: "TransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transaction]:
         """
         Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -103,8 +103,8 @@ class TransactionService(StripeService):
 
     async def list_async(
         self,
-        params: "TransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transaction]:
         """
         Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -123,8 +123,8 @@ class TransactionService(StripeService):
     def retrieve(
         self,
         transaction: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves an Issuing Transaction object.
@@ -145,8 +145,8 @@ class TransactionService(StripeService):
     async def retrieve_async(
         self,
         transaction: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves an Issuing Transaction object.
@@ -167,8 +167,8 @@ class TransactionService(StripeService):
     def update(
         self,
         transaction: str,
-        params: "TransactionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -189,8 +189,8 @@ class TransactionService(StripeService):
     async def update_async(
         self,
         transaction: str,
-        params: "TransactionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.

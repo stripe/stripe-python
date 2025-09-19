@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.capital._financing_summary import FinancingSummary
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -16,8 +16,8 @@ class FinancingSummaryService(StripeService):
 
     def retrieve(
         self,
-        params: "FinancingSummaryService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancingSummaryService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancingSummary:
         """
         Retrieve the financing state for the account that was authenticated in the request.
@@ -35,8 +35,8 @@ class FinancingSummaryService(StripeService):
 
     async def retrieve_async(
         self,
-        params: "FinancingSummaryService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancingSummaryService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancingSummary:
         """
         Retrieve the financing state for the account that was authenticated in the request.

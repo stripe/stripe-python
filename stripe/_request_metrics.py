@@ -6,7 +6,7 @@ class RequestMetrics(object):
         self,
         request_id,
         request_duration_ms,
-        usage: Optional[List[str]] = [],
+        usage: Optional[List[str]] = None,
     ):
         self.request_id = request_id
         self.request_duration_ms = request_duration_ms
@@ -18,6 +18,6 @@ class RequestMetrics(object):
             "request_duration_ms": self.request_duration_ms,
         }
 
-        if self.usage is not None and len(self.usage) > 0:
+        if self.usage:
             ret["usage"] = self.usage
         return ret
