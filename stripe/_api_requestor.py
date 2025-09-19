@@ -69,6 +69,10 @@ HttpVerb = Literal["get", "post", "delete"]
 _default_proxy: Optional[str] = None
 
 
+def is_v2_delete_resp(method: str, api_mode: ApiMode) -> bool:
+    return method == "delete" and api_mode == "V2"
+
+
 class _APIRequestor(object):
     _instance: ClassVar["_APIRequestor|None"] = None
 
@@ -204,6 +208,7 @@ class _APIRequestor(object):
             params=params,
             requestor=requestor,
             api_mode=api_mode,
+            is_v2_deleted_object=is_v2_delete_resp(method, api_mode),
         )
 
         return obj
@@ -237,6 +242,7 @@ class _APIRequestor(object):
             params=params,
             requestor=requestor,
             api_mode=api_mode,
+            is_v2_deleted_object=is_v2_delete_resp(method, api_mode),
         )
 
         return obj
