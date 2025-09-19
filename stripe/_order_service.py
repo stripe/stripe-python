@@ -6,7 +6,7 @@ from stripe._order_line_item_service import OrderLineItemService
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -2833,8 +2833,8 @@ class OrderService(StripeService):
 
     def list(
         self,
-        params: "OrderService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OrderService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Order]:
         """
         Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
@@ -2852,8 +2852,8 @@ class OrderService(StripeService):
 
     async def list_async(
         self,
-        params: "OrderService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OrderService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Order]:
         """
         Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
@@ -2870,7 +2870,9 @@ class OrderService(StripeService):
         )
 
     def create(
-        self, params: "OrderService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "OrderService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> Order:
         """
         Creates a new open order object.
@@ -2887,7 +2889,9 @@ class OrderService(StripeService):
         )
 
     async def create_async(
-        self, params: "OrderService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "OrderService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> Order:
         """
         Creates a new open order object.
@@ -2906,8 +2910,8 @@ class OrderService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "OrderService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OrderService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Order:
         """
         Retrieves the details of an existing order. Supply the unique order ID from either an order creation request or the order list, and Stripe will return the corresponding order information.
@@ -2926,8 +2930,8 @@ class OrderService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "OrderService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OrderService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Order:
         """
         Retrieves the details of an existing order. Supply the unique order ID from either an order creation request or the order list, and Stripe will return the corresponding order information.
@@ -2946,8 +2950,8 @@ class OrderService(StripeService):
     def update(
         self,
         id: str,
-        params: "OrderService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OrderService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Order:
         """
         Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -2966,8 +2970,8 @@ class OrderService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "OrderService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OrderService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Order:
         """
         Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -2986,8 +2990,8 @@ class OrderService(StripeService):
     def cancel(
         self,
         id: str,
-        params: "OrderService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OrderService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Order:
         """
         Cancels the order as well as the payment intent if one is attached.
@@ -3006,8 +3010,8 @@ class OrderService(StripeService):
     async def cancel_async(
         self,
         id: str,
-        params: "OrderService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OrderService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Order:
         """
         Cancels the order as well as the payment intent if one is attached.
@@ -3026,8 +3030,8 @@ class OrderService(StripeService):
     def reopen(
         self,
         id: str,
-        params: "OrderService.ReopenParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OrderService.ReopenParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Order:
         """
         Reopens a submitted order.
@@ -3046,8 +3050,8 @@ class OrderService(StripeService):
     async def reopen_async(
         self,
         id: str,
-        params: "OrderService.ReopenParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OrderService.ReopenParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Order:
         """
         Reopens a submitted order.
@@ -3067,7 +3071,7 @@ class OrderService(StripeService):
         self,
         id: str,
         params: "OrderService.SubmitParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Order:
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://docs.stripe.com/api#reopen_order) method is called.
@@ -3087,7 +3091,7 @@ class OrderService(StripeService):
         self,
         id: str,
         params: "OrderService.SubmitParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Order:
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://docs.stripe.com/api#reopen_order) method is called.

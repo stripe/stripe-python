@@ -8,7 +8,7 @@ from stripe._request_options import RequestOptions
 from stripe._source import Source
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -176,8 +176,8 @@ class CustomerPaymentSourceService(StripeService):
     def list(
         self,
         customer: str,
-        params: "CustomerPaymentSourceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerPaymentSourceService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Union[Account, BankAccount, Card, Source]]:
         """
         List sources for a specified customer.
@@ -198,8 +198,8 @@ class CustomerPaymentSourceService(StripeService):
     async def list_async(
         self,
         customer: str,
-        params: "CustomerPaymentSourceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerPaymentSourceService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Union[Account, BankAccount, Card, Source]]:
         """
         List sources for a specified customer.
@@ -221,7 +221,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         params: "CustomerPaymentSourceService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         When you create a new credit card, you must specify a customer or recipient on which to create it.
@@ -247,7 +247,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         params: "CustomerPaymentSourceService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         When you create a new credit card, you must specify a customer or recipient on which to create it.
@@ -273,8 +273,8 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerPaymentSourceService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Retrieve a specified source for a given customer.
@@ -297,8 +297,8 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerPaymentSourceService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Retrieve a specified source for a given customer.
@@ -321,8 +321,8 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerPaymentSourceService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Update a specified source for a given customer.
@@ -345,8 +345,8 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerPaymentSourceService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Update a specified source for a given customer.
@@ -369,8 +369,8 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerPaymentSourceService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Delete a specified source for a given customer.
@@ -393,8 +393,8 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerPaymentSourceService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
         Delete a specified source for a given customer.
@@ -417,8 +417,8 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.VerifyParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerPaymentSourceService.VerifyParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BankAccount:
         """
         Verify a specified bank account for a given customer.
@@ -441,8 +441,8 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: "CustomerPaymentSourceService.VerifyParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerPaymentSourceService.VerifyParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BankAccount:
         """
         Verify a specified bank account for a given customer.

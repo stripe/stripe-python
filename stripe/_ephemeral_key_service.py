@@ -4,7 +4,7 @@ from stripe._ephemeral_key import EphemeralKey
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -40,8 +40,8 @@ class EphemeralKeyService(StripeService):
     def delete(
         self,
         key: str,
-        params: "EphemeralKeyService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EphemeralKeyService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> EphemeralKey:
         """
         Invalidates a short-lived API key for a given resource.
@@ -60,8 +60,8 @@ class EphemeralKeyService(StripeService):
     async def delete_async(
         self,
         key: str,
-        params: "EphemeralKeyService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EphemeralKeyService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> EphemeralKey:
         """
         Invalidates a short-lived API key for a given resource.
@@ -79,8 +79,8 @@ class EphemeralKeyService(StripeService):
 
     def create(
         self,
-        params: "EphemeralKeyService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EphemeralKeyService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> EphemeralKey:
         """
         Creates a short-lived API key for a given resource.
@@ -98,8 +98,8 @@ class EphemeralKeyService(StripeService):
 
     async def create_async(
         self,
-        params: "EphemeralKeyService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EphemeralKeyService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> EphemeralKey:
         """
         Creates a short-lived API key for a given resource.

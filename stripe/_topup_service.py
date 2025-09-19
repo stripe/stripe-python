@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._topup import Topup
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -140,8 +140,8 @@ class TopupService(StripeService):
 
     def list(
         self,
-        params: "TopupService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TopupService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Topup]:
         """
         Returns a list of top-ups.
@@ -159,8 +159,8 @@ class TopupService(StripeService):
 
     async def list_async(
         self,
-        params: "TopupService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TopupService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Topup]:
         """
         Returns a list of top-ups.
@@ -177,7 +177,9 @@ class TopupService(StripeService):
         )
 
     def create(
-        self, params: "TopupService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "TopupService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
         Top up the balance of an account
@@ -194,7 +196,9 @@ class TopupService(StripeService):
         )
 
     async def create_async(
-        self, params: "TopupService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "TopupService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
         Top up the balance of an account
@@ -213,8 +217,8 @@ class TopupService(StripeService):
     def retrieve(
         self,
         topup: str,
-        params: "TopupService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TopupService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
         Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.
@@ -233,8 +237,8 @@ class TopupService(StripeService):
     async def retrieve_async(
         self,
         topup: str,
-        params: "TopupService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TopupService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
         Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.
@@ -253,8 +257,8 @@ class TopupService(StripeService):
     def update(
         self,
         topup: str,
-        params: "TopupService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TopupService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
         Updates the metadata of a top-up. Other top-up details are not editable by design.
@@ -273,8 +277,8 @@ class TopupService(StripeService):
     async def update_async(
         self,
         topup: str,
-        params: "TopupService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TopupService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
         Updates the metadata of a top-up. Other top-up details are not editable by design.
@@ -293,8 +297,8 @@ class TopupService(StripeService):
     def cancel(
         self,
         topup: str,
-        params: "TopupService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TopupService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -313,8 +317,8 @@ class TopupService(StripeService):
     async def cancel_async(
         self,
         topup: str,
-        params: "TopupService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TopupService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Topup:
         """
         Cancels a top-up. Only pending top-ups can be canceled.

@@ -7,7 +7,7 @@ from stripe._util import sanitize_id
 from stripe.privacy._redaction_job_validation_error import (
     RedactionJobValidationError,
 )
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -33,8 +33,10 @@ class RedactionJobValidationErrorService(StripeService):
     def list(
         self,
         job: str,
-        params: "RedactionJobValidationErrorService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "RedactionJobValidationErrorService.ListParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[RedactionJobValidationError]:
         """
         Returns a list of validation errors for the specified redaction job.
@@ -55,8 +57,10 @@ class RedactionJobValidationErrorService(StripeService):
     async def list_async(
         self,
         job: str,
-        params: "RedactionJobValidationErrorService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "RedactionJobValidationErrorService.ListParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[RedactionJobValidationError]:
         """
         Returns a list of validation errors for the specified redaction job.

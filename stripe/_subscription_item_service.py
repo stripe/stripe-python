@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._subscription_item import SubscriptionItem
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -401,8 +401,8 @@ class SubscriptionItemService(StripeService):
     def delete(
         self,
         item: str,
-        params: "SubscriptionItemService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionItemService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -421,8 +421,8 @@ class SubscriptionItemService(StripeService):
     async def delete_async(
         self,
         item: str,
-        params: "SubscriptionItemService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionItemService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -441,8 +441,8 @@ class SubscriptionItemService(StripeService):
     def retrieve(
         self,
         item: str,
-        params: "SubscriptionItemService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionItemService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Retrieves the subscription item with the given ID.
@@ -461,8 +461,8 @@ class SubscriptionItemService(StripeService):
     async def retrieve_async(
         self,
         item: str,
-        params: "SubscriptionItemService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionItemService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Retrieves the subscription item with the given ID.
@@ -481,8 +481,8 @@ class SubscriptionItemService(StripeService):
     def update(
         self,
         item: str,
-        params: "SubscriptionItemService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionItemService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Updates the plan or quantity of an item on a current subscription.
@@ -501,8 +501,8 @@ class SubscriptionItemService(StripeService):
     async def update_async(
         self,
         item: str,
-        params: "SubscriptionItemService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionItemService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Updates the plan or quantity of an item on a current subscription.
@@ -521,7 +521,7 @@ class SubscriptionItemService(StripeService):
     def list(
         self,
         params: "SubscriptionItemService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SubscriptionItem]:
         """
         Returns a list of your subscription items for a given subscription.
@@ -540,7 +540,7 @@ class SubscriptionItemService(StripeService):
     async def list_async(
         self,
         params: "SubscriptionItemService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SubscriptionItem]:
         """
         Returns a list of your subscription items for a given subscription.
@@ -559,7 +559,7 @@ class SubscriptionItemService(StripeService):
     def create(
         self,
         params: "SubscriptionItemService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Adds a new item to an existing subscription. No existing items will be changed or replaced.
@@ -578,7 +578,7 @@ class SubscriptionItemService(StripeService):
     async def create_async(
         self,
         params: "SubscriptionItemService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Adds a new item to an existing subscription. No existing items will be changed or replaced.

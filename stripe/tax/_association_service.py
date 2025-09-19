@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.tax._association import Association
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -21,7 +21,7 @@ class AssociationService(StripeService):
     def find(
         self,
         params: "AssociationService.FindParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Association:
         """
         Finds a tax association object by PaymentIntent id.
@@ -40,7 +40,7 @@ class AssociationService(StripeService):
     async def find_async(
         self,
         params: "AssociationService.FindParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Association:
         """
         Finds a tax association object by PaymentIntent id.

@@ -29128,8 +29128,7 @@ class TestGeneratedExamples(object):
                     {
                         "items": [
                             {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
-                        ],
-                        "iterations": 12,
+                        ]
                     },
                 ],
             }
@@ -29139,7 +29138,7 @@ class TestGeneratedExamples(object):
             path="/v1/subscription_schedules",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     def test_subscription_schedules_post(
@@ -29150,17 +29149,14 @@ class TestGeneratedExamples(object):
             start_date=1676070661,
             end_behavior="release",
             phases=[
-                {
-                    "items": [{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
-                    "iterations": 12,
-                },
+                {"items": [{"price": "price_xxxxxxxxxxxxx", "quantity": 1}]},
             ],
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/subscription_schedules",
             query_string="",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     def test_subscription_schedules_post_service(
@@ -29184,8 +29180,7 @@ class TestGeneratedExamples(object):
                     {
                         "items": [
                             {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
-                        ],
-                        "iterations": 12,
+                        ]
                     },
                 ],
             }
@@ -29195,7 +29190,7 @@ class TestGeneratedExamples(object):
             path="/v1/subscription_schedules",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     @pytest.mark.anyio
@@ -29207,17 +29202,14 @@ class TestGeneratedExamples(object):
             start_date=1676070661,
             end_behavior="release",
             phases=[
-                {
-                    "items": [{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
-                    "iterations": 12,
-                },
+                {"items": [{"price": "price_xxxxxxxxxxxxx", "quantity": 1}]},
             ],
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/subscription_schedules",
             query_string="",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     @pytest.mark.anyio
@@ -29242,8 +29234,7 @@ class TestGeneratedExamples(object):
                     {
                         "items": [
                             {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
-                        ],
-                        "iterations": 12,
+                        ]
                     },
                 ],
             }
@@ -29253,7 +29244,7 @@ class TestGeneratedExamples(object):
             path="/v1/subscription_schedules",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     def test_subscription_schedules_post_2_service_non_namespaced(
@@ -44598,7 +44589,7 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.financial_addresses.create(
             {
-                "currency": "stn",
+                "currency": "usd",
                 "financial_account": "financial_account",
             }
         )
@@ -44607,7 +44598,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_addresses",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"currency":"stn","financial_account":"financial_account"}',
+            post_data='{"currency":"usd","financial_account":"financial_account"}',
             is_json=True,
         )
 
@@ -45525,7 +45516,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/core/vault/us_bank_accounts",
-            rbody='{"error":{"type":"blocked_by_stripe","code":"inbound_transfer_not_allowed"}}',
+            rbody='{"error":{"type":"blocked_by_stripe","code":"blocked_payout_method_bank_account"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -45583,7 +45574,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/money_management/financial_accounts",
-            rbody='{"error":{"type":"feature_not_enabled","code":"storer_capability_missing"}}',
+            rbody='{"error":{"type":"feature_not_enabled","code":"recipient_feature_not_active"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -45625,7 +45616,7 @@ class TestGeneratedExamples(object):
         try:
             client.v2.money_management.financial_addresses.create(
                 {
-                    "currency": "stn",
+                    "currency": "usd",
                     "financial_account": "financial_account",
                 }
             )
@@ -45636,7 +45627,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_addresses",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"currency":"stn","financial_account":"financial_account"}',
+            post_data='{"currency":"usd","financial_account":"financial_account"}',
             is_json=True,
         )
 
@@ -45794,7 +45785,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/core/vault/us_bank_accounts",
-            rbody='{"error":{"type":"quota_exceeded","code":"recipient_amount_limit_exceeded"}}',
+            rbody='{"error":{"type":"quota_exceeded","code":"archived_payout_method_card"}}',
             rcode=400,
         )
         client = StripeClient(

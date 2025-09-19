@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._financial_account import FinancialAccount
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -47,190 +47,7 @@ class FinancialAccountService(StripeService):
         """
 
     class CreateParamsStorage(TypedDict):
-        holds_currencies: List[
-            Literal[
-                "aed",
-                "afn",
-                "all",
-                "amd",
-                "ang",
-                "aoa",
-                "ars",
-                "aud",
-                "awg",
-                "azn",
-                "bam",
-                "bbd",
-                "bdt",
-                "bgn",
-                "bhd",
-                "bif",
-                "bmd",
-                "bnd",
-                "bob",
-                "bov",
-                "brl",
-                "bsd",
-                "btn",
-                "bwp",
-                "byn",
-                "byr",
-                "bzd",
-                "cad",
-                "cdf",
-                "che",
-                "chf",
-                "chw",
-                "clf",
-                "clp",
-                "cny",
-                "cop",
-                "cou",
-                "crc",
-                "cuc",
-                "cup",
-                "cve",
-                "czk",
-                "djf",
-                "dkk",
-                "dop",
-                "dzd",
-                "eek",
-                "egp",
-                "ern",
-                "etb",
-                "eur",
-                "fjd",
-                "fkp",
-                "gbp",
-                "gel",
-                "ghc",
-                "ghs",
-                "gip",
-                "gmd",
-                "gnf",
-                "gtq",
-                "gyd",
-                "hkd",
-                "hnl",
-                "hrk",
-                "htg",
-                "huf",
-                "idr",
-                "ils",
-                "inr",
-                "iqd",
-                "irr",
-                "isk",
-                "jmd",
-                "jod",
-                "jpy",
-                "kes",
-                "kgs",
-                "khr",
-                "kmf",
-                "kpw",
-                "krw",
-                "kwd",
-                "kyd",
-                "kzt",
-                "lak",
-                "lbp",
-                "lkr",
-                "lrd",
-                "lsl",
-                "ltl",
-                "lvl",
-                "lyd",
-                "mad",
-                "mdl",
-                "mga",
-                "mkd",
-                "mmk",
-                "mnt",
-                "mop",
-                "mro",
-                "mru",
-                "mur",
-                "mvr",
-                "mwk",
-                "mxn",
-                "mxv",
-                "myr",
-                "mzn",
-                "nad",
-                "ngn",
-                "nio",
-                "nok",
-                "npr",
-                "nzd",
-                "omr",
-                "pab",
-                "pen",
-                "pgk",
-                "php",
-                "pkr",
-                "pln",
-                "pyg",
-                "qar",
-                "ron",
-                "rsd",
-                "rub",
-                "rwf",
-                "sar",
-                "sbd",
-                "scr",
-                "sdg",
-                "sek",
-                "sgd",
-                "shp",
-                "sle",
-                "sll",
-                "sos",
-                "srd",
-                "ssp",
-                "std",
-                "stn",
-                "svc",
-                "syp",
-                "szl",
-                "thb",
-                "tjs",
-                "tmt",
-                "tnd",
-                "top",
-                "try",
-                "ttd",
-                "twd",
-                "tzs",
-                "uah",
-                "ugx",
-                "usd",
-                "usdb",
-                "usdc",
-                "usn",
-                "uyi",
-                "uyu",
-                "uzs",
-                "vef",
-                "ves",
-                "vnd",
-                "vuv",
-                "wst",
-                "xaf",
-                "xcd",
-                "xcg",
-                "xof",
-                "xpf",
-                "yer",
-                "zar",
-                "zmk",
-                "zmw",
-                "zwd",
-                "zwg",
-                "zwl",
-            ]
-        ]
+        holds_currencies: List[str]
         """
         The currencies that this FinancialAccount can hold.
         """
@@ -250,8 +67,8 @@ class FinancialAccountService(StripeService):
 
     def list(
         self,
-        params: "FinancialAccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAccountService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAccount]:
         """
         Lists FinancialAccounts in this compartment.
@@ -269,8 +86,8 @@ class FinancialAccountService(StripeService):
 
     async def list_async(
         self,
-        params: "FinancialAccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAccountService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAccount]:
         """
         Lists FinancialAccounts in this compartment.
@@ -289,7 +106,7 @@ class FinancialAccountService(StripeService):
     def create(
         self,
         params: "FinancialAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Creates a new FinancialAccount.
@@ -308,7 +125,7 @@ class FinancialAccountService(StripeService):
     async def create_async(
         self,
         params: "FinancialAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Creates a new FinancialAccount.
@@ -327,8 +144,8 @@ class FinancialAccountService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "FinancialAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAccountService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Retrieves the details of an existing FinancialAccount.
@@ -349,8 +166,8 @@ class FinancialAccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "FinancialAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAccountService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Retrieves the details of an existing FinancialAccount.
@@ -371,8 +188,8 @@ class FinancialAccountService(StripeService):
     def close(
         self,
         id: str,
-        params: "FinancialAccountService.CloseParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAccountService.CloseParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Closes a FinancialAccount with or without forwarding settings.
@@ -393,8 +210,8 @@ class FinancialAccountService(StripeService):
     async def close_async(
         self,
         id: str,
-        params: "FinancialAccountService.CloseParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAccountService.CloseParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Closes a FinancialAccount with or without forwarding settings.
