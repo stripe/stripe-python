@@ -9,6 +9,8 @@ keywords = ["stripe", "api", "payments"]
 requires-python = ">=3.6"
 dependencies = [
   "typing_extensions <= 4.2.0, > 3.7.2; python_version < '3.7'",
+  # The best typing support comes from 4.5.0+ but we can support down to
+  # 3.7.2 without throwing exceptions.
   "typing_extensions >= 4.5.0; python_version >= '3.7'",
   "requests >= 2.20; python_version >= '3.0'",
 ]
@@ -33,11 +35,11 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://stripe.com/"
-Source = "https://github.com/stripe/stripe-python"
-Issues = "https://github.com/stripe/stripe-python/issues"
-Changelog = "https://github.com/stripe/stripe-python/blob/master/CHANGELOG.md"
-Documentation = "https://stripe.com/docs/api/?lang=python"
+homepage = "https://stripe.com/"
+source = "https://github.com/stripe/stripe-python"
+issues = "https://github.com/stripe/stripe-python/issues"
+changelog = "https://github.com/stripe/stripe-python/blob/master/CHANGELOG.md"
+documentation = "https://stripe.com/docs/api/?lang=python"
 
 [build-system]
 requires = ["flit_core >=3.11, <4"]

@@ -11,7 +11,6 @@ import warnings
 # Greg Brockman <gdb@stripe.com>
 # Andrew Metcalf <andrew@stripe.com>
 
-
 # Configuration variables
 from stripe._api_version import _ApiVersion
 from stripe._api_requestor import _APIRequestor
