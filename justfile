@@ -79,5 +79,5 @@ venv:
 update-version version:
     echo "{{ version }}" > VERSION
     perl -pi -e 's|VERSION = "[.\d\w]+"|VERSION = "{{ version }}"|' stripe/_version.py
-    perl -pi -e 's|version = "[.\d\w]+"|version = "{{ version }}"|' pyproject.toml
+    perl -pi -e 's|^version = "[.\d\w]+"|version = "{{ version }}"|' pyproject.toml
 
