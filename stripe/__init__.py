@@ -11,6 +11,13 @@ import warnings
 # Greg Brockman <gdb@stripe.com>
 # Andrew Metcalf <andrew@stripe.com>
 
+# source of truth for the package's version:
+__version__ = "12.5.1"
+
+# re-exported for external use
+VERSION = __version__
+
+
 # Configuration variables
 from stripe._api_version import _ApiVersion
 from stripe._api_requestor import _APIRequestor
@@ -20,7 +27,6 @@ from stripe._api_requestor import _APIRequestor
 # importing that module, and not the global `AppInfo` name from below.
 import stripe.app_info
 from stripe._app_info import AppInfo as AppInfo
-from stripe._version import VERSION as VERSION
 
 # Constants
 DEFAULT_API_BASE: str = "https://api.stripe.com"

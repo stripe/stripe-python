@@ -17,7 +17,7 @@ test *args: install-test-deps
 
 # ⭐ check for potential mistakes
 lint: install-dev-deps
-    python -m flake8 --show-source stripe tests setup.py
+    python -m flake8 --show-source stripe tests
 
 # verify types. optional argument to test as of a specific minor python version (e.g. `8` to test `python 3.8`); otherwise uses current version
 typecheck minor_py_version="": install-test-deps install-dev-deps
@@ -41,6 +41,7 @@ reset: clean && venv
 
 # build the package for upload
 build: install-build-deps
+    rm -rf dist
     python -m build
     python -m twine check dist/*
 
@@ -77,4 +78,4 @@ venv:
 [private]
 update-version version:
     echo "{{ version }}" > VERSION
-    perl -pi -e 's|VERSION = "[.\d\w]+"|VERSION = "{{ version }}"|' stripe/_version.py
+    perl -pi -e 's|__version__ = "[.\d\w]+"|__version__ = "{{ version }}"|' stripe/__init__.py
