@@ -1,5 +1,6 @@
 [project]
 name = "stripe"
+version = "12.5.1"
 readme = "README.md"
 description = "Python bindings for the Stripe API"
 authors = [{ name = "Stripe", email = "support@stripe.com" }]
@@ -30,7 +31,6 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
-dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://stripe.com/"
@@ -70,7 +70,7 @@ reportUnnecessaryTypeIgnoreComment = true
 
 [tool.mypy]
 follow_imports = "silent"
-python_version = "3.10"
+python_version = "12.5.1"
 files = ["tests/test_generated_examples.py", "tests/test_exports.py"]
 disallow_untyped_calls = true
 disallow_untyped_defs = true
