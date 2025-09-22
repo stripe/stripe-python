@@ -30,7 +30,7 @@ from stripe._http_client import (
     UrlFetchClient as AppEngineClient,
 )
 from stripe._http_client import (
-    Urllib2Client as BuiltinClient,
+    UrllibClient as BuiltinClient,
 )
 
 VALID_API_METHODS = ("get", "post", "delete")
@@ -995,10 +995,8 @@ class TestUrlFetchClient(ClientTestBase):
         return check_call
 
 
-class TestUrllib2Client(ClientTestBase):
-    REQUEST_CLIENT: Type[_http_client.Urllib2Client] = (
-        _http_client.Urllib2Client
-    )
+class TestUrllibClient(ClientTestBase):
+    REQUEST_CLIENT: Type[_http_client.UrllibClient] = _http_client.UrllibClient
     USE_PROXY = False
 
     request_object: Any
@@ -1063,7 +1061,7 @@ class TestUrllib2Client(ClientTestBase):
         return _check_call
 
 
-class TestUrllib2ClientHttpsProxy(TestUrllib2Client):
+class TestUrllibClientHttpsProxy(TestUrllibClient):
     USE_PROXY = True
     ALWAYS_INIT_CLIENT = True
 
