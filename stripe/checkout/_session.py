@@ -124,10 +124,32 @@ class Session(
 
     class BrandingSettings(StripeObject):
         class Icon(StripeObject):
-            pass
+            file: Optional[str]
+            """
+            The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
+            """
+            type: Literal["file", "url"]
+            """
+            The type of image for the icon. Must be one of `file` or `url`.
+            """
+            url: Optional[str]
+            """
+            The URL of the image. Present when `type` is `url`.
+            """
 
         class Logo(StripeObject):
-            pass
+            file: Optional[str]
+            """
+            The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
+            """
+            type: Literal["file", "url"]
+            """
+            The type of image for the logo. Must be one of `file` or `url`.
+            """
+            url: Optional[str]
+            """
+            The URL of the image. Present when `type` is `url`.
+            """
 
         background_color: str
         """
