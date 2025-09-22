@@ -205,11 +205,11 @@ class Invoice(
         """
         line1: Optional[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: Optional[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: Optional[str]
         """
@@ -232,11 +232,11 @@ class Invoice(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -468,6 +468,8 @@ class Invoice(
                 "email_invalid",
                 "expired_card",
                 "financial_connections_account_inactive",
+                "financial_connections_account_pending_account_numbers",
+                "financial_connections_account_unavailable_account_numbers",
                 "financial_connections_institution_unavailable",
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
@@ -822,6 +824,12 @@ class Invoice(
             class Konbini(StripeObject):
                 pass
 
+            class Pix(StripeObject):
+                amount_includes_iof: Optional[Literal["always", "never"]]
+                """
+                Determines if the amount includes the IOF tax.
+                """
+
             class SepaDebit(StripeObject):
                 pass
 
@@ -925,6 +933,10 @@ class Invoice(
             """
             If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
             """
+            pix: Optional[Pix]
+            """
+            If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice's PaymentIntent.
+            """
             sepa_debit: Optional[SepaDebit]
             """
             If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
@@ -944,6 +956,7 @@ class Invoice(
                 "customer_balance": CustomerBalance,
                 "id_bank_transfer": IdBankTransfer,
                 "konbini": Konbini,
+                "pix": Pix,
                 "sepa_debit": SepaDebit,
                 "upi": Upi,
                 "us_bank_account": UsBankAccount,
@@ -993,6 +1006,7 @@ class Invoice(
                     "payco",
                     "paynow",
                     "paypal",
+                    "pix",
                     "promptpay",
                     "revolut_pay",
                     "sepa_credit_transfer",
@@ -1109,11 +1123,11 @@ class Invoice(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -1451,6 +1465,10 @@ class Invoice(
         tax_code: NotRequired[str]
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        """
+        unit_label: NotRequired[str]
+        """
+        A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
         """
 
     class AddLinesParamsLinePricing(TypedDict):
@@ -1882,10 +1900,10 @@ class Invoice(
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
         ]
         """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -1924,6 +1942,12 @@ class Invoice(
         ]
         """
         If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
+        """
+        pix: NotRequired[
+            "Literal['']|Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsPix"
+        ]
+        """
+        If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice's PaymentIntent.
         """
         sepa_debit: NotRequired[
             "Literal['']|Invoice.CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
@@ -2063,6 +2087,12 @@ class Invoice(
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
         pass
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
@@ -2330,11 +2360,11 @@ class Invoice(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2490,11 +2520,11 @@ class Invoice(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2530,11 +2560,11 @@ class Invoice(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -3458,9 +3488,21 @@ class Invoice(
         """
 
     class CreatePreviewParamsScheduleDetailsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "Invoice.CreatePreviewParamsScheduleDetailsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreatePreviewParamsScheduleDetailsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
         """
 
     class CreatePreviewParamsScheduleDetailsPhase(TypedDict):
@@ -3540,10 +3582,6 @@ class Invoice(
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
@@ -3610,7 +3648,7 @@ class Invoice(
             "Invoice.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriod"
         ]
         """
-        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -4118,6 +4156,12 @@ class Invoice(
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
+        billing_schedules: NotRequired[
+            "Literal['']|List[Invoice.CreatePreviewParamsSubscriptionDetailsBillingSchedule]"
+        ]
+        """
+        Sets the billing schedules for the subscription.
+        """
         cancel_at: NotRequired[
             "Literal['']|int|Literal['max_period_end', 'min_period_end']"
         ]
@@ -4172,9 +4216,83 @@ class Invoice(
         """
 
     class CreatePreviewParamsSubscriptionDetailsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "Invoice.CreatePreviewParamsSubscriptionDetailsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreatePreviewParamsSubscriptionDetailsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
+        """
+
+    class CreatePreviewParamsSubscriptionDetailsBillingSchedule(TypedDict):
+        applies_to: NotRequired[
+            List[
+                "Invoice.CreatePreviewParamsSubscriptionDetailsBillingScheduleAppliesTo"
+            ]
+        ]
+        """
+        Configure billing schedule differently for individual subscription items.
+        """
+        bill_until: NotRequired[
+            "Invoice.CreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntil"
+        ]
+        """
+        The end date for the billing schedule.
+        """
+        key: NotRequired[str]
+        """
+        Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        """
+
+    class CreatePreviewParamsSubscriptionDetailsBillingScheduleAppliesTo(
+        TypedDict,
+    ):
+        price: NotRequired[str]
+        """
+        The ID of the price object.
+        """
+        type: Literal["price"]
+        """
+        Controls which subscription items the billing schedule applies to.
+        """
+
+    class CreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntil(
+        TypedDict,
+    ):
+        duration: NotRequired[
+            "Invoice.CreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntilDuration"
+        ]
+        """
+        Specifies the billing period.
+        """
+        timestamp: NotRequired[int]
+        """
+        The end date of the billing schedule.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+        """
+
+    class CreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntilDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies billing duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class CreatePreviewParamsSubscriptionDetailsItem(TypedDict):
@@ -4699,10 +4817,10 @@ class Invoice(
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
         ]
         """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         """
 
     class ModifyParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -4741,6 +4859,12 @@ class Invoice(
         ]
         """
         If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
+        """
+        pix: NotRequired[
+            "Literal['']|Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsPix"
+        ]
+        """
+        If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice's PaymentIntent.
         """
         sepa_debit: NotRequired[
             "Literal['']|Invoice.ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
@@ -4880,6 +5004,12 @@ class Invoice(
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
         pass
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
 
     class ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
@@ -5147,11 +5277,11 @@ class Invoice(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -5436,6 +5566,10 @@ class Invoice(
         tax_code: NotRequired[str]
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        """
+        unit_label: NotRequired[str]
+        """
+        A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
         """
 
     class UpdateLinesParamsLinePricing(TypedDict):

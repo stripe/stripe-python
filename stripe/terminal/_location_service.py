@@ -11,17 +11,33 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class LocationService(StripeService):
     class CreateParams(TypedDict):
-        address: "LocationService.CreateParamsAddress"
+        address: NotRequired["LocationService.CreateParamsAddress"]
         """
         The full address of the location.
+        """
+        address_kana: NotRequired["LocationService.CreateParamsAddressKana"]
+        """
+        The Kana variation of the full address of the location (Japan only).
+        """
+        address_kanji: NotRequired["LocationService.CreateParamsAddressKanji"]
+        """
+        The Kanji variation of the full address of the location (Japan only).
         """
         configuration_overrides: NotRequired[str]
         """
         The ID of a configuration that will be used to customize all readers in this location.
         """
-        display_name: str
+        display_name: NotRequired[str]
         """
         A name for the location. Maximum length is 1000 characters.
+        """
+        display_name_kana: NotRequired[str]
+        """
+        The Kana variation of the name for the location (Japan only). Maximum length is 1000 characters.
+        """
+        display_name_kanji: NotRequired[str]
+        """
+        The Kanji variation of the name for the location (Japan only). Maximum length is 1000 characters.
         """
         expand: NotRequired[List[str]]
         """
@@ -30,6 +46,10 @@ class LocationService(StripeService):
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        phone: NotRequired[str]
+        """
+        The phone number for the location.
         """
 
     class CreateParamsAddress(TypedDict):
@@ -43,11 +63,11 @@ class LocationService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -56,6 +76,66 @@ class LocationService(StripeService):
         state: NotRequired[str]
         """
         State, county, province, or region.
+        """
+
+    class CreateParamsAddressKana(TypedDict):
+        city: NotRequired[str]
+        """
+        City or ward.
+        """
+        country: NotRequired[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired[str]
+        """
+        Block or building number.
+        """
+        line2: NotRequired[str]
+        """
+        Building details.
+        """
+        postal_code: NotRequired[str]
+        """
+        Postal code.
+        """
+        state: NotRequired[str]
+        """
+        Prefecture.
+        """
+        town: NotRequired[str]
+        """
+        Town or cho-me.
+        """
+
+    class CreateParamsAddressKanji(TypedDict):
+        city: NotRequired[str]
+        """
+        City or ward.
+        """
+        country: NotRequired[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired[str]
+        """
+        Block or building number.
+        """
+        line2: NotRequired[str]
+        """
+        Building details.
+        """
+        postal_code: NotRequired[str]
+        """
+        Postal code.
+        """
+        state: NotRequired[str]
+        """
+        Prefecture.
+        """
+        town: NotRequired[str]
+        """
+        Town or cho-me.
         """
 
     class DeleteParams(TypedDict):
@@ -90,6 +170,14 @@ class LocationService(StripeService):
         """
         The full address of the location. You can't change the location's `country`. If you need to modify the `country` field, create a new `Location` object and re-register any existing readers to that location.
         """
+        address_kana: NotRequired["LocationService.UpdateParamsAddressKana"]
+        """
+        The Kana variation of the full address of the location (Japan only).
+        """
+        address_kanji: NotRequired["LocationService.UpdateParamsAddressKanji"]
+        """
+        The Kanji variation of the full address of the location (Japan only).
+        """
         configuration_overrides: NotRequired["Literal['']|str"]
         """
         The ID of a configuration that will be used to customize all readers in this location.
@@ -98,6 +186,14 @@ class LocationService(StripeService):
         """
         A name for the location.
         """
+        display_name_kana: NotRequired["Literal['']|str"]
+        """
+        The Kana variation of the name for the location (Japan only).
+        """
+        display_name_kanji: NotRequired["Literal['']|str"]
+        """
+        The Kanji variation of the name for the location (Japan only).
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -105,6 +201,10 @@ class LocationService(StripeService):
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        phone: NotRequired["Literal['']|str"]
+        """
+        The phone number for the location.
         """
 
     class UpdateParamsAddress(TypedDict):
@@ -118,11 +218,11 @@ class LocationService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -131,6 +231,66 @@ class LocationService(StripeService):
         state: NotRequired[str]
         """
         State, county, province, or region.
+        """
+
+    class UpdateParamsAddressKana(TypedDict):
+        city: NotRequired[str]
+        """
+        City or ward.
+        """
+        country: NotRequired[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired[str]
+        """
+        Block or building number.
+        """
+        line2: NotRequired[str]
+        """
+        Building details.
+        """
+        postal_code: NotRequired[str]
+        """
+        Postal code.
+        """
+        state: NotRequired[str]
+        """
+        Prefecture.
+        """
+        town: NotRequired[str]
+        """
+        Town or cho-me.
+        """
+
+    class UpdateParamsAddressKanji(TypedDict):
+        city: NotRequired[str]
+        """
+        City or ward.
+        """
+        country: NotRequired[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired[str]
+        """
+        Block or building number.
+        """
+        line2: NotRequired[str]
+        """
+        Building details.
+        """
+        postal_code: NotRequired[str]
+        """
+        Postal code.
+        """
+        state: NotRequired[str]
+        """
+        Prefecture.
+        """
+        town: NotRequired[str]
+        """
+        Town or cho-me.
         """
 
     def delete(
@@ -305,7 +465,7 @@ class LocationService(StripeService):
 
     def create(
         self,
-        params: "LocationService.CreateParams",
+        params: Optional["LocationService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Location:
         """
@@ -325,7 +485,7 @@ class LocationService(StripeService):
 
     async def create_async(
         self,
-        params: "LocationService.CreateParams",
+        params: Optional["LocationService.CreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Location:
         """

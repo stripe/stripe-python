@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from stripe.billing._meter_usage import MeterUsage
+from stripe.billing.analytics._meter_usage import MeterUsage
 from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -13,7 +13,7 @@ class MeterUsageService(StripeService):
         """
         The customer id to fetch meter usage data for.
         """
-        end_time: int
+        ends_at: int
         """
         The timestamp from when to stop aggregating meter events (exclusive). Must be aligned with minute boundaries.
         """
@@ -25,7 +25,7 @@ class MeterUsageService(StripeService):
         """
         An array of meter parameters to specify which meters to include in the usage data. If not specified, usage across all meters for the customer is included.
         """
-        start_time: int
+        starts_at: int
         """
         The timestamp from when to start aggregating meter events (inclusive). Must be aligned with minute boundaries.
         """
@@ -651,7 +651,7 @@ class MeterUsageService(StripeService):
         """
         List of meter dimension keys to group by. If specified, usage events will be grouped by the given meter dimension key's values.
         """
-        meter_id: str
+        meter: str
         """
         Meter id to query usage for.
         """

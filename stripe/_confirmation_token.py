@@ -187,11 +187,11 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 """
                 line1: Optional[str]
                 """
-                Address line 1 (e.g., street, PO Box, or company name).
+                Address line 1, such as the street, PO Box, or company name.
                 """
                 line2: Optional[str]
                 """
-                Address line 2 (e.g., apartment, suite, unit, or building).
+                Address line 2, such as the apartment, suite, unit, or building.
                 """
                 postal_code: Optional[str]
                 """
@@ -491,11 +491,11 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -517,11 +517,11 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -568,11 +568,11 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -594,11 +594,11 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -1270,6 +1270,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class Paypay(StripeObject):
+            pass
+
         class Payto(StripeObject):
             bsb_number: Optional[str]
             """
@@ -1533,6 +1536,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
         payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
@@ -1589,6 +1593,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -1656,6 +1661,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "paypay": Paypay,
             "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
@@ -1687,11 +1693,11 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -1994,6 +2000,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
+        paypay: NotRequired[
+            "ConfirmationToken.CreateParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        """
         payto: NotRequired[
             "ConfirmationToken.CreateParamsPaymentMethodDataPayto"
         ]
@@ -2121,6 +2133,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "payto",
             "pix",
             "promptpay",
@@ -2249,11 +2262,11 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2518,6 +2531,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataPaypay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataPayto(TypedDict):
         account_number: NotRequired[str]
         """
@@ -2698,11 +2714,11 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """

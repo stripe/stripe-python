@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe.billing._alert_service import AlertService
+from stripe.billing._analytics_service import AnalyticsService
 from stripe.billing._credit_balance_summary_service import (
     CreditBalanceSummaryService,
 )
@@ -14,13 +15,13 @@ from stripe.billing._meter_event_adjustment_service import (
 )
 from stripe.billing._meter_event_service import MeterEventService
 from stripe.billing._meter_service import MeterService
-from stripe.billing._meter_usage_service import MeterUsageService
 
 
 class BillingService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
         self.alerts = AlertService(self._requestor)
+        self.analytics = AnalyticsService(self._requestor)
         self.credit_balance_summary = CreditBalanceSummaryService(
             self._requestor,
         )
@@ -33,4 +34,3 @@ class BillingService(StripeService):
         self.meter_event_adjustments = MeterEventAdjustmentService(
             self._requestor,
         )
-        self.meter_usage = MeterUsageService(self._requestor)

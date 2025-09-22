@@ -28,14 +28,24 @@ class PromotionCode(
     UpdateableAPIResource["PromotionCode"],
 ):
     """
-    A Promotion Code represents a customer-redeemable code for a [coupon](https://stripe.com/docs/api#coupons).
-    You can create multiple codes for a single coupon.
+    A Promotion Code represents a customer-redeemable code for an underlying promotion.
+    You can create multiple codes for a single promotion.
 
     If you enable promotion codes in your [customer portal configuration](https://stripe.com/docs/customer-management/configure-portal), then customers can redeem a code themselves when updating a subscription in the portal.
     Customers can also view the currently active promotion codes and coupons on each of their subscriptions in the portal.
     """
 
     OBJECT_NAME: ClassVar[Literal["promotion_code"]] = "promotion_code"
+
+    class Promotion(StripeObject):
+        coupon: Optional[ExpandableField["Coupon"]]
+        """
+        If promotion type is 'coupon', the coupon for this promotion.
+        """
+        type: Literal["coupon"]
+        """
+        The type of promotion.
+        """
 
     class Restrictions(StripeObject):
         class CurrencyOptions(StripeObject):
@@ -74,10 +84,6 @@ class PromotionCode(
 
         If left blank, we will generate one automatically.
         """
-        coupon: str
-        """
-        The coupon for this promotion code.
-        """
         customer: NotRequired[str]
         """
         The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.
@@ -102,9 +108,23 @@ class PromotionCode(
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        promotion: "PromotionCode.CreateParamsPromotion"
+        """
+        The promotion referenced by this promotion code.
+        """
         restrictions: NotRequired["PromotionCode.CreateParamsRestrictions"]
         """
         Settings that restrict the redemption of the promotion code.
+        """
+
+    class CreateParamsPromotion(TypedDict):
+        coupon: NotRequired[str]
+        """
+        If the promotion type is 'coupon', the coupon for this promotion code.
+        """
+        type: Literal["coupon"]
+        """
+        Specifies the type of promotion code.
         """
 
     class CreateParamsRestrictions(TypedDict):
@@ -239,12 +259,6 @@ class PromotionCode(
     """
     The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for each customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
     """
-    coupon: "Coupon"
-    """
-    A coupon contains information about a percent-off or amount-off discount you
-    might want to apply to a customer. Coupons may be applied to [subscriptions](https://stripe.com/docs/api#subscriptions), [invoices](https://stripe.com/docs/api#invoices),
-    [checkout sessions](https://stripe.com/docs/api/checkout/sessions), [quotes](https://stripe.com/docs/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge) or [payment intents](https://stripe.com/docs/api/payment_intents).
-    """
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -281,6 +295,7 @@ class PromotionCode(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    promotion: Promotion
     restrictions: Restrictions
     times_redeemed: int
     """
@@ -292,7 +307,7 @@ class PromotionCode(
         cls, **params: Unpack["PromotionCode.CreateParams"]
     ) -> "PromotionCode":
         """
-        A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+        A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
         """
         return cast(
             "PromotionCode",
@@ -308,7 +323,7 @@ class PromotionCode(
         cls, **params: Unpack["PromotionCode.CreateParams"]
     ) -> "PromotionCode":
         """
-        A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+        A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
         """
         return cast(
             "PromotionCode",
@@ -415,4 +430,4 @@ class PromotionCode(
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {"restrictions": Restrictions}
+    _inner_class_types = {"promotion": Promotion, "restrictions": Restrictions}

@@ -73,13 +73,19 @@ class SubscriptionService(StripeService):
             "SubscriptionService.CreateParamsBillingCycleAnchorConfig"
         ]
         """
-        Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
+        Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
         """
         billing_mode: NotRequired[
             "SubscriptionService.CreateParamsBillingMode"
         ]
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
+        billing_schedules: NotRequired[
+            List["SubscriptionService.CreateParamsBillingSchedule"]
+        ]
+        """
+        Sets the billing schedules for the subscription.
         """
         billing_thresholds: NotRequired[
             "Literal['']|SubscriptionService.CreateParamsBillingThresholds"
@@ -250,7 +256,7 @@ class SubscriptionService(StripeService):
             "SubscriptionService.CreateParamsAddInvoiceItemPeriod"
         ]
         """
-        The period associated with this invoice item. Defaults to the current period of the subscription.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -416,9 +422,73 @@ class SubscriptionService(StripeService):
         """
 
     class CreateParamsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SubscriptionService.CreateParamsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
+        """
+
+    class CreateParamsBillingSchedule(TypedDict):
+        applies_to: NotRequired[
+            List["SubscriptionService.CreateParamsBillingScheduleAppliesTo"]
+        ]
+        """
+        Configure billing schedule differently for individual subscription items.
+        """
+        bill_until: "SubscriptionService.CreateParamsBillingScheduleBillUntil"
+        """
+        The end date for the billing schedule.
+        """
+        key: NotRequired[str]
+        """
+        Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        """
+
+    class CreateParamsBillingScheduleAppliesTo(TypedDict):
+        price: NotRequired[str]
+        """
+        The ID of the price object.
+        """
+        type: Literal["price"]
+        """
+        Controls which subscription items the billing schedule applies to.
+        """
+
+    class CreateParamsBillingScheduleBillUntil(TypedDict):
+        duration: NotRequired[
+            "SubscriptionService.CreateParamsBillingScheduleBillUntilDuration"
+        ]
+        """
+        Specifies the billing period.
+        """
+        timestamp: NotRequired[int]
+        """
+        The end date of the billing schedule.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+        """
+
+    class CreateParamsBillingScheduleBillUntilDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies billing duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class CreateParamsBillingThresholds(TypedDict):
@@ -651,7 +721,7 @@ class SubscriptionService(StripeService):
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -699,6 +769,12 @@ class SubscriptionService(StripeService):
         ]
         """
         This sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
+        """
+        pix: NotRequired[
+            "Literal['']|SubscriptionService.CreateParamsPaymentSettingsPaymentMethodOptionsPix"
+        ]
+        """
+        This sub-hash contains details about the Pix payment method options to pass to the invoice's PaymentIntent.
         """
         sepa_debit: NotRequired[
             "Literal['']|SubscriptionService.CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
@@ -840,6 +916,36 @@ class SubscriptionService(StripeService):
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
         pass
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
+        mandate_options: NotRequired[
+            "SubscriptionService.CreateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Configuration options for setting up a mandate
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions(
+        TypedDict,
+    ):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. If not provided, defaults to 40000.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
@@ -1136,7 +1242,22 @@ class SubscriptionService(StripeService):
         """
 
     class MigrateParamsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SubscriptionService.MigrateParamsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
+
+    class MigrateParamsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
+        """
 
     class ResumeParams(TypedDict):
         billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
@@ -1202,6 +1323,12 @@ class SubscriptionService(StripeService):
         billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
         """
         Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+        """
+        billing_schedules: NotRequired[
+            "Literal['']|List[SubscriptionService.UpdateParamsBillingSchedule]"
+        ]
+        """
+        Sets the billing schedules for the subscription.
         """
         billing_thresholds: NotRequired[
             "Literal['']|SubscriptionService.UpdateParamsBillingThresholds"
@@ -1368,7 +1495,7 @@ class SubscriptionService(StripeService):
             "SubscriptionService.UpdateParamsAddInvoiceItemPeriod"
         ]
         """
-        The period associated with this invoice item. Defaults to the current period of the subscription.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -1509,6 +1636,60 @@ class SubscriptionService(StripeService):
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
+        """
+
+    class UpdateParamsBillingSchedule(TypedDict):
+        applies_to: NotRequired[
+            List["SubscriptionService.UpdateParamsBillingScheduleAppliesTo"]
+        ]
+        """
+        Configure billing schedule differently for individual subscription items.
+        """
+        bill_until: NotRequired[
+            "SubscriptionService.UpdateParamsBillingScheduleBillUntil"
+        ]
+        """
+        The end date for the billing schedule.
+        """
+        key: NotRequired[str]
+        """
+        Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        """
+
+    class UpdateParamsBillingScheduleAppliesTo(TypedDict):
+        price: NotRequired[str]
+        """
+        The ID of the price object.
+        """
+        type: Literal["price"]
+        """
+        Controls which subscription items the billing schedule applies to.
+        """
+
+    class UpdateParamsBillingScheduleBillUntil(TypedDict):
+        duration: NotRequired[
+            "SubscriptionService.UpdateParamsBillingScheduleBillUntilDuration"
+        ]
+        """
+        Specifies the billing period.
+        """
+        timestamp: NotRequired[int]
+        """
+        The end date of the billing schedule.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+        """
+
+    class UpdateParamsBillingScheduleBillUntilDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies billing duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class UpdateParamsBillingThresholds(TypedDict):
@@ -1761,7 +1942,7 @@ class SubscriptionService(StripeService):
         Payment-method-specific configuration to provide to invoices created by the subscription.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
         ]
         """
         The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -1809,6 +1990,12 @@ class SubscriptionService(StripeService):
         ]
         """
         This sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
+        """
+        pix: NotRequired[
+            "Literal['']|SubscriptionService.UpdateParamsPaymentSettingsPaymentMethodOptionsPix"
+        ]
+        """
+        This sub-hash contains details about the Pix payment method options to pass to the invoice's PaymentIntent.
         """
         sepa_debit: NotRequired[
             "Literal['']|SubscriptionService.UpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
@@ -1950,6 +2137,36 @@ class SubscriptionService(StripeService):
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
         pass
+
+    class UpdateParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
+        mandate_options: NotRequired[
+            "SubscriptionService.UpdateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions"
+        ]
+        """
+        Configuration options for setting up a mandate
+        """
+
+    class UpdateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions(
+        TypedDict,
+    ):
+        amount: NotRequired[int]
+        """
+        Amount to be charged for future payments. If not provided, defaults to 40000.
+        """
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
+        end_date: NotRequired[str]
+        """
+        Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled.
+        """
+        payment_schedule: NotRequired[
+            Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+        ]
+        """
+        Schedule at which the future payments will be charged. Defaults to `weekly`.
+        """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
         pass
