@@ -10,7 +10,7 @@ from stripe.v2._financial_address_credit_simulation import (
 from stripe.v2._financial_address_generated_microdeposits import (
     FinancialAddressGeneratedMicrodeposits,
 )
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -36,7 +36,7 @@ class FinancialAddressService(StripeService):
         self,
         id: str,
         params: "FinancialAddressService.CreditParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAddressCreditSimulation:
         """
         Simulate crediting a FinancialAddress in a Sandbox environment. This can be used to add virtual funds and increase your balance for testing.
@@ -58,7 +58,7 @@ class FinancialAddressService(StripeService):
         self,
         id: str,
         params: "FinancialAddressService.CreditParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAddressCreditSimulation:
         """
         Simulate crediting a FinancialAddress in a Sandbox environment. This can be used to add virtual funds and increase your balance for testing.
@@ -79,8 +79,10 @@ class FinancialAddressService(StripeService):
     def generate_microdeposits(
         self,
         id: str,
-        params: "FinancialAddressService.GenerateMicrodepositsParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "FinancialAddressService.GenerateMicrodepositsParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAddressGeneratedMicrodeposits:
         """
         Generates microdeposits for a FinancialAddress in a Sandbox environment.
@@ -101,8 +103,10 @@ class FinancialAddressService(StripeService):
     async def generate_microdeposits_async(
         self,
         id: str,
-        params: "FinancialAddressService.GenerateMicrodepositsParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "FinancialAddressService.GenerateMicrodepositsParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAddressGeneratedMicrodeposits:
         """
         Generates microdeposits for a FinancialAddress in a Sandbox environment.

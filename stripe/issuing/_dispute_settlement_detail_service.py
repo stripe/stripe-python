@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._dispute_settlement_detail import DisputeSettlementDetail
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -40,8 +40,8 @@ class DisputeSettlementDetailService(StripeService):
 
     def list(
         self,
-        params: "DisputeSettlementDetailService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["DisputeSettlementDetailService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[DisputeSettlementDetail]:
         """
         Returns a list of Issuing DisputeSettlementDetail objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -59,8 +59,8 @@ class DisputeSettlementDetailService(StripeService):
 
     async def list_async(
         self,
-        params: "DisputeSettlementDetailService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["DisputeSettlementDetailService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[DisputeSettlementDetail]:
         """
         Returns a list of Issuing DisputeSettlementDetail objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -79,8 +79,10 @@ class DisputeSettlementDetailService(StripeService):
     def retrieve(
         self,
         dispute_settlement_detail: str,
-        params: "DisputeSettlementDetailService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "DisputeSettlementDetailService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> DisputeSettlementDetail:
         """
         Retrieves an Issuing DisputeSettlementDetail object.
@@ -103,8 +105,10 @@ class DisputeSettlementDetailService(StripeService):
     async def retrieve_async(
         self,
         dispute_settlement_detail: str,
-        params: "DisputeSettlementDetailService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "DisputeSettlementDetailService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> DisputeSettlementDetail:
         """
         Retrieves an Issuing DisputeSettlementDetail object.

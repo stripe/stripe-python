@@ -7,7 +7,7 @@ from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._outbound_setup_intent import (
     OutboundSetupIntent,
 )
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -174,8 +174,8 @@ class OutboundSetupIntentService(StripeService):
 
     def list(
         self,
-        params: "OutboundSetupIntentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundSetupIntentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[OutboundSetupIntent]:
         """
         List the OutboundSetupIntent objects.
@@ -193,8 +193,8 @@ class OutboundSetupIntentService(StripeService):
 
     async def list_async(
         self,
-        params: "OutboundSetupIntentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundSetupIntentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[OutboundSetupIntent]:
         """
         List the OutboundSetupIntent objects.
@@ -212,8 +212,8 @@ class OutboundSetupIntentService(StripeService):
 
     def create(
         self,
-        params: "OutboundSetupIntentService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundSetupIntentService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
         Create an OutboundSetupIntent object.
@@ -231,8 +231,8 @@ class OutboundSetupIntentService(StripeService):
 
     async def create_async(
         self,
-        params: "OutboundSetupIntentService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundSetupIntentService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
         Create an OutboundSetupIntent object.
@@ -251,8 +251,8 @@ class OutboundSetupIntentService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "OutboundSetupIntentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundSetupIntentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
         Retrieve an OutboundSetupIntent object.
@@ -273,8 +273,8 @@ class OutboundSetupIntentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "OutboundSetupIntentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundSetupIntentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
         Retrieve an OutboundSetupIntent object.
@@ -295,8 +295,8 @@ class OutboundSetupIntentService(StripeService):
     def update(
         self,
         id: str,
-        params: "OutboundSetupIntentService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundSetupIntentService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
         Update an OutboundSetupIntent object.
@@ -317,8 +317,8 @@ class OutboundSetupIntentService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "OutboundSetupIntentService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundSetupIntentService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
         Update an OutboundSetupIntent object.
@@ -339,8 +339,8 @@ class OutboundSetupIntentService(StripeService):
     def cancel(
         self,
         id: str,
-        params: "OutboundSetupIntentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundSetupIntentService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
         Cancel an OutboundSetupIntent object.
@@ -361,8 +361,8 @@ class OutboundSetupIntentService(StripeService):
     async def cancel_async(
         self,
         id: str,
-        params: "OutboundSetupIntentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OutboundSetupIntentService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
         Cancel an OutboundSetupIntent object.

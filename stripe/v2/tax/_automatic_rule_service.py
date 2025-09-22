@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2.tax._automatic_rule import AutomaticRule
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import TypedDict
 
 
@@ -40,7 +40,7 @@ class AutomaticRuleService(StripeService):
     def create(
         self,
         params: "AutomaticRuleService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
         Creates an AutomaticRule object.
@@ -59,7 +59,7 @@ class AutomaticRuleService(StripeService):
     async def create_async(
         self,
         params: "AutomaticRuleService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
         Creates an AutomaticRule object.
@@ -78,7 +78,7 @@ class AutomaticRuleService(StripeService):
     def find(
         self,
         params: "AutomaticRuleService.FindParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
         Finds an AutomaticRule object by BillableItem ID.
@@ -97,7 +97,7 @@ class AutomaticRuleService(StripeService):
     async def find_async(
         self,
         params: "AutomaticRuleService.FindParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
         Finds an AutomaticRule object by BillableItem ID.
@@ -116,8 +116,8 @@ class AutomaticRuleService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "AutomaticRuleService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AutomaticRuleService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
         Retrieves an AutomaticRule object by ID.
@@ -136,8 +136,8 @@ class AutomaticRuleService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "AutomaticRuleService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AutomaticRuleService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
         Retrieves an AutomaticRule object by ID.
@@ -157,7 +157,7 @@ class AutomaticRuleService(StripeService):
         self,
         id: str,
         params: "AutomaticRuleService.UpdateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
         Updates the automatic Tax configuration for an AutomaticRule object.
@@ -177,7 +177,7 @@ class AutomaticRuleService(StripeService):
         self,
         id: str,
         params: "AutomaticRuleService.UpdateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
         Updates the automatic Tax configuration for an AutomaticRule object.
@@ -196,8 +196,8 @@ class AutomaticRuleService(StripeService):
     def deactivate(
         self,
         id: str,
-        params: "AutomaticRuleService.DeactivateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AutomaticRuleService.DeactivateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
         Deactivates an AutomaticRule object. Deactivated AutomaticRule objects are ignored in future tax calculations.
@@ -218,8 +218,8 @@ class AutomaticRuleService(StripeService):
     async def deactivate_async(
         self,
         id: str,
-        params: "AutomaticRuleService.DeactivateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AutomaticRuleService.DeactivateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
         Deactivates an AutomaticRule object. Deactivated AutomaticRule objects are ignored in future tax calculations.

@@ -5,7 +5,7 @@ from stripe._person import Person
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -999,8 +999,8 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountPersonService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
@@ -1023,8 +1023,8 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountPersonService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
@@ -1047,8 +1047,8 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountPersonService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Retrieves an existing person.
@@ -1071,8 +1071,8 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountPersonService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Retrieves an existing person.
@@ -1095,8 +1095,8 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountPersonService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Updates an existing person.
@@ -1119,8 +1119,8 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         person: str,
-        params: "AccountPersonService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountPersonService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Updates an existing person.
@@ -1142,8 +1142,8 @@ class AccountPersonService(StripeService):
     def list(
         self,
         account: str,
-        params: "AccountPersonService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountPersonService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Person]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -1164,8 +1164,8 @@ class AccountPersonService(StripeService):
     async def list_async(
         self,
         account: str,
-        params: "AccountPersonService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountPersonService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Person]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -1186,8 +1186,8 @@ class AccountPersonService(StripeService):
     def create(
         self,
         account: str,
-        params: "AccountPersonService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountPersonService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Creates a new person.
@@ -1208,8 +1208,8 @@ class AccountPersonService(StripeService):
     async def create_async(
         self,
         account: str,
-        params: "AccountPersonService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountPersonService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Person:
         """
         Creates a new person.

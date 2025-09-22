@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe.v2.money_management._payout_methods_bank_account_spec import (
     PayoutMethodsBankAccountSpec,
 )
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -18,8 +18,10 @@ class PayoutMethodsBankAccountSpecService(StripeService):
 
     def retrieve(
         self,
-        params: "PayoutMethodsBankAccountSpecService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PayoutMethodsBankAccountSpecService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PayoutMethodsBankAccountSpec:
         """
         Fetch the specifications for a set of countries to know which
@@ -39,8 +41,10 @@ class PayoutMethodsBankAccountSpecService(StripeService):
 
     async def retrieve_async(
         self,
-        params: "PayoutMethodsBankAccountSpecService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PayoutMethodsBankAccountSpecService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PayoutMethodsBankAccountSpec:
         """
         Fetch the specifications for a set of countries to know which

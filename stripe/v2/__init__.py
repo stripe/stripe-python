@@ -8,12 +8,12 @@ from stripe.v2 import (
     core as core,
     money_management as money_management,
     payments as payments,
-    reporting as reporting,
     tax as tax,
     test_helpers as test_helpers,
 )
 from stripe.v2._billing_service import BillingService as BillingService
 from stripe.v2._core_service import CoreService as CoreService
+from stripe.v2._deleted_object import DeletedObject as DeletedObject
 from stripe.v2._event import Event as Event
 from stripe.v2._event_destination import EventDestination as EventDestination
 from stripe.v2._financial_address_credit_simulation import (
@@ -26,7 +26,6 @@ from stripe.v2._money_management_service import (
     MoneyManagementService as MoneyManagementService,
 )
 from stripe.v2._payment_service import PaymentService as PaymentService
-from stripe.v2._reporting_service import ReportingService as ReportingService
 from stripe.v2._tax_service import TaxService as TaxService
 from stripe.v2._test_helper_service import (
     TestHelperService as TestHelperService,

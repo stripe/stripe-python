@@ -62,7 +62,7 @@ class OutboundSetupIntent(StripeObject):
     """
     payout_method: "PayoutMethod"
     """
-    Information about the payout method that's created and linked to this outbound setup intent.
+    Use the PayoutMethods API to list and interact with PayoutMethod objects.
     """
     status: Literal[
         "canceled", "requires_action", "requires_payout_method", "succeeded"

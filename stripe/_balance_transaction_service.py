@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -74,8 +74,8 @@ class BalanceTransactionService(StripeService):
 
     def list(
         self,
-        params: "BalanceTransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BalanceTransactionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[BalanceTransaction]:
         """
         Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
@@ -95,8 +95,8 @@ class BalanceTransactionService(StripeService):
 
     async def list_async(
         self,
-        params: "BalanceTransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BalanceTransactionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[BalanceTransaction]:
         """
         Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
@@ -117,8 +117,8 @@ class BalanceTransactionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "BalanceTransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BalanceTransactionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BalanceTransaction:
         """
         Retrieves the balance transaction with the given ID.
@@ -139,8 +139,8 @@ class BalanceTransactionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "BalanceTransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["BalanceTransactionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> BalanceTransaction:
         """
         Retrieves the balance transaction with the given ID.

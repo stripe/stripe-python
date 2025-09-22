@@ -71,7 +71,8 @@ class LicenseFee(StripeObject):
     """
     licensed_item: "LicensedItem"
     """
-    The Licensed Item that this License Fee binds to.
+    A Licensed Item represents a billable item whose pricing is based on license fees. You can use license fees
+    to specify the pricing and create subscriptions to these items.
     """
     live_version: str
     """

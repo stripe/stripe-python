@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import Dict, List
+from typing import Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -10,7 +10,7 @@ class MeterEventStreamService(StripeService):
     class CreateParams(TypedDict):
         events: List["MeterEventStreamService.CreateParamsEvent"]
         """
-        List of meter events to include in the request. Supports up to 100 events per request.
+        List of meter events to include in the request.
         """
 
     class CreateParamsEvent(TypedDict):
@@ -41,7 +41,7 @@ class MeterEventStreamService(StripeService):
     def create(
         self,
         params: "MeterEventStreamService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> None:
         """
         Creates meter events. Events are processed asynchronously, including validation. Requires a meter event session for authentication. Supports up to 10,000 requests per second in livemode. For even higher rate-limits, contact sales.
@@ -57,7 +57,7 @@ class MeterEventStreamService(StripeService):
     async def create_async(
         self,
         params: "MeterEventStreamService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> None:
         """
         Creates meter events. Events are processed asynchronously, including validation. Requires a meter event session for authentication. Supports up to 10,000 requests per second in livemode. For even higher rate-limits, contact sales.

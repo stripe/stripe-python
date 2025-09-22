@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.radar._value_list import ValueList
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -123,8 +123,8 @@ class ValueListService(StripeService):
     def delete(
         self,
         value_list: str,
-        params: "ValueListService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ValueListService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -145,8 +145,8 @@ class ValueListService(StripeService):
     async def delete_async(
         self,
         value_list: str,
-        params: "ValueListService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ValueListService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -167,8 +167,8 @@ class ValueListService(StripeService):
     def retrieve(
         self,
         value_list: str,
-        params: "ValueListService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ValueListService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Retrieves a ValueList object.
@@ -189,8 +189,8 @@ class ValueListService(StripeService):
     async def retrieve_async(
         self,
         value_list: str,
-        params: "ValueListService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ValueListService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Retrieves a ValueList object.
@@ -211,8 +211,8 @@ class ValueListService(StripeService):
     def update(
         self,
         value_list: str,
-        params: "ValueListService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ValueListService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
@@ -233,8 +233,8 @@ class ValueListService(StripeService):
     async def update_async(
         self,
         value_list: str,
-        params: "ValueListService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ValueListService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
@@ -254,8 +254,8 @@ class ValueListService(StripeService):
 
     def list(
         self,
-        params: "ValueListService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ValueListService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ValueList]:
         """
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -273,8 +273,8 @@ class ValueListService(StripeService):
 
     async def list_async(
         self,
-        params: "ValueListService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ValueListService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ValueList]:
         """
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -293,7 +293,7 @@ class ValueListService(StripeService):
     def create(
         self,
         params: "ValueListService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Creates a new ValueList object, which can then be referenced in rules.
@@ -312,7 +312,7 @@ class ValueListService(StripeService):
     async def create_async(
         self,
         params: "ValueListService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
         Creates a new ValueList object, which can then be referenced in rules.

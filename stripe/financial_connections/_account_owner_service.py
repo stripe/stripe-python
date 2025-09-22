@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.financial_connections._account_owner import AccountOwner
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -36,7 +36,7 @@ class AccountOwnerService(StripeService):
         self,
         account: str,
         params: "AccountOwnerService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[AccountOwner]:
         """
         Lists all owners for a given Account
@@ -58,7 +58,7 @@ class AccountOwnerService(StripeService):
         self,
         account: str,
         params: "AccountOwnerService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[AccountOwner]:
         """
         Lists all owners for a given Account
