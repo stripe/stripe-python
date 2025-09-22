@@ -455,28 +455,6 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
-    class FrMealVoucherConecs(StripeObject):
-        class DisplayPreference(StripeObject):
-            overridable: Optional[bool]
-            """
-            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
-            """
-            preference: Literal["none", "off", "on"]
-            """
-            The account's display preference.
-            """
-            value: Literal["off", "on"]
-            """
-            The effective display preference value.
-            """
-
-        available: bool
-        """
-        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
-        """
-        display_preference: DisplayPreference
-        _inner_class_types = {"display_preference": DisplayPreference}
-
     class Giropay(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -3628,7 +3606,6 @@ class PaymentMethodConfiguration(
     customer_balance: Optional[CustomerBalance]
     eps: Optional[Eps]
     fpx: Optional[Fpx]
-    fr_meal_voucher_conecs: Optional[FrMealVoucherConecs]
     giropay: Optional[Giropay]
     google_pay: Optional[GooglePay]
     gopay: Optional[Gopay]
@@ -3848,7 +3825,6 @@ class PaymentMethodConfiguration(
         "customer_balance": CustomerBalance,
         "eps": Eps,
         "fpx": Fpx,
-        "fr_meal_voucher_conecs": FrMealVoucherConecs,
         "giropay": Giropay,
         "google_pay": GooglePay,
         "gopay": Gopay,
