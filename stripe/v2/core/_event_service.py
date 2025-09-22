@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._event import Event
 from stripe.v2._list_object import ListObject
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -24,7 +24,9 @@ class EventService(StripeService):
         pass
 
     def list(
-        self, params: "EventService.ListParams", options: RequestOptions = {}
+        self,
+        params: "EventService.ListParams",
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Event]:
         """
         List events, going back up to 30 days.
@@ -41,7 +43,9 @@ class EventService(StripeService):
         )
 
     async def list_async(
-        self, params: "EventService.ListParams", options: RequestOptions = {}
+        self,
+        params: "EventService.ListParams",
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Event]:
         """
         List events, going back up to 30 days.
@@ -60,8 +64,8 @@ class EventService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "EventService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Event:
         """
         Retrieves the details of an event.
@@ -80,8 +84,8 @@ class EventService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "EventService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["EventService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Event:
         """
         Retrieves the details of an event.

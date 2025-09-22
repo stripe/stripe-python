@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.billing._credit_balance_summary import CreditBalanceSummary
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -65,7 +65,7 @@ class CreditBalanceSummaryService(StripeService):
     def retrieve(
         self,
         params: "CreditBalanceSummaryService.RetrieveParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditBalanceSummary:
         """
         Retrieves the credit balance summary for a customer.
@@ -84,7 +84,7 @@ class CreditBalanceSummaryService(StripeService):
     async def retrieve_async(
         self,
         params: "CreditBalanceSummaryService.RetrieveParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditBalanceSummary:
         """
         Retrieves the credit balance summary for a customer.

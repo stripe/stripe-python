@@ -243,7 +243,7 @@ class HTTPClientMock(object):
         query_string="",
         rbody="{}",
         rcode=200,
-        rheaders={},
+        rheaders=None,
     ) -> None:
         def custom_side_effect_for_func(func):
             def custom_side_effect(
@@ -279,7 +279,7 @@ class HTTPClientMock(object):
 
         self.registered_responses[
             (method, path, urlencode(parse_and_sort(query_string)))
-        ] = (rbody, rcode, rheaders)
+        ] = (rbody, rcode, rheaders or {})
 
         for func in self.funcs:
             func.side_effect = custom_side_effect_for_func(func)

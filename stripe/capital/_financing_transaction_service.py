@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.capital._financing_transaction import FinancingTransaction
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -52,8 +52,8 @@ class FinancingTransactionService(StripeService):
 
     def list(
         self,
-        params: "FinancingTransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancingTransactionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancingTransaction]:
         """
         Returns a list of financing transactions. The transactions are returned in sorted order,
@@ -72,8 +72,8 @@ class FinancingTransactionService(StripeService):
 
     async def list_async(
         self,
-        params: "FinancingTransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancingTransactionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancingTransaction]:
         """
         Returns a list of financing transactions. The transactions are returned in sorted order,
@@ -93,8 +93,8 @@ class FinancingTransactionService(StripeService):
     def retrieve(
         self,
         financing_transaction: str,
-        params: "FinancingTransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancingTransactionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancingTransaction:
         """
         Retrieves a financing transaction for a financing offer.
@@ -115,8 +115,8 @@ class FinancingTransactionService(StripeService):
     async def retrieve_async(
         self,
         financing_transaction: str,
-        params: "FinancingTransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancingTransactionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancingTransaction:
         """
         Retrieves a financing transaction for a financing offer.

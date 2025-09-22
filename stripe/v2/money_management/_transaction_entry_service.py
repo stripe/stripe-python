@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._transaction_entry import TransactionEntry
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -45,8 +45,8 @@ class TransactionEntryService(StripeService):
 
     def list(
         self,
-        params: "TransactionEntryService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionEntryService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TransactionEntry]:
         """
         Returns a list of TransactionEntries that match the provided filters.
@@ -64,8 +64,8 @@ class TransactionEntryService(StripeService):
 
     async def list_async(
         self,
-        params: "TransactionEntryService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionEntryService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[TransactionEntry]:
         """
         Returns a list of TransactionEntries that match the provided filters.
@@ -84,8 +84,8 @@ class TransactionEntryService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "TransactionEntryService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionEntryService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> TransactionEntry:
         """
         Retrieves the details of a TransactionEntry by ID.
@@ -106,8 +106,8 @@ class TransactionEntryService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "TransactionEntryService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionEntryService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> TransactionEntry:
         """
         Retrieves the details of a TransactionEntry by ID.

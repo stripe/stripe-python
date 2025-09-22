@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._credit_underwriting_record import CreditUnderwritingRecord
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -902,8 +902,8 @@ class CreditUnderwritingRecordService(StripeService):
 
     def list(
         self,
-        params: "CreditUnderwritingRecordService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CreditUnderwritingRecordService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditUnderwritingRecord]:
         """
         Retrieves a list of CreditUnderwritingRecord objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
@@ -921,8 +921,8 @@ class CreditUnderwritingRecordService(StripeService):
 
     async def list_async(
         self,
-        params: "CreditUnderwritingRecordService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CreditUnderwritingRecordService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditUnderwritingRecord]:
         """
         Retrieves a list of CreditUnderwritingRecord objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
@@ -941,8 +941,10 @@ class CreditUnderwritingRecordService(StripeService):
     def retrieve(
         self,
         credit_underwriting_record: str,
-        params: "CreditUnderwritingRecordService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "CreditUnderwritingRecordService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditUnderwritingRecord:
         """
         Retrieves a CreditUnderwritingRecord object.
@@ -965,8 +967,10 @@ class CreditUnderwritingRecordService(StripeService):
     async def retrieve_async(
         self,
         credit_underwriting_record: str,
-        params: "CreditUnderwritingRecordService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "CreditUnderwritingRecordService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditUnderwritingRecord:
         """
         Retrieves a CreditUnderwritingRecord object.
@@ -989,8 +993,10 @@ class CreditUnderwritingRecordService(StripeService):
     def correct(
         self,
         credit_underwriting_record: str,
-        params: "CreditUnderwritingRecordService.CorrectParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "CreditUnderwritingRecordService.CorrectParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditUnderwritingRecord:
         """
         Update a CreditUnderwritingRecord object to correct mistakes.
@@ -1013,8 +1019,10 @@ class CreditUnderwritingRecordService(StripeService):
     async def correct_async(
         self,
         credit_underwriting_record: str,
-        params: "CreditUnderwritingRecordService.CorrectParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "CreditUnderwritingRecordService.CorrectParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditUnderwritingRecord:
         """
         Update a CreditUnderwritingRecord object to correct mistakes.
@@ -1038,7 +1046,7 @@ class CreditUnderwritingRecordService(StripeService):
         self,
         credit_underwriting_record: str,
         params: "CreditUnderwritingRecordService.ReportDecisionParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditUnderwritingRecord:
         """
         Update a CreditUnderwritingRecord object from a decision made on a credit application.
@@ -1062,7 +1070,7 @@ class CreditUnderwritingRecordService(StripeService):
         self,
         credit_underwriting_record: str,
         params: "CreditUnderwritingRecordService.ReportDecisionParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditUnderwritingRecord:
         """
         Update a CreditUnderwritingRecord object from a decision made on a credit application.
@@ -1085,7 +1093,7 @@ class CreditUnderwritingRecordService(StripeService):
     def create_from_application(
         self,
         params: "CreditUnderwritingRecordService.CreateFromApplicationParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditUnderwritingRecord:
         """
         Creates a CreditUnderwritingRecord object with information about a credit application submission.
@@ -1104,7 +1112,7 @@ class CreditUnderwritingRecordService(StripeService):
     async def create_from_application_async(
         self,
         params: "CreditUnderwritingRecordService.CreateFromApplicationParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditUnderwritingRecord:
         """
         Creates a CreditUnderwritingRecord object with information about a credit application submission.
@@ -1123,7 +1131,7 @@ class CreditUnderwritingRecordService(StripeService):
     def create_from_proactive_review(
         self,
         params: "CreditUnderwritingRecordService.CreateFromProactiveReviewParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditUnderwritingRecord:
         """
         Creates a CreditUnderwritingRecord object from an underwriting decision coming from a proactive review of an existing accountholder.
@@ -1142,7 +1150,7 @@ class CreditUnderwritingRecordService(StripeService):
     async def create_from_proactive_review_async(
         self,
         params: "CreditUnderwritingRecordService.CreateFromProactiveReviewParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditUnderwritingRecord:
         """
         Creates a CreditUnderwritingRecord object from an underwriting decision coming from a proactive review of an existing accountholder.

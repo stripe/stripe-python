@@ -5,7 +5,7 @@ from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2._event import Event
-from stripe.v2.core._person import Person
+from stripe.v2.core._account_person import AccountPerson
 from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 
@@ -68,12 +68,12 @@ class V2CoreAccountPersonDeletedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> Person:
+    def fetch_related_object(self) -> AccountPerson:
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            Person,
+            AccountPerson,
             self._requestor.request(
                 "get",
                 self.related_object.url,

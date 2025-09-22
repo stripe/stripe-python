@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2.core.vault._us_bank_account import UsBankAccount
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -46,7 +46,7 @@ class UsBankAccountService(StripeService):
     def create(
         self,
         params: "UsBankAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
         Create a USBankAccount object.
@@ -65,7 +65,7 @@ class UsBankAccountService(StripeService):
     async def create_async(
         self,
         params: "UsBankAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
         Create a USBankAccount object.
@@ -84,8 +84,8 @@ class UsBankAccountService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "UsBankAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["UsBankAccountService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
         Retrieve a USBankAccount object.
@@ -106,8 +106,8 @@ class UsBankAccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "UsBankAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["UsBankAccountService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
         Retrieve a USBankAccount object.
@@ -128,8 +128,8 @@ class UsBankAccountService(StripeService):
     def update(
         self,
         id: str,
-        params: "UsBankAccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["UsBankAccountService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
         Update a USBankAccount object. This is limited to supplying a previously empty routing_number field.
@@ -150,8 +150,8 @@ class UsBankAccountService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "UsBankAccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["UsBankAccountService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
         Update a USBankAccount object. This is limited to supplying a previously empty routing_number field.
@@ -172,8 +172,8 @@ class UsBankAccountService(StripeService):
     def archive(
         self,
         id: str,
-        params: "UsBankAccountService.ArchiveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["UsBankAccountService.ArchiveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
         Archive a USBankAccount object. USBankAccount objects will not be automatically archived by Stripe.
@@ -196,8 +196,8 @@ class UsBankAccountService(StripeService):
     async def archive_async(
         self,
         id: str,
-        params: "UsBankAccountService.ArchiveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["UsBankAccountService.ArchiveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
         Archive a USBankAccount object. USBankAccount objects will not be automatically archived by Stripe.

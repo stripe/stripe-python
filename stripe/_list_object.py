@@ -132,8 +132,8 @@ class ListObject(StripeObject, Generic[T]):
 
         while True:
             if (
-                "ending_before" in self._retrieve_params
-                and "starting_after" not in self._retrieve_params
+                self._retrieve_params.get("ending_before") is not None
+                and self._retrieve_params.get("starting_after") is None
             ):
                 for item in reversed(page):
                     yield item
@@ -151,8 +151,8 @@ class ListObject(StripeObject, Generic[T]):
 
         while True:
             if (
-                "ending_before" in self._retrieve_params
-                and "starting_after" not in self._retrieve_params
+                self._retrieve_params.get("ending_before") is not None
+                and self._retrieve_params.get("starting_after") is None
             ):
                 for item in reversed(page):
                     yield item

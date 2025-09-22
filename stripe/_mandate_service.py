@@ -5,7 +5,7 @@ from stripe._mandate import Mandate
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -44,7 +44,9 @@ class MandateService(StripeService):
         """
 
     def list(
-        self, params: "MandateService.ListParams", options: RequestOptions = {}
+        self,
+        params: "MandateService.ListParams",
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Mandate]:
         """
         Retrieves a list of Mandates for a given PaymentMethod.
@@ -61,7 +63,9 @@ class MandateService(StripeService):
         )
 
     async def list_async(
-        self, params: "MandateService.ListParams", options: RequestOptions = {}
+        self,
+        params: "MandateService.ListParams",
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Mandate]:
         """
         Retrieves a list of Mandates for a given PaymentMethod.
@@ -80,8 +84,8 @@ class MandateService(StripeService):
     def retrieve(
         self,
         mandate: str,
-        params: "MandateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MandateService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Mandate:
         """
         Retrieves a Mandate object.
@@ -100,8 +104,8 @@ class MandateService(StripeService):
     async def retrieve_async(
         self,
         mandate: str,
-        params: "MandateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MandateService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Mandate:
         """
         Retrieves a Mandate object.

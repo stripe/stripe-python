@@ -6,7 +6,7 @@ from stripe._util import sanitize_id
 from stripe.v2._amount import AmountParam
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._inbound_transfer import InboundTransfer
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -87,8 +87,8 @@ class InboundTransferService(StripeService):
 
     def list(
         self,
-        params: "InboundTransferService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InboundTransferService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[InboundTransfer]:
         """
         Retrieves a list of InboundTransfers.
@@ -106,8 +106,8 @@ class InboundTransferService(StripeService):
 
     async def list_async(
         self,
-        params: "InboundTransferService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InboundTransferService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[InboundTransfer]:
         """
         Retrieves a list of InboundTransfers.
@@ -126,7 +126,7 @@ class InboundTransferService(StripeService):
     def create(
         self,
         params: "InboundTransferService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         InboundTransfers APIs are used to create, retrieve or list InboundTransfers.
@@ -145,7 +145,7 @@ class InboundTransferService(StripeService):
     async def create_async(
         self,
         params: "InboundTransferService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         InboundTransfers APIs are used to create, retrieve or list InboundTransfers.
@@ -164,8 +164,8 @@ class InboundTransferService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "InboundTransferService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InboundTransferService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Retrieve an InboundTransfer by ID.
@@ -186,8 +186,8 @@ class InboundTransferService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "InboundTransferService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InboundTransferService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> InboundTransfer:
         """
         Retrieve an InboundTransfer by ID.

@@ -7,7 +7,7 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -439,8 +439,8 @@ class ProductService(StripeService):
     def delete(
         self,
         id: str,
-        params: "ProductService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Product:
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
@@ -459,8 +459,8 @@ class ProductService(StripeService):
     async def delete_async(
         self,
         id: str,
-        params: "ProductService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Product:
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
@@ -479,8 +479,8 @@ class ProductService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ProductService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Product:
         """
         Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.
@@ -499,8 +499,8 @@ class ProductService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ProductService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Product:
         """
         Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.
@@ -519,8 +519,8 @@ class ProductService(StripeService):
     def update(
         self,
         id: str,
-        params: "ProductService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Product:
         """
         Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -539,8 +539,8 @@ class ProductService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "ProductService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Product:
         """
         Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -558,8 +558,8 @@ class ProductService(StripeService):
 
     def list(
         self,
-        params: "ProductService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Product]:
         """
         Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
@@ -577,8 +577,8 @@ class ProductService(StripeService):
 
     async def list_async(
         self,
-        params: "ProductService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Product]:
         """
         Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
@@ -597,7 +597,7 @@ class ProductService(StripeService):
     def create(
         self,
         params: "ProductService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Product:
         """
         Creates a new product object.
@@ -616,7 +616,7 @@ class ProductService(StripeService):
     async def create_async(
         self,
         params: "ProductService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Product:
         """
         Creates a new product object.
@@ -635,7 +635,7 @@ class ProductService(StripeService):
     def search(
         self,
         params: "ProductService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Product]:
         """
         Search for products you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -657,7 +657,7 @@ class ProductService(StripeService):
     async def search_async(
         self,
         params: "ProductService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Product]:
         """
         Search for products you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
