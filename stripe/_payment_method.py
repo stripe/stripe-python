@@ -121,11 +121,11 @@ class PaymentMethod(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -420,11 +420,11 @@ class PaymentMethod(
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -446,11 +446,11 @@ class PaymentMethod(
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -497,11 +497,11 @@ class PaymentMethod(
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -523,11 +523,11 @@ class PaymentMethod(
                     """
                     line1: Optional[str]
                     """
-                    Address line 1 (e.g., street, PO Box, or company name).
+                    Address line 1, such as the street, PO Box, or company name.
                     """
                     line2: Optional[str]
                     """
-                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    Address line 2, such as the apartment, suite, unit, or building.
                     """
                     postal_code: Optional[str]
                     """
@@ -1072,6 +1072,9 @@ class PaymentMethod(
         [Deprecated] This is a legacy parameter that no longer has any function.
         """
 
+    class MbWay(StripeObject):
+        pass
+
     class Mobilepay(StripeObject):
         pass
 
@@ -1175,6 +1178,9 @@ class PaymentMethod(
         """
         PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
         """
+
+    class Paypay(StripeObject):
+        pass
 
     class Pix(StripeObject):
         pass
@@ -1487,6 +1493,10 @@ class PaymentMethod(
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired["PaymentMethod.CreateParamsMbWay"]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1534,6 +1544,10 @@ class PaymentMethod(
         paypal: NotRequired["PaymentMethod.CreateParamsPaypal"]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired["PaymentMethod.CreateParamsPaypay"]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired["PaymentMethod.CreateParamsPix"]
         """
@@ -1603,6 +1617,7 @@ class PaymentMethod(
                 "konbini",
                 "kr_card",
                 "link",
+                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
@@ -1613,6 +1628,7 @@ class PaymentMethod(
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",
@@ -1733,11 +1749,11 @@ class PaymentMethod(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1937,6 +1953,9 @@ class PaymentMethod(
     class CreateParamsLink(TypedDict):
         pass
 
+    class CreateParamsMbWay(TypedDict):
+        pass
+
     class CreateParamsMobilepay(TypedDict):
         pass
 
@@ -2020,6 +2039,9 @@ class PaymentMethod(
         pass
 
     class CreateParamsPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaypay(TypedDict):
         pass
 
     class CreateParamsPix(TypedDict):
@@ -2144,6 +2166,7 @@ class PaymentMethod(
                 "konbini",
                 "kr_card",
                 "link",
+                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
@@ -2154,6 +2177,7 @@ class PaymentMethod(
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",
@@ -2193,17 +2217,9 @@ class PaymentMethod(
         """
         Specifies which fields in the response should be expanded.
         """
-        link: NotRequired["PaymentMethod.ModifyParamsLink"]
-        """
-        If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
-        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        pay_by_bank: NotRequired["PaymentMethod.ModifyParamsPayByBank"]
-        """
-        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
         """
         us_bank_account: NotRequired["PaymentMethod.ModifyParamsUsBankAccount"]
         """
@@ -2245,11 +2261,11 @@ class PaymentMethod(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2281,12 +2297,6 @@ class PaymentMethod(
         """
         The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
         """
-
-    class ModifyParamsLink(TypedDict):
-        pass
-
-    class ModifyParamsPayByBank(TypedDict):
-        pass
 
     class ModifyParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]
@@ -2353,6 +2363,7 @@ class PaymentMethod(
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    mb_way: Optional[MbWay]
     metadata: Optional[Dict[str, str]]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -2371,6 +2382,7 @@ class PaymentMethod(
     payco: Optional[Payco]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
+    paypay: Optional[Paypay]
     pix: Optional[Pix]
     promptpay: Optional[Promptpay]
     radar_options: Optional[RadarOptions]
@@ -2413,6 +2425,7 @@ class PaymentMethod(
         "konbini",
         "kr_card",
         "link",
+        "mb_way",
         "mobilepay",
         "multibanco",
         "naver_pay",
@@ -2423,6 +2436,7 @@ class PaymentMethod(
         "payco",
         "paynow",
         "paypal",
+        "paypay",
         "pix",
         "promptpay",
         "revolut_pay",
@@ -2929,6 +2943,7 @@ class PaymentMethod(
         "konbini": Konbini,
         "kr_card": KrCard,
         "link": Link,
+        "mb_way": MbWay,
         "mobilepay": Mobilepay,
         "multibanco": Multibanco,
         "naver_pay": NaverPay,
@@ -2939,6 +2954,7 @@ class PaymentMethod(
         "payco": Payco,
         "paynow": Paynow,
         "paypal": Paypal,
+        "paypay": Paypay,
         "pix": Pix,
         "promptpay": Promptpay,
         "radar_options": RadarOptions,

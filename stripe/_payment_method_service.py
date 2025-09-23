@@ -157,6 +157,10 @@ class PaymentMethodService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired["PaymentMethodService.CreateParamsMbWay"]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -206,6 +210,10 @@ class PaymentMethodService(StripeService):
         paypal: NotRequired["PaymentMethodService.CreateParamsPaypal"]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired["PaymentMethodService.CreateParamsPaypay"]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired["PaymentMethodService.CreateParamsPix"]
         """
@@ -277,6 +285,7 @@ class PaymentMethodService(StripeService):
                 "konbini",
                 "kr_card",
                 "link",
+                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
@@ -287,6 +296,7 @@ class PaymentMethodService(StripeService):
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",
@@ -409,11 +419,11 @@ class PaymentMethodService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -613,6 +623,9 @@ class PaymentMethodService(StripeService):
     class CreateParamsLink(TypedDict):
         pass
 
+    class CreateParamsMbWay(TypedDict):
+        pass
+
     class CreateParamsMobilepay(TypedDict):
         pass
 
@@ -696,6 +709,9 @@ class PaymentMethodService(StripeService):
         pass
 
     class CreateParamsPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaypay(TypedDict):
         pass
 
     class CreateParamsPix(TypedDict):
@@ -820,6 +836,7 @@ class PaymentMethodService(StripeService):
                 "konbini",
                 "kr_card",
                 "link",
+                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
@@ -830,6 +847,7 @@ class PaymentMethodService(StripeService):
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",
@@ -875,17 +893,9 @@ class PaymentMethodService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        link: NotRequired["PaymentMethodService.UpdateParamsLink"]
-        """
-        If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
-        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        pay_by_bank: NotRequired["PaymentMethodService.UpdateParamsPayByBank"]
-        """
-        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
         """
         us_bank_account: NotRequired[
             "PaymentMethodService.UpdateParamsUsBankAccount"
@@ -929,11 +939,11 @@ class PaymentMethodService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -965,12 +975,6 @@ class PaymentMethodService(StripeService):
         """
         The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
         """
-
-    class UpdateParamsLink(TypedDict):
-        pass
-
-    class UpdateParamsPayByBank(TypedDict):
-        pass
 
     class UpdateParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]

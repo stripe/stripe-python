@@ -23330,93 +23330,6 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v1/promotion_codes",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.promotion_codes.create({"coupon": "Z4OV52SU"})
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/promotion_codes",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="coupon=Z4OV52SU",
-        )
-
-    def test_promotion_codes_post(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        stripe.PromotionCode.create(coupon="Z4OV52SU")
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/promotion_codes",
-            query_string="",
-            post_data="coupon=Z4OV52SU",
-        )
-
-    def test_promotion_codes_post_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v1/promotion_codes",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v1.promotion_codes.create({"coupon": "Z4OV52SU"})
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/promotion_codes",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="coupon=Z4OV52SU",
-        )
-
-    @pytest.mark.anyio
-    async def test_promotion_codes_post_async(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        await stripe.PromotionCode.create_async(coupon="Z4OV52SU")
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/promotion_codes",
-            query_string="",
-            post_data="coupon=Z4OV52SU",
-        )
-
-    @pytest.mark.anyio
-    async def test_promotion_codes_post_service_async(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v1/promotion_codes",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        await client.v1.promotion_codes.create_async({"coupon": "Z4OV52SU"})
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/promotion_codes",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="coupon=Z4OV52SU",
-        )
-
-    def test_promotion_codes_post_2_service_non_namespaced(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
             "/v1/promotion_codes/promo_xxxxxxxxxxxxx",
         )
         client = StripeClient(
@@ -23436,7 +23349,7 @@ class TestGeneratedExamples(object):
             post_data="metadata[order_id]=6735",
         )
 
-    def test_promotion_codes_post_2(
+    def test_promotion_codes_post(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         stripe.PromotionCode.modify(
@@ -23450,7 +23363,7 @@ class TestGeneratedExamples(object):
             post_data="metadata[order_id]=6735",
         )
 
-    def test_promotion_codes_post_2_service(
+    def test_promotion_codes_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
@@ -23475,7 +23388,7 @@ class TestGeneratedExamples(object):
         )
 
     @pytest.mark.anyio
-    async def test_promotion_codes_post_2_async(
+    async def test_promotion_codes_post_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         await stripe.PromotionCode.modify_async(
@@ -23490,7 +23403,7 @@ class TestGeneratedExamples(object):
         )
 
     @pytest.mark.anyio
-    async def test_promotion_codes_post_2_service_async(
+    async def test_promotion_codes_post_service_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
@@ -29031,8 +28944,7 @@ class TestGeneratedExamples(object):
                     {
                         "items": [
                             {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
-                        ],
-                        "iterations": 12,
+                        ]
                     },
                 ],
             }
@@ -29042,7 +28954,7 @@ class TestGeneratedExamples(object):
             path="/v1/subscription_schedules",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     def test_subscription_schedules_post(
@@ -29053,17 +28965,14 @@ class TestGeneratedExamples(object):
             start_date=1676070661,
             end_behavior="release",
             phases=[
-                {
-                    "items": [{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
-                    "iterations": 12,
-                },
+                {"items": [{"price": "price_xxxxxxxxxxxxx", "quantity": 1}]},
             ],
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/subscription_schedules",
             query_string="",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     def test_subscription_schedules_post_service(
@@ -29087,8 +28996,7 @@ class TestGeneratedExamples(object):
                     {
                         "items": [
                             {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
-                        ],
-                        "iterations": 12,
+                        ]
                     },
                 ],
             }
@@ -29098,7 +29006,7 @@ class TestGeneratedExamples(object):
             path="/v1/subscription_schedules",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     @pytest.mark.anyio
@@ -29110,17 +29018,14 @@ class TestGeneratedExamples(object):
             start_date=1676070661,
             end_behavior="release",
             phases=[
-                {
-                    "items": [{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
-                    "iterations": 12,
-                },
+                {"items": [{"price": "price_xxxxxxxxxxxxx", "quantity": 1}]},
             ],
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/subscription_schedules",
             query_string="",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     @pytest.mark.anyio
@@ -29145,8 +29050,7 @@ class TestGeneratedExamples(object):
                     {
                         "items": [
                             {"price": "price_xxxxxxxxxxxxx", "quantity": 1}
-                        ],
-                        "iterations": 12,
+                        ]
                     },
                 ],
             }
@@ -29156,7 +29060,7 @@ class TestGeneratedExamples(object):
             path="/v1/subscription_schedules",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1&phases[0][iterations]=12",
+            post_data="customer=cus_xxxxxxxxxxxxx&start_date=1676070661&end_behavior=release&phases[0][items][0][price]=price_xxxxxxxxxxxxx&phases[0][items][0][quantity]=1",
         )
 
     def test_subscription_schedules_post_2_service_non_namespaced(
