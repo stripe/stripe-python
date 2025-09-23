@@ -3,7 +3,7 @@
 from stripe._balance_settings import BalanceSettings
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import List, Optional, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -19,7 +19,7 @@ class BalanceSettingsService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        payments: "BalanceSettingsService.UpdateParamsPayments"
+        payments: NotRequired["BalanceSettingsService.UpdateParamsPayments"]
         """
         Settings that apply to the [Payments Balance](https://docs.stripe.com/api/balance).
         """
@@ -43,6 +43,12 @@ class BalanceSettingsService(StripeService):
         """
 
     class UpdateParamsPaymentsPayouts(TypedDict):
+        minimum_balance_by_currency: NotRequired[
+            "Literal['']|Dict[str, Union[Literal[''], int]]"
+        ]
+        """
+        The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](https://docs.stripe.com/payouts/minimum-balances-for-automatic-payouts).
+        """
         schedule: NotRequired[
             "BalanceSettingsService.UpdateParamsPaymentsPayoutsSchedule"
         ]
@@ -65,25 +71,17 @@ class BalanceSettingsService(StripeService):
         """
         weekly_payout_days: NotRequired[
             List[
-                Literal[
-                    "friday",
-                    "monday",
-                    "saturday",
-                    "sunday",
-                    "thursday",
-                    "tuesday",
-                    "wednesday",
-                ]
+                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
             ]
         ]
         """
-        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
         """
 
     class UpdateParamsPaymentsSettlementTiming(TypedDict):
-        delay_days_override: NotRequired[int]
+        delay_days_override: NotRequired["Literal['']|int"]
         """
-        The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
+        Change `delay_days` for this account, which determines the number of days charge funds are held before becoming available. The maximum value is 31. Passing an empty string to `delay_days_override` will return `delay_days` to the default, which is the lowest available value for the account. [Learn more about controlling delay days](https://docs.stripe.com/connect/manage-payout-schedule).
         """
 
     def retrieve(
@@ -128,7 +126,7 @@ class BalanceSettingsService(StripeService):
 
     def update(
         self,
-        params: "BalanceSettingsService.UpdateParams",
+        params: Optional["BalanceSettingsService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BalanceSettings:
         """
@@ -148,7 +146,7 @@ class BalanceSettingsService(StripeService):
 
     async def update_async(
         self,
-        params: "BalanceSettingsService.UpdateParams",
+        params: Optional["BalanceSettingsService.UpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BalanceSettings:
         """

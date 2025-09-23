@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
@@ -14,10 +14,6 @@ class BalanceSettings(
 ):
     """
     Options for customizing account balances and payout settings for a Stripe platform's connected accounts.
-
-    This API is only available for users enrolled in the public preview for Accounts v2 on Stripe Connect.
-    If you are not in this preview, please use the [Accounts v1 API](https://docs.stripe.com/api/accounts?api-version=2025-03-31.basil)
-    to manage your connected accounts' balance settings instead.
     """
 
     OBJECT_NAME: ClassVar[Literal["balance_settings"]] = "balance_settings"
@@ -40,8 +36,6 @@ class BalanceSettings(
                         Literal[
                             "friday",
                             "monday",
-                            "saturday",
-                            "sunday",
                             "thursday",
                             "tuesday",
                             "wednesday",
@@ -52,6 +46,10 @@ class BalanceSettings(
                 The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
                 """
 
+            minimum_balance_by_currency: Optional[Dict[str, int]]
+            """
+            The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](https://docs.stripe.com/payouts/minimum-balances-for-automatic-payouts).
+            """
             schedule: Optional[Schedule]
             """
             Details on when funds from charges are available, and when they are paid out to an external account. See our [Setting Bank and Debit Card Payouts](https://stripe.com/docs/connect/bank-transfers#payout-information) documentation for details.
@@ -70,6 +68,10 @@ class BalanceSettings(
             delay_days: int
             """
             The number of days charge funds are held before becoming available.
+            """
+            delay_days_override: Optional[int]
+            """
+            The number of days charge funds are held before becoming available. If present, overrides the default, or minimum available, for the account.
             """
 
         debit_negative_balances: Optional[bool]
@@ -91,7 +93,7 @@ class BalanceSettings(
         """
         Specifies which fields in the response should be expanded.
         """
-        payments: "BalanceSettings.ModifyParamsPayments"
+        payments: NotRequired["BalanceSettings.ModifyParamsPayments"]
         """
         Settings that apply to the [Payments Balance](https://docs.stripe.com/api/balance).
         """
@@ -113,6 +115,12 @@ class BalanceSettings(
         """
 
     class ModifyParamsPaymentsPayouts(TypedDict):
+        minimum_balance_by_currency: NotRequired[
+            "Literal['']|Dict[str, Union[Literal[''], int]]"
+        ]
+        """
+        The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](https://docs.stripe.com/payouts/minimum-balances-for-automatic-payouts).
+        """
         schedule: NotRequired[
             "BalanceSettings.ModifyParamsPaymentsPayoutsSchedule"
         ]
@@ -135,25 +143,17 @@ class BalanceSettings(
         """
         weekly_payout_days: NotRequired[
             List[
-                Literal[
-                    "friday",
-                    "monday",
-                    "saturday",
-                    "sunday",
-                    "thursday",
-                    "tuesday",
-                    "wednesday",
-                ]
+                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
             ]
         ]
         """
-        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly`.)
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
         """
 
     class ModifyParamsPaymentsSettlementTiming(TypedDict):
-        delay_days_override: NotRequired[int]
+        delay_days_override: NotRequired["Literal['']|int"]
         """
-        The number of days charge funds are held before becoming available. May also be set to `minimum`, representing the lowest available value for the account country. Default is `minimum`. The `delay_days` parameter remains at the last configured value if `payouts.schedule.interval` is `manual`. [Learn more about controlling payout delay days](https://docs.stripe.com/connect/manage-payout-schedule).
+        Change `delay_days` for this account, which determines the number of days charge funds are held before becoming available. The maximum value is 31. Passing an empty string to `delay_days_override` will return `delay_days` to the default, which is the lowest available value for the account. [Learn more about controlling delay days](https://docs.stripe.com/connect/manage-payout-schedule).
         """
 
     class RetrieveParams(RequestOptions):

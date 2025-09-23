@@ -51,11 +51,11 @@ class Dispute(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -114,11 +114,11 @@ class Dispute(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -386,6 +386,10 @@ class Dispute(
             """
 
         class Klarna(StripeObject):
+            chargeback_loss_reason_code: Optional[str]
+            """
+            Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
+            """
             reason_code: Optional[str]
             """
             The reason for the dispute as defined by Klarna
@@ -417,7 +421,7 @@ class Dispute(
         }
 
     class SmartDisputes(StripeObject):
-        recommended_evidence: Optional[List[str]]
+        recommended_evidence: Optional[List[List[str]]]
         """
         Evidence that could be provided to improve the SmartDisputes packet
         """
@@ -490,6 +494,17 @@ class Dispute(
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        intended_submission_method: NotRequired[
+            Literal[
+                "manual",
+                "prefer_manual",
+                "prefer_smart_disputes",
+                "smart_disputes",
+            ]
+        ]
+        """
+        Intended submission method for the dispute.
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
@@ -701,11 +716,11 @@ class Dispute(
         """
         line1: NotRequired["Literal['']|str"]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired["Literal['']|str"]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired["Literal['']|str"]
         """
@@ -767,11 +782,11 @@ class Dispute(
         """
         line1: NotRequired["Literal['']|str"]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired["Literal['']|str"]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired["Literal['']|str"]
         """
@@ -825,6 +840,17 @@ class Dispute(
     id: str
     """
     Unique identifier for the object.
+    """
+    intended_submission_method: Optional[
+        Literal[
+            "manual",
+            "prefer_manual",
+            "prefer_smart_disputes",
+            "smart_disputes",
+        ]
+    ]
+    """
+    Intended submission method for the dispute.
     """
     is_charge_refundable: bool
     """
