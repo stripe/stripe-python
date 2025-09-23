@@ -1,5 +1,5 @@
 """
-thinevent_webhook_handler.py - receive and process thin events like the
+event_notification_webhook_handler.py - receive and process thin events like the
 v1.billing.meter.error_report_triggered event.
 
 In this example, we:
