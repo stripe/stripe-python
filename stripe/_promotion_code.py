@@ -40,7 +40,7 @@ class PromotionCode(
     class Promotion(StripeObject):
         coupon: Optional[ExpandableField["Coupon"]]
         """
-        If promotion type is 'coupon', the coupon for this promotion.
+        If promotion `type` is `coupon`, the coupon for this promotion.
         """
         type: Literal["coupon"]
         """
@@ -120,11 +120,11 @@ class PromotionCode(
     class CreateParamsPromotion(TypedDict):
         coupon: NotRequired[str]
         """
-        If the promotion type is 'coupon', the coupon for this promotion code.
+        If promotion `type` is `coupon`, the coupon for this promotion code.
         """
         type: Literal["coupon"]
         """
-        Specifies the type of promotion code.
+        Specifies the type of promotion.
         """
 
     class CreateParamsRestrictions(TypedDict):
