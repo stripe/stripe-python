@@ -125,6 +125,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
         """
+        fr_meal_voucher_conecs: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsFrMealVoucherConecs"
+        ]
+        """
+        Meal vouchers in France, or “titres-restaurant”, is a local benefits program commonly offered by employers for their employees to purchase prepared food and beverages on working days. Check this [page](https://stripe.com/docs/payments/benefits/fr-meal-vouchers) for more details.
+        """
         giropay: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsGiropay"
         ]
@@ -244,6 +250,12 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
+        """
+        paypay: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsPaypay"
+        ]
+        """
+        Customers can pay with PayPay online or using the PayPay app.
         """
         pix: NotRequired["PaymentMethodConfigurationService.CreateParamsPix"]
         """
@@ -594,6 +606,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsFrMealVoucherConecs(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsFrMealVoucherConecsDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsFrMealVoucherConecsDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsGiropay(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsGiropayDisplayPreference"
@@ -869,6 +895,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class CreateParamsPaypalDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsPaypay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsPaypayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPaypayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1189,6 +1229,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
         """
+        fr_meal_voucher_conecs: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsFrMealVoucherConecs"
+        ]
+        """
+        Meal vouchers in France, or “titres-restaurant”, is a local benefits program commonly offered by employers for their employees to purchase prepared food and beverages on working days. Check this [page](https://stripe.com/docs/payments/benefits/fr-meal-vouchers) for more details.
+        """
         giropay: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsGiropay"
         ]
@@ -1304,6 +1350,12 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
+        """
+        paypay: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsPaypay"
+        ]
+        """
+        Customers can pay with PayPay online or using the PayPay app.
         """
         pix: NotRequired["PaymentMethodConfigurationService.UpdateParamsPix"]
         """
@@ -1654,6 +1706,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class UpdateParamsFrMealVoucherConecs(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsFrMealVoucherConecsDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsFrMealVoucherConecsDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class UpdateParamsGiropay(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsGiropayDisplayPreference"
@@ -1929,6 +1995,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsPaypalDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsPaypay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsPaypayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsPaypayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.

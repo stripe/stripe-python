@@ -21,10 +21,6 @@ class PromotionCodeService(StripeService):
 
         If left blank, we will generate one automatically.
         """
-        coupon: str
-        """
-        The coupon for this promotion code.
-        """
         customer: NotRequired[str]
         """
         The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.
@@ -45,11 +41,25 @@ class PromotionCodeService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        promotion: "PromotionCodeService.CreateParamsPromotion"
+        """
+        The promotion referenced by this promotion code.
+        """
         restrictions: NotRequired[
             "PromotionCodeService.CreateParamsRestrictions"
         ]
         """
         Settings that restrict the redemption of the promotion code.
+        """
+
+    class CreateParamsPromotion(TypedDict):
+        coupon: NotRequired[str]
+        """
+        If promotion `type` is `coupon`, the coupon for this promotion code.
+        """
+        type: Literal["coupon"]
+        """
+        Specifies the type of promotion.
         """
 
     class CreateParamsRestrictions(TypedDict):
@@ -224,7 +234,7 @@ class PromotionCodeService(StripeService):
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
-        A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+        A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
         """
         return cast(
             PromotionCode,
@@ -243,7 +253,7 @@ class PromotionCodeService(StripeService):
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
-        A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+        A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
         """
         return cast(
             PromotionCode,

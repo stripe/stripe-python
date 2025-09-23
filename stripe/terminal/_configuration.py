@@ -37,6 +37,12 @@ class Configuration(
         "terminal.configuration"
     )
 
+    class BbposWisepad3(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+        """
+        A File ID representing an image to display on the reader
+        """
+
     class BbposWiseposE(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
         """
@@ -478,6 +484,10 @@ class Configuration(
         }
 
     class CreateParams(RequestOptions):
+        bbpos_wisepad3: NotRequired["Configuration.CreateParamsBbposWisepad3"]
+        """
+        An object containing device type specific settings for BBPOS WisePad 3 readers
+        """
         bbpos_wisepos_e: NotRequired["Configuration.CreateParamsBbposWiseposE"]
         """
         An object containing device type specific settings for BBPOS WisePOS E readers
@@ -513,6 +523,12 @@ class Configuration(
         wifi: NotRequired["Literal['']|Configuration.CreateParamsWifi"]
         """
         Configurations for connecting to a WiFi network.
+        """
+
+    class CreateParamsBbposWisepad3(TypedDict):
+        splashscreen: NotRequired["Literal['']|str"]
+        """
+        A File ID representing an image you would like displayed on the reader.
         """
 
     class CreateParamsBbposWiseposE(TypedDict):
@@ -1029,6 +1045,12 @@ class Configuration(
         """
 
     class ModifyParams(RequestOptions):
+        bbpos_wisepad3: NotRequired[
+            "Literal['']|Configuration.ModifyParamsBbposWisepad3"
+        ]
+        """
+        An object containing device type specific settings for BBPOS WisePad 3 readers
+        """
         bbpos_wisepos_e: NotRequired[
             "Literal['']|Configuration.ModifyParamsBbposWiseposE"
         ]
@@ -1072,6 +1094,12 @@ class Configuration(
         wifi: NotRequired["Literal['']|Configuration.ModifyParamsWifi"]
         """
         Configurations for connecting to a WiFi network.
+        """
+
+    class ModifyParamsBbposWisepad3(TypedDict):
+        splashscreen: NotRequired["Literal['']|str"]
+        """
+        A File ID representing an image you would like displayed on the reader.
         """
 
     class ModifyParamsBbposWiseposE(TypedDict):
@@ -1568,6 +1596,7 @@ class Configuration(
         Specifies which fields in the response should be expanded.
         """
 
+    bbpos_wisepad3: Optional[BbposWisepad3]
     bbpos_wisepos_e: Optional[BbposWiseposE]
     deleted: Optional[Literal[True]]
     """
@@ -1827,6 +1856,7 @@ class Configuration(
         return instance
 
     _inner_class_types = {
+        "bbpos_wisepad3": BbposWisepad3,
         "bbpos_wisepos_e": BbposWiseposE,
         "offline": Offline,
         "reboot_window": RebootWindow,
