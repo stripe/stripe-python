@@ -40,6 +40,8 @@ class ExchangeRateService(StripeService):
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ExchangeRate]:
         """
+        [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
         Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
         """
         return cast(
@@ -59,6 +61,8 @@ class ExchangeRateService(StripeService):
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ExchangeRate]:
         """
+        [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
         Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
         """
         return cast(
@@ -79,6 +83,8 @@ class ExchangeRateService(StripeService):
         options: Optional[RequestOptions] = None,
     ) -> ExchangeRate:
         """
+        [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
         Retrieves the exchange rates from the given currency to every supported currency.
         """
         return cast(
@@ -101,6 +107,8 @@ class ExchangeRateService(StripeService):
         options: Optional[RequestOptions] = None,
     ) -> ExchangeRate:
         """
+        [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
         Retrieves the exchange rates from the given currency to every supported currency.
         """
         return cast(

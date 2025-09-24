@@ -276,6 +276,12 @@ class SetupIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -339,6 +345,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataPix"
@@ -426,6 +438,7 @@ class SetupIntentService(StripeService):
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -436,6 +449,7 @@ class SetupIntentService(StripeService):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -561,11 +575,11 @@ class SetupIntentService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -733,6 +747,9 @@ class SetupIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataMbWay(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -816,6 +833,9 @@ class SetupIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataPix(TypedDict):
@@ -1730,6 +1750,12 @@ class SetupIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1791,6 +1817,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired["SetupIntentService.CreateParamsPaymentMethodDataPix"]
         """
@@ -1876,6 +1908,7 @@ class SetupIntentService(StripeService):
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -1886,6 +1919,7 @@ class SetupIntentService(StripeService):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -2009,11 +2043,11 @@ class SetupIntentService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2181,6 +2215,9 @@ class SetupIntentService(StripeService):
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataMbWay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -2264,6 +2301,9 @@ class SetupIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataPix(TypedDict):
@@ -3153,6 +3193,12 @@ class SetupIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -3214,6 +3260,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired["SetupIntentService.UpdateParamsPaymentMethodDataPix"]
         """
@@ -3299,6 +3351,7 @@ class SetupIntentService(StripeService):
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -3309,6 +3362,7 @@ class SetupIntentService(StripeService):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -3432,11 +3486,11 @@ class SetupIntentService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -3604,6 +3658,9 @@ class SetupIntentService(StripeService):
     class UpdateParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class UpdateParamsPaymentMethodDataMbWay(TypedDict):
+        pass
+
     class UpdateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -3687,6 +3744,9 @@ class SetupIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataPix(TypedDict):
