@@ -578,3 +578,5 @@ from stripe._webhook_endpoint_service import (
     WebhookEndpointService as WebhookEndpointService,
 )
 # The end of the section generated from our OpenAPI spec
+
+from stripe._stripe_context import StripeContext as StripeContext

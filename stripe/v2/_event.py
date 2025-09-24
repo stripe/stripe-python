@@ -6,6 +6,7 @@ from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 from stripe._stripe_object import StripeObject
+from stripe._stripe_context import StripeContext
 
 # This describes the common format for the pull payload of a V2 ThinEvent
 # more specific classes will add `data` and `fetch_related_objects()` as needed
@@ -121,7 +122,7 @@ class ThinEvent:
     """
     Time at which the object was created.
     """
-    context: Optional[str] = None
+    context: Optional[StripeContext] = None
     """
     [Optional] Authentication context needed to fetch the event or related object.
     """
@@ -141,7 +142,7 @@ class ThinEvent:
         self.type = parsed["type"]
         self.created = parsed["created"]
         self.livemode = parsed.get("livemode")
-        self.context = parsed.get("context")
+        self.context = StripeContext.parse(parsed["context"]) if "context" in parsed else None
         if parsed.get("related_object"):
             self.related_object = RelatedObject(parsed["related_object"])
         if parsed.get("reason"):
