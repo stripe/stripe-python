@@ -87,7 +87,7 @@ class SubscriptionService(StripeService):
             "SubscriptionService.CreateParamsBillingCycleAnchorConfig"
         ]
         """
-        Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
+        Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
         """
         billing_mode: NotRequired[
             "SubscriptionService.CreateParamsBillingMode"
@@ -264,7 +264,7 @@ class SubscriptionService(StripeService):
             "SubscriptionService.CreateParamsAddInvoiceItemPeriod"
         ]
         """
-        The period associated with this invoice item. Defaults to the current period of the subscription.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -430,9 +430,21 @@ class SubscriptionService(StripeService):
         """
 
     class CreateParamsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SubscriptionService.CreateParamsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
         """
 
     class CreateParamsBillingThresholds(TypedDict):
@@ -1150,7 +1162,22 @@ class SubscriptionService(StripeService):
         """
 
     class MigrateParamsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SubscriptionService.MigrateParamsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
+
+    class MigrateParamsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
+        """
 
     class ResumeParams(TypedDict):
         billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
@@ -1382,7 +1409,7 @@ class SubscriptionService(StripeService):
             "SubscriptionService.UpdateParamsAddInvoiceItemPeriod"
         ]
         """
-        The period associated with this invoice item. Defaults to the current period of the subscription.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """

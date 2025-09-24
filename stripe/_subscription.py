@@ -111,6 +111,16 @@ class Subscription(
         """
 
     class BillingMode(StripeObject):
+        class Flexible(StripeObject):
+            proration_discounts: Optional[Literal["included", "itemized"]]
+            """
+            Controls how invoices and invoice items display proration amounts and discount amounts.
+            """
+
+        flexible: Optional[Flexible]
+        """
+        Configure behavior for flexible billing mode
+        """
         type: Literal["classic", "flexible"]
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
@@ -119,6 +129,7 @@ class Subscription(
         """
         Details on when the current billing_mode was adopted.
         """
+        _inner_class_types = {"flexible": Flexible}
 
     class BillingThresholds(StripeObject):
         amount_gte: Optional[int]
@@ -651,7 +662,7 @@ class Subscription(
             "Subscription.CreateParamsBillingCycleAnchorConfig"
         ]
         """
-        Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
+        Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
         """
         billing_mode: NotRequired["Subscription.CreateParamsBillingMode"]
         """
@@ -820,7 +831,7 @@ class Subscription(
         """
         period: NotRequired["Subscription.CreateParamsAddInvoiceItemPeriod"]
         """
-        The period associated with this invoice item. Defaults to the current period of the subscription.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -986,9 +997,19 @@ class Subscription(
         """
 
     class CreateParamsBillingMode(TypedDict):
+        flexible: NotRequired["Subscription.CreateParamsBillingModeFlexible"]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
         """
 
     class CreateParamsBillingThresholds(TypedDict):
@@ -1698,7 +1719,20 @@ class Subscription(
         """
 
     class MigrateParamsBillingMode(TypedDict):
+        flexible: NotRequired["Subscription.MigrateParamsBillingModeFlexible"]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
+
+    class MigrateParamsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
+        """
 
     class ModifyParams(RequestOptions):
         add_invoice_items: NotRequired[
@@ -1880,7 +1914,7 @@ class Subscription(
         """
         period: NotRequired["Subscription.ModifyParamsAddInvoiceItemPeriod"]
         """
-        The period associated with this invoice item. Defaults to the current period of the subscription.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
