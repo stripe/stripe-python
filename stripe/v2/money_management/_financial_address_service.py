@@ -11,13 +11,15 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class FinancialAddressService(StripeService):
     class CreateParams(TypedDict):
-        currency: str
-        """
-        Open Enum. The currency the FinancialAddress should support. Currently, only the `usd` and `gbp` values are supported.
-        """
         financial_account: str
         """
         The ID of the FinancialAccount the new FinancialAddress should be associated with.
+        """
+        type: Literal[
+            "gb_bank_account", "sepa_bank_account", "us_bank_account"
+        ]
+        """
+        The type of FinancialAddress details to provision.
         """
 
     class ListParams(TypedDict):

@@ -6,6 +6,9 @@ from stripe.events._v1_billing_meter_error_report_triggered_event import (
 from stripe.events._v1_billing_meter_no_meter_found_event import (
     V1BillingMeterNoMeterFoundEvent,
 )
+from stripe.events._v2_billing_bill_setting_updated_event import (
+    V2BillingBillSettingUpdatedEvent,
+)
 from stripe.events._v2_core_account_closed_event import (
     V2CoreAccountClosedEvent,
 )
@@ -191,6 +194,7 @@ from stripe.events._v2_payments_off_session_payment_succeeded_event import (
 THIN_EVENT_CLASSES = {
     V1BillingMeterErrorReportTriggeredEvent.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEvent,
     V1BillingMeterNoMeterFoundEvent.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEvent,
+    V2BillingBillSettingUpdatedEvent.LOOKUP_TYPE: V2BillingBillSettingUpdatedEvent,
     V2CoreAccountClosedEvent.LOOKUP_TYPE: V2CoreAccountClosedEvent,
     V2CoreAccountCreatedEvent.LOOKUP_TYPE: V2CoreAccountCreatedEvent,
     V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,

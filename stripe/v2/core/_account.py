@@ -2540,6 +2540,7 @@ class Account(StripeObject):
                     "ca_bank_account",
                     "ch_bank_account",
                     "ci_bank_account",
+                    "crypto_wallet",
                     "cy_bank_account",
                     "cz_bank_account",
                     "de_bank_account",
@@ -2604,7 +2605,7 @@ class Account(StripeObject):
             """
             default_outbound_destination: Optional[DefaultOutboundDestination]
             """
-            The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard.
+            The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard or APIs.
             """
             _inner_class_types = {
                 "capabilities": Capabilities,
@@ -3041,6 +3042,20 @@ class Account(StripeObject):
         }
 
     class Defaults(StripeObject):
+        class Profile(StripeObject):
+            business_url: Optional[str]
+            """
+            The business's publicly-available website.
+            """
+            doing_business_as: Optional[str]
+            """
+            The company's legal name.
+            """
+            product_description: Optional[str]
+            """
+            Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
+            """
+
         class Responsibilities(StripeObject):
             fees_collector: Literal["application", "stripe"]
             """
@@ -3148,11 +3163,18 @@ class Account(StripeObject):
         """
         The Account's preferred locales (languages), ordered by preference.
         """
+        profile: Optional[Profile]
+        """
+        Account profile information.
+        """
         responsibilities: Optional[Responsibilities]
         """
         Default responsibilities held by either Stripe or the platform.
         """
-        _inner_class_types = {"responsibilities": Responsibilities}
+        _inner_class_types = {
+            "profile": Profile,
+            "responsibilities": Responsibilities,
+        }
 
     class Identity(StripeObject):
         class Attestations(StripeObject):
@@ -3678,10 +3700,6 @@ class Account(StripeObject):
             """
             Documents that may be submitted to satisfy various informational requests.
             """
-            doing_business_as: Optional[str]
-            """
-            The company's legal name.
-            """
             estimated_worker_count: Optional[int]
             """
             An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
@@ -3697,10 +3715,6 @@ class Account(StripeObject):
             phone: Optional[str]
             """
             The company's phone number (used for verification).
-            """
-            product_description: Optional[str]
-            """
-            Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
             """
             registered_name: Optional[str]
             """
@@ -3747,10 +3761,6 @@ class Account(StripeObject):
             ]
             """
             The category identifying the legal structure of the business.
-            """
-            url: Optional[str]
-            """
-            The business's publicly available website.
             """
             _inner_class_types = {
                 "address": Address,

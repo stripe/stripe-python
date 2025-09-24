@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Dict, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 
 
@@ -15,12 +15,98 @@ class OffSessionPayment(StripeObject):
         "v2.payments.off_session_payment"
     )
 
+    class AmountDetails(StripeObject):
+        class LineItem(StripeObject):
+            class Tax(StripeObject):
+                total_tax_amount: Optional[int]
+                """
+                Total portion of the amount that is for tax.
+                """
+
+            discount_amount: Optional[int]
+            """
+            The amount an item was discounted for. Positive integer.
+            """
+            product_code: Optional[str]
+            """
+            Unique identifier of the product. At most 12 characters long.
+            """
+            product_name: str
+            """
+            Name of the product. At most 100 characters long.
+            """
+            quantity: int
+            """
+            Number of items of the product. Positive integer.
+            """
+            tax: Optional[Tax]
+            """
+            Contains information about the tax on the item.
+            """
+            unit_cost: int
+            """
+            Cost of the product. Non-negative integer.
+            """
+            _inner_class_types = {"tax": Tax}
+
+        class Shipping(StripeObject):
+            amount: Optional[int]
+            """
+            Portion of the amount that is for shipping.
+            """
+            from_postal_code: Optional[str]
+            """
+            The postal code that represents the shipping source.
+            """
+            to_postal_code: Optional[str]
+            """
+            The postal code that represents the shipping destination.
+            """
+
+        class Tax(StripeObject):
+            total_tax_amount: Optional[int]
+            """
+            Total portion of the amount that is for tax.
+            """
+
+        discount_amount: Optional[int]
+        """
+        The amount the total transaction was discounted for.
+        """
+        line_items: List[LineItem]
+        """
+        A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        """
+        shipping: Optional[Shipping]
+        """
+        Contains information about the shipping portion of the amount.
+        """
+        tax: Optional[Tax]
+        """
+        Contains information about the tax portion of the amount.
+        """
+        _inner_class_types = {
+            "line_items": LineItem,
+            "shipping": Shipping,
+            "tax": Tax,
+        }
+
+    class PaymentsOrchestration(StripeObject):
+        enabled: bool
+        """
+        True when you want to enable payments orchestration for this off-session payment. False otherwise.
+        """
+
     class RetryDetails(StripeObject):
         attempts: int
         """
         Number of authorization attempts so far.
         """
-        retry_strategy: Literal["none", "smart"]
+        retry_policy: Optional[str]
+        """
+        The pre-configured retry policy to use for the payment.
+        """
+        retry_strategy: Literal["heuristic", "none", "scheduled", "smart"]
         """
         Indicates the strategy for how you want Stripe to retry the payment.
         """
@@ -42,6 +128,10 @@ class OffSessionPayment(StripeObject):
         where funds from the payment are transferred to after payment success.
         """
 
+    amount_details: Optional[AmountDetails]
+    """
+    Provides industry-specific information about the amount.
+    """
     amount_requested: Amount
     """
     The “presentment amount” to be collected from the customer.
@@ -64,14 +154,16 @@ class OffSessionPayment(StripeObject):
     ID of the Customer to which this OffSessionPayment belongs.
     """
     failure_reason: Optional[
-        Literal["rejected_by_partner", "retries_exhausted"]
+        Literal[
+            "authorization_expired", "rejected_by_partner", "retries_exhausted"
+        ]
     ]
     """
     The reason why the OffSessionPayment failed.
     """
     id: str
     """
-    Unique identifier for the object..
+    Unique identifier for the object.
     """
     last_authorization_attempt_error: Optional[str]
     """
@@ -107,6 +199,10 @@ class OffSessionPayment(StripeObject):
     payment_record: Optional[str]
     """
     Payment record associated with the OffSessionPayment.
+    """
+    payments_orchestration: PaymentsOrchestration
+    """
+    Details about the payments orchestration configuration.
     """
     retry_details: RetryDetails
     """
@@ -147,6 +243,8 @@ class OffSessionPayment(StripeObject):
     The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.corp.stripe.com/payments/connected-accounts).
     """
     _inner_class_types = {
+        "amount_details": AmountDetails,
+        "payments_orchestration": PaymentsOrchestration,
         "retry_details": RetryDetails,
         "transfer_data": TransferData,
     }

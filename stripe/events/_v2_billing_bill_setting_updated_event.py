@@ -5,47 +5,24 @@ from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2._event import Event
-from stripe.v2.core._account import Account
+from stripe.v2.billing._bill_setting import BillSetting
 from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 
 
-class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent(
-    Event,
-):
-    LOOKUP_TYPE = (
-        "v2.core.account[configuration.storer].capability_status_updated"
-    )
-    type: Literal[
-        "v2.core.account[configuration.storer].capability_status_updated"
-    ]
+class V2BillingBillSettingUpdatedEvent(Event):
+    LOOKUP_TYPE = "v2.billing.bill_setting.updated"
+    type: Literal["v2.billing.bill_setting.updated"]
 
-    class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventData(
-        StripeObject,
-    ):
-        updated_capability: Literal[
-            "financial_addressses.bank_accounts",
-            "financial_addressses.crypto_wallets",
-            "holds_currencies.eur",
-            "holds_currencies.gbp",
-            "holds_currencies.usd",
-            "holds_currencies.usdc",
-            "inbound_transfers.bank_accounts",
-            "outbound_payments.bank_accounts",
-            "outbound_payments.cards",
-            "outbound_payments.crypto_wallets",
-            "outbound_payments.financial_accounts",
-            "outbound_transfers.bank_accounts",
-            "outbound_transfers.crypto_wallets",
-            "outbound_transfers.financial_accounts",
-        ]
+    class V2BillingBillSettingUpdatedEventData(StripeObject):
+        updated: str
         """
-        Open Enum. The capability which had its status updated.
+        Timestamp of when the object was updated.
         """
 
-    data: V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventData
+    data: V2BillingBillSettingUpdatedEventData
     """
-    Data for the v2.core.account[configuration.storer].capability_status_updated event
+    Data for the v2.billing.bill_setting.updated event
     """
 
     @classmethod
@@ -56,9 +33,7 @@ class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent(
         last_response: Optional[StripeResponse] = None,
         requestor: "_APIRequestor",
         api_mode: ApiMode,
-    ) -> (
-        "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent"
-    ):
+    ) -> "V2BillingBillSettingUpdatedEvent":
         evt = super()._construct_from(
             values=values,
             last_response=last_response,
@@ -66,7 +41,7 @@ class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent(
             api_mode=api_mode,
         )
         if hasattr(evt, "data"):
-            evt.data = V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent.V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventData._construct_from(
+            evt.data = V2BillingBillSettingUpdatedEvent.V2BillingBillSettingUpdatedEventData._construct_from(
                 values=evt.data,
                 last_response=last_response,
                 requestor=requestor,
@@ -93,12 +68,12 @@ class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent(
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> Account:
+    def fetch_related_object(self) -> BillSetting:
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            Account,
+            BillSetting,
             self._requestor.request(
                 "get",
                 self.related_object.url,
