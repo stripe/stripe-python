@@ -10,7 +10,7 @@ class MeterEventStreamService(StripeService):
     class CreateParams(TypedDict):
         events: List["MeterEventStreamService.CreateParamsEvent"]
         """
-        List of meter events to include in the request.
+        List of meter events to include in the request. Supports up to 100 events per request.
         """
 
     class CreateParamsEvent(TypedDict):

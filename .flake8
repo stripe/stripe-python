@@ -1,14 +1,14 @@
 [flake8]
-# E501 is the "Line too long" error. We disable it because we use Ruff for
-# code formatting. Ruff makes a best effort to keep lines under the max
-# length, but can go over in some cases.
-# W503 goes against PEP8 rules. It's disabled by default, but must be disabled
-# explicitly when using `ignore`.
-# E704 is disabled in the default configuration, but by specifying `ignore`, we wipe that out.
-# ruff formatting creates code that violates it, so we have to disable it manually
-# E203 checks that `:` is not preceded by whitespace, but in some cases,
-# formatting adds the whitespace. We let formatting be the source of truth in that case.
-ignore = E501, W503, E704, E203, B
+extend-ignore =
+    # E501 is the "Line too long" error. We disable it because we use Ruff for
+    # code formatting. Ruff makes a best effort to keep lines under the max
+    # length, but can go over in some cases.
+    E501,
+    # E203 checks that `:` is not preceded by whitespace, but in some cases,
+    # formatting adds the whitespace. We let formatting be the source of truth in that case.
+    E203,
+    # flake8 runs all installed rules, but we only want a single B (see below) so we disable the rest
+    B
 extend-select =
     B006 # forbid mutable default args
 per-file-ignores =
@@ -32,8 +32,6 @@ per-file-ignores =
     stripe/api_resources/recipient_transfer.py: IMP102
     # type names conflict with existing error names in stripe
     stripe/oauth_error.py: IMP102
-    # setup.py is required for tooling
-    setup.py: IMP102
     # should not raise a deprecation warning since it needs
     # to be imported early in `stripe/__init__.py` to avoid
     # a name conflict
