@@ -31,6 +31,7 @@ class Capability(UpdateableAPIResource["Capability"]):
 
         class Error(StripeObject):
             code: Literal[
+                "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
@@ -73,6 +74,7 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "unsupported_business_type",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
                 "verification_document_address_missing",
@@ -199,6 +201,7 @@ class Capability(UpdateableAPIResource["Capability"]):
 
         class Error(StripeObject):
             code: Literal[
+                "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
@@ -241,6 +244,7 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "unsupported_business_type",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
                 "verification_document_address_missing",

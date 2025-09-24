@@ -1029,9 +1029,21 @@ class QuoteService(StripeService):
         """
 
     class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        flexible: NotRequired[
+            "QuoteService.CreateParamsSubscriptionDataBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsSubscriptionDataBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
         """
 
     class CreateParamsSubscriptionDataOverride(TypedDict):

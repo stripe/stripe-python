@@ -513,11 +513,11 @@ class PaymentIntent(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -539,11 +539,11 @@ class PaymentIntent(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -593,11 +593,11 @@ class PaymentIntent(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -619,11 +619,11 @@ class PaymentIntent(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -669,11 +669,11 @@ class PaymentIntent(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -695,11 +695,11 @@ class PaymentIntent(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -741,11 +741,11 @@ class PaymentIntent(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -767,11 +767,11 @@ class PaymentIntent(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -817,11 +817,11 @@ class PaymentIntent(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -843,11 +843,11 @@ class PaymentIntent(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -897,11 +897,11 @@ class PaymentIntent(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -923,11 +923,11 @@ class PaymentIntent(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -2765,6 +2765,9 @@ class PaymentIntent(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class Paypay(StripeObject):
+            pass
+
         class Pix(StripeObject):
             class MandateOptions(StripeObject):
                 amount: Optional[int]
@@ -3279,11 +3282,11 @@ class PaymentIntent(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -4319,6 +4322,12 @@ class PaymentIntent(
         error_on_requires_action: NotRequired[bool]
         """
         Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication).
+        """
+        excluded_payment_method_types: NotRequired[
+            "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+        ]
+        """
+        The list of payment method types to exclude from use with this payment.
         """
         expand: NotRequired[List[str]]
         """
@@ -5811,11 +5820,11 @@ class PaymentIntent(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -7979,6 +7988,16 @@ class PaymentIntent(
         The purpose for which payments are made. Defaults to retail.
         """
 
+    class ConfirmParamsPaymentMethodOptionsPaypay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
         amount_includes_iof: NotRequired[Literal["always", "never"]]
         """
@@ -8440,11 +8459,11 @@ class PaymentIntent(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -10114,11 +10133,11 @@ class PaymentIntent(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -12282,6 +12301,16 @@ class PaymentIntent(
         The purpose for which payments are made. Defaults to retail.
         """
 
+    class CreateParamsPaymentMethodOptionsPaypay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
         amount_includes_iof: NotRequired[Literal["always", "never"]]
         """
@@ -12743,11 +12772,11 @@ class PaymentIntent(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -13223,6 +13252,12 @@ class PaymentIntent(
         description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        excluded_payment_method_types: NotRequired[
+            "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+        ]
+        """
+        The list of payment method types to exclude from use with this payment.
         """
         expand: NotRequired[List[str]]
         """
@@ -14691,11 +14726,11 @@ class PaymentIntent(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -16859,6 +16894,16 @@ class PaymentIntent(
         The purpose for which payments are made. Defaults to retail.
         """
 
+    class ModifyParamsPaymentMethodOptionsPaypay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        """
+
     class ModifyParamsPaymentMethodOptionsPix(TypedDict):
         amount_includes_iof: NotRequired[Literal["always", "never"]]
         """
@@ -17314,11 +17359,11 @@ class PaymentIntent(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """

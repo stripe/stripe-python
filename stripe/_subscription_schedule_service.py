@@ -703,9 +703,21 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParamsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SubscriptionScheduleService.CreateParamsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
         """
 
     class CreateParamsDefaultSettings(TypedDict):
@@ -903,10 +915,6 @@ class SubscriptionScheduleService(StripeService):
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
@@ -969,7 +977,7 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionScheduleService.CreateParamsPhaseAddInvoiceItemPeriod"
         ]
         """
-        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -1775,10 +1783,6 @@ class SubscriptionScheduleService(StripeService):
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
@@ -1845,7 +1849,7 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionScheduleService.UpdateParamsPhaseAddInvoiceItemPeriod"
         ]
         """
-        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
