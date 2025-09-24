@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._financial_address import FinancialAddress
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -56,8 +56,8 @@ class FinancialAddressService(StripeService):
 
     def list(
         self,
-        params: "FinancialAddressService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAddressService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAddress]:
         """
         List all FinancialAddresses for a FinancialAccount.
@@ -75,8 +75,8 @@ class FinancialAddressService(StripeService):
 
     async def list_async(
         self,
-        params: "FinancialAddressService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAddressService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAddress]:
         """
         List all FinancialAddresses for a FinancialAccount.
@@ -95,7 +95,7 @@ class FinancialAddressService(StripeService):
     def create(
         self,
         params: "FinancialAddressService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAddress:
         """
         Create a new FinancialAddress for a FinancialAccount.
@@ -114,7 +114,7 @@ class FinancialAddressService(StripeService):
     async def create_async(
         self,
         params: "FinancialAddressService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAddress:
         """
         Create a new FinancialAddress for a FinancialAccount.
@@ -133,8 +133,8 @@ class FinancialAddressService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "FinancialAddressService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAddressService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAddress:
         """
         Retrieve a FinancialAddress. By default, the FinancialAddress will be returned in its unexpanded state, revealing only the last 4 digits of the account number.
@@ -155,8 +155,8 @@ class FinancialAddressService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "FinancialAddressService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAddressService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAddress:
         """
         Retrieve a FinancialAddress. By default, the FinancialAddress will be returned in its unexpanded state, revealing only the last 4 digits of the account number.

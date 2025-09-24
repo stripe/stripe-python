@@ -5078,8 +5078,8 @@ class AccountService(StripeService):
 
     def list(
         self,
-        params: "AccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Account]:
         """
         Returns a list of Accounts.
@@ -5097,8 +5097,8 @@ class AccountService(StripeService):
 
     async def list_async(
         self,
-        params: "AccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Account]:
         """
         Returns a list of Accounts.
@@ -5116,8 +5116,8 @@ class AccountService(StripeService):
 
     def create(
         self,
-        params: "AccountService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         An Account is a representation of a company, individual or other entity that a user interacts with. Accounts contain identifying information about the entity, and configurations that store the features an account has access to. An account can be configured as any or all of the following configurations: Customer, Merchant and/or Recipient.
@@ -5135,8 +5135,8 @@ class AccountService(StripeService):
 
     async def create_async(
         self,
-        params: "AccountService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         An Account is a representation of a company, individual or other entity that a user interacts with. Accounts contain identifying information about the entity, and configurations that store the features an account has access to. An account can be configured as any or all of the following configurations: Customer, Merchant and/or Recipient.
@@ -5155,8 +5155,8 @@ class AccountService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "AccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Retrieves the details of an Account.
@@ -5175,8 +5175,8 @@ class AccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "AccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Retrieves the details of an Account.
@@ -5195,8 +5195,8 @@ class AccountService(StripeService):
     def update(
         self,
         id: str,
-        params: "AccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Updates the details of an Account.
@@ -5215,8 +5215,8 @@ class AccountService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "AccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Updates the details of an Account.
@@ -5235,8 +5235,8 @@ class AccountService(StripeService):
     def close(
         self,
         id: str,
-        params: "AccountService.CloseParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.CloseParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Removes access to the Account and its associated resources.
@@ -5255,8 +5255,8 @@ class AccountService(StripeService):
     async def close_async(
         self,
         id: str,
-        params: "AccountService.CloseParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.CloseParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Removes access to the Account and its associated resources.

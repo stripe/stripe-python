@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._financial_account import FinancialAccount
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -67,8 +67,8 @@ class FinancialAccountService(StripeService):
 
     def list(
         self,
-        params: "FinancialAccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAccountService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAccount]:
         """
         Lists FinancialAccounts in this compartment.
@@ -86,8 +86,8 @@ class FinancialAccountService(StripeService):
 
     async def list_async(
         self,
-        params: "FinancialAccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAccountService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAccount]:
         """
         Lists FinancialAccounts in this compartment.
@@ -106,7 +106,7 @@ class FinancialAccountService(StripeService):
     def create(
         self,
         params: "FinancialAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Creates a new FinancialAccount.
@@ -125,7 +125,7 @@ class FinancialAccountService(StripeService):
     async def create_async(
         self,
         params: "FinancialAccountService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Creates a new FinancialAccount.
@@ -144,8 +144,8 @@ class FinancialAccountService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "FinancialAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAccountService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Retrieves the details of an existing FinancialAccount.
@@ -166,8 +166,8 @@ class FinancialAccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "FinancialAccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAccountService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Retrieves the details of an existing FinancialAccount.
@@ -188,8 +188,8 @@ class FinancialAccountService(StripeService):
     def close(
         self,
         id: str,
-        params: "FinancialAccountService.CloseParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAccountService.CloseParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Closes a FinancialAccount with or without forwarding settings.
@@ -210,8 +210,8 @@ class FinancialAccountService(StripeService):
     async def close_async(
         self,
         id: str,
-        params: "FinancialAccountService.CloseParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FinancialAccountService.CloseParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
         Closes a FinancialAccount with or without forwarding settings.

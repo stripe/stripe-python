@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -302,8 +302,8 @@ class InvoiceLineItemService(StripeService):
     def list(
         self,
         invoice: str,
-        params: "InvoiceLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceLineItemService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoiceLineItem]:
         """
         When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -324,8 +324,8 @@ class InvoiceLineItemService(StripeService):
     async def list_async(
         self,
         invoice: str,
-        params: "InvoiceLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceLineItemService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoiceLineItem]:
         """
         When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -347,8 +347,8 @@ class InvoiceLineItemService(StripeService):
         self,
         invoice: str,
         line_item_id: str,
-        params: "InvoiceLineItemService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceLineItemService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> InvoiceLineItem:
         """
         Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
@@ -374,8 +374,8 @@ class InvoiceLineItemService(StripeService):
         self,
         invoice: str,
         line_item_id: str,
-        params: "InvoiceLineItemService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceLineItemService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> InvoiceLineItem:
         """
         Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,

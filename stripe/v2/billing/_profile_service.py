@@ -87,7 +87,9 @@ class ProfileService(StripeService):
         """
 
     def list(
-        self, params: "ProfileService.ListParams", options: RequestOptions = {}
+        self,
+        params: "ProfileService.ListParams",
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Profile]:
         """
         List Billing Profiles.
@@ -104,7 +106,9 @@ class ProfileService(StripeService):
         )
 
     async def list_async(
-        self, params: "ProfileService.ListParams", options: RequestOptions = {}
+        self,
+        params: "ProfileService.ListParams",
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Profile]:
         """
         List Billing Profiles.
@@ -123,7 +127,7 @@ class ProfileService(StripeService):
     def create(
         self,
         params: "ProfileService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Profile:
         """
         Create a BillingProfile object.
@@ -142,7 +146,7 @@ class ProfileService(StripeService):
     async def create_async(
         self,
         params: "ProfileService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Profile:
         """
         Create a BillingProfile object.
@@ -161,8 +165,8 @@ class ProfileService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ProfileService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProfileService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Profile:
         """
         Retrieve a BillingProfile object.
@@ -181,8 +185,8 @@ class ProfileService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ProfileService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProfileService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Profile:
         """
         Retrieve a BillingProfile object.
@@ -201,8 +205,8 @@ class ProfileService(StripeService):
     def update(
         self,
         id: str,
-        params: "ProfileService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProfileService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Profile:
         """
         Update a BillingProfile object.
@@ -221,8 +225,8 @@ class ProfileService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "ProfileService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProfileService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Profile:
         """
         Update a BillingProfile object.

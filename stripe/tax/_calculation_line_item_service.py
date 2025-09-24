@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.tax._calculation_line_item import CalculationLineItem
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -31,8 +31,8 @@ class CalculationLineItemService(StripeService):
     def list(
         self,
         calculation: str,
-        params: "CalculationLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CalculationLineItemService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CalculationLineItem]:
         """
         Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
@@ -53,8 +53,8 @@ class CalculationLineItemService(StripeService):
     async def list_async(
         self,
         calculation: str,
-        params: "CalculationLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CalculationLineItemService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CalculationLineItem]:
         """
         Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.

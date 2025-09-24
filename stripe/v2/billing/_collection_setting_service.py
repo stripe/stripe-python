@@ -8,7 +8,7 @@ from stripe.v2.billing._collection_setting import CollectionSetting
 from stripe.v2.billing.collection_settings._version_service import (
     VersionService,
 )
-from typing import Any, Dict, List, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -523,8 +523,8 @@ class CollectionSettingService(StripeService):
 
     def list(
         self,
-        params: "CollectionSettingService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CollectionSetting]:
         """
         List all CollectionSetting objects.
@@ -542,8 +542,8 @@ class CollectionSettingService(StripeService):
 
     async def list_async(
         self,
-        params: "CollectionSettingService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CollectionSetting]:
         """
         List all CollectionSetting objects.
@@ -561,8 +561,8 @@ class CollectionSettingService(StripeService):
 
     def create(
         self,
-        params: "CollectionSettingService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSetting:
         """
         Create a CollectionSetting object.
@@ -580,8 +580,8 @@ class CollectionSettingService(StripeService):
 
     async def create_async(
         self,
-        params: "CollectionSettingService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSetting:
         """
         Create a CollectionSetting object.
@@ -600,8 +600,8 @@ class CollectionSettingService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "CollectionSettingService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSetting:
         """
         Retrieve a CollectionSetting by ID.
@@ -622,8 +622,8 @@ class CollectionSettingService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "CollectionSettingService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSetting:
         """
         Retrieve a CollectionSetting by ID.
@@ -644,8 +644,8 @@ class CollectionSettingService(StripeService):
     def update(
         self,
         id: str,
-        params: "CollectionSettingService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSetting:
         """
         Update fields on an existing CollectionSetting.
@@ -666,8 +666,8 @@ class CollectionSettingService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "CollectionSettingService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CollectionSettingService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSetting:
         """
         Update fields on an existing CollectionSetting.

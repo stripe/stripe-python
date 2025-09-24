@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -31,8 +31,8 @@ class OrderLineItemService(StripeService):
     def list(
         self,
         id: str,
-        params: "OrderLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OrderLineItemService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[LineItem]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -51,8 +51,8 @@ class OrderLineItemService(StripeService):
     async def list_async(
         self,
         id: str,
-        params: "OrderLineItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["OrderLineItemService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[LineItem]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

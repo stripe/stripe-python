@@ -119,8 +119,8 @@ class MeteredItemService(StripeService):
 
     def list(
         self,
-        params: "MeteredItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeteredItemService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[MeteredItem]:
         """
         List all Metered Item objects in reverse chronological order of creation.
@@ -138,8 +138,8 @@ class MeteredItemService(StripeService):
 
     async def list_async(
         self,
-        params: "MeteredItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeteredItemService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[MeteredItem]:
         """
         List all Metered Item objects in reverse chronological order of creation.
@@ -158,7 +158,7 @@ class MeteredItemService(StripeService):
     def create(
         self,
         params: "MeteredItemService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> MeteredItem:
         """
         Create a Metered Item object.
@@ -177,7 +177,7 @@ class MeteredItemService(StripeService):
     async def create_async(
         self,
         params: "MeteredItemService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> MeteredItem:
         """
         Create a Metered Item object.
@@ -196,8 +196,8 @@ class MeteredItemService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "MeteredItemService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeteredItemService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> MeteredItem:
         """
         Retrieve a Metered Item object.
@@ -216,8 +216,8 @@ class MeteredItemService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "MeteredItemService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeteredItemService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> MeteredItem:
         """
         Retrieve a Metered Item object.
@@ -236,8 +236,8 @@ class MeteredItemService(StripeService):
     def update(
         self,
         id: str,
-        params: "MeteredItemService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeteredItemService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> MeteredItem:
         """
         Update a Metered Item object. At least one of the fields is required.
@@ -256,8 +256,8 @@ class MeteredItemService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "MeteredItemService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeteredItemService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> MeteredItem:
         """
         Update a Metered Item object. At least one of the fields is required.

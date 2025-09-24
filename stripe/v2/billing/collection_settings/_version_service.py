@@ -7,7 +7,7 @@ from stripe.v2._list_object import ListObject
 from stripe.v2.billing._collection_setting_version import (
     CollectionSettingVersion,
 )
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -24,8 +24,8 @@ class VersionService(StripeService):
     def list(
         self,
         collection_setting_id: str,
-        params: "VersionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CollectionSettingVersion]:
         """
         List all CollectionSettingVersions by CollectionSetting ID.
@@ -46,8 +46,8 @@ class VersionService(StripeService):
     async def list_async(
         self,
         collection_setting_id: str,
-        params: "VersionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CollectionSettingVersion]:
         """
         List all CollectionSettingVersions by CollectionSetting ID.
@@ -69,8 +69,8 @@ class VersionService(StripeService):
         self,
         collection_setting_id: str,
         id: str,
-        params: "VersionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSettingVersion:
         """
         Retrieve a CollectionSetting Version by ID.
@@ -93,8 +93,8 @@ class VersionService(StripeService):
         self,
         collection_setting_id: str,
         id: str,
-        params: "VersionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["VersionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CollectionSettingVersion:
         """
         Retrieve a CollectionSetting Version by ID.

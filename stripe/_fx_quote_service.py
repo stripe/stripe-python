@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -96,8 +96,8 @@ class FxQuoteService(StripeService):
 
     def list(
         self,
-        params: "FxQuoteService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FxQuoteService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FxQuote]:
         """
         Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
@@ -115,8 +115,8 @@ class FxQuoteService(StripeService):
 
     async def list_async(
         self,
-        params: "FxQuoteService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FxQuoteService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FxQuote]:
         """
         Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
@@ -135,7 +135,7 @@ class FxQuoteService(StripeService):
     def create(
         self,
         params: "FxQuoteService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FxQuote:
         """
         Creates an FX Quote object
@@ -154,7 +154,7 @@ class FxQuoteService(StripeService):
     async def create_async(
         self,
         params: "FxQuoteService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> FxQuote:
         """
         Creates an FX Quote object
@@ -173,8 +173,8 @@ class FxQuoteService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "FxQuoteService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FxQuoteService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FxQuote:
         """
         Retrieve an FX Quote object
@@ -193,8 +193,8 @@ class FxQuoteService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "FxQuoteService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FxQuoteService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FxQuote:
         """
         Retrieve an FX Quote object

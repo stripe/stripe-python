@@ -349,8 +349,8 @@ class CadenceService(StripeService):
 
     def list(
         self,
-        params: "CadenceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Cadence]:
         """
         List Billing Cadences.
@@ -368,8 +368,8 @@ class CadenceService(StripeService):
 
     async def list_async(
         self,
-        params: "CadenceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Cadence]:
         """
         List Billing Cadences.
@@ -388,7 +388,7 @@ class CadenceService(StripeService):
     def create(
         self,
         params: "CadenceService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Create a Billing Cadence object.
@@ -407,7 +407,7 @@ class CadenceService(StripeService):
     async def create_async(
         self,
         params: "CadenceService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Create a Billing Cadence object.
@@ -426,8 +426,8 @@ class CadenceService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "CadenceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Retrieve a Billing Cadence object.
@@ -446,8 +446,8 @@ class CadenceService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "CadenceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Retrieve a Billing Cadence object.
@@ -466,8 +466,8 @@ class CadenceService(StripeService):
     def update(
         self,
         id: str,
-        params: "CadenceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Update a Billing Cadence object.
@@ -486,8 +486,8 @@ class CadenceService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "CadenceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Update a Billing Cadence object.
@@ -506,8 +506,8 @@ class CadenceService(StripeService):
     def cancel(
         self,
         id: str,
-        params: "CadenceService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Cancel the Billing Cadence.
@@ -526,8 +526,8 @@ class CadenceService(StripeService):
     async def cancel_async(
         self,
         id: str,
-        params: "CadenceService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CadenceService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Cadence:
         """
         Cancel the Billing Cadence.

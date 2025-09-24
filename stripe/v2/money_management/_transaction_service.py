@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._transaction import Transaction
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -49,8 +49,8 @@ class TransactionService(StripeService):
 
     def list(
         self,
-        params: "TransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transaction]:
         """
         Returns a list of Transactions that match the provided filters.
@@ -68,8 +68,8 @@ class TransactionService(StripeService):
 
     async def list_async(
         self,
-        params: "TransactionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transaction]:
         """
         Returns a list of Transactions that match the provided filters.
@@ -88,8 +88,8 @@ class TransactionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves the details of a Transaction by ID.
@@ -110,8 +110,8 @@ class TransactionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves the details of a Transaction by ID.

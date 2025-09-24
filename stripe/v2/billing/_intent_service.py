@@ -6,7 +6,7 @@ from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._intent import Intent
 from stripe.v2.billing.intents._action_service import ActionService
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -392,8 +392,8 @@ class IntentService(StripeService):
 
     def list(
         self,
-        params: "IntentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["IntentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Intent]:
         """
         List Billing Intents.
@@ -411,8 +411,8 @@ class IntentService(StripeService):
 
     async def list_async(
         self,
-        params: "IntentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["IntentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Intent]:
         """
         List Billing Intents.
@@ -431,7 +431,7 @@ class IntentService(StripeService):
     def create(
         self,
         params: "IntentService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Intent:
         """
         Create a Billing Intent.
@@ -450,7 +450,7 @@ class IntentService(StripeService):
     async def create_async(
         self,
         params: "IntentService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Intent:
         """
         Create a Billing Intent.
@@ -469,8 +469,8 @@ class IntentService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "IntentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["IntentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Intent:
         """
         Retrieve a Billing Intent.
@@ -489,8 +489,8 @@ class IntentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "IntentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["IntentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Intent:
         """
         Retrieve a Billing Intent.
@@ -509,8 +509,8 @@ class IntentService(StripeService):
     def cancel(
         self,
         id: str,
-        params: "IntentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["IntentService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Intent:
         """
         Cancel a Billing Intent.
@@ -529,8 +529,8 @@ class IntentService(StripeService):
     async def cancel_async(
         self,
         id: str,
-        params: "IntentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["IntentService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Intent:
         """
         Cancel a Billing Intent.
@@ -549,8 +549,8 @@ class IntentService(StripeService):
     def commit(
         self,
         id: str,
-        params: "IntentService.CommitParams" = {},
-        options: RequestOptions = {},
+        params: Optional["IntentService.CommitParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Intent:
         """
         Commit a Billing Intent.
@@ -569,8 +569,8 @@ class IntentService(StripeService):
     async def commit_async(
         self,
         id: str,
-        params: "IntentService.CommitParams" = {},
-        options: RequestOptions = {},
+        params: Optional["IntentService.CommitParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Intent:
         """
         Commit a Billing Intent.
@@ -589,8 +589,8 @@ class IntentService(StripeService):
     def release_reservation(
         self,
         id: str,
-        params: "IntentService.ReleaseReservationParams" = {},
-        options: RequestOptions = {},
+        params: Optional["IntentService.ReleaseReservationParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Intent:
         """
         Release a Billing Intent.
@@ -611,8 +611,8 @@ class IntentService(StripeService):
     async def release_reservation_async(
         self,
         id: str,
-        params: "IntentService.ReleaseReservationParams" = {},
-        options: RequestOptions = {},
+        params: Optional["IntentService.ReleaseReservationParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Intent:
         """
         Release a Billing Intent.
@@ -633,8 +633,8 @@ class IntentService(StripeService):
     def reserve(
         self,
         id: str,
-        params: "IntentService.ReserveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["IntentService.ReserveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Intent:
         """
         Reserve a Billing Intent.
@@ -653,8 +653,8 @@ class IntentService(StripeService):
     async def reserve_async(
         self,
         id: str,
-        params: "IntentService.ReserveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["IntentService.ReserveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Intent:
         """
         Reserve a Billing Intent.

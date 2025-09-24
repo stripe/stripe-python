@@ -5,7 +5,7 @@ from stripe._quote_line import QuoteLine
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -31,8 +31,8 @@ class QuoteLineService(StripeService):
     def list(
         self,
         quote: str,
-        params: "QuoteLineService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["QuoteLineService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[QuoteLine]:
         """
         Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
@@ -51,8 +51,8 @@ class QuoteLineService(StripeService):
     async def list_async(
         self,
         quote: str,
-        params: "QuoteLineService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["QuoteLineService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[QuoteLine]:
         """
         Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.

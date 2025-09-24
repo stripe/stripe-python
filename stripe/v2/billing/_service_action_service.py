@@ -5,7 +5,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._amount import AmountParam
 from stripe.v2.billing._service_action import ServiceAction
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -236,7 +236,7 @@ class ServiceActionService(StripeService):
     def create(
         self,
         params: "ServiceActionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
         Create a Service Action object.
@@ -255,7 +255,7 @@ class ServiceActionService(StripeService):
     async def create_async(
         self,
         params: "ServiceActionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
         Create a Service Action object.
@@ -274,8 +274,8 @@ class ServiceActionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "ServiceActionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ServiceActionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
         Retrieve a Service Action object.
@@ -294,8 +294,8 @@ class ServiceActionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "ServiceActionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ServiceActionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
         Retrieve a Service Action object.

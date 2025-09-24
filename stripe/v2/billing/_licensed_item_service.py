@@ -92,8 +92,8 @@ class LicensedItemService(StripeService):
 
     def list(
         self,
-        params: "LicensedItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["LicensedItemService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[LicensedItem]:
         """
         List all Licensed Item objects in reverse chronological order of creation.
@@ -111,8 +111,8 @@ class LicensedItemService(StripeService):
 
     async def list_async(
         self,
-        params: "LicensedItemService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["LicensedItemService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[LicensedItem]:
         """
         List all Licensed Item objects in reverse chronological order of creation.
@@ -131,7 +131,7 @@ class LicensedItemService(StripeService):
     def create(
         self,
         params: "LicensedItemService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> LicensedItem:
         """
         Create a Licensed Item object.
@@ -150,7 +150,7 @@ class LicensedItemService(StripeService):
     async def create_async(
         self,
         params: "LicensedItemService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> LicensedItem:
         """
         Create a Licensed Item object.
@@ -169,8 +169,8 @@ class LicensedItemService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "LicensedItemService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["LicensedItemService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> LicensedItem:
         """
         Retrieve a Licensed Item object.
@@ -189,8 +189,8 @@ class LicensedItemService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "LicensedItemService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["LicensedItemService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> LicensedItem:
         """
         Retrieve a Licensed Item object.
@@ -209,8 +209,8 @@ class LicensedItemService(StripeService):
     def update(
         self,
         id: str,
-        params: "LicensedItemService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["LicensedItemService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> LicensedItem:
         """
         Update a Licensed Item object. At least one of the fields is required.
@@ -229,8 +229,8 @@ class LicensedItemService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "LicensedItemService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["LicensedItemService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> LicensedItem:
         """
         Update a Licensed Item object. At least one of the fields is required.

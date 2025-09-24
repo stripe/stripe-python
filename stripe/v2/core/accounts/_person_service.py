@@ -982,8 +982,8 @@ class PersonService(StripeService):
     def list(
         self,
         account_id: str,
-        params: "PersonService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PersonService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[AccountPerson]:
         """
         Returns a list of Persons associated with an Account.
@@ -1004,8 +1004,8 @@ class PersonService(StripeService):
     async def list_async(
         self,
         account_id: str,
-        params: "PersonService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PersonService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[AccountPerson]:
         """
         Returns a list of Persons associated with an Account.
@@ -1026,8 +1026,8 @@ class PersonService(StripeService):
     def create(
         self,
         account_id: str,
-        params: "PersonService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PersonService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> AccountPerson:
         """
         Create a Person associated with an Account.
@@ -1048,8 +1048,8 @@ class PersonService(StripeService):
     async def create_async(
         self,
         account_id: str,
-        params: "PersonService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PersonService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> AccountPerson:
         """
         Create a Person associated with an Account.
@@ -1071,8 +1071,8 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
-        params: "PersonService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PersonService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> DeletedObject:
         """
         Delete a Person associated with an Account.
@@ -1095,8 +1095,8 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
-        params: "PersonService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PersonService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> DeletedObject:
         """
         Delete a Person associated with an Account.
@@ -1119,8 +1119,8 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
-        params: "PersonService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PersonService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> AccountPerson:
         """
         Retrieves a Person associated with an Account.
@@ -1143,8 +1143,8 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
-        params: "PersonService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PersonService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> AccountPerson:
         """
         Retrieves a Person associated with an Account.
@@ -1167,8 +1167,8 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
-        params: "PersonService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PersonService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> AccountPerson:
         """
         Updates a Person associated with an Account.
@@ -1191,8 +1191,8 @@ class PersonService(StripeService):
         self,
         account_id: str,
         id: str,
-        params: "PersonService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PersonService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> AccountPerson:
         """
         Updates a Person associated with an Account.

@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._fraud_liability_debit import FraudLiabilityDebit
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -60,8 +60,8 @@ class FraudLiabilityDebitService(StripeService):
 
     def list(
         self,
-        params: "FraudLiabilityDebitService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FraudLiabilityDebitService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FraudLiabilityDebit]:
         """
         Returns a list of Issuing FraudLiabilityDebit objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -79,8 +79,8 @@ class FraudLiabilityDebitService(StripeService):
 
     async def list_async(
         self,
-        params: "FraudLiabilityDebitService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FraudLiabilityDebitService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[FraudLiabilityDebit]:
         """
         Returns a list of Issuing FraudLiabilityDebit objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -99,8 +99,8 @@ class FraudLiabilityDebitService(StripeService):
     def retrieve(
         self,
         fraud_liability_debit: str,
-        params: "FraudLiabilityDebitService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FraudLiabilityDebitService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FraudLiabilityDebit:
         """
         Retrieves an Issuing FraudLiabilityDebit object.
@@ -121,8 +121,8 @@ class FraudLiabilityDebitService(StripeService):
     async def retrieve_async(
         self,
         fraud_liability_debit: str,
-        params: "FraudLiabilityDebitService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FraudLiabilityDebitService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> FraudLiabilityDebit:
         """
         Retrieves an Issuing FraudLiabilityDebit object.

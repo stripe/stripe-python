@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.v2.core._claimable_sandbox import ClaimableSandbox
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -37,7 +37,7 @@ class ClaimableSandboxService(StripeService):
     def create(
         self,
         params: "ClaimableSandboxService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ClaimableSandbox:
         """
         Create an anonymous, claimable sandbox. This sandbox can be prefilled with data. The response will include
@@ -57,7 +57,7 @@ class ClaimableSandboxService(StripeService):
     async def create_async(
         self,
         params: "ClaimableSandboxService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ClaimableSandbox:
         """
         Create an anonymous, claimable sandbox. This sandbox can be prefilled with data. The response will include
