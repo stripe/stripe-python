@@ -3,7 +3,7 @@
 from stripe._confirmation_token import ConfirmationToken
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -213,6 +213,12 @@ class ConfirmationTokenService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -276,6 +282,12 @@ class ConfirmationTokenService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired[
+            "ConfirmationTokenService.CreateParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired[
             "ConfirmationTokenService.CreateParamsPaymentMethodDataPix"
@@ -363,6 +375,7 @@ class ConfirmationTokenService(StripeService):
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -373,6 +386,7 @@ class ConfirmationTokenService(StripeService):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -498,11 +512,11 @@ class ConfirmationTokenService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -670,6 +684,9 @@ class ConfirmationTokenService(StripeService):
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataMbWay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -753,6 +770,9 @@ class ConfirmationTokenService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataPix(TypedDict):
@@ -885,11 +905,11 @@ class ConfirmationTokenService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -902,8 +922,8 @@ class ConfirmationTokenService(StripeService):
 
     def create(
         self,
-        params: "ConfirmationTokenService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfirmationTokenService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ConfirmationToken:
         """
         Creates a test mode Confirmation Token server side for your integration tests.
@@ -921,8 +941,8 @@ class ConfirmationTokenService(StripeService):
 
     async def create_async(
         self,
-        params: "ConfirmationTokenService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfirmationTokenService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ConfirmationToken:
         """
         Creates a test mode Confirmation Token server side for your integration tests.

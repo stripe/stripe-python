@@ -5,12 +5,18 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.terminal._configuration import Configuration
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ConfigurationService(StripeService):
     class CreateParams(TypedDict):
+        bbpos_wisepad3: NotRequired[
+            "ConfigurationService.CreateParamsBbposWisepad3"
+        ]
+        """
+        An object containing device type specific settings for BBPOS WisePad 3 readers
+        """
         bbpos_wisepos_e: NotRequired[
             "ConfigurationService.CreateParamsBbposWiseposE"
         ]
@@ -56,6 +62,12 @@ class ConfigurationService(StripeService):
         wifi: NotRequired["Literal['']|ConfigurationService.CreateParamsWifi"]
         """
         Configurations for connecting to a WiFi network.
+        """
+
+    class CreateParamsBbposWisepad3(TypedDict):
+        splashscreen: NotRequired["Literal['']|str"]
+        """
+        A File ID representing an image you would like displayed on the reader.
         """
 
     class CreateParamsBbposWiseposE(TypedDict):
@@ -580,6 +592,12 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParams(TypedDict):
+        bbpos_wisepad3: NotRequired[
+            "Literal['']|ConfigurationService.UpdateParamsBbposWisepad3"
+        ]
+        """
+        An object containing device type specific settings for BBPOS WisePad 3 readers
+        """
         bbpos_wisepos_e: NotRequired[
             "Literal['']|ConfigurationService.UpdateParamsBbposWiseposE"
         ]
@@ -627,6 +645,12 @@ class ConfigurationService(StripeService):
         wifi: NotRequired["Literal['']|ConfigurationService.UpdateParamsWifi"]
         """
         Configurations for connecting to a WiFi network.
+        """
+
+    class UpdateParamsBbposWisepad3(TypedDict):
+        splashscreen: NotRequired["Literal['']|str"]
+        """
+        A File ID representing an image you would like displayed on the reader.
         """
 
     class UpdateParamsBbposWiseposE(TypedDict):
@@ -1122,8 +1146,8 @@ class ConfigurationService(StripeService):
     def delete(
         self,
         configuration: str,
-        params: "ConfigurationService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Deletes a Configuration object.
@@ -1144,8 +1168,8 @@ class ConfigurationService(StripeService):
     async def delete_async(
         self,
         configuration: str,
-        params: "ConfigurationService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Deletes a Configuration object.
@@ -1166,8 +1190,8 @@ class ConfigurationService(StripeService):
     def retrieve(
         self,
         configuration: str,
-        params: "ConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Retrieves a Configuration object.
@@ -1188,8 +1212,8 @@ class ConfigurationService(StripeService):
     async def retrieve_async(
         self,
         configuration: str,
-        params: "ConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Retrieves a Configuration object.
@@ -1210,8 +1234,8 @@ class ConfigurationService(StripeService):
     def update(
         self,
         configuration: str,
-        params: "ConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Updates a new Configuration object.
@@ -1232,8 +1256,8 @@ class ConfigurationService(StripeService):
     async def update_async(
         self,
         configuration: str,
-        params: "ConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Updates a new Configuration object.
@@ -1253,8 +1277,8 @@ class ConfigurationService(StripeService):
 
     def list(
         self,
-        params: "ConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Configuration]:
         """
         Returns a list of Configuration objects.
@@ -1272,8 +1296,8 @@ class ConfigurationService(StripeService):
 
     async def list_async(
         self,
-        params: "ConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Configuration]:
         """
         Returns a list of Configuration objects.
@@ -1291,8 +1315,8 @@ class ConfigurationService(StripeService):
 
     def create(
         self,
-        params: "ConfigurationService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Creates a new Configuration object.
@@ -1310,8 +1334,8 @@ class ConfigurationService(StripeService):
 
     async def create_async(
         self,
-        params: "ConfigurationService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Creates a new Configuration object.

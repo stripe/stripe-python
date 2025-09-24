@@ -8,7 +8,7 @@ from stripe.billing._meter import Meter
 from stripe.billing._meter_event_summary_service import (
     MeterEventSummaryService,
 )
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -123,8 +123,8 @@ class MeterService(StripeService):
 
     def list(
         self,
-        params: "MeterService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeterService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Meter]:
         """
         Retrieve a list of billing meters.
@@ -142,8 +142,8 @@ class MeterService(StripeService):
 
     async def list_async(
         self,
-        params: "MeterService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeterService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Meter]:
         """
         Retrieve a list of billing meters.
@@ -160,7 +160,9 @@ class MeterService(StripeService):
         )
 
     def create(
-        self, params: "MeterService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "MeterService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
         Creates a billing meter.
@@ -177,7 +179,9 @@ class MeterService(StripeService):
         )
 
     async def create_async(
-        self, params: "MeterService.CreateParams", options: RequestOptions = {}
+        self,
+        params: "MeterService.CreateParams",
+        options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
         Creates a billing meter.
@@ -196,8 +200,8 @@ class MeterService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "MeterService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeterService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
         Retrieves a billing meter given an ID.
@@ -216,8 +220,8 @@ class MeterService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "MeterService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeterService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
         Retrieves a billing meter given an ID.
@@ -236,8 +240,8 @@ class MeterService(StripeService):
     def update(
         self,
         id: str,
-        params: "MeterService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeterService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
         Updates a billing meter.
@@ -256,8 +260,8 @@ class MeterService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "MeterService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeterService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
         Updates a billing meter.
@@ -276,8 +280,8 @@ class MeterService(StripeService):
     def deactivate(
         self,
         id: str,
-        params: "MeterService.DeactivateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeterService.DeactivateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
@@ -298,8 +302,8 @@ class MeterService(StripeService):
     async def deactivate_async(
         self,
         id: str,
-        params: "MeterService.DeactivateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeterService.DeactivateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
@@ -320,8 +324,8 @@ class MeterService(StripeService):
     def reactivate(
         self,
         id: str,
-        params: "MeterService.ReactivateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeterService.ReactivateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
@@ -342,8 +346,8 @@ class MeterService(StripeService):
     async def reactivate_async(
         self,
         id: str,
-        params: "MeterService.ReactivateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["MeterService.ReactivateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.

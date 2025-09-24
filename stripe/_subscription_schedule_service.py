@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._subscription_schedule import SubscriptionSchedule
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -71,9 +71,21 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParamsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SubscriptionScheduleService.CreateParamsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
         """
 
     class CreateParamsDefaultSettings(TypedDict):
@@ -271,10 +283,6 @@ class SubscriptionScheduleService(StripeService):
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
@@ -321,7 +329,7 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionScheduleService.CreateParamsPhaseAddInvoiceItemPeriod"
         ]
         """
-        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -967,10 +975,6 @@ class SubscriptionScheduleService(StripeService):
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set. This parameter is deprecated and will be removed in a future version. Use `duration` instead.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
@@ -1021,7 +1025,7 @@ class SubscriptionScheduleService(StripeService):
             "SubscriptionScheduleService.UpdateParamsPhaseAddInvoiceItemPeriod"
         ]
         """
-        The period associated with this invoice item. Defaults to the period of the underlying subscription that surrounds the start of the phase.
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -1302,8 +1306,8 @@ class SubscriptionScheduleService(StripeService):
 
     def list(
         self,
-        params: "SubscriptionScheduleService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SubscriptionSchedule]:
         """
         Retrieves the list of your subscription schedules.
@@ -1321,8 +1325,8 @@ class SubscriptionScheduleService(StripeService):
 
     async def list_async(
         self,
-        params: "SubscriptionScheduleService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SubscriptionSchedule]:
         """
         Retrieves the list of your subscription schedules.
@@ -1340,8 +1344,8 @@ class SubscriptionScheduleService(StripeService):
 
     def create(
         self,
-        params: "SubscriptionScheduleService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
@@ -1359,8 +1363,8 @@ class SubscriptionScheduleService(StripeService):
 
     async def create_async(
         self,
-        params: "SubscriptionScheduleService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
@@ -1379,8 +1383,8 @@ class SubscriptionScheduleService(StripeService):
     def retrieve(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.
@@ -1401,8 +1405,8 @@ class SubscriptionScheduleService(StripeService):
     async def retrieve_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.
@@ -1423,8 +1427,8 @@ class SubscriptionScheduleService(StripeService):
     def update(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Updates an existing subscription schedule.
@@ -1445,8 +1449,8 @@ class SubscriptionScheduleService(StripeService):
     async def update_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Updates an existing subscription schedule.
@@ -1467,8 +1471,8 @@ class SubscriptionScheduleService(StripeService):
     def cancel(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
@@ -1489,8 +1493,8 @@ class SubscriptionScheduleService(StripeService):
     async def cancel_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
@@ -1511,8 +1515,8 @@ class SubscriptionScheduleService(StripeService):
     def release(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.ReleaseParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.ReleaseParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
@@ -1533,8 +1537,8 @@ class SubscriptionScheduleService(StripeService):
     async def release_async(
         self,
         schedule: str,
-        params: "SubscriptionScheduleService.ReleaseParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionScheduleService.ReleaseParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionSchedule:
         """
         Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.

@@ -5,7 +5,7 @@ from stripe._payment_method_configuration import PaymentMethodConfiguration
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -124,6 +124,12 @@ class PaymentMethodConfigurationService(StripeService):
         fpx: NotRequired["PaymentMethodConfigurationService.CreateParamsFpx"]
         """
         Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
+        """
+        fr_meal_voucher_conecs: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsFrMealVoucherConecs"
+        ]
+        """
+        Meal vouchers in France, or “titres-restaurant”, is a local benefits program commonly offered by employers for their employees to purchase prepared food and beverages on working days. Check this [page](https://stripe.com/docs/payments/benefits/fr-meal-vouchers) for more details.
         """
         giropay: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsGiropay"
@@ -244,6 +250,12 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
+        """
+        paypay: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsPaypay"
+        ]
+        """
+        Customers can pay with PayPay online or using the PayPay app.
         """
         pix: NotRequired["PaymentMethodConfigurationService.CreateParamsPix"]
         """
@@ -594,6 +606,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsFrMealVoucherConecs(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsFrMealVoucherConecsDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsFrMealVoucherConecsDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsGiropay(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsGiropayDisplayPreference"
@@ -869,6 +895,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class CreateParamsPaypalDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsPaypay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsPaypayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPaypayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1189,6 +1229,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
         """
+        fr_meal_voucher_conecs: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsFrMealVoucherConecs"
+        ]
+        """
+        Meal vouchers in France, or “titres-restaurant”, is a local benefits program commonly offered by employers for their employees to purchase prepared food and beverages on working days. Check this [page](https://stripe.com/docs/payments/benefits/fr-meal-vouchers) for more details.
+        """
         giropay: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsGiropay"
         ]
@@ -1304,6 +1350,12 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
+        """
+        paypay: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsPaypay"
+        ]
+        """
+        Customers can pay with PayPay online or using the PayPay app.
         """
         pix: NotRequired["PaymentMethodConfigurationService.UpdateParamsPix"]
         """
@@ -1654,6 +1706,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class UpdateParamsFrMealVoucherConecs(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsFrMealVoucherConecsDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsFrMealVoucherConecsDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class UpdateParamsGiropay(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsGiropayDisplayPreference"
@@ -1934,6 +2000,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class UpdateParamsPaypay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsPaypayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsPaypayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class UpdateParamsPix(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsPixDisplayPreference"
@@ -2104,8 +2184,10 @@ class PaymentMethodConfigurationService(StripeService):
 
     def list(
         self,
-        params: "PaymentMethodConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.ListParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethodConfiguration]:
         """
         List payment method configurations
@@ -2123,8 +2205,10 @@ class PaymentMethodConfigurationService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentMethodConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.ListParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethodConfiguration]:
         """
         List payment method configurations
@@ -2142,8 +2226,10 @@ class PaymentMethodConfigurationService(StripeService):
 
     def create(
         self,
-        params: "PaymentMethodConfigurationService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.CreateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Creates a payment method configuration
@@ -2161,8 +2247,10 @@ class PaymentMethodConfigurationService(StripeService):
 
     async def create_async(
         self,
-        params: "PaymentMethodConfigurationService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.CreateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Creates a payment method configuration
@@ -2181,8 +2269,10 @@ class PaymentMethodConfigurationService(StripeService):
     def retrieve(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Retrieve payment method configuration
@@ -2203,8 +2293,10 @@ class PaymentMethodConfigurationService(StripeService):
     async def retrieve_async(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Retrieve payment method configuration
@@ -2225,8 +2317,10 @@ class PaymentMethodConfigurationService(StripeService):
     def update(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.UpdateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Update payment method configuration
@@ -2247,8 +2341,10 @@ class PaymentMethodConfigurationService(StripeService):
     async def update_async(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.UpdateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Update payment method configuration

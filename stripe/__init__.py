@@ -312,6 +312,10 @@ from stripe._application_fee_service import (
 from stripe._apps_service import AppsService as AppsService
 from stripe._balance import Balance as Balance
 from stripe._balance_service import BalanceService as BalanceService
+from stripe._balance_settings import BalanceSettings as BalanceSettings
+from stripe._balance_settings_service import (
+    BalanceSettingsService as BalanceSettingsService,
+)
 from stripe._balance_transaction import (
     BalanceTransaction as BalanceTransaction,
 )

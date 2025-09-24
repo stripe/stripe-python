@@ -5,7 +5,7 @@ from stripe._product_feature import ProductFeature
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -51,8 +51,8 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
-        params: "ProductFeatureService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductFeatureService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
         Deletes the feature attachment to a product
@@ -75,8 +75,8 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
-        params: "ProductFeatureService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductFeatureService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
         Deletes the feature attachment to a product
@@ -99,8 +99,8 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
-        params: "ProductFeatureService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductFeatureService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
         Retrieves a product_feature, which represents a feature attachment to a product
@@ -123,8 +123,8 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         id: str,
-        params: "ProductFeatureService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductFeatureService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
         Retrieves a product_feature, which represents a feature attachment to a product
@@ -146,8 +146,8 @@ class ProductFeatureService(StripeService):
     def list(
         self,
         product: str,
-        params: "ProductFeatureService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductFeatureService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ProductFeature]:
         """
         Retrieve a list of features for a product
@@ -168,8 +168,8 @@ class ProductFeatureService(StripeService):
     async def list_async(
         self,
         product: str,
-        params: "ProductFeatureService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ProductFeatureService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ProductFeature]:
         """
         Retrieve a list of features for a product
@@ -191,7 +191,7 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         params: "ProductFeatureService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
         Creates a product_feature, which represents a feature attachment to a product
@@ -213,7 +213,7 @@ class ProductFeatureService(StripeService):
         self,
         product: str,
         params: "ProductFeatureService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ProductFeature:
         """
         Creates a product_feature, which represents a feature attachment to a product

@@ -6,7 +6,7 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -104,6 +104,12 @@ class PaymentIntentService(StripeService):
         error_on_requires_action: NotRequired[bool]
         """
         Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication).
+        """
+        excluded_payment_method_types: NotRequired[
+            "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+        ]
+        """
+        The list of payment method types to exclude from use with this payment.
         """
         expand: NotRequired[List[str]]
         """
@@ -396,6 +402,12 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -459,6 +471,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired[
+            "PaymentIntentService.ConfirmParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired[
             "PaymentIntentService.ConfirmParamsPaymentMethodDataPix"
@@ -546,6 +564,7 @@ class PaymentIntentService(StripeService):
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -556,6 +575,7 @@ class PaymentIntentService(StripeService):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -681,11 +701,11 @@ class PaymentIntentService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -853,6 +873,9 @@ class PaymentIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataMbWay(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -936,6 +959,9 @@ class PaymentIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataPix(TypedDict):
@@ -1174,6 +1200,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         """
+        mb_way: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsMbWay"
+        ]
+        """
+        If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
+        """
         mobilepay: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsMobilepay"
         ]
@@ -1233,6 +1265,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        paypay: NotRequired[
+            "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
         """
         pix: NotRequired[
             "Literal['']|PaymentIntentService.ConfirmParamsPaymentMethodOptionsPix"
@@ -2297,6 +2335,20 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class ConfirmParamsPaymentMethodOptionsMbWay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class ConfirmParamsPaymentMethodOptionsMobilepay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -2492,6 +2544,16 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsPaypay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
@@ -2841,11 +2903,11 @@ class PaymentIntentService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2939,6 +3001,7 @@ class PaymentIntentService(StripeService):
                     "klarna",
                     "konbini",
                     "kr_card",
+                    "mb_way",
                     "mobilepay",
                     "multibanco",
                     "naver_pay",
@@ -2949,6 +3012,7 @@ class PaymentIntentService(StripeService):
                     "payco",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "pix",
                     "promptpay",
                     "revolut_pay",
@@ -3301,6 +3365,12 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -3364,6 +3434,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired[
+            "PaymentIntentService.CreateParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired[
             "PaymentIntentService.CreateParamsPaymentMethodDataPix"
@@ -3451,6 +3527,7 @@ class PaymentIntentService(StripeService):
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -3461,6 +3538,7 @@ class PaymentIntentService(StripeService):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -3586,11 +3664,11 @@ class PaymentIntentService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -3758,6 +3836,9 @@ class PaymentIntentService(StripeService):
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataMbWay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -3841,6 +3922,9 @@ class PaymentIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataPix(TypedDict):
@@ -4079,6 +4163,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         """
+        mb_way: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsMbWay"
+        ]
+        """
+        If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
+        """
         mobilepay: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsMobilepay"
         ]
@@ -4138,6 +4228,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        paypay: NotRequired[
+            "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
         """
         pix: NotRequired[
             "Literal['']|PaymentIntentService.CreateParamsPaymentMethodOptionsPix"
@@ -5202,6 +5298,20 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class CreateParamsPaymentMethodOptionsMbWay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class CreateParamsPaymentMethodOptionsMobilepay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -5397,6 +5507,16 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentMethodOptionsPaypay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
@@ -5746,11 +5866,11 @@ class PaymentIntentService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -5921,6 +6041,12 @@ class PaymentIntentService(StripeService):
         description: NotRequired[str]
         """
         An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        excluded_payment_method_types: NotRequired[
+            "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+        ]
+        """
+        The list of payment method types to exclude from use with this payment.
         """
         expand: NotRequired[List[str]]
         """
@@ -6170,6 +6296,12 @@ class PaymentIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -6233,6 +6365,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired[
+            "PaymentIntentService.UpdateParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired[
             "PaymentIntentService.UpdateParamsPaymentMethodDataPix"
@@ -6320,6 +6458,7 @@ class PaymentIntentService(StripeService):
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -6330,6 +6469,7 @@ class PaymentIntentService(StripeService):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -6455,11 +6595,11 @@ class PaymentIntentService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -6627,6 +6767,9 @@ class PaymentIntentService(StripeService):
     class UpdateParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class UpdateParamsPaymentMethodDataMbWay(TypedDict):
+        pass
+
     class UpdateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -6710,6 +6853,9 @@ class PaymentIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataPix(TypedDict):
@@ -6948,6 +7094,12 @@ class PaymentIntentService(StripeService):
         """
         If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
         """
+        mb_way: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsMbWay"
+        ]
+        """
+        If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
+        """
         mobilepay: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsMobilepay"
         ]
@@ -7007,6 +7159,12 @@ class PaymentIntentService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+        """
+        paypay: NotRequired[
+            "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
         """
         pix: NotRequired[
             "Literal['']|PaymentIntentService.UpdateParamsPaymentMethodOptionsPix"
@@ -8071,6 +8229,20 @@ class PaymentIntentService(StripeService):
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
+    class UpdateParamsPaymentMethodOptionsMbWay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+        If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
     class UpdateParamsPaymentMethodOptionsMobilepay(TypedDict):
         capture_method: NotRequired["Literal['']|Literal['manual']"]
         """
@@ -8266,6 +8438,16 @@ class PaymentIntentService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        """
+
+    class UpdateParamsPaymentMethodOptionsPaypay(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds are captured from the customer's account.
+
+        If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         """
 
     class UpdateParamsPaymentMethodOptionsPix(TypedDict):
@@ -8609,11 +8791,11 @@ class PaymentIntentService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -8646,8 +8828,8 @@ class PaymentIntentService(StripeService):
 
     def list(
         self,
-        params: "PaymentIntentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentIntentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentIntent]:
         """
         Returns a list of PaymentIntents.
@@ -8665,8 +8847,8 @@ class PaymentIntentService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentIntentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentIntentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentIntent]:
         """
         Returns a list of PaymentIntents.
@@ -8685,7 +8867,7 @@ class PaymentIntentService(StripeService):
     def create(
         self,
         params: "PaymentIntentService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Creates a PaymentIntent object.
@@ -8713,7 +8895,7 @@ class PaymentIntentService(StripeService):
     async def create_async(
         self,
         params: "PaymentIntentService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Creates a PaymentIntent object.
@@ -8741,8 +8923,8 @@ class PaymentIntentService(StripeService):
     def retrieve(
         self,
         intent: str,
-        params: "PaymentIntentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentIntentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Retrieves the details of a PaymentIntent that has previously been created.
@@ -8767,8 +8949,8 @@ class PaymentIntentService(StripeService):
     async def retrieve_async(
         self,
         intent: str,
-        params: "PaymentIntentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentIntentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Retrieves the details of a PaymentIntent that has previously been created.
@@ -8793,8 +8975,8 @@ class PaymentIntentService(StripeService):
     def update(
         self,
         intent: str,
-        params: "PaymentIntentService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentIntentService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Updates properties on a PaymentIntent object without confirming.
@@ -8821,8 +9003,8 @@ class PaymentIntentService(StripeService):
     async def update_async(
         self,
         intent: str,
-        params: "PaymentIntentService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentIntentService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Updates properties on a PaymentIntent object without confirming.
@@ -8849,7 +9031,7 @@ class PaymentIntentService(StripeService):
     def search(
         self,
         params: "PaymentIntentService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[PaymentIntent]:
         """
         Search for PaymentIntents you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -8871,7 +9053,7 @@ class PaymentIntentService(StripeService):
     async def search_async(
         self,
         params: "PaymentIntentService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[PaymentIntent]:
         """
         Search for PaymentIntents you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -8893,8 +9075,10 @@ class PaymentIntentService(StripeService):
     def apply_customer_balance(
         self,
         intent: str,
-        params: "PaymentIntentService.ApplyCustomerBalanceParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentIntentService.ApplyCustomerBalanceParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
@@ -8915,8 +9099,10 @@ class PaymentIntentService(StripeService):
     async def apply_customer_balance_async(
         self,
         intent: str,
-        params: "PaymentIntentService.ApplyCustomerBalanceParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentIntentService.ApplyCustomerBalanceParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
@@ -8937,8 +9123,8 @@ class PaymentIntentService(StripeService):
     def cancel(
         self,
         intent: str,
-        params: "PaymentIntentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentIntentService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://docs.stripe.com/docs/payments/intents), processing.
@@ -8963,8 +9149,8 @@ class PaymentIntentService(StripeService):
     async def cancel_async(
         self,
         intent: str,
-        params: "PaymentIntentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentIntentService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://docs.stripe.com/docs/payments/intents), processing.
@@ -8989,8 +9175,8 @@ class PaymentIntentService(StripeService):
     def capture(
         self,
         intent: str,
-        params: "PaymentIntentService.CaptureParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentIntentService.CaptureParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -9015,8 +9201,8 @@ class PaymentIntentService(StripeService):
     async def capture_async(
         self,
         intent: str,
-        params: "PaymentIntentService.CaptureParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentIntentService.CaptureParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -9041,8 +9227,8 @@ class PaymentIntentService(StripeService):
     def confirm(
         self,
         intent: str,
-        params: "PaymentIntentService.ConfirmParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentIntentService.ConfirmParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Confirm that your customer intends to pay with current or provided
@@ -9092,8 +9278,8 @@ class PaymentIntentService(StripeService):
     async def confirm_async(
         self,
         intent: str,
-        params: "PaymentIntentService.ConfirmParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentIntentService.ConfirmParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Confirm that your customer intends to pay with current or provided
@@ -9144,7 +9330,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: "PaymentIntentService.IncrementAuthorizationParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Perform an incremental authorization on an eligible
@@ -9189,7 +9375,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: "PaymentIntentService.IncrementAuthorizationParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Perform an incremental authorization on an eligible
@@ -9233,8 +9419,10 @@ class PaymentIntentService(StripeService):
     def verify_microdeposits(
         self,
         intent: str,
-        params: "PaymentIntentService.VerifyMicrodepositsParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentIntentService.VerifyMicrodepositsParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Verifies microdeposits on a PaymentIntent object.
@@ -9255,8 +9443,10 @@ class PaymentIntentService(StripeService):
     async def verify_microdeposits_async(
         self,
         intent: str,
-        params: "PaymentIntentService.VerifyMicrodepositsParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentIntentService.VerifyMicrodepositsParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
         Verifies microdeposits on a PaymentIntent object.

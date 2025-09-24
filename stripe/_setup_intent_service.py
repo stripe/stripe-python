@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._setup_intent import SetupIntent
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -276,6 +276,12 @@ class SetupIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -339,6 +345,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired[
+            "SetupIntentService.ConfirmParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataPix"
@@ -426,6 +438,7 @@ class SetupIntentService(StripeService):
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -436,6 +449,7 @@ class SetupIntentService(StripeService):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -561,11 +575,11 @@ class SetupIntentService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -733,6 +747,9 @@ class SetupIntentService(StripeService):
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class ConfirmParamsPaymentMethodDataMbWay(TypedDict):
+        pass
+
     class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -816,6 +833,9 @@ class SetupIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataPix(TypedDict):
@@ -1730,6 +1750,12 @@ class SetupIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1791,6 +1817,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired[
+            "SetupIntentService.CreateParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired["SetupIntentService.CreateParamsPaymentMethodDataPix"]
         """
@@ -1876,6 +1908,7 @@ class SetupIntentService(StripeService):
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -1886,6 +1919,7 @@ class SetupIntentService(StripeService):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -2009,11 +2043,11 @@ class SetupIntentService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2181,6 +2215,9 @@ class SetupIntentService(StripeService):
     class CreateParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class CreateParamsPaymentMethodDataMbWay(TypedDict):
+        pass
+
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -2264,6 +2301,9 @@ class SetupIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataPix(TypedDict):
@@ -3153,6 +3193,12 @@ class SetupIntentService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataMbWay"
+        ]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -3214,6 +3260,12 @@ class SetupIntentService(StripeService):
         ]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired[
+            "SetupIntentService.UpdateParamsPaymentMethodDataPaypay"
+        ]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired["SetupIntentService.UpdateParamsPaymentMethodDataPix"]
         """
@@ -3299,6 +3351,7 @@ class SetupIntentService(StripeService):
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -3309,6 +3362,7 @@ class SetupIntentService(StripeService):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -3432,11 +3486,11 @@ class SetupIntentService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -3604,6 +3658,9 @@ class SetupIntentService(StripeService):
     class UpdateParamsPaymentMethodDataLink(TypedDict):
         pass
 
+    class UpdateParamsPaymentMethodDataMbWay(TypedDict):
+        pass
+
     class UpdateParamsPaymentMethodDataMobilepay(TypedDict):
         pass
 
@@ -3687,6 +3744,9 @@ class SetupIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class UpdateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataPix(TypedDict):
@@ -4296,8 +4356,8 @@ class SetupIntentService(StripeService):
 
     def list(
         self,
-        params: "SetupIntentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SetupIntentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SetupIntent]:
         """
         Returns a list of SetupIntents.
@@ -4315,8 +4375,8 @@ class SetupIntentService(StripeService):
 
     async def list_async(
         self,
-        params: "SetupIntentService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SetupIntentService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SetupIntent]:
         """
         Returns a list of SetupIntents.
@@ -4334,8 +4394,8 @@ class SetupIntentService(StripeService):
 
     def create(
         self,
-        params: "SetupIntentService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SetupIntentService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Creates a SetupIntent object.
@@ -4356,8 +4416,8 @@ class SetupIntentService(StripeService):
 
     async def create_async(
         self,
-        params: "SetupIntentService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SetupIntentService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Creates a SetupIntent object.
@@ -4379,8 +4439,8 @@ class SetupIntentService(StripeService):
     def retrieve(
         self,
         intent: str,
-        params: "SetupIntentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SetupIntentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Retrieves the details of a SetupIntent that has previously been created.
@@ -4405,8 +4465,8 @@ class SetupIntentService(StripeService):
     async def retrieve_async(
         self,
         intent: str,
-        params: "SetupIntentService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SetupIntentService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Retrieves the details of a SetupIntent that has previously been created.
@@ -4431,8 +4491,8 @@ class SetupIntentService(StripeService):
     def update(
         self,
         intent: str,
-        params: "SetupIntentService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SetupIntentService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Updates a SetupIntent object.
@@ -4453,8 +4513,8 @@ class SetupIntentService(StripeService):
     async def update_async(
         self,
         intent: str,
-        params: "SetupIntentService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SetupIntentService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Updates a SetupIntent object.
@@ -4475,8 +4535,8 @@ class SetupIntentService(StripeService):
     def cancel(
         self,
         intent: str,
-        params: "SetupIntentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SetupIntentService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -4499,8 +4559,8 @@ class SetupIntentService(StripeService):
     async def cancel_async(
         self,
         intent: str,
-        params: "SetupIntentService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SetupIntentService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -4523,8 +4583,8 @@ class SetupIntentService(StripeService):
     def confirm(
         self,
         intent: str,
-        params: "SetupIntentService.ConfirmParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SetupIntentService.ConfirmParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Confirm that your customer intends to set up the current or
@@ -4558,8 +4618,8 @@ class SetupIntentService(StripeService):
     async def confirm_async(
         self,
         intent: str,
-        params: "SetupIntentService.ConfirmParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SetupIntentService.ConfirmParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Confirm that your customer intends to set up the current or
@@ -4593,8 +4653,10 @@ class SetupIntentService(StripeService):
     def verify_microdeposits(
         self,
         intent: str,
-        params: "SetupIntentService.VerifyMicrodepositsParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "SetupIntentService.VerifyMicrodepositsParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Verifies microdeposits on a SetupIntent object.
@@ -4615,8 +4677,10 @@ class SetupIntentService(StripeService):
     async def verify_microdeposits_async(
         self,
         intent: str,
-        params: "SetupIntentService.VerifyMicrodepositsParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "SetupIntentService.VerifyMicrodepositsParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
         Verifies microdeposits on a SetupIntent object.

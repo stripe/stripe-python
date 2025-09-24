@@ -5,7 +5,7 @@ from stripe._refund import Refund
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -133,8 +133,8 @@ class RefundService(StripeService):
 
     def list(
         self,
-        params: "RefundService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RefundService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Refund]:
         """
         Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
@@ -152,8 +152,8 @@ class RefundService(StripeService):
 
     async def list_async(
         self,
-        params: "RefundService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RefundService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Refund]:
         """
         Returns a list of all refunds you created. We return the refunds in sorted order, with the most recent refunds appearing first. The 10 most recent refunds are always available by default on the Charge object.
@@ -171,8 +171,8 @@ class RefundService(StripeService):
 
     def create(
         self,
-        params: "RefundService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RefundService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.
@@ -200,8 +200,8 @@ class RefundService(StripeService):
 
     async def create_async(
         self,
-        params: "RefundService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RefundService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.
@@ -230,8 +230,8 @@ class RefundService(StripeService):
     def retrieve(
         self,
         refund: str,
-        params: "RefundService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RefundService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Retrieves the details of an existing refund.
@@ -250,8 +250,8 @@ class RefundService(StripeService):
     async def retrieve_async(
         self,
         refund: str,
-        params: "RefundService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RefundService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Retrieves the details of an existing refund.
@@ -270,8 +270,8 @@ class RefundService(StripeService):
     def update(
         self,
         refund: str,
-        params: "RefundService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RefundService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
@@ -292,8 +292,8 @@ class RefundService(StripeService):
     async def update_async(
         self,
         refund: str,
-        params: "RefundService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RefundService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
@@ -314,8 +314,8 @@ class RefundService(StripeService):
     def cancel(
         self,
         refund: str,
-        params: "RefundService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RefundService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Cancels a refund with a status of requires_action.
@@ -338,8 +338,8 @@ class RefundService(StripeService):
     async def cancel_async(
         self,
         refund: str,
-        params: "RefundService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["RefundService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
         Cancels a refund with a status of requires_action.

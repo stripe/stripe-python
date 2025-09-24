@@ -11,7 +11,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -240,11 +240,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -448,6 +448,12 @@ class AccountService(StripeService):
         """
         The link_payments capability.
         """
+        mb_way_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesMbWayPayments"
+        ]
+        """
+        The mb_way_payments capability.
+        """
         mobilepay_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesMobilepayPayments"
         ]
@@ -507,6 +513,12 @@ class AccountService(StripeService):
         ]
         """
         The paynow_payments capability.
+        """
+        paypay_payments: NotRequired[
+            "AccountService.CreateParamsCapabilitiesPaypayPayments"
+        ]
+        """
+        The paypay_payments capability.
         """
         pix_payments: NotRequired[
             "AccountService.CreateParamsCapabilitiesPixPayments"
@@ -803,6 +815,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class CreateParamsCapabilitiesMbWayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class CreateParamsCapabilitiesMobilepayPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -858,6 +876,12 @@ class AccountService(StripeService):
         """
 
     class CreateParamsCapabilitiesPaynowPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class CreateParamsCapabilitiesPaypayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1107,11 +1131,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1513,11 +1537,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1613,11 +1637,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1867,23 +1891,15 @@ class AccountService(StripeService):
             ]
         ]
         """
-        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
         """
         weekly_payout_days: NotRequired[
             List[
-                Literal[
-                    "friday",
-                    "monday",
-                    "saturday",
-                    "sunday",
-                    "thursday",
-                    "tuesday",
-                    "wednesday",
-                ]
+                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
             ]
         ]
         """
-        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
         """
 
     class CreateParamsSettingsTreasury(TypedDict):
@@ -2196,11 +2212,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2404,6 +2420,12 @@ class AccountService(StripeService):
         """
         The link_payments capability.
         """
+        mb_way_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesMbWayPayments"
+        ]
+        """
+        The mb_way_payments capability.
+        """
         mobilepay_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesMobilepayPayments"
         ]
@@ -2463,6 +2485,12 @@ class AccountService(StripeService):
         ]
         """
         The paynow_payments capability.
+        """
+        paypay_payments: NotRequired[
+            "AccountService.UpdateParamsCapabilitiesPaypayPayments"
+        ]
+        """
+        The paypay_payments capability.
         """
         pix_payments: NotRequired[
             "AccountService.UpdateParamsCapabilitiesPixPayments"
@@ -2759,6 +2787,12 @@ class AccountService(StripeService):
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         """
 
+    class UpdateParamsCapabilitiesMbWayPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
     class UpdateParamsCapabilitiesMobilepayPayments(TypedDict):
         requested: NotRequired[bool]
         """
@@ -2814,6 +2848,12 @@ class AccountService(StripeService):
         """
 
     class UpdateParamsCapabilitiesPaynowPayments(TypedDict):
+        requested: NotRequired[bool]
+        """
+        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        """
+
+    class UpdateParamsCapabilitiesPaypayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -3060,11 +3100,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -3428,11 +3468,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -3528,11 +3568,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -3786,23 +3826,15 @@ class AccountService(StripeService):
             ]
         ]
         """
-        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
+        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
         """
         weekly_payout_days: NotRequired[
             List[
-                Literal[
-                    "friday",
-                    "monday",
-                    "saturday",
-                    "sunday",
-                    "thursday",
-                    "tuesday",
-                    "wednesday",
-                ]
+                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
             ]
         ]
         """
-        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
         """
 
     class UpdateParamsSettingsTreasury(TypedDict):
@@ -3848,8 +3880,8 @@ class AccountService(StripeService):
     def delete(
         self,
         account: str,
-        params: "AccountService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -3874,8 +3906,8 @@ class AccountService(StripeService):
     async def delete_async(
         self,
         account: str,
-        params: "AccountService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -3900,8 +3932,8 @@ class AccountService(StripeService):
     def retrieve(
         self,
         account: str,
-        params: "AccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Retrieves the details of an account.
@@ -3920,8 +3952,8 @@ class AccountService(StripeService):
     async def retrieve_async(
         self,
         account: str,
-        params: "AccountService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Retrieves the details of an account.
@@ -3940,8 +3972,8 @@ class AccountService(StripeService):
     def update(
         self,
         account: str,
-        params: "AccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
@@ -3972,8 +4004,8 @@ class AccountService(StripeService):
     async def update_async(
         self,
         account: str,
-        params: "AccountService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
@@ -4003,8 +4035,8 @@ class AccountService(StripeService):
 
     def retrieve_current(
         self,
-        params: "AccountService.RetrieveCurrentParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.RetrieveCurrentParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Retrieves the details of an account.
@@ -4022,8 +4054,8 @@ class AccountService(StripeService):
 
     async def retrieve_current_async(
         self,
-        params: "AccountService.RetrieveCurrentParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.RetrieveCurrentParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         Retrieves the details of an account.
@@ -4041,8 +4073,8 @@ class AccountService(StripeService):
 
     def list(
         self,
-        params: "AccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Account]:
         """
         Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
@@ -4060,8 +4092,8 @@ class AccountService(StripeService):
 
     async def list_async(
         self,
-        params: "AccountService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Account]:
         """
         Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
@@ -4079,8 +4111,8 @@ class AccountService(StripeService):
 
     def create(
         self,
-        params: "AccountService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
@@ -4103,8 +4135,8 @@ class AccountService(StripeService):
 
     async def create_async(
         self,
-        params: "AccountService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
@@ -4129,7 +4161,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountService.RejectParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -4153,7 +4185,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountService.RejectParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Account:
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.

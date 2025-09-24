@@ -98,6 +98,23 @@ class InvoiceItem(
         """
         _inner_class_types = {"price_details": PriceDetails}
 
+    class ProrationDetails(StripeObject):
+        class DiscountAmount(StripeObject):
+            amount: int
+            """
+            The amount, in cents (or local equivalent), of the discount.
+            """
+            discount: ExpandableField["Discount"]
+            """
+            The discount that was applied to get this discount amount.
+            """
+
+        discount_amounts: List[DiscountAmount]
+        """
+        Discount amounts applied when the proration was created.
+        """
+        _inner_class_types = {"discount_amounts": DiscountAmount}
+
     class CreateParams(RequestOptions):
         amount: NotRequired[int]
         """
@@ -455,6 +472,10 @@ class InvoiceItem(
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
+    net_amount: Optional[int]
+    """
+    The amount after discounts, but before credits and taxes. This field is `null` for `discountable=true` items.
+    """
     object: Literal["invoiceitem"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -472,6 +493,7 @@ class InvoiceItem(
     """
     Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.
     """
+    proration_details: Optional[ProrationDetails]
     quantity: int
     """
     Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
@@ -715,4 +737,5 @@ class InvoiceItem(
         "parent": Parent,
         "period": Period,
         "pricing": Pricing,
+        "proration_details": ProrationDetails,
     }

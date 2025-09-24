@@ -5,7 +5,7 @@ from stripe._promotion_code import PromotionCode
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -20,10 +20,6 @@ class PromotionCodeService(StripeService):
         The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for a specific customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
 
         If left blank, we will generate one automatically.
-        """
-        coupon: str
-        """
-        The coupon for this promotion code.
         """
         customer: NotRequired[str]
         """
@@ -45,11 +41,25 @@ class PromotionCodeService(StripeService):
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
+        promotion: "PromotionCodeService.CreateParamsPromotion"
+        """
+        The promotion referenced by this promotion code.
+        """
         restrictions: NotRequired[
             "PromotionCodeService.CreateParamsRestrictions"
         ]
         """
         Settings that restrict the redemption of the promotion code.
+        """
+
+    class CreateParamsPromotion(TypedDict):
+        coupon: NotRequired[str]
+        """
+        If promotion `type` is `coupon`, the coupon for this promotion code.
+        """
+        type: Literal["coupon"]
+        """
+        Specifies the type of promotion.
         """
 
     class CreateParamsRestrictions(TypedDict):
@@ -182,8 +192,8 @@ class PromotionCodeService(StripeService):
 
     def list(
         self,
-        params: "PromotionCodeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PromotionCodeService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PromotionCode]:
         """
         Returns a list of your promotion codes.
@@ -201,8 +211,8 @@ class PromotionCodeService(StripeService):
 
     async def list_async(
         self,
-        params: "PromotionCodeService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PromotionCodeService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PromotionCode]:
         """
         Returns a list of your promotion codes.
@@ -221,10 +231,10 @@ class PromotionCodeService(StripeService):
     def create(
         self,
         params: "PromotionCodeService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
-        A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+        A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
         """
         return cast(
             PromotionCode,
@@ -240,10 +250,10 @@ class PromotionCodeService(StripeService):
     async def create_async(
         self,
         params: "PromotionCodeService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
-        A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+        A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
         """
         return cast(
             PromotionCode,
@@ -259,8 +269,8 @@ class PromotionCodeService(StripeService):
     def retrieve(
         self,
         promotion_code: str,
-        params: "PromotionCodeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PromotionCodeService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
         Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://docs.stripe.com/docs/api/promotion_codes/list) with the desired code.
@@ -281,8 +291,8 @@ class PromotionCodeService(StripeService):
     async def retrieve_async(
         self,
         promotion_code: str,
-        params: "PromotionCodeService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PromotionCodeService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
         Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://docs.stripe.com/docs/api/promotion_codes/list) with the desired code.
@@ -303,8 +313,8 @@ class PromotionCodeService(StripeService):
     def update(
         self,
         promotion_code: str,
-        params: "PromotionCodeService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PromotionCodeService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
         Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
@@ -325,8 +335,8 @@ class PromotionCodeService(StripeService):
     async def update_async(
         self,
         promotion_code: str,
-        params: "PromotionCodeService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PromotionCodeService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
         Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.

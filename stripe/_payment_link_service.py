@@ -6,7 +6,7 @@ from stripe._payment_link_line_item_service import PaymentLinkLineItemService
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -148,6 +148,7 @@ class PaymentLinkService(StripeService):
                     "pay_by_bank",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "pix",
                     "promptpay",
                     "satispay",
@@ -611,6 +612,10 @@ class PaymentLinkService(StripeService):
         tax_code: NotRequired[str]
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        """
+        unit_label: NotRequired[str]
+        """
+        A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
         """
 
     class CreateParamsLineItemPriceDataRecurring(TypedDict):
@@ -1158,7 +1163,7 @@ class PaymentLinkService(StripeService):
         If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'pix', 'promptpay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'paypay', 'pix', 'promptpay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
         ]
         """
         The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
@@ -1866,8 +1871,8 @@ class PaymentLinkService(StripeService):
 
     def list(
         self,
-        params: "PaymentLinkService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentLinkService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentLink]:
         """
         Returns a list of your payment links.
@@ -1885,8 +1890,8 @@ class PaymentLinkService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentLinkService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentLinkService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentLink]:
         """
         Returns a list of your payment links.
@@ -1905,7 +1910,7 @@ class PaymentLinkService(StripeService):
     def create(
         self,
         params: "PaymentLinkService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentLink:
         """
         Creates a payment link.
@@ -1924,7 +1929,7 @@ class PaymentLinkService(StripeService):
     async def create_async(
         self,
         params: "PaymentLinkService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentLink:
         """
         Creates a payment link.
@@ -1943,8 +1948,8 @@ class PaymentLinkService(StripeService):
     def retrieve(
         self,
         payment_link: str,
-        params: "PaymentLinkService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentLinkService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentLink:
         """
         Retrieve a payment link.
@@ -1965,8 +1970,8 @@ class PaymentLinkService(StripeService):
     async def retrieve_async(
         self,
         payment_link: str,
-        params: "PaymentLinkService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentLinkService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentLink:
         """
         Retrieve a payment link.
@@ -1987,8 +1992,8 @@ class PaymentLinkService(StripeService):
     def update(
         self,
         payment_link: str,
-        params: "PaymentLinkService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentLinkService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentLink:
         """
         Updates a payment link.
@@ -2009,8 +2014,8 @@ class PaymentLinkService(StripeService):
     async def update_async(
         self,
         payment_link: str,
-        params: "PaymentLinkService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentLinkService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentLink:
         """
         Updates a payment link.

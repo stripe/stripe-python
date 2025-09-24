@@ -4,7 +4,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._authorization import Authorization
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -301,6 +301,12 @@ class AuthorizationService(StripeService):
         """
         Fleet-specific information for authorizations using Fleet cards.
         """
+        fraud_disputability_likelihood: NotRequired[
+            Literal["neutral", "unknown", "very_likely", "very_unlikely"]
+        ]
+        """
+        Probability that this transaction can be disputed in the event of fraud. Assessed by comparing the characteristics of the authorization to card network rules.
+        """
         fuel: NotRequired["AuthorizationService.CreateParamsFuel"]
         """
         Information about fuel that was purchased with this transaction.
@@ -328,6 +334,12 @@ class AuthorizationService(StripeService):
         ]
         """
         Details about the authorization, such as identifiers, set by the card network.
+        """
+        risk_assessment: NotRequired[
+            "AuthorizationService.CreateParamsRiskAssessment"
+        ]
+        """
+        Stripe's assessment of the fraud risk for this authorization.
         """
         verification_data: NotRequired[
             "AuthorizationService.CreateParamsVerificationData"
@@ -826,6 +838,48 @@ class AuthorizationService(StripeService):
         Identifier assigned to the acquirer by the card network.
         """
 
+    class CreateParamsRiskAssessment(TypedDict):
+        card_testing_risk: NotRequired[
+            "AuthorizationService.CreateParamsRiskAssessmentCardTestingRisk"
+        ]
+        """
+        Stripe's assessment of this authorization's likelihood of being card testing activity.
+        """
+        merchant_dispute_risk: NotRequired[
+            "AuthorizationService.CreateParamsRiskAssessmentMerchantDisputeRisk"
+        ]
+        """
+        The dispute risk of the merchant (the seller on a purchase) on an authorization based on all Stripe Issuing activity.
+        """
+
+    class CreateParamsRiskAssessmentCardTestingRisk(TypedDict):
+        invalid_account_number_decline_rate_past_hour: NotRequired[int]
+        """
+        The % of declines due to a card number not existing in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of card testing activity, meaning bad actors may be attempting different card number combinations to guess a correct one. Takes on values between 0 and 100.
+        """
+        invalid_credentials_decline_rate_past_hour: NotRequired[int]
+        """
+        The % of declines due to incorrect verification data (like CVV or expiry) in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of bad actors attempting to utilize valid card credentials at merchants with verification requirements. Takes on values between 0 and 100.
+        """
+        risk_level: Literal[
+            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+        ]
+        """
+        The likelihood that this authorization is associated with card testing activity. This is assessed by evaluating decline activity over the last hour.
+        """
+
+    class CreateParamsRiskAssessmentMerchantDisputeRisk(TypedDict):
+        dispute_rate: NotRequired[int]
+        """
+        The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
+        """
+        risk_level: Literal[
+            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+        ]
+        """
+        The likelihood that authorizations from this merchant will result in a dispute based on their history on Stripe Issuing.
+        """
+
     class CreateParamsVerificationData(TypedDict):
         address_line1_check: NotRequired[
             Literal["match", "mismatch", "not_provided"]
@@ -1076,7 +1130,7 @@ class AuthorizationService(StripeService):
     def create(
         self,
         params: "AuthorizationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Create a test-mode authorization.
@@ -1095,7 +1149,7 @@ class AuthorizationService(StripeService):
     async def create_async(
         self,
         params: "AuthorizationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Create a test-mode authorization.
@@ -1114,8 +1168,8 @@ class AuthorizationService(StripeService):
     def capture(
         self,
         authorization: str,
-        params: "AuthorizationService.CaptureParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AuthorizationService.CaptureParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Capture a test-mode authorization.
@@ -1136,8 +1190,8 @@ class AuthorizationService(StripeService):
     async def capture_async(
         self,
         authorization: str,
-        params: "AuthorizationService.CaptureParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AuthorizationService.CaptureParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Capture a test-mode authorization.
@@ -1158,8 +1212,8 @@ class AuthorizationService(StripeService):
     def expire(
         self,
         authorization: str,
-        params: "AuthorizationService.ExpireParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AuthorizationService.ExpireParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Expire a test-mode Authorization.
@@ -1180,8 +1234,8 @@ class AuthorizationService(StripeService):
     async def expire_async(
         self,
         authorization: str,
-        params: "AuthorizationService.ExpireParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AuthorizationService.ExpireParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Expire a test-mode Authorization.
@@ -1203,7 +1257,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: "AuthorizationService.FinalizeAmountParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
@@ -1225,7 +1279,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: "AuthorizationService.FinalizeAmountParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
@@ -1247,7 +1301,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: "AuthorizationService.RespondParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
@@ -1269,7 +1323,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: "AuthorizationService.RespondParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
@@ -1291,7 +1345,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: "AuthorizationService.IncrementParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Increment a test-mode Authorization.
@@ -1313,7 +1367,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: "AuthorizationService.IncrementParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Increment a test-mode Authorization.
@@ -1334,8 +1388,8 @@ class AuthorizationService(StripeService):
     def reverse(
         self,
         authorization: str,
-        params: "AuthorizationService.ReverseParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AuthorizationService.ReverseParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Reverse a test-mode Authorization.
@@ -1356,8 +1410,8 @@ class AuthorizationService(StripeService):
     async def reverse_async(
         self,
         authorization: str,
-        params: "AuthorizationService.ReverseParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AuthorizationService.ReverseParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Authorization:
         """
         Reverse a test-mode Authorization.

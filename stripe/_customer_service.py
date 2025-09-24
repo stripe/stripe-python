@@ -24,7 +24,7 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -54,6 +54,10 @@ class CustomerService(StripeService):
         """
         An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
         """
+        business_name: NotRequired["Literal['']|str"]
+        """
+        The customer's business name. This may be up to *150 characters*.
+        """
         cash_balance: NotRequired["CustomerService.CreateParamsCashBalance"]
         """
         Balance information and default balance settings for this customer.
@@ -69,6 +73,10 @@ class CustomerService(StripeService):
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        individual_name: NotRequired["Literal['']|str"]
+        """
+        The customer's full name. This may be up to *150 characters*.
         """
         invoice_prefix: NotRequired[str]
         """
@@ -141,11 +149,11 @@ class CustomerService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -242,11 +250,11 @@ class CustomerService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -475,6 +483,10 @@ class CustomerService(StripeService):
         """
         An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
         """
+        business_name: NotRequired["Literal['']|str"]
+        """
+        The customer's business name. This may be up to *150 characters*.
+        """
         cash_balance: NotRequired["CustomerService.UpdateParamsCashBalance"]
         """
         Balance information and default balance settings for this customer.
@@ -498,6 +510,10 @@ class CustomerService(StripeService):
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        individual_name: NotRequired["Literal['']|str"]
+        """
+        The customer's full name. This may be up to *150 characters*.
         """
         invoice_prefix: NotRequired[str]
         """
@@ -559,11 +575,11 @@ class CustomerService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -660,11 +676,11 @@ class CustomerService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -690,8 +706,8 @@ class CustomerService(StripeService):
     def delete(
         self,
         customer: str,
-        params: "CustomerService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -712,8 +728,8 @@ class CustomerService(StripeService):
     async def delete_async(
         self,
         customer: str,
-        params: "CustomerService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -734,8 +750,8 @@ class CustomerService(StripeService):
     def retrieve(
         self,
         customer: str,
-        params: "CustomerService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
         Retrieves a Customer object.
@@ -756,8 +772,8 @@ class CustomerService(StripeService):
     async def retrieve_async(
         self,
         customer: str,
-        params: "CustomerService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
         Retrieves a Customer object.
@@ -778,8 +794,8 @@ class CustomerService(StripeService):
     def update(
         self,
         customer: str,
-        params: "CustomerService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
         Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
@@ -802,8 +818,8 @@ class CustomerService(StripeService):
     async def update_async(
         self,
         customer: str,
-        params: "CustomerService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
         Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
@@ -826,8 +842,8 @@ class CustomerService(StripeService):
     def delete_discount(
         self,
         customer: str,
-        params: "CustomerService.DeleteDiscountParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerService.DeleteDiscountParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Discount:
         """
         Removes the currently applied discount on a customer.
@@ -848,8 +864,8 @@ class CustomerService(StripeService):
     async def delete_discount_async(
         self,
         customer: str,
-        params: "CustomerService.DeleteDiscountParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerService.DeleteDiscountParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Discount:
         """
         Removes the currently applied discount on a customer.
@@ -869,8 +885,8 @@ class CustomerService(StripeService):
 
     def list(
         self,
-        params: "CustomerService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Customer]:
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
@@ -888,8 +904,8 @@ class CustomerService(StripeService):
 
     async def list_async(
         self,
-        params: "CustomerService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Customer]:
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
@@ -907,8 +923,8 @@ class CustomerService(StripeService):
 
     def create(
         self,
-        params: "CustomerService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
         Creates a new customer object.
@@ -926,8 +942,8 @@ class CustomerService(StripeService):
 
     async def create_async(
         self,
-        params: "CustomerService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CustomerService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
         Creates a new customer object.
@@ -946,7 +962,7 @@ class CustomerService(StripeService):
     def search(
         self,
         params: "CustomerService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Customer]:
         """
         Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -968,7 +984,7 @@ class CustomerService(StripeService):
     async def search_async(
         self,
         params: "CustomerService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Customer]:
         """
         Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).

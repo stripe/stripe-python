@@ -7,6 +7,7 @@ from stripe._apple_pay_domain_service import ApplePayDomainService
 from stripe._application_fee_service import ApplicationFeeService
 from stripe._apps_service import AppsService
 from stripe._balance_service import BalanceService
+from stripe._balance_settings_service import BalanceSettingsService
 from stripe._balance_transaction_service import BalanceTransactionService
 from stripe._billing_portal_service import BillingPortalService
 from stripe._billing_service import BillingService
@@ -86,6 +87,7 @@ class V1Services(StripeService):
         self.application_fees = ApplicationFeeService(self._requestor)
         self.apps = AppsService(self._requestor)
         self.balance = BalanceService(self._requestor)
+        self.balance_settings = BalanceSettingsService(self._requestor)
         self.balance_transactions = BalanceTransactionService(self._requestor)
         self.billing = BillingService(self._requestor)
         self.billing_portal = BillingPortalService(self._requestor)

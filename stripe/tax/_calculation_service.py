@@ -7,7 +7,7 @@ from stripe.tax._calculation import Calculation
 from stripe.tax._calculation_line_item_service import (
     CalculationLineItemService,
 )
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -95,11 +95,11 @@ class CalculationService(StripeService):
         """
         line1: NotRequired["Literal['']|str"]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired["Literal['']|str"]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired["Literal['']|str"]
         """
@@ -279,11 +279,11 @@ class CalculationService(StripeService):
         """
         line1: NotRequired["Literal['']|str"]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired["Literal['']|str"]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired["Literal['']|str"]
         """
@@ -291,7 +291,7 @@ class CalculationService(StripeService):
         """
         state: NotRequired["Literal['']|str"]
         """
-        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
         """
 
     class CreateParamsShippingCost(TypedDict):
@@ -321,8 +321,8 @@ class CalculationService(StripeService):
     def retrieve(
         self,
         calculation: str,
-        params: "CalculationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CalculationService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Calculation:
         """
         Retrieves a Tax Calculation object, if the calculation hasn't expired.
@@ -343,8 +343,8 @@ class CalculationService(StripeService):
     async def retrieve_async(
         self,
         calculation: str,
-        params: "CalculationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CalculationService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Calculation:
         """
         Retrieves a Tax Calculation object, if the calculation hasn't expired.
@@ -365,7 +365,7 @@ class CalculationService(StripeService):
     def create(
         self,
         params: "CalculationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Calculation:
         """
         Calculates tax based on the input and returns a Tax Calculation object.
@@ -384,7 +384,7 @@ class CalculationService(StripeService):
     async def create_async(
         self,
         params: "CalculationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Calculation:
         """
         Calculates tax based on the input and returns a Tax Calculation object.
