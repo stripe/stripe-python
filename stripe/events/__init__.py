@@ -6,6 +6,9 @@ from stripe.events._v1_billing_meter_error_report_triggered_event import (
 from stripe.events._v1_billing_meter_no_meter_found_event import (
     V1BillingMeterNoMeterFoundEvent as V1BillingMeterNoMeterFoundEvent,
 )
+from stripe.events._v2_billing_bill_setting_updated_event import (
+    V2BillingBillSettingUpdatedEvent as V2BillingBillSettingUpdatedEvent,
+)
 from stripe.events._v2_core_account_closed_event import (
     V2CoreAccountClosedEvent as V2CoreAccountClosedEvent,
 )

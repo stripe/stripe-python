@@ -177,9 +177,15 @@ OBJECT_CLASSES = {
 
 V2_OBJECT_CLASSES = {
     # V2 Object classes: The beginning of the section generated from our OpenAPI spec
+    stripe.v2.billing.BillSetting.OBJECT_NAME: stripe.v2.billing.BillSetting,
+    stripe.v2.billing.BillSettingVersion.OBJECT_NAME: stripe.v2.billing.BillSettingVersion,
+    stripe.v2.billing.Cadence.OBJECT_NAME: stripe.v2.billing.Cadence,
+    stripe.v2.billing.CollectionSetting.OBJECT_NAME: stripe.v2.billing.CollectionSetting,
+    stripe.v2.billing.CollectionSettingVersion.OBJECT_NAME: stripe.v2.billing.CollectionSettingVersion,
     stripe.v2.billing.MeterEvent.OBJECT_NAME: stripe.v2.billing.MeterEvent,
     stripe.v2.billing.MeterEventAdjustment.OBJECT_NAME: stripe.v2.billing.MeterEventAdjustment,
     stripe.v2.billing.MeterEventSession.OBJECT_NAME: stripe.v2.billing.MeterEventSession,
+    stripe.v2.billing.Profile.OBJECT_NAME: stripe.v2.billing.Profile,
     stripe.v2.core.Account.OBJECT_NAME: stripe.v2.core.Account,
     stripe.v2.core.AccountLink.OBJECT_NAME: stripe.v2.core.AccountLink,
     stripe.v2.core.AccountPerson.OBJECT_NAME: stripe.v2.core.AccountPerson,

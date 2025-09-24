@@ -54,17 +54,17 @@ class OutboundPaymentQuote(StripeObject):
             The exchange rate going from_currency -> to_currency.
             """
 
-        lock_duration: Literal["five_minutes"]
+        lock_duration: Literal["five_minutes", "none"]
         """
-        The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes.
+        The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes or none.
         """
-        lock_expires_at: str
+        lock_expires_at: Optional[str]
         """
-        Time at which the rate lock will expire, measured in seconds since the Unix epoch.
+        Time at which the rate lock will expire, measured in seconds since the Unix epoch. Null when rate locking is not supported.
         """
-        lock_status: Literal["active", "expired"]
+        lock_status: Literal["active", "expired", "none"]
         """
-        Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active or expired.
+        Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active, expired or none.
         """
         rates: Dict[str, Rates]
         """

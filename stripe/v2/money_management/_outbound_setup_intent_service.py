@@ -35,7 +35,7 @@ class OutboundSetupIntentService(StripeService):
         """
 
     class CreateParamsPayoutMethodData(TypedDict):
-        type: Literal["bank_account", "card"]
+        type: Literal["bank_account", "card", "crypto_wallet"]
         """
         Closed Enum. The type of payout method to be created.
         """
@@ -115,7 +115,7 @@ class OutboundSetupIntentService(StripeService):
         """
 
     class UpdateParamsPayoutMethodData(TypedDict):
-        type: Literal["bank_account", "card"]
+        type: Literal["bank_account", "card", "crypto_wallet"]
         """
         Closed Enum. The type of payout method to be created/updated.
         """

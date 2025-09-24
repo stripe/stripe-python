@@ -1354,11 +1354,29 @@ class AccountService(StripeService):
         """
         The Account's preferred locales (languages), ordered by preference.
         """
+        profile: NotRequired["AccountService.CreateParamsDefaultsProfile"]
+        """
+        Account profile information.
+        """
         responsibilities: NotRequired[
             "AccountService.CreateParamsDefaultsResponsibilities"
         ]
         """
         Default responsibilities held by either Stripe or the platform.
+        """
+
+    class CreateParamsDefaultsProfile(TypedDict):
+        business_url: NotRequired[str]
+        """
+        The business's publicly-available website.
+        """
+        doing_business_as: NotRequired[str]
+        """
+        The name which is used by the business.
+        """
+        product_description: NotRequired[str]
+        """
+        Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
         """
 
     class CreateParamsDefaultsResponsibilities(TypedDict):
@@ -1539,10 +1557,6 @@ class AccountService(StripeService):
         """
         A document verifying the business.
         """
-        doing_business_as: NotRequired[str]
-        """
-        The name which is used by the business.
-        """
         estimated_worker_count: NotRequired[int]
         """
         An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
@@ -1562,10 +1576,6 @@ class AccountService(StripeService):
         phone: NotRequired[str]
         """
         The phone number of the Business Entity.
-        """
-        product_description: NotRequired[str]
-        """
-        Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
         """
         registered_name: NotRequired[str]
         """
@@ -1616,10 +1626,6 @@ class AccountService(StripeService):
         ]
         """
         The category identifying the legal structure of the business.
-        """
-        url: NotRequired[str]
-        """
-        The business's publicly available website.
         """
 
     class CreateParamsIdentityBusinessDetailsAddress(TypedDict):
@@ -3556,7 +3562,7 @@ class AccountService(StripeService):
         """
         default_outbound_destination: NotRequired[str]
         """
-        The payout method id to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through API or sending payouts via dashboard. Can also be explicitly set to `null` to clear the existing default outbound destination.
+        The payout method id to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through API or sending payouts via dashboard. Can also be explicitly set to `null` to clear the existing default outbound destination. For further details about creating an Outbound Destination, see [Collect recipient's payment details](https://docs.corp.stripe.com/global-payouts-private-preview/quickstart?dashboard-or-api=api#collect-bank-account-details).
         """
 
     class UpdateParamsConfigurationRecipientCapabilities(TypedDict):
@@ -3909,11 +3915,29 @@ class AccountService(StripeService):
         """
         The Account's preferred locales (languages), ordered by preference.
         """
+        profile: NotRequired["AccountService.UpdateParamsDefaultsProfile"]
+        """
+        Account profile information.
+        """
         responsibilities: NotRequired[
             "AccountService.UpdateParamsDefaultsResponsibilities"
         ]
         """
         Default responsibilities held by either Stripe or the platform.
+        """
+
+    class UpdateParamsDefaultsProfile(TypedDict):
+        business_url: NotRequired[str]
+        """
+        The business's publicly-available website.
+        """
+        doing_business_as: NotRequired[str]
+        """
+        The name which is used by the business.
+        """
+        product_description: NotRequired[str]
+        """
+        Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
         """
 
     class UpdateParamsDefaultsResponsibilities(TypedDict):
@@ -4094,10 +4118,6 @@ class AccountService(StripeService):
         """
         A document verifying the business.
         """
-        doing_business_as: NotRequired[str]
-        """
-        The name which is used by the business.
-        """
         estimated_worker_count: NotRequired[int]
         """
         An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
@@ -4117,10 +4137,6 @@ class AccountService(StripeService):
         phone: NotRequired[str]
         """
         The phone number of the Business Entity.
-        """
-        product_description: NotRequired[str]
-        """
-        Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
         """
         registered_name: NotRequired[str]
         """
@@ -4171,10 +4187,6 @@ class AccountService(StripeService):
         ]
         """
         The category identifying the legal structure of the business.
-        """
-        url: NotRequired[str]
-        """
-        The business's publicly available website.
         """
 
     class UpdateParamsIdentityBusinessDetailsAddress(TypedDict):

@@ -112,7 +112,7 @@ class PayoutMethod(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    type: Literal["bank_account", "card"]
+    type: Literal["bank_account", "card", "crypto_wallet"]
     """
     Closed Enum. The type of payout method.
     """
