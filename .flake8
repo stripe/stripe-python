@@ -1,3 +1,4 @@
+[flake8]
 extend-ignore =
     # E501 is the "Line too long" error. We disable it because we use Ruff for
     # code formatting. Ruff makes a best effort to keep lines under the max
@@ -11,10 +12,10 @@ extend-ignore =
 extend-select =
     B006 # forbid mutable default args
 per-file-ignores =
-    */__init__.py: IMP100, E402, F401
+    */__init__.py: IMP100, E402, F401, E501
     # we test various import patterns
     tests/test_exports.py: IMP100, IMP101, IMP102
-    tests/*: IMP101, IMP102, BAN100, ASY100
+    tests/*: IMP101, IMP102, BAN100, ASY100, E501
     # backcompat with outdated import patterns
     stripe/api_resources/*: IMP100, E402, F401
 

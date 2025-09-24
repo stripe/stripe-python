@@ -141,7 +141,7 @@ def add_beta_version(
         end_index = stripe.api_version.find(";", start_index)
         end_index = end_index if end_index != -1 else len(stripe.api_version)
         existing_version = int(
-            stripe.api_version[(start_index + 1) : end_index]
+            stripe.api_version[(start_index + 1):end_index]
         )
         new_version = int(beta_version[1:])
         if new_version <= existing_version:
@@ -227,7 +227,6 @@ from stripe._error import PermissionError as PermissionError
 from stripe._error import (
     SignatureVerificationError as SignatureVerificationError,
 )
-from stripe._error import RateLimitError as RateLimitError
 
 # HttpClient
 from stripe._http_client import (
