@@ -19,7 +19,7 @@ clients = (
     stripe.http_client.PycurlClient(
         verify_ssl_certs=stripe.verify_ssl_certs, proxy=proxy
     ),
-    stripe.http_client.Urllib2Client(
+    stripe.http_client.UrllibClient(
         verify_ssl_certs=stripe.verify_ssl_certs, proxy=proxy
     ),
 )
