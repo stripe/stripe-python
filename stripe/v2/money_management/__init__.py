@@ -70,6 +70,12 @@ from stripe.v2.money_management._received_debit import (
 from stripe.v2.money_management._received_debit_service import (
     ReceivedDebitService as ReceivedDebitService,
 )
+from stripe.v2.money_management._recipient_verification import (
+    RecipientVerification as RecipientVerification,
+)
+from stripe.v2.money_management._recipient_verification_service import (
+    RecipientVerificationService as RecipientVerificationService,
+)
 from stripe.v2.money_management._transaction import Transaction as Transaction
 from stripe.v2.money_management._transaction_entry import (
     TransactionEntry as TransactionEntry,

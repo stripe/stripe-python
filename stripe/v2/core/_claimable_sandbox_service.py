@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
+from stripe._util import sanitize_id
 from stripe.v2.core._claimable_sandbox import ClaimableSandbox
 from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
@@ -15,7 +16,7 @@ class ClaimableSandboxService(StripeService):
         """
         prefill: "ClaimableSandboxService.CreateParamsPrefill"
         """
-        Values that are prefilled when a user claims the sandbox.
+        Values that are prefilled when a user claims the sandbox. When a user claims the sandbox, they will be able to update these values.
         """
 
     class CreateParamsPrefill(TypedDict):
@@ -33,6 +34,9 @@ class ClaimableSandboxService(StripeService):
         """
         Name for the sandbox. If not provided, this will be generated.
         """
+
+    class RetrieveParams(TypedDict):
+        pass
 
     def create(
         self,
@@ -68,6 +72,50 @@ class ClaimableSandboxService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/core/claimable_sandboxes",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def retrieve(
+        self,
+        id: str,
+        params: Optional["ClaimableSandboxService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> ClaimableSandbox:
+        """
+        Retrieves the details of a claimable sandbox that was previously been created.
+        Supply the unique claimable sandbox ID that was returned from your creation request,
+        and Stripe will return the corresponding sandbox information.
+        """
+        return cast(
+            ClaimableSandbox,
+            self._request(
+                "get",
+                "/v2/core/claimable_sandboxes/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        id: str,
+        params: Optional["ClaimableSandboxService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> ClaimableSandbox:
+        """
+        Retrieves the details of a claimable sandbox that was previously been created.
+        Supply the unique claimable sandbox ID that was returned from your creation request,
+        and Stripe will return the corresponding sandbox information.
+        """
+        return cast(
+            ClaimableSandbox,
+            await self._request_async(
+                "get",
+                "/v2/core/claimable_sandboxes/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

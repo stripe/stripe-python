@@ -1,10 +1,444 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe.events._v1_account_updated_event import V1AccountUpdatedEvent
+from stripe.events._v1_application_fee_created_event import (
+    V1ApplicationFeeCreatedEvent,
+)
+from stripe.events._v1_application_fee_refunded_event import (
+    V1ApplicationFeeRefundedEvent,
+)
 from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEvent,
 )
 from stripe.events._v1_billing_meter_no_meter_found_event import (
     V1BillingMeterNoMeterFoundEvent,
+)
+from stripe.events._v1_billing_portal_configuration_created_event import (
+    V1BillingPortalConfigurationCreatedEvent,
+)
+from stripe.events._v1_billing_portal_configuration_updated_event import (
+    V1BillingPortalConfigurationUpdatedEvent,
+)
+from stripe.events._v1_capability_updated_event import V1CapabilityUpdatedEvent
+from stripe.events._v1_charge_captured_event import V1ChargeCapturedEvent
+from stripe.events._v1_charge_dispute_closed_event import (
+    V1ChargeDisputeClosedEvent,
+)
+from stripe.events._v1_charge_dispute_created_event import (
+    V1ChargeDisputeCreatedEvent,
+)
+from stripe.events._v1_charge_dispute_funds_reinstated_event import (
+    V1ChargeDisputeFundsReinstatedEvent,
+)
+from stripe.events._v1_charge_dispute_funds_withdrawn_event import (
+    V1ChargeDisputeFundsWithdrawnEvent,
+)
+from stripe.events._v1_charge_dispute_updated_event import (
+    V1ChargeDisputeUpdatedEvent,
+)
+from stripe.events._v1_charge_expired_event import V1ChargeExpiredEvent
+from stripe.events._v1_charge_failed_event import V1ChargeFailedEvent
+from stripe.events._v1_charge_pending_event import V1ChargePendingEvent
+from stripe.events._v1_charge_refund_updated_event import (
+    V1ChargeRefundUpdatedEvent,
+)
+from stripe.events._v1_charge_refunded_event import V1ChargeRefundedEvent
+from stripe.events._v1_charge_succeeded_event import V1ChargeSucceededEvent
+from stripe.events._v1_charge_updated_event import V1ChargeUpdatedEvent
+from stripe.events._v1_checkout_session_async_payment_failed_event import (
+    V1CheckoutSessionAsyncPaymentFailedEvent,
+)
+from stripe.events._v1_checkout_session_async_payment_succeeded_event import (
+    V1CheckoutSessionAsyncPaymentSucceededEvent,
+)
+from stripe.events._v1_checkout_session_completed_event import (
+    V1CheckoutSessionCompletedEvent,
+)
+from stripe.events._v1_checkout_session_expired_event import (
+    V1CheckoutSessionExpiredEvent,
+)
+from stripe.events._v1_climate_order_canceled_event import (
+    V1ClimateOrderCanceledEvent,
+)
+from stripe.events._v1_climate_order_created_event import (
+    V1ClimateOrderCreatedEvent,
+)
+from stripe.events._v1_climate_order_delayed_event import (
+    V1ClimateOrderDelayedEvent,
+)
+from stripe.events._v1_climate_order_delivered_event import (
+    V1ClimateOrderDeliveredEvent,
+)
+from stripe.events._v1_climate_order_product_substituted_event import (
+    V1ClimateOrderProductSubstitutedEvent,
+)
+from stripe.events._v1_climate_product_created_event import (
+    V1ClimateProductCreatedEvent,
+)
+from stripe.events._v1_climate_product_pricing_updated_event import (
+    V1ClimateProductPricingUpdatedEvent,
+)
+from stripe.events._v1_coupon_created_event import V1CouponCreatedEvent
+from stripe.events._v1_coupon_deleted_event import V1CouponDeletedEvent
+from stripe.events._v1_coupon_updated_event import V1CouponUpdatedEvent
+from stripe.events._v1_credit_note_created_event import (
+    V1CreditNoteCreatedEvent,
+)
+from stripe.events._v1_credit_note_updated_event import (
+    V1CreditNoteUpdatedEvent,
+)
+from stripe.events._v1_credit_note_voided_event import V1CreditNoteVoidedEvent
+from stripe.events._v1_customer_created_event import V1CustomerCreatedEvent
+from stripe.events._v1_customer_deleted_event import V1CustomerDeletedEvent
+from stripe.events._v1_customer_discount_created_event import (
+    V1CustomerDiscountCreatedEvent,
+)
+from stripe.events._v1_customer_discount_deleted_event import (
+    V1CustomerDiscountDeletedEvent,
+)
+from stripe.events._v1_customer_discount_updated_event import (
+    V1CustomerDiscountUpdatedEvent,
+)
+from stripe.events._v1_customer_subscription_created_event import (
+    V1CustomerSubscriptionCreatedEvent,
+)
+from stripe.events._v1_customer_subscription_deleted_event import (
+    V1CustomerSubscriptionDeletedEvent,
+)
+from stripe.events._v1_customer_subscription_paused_event import (
+    V1CustomerSubscriptionPausedEvent,
+)
+from stripe.events._v1_customer_subscription_pending_update_applied_event import (
+    V1CustomerSubscriptionPendingUpdateAppliedEvent,
+)
+from stripe.events._v1_customer_subscription_pending_update_expired_event import (
+    V1CustomerSubscriptionPendingUpdateExpiredEvent,
+)
+from stripe.events._v1_customer_subscription_resumed_event import (
+    V1CustomerSubscriptionResumedEvent,
+)
+from stripe.events._v1_customer_subscription_trial_will_end_event import (
+    V1CustomerSubscriptionTrialWillEndEvent,
+)
+from stripe.events._v1_customer_subscription_updated_event import (
+    V1CustomerSubscriptionUpdatedEvent,
+)
+from stripe.events._v1_customer_tax_id_created_event import (
+    V1CustomerTaxIdCreatedEvent,
+)
+from stripe.events._v1_customer_tax_id_deleted_event import (
+    V1CustomerTaxIdDeletedEvent,
+)
+from stripe.events._v1_customer_tax_id_updated_event import (
+    V1CustomerTaxIdUpdatedEvent,
+)
+from stripe.events._v1_customer_updated_event import V1CustomerUpdatedEvent
+from stripe.events._v1_file_created_event import V1FileCreatedEvent
+from stripe.events._v1_financial_connections_account_created_event import (
+    V1FinancialConnectionsAccountCreatedEvent,
+)
+from stripe.events._v1_financial_connections_account_deactivated_event import (
+    V1FinancialConnectionsAccountDeactivatedEvent,
+)
+from stripe.events._v1_financial_connections_account_disconnected_event import (
+    V1FinancialConnectionsAccountDisconnectedEvent,
+)
+from stripe.events._v1_financial_connections_account_reactivated_event import (
+    V1FinancialConnectionsAccountReactivatedEvent,
+)
+from stripe.events._v1_financial_connections_account_refreshed_balance_event import (
+    V1FinancialConnectionsAccountRefreshedBalanceEvent,
+)
+from stripe.events._v1_financial_connections_account_refreshed_ownership_event import (
+    V1FinancialConnectionsAccountRefreshedOwnershipEvent,
+)
+from stripe.events._v1_financial_connections_account_refreshed_transactions_event import (
+    V1FinancialConnectionsAccountRefreshedTransactionsEvent,
+)
+from stripe.events._v1_identity_verification_session_canceled_event import (
+    V1IdentityVerificationSessionCanceledEvent,
+)
+from stripe.events._v1_identity_verification_session_created_event import (
+    V1IdentityVerificationSessionCreatedEvent,
+)
+from stripe.events._v1_identity_verification_session_processing_event import (
+    V1IdentityVerificationSessionProcessingEvent,
+)
+from stripe.events._v1_identity_verification_session_redacted_event import (
+    V1IdentityVerificationSessionRedactedEvent,
+)
+from stripe.events._v1_identity_verification_session_requires_input_event import (
+    V1IdentityVerificationSessionRequiresInputEvent,
+)
+from stripe.events._v1_identity_verification_session_verified_event import (
+    V1IdentityVerificationSessionVerifiedEvent,
+)
+from stripe.events._v1_invoice_created_event import V1InvoiceCreatedEvent
+from stripe.events._v1_invoice_deleted_event import V1InvoiceDeletedEvent
+from stripe.events._v1_invoice_finalization_failed_event import (
+    V1InvoiceFinalizationFailedEvent,
+)
+from stripe.events._v1_invoice_finalized_event import V1InvoiceFinalizedEvent
+from stripe.events._v1_invoice_marked_uncollectible_event import (
+    V1InvoiceMarkedUncollectibleEvent,
+)
+from stripe.events._v1_invoice_overdue_event import V1InvoiceOverdueEvent
+from stripe.events._v1_invoice_overpaid_event import V1InvoiceOverpaidEvent
+from stripe.events._v1_invoice_paid_event import V1InvoicePaidEvent
+from stripe.events._v1_invoice_payment_action_required_event import (
+    V1InvoicePaymentActionRequiredEvent,
+)
+from stripe.events._v1_invoice_payment_failed_event import (
+    V1InvoicePaymentFailedEvent,
+)
+from stripe.events._v1_invoice_payment_succeeded_event import (
+    V1InvoicePaymentSucceededEvent,
+)
+from stripe.events._v1_invoice_sent_event import V1InvoiceSentEvent
+from stripe.events._v1_invoice_upcoming_event import V1InvoiceUpcomingEvent
+from stripe.events._v1_invoice_updated_event import V1InvoiceUpdatedEvent
+from stripe.events._v1_invoice_voided_event import V1InvoiceVoidedEvent
+from stripe.events._v1_invoice_will_be_due_event import V1InvoiceWillBeDueEvent
+from stripe.events._v1_invoice_payment_paid_event import (
+    V1InvoicePaymentPaidEvent,
+)
+from stripe.events._v1_invoiceitem_created_event import (
+    V1InvoiceitemCreatedEvent,
+)
+from stripe.events._v1_invoiceitem_deleted_event import (
+    V1InvoiceitemDeletedEvent,
+)
+from stripe.events._v1_issuing_authorization_created_event import (
+    V1IssuingAuthorizationCreatedEvent,
+)
+from stripe.events._v1_issuing_authorization_request_event import (
+    V1IssuingAuthorizationRequestEvent,
+)
+from stripe.events._v1_issuing_authorization_updated_event import (
+    V1IssuingAuthorizationUpdatedEvent,
+)
+from stripe.events._v1_issuing_card_created_event import (
+    V1IssuingCardCreatedEvent,
+)
+from stripe.events._v1_issuing_card_updated_event import (
+    V1IssuingCardUpdatedEvent,
+)
+from stripe.events._v1_issuing_cardholder_created_event import (
+    V1IssuingCardholderCreatedEvent,
+)
+from stripe.events._v1_issuing_cardholder_updated_event import (
+    V1IssuingCardholderUpdatedEvent,
+)
+from stripe.events._v1_issuing_dispute_closed_event import (
+    V1IssuingDisputeClosedEvent,
+)
+from stripe.events._v1_issuing_dispute_created_event import (
+    V1IssuingDisputeCreatedEvent,
+)
+from stripe.events._v1_issuing_dispute_funds_reinstated_event import (
+    V1IssuingDisputeFundsReinstatedEvent,
+)
+from stripe.events._v1_issuing_dispute_funds_rescinded_event import (
+    V1IssuingDisputeFundsRescindedEvent,
+)
+from stripe.events._v1_issuing_dispute_submitted_event import (
+    V1IssuingDisputeSubmittedEvent,
+)
+from stripe.events._v1_issuing_dispute_updated_event import (
+    V1IssuingDisputeUpdatedEvent,
+)
+from stripe.events._v1_issuing_personalization_design_activated_event import (
+    V1IssuingPersonalizationDesignActivatedEvent,
+)
+from stripe.events._v1_issuing_personalization_design_deactivated_event import (
+    V1IssuingPersonalizationDesignDeactivatedEvent,
+)
+from stripe.events._v1_issuing_personalization_design_rejected_event import (
+    V1IssuingPersonalizationDesignRejectedEvent,
+)
+from stripe.events._v1_issuing_personalization_design_updated_event import (
+    V1IssuingPersonalizationDesignUpdatedEvent,
+)
+from stripe.events._v1_issuing_token_created_event import (
+    V1IssuingTokenCreatedEvent,
+)
+from stripe.events._v1_issuing_token_updated_event import (
+    V1IssuingTokenUpdatedEvent,
+)
+from stripe.events._v1_issuing_transaction_created_event import (
+    V1IssuingTransactionCreatedEvent,
+)
+from stripe.events._v1_issuing_transaction_purchase_details_receipt_updated_event import (
+    V1IssuingTransactionPurchaseDetailsReceiptUpdatedEvent,
+)
+from stripe.events._v1_issuing_transaction_updated_event import (
+    V1IssuingTransactionUpdatedEvent,
+)
+from stripe.events._v1_mandate_updated_event import V1MandateUpdatedEvent
+from stripe.events._v1_payment_intent_amount_capturable_updated_event import (
+    V1PaymentIntentAmountCapturableUpdatedEvent,
+)
+from stripe.events._v1_payment_intent_canceled_event import (
+    V1PaymentIntentCanceledEvent,
+)
+from stripe.events._v1_payment_intent_created_event import (
+    V1PaymentIntentCreatedEvent,
+)
+from stripe.events._v1_payment_intent_partially_funded_event import (
+    V1PaymentIntentPartiallyFundedEvent,
+)
+from stripe.events._v1_payment_intent_payment_failed_event import (
+    V1PaymentIntentPaymentFailedEvent,
+)
+from stripe.events._v1_payment_intent_processing_event import (
+    V1PaymentIntentProcessingEvent,
+)
+from stripe.events._v1_payment_intent_requires_action_event import (
+    V1PaymentIntentRequiresActionEvent,
+)
+from stripe.events._v1_payment_intent_succeeded_event import (
+    V1PaymentIntentSucceededEvent,
+)
+from stripe.events._v1_payment_link_created_event import (
+    V1PaymentLinkCreatedEvent,
+)
+from stripe.events._v1_payment_link_updated_event import (
+    V1PaymentLinkUpdatedEvent,
+)
+from stripe.events._v1_payment_method_attached_event import (
+    V1PaymentMethodAttachedEvent,
+)
+from stripe.events._v1_payment_method_automatically_updated_event import (
+    V1PaymentMethodAutomaticallyUpdatedEvent,
+)
+from stripe.events._v1_payment_method_detached_event import (
+    V1PaymentMethodDetachedEvent,
+)
+from stripe.events._v1_payment_method_updated_event import (
+    V1PaymentMethodUpdatedEvent,
+)
+from stripe.events._v1_payout_canceled_event import V1PayoutCanceledEvent
+from stripe.events._v1_payout_created_event import V1PayoutCreatedEvent
+from stripe.events._v1_payout_failed_event import V1PayoutFailedEvent
+from stripe.events._v1_payout_paid_event import V1PayoutPaidEvent
+from stripe.events._v1_payout_reconciliation_completed_event import (
+    V1PayoutReconciliationCompletedEvent,
+)
+from stripe.events._v1_payout_updated_event import V1PayoutUpdatedEvent
+from stripe.events._v1_person_created_event import V1PersonCreatedEvent
+from stripe.events._v1_person_deleted_event import V1PersonDeletedEvent
+from stripe.events._v1_person_updated_event import V1PersonUpdatedEvent
+from stripe.events._v1_plan_created_event import V1PlanCreatedEvent
+from stripe.events._v1_plan_deleted_event import V1PlanDeletedEvent
+from stripe.events._v1_plan_updated_event import V1PlanUpdatedEvent
+from stripe.events._v1_price_created_event import V1PriceCreatedEvent
+from stripe.events._v1_price_deleted_event import V1PriceDeletedEvent
+from stripe.events._v1_price_updated_event import V1PriceUpdatedEvent
+from stripe.events._v1_product_created_event import V1ProductCreatedEvent
+from stripe.events._v1_product_deleted_event import V1ProductDeletedEvent
+from stripe.events._v1_product_updated_event import V1ProductUpdatedEvent
+from stripe.events._v1_promotion_code_created_event import (
+    V1PromotionCodeCreatedEvent,
+)
+from stripe.events._v1_promotion_code_updated_event import (
+    V1PromotionCodeUpdatedEvent,
+)
+from stripe.events._v1_quote_accepted_event import V1QuoteAcceptedEvent
+from stripe.events._v1_quote_canceled_event import V1QuoteCanceledEvent
+from stripe.events._v1_quote_created_event import V1QuoteCreatedEvent
+from stripe.events._v1_quote_finalized_event import V1QuoteFinalizedEvent
+from stripe.events._v1_radar_early_fraud_warning_created_event import (
+    V1RadarEarlyFraudWarningCreatedEvent,
+)
+from stripe.events._v1_radar_early_fraud_warning_updated_event import (
+    V1RadarEarlyFraudWarningUpdatedEvent,
+)
+from stripe.events._v1_refund_created_event import V1RefundCreatedEvent
+from stripe.events._v1_refund_failed_event import V1RefundFailedEvent
+from stripe.events._v1_refund_updated_event import V1RefundUpdatedEvent
+from stripe.events._v1_review_closed_event import V1ReviewClosedEvent
+from stripe.events._v1_review_opened_event import V1ReviewOpenedEvent
+from stripe.events._v1_setup_intent_canceled_event import (
+    V1SetupIntentCanceledEvent,
+)
+from stripe.events._v1_setup_intent_created_event import (
+    V1SetupIntentCreatedEvent,
+)
+from stripe.events._v1_setup_intent_requires_action_event import (
+    V1SetupIntentRequiresActionEvent,
+)
+from stripe.events._v1_setup_intent_setup_failed_event import (
+    V1SetupIntentSetupFailedEvent,
+)
+from stripe.events._v1_setup_intent_succeeded_event import (
+    V1SetupIntentSucceededEvent,
+)
+from stripe.events._v1_sigma_scheduled_query_run_created_event import (
+    V1SigmaScheduledQueryRunCreatedEvent,
+)
+from stripe.events._v1_source_canceled_event import V1SourceCanceledEvent
+from stripe.events._v1_source_chargeable_event import V1SourceChargeableEvent
+from stripe.events._v1_source_failed_event import V1SourceFailedEvent
+from stripe.events._v1_source_refund_attributes_required_event import (
+    V1SourceRefundAttributesRequiredEvent,
+)
+from stripe.events._v1_subscription_schedule_aborted_event import (
+    V1SubscriptionScheduleAbortedEvent,
+)
+from stripe.events._v1_subscription_schedule_canceled_event import (
+    V1SubscriptionScheduleCanceledEvent,
+)
+from stripe.events._v1_subscription_schedule_completed_event import (
+    V1SubscriptionScheduleCompletedEvent,
+)
+from stripe.events._v1_subscription_schedule_created_event import (
+    V1SubscriptionScheduleCreatedEvent,
+)
+from stripe.events._v1_subscription_schedule_expiring_event import (
+    V1SubscriptionScheduleExpiringEvent,
+)
+from stripe.events._v1_subscription_schedule_released_event import (
+    V1SubscriptionScheduleReleasedEvent,
+)
+from stripe.events._v1_subscription_schedule_updated_event import (
+    V1SubscriptionScheduleUpdatedEvent,
+)
+from stripe.events._v1_tax_rate_created_event import V1TaxRateCreatedEvent
+from stripe.events._v1_tax_rate_updated_event import V1TaxRateUpdatedEvent
+from stripe.events._v1_terminal_reader_action_failed_event import (
+    V1TerminalReaderActionFailedEvent,
+)
+from stripe.events._v1_terminal_reader_action_succeeded_event import (
+    V1TerminalReaderActionSucceededEvent,
+)
+from stripe.events._v1_terminal_reader_action_updated_event import (
+    V1TerminalReaderActionUpdatedEvent,
+)
+from stripe.events._v1_test_helpers_test_clock_advancing_event import (
+    V1TestHelpersTestClockAdvancingEvent,
+)
+from stripe.events._v1_test_helpers_test_clock_created_event import (
+    V1TestHelpersTestClockCreatedEvent,
+)
+from stripe.events._v1_test_helpers_test_clock_deleted_event import (
+    V1TestHelpersTestClockDeletedEvent,
+)
+from stripe.events._v1_test_helpers_test_clock_internal_failure_event import (
+    V1TestHelpersTestClockInternalFailureEvent,
+)
+from stripe.events._v1_test_helpers_test_clock_ready_event import (
+    V1TestHelpersTestClockReadyEvent,
+)
+from stripe.events._v1_topup_canceled_event import V1TopupCanceledEvent
+from stripe.events._v1_topup_created_event import V1TopupCreatedEvent
+from stripe.events._v1_topup_failed_event import V1TopupFailedEvent
+from stripe.events._v1_topup_reversed_event import V1TopupReversedEvent
+from stripe.events._v1_topup_succeeded_event import V1TopupSucceededEvent
+from stripe.events._v1_transfer_created_event import V1TransferCreatedEvent
+from stripe.events._v1_transfer_reversed_event import V1TransferReversedEvent
+from stripe.events._v1_transfer_updated_event import V1TransferUpdatedEvent
+from stripe.events._v2_billing_bill_setting_updated_event import (
+    V2BillingBillSettingUpdatedEvent,
 )
 from stripe.events._v2_billing_cadence_billed_event import (
     V2BillingCadenceBilledEvent,
@@ -14,9 +448,6 @@ from stripe.events._v2_billing_cadence_canceled_event import (
 )
 from stripe.events._v2_billing_cadence_created_event import (
     V2BillingCadenceCreatedEvent,
-)
-from stripe.events._v2_billing_cadence_errored_event import (
-    V2BillingCadenceErroredEvent,
 )
 from stripe.events._v2_billing_license_fee_created_event import (
     V2BillingLicenseFeeCreatedEvent,
@@ -174,6 +605,21 @@ from stripe.events._v2_core_account_person_deleted_event import (
 from stripe.events._v2_core_account_person_updated_event import (
     V2CoreAccountPersonUpdatedEvent,
 )
+from stripe.events._v2_core_claimable_sandbox_claimed_event import (
+    V2CoreClaimableSandboxClaimedEvent,
+)
+from stripe.events._v2_core_claimable_sandbox_created_event import (
+    V2CoreClaimableSandboxCreatedEvent,
+)
+from stripe.events._v2_core_claimable_sandbox_expired_event import (
+    V2CoreClaimableSandboxExpiredEvent,
+)
+from stripe.events._v2_core_claimable_sandbox_expiring_event import (
+    V2CoreClaimableSandboxExpiringEvent,
+)
+from stripe.events._v2_core_claimable_sandbox_sandbox_details_owner_account_updated_event import (
+    V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent,
+)
 from stripe.events._v2_core_event_destination_ping_event import (
     V2CoreEventDestinationPingEvent,
 )
@@ -200,6 +646,12 @@ from stripe.events._v2_core_health_event_generation_failure_resolved_event impor
 )
 from stripe.events._v2_core_health_fraud_rate_increased_event import (
     V2CoreHealthFraudRateIncreasedEvent,
+)
+from stripe.events._v2_core_health_issuing_authorization_request_errors_firing_event import (
+    V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent,
+)
+from stripe.events._v2_core_health_issuing_authorization_request_errors_resolved_event import (
+    V2CoreHealthIssuingAuthorizationRequestErrorsResolvedEvent,
 )
 from stripe.events._v2_core_health_issuing_authorization_request_timeout_firing_event import (
     V2CoreHealthIssuingAuthorizationRequestTimeoutFiringEvent,
@@ -324,6 +776,12 @@ from stripe.events._v2_money_management_received_debit_succeeded_event import (
 from stripe.events._v2_money_management_received_debit_updated_event import (
     V2MoneyManagementReceivedDebitUpdatedEvent,
 )
+from stripe.events._v2_money_management_recipient_verification_created_event import (
+    V2MoneyManagementRecipientVerificationCreatedEvent,
+)
+from stripe.events._v2_money_management_recipient_verification_updated_event import (
+    V2MoneyManagementRecipientVerificationUpdatedEvent,
+)
 from stripe.events._v2_money_management_transaction_created_event import (
     V2MoneyManagementTransactionCreatedEvent,
 )
@@ -351,12 +809,201 @@ from stripe.events._v2_payments_off_session_payment_succeeded_event import (
 
 
 THIN_EVENT_CLASSES = {
+    V1AccountUpdatedEvent.LOOKUP_TYPE: V1AccountUpdatedEvent,
+    V1ApplicationFeeCreatedEvent.LOOKUP_TYPE: V1ApplicationFeeCreatedEvent,
+    V1ApplicationFeeRefundedEvent.LOOKUP_TYPE: V1ApplicationFeeRefundedEvent,
     V1BillingMeterErrorReportTriggeredEvent.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEvent,
     V1BillingMeterNoMeterFoundEvent.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEvent,
+    V1BillingPortalConfigurationCreatedEvent.LOOKUP_TYPE: V1BillingPortalConfigurationCreatedEvent,
+    V1BillingPortalConfigurationUpdatedEvent.LOOKUP_TYPE: V1BillingPortalConfigurationUpdatedEvent,
+    V1CapabilityUpdatedEvent.LOOKUP_TYPE: V1CapabilityUpdatedEvent,
+    V1ChargeCapturedEvent.LOOKUP_TYPE: V1ChargeCapturedEvent,
+    V1ChargeDisputeClosedEvent.LOOKUP_TYPE: V1ChargeDisputeClosedEvent,
+    V1ChargeDisputeCreatedEvent.LOOKUP_TYPE: V1ChargeDisputeCreatedEvent,
+    V1ChargeDisputeFundsReinstatedEvent.LOOKUP_TYPE: V1ChargeDisputeFundsReinstatedEvent,
+    V1ChargeDisputeFundsWithdrawnEvent.LOOKUP_TYPE: V1ChargeDisputeFundsWithdrawnEvent,
+    V1ChargeDisputeUpdatedEvent.LOOKUP_TYPE: V1ChargeDisputeUpdatedEvent,
+    V1ChargeExpiredEvent.LOOKUP_TYPE: V1ChargeExpiredEvent,
+    V1ChargeFailedEvent.LOOKUP_TYPE: V1ChargeFailedEvent,
+    V1ChargePendingEvent.LOOKUP_TYPE: V1ChargePendingEvent,
+    V1ChargeRefundedEvent.LOOKUP_TYPE: V1ChargeRefundedEvent,
+    V1ChargeRefundUpdatedEvent.LOOKUP_TYPE: V1ChargeRefundUpdatedEvent,
+    V1ChargeSucceededEvent.LOOKUP_TYPE: V1ChargeSucceededEvent,
+    V1ChargeUpdatedEvent.LOOKUP_TYPE: V1ChargeUpdatedEvent,
+    V1CheckoutSessionAsyncPaymentFailedEvent.LOOKUP_TYPE: V1CheckoutSessionAsyncPaymentFailedEvent,
+    V1CheckoutSessionAsyncPaymentSucceededEvent.LOOKUP_TYPE: V1CheckoutSessionAsyncPaymentSucceededEvent,
+    V1CheckoutSessionCompletedEvent.LOOKUP_TYPE: V1CheckoutSessionCompletedEvent,
+    V1CheckoutSessionExpiredEvent.LOOKUP_TYPE: V1CheckoutSessionExpiredEvent,
+    V1ClimateOrderCanceledEvent.LOOKUP_TYPE: V1ClimateOrderCanceledEvent,
+    V1ClimateOrderCreatedEvent.LOOKUP_TYPE: V1ClimateOrderCreatedEvent,
+    V1ClimateOrderDelayedEvent.LOOKUP_TYPE: V1ClimateOrderDelayedEvent,
+    V1ClimateOrderDeliveredEvent.LOOKUP_TYPE: V1ClimateOrderDeliveredEvent,
+    V1ClimateOrderProductSubstitutedEvent.LOOKUP_TYPE: V1ClimateOrderProductSubstitutedEvent,
+    V1ClimateProductCreatedEvent.LOOKUP_TYPE: V1ClimateProductCreatedEvent,
+    V1ClimateProductPricingUpdatedEvent.LOOKUP_TYPE: V1ClimateProductPricingUpdatedEvent,
+    V1CouponCreatedEvent.LOOKUP_TYPE: V1CouponCreatedEvent,
+    V1CouponDeletedEvent.LOOKUP_TYPE: V1CouponDeletedEvent,
+    V1CouponUpdatedEvent.LOOKUP_TYPE: V1CouponUpdatedEvent,
+    V1CreditNoteCreatedEvent.LOOKUP_TYPE: V1CreditNoteCreatedEvent,
+    V1CreditNoteUpdatedEvent.LOOKUP_TYPE: V1CreditNoteUpdatedEvent,
+    V1CreditNoteVoidedEvent.LOOKUP_TYPE: V1CreditNoteVoidedEvent,
+    V1CustomerCreatedEvent.LOOKUP_TYPE: V1CustomerCreatedEvent,
+    V1CustomerDeletedEvent.LOOKUP_TYPE: V1CustomerDeletedEvent,
+    V1CustomerDiscountCreatedEvent.LOOKUP_TYPE: V1CustomerDiscountCreatedEvent,
+    V1CustomerDiscountDeletedEvent.LOOKUP_TYPE: V1CustomerDiscountDeletedEvent,
+    V1CustomerDiscountUpdatedEvent.LOOKUP_TYPE: V1CustomerDiscountUpdatedEvent,
+    V1CustomerSubscriptionCreatedEvent.LOOKUP_TYPE: V1CustomerSubscriptionCreatedEvent,
+    V1CustomerSubscriptionDeletedEvent.LOOKUP_TYPE: V1CustomerSubscriptionDeletedEvent,
+    V1CustomerSubscriptionPausedEvent.LOOKUP_TYPE: V1CustomerSubscriptionPausedEvent,
+    V1CustomerSubscriptionPendingUpdateAppliedEvent.LOOKUP_TYPE: V1CustomerSubscriptionPendingUpdateAppliedEvent,
+    V1CustomerSubscriptionPendingUpdateExpiredEvent.LOOKUP_TYPE: V1CustomerSubscriptionPendingUpdateExpiredEvent,
+    V1CustomerSubscriptionResumedEvent.LOOKUP_TYPE: V1CustomerSubscriptionResumedEvent,
+    V1CustomerSubscriptionTrialWillEndEvent.LOOKUP_TYPE: V1CustomerSubscriptionTrialWillEndEvent,
+    V1CustomerSubscriptionUpdatedEvent.LOOKUP_TYPE: V1CustomerSubscriptionUpdatedEvent,
+    V1CustomerTaxIdCreatedEvent.LOOKUP_TYPE: V1CustomerTaxIdCreatedEvent,
+    V1CustomerTaxIdDeletedEvent.LOOKUP_TYPE: V1CustomerTaxIdDeletedEvent,
+    V1CustomerTaxIdUpdatedEvent.LOOKUP_TYPE: V1CustomerTaxIdUpdatedEvent,
+    V1CustomerUpdatedEvent.LOOKUP_TYPE: V1CustomerUpdatedEvent,
+    V1FileCreatedEvent.LOOKUP_TYPE: V1FileCreatedEvent,
+    V1FinancialConnectionsAccountCreatedEvent.LOOKUP_TYPE: V1FinancialConnectionsAccountCreatedEvent,
+    V1FinancialConnectionsAccountDeactivatedEvent.LOOKUP_TYPE: V1FinancialConnectionsAccountDeactivatedEvent,
+    V1FinancialConnectionsAccountDisconnectedEvent.LOOKUP_TYPE: V1FinancialConnectionsAccountDisconnectedEvent,
+    V1FinancialConnectionsAccountReactivatedEvent.LOOKUP_TYPE: V1FinancialConnectionsAccountReactivatedEvent,
+    V1FinancialConnectionsAccountRefreshedBalanceEvent.LOOKUP_TYPE: V1FinancialConnectionsAccountRefreshedBalanceEvent,
+    V1FinancialConnectionsAccountRefreshedOwnershipEvent.LOOKUP_TYPE: V1FinancialConnectionsAccountRefreshedOwnershipEvent,
+    V1FinancialConnectionsAccountRefreshedTransactionsEvent.LOOKUP_TYPE: V1FinancialConnectionsAccountRefreshedTransactionsEvent,
+    V1IdentityVerificationSessionCanceledEvent.LOOKUP_TYPE: V1IdentityVerificationSessionCanceledEvent,
+    V1IdentityVerificationSessionCreatedEvent.LOOKUP_TYPE: V1IdentityVerificationSessionCreatedEvent,
+    V1IdentityVerificationSessionProcessingEvent.LOOKUP_TYPE: V1IdentityVerificationSessionProcessingEvent,
+    V1IdentityVerificationSessionRedactedEvent.LOOKUP_TYPE: V1IdentityVerificationSessionRedactedEvent,
+    V1IdentityVerificationSessionRequiresInputEvent.LOOKUP_TYPE: V1IdentityVerificationSessionRequiresInputEvent,
+    V1IdentityVerificationSessionVerifiedEvent.LOOKUP_TYPE: V1IdentityVerificationSessionVerifiedEvent,
+    V1InvoiceCreatedEvent.LOOKUP_TYPE: V1InvoiceCreatedEvent,
+    V1InvoiceDeletedEvent.LOOKUP_TYPE: V1InvoiceDeletedEvent,
+    V1InvoiceFinalizationFailedEvent.LOOKUP_TYPE: V1InvoiceFinalizationFailedEvent,
+    V1InvoiceFinalizedEvent.LOOKUP_TYPE: V1InvoiceFinalizedEvent,
+    V1InvoiceitemCreatedEvent.LOOKUP_TYPE: V1InvoiceitemCreatedEvent,
+    V1InvoiceitemDeletedEvent.LOOKUP_TYPE: V1InvoiceitemDeletedEvent,
+    V1InvoiceMarkedUncollectibleEvent.LOOKUP_TYPE: V1InvoiceMarkedUncollectibleEvent,
+    V1InvoiceOverdueEvent.LOOKUP_TYPE: V1InvoiceOverdueEvent,
+    V1InvoiceOverpaidEvent.LOOKUP_TYPE: V1InvoiceOverpaidEvent,
+    V1InvoicePaidEvent.LOOKUP_TYPE: V1InvoicePaidEvent,
+    V1InvoicePaymentActionRequiredEvent.LOOKUP_TYPE: V1InvoicePaymentActionRequiredEvent,
+    V1InvoicePaymentFailedEvent.LOOKUP_TYPE: V1InvoicePaymentFailedEvent,
+    V1InvoicePaymentPaidEvent.LOOKUP_TYPE: V1InvoicePaymentPaidEvent,
+    V1InvoicePaymentSucceededEvent.LOOKUP_TYPE: V1InvoicePaymentSucceededEvent,
+    V1InvoiceSentEvent.LOOKUP_TYPE: V1InvoiceSentEvent,
+    V1InvoiceUpcomingEvent.LOOKUP_TYPE: V1InvoiceUpcomingEvent,
+    V1InvoiceUpdatedEvent.LOOKUP_TYPE: V1InvoiceUpdatedEvent,
+    V1InvoiceVoidedEvent.LOOKUP_TYPE: V1InvoiceVoidedEvent,
+    V1InvoiceWillBeDueEvent.LOOKUP_TYPE: V1InvoiceWillBeDueEvent,
+    V1IssuingAuthorizationCreatedEvent.LOOKUP_TYPE: V1IssuingAuthorizationCreatedEvent,
+    V1IssuingAuthorizationRequestEvent.LOOKUP_TYPE: V1IssuingAuthorizationRequestEvent,
+    V1IssuingAuthorizationUpdatedEvent.LOOKUP_TYPE: V1IssuingAuthorizationUpdatedEvent,
+    V1IssuingCardCreatedEvent.LOOKUP_TYPE: V1IssuingCardCreatedEvent,
+    V1IssuingCardholderCreatedEvent.LOOKUP_TYPE: V1IssuingCardholderCreatedEvent,
+    V1IssuingCardholderUpdatedEvent.LOOKUP_TYPE: V1IssuingCardholderUpdatedEvent,
+    V1IssuingCardUpdatedEvent.LOOKUP_TYPE: V1IssuingCardUpdatedEvent,
+    V1IssuingDisputeClosedEvent.LOOKUP_TYPE: V1IssuingDisputeClosedEvent,
+    V1IssuingDisputeCreatedEvent.LOOKUP_TYPE: V1IssuingDisputeCreatedEvent,
+    V1IssuingDisputeFundsReinstatedEvent.LOOKUP_TYPE: V1IssuingDisputeFundsReinstatedEvent,
+    V1IssuingDisputeFundsRescindedEvent.LOOKUP_TYPE: V1IssuingDisputeFundsRescindedEvent,
+    V1IssuingDisputeSubmittedEvent.LOOKUP_TYPE: V1IssuingDisputeSubmittedEvent,
+    V1IssuingDisputeUpdatedEvent.LOOKUP_TYPE: V1IssuingDisputeUpdatedEvent,
+    V1IssuingPersonalizationDesignActivatedEvent.LOOKUP_TYPE: V1IssuingPersonalizationDesignActivatedEvent,
+    V1IssuingPersonalizationDesignDeactivatedEvent.LOOKUP_TYPE: V1IssuingPersonalizationDesignDeactivatedEvent,
+    V1IssuingPersonalizationDesignRejectedEvent.LOOKUP_TYPE: V1IssuingPersonalizationDesignRejectedEvent,
+    V1IssuingPersonalizationDesignUpdatedEvent.LOOKUP_TYPE: V1IssuingPersonalizationDesignUpdatedEvent,
+    V1IssuingTokenCreatedEvent.LOOKUP_TYPE: V1IssuingTokenCreatedEvent,
+    V1IssuingTokenUpdatedEvent.LOOKUP_TYPE: V1IssuingTokenUpdatedEvent,
+    V1IssuingTransactionCreatedEvent.LOOKUP_TYPE: V1IssuingTransactionCreatedEvent,
+    V1IssuingTransactionPurchaseDetailsReceiptUpdatedEvent.LOOKUP_TYPE: V1IssuingTransactionPurchaseDetailsReceiptUpdatedEvent,
+    V1IssuingTransactionUpdatedEvent.LOOKUP_TYPE: V1IssuingTransactionUpdatedEvent,
+    V1MandateUpdatedEvent.LOOKUP_TYPE: V1MandateUpdatedEvent,
+    V1PaymentIntentAmountCapturableUpdatedEvent.LOOKUP_TYPE: V1PaymentIntentAmountCapturableUpdatedEvent,
+    V1PaymentIntentCanceledEvent.LOOKUP_TYPE: V1PaymentIntentCanceledEvent,
+    V1PaymentIntentCreatedEvent.LOOKUP_TYPE: V1PaymentIntentCreatedEvent,
+    V1PaymentIntentPartiallyFundedEvent.LOOKUP_TYPE: V1PaymentIntentPartiallyFundedEvent,
+    V1PaymentIntentPaymentFailedEvent.LOOKUP_TYPE: V1PaymentIntentPaymentFailedEvent,
+    V1PaymentIntentProcessingEvent.LOOKUP_TYPE: V1PaymentIntentProcessingEvent,
+    V1PaymentIntentRequiresActionEvent.LOOKUP_TYPE: V1PaymentIntentRequiresActionEvent,
+    V1PaymentIntentSucceededEvent.LOOKUP_TYPE: V1PaymentIntentSucceededEvent,
+    V1PaymentLinkCreatedEvent.LOOKUP_TYPE: V1PaymentLinkCreatedEvent,
+    V1PaymentLinkUpdatedEvent.LOOKUP_TYPE: V1PaymentLinkUpdatedEvent,
+    V1PaymentMethodAttachedEvent.LOOKUP_TYPE: V1PaymentMethodAttachedEvent,
+    V1PaymentMethodAutomaticallyUpdatedEvent.LOOKUP_TYPE: V1PaymentMethodAutomaticallyUpdatedEvent,
+    V1PaymentMethodDetachedEvent.LOOKUP_TYPE: V1PaymentMethodDetachedEvent,
+    V1PaymentMethodUpdatedEvent.LOOKUP_TYPE: V1PaymentMethodUpdatedEvent,
+    V1PayoutCanceledEvent.LOOKUP_TYPE: V1PayoutCanceledEvent,
+    V1PayoutCreatedEvent.LOOKUP_TYPE: V1PayoutCreatedEvent,
+    V1PayoutFailedEvent.LOOKUP_TYPE: V1PayoutFailedEvent,
+    V1PayoutPaidEvent.LOOKUP_TYPE: V1PayoutPaidEvent,
+    V1PayoutReconciliationCompletedEvent.LOOKUP_TYPE: V1PayoutReconciliationCompletedEvent,
+    V1PayoutUpdatedEvent.LOOKUP_TYPE: V1PayoutUpdatedEvent,
+    V1PersonCreatedEvent.LOOKUP_TYPE: V1PersonCreatedEvent,
+    V1PersonDeletedEvent.LOOKUP_TYPE: V1PersonDeletedEvent,
+    V1PersonUpdatedEvent.LOOKUP_TYPE: V1PersonUpdatedEvent,
+    V1PlanCreatedEvent.LOOKUP_TYPE: V1PlanCreatedEvent,
+    V1PlanDeletedEvent.LOOKUP_TYPE: V1PlanDeletedEvent,
+    V1PlanUpdatedEvent.LOOKUP_TYPE: V1PlanUpdatedEvent,
+    V1PriceCreatedEvent.LOOKUP_TYPE: V1PriceCreatedEvent,
+    V1PriceDeletedEvent.LOOKUP_TYPE: V1PriceDeletedEvent,
+    V1PriceUpdatedEvent.LOOKUP_TYPE: V1PriceUpdatedEvent,
+    V1ProductCreatedEvent.LOOKUP_TYPE: V1ProductCreatedEvent,
+    V1ProductDeletedEvent.LOOKUP_TYPE: V1ProductDeletedEvent,
+    V1ProductUpdatedEvent.LOOKUP_TYPE: V1ProductUpdatedEvent,
+    V1PromotionCodeCreatedEvent.LOOKUP_TYPE: V1PromotionCodeCreatedEvent,
+    V1PromotionCodeUpdatedEvent.LOOKUP_TYPE: V1PromotionCodeUpdatedEvent,
+    V1QuoteAcceptedEvent.LOOKUP_TYPE: V1QuoteAcceptedEvent,
+    V1QuoteCanceledEvent.LOOKUP_TYPE: V1QuoteCanceledEvent,
+    V1QuoteCreatedEvent.LOOKUP_TYPE: V1QuoteCreatedEvent,
+    V1QuoteFinalizedEvent.LOOKUP_TYPE: V1QuoteFinalizedEvent,
+    V1RadarEarlyFraudWarningCreatedEvent.LOOKUP_TYPE: V1RadarEarlyFraudWarningCreatedEvent,
+    V1RadarEarlyFraudWarningUpdatedEvent.LOOKUP_TYPE: V1RadarEarlyFraudWarningUpdatedEvent,
+    V1RefundCreatedEvent.LOOKUP_TYPE: V1RefundCreatedEvent,
+    V1RefundFailedEvent.LOOKUP_TYPE: V1RefundFailedEvent,
+    V1RefundUpdatedEvent.LOOKUP_TYPE: V1RefundUpdatedEvent,
+    V1ReviewClosedEvent.LOOKUP_TYPE: V1ReviewClosedEvent,
+    V1ReviewOpenedEvent.LOOKUP_TYPE: V1ReviewOpenedEvent,
+    V1SetupIntentCanceledEvent.LOOKUP_TYPE: V1SetupIntentCanceledEvent,
+    V1SetupIntentCreatedEvent.LOOKUP_TYPE: V1SetupIntentCreatedEvent,
+    V1SetupIntentRequiresActionEvent.LOOKUP_TYPE: V1SetupIntentRequiresActionEvent,
+    V1SetupIntentSetupFailedEvent.LOOKUP_TYPE: V1SetupIntentSetupFailedEvent,
+    V1SetupIntentSucceededEvent.LOOKUP_TYPE: V1SetupIntentSucceededEvent,
+    V1SigmaScheduledQueryRunCreatedEvent.LOOKUP_TYPE: V1SigmaScheduledQueryRunCreatedEvent,
+    V1SourceCanceledEvent.LOOKUP_TYPE: V1SourceCanceledEvent,
+    V1SourceChargeableEvent.LOOKUP_TYPE: V1SourceChargeableEvent,
+    V1SourceFailedEvent.LOOKUP_TYPE: V1SourceFailedEvent,
+    V1SourceRefundAttributesRequiredEvent.LOOKUP_TYPE: V1SourceRefundAttributesRequiredEvent,
+    V1SubscriptionScheduleAbortedEvent.LOOKUP_TYPE: V1SubscriptionScheduleAbortedEvent,
+    V1SubscriptionScheduleCanceledEvent.LOOKUP_TYPE: V1SubscriptionScheduleCanceledEvent,
+    V1SubscriptionScheduleCompletedEvent.LOOKUP_TYPE: V1SubscriptionScheduleCompletedEvent,
+    V1SubscriptionScheduleCreatedEvent.LOOKUP_TYPE: V1SubscriptionScheduleCreatedEvent,
+    V1SubscriptionScheduleExpiringEvent.LOOKUP_TYPE: V1SubscriptionScheduleExpiringEvent,
+    V1SubscriptionScheduleReleasedEvent.LOOKUP_TYPE: V1SubscriptionScheduleReleasedEvent,
+    V1SubscriptionScheduleUpdatedEvent.LOOKUP_TYPE: V1SubscriptionScheduleUpdatedEvent,
+    V1TaxRateCreatedEvent.LOOKUP_TYPE: V1TaxRateCreatedEvent,
+    V1TaxRateUpdatedEvent.LOOKUP_TYPE: V1TaxRateUpdatedEvent,
+    V1TerminalReaderActionFailedEvent.LOOKUP_TYPE: V1TerminalReaderActionFailedEvent,
+    V1TerminalReaderActionSucceededEvent.LOOKUP_TYPE: V1TerminalReaderActionSucceededEvent,
+    V1TerminalReaderActionUpdatedEvent.LOOKUP_TYPE: V1TerminalReaderActionUpdatedEvent,
+    V1TestHelpersTestClockAdvancingEvent.LOOKUP_TYPE: V1TestHelpersTestClockAdvancingEvent,
+    V1TestHelpersTestClockCreatedEvent.LOOKUP_TYPE: V1TestHelpersTestClockCreatedEvent,
+    V1TestHelpersTestClockDeletedEvent.LOOKUP_TYPE: V1TestHelpersTestClockDeletedEvent,
+    V1TestHelpersTestClockInternalFailureEvent.LOOKUP_TYPE: V1TestHelpersTestClockInternalFailureEvent,
+    V1TestHelpersTestClockReadyEvent.LOOKUP_TYPE: V1TestHelpersTestClockReadyEvent,
+    V1TopupCanceledEvent.LOOKUP_TYPE: V1TopupCanceledEvent,
+    V1TopupCreatedEvent.LOOKUP_TYPE: V1TopupCreatedEvent,
+    V1TopupFailedEvent.LOOKUP_TYPE: V1TopupFailedEvent,
+    V1TopupReversedEvent.LOOKUP_TYPE: V1TopupReversedEvent,
+    V1TopupSucceededEvent.LOOKUP_TYPE: V1TopupSucceededEvent,
+    V1TransferCreatedEvent.LOOKUP_TYPE: V1TransferCreatedEvent,
+    V1TransferReversedEvent.LOOKUP_TYPE: V1TransferReversedEvent,
+    V1TransferUpdatedEvent.LOOKUP_TYPE: V1TransferUpdatedEvent,
+    V2BillingBillSettingUpdatedEvent.LOOKUP_TYPE: V2BillingBillSettingUpdatedEvent,
     V2BillingCadenceBilledEvent.LOOKUP_TYPE: V2BillingCadenceBilledEvent,
     V2BillingCadenceCanceledEvent.LOOKUP_TYPE: V2BillingCadenceCanceledEvent,
     V2BillingCadenceCreatedEvent.LOOKUP_TYPE: V2BillingCadenceCreatedEvent,
-    V2BillingCadenceErroredEvent.LOOKUP_TYPE: V2BillingCadenceErroredEvent,
     V2BillingLicensedItemCreatedEvent.LOOKUP_TYPE: V2BillingLicensedItemCreatedEvent,
     V2BillingLicensedItemUpdatedEvent.LOOKUP_TYPE: V2BillingLicensedItemUpdatedEvent,
     V2BillingLicenseFeeCreatedEvent.LOOKUP_TYPE: V2BillingLicenseFeeCreatedEvent,
@@ -409,6 +1056,11 @@ THIN_EVENT_CLASSES = {
     V2CoreAccountPersonDeletedEvent.LOOKUP_TYPE: V2CoreAccountPersonDeletedEvent,
     V2CoreAccountPersonUpdatedEvent.LOOKUP_TYPE: V2CoreAccountPersonUpdatedEvent,
     V2CoreAccountUpdatedEvent.LOOKUP_TYPE: V2CoreAccountUpdatedEvent,
+    V2CoreClaimableSandboxClaimedEvent.LOOKUP_TYPE: V2CoreClaimableSandboxClaimedEvent,
+    V2CoreClaimableSandboxCreatedEvent.LOOKUP_TYPE: V2CoreClaimableSandboxCreatedEvent,
+    V2CoreClaimableSandboxExpiredEvent.LOOKUP_TYPE: V2CoreClaimableSandboxExpiredEvent,
+    V2CoreClaimableSandboxExpiringEvent.LOOKUP_TYPE: V2CoreClaimableSandboxExpiringEvent,
+    V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent.LOOKUP_TYPE: V2CoreClaimableSandboxSandboxDetailsOwnerAccountUpdatedEvent,
     V2CoreEventDestinationPingEvent.LOOKUP_TYPE: V2CoreEventDestinationPingEvent,
     V2CoreHealthApiErrorFiringEvent.LOOKUP_TYPE: V2CoreHealthApiErrorFiringEvent,
     V2CoreHealthApiErrorResolvedEvent.LOOKUP_TYPE: V2CoreHealthApiErrorResolvedEvent,
@@ -418,6 +1070,8 @@ THIN_EVENT_CLASSES = {
     V2CoreHealthAuthorizationRateDropResolvedEvent.LOOKUP_TYPE: V2CoreHealthAuthorizationRateDropResolvedEvent,
     V2CoreHealthEventGenerationFailureResolvedEvent.LOOKUP_TYPE: V2CoreHealthEventGenerationFailureResolvedEvent,
     V2CoreHealthFraudRateIncreasedEvent.LOOKUP_TYPE: V2CoreHealthFraudRateIncreasedEvent,
+    V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent.LOOKUP_TYPE: V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent,
+    V2CoreHealthIssuingAuthorizationRequestErrorsResolvedEvent.LOOKUP_TYPE: V2CoreHealthIssuingAuthorizationRequestErrorsResolvedEvent,
     V2CoreHealthIssuingAuthorizationRequestTimeoutFiringEvent.LOOKUP_TYPE: V2CoreHealthIssuingAuthorizationRequestTimeoutFiringEvent,
     V2CoreHealthIssuingAuthorizationRequestTimeoutResolvedEvent.LOOKUP_TYPE: V2CoreHealthIssuingAuthorizationRequestTimeoutResolvedEvent,
     V2CoreHealthPaymentMethodErrorFiringEvent.LOOKUP_TYPE: V2CoreHealthPaymentMethodErrorFiringEvent,
@@ -459,6 +1113,8 @@ THIN_EVENT_CLASSES = {
     V2MoneyManagementReceivedDebitPendingEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitPendingEvent,
     V2MoneyManagementReceivedDebitSucceededEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitSucceededEvent,
     V2MoneyManagementReceivedDebitUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitUpdatedEvent,
+    V2MoneyManagementRecipientVerificationCreatedEvent.LOOKUP_TYPE: V2MoneyManagementRecipientVerificationCreatedEvent,
+    V2MoneyManagementRecipientVerificationUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementRecipientVerificationUpdatedEvent,
     V2MoneyManagementTransactionCreatedEvent.LOOKUP_TYPE: V2MoneyManagementTransactionCreatedEvent,
     V2MoneyManagementTransactionUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementTransactionUpdatedEvent,
     V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,

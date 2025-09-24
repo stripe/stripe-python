@@ -60,6 +60,32 @@ class ReceivedCredit(StripeObject):
             The sort code of the account that originated the transfer.
             """
 
+        class SepaBankAccount(StripeObject):
+            account_holder_name: Optional[str]
+            """
+            The account holder name of the bank account the transfer was received from.
+            """
+            bank_name: Optional[str]
+            """
+            The bank name the transfer was received from.
+            """
+            bic: Optional[str]
+            """
+            The BIC of the SEPA account.
+            """
+            country: Optional[str]
+            """
+            The origination country of the bank transfer.
+            """
+            iban: Optional[str]
+            """
+            The IBAN that originated the transfer.
+            """
+            network: Literal["sepa_credit_transfer"]
+            """
+            The money transmission network used to send funds for this ReceivedCredit.
+            """
+
         class UsBankAccount(StripeObject):
             bank_name: Optional[str]
             """
@@ -84,11 +110,17 @@ class ReceivedCredit(StripeObject):
         """
         gb_bank_account: Optional[GbBankAccount]
         """
-        Hash containing the transaction bank details. Present if `payment_method_type` field value is `gb_bank_account`.
+        Hash containing the transaction bank details. Present if `origin_type` field value is `gb_bank_account`.
         """
-        payment_method_type: Literal["gb_bank_account", "us_bank_account"]
+        origin_type: Literal[
+            "gb_bank_account", "sepa_bank_account", "us_bank_account"
+        ]
         """
-        Open Enum. Indicates the type of source via from which external funds originated.
+        Open Enum. Indicates the origin of source from which external funds originated from.
+        """
+        sepa_bank_account: Optional[SepaBankAccount]
+        """
+        Hash containing the transaction bank details. Present if `origin_type` field value is `sepa_bank_account`.
         """
         statement_descriptor: Optional[str]
         """
@@ -96,10 +128,11 @@ class ReceivedCredit(StripeObject):
         """
         us_bank_account: Optional[UsBankAccount]
         """
-        Hash containing the transaction bank details. Present if `payment_method_type` field value is `us_bank_account`.
+        Hash containing the transaction bank details. Present if `origin_type` field value is `us_bank_account`.
         """
         _inner_class_types = {
             "gb_bank_account": GbBankAccount,
+            "sepa_bank_account": SepaBankAccount,
             "us_bank_account": UsBankAccount,
         }
 
@@ -158,7 +191,7 @@ class ReceivedCredit(StripeObject):
     """
     bank_transfer: Optional[BankTransfer]
     """
-    This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `external_credit`.
+    This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
     """
     created: str
     """

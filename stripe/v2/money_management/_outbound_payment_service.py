@@ -48,6 +48,10 @@ class OutboundPaymentService(StripeService):
         """
         Details about the notification settings for the OutboundPayment recipient.
         """
+        recipient_verification: NotRequired[str]
+        """
+        The recipient verification id for this OutboundPayment. Only required for countries with regulatory mandates to verify recipient names before OutboundPayment creation.
+        """
         to: "OutboundPaymentService.CreateParamsTo"
         """
         To which payout method to send the OutboundPayment.

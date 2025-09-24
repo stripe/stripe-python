@@ -35,7 +35,7 @@ class OutboundSetupIntentService(StripeService):
         """
 
     class CreateParamsPayoutMethodData(TypedDict):
-        type: Literal["bank_account", "card"]
+        type: Literal["bank_account", "card", "crypto_wallet"]
         """
         Closed Enum. The type of payout method to be created.
         """
@@ -50,6 +50,12 @@ class OutboundSetupIntentService(StripeService):
         ]
         """
         The type specific details of the card payout method.
+        """
+        crypto_wallet: NotRequired[
+            "OutboundSetupIntentService.CreateParamsPayoutMethodDataCryptoWallet"
+        ]
+        """
+        The type specific details of the crypto wallet payout method.
         """
 
     class CreateParamsPayoutMethodDataBankAccount(TypedDict):
@@ -92,6 +98,29 @@ class OutboundSetupIntentService(StripeService):
         The card number.
         """
 
+    class CreateParamsPayoutMethodDataCryptoWallet(TypedDict):
+        address: str
+        """
+        Crypto wallet address.
+        """
+        memo: NotRequired[str]
+        """
+        Optional field, required if network supports memos (only "stellar" currently).
+        """
+        network: Literal[
+            "arbitrum",
+            "avalanche_c_chain",
+            "base",
+            "ethereum",
+            "optimism",
+            "polygon",
+            "solana",
+            "stellar",
+        ]
+        """
+        Which rail we should use to make an Outbound money movement to this wallet.
+        """
+
     class ListParams(TypedDict):
         limit: NotRequired[int]
         """
@@ -115,7 +144,7 @@ class OutboundSetupIntentService(StripeService):
         """
 
     class UpdateParamsPayoutMethodData(TypedDict):
-        type: Literal["bank_account", "card"]
+        type: Literal["bank_account", "card", "crypto_wallet"]
         """
         Closed Enum. The type of payout method to be created/updated.
         """

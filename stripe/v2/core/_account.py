@@ -2413,6 +2413,43 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
+                class CryptoWallets(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    requested: bool
+                    """
+                    Whether the Capability has been requested.
+                    """
+                    status: Literal[
+                        "active", "pending", "restricted", "unsupported"
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
                 class StripeBalance(StripeObject):
                     class Payouts(StripeObject):
                         class StatusDetail(StripeObject):
@@ -2513,6 +2550,10 @@ class Account(StripeObject):
                 """
                 Capability that enable OutboundPayments to a debit card linked to this Account.
                 """
+                crypto_wallets: Optional[CryptoWallets]
+                """
+                Capability that enable OutboundPayments to a crypto wallet linked to this Account.
+                """
                 stripe_balance: Optional[StripeBalance]
                 """
                 Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
@@ -2520,6 +2561,7 @@ class Account(StripeObject):
                 _inner_class_types = {
                     "bank_accounts": BankAccounts,
                     "cards": Cards,
+                    "crypto_wallets": CryptoWallets,
                     "stripe_balance": StripeBalance,
                 }
 
@@ -2540,6 +2582,7 @@ class Account(StripeObject):
                     "ca_bank_account",
                     "ch_bank_account",
                     "ci_bank_account",
+                    "crypto_wallet",
                     "cy_bank_account",
                     "cz_bank_account",
                     "de_bank_account",
@@ -2604,7 +2647,7 @@ class Account(StripeObject):
             """
             default_outbound_destination: Optional[DefaultOutboundDestination]
             """
-            The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard.
+            The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard or APIs.
             """
             _inner_class_types = {
                 "capabilities": Capabilities,
@@ -3041,6 +3084,20 @@ class Account(StripeObject):
         }
 
     class Defaults(StripeObject):
+        class Profile(StripeObject):
+            business_url: Optional[str]
+            """
+            The business's publicly-available website.
+            """
+            doing_business_as: Optional[str]
+            """
+            The company's legal name.
+            """
+            product_description: Optional[str]
+            """
+            Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
+            """
+
         class Responsibilities(StripeObject):
             fees_collector: Literal["application", "stripe"]
             """
@@ -3148,11 +3205,18 @@ class Account(StripeObject):
         """
         The Account's preferred locales (languages), ordered by preference.
         """
+        profile: Optional[Profile]
+        """
+        Account profile information.
+        """
         responsibilities: Optional[Responsibilities]
         """
         Default responsibilities held by either Stripe or the platform.
         """
-        _inner_class_types = {"responsibilities": Responsibilities}
+        _inner_class_types = {
+            "profile": Profile,
+            "responsibilities": Responsibilities,
+        }
 
     class Identity(StripeObject):
         class Attestations(StripeObject):
@@ -3678,10 +3742,6 @@ class Account(StripeObject):
             """
             Documents that may be submitted to satisfy various informational requests.
             """
-            doing_business_as: Optional[str]
-            """
-            The company's legal name.
-            """
             estimated_worker_count: Optional[int]
             """
             An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
@@ -3697,10 +3757,6 @@ class Account(StripeObject):
             phone: Optional[str]
             """
             The company's phone number (used for verification).
-            """
-            product_description: Optional[str]
-            """
-            Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
             """
             registered_name: Optional[str]
             """
@@ -3747,10 +3803,6 @@ class Account(StripeObject):
             ]
             """
             The category identifying the legal structure of the business.
-            """
-            url: Optional[str]
-            """
-            The business's publicly available website.
             """
             _inner_class_types = {
                 "address": Address,
@@ -4426,6 +4478,7 @@ class Account(StripeObject):
                         "card_payments",
                         "cartes_bancaires_payments",
                         "cashapp_payments",
+                        "crypto",
                         "eps_payments",
                         "financial_addresses.bank_accounts",
                         "fpx_payments",

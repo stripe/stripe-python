@@ -11,13 +11,27 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class FinancialAddressService(StripeService):
     class CreateParams(TypedDict):
-        currency: str
-        """
-        Open Enum. The currency the FinancialAddress should support. Currently, only the `usd` and `gbp` values are supported.
-        """
         financial_account: str
         """
         The ID of the FinancialAccount the new FinancialAddress should be associated with.
+        """
+        sepa_bank_account: NotRequired[
+            "FinancialAddressService.CreateParamsSepaBankAccount"
+        ]
+        """
+        Optional SEPA Bank account options, used to configure the type of SEPA Bank account to create, such as the originating country.
+        """
+        type: Literal[
+            "gb_bank_account", "sepa_bank_account", "us_bank_account"
+        ]
+        """
+        The type of FinancialAddress details to provision.
+        """
+
+    class CreateParamsSepaBankAccount(TypedDict):
+        country: str
+        """
+        The originating country of the SEPA Bank account.
         """
 
     class ListParams(TypedDict):
@@ -29,6 +43,7 @@ class FinancialAddressService(StripeService):
             List[
                 Literal[
                     "credentials.gb_bank_account.account_number",
+                    "credentials.sepa_bank_account.iban",
                     "credentials.us_bank_account.account_number",
                 ]
             ]
@@ -46,6 +61,7 @@ class FinancialAddressService(StripeService):
             List[
                 Literal[
                     "credentials.gb_bank_account.account_number",
+                    "credentials.sepa_bank_account.iban",
                     "credentials.us_bank_account.account_number",
                 ]
             ]

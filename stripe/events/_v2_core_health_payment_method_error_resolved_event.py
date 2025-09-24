@@ -76,10 +76,6 @@ class V2CoreHealthPaymentMethodErrorResolvedEvent(Event):
             The type of the payment method.
             """
 
-        alert_id: str
-        """
-        The alert ID.
-        """
         grouping_key: str
         """
         The grouping key for the alert.

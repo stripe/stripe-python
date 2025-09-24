@@ -26,11 +26,6 @@ class RateService(StripeService):
         """
         The Metered Item that this rate binds to.
         """
-        price: NotRequired[str]
-        """
-        The ID of the price object to take price information from. The price must have the same interval as the rate card.
-        Updates to the Price will not be reflected in the Rate Card or its rates.
-        """
         tiering_mode: NotRequired[Literal["graduated", "volume"]]
         """
         Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum

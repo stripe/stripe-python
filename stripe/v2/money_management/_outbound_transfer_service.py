@@ -38,6 +38,10 @@ class OutboundTransferService(StripeService):
         """
         Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
+        recipient_verification: NotRequired[str]
+        """
+        The recipient verification id for this OutboundTransfer. Only required for countries with regulatory mandates to verify recipient names before OutboundTransfer creation.
+        """
         to: "OutboundTransferService.CreateParamsTo"
         """
         To which payout method to send the OutboundTransfer.

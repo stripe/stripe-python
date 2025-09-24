@@ -35,6 +35,9 @@ from stripe.v2.money_management._received_credit_service import (
 from stripe.v2.money_management._received_debit_service import (
     ReceivedDebitService,
 )
+from stripe.v2.money_management._recipient_verification_service import (
+    RecipientVerificationService,
+)
 from stripe.v2.money_management._transaction_entry_service import (
     TransactionEntryService,
 )
@@ -64,5 +67,8 @@ class MoneyManagementService(StripeService):
         )
         self.received_credits = ReceivedCreditService(self._requestor)
         self.received_debits = ReceivedDebitService(self._requestor)
+        self.recipient_verifications = RecipientVerificationService(
+            self._requestor,
+        )
         self.transactions = TransactionService(self._requestor)
         self.transaction_entries = TransactionEntryService(self._requestor)

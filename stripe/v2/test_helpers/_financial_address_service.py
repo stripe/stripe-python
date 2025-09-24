@@ -20,7 +20,7 @@ class FinancialAddressService(StripeService):
         """
         Object containing the amount value and currency to credit.
         """
-        network: Literal["ach", "fps", "rtp", "wire"]
+        network: Literal["ach", "fps", "rtp", "sepa_credit_transfer", "wire"]
         """
         Open Enum. The network to use in simulating the funds flow. This will be the reflected in the resulting ReceivedCredit.
         """

@@ -27,6 +27,7 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent(
             "bank_accounts.local",
             "bank_accounts.wire",
             "cards",
+            "crypto_wallets_v2",
             "stripe_balance.payouts",
             "stripe_balance.stripe_transfers",
             "stripe.transfers",

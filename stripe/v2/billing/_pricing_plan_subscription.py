@@ -45,6 +45,14 @@ class PricingPlanSubscription(StripeObject):
         """
         When the servicing status transitioned to paused.
         """
+        will_activate_at: Optional[str]
+        """
+        When the servicing is scheduled to transition to activate.
+        """
+        will_cancel_at: Optional[str]
+        """
+        When the servicing is scheduled to cancel.
+        """
 
     billing_cadence: str
     """
