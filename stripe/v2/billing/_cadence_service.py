@@ -11,7 +11,9 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class CadenceService(StripeService):
     class CancelParams(TypedDict):
-        include: NotRequired[List[Literal["invoice_discount_rules"]]]
+        include: NotRequired[
+            List[Literal["invoice_discount_rules", "settings_data"]]
+        ]
         """
         Additional resource to include in the response.
         """
@@ -21,9 +23,15 @@ class CadenceService(StripeService):
         """
         The billing cycle is the object that defines future billing cycle dates.
         """
-        include: NotRequired[List[Literal["invoice_discount_rules"]]]
+        include: NotRequired[
+            List[Literal["invoice_discount_rules", "settings_data"]]
+        ]
         """
         Additional resource to include in the response.
+        """
+        lookup_key: NotRequired[str]
+        """
+        A lookup key used to retrieve cadences dynamically from a static string. Maximum length of 200 characters.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -99,6 +107,13 @@ class CadenceService(StripeService):
         1-31. If this number is greater than the number of days in the month being
         billed, this will anchor to the last day of the month. If not provided,
         this will default to the day the cadence was created.
+        """
+        month_of_year: NotRequired[int]
+        """
+        The month to anchor the billing on for a type="month" billing cycle from
+        1-12. If not provided, this will default to the month the cadence was created.
+        This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
+        All occurrences will be calculated from month provided.
         """
         time: NotRequired["CadenceService.CreateParamsBillingCycleMonthTime"]
         """
@@ -197,18 +212,9 @@ class CadenceService(StripeService):
         """
 
     class CreateParamsPayer(TypedDict):
-        billing_profile: NotRequired[str]
+        billing_profile: str
         """
-        The ID of the Billing Profile object which determines how a bill will be paid. If provided, the created cadence will be
-        associated with the provided Billing Profile. If not provided, a new Billing Profile will be created and associated with the cadence.
-        """
-        customer: NotRequired[str]
-        """
-        The ID of the Customer object.
-        """
-        type: NotRequired[Literal["customer"]]
-        """
-        A string identifying the type of the payer. Currently the only supported value is `customer`.
+        The ID of the Billing Profile object which determines how a bill will be paid.
         """
 
     class CreateParamsSettings(TypedDict):
@@ -250,7 +256,9 @@ class CadenceService(StripeService):
         """
 
     class ListParams(TypedDict):
-        include: NotRequired[List[Literal["invoice_discount_rules"]]]
+        include: NotRequired[
+            List[Literal["invoice_discount_rules", "settings_data"]]
+        ]
         """
         Additional resource to include in the response.
         """
@@ -258,9 +266,14 @@ class CadenceService(StripeService):
         """
         Optionally set the maximum number of results per page. Defaults to 20.
         """
+        lookup_keys: NotRequired[List[str]]
+        """
+        Only return the cadences with these lookup_keys, if any exist. You can specify up to 10 lookup_keys.
+        Mutually exclusive with `test_clock` and `payer`.
+        """
         payer: NotRequired["CadenceService.ListParamsPayer"]
         """
-        If provided, only cadences that specifically reference the payer will be returned. Mutually exclusive with `test_clock`.
+        If provided, only cadences that specifically reference the payer will be returned. Mutually exclusive with `test_clock` and `lookup_keys`.
         """
         test_clock: NotRequired[str]
         """
@@ -280,15 +293,23 @@ class CadenceService(StripeService):
         """
 
     class RetrieveParams(TypedDict):
-        include: NotRequired[List[Literal["invoice_discount_rules"]]]
+        include: NotRequired[
+            List[Literal["invoice_discount_rules", "settings_data"]]
+        ]
         """
         Additional resource to include in the response.
         """
 
     class UpdateParams(TypedDict):
-        include: NotRequired[List[Literal["invoice_discount_rules"]]]
+        include: NotRequired[
+            List[Literal["invoice_discount_rules", "settings_data"]]
+        ]
         """
         Additional resource to include in the response.
+        """
+        lookup_key: NotRequired[str]
+        """
+        A lookup key used to retrieve cadences dynamically from a static string. Maximum length of 200 characters.
         """
         metadata: NotRequired[Dict[str, Optional[str]]]
         """

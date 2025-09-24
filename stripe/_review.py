@@ -132,11 +132,9 @@ class Review(ListableAPIResource["Review"]):
     """
     closed_reason: Optional[
         Literal[
-            "acknowledged",
             "approved",
             "canceled",
             "disputed",
-            "payment_never_settled",
             "redacted",
             "refunded",
             "refunded_as_fraud",

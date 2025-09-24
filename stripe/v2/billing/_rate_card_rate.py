@@ -5,6 +5,7 @@ from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.billing._custom_pricing_unit import CustomPricingUnit
     from stripe.v2.billing._metered_item import MeteredItem
 
 
@@ -14,6 +15,10 @@ class RateCardRate(StripeObject):
     )
 
     class CustomPricingUnitAmount(StripeObject):
+        custom_pricing_unit_details: Optional["CustomPricingUnit"]
+        """
+        The Custom Pricing Unit object.
+        """
         id: str
         """
         The id of the custom pricing unit.

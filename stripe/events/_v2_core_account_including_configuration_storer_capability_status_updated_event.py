@@ -25,14 +25,18 @@ class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent(
     ):
         updated_capability: Literal[
             "financial_addressses.bank_accounts",
+            "financial_addressses.crypto_wallets",
             "holds_currencies.eur",
             "holds_currencies.gbp",
             "holds_currencies.usd",
+            "holds_currencies.usdc",
             "inbound_transfers.bank_accounts",
             "outbound_payments.bank_accounts",
             "outbound_payments.cards",
+            "outbound_payments.crypto_wallets",
             "outbound_payments.financial_accounts",
             "outbound_transfers.bank_accounts",
+            "outbound_transfers.crypto_wallets",
             "outbound_transfers.financial_accounts",
         ]
         """

@@ -3,7 +3,12 @@
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount as V2AmountResource
 from typing import ClassVar, List, Optional
-from typing_extensions import Literal
+from typing_extensions import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.v2.billing._custom_pricing_unit import (
+        CustomPricingUnit as V2BillingCustomPricingUnitResource,
+    )
 
 
 class ServiceAction(StripeObject):
@@ -14,6 +19,12 @@ class ServiceAction(StripeObject):
     class CreditGrant(StripeObject):
         class Amount(StripeObject):
             class CustomPricingUnit(StripeObject):
+                custom_pricing_unit_details: Optional[
+                    "V2BillingCustomPricingUnitResource"
+                ]
+                """
+                The Custom Pricing Unit object.
+                """
                 id: str
                 """
                 The id of the custom pricing unit.
@@ -68,6 +79,10 @@ class ServiceAction(StripeObject):
         """
         Defines the scope where the credit grant is applicable.
         """
+        category: Optional[Literal["paid", "promotional"]]
+        """
+        The category of the credit grant.
+        """
         expiry_config: ExpiryConfig
         """
         The expiry configuration for the credit grant.
@@ -75,6 +90,10 @@ class ServiceAction(StripeObject):
         name: str
         """
         A descriptive name shown in dashboard.
+        """
+        priority: Optional[int]
+        """
+        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
         """
         _inner_class_types = {
             "amount": Amount,
@@ -85,6 +104,12 @@ class ServiceAction(StripeObject):
     class CreditGrantPerTenant(StripeObject):
         class Amount(StripeObject):
             class CustomPricingUnit(StripeObject):
+                custom_pricing_unit_details: Optional[
+                    "V2BillingCustomPricingUnitResource"
+                ]
+                """
+                The Custom Pricing Unit object.
+                """
                 id: str
                 """
                 The id of the custom pricing unit.
@@ -139,6 +164,10 @@ class ServiceAction(StripeObject):
         """
         Defines the scope where the credit grant is applicable.
         """
+        category: Optional[Literal["paid", "promotional"]]
+        """
+        The category of the credit grant.
+        """
         expiry_config: ExpiryConfig
         """
         The expiry configuration for the credit grant.
@@ -146,6 +175,10 @@ class ServiceAction(StripeObject):
         name: str
         """
         Customer-facing name for the credit grant.
+        """
+        priority: Optional[int]
+        """
+        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
         """
         _inner_class_types = {
             "amount": Amount,

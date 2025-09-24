@@ -328,17 +328,18 @@ class StripeClient(object):
         return self.v1.account_links
 
     @property
-    def account_notices(self) -> AccountNoticeService:
+    @deprecated(
         """
-        Deprecation Warning:
-          StripeClient.account_notices will be deprecated in the next major release.
+        StripeClient.account_notices is deprecated, use StripeClient.v1.account_notices instead.
           All functionality under it has been copied over to StripeClient.v1.account_notices.
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
+        """,
+    )
+    def account_notices(self) -> AccountNoticeService:
         return self.v1.account_notices
 
     @property
-    def account_sessions(self) -> AccountSessionService:
+    @deprecated(
         """
         StripeClient.account_sessions is deprecated, use StripeClient.v1.account_sessions instead.
           All functionality under it has been copied over to StripeClient.v1.account_sessions.
@@ -393,17 +394,7 @@ class StripeClient(object):
         return self.v1.balance
 
     @property
-    def balance_settings(self) -> BalanceSettingsService:
-        """
-        Deprecation Warning:
-          StripeClient.balance_settings will be deprecated in the next major release.
-          All functionality under it has been copied over to StripeClient.v1.balance_settings.
-          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
-        return self.v1.balance_settings
-
-    @property
-    def balance_transactions(self) -> BalanceTransactionService:
+    @deprecated(
         """
         StripeClient.balance_settings is deprecated, use StripeClient.v1.balance_settings instead.
           All functionality under it has been copied over to StripeClient.v1.balance_settings.
@@ -447,17 +438,18 @@ class StripeClient(object):
         return self.v1.billing_portal
 
     @property
-    def capital(self) -> CapitalService:
+    @deprecated(
         """
-        Deprecation Warning:
-          StripeClient.capital will be deprecated in the next major release.
+        StripeClient.capital is deprecated, use StripeClient.v1.capital instead.
           All functionality under it has been copied over to StripeClient.v1.capital.
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
+        """,
+    )
+    def capital(self) -> CapitalService:
         return self.v1.capital
 
     @property
-    def charges(self) -> ChargeService:
+    @deprecated(
         """
         StripeClient.charges is deprecated, use StripeClient.v1.charges instead.
           All functionality under it has been copied over to StripeClient.v1.charges.
@@ -611,17 +603,18 @@ class StripeClient(object):
         return self.v1.exchange_rates
 
     @property
-    def external_accounts(self) -> ExternalAccountService:
+    @deprecated(
         """
-        Deprecation Warning:
-          StripeClient.external_accounts will be deprecated in the next major release.
+        StripeClient.external_accounts is deprecated, use StripeClient.v1.external_accounts instead.
           All functionality under it has been copied over to StripeClient.v1.external_accounts.
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
+        """,
+    )
+    def external_accounts(self) -> ExternalAccountService:
         return self.v1.external_accounts
 
     @property
-    def files(self) -> FileService:
+    @deprecated(
         """
         StripeClient.files is deprecated, use StripeClient.v1.files instead.
           All functionality under it has been copied over to StripeClient.v1.files.
@@ -665,17 +658,18 @@ class StripeClient(object):
         return self.v1.forwarding
 
     @property
-    def fx_quotes(self) -> FxQuoteService:
+    @deprecated(
         """
-        Deprecation Warning:
-          StripeClient.fx_quotes will be deprecated in the next major release.
+        StripeClient.fx_quotes is deprecated, use StripeClient.v1.fx_quotes instead.
           All functionality under it has been copied over to StripeClient.v1.fx_quotes.
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
+        """,
+    )
+    def fx_quotes(self) -> FxQuoteService:
         return self.v1.fx_quotes
 
     @property
-    def identity(self) -> IdentityService:
+    @deprecated(
         """
         StripeClient.identity is deprecated, use StripeClient.v1.identity instead.
           All functionality under it has been copied over to StripeClient.v1.identity.
@@ -752,37 +746,40 @@ class StripeClient(object):
         return self.v1.mandates
 
     @property
-    def margins(self) -> MarginService:
+    @deprecated(
         """
-        Deprecation Warning:
-          StripeClient.margins will be deprecated in the next major release.
+        StripeClient.margins is deprecated, use StripeClient.v1.margins instead.
           All functionality under it has been copied over to StripeClient.v1.margins.
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
+        """,
+    )
+    def margins(self) -> MarginService:
         return self.v1.margins
 
     @property
-    def orders(self) -> OrderService:
+    @deprecated(
         """
-        Deprecation Warning:
-          StripeClient.orders will be deprecated in the next major release.
+        StripeClient.orders is deprecated, use StripeClient.v1.orders instead.
           All functionality under it has been copied over to StripeClient.v1.orders.
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
+        """,
+    )
+    def orders(self) -> OrderService:
         return self.v1.orders
 
     @property
-    def payment_attempt_records(self) -> PaymentAttemptRecordService:
+    @deprecated(
         """
-        Deprecation Warning:
-          StripeClient.payment_attempt_records will be deprecated in the next major release.
+        StripeClient.payment_attempt_records is deprecated, use StripeClient.v1.payment_attempt_records instead.
           All functionality under it has been copied over to StripeClient.v1.payment_attempt_records.
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
+        """,
+    )
+    def payment_attempt_records(self) -> PaymentAttemptRecordService:
         return self.v1.payment_attempt_records
 
     @property
-    def payment_intents(self) -> PaymentIntentService:
+    @deprecated(
         """
         StripeClient.payment_intents is deprecated, use StripeClient.v1.payment_intents instead.
           All functionality under it has been copied over to StripeClient.v1.payment_intents.
@@ -839,17 +836,18 @@ class StripeClient(object):
         return self.v1.payment_method_domains
 
     @property
-    def payment_records(self) -> PaymentRecordService:
+    @deprecated(
         """
-        Deprecation Warning:
-          StripeClient.payment_records will be deprecated in the next major release.
+        StripeClient.payment_records is deprecated, use StripeClient.v1.payment_records instead.
           All functionality under it has been copied over to StripeClient.v1.payment_records.
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
+        """,
+    )
+    def payment_records(self) -> PaymentRecordService:
         return self.v1.payment_records
 
     @property
-    def payouts(self) -> PayoutService:
+    @deprecated(
         """
         StripeClient.payouts is deprecated, use StripeClient.v1.payouts instead.
           All functionality under it has been copied over to StripeClient.v1.payouts.
@@ -882,17 +880,18 @@ class StripeClient(object):
         return self.v1.prices
 
     @property
-    def privacy(self) -> PrivacyService:
+    @deprecated(
         """
-        Deprecation Warning:
-          StripeClient.privacy will be deprecated in the next major release.
+        StripeClient.privacy is deprecated, use StripeClient.v1.privacy instead.
           All functionality under it has been copied over to StripeClient.v1.privacy.
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """
+        """,
+    )
+    def privacy(self) -> PrivacyService:
         return self.v1.privacy
 
     @property
-    def products(self) -> ProductService:
+    @deprecated(
         """
         StripeClient.products is deprecated, use StripeClient.v1.products instead.
           All functionality under it has been copied over to StripeClient.v1.products.

@@ -225,6 +225,7 @@ V2_OBJECT_CLASSES = {
     stripe.v2.money_management.PayoutMethodsBankAccountSpec.OBJECT_NAME: stripe.v2.money_management.PayoutMethodsBankAccountSpec,
     stripe.v2.money_management.ReceivedCredit.OBJECT_NAME: stripe.v2.money_management.ReceivedCredit,
     stripe.v2.money_management.ReceivedDebit.OBJECT_NAME: stripe.v2.money_management.ReceivedDebit,
+    stripe.v2.money_management.RecipientVerification.OBJECT_NAME: stripe.v2.money_management.RecipientVerification,
     stripe.v2.money_management.Transaction.OBJECT_NAME: stripe.v2.money_management.Transaction,
     stripe.v2.money_management.TransactionEntry.OBJECT_NAME: stripe.v2.money_management.TransactionEntry,
     stripe.v2.payments.OffSessionPayment.OBJECT_NAME: stripe.v2.payments.OffSessionPayment,

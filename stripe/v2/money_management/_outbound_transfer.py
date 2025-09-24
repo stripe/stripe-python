@@ -168,6 +168,10 @@ class OutboundTransfer(StripeObject):
     """
     A link to the Stripe-hosted receipt for this OutboundTransfer. The receipt link remains active for 60 days from the OutboundTransfer creation date. After this period, the link will expire and the receipt url value will be null.
     """
+    recipient_verification: Optional[str]
+    """
+    The recipient verification id for this OutboundTransfer. Only required for countries with regulatory mandates to verify recipient names before OutboundTransfer creation.
+    """
     statement_descriptor: str
     """
     The description that appears on the receiving end for an OutboundTransfer (for example, bank statement for external bank transfer). It will default to `STRIPE` if not set on the account settings.

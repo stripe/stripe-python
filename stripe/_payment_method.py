@@ -126,11 +126,11 @@ class PaymentMethod(
             """
             line1: Optional[str]
             """
-            Address line 1, such as the street, PO Box, or company name.
+            Address line 1 (e.g., street, PO Box, or company name).
             """
             line2: Optional[str]
             """
-            Address line 2, such as the apartment, suite, unit, or building.
+            Address line 2 (e.g., apartment, suite, unit, or building).
             """
             postal_code: Optional[str]
             """
@@ -425,11 +425,11 @@ class PaymentMethod(
                     """
                     line1: Optional[str]
                     """
-                    Address line 1, such as the street, PO Box, or company name.
+                    Address line 1 (e.g., street, PO Box, or company name).
                     """
                     line2: Optional[str]
                     """
-                    Address line 2, such as the apartment, suite, unit, or building.
+                    Address line 2 (e.g., apartment, suite, unit, or building).
                     """
                     postal_code: Optional[str]
                     """
@@ -451,11 +451,11 @@ class PaymentMethod(
                     """
                     line1: Optional[str]
                     """
-                    Address line 1, such as the street, PO Box, or company name.
+                    Address line 1 (e.g., street, PO Box, or company name).
                     """
                     line2: Optional[str]
                     """
-                    Address line 2, such as the apartment, suite, unit, or building.
+                    Address line 2 (e.g., apartment, suite, unit, or building).
                     """
                     postal_code: Optional[str]
                     """
@@ -502,11 +502,11 @@ class PaymentMethod(
                     """
                     line1: Optional[str]
                     """
-                    Address line 1, such as the street, PO Box, or company name.
+                    Address line 1 (e.g., street, PO Box, or company name).
                     """
                     line2: Optional[str]
                     """
-                    Address line 2, such as the apartment, suite, unit, or building.
+                    Address line 2 (e.g., apartment, suite, unit, or building).
                     """
                     postal_code: Optional[str]
                     """
@@ -528,11 +528,11 @@ class PaymentMethod(
                     """
                     line1: Optional[str]
                     """
-                    Address line 1, such as the street, PO Box, or company name.
+                    Address line 1 (e.g., street, PO Box, or company name).
                     """
                     line2: Optional[str]
                     """
-                    Address line 2, such as the apartment, suite, unit, or building.
+                    Address line 2 (e.g., apartment, suite, unit, or building).
                     """
                     postal_code: Optional[str]
                     """
@@ -1216,9 +1216,6 @@ class PaymentMethod(
         The PayID alias for the bank account.
         """
 
-    class Paypay(StripeObject):
-        pass
-
     class Pix(StripeObject):
         pass
 
@@ -1860,11 +1857,11 @@ class PaymentMethod(
         """
         line1: NotRequired[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -2390,6 +2387,10 @@ class PaymentMethod(
         """
         Specifies which fields in the response should be expanded.
         """
+        link: NotRequired["PaymentMethod.ModifyParamsLink"]
+        """
+        If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -2442,11 +2443,11 @@ class PaymentMethod(
         """
         line1: NotRequired[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """

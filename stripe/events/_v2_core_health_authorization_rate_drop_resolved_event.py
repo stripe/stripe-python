@@ -95,10 +95,6 @@ class V2CoreHealthAuthorizationRateDropResolvedEvent(Event):
             """
             _inner_class_types = {"dimensions": Dimension}
 
-        alert_id: str
-        """
-        The alert ID.
-        """
         grouping_key: str
         """
         The grouping key for the alert.

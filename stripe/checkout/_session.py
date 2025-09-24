@@ -175,11 +175,11 @@ class Session(
                 """
                 line1: Optional[str]
                 """
-                Address line 1, such as the street, PO Box, or company name.
+                Address line 1 (e.g., street, PO Box, or company name).
                 """
                 line2: Optional[str]
                 """
-                Address line 2, such as the apartment, suite, unit, or building.
+                Address line 2 (e.g., apartment, suite, unit, or building).
                 """
                 postal_code: Optional[str]
                 """
@@ -555,11 +555,11 @@ class Session(
             """
             line1: Optional[str]
             """
-            Address line 1, such as the street, PO Box, or company name.
+            Address line 1 (e.g., street, PO Box, or company name).
             """
             line2: Optional[str]
             """
-            Address line 2, such as the apartment, suite, unit, or building.
+            Address line 2 (e.g., apartment, suite, unit, or building).
             """
             postal_code: Optional[str]
             """
@@ -696,18 +696,10 @@ class Session(
         """
         The customer's address after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022.
         """
-        business_name: Optional[str]
-        """
-        The customer's business name after a completed Checkout Session.
-        """
         email: Optional[str]
         """
         The email associated with the Customer, if one exists, on the Checkout Session after a completed Checkout Session or at time of session expiry.
         Otherwise, if the customer has consented to promotional content, this value is the most recent valid email provided by the customer on the Checkout form.
-        """
-        individual_name: Optional[str]
-        """
-        The customer's individual name after a completed Checkout Session.
         """
         name: Optional[str]
         """
@@ -810,31 +802,6 @@ class Session(
         invoice_data: InvoiceData
         _inner_class_types = {"invoice_data": InvoiceData}
 
-    class NameCollection(StripeObject):
-        class Business(StripeObject):
-            enabled: bool
-            """
-            Indicates whether business name collection is enabled for the session
-            """
-            optional: bool
-            """
-            Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
-            """
-
-        class Individual(StripeObject):
-            enabled: bool
-            """
-            Indicates whether individual name collection is enabled for the session
-            """
-            optional: bool
-            """
-            Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
-            """
-
-        business: Optional[Business]
-        individual: Optional[Individual]
-        _inner_class_types = {"business": Business, "individual": Individual}
-
     class OptionalItem(StripeObject):
         class AdjustableQuantity(StripeObject):
             enabled: bool
@@ -921,10 +888,6 @@ class Session(
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Affirm(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
             setup_future_usage: Optional[Literal["none"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -937,10 +900,6 @@ class Session(
             """
 
         class AfterpayClearpay(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
             setup_future_usage: Optional[Literal["none"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -964,17 +923,7 @@ class Session(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
-        class Alma(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
-
         class AmazonPay(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
             setup_future_usage: Optional[Literal["none", "off_session"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1040,12 +989,6 @@ class Session(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
-        class Billie(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
-
         class Boleto(StripeObject):
             expires_after_days: int
             """
@@ -1086,10 +1029,6 @@ class Session(
                 Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
                 """
 
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
             installments: Optional[Installments]
             request_decremental_authorization: Optional[
                 Literal["if_available", "never"]
@@ -1148,10 +1087,6 @@ class Session(
             }
 
         class Cashapp(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
             setup_future_usage: Optional[Literal["none"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1298,10 +1233,6 @@ class Session(
             """
 
         class Klarna(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
             ]
@@ -1348,10 +1279,6 @@ class Session(
             """
 
         class Link(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
             setup_future_usage: Optional[Literal["none", "off_session"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1364,10 +1291,6 @@ class Session(
             """
 
         class Mobilepay(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
             setup_future_usage: Optional[Literal["none"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1615,10 +1538,6 @@ class Session(
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class RevolutPay(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
             setup_future_usage: Optional[Literal["none", "off_session"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1631,12 +1550,6 @@ class Session(
             """
 
         class SamsungPay(StripeObject):
-            capture_method: Optional[Literal["manual"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
-
-        class Satispay(StripeObject):
             capture_method: Optional[Literal["manual"]]
             """
             Controls when the funds will be captured from the customer's account.
@@ -1772,12 +1685,10 @@ class Session(
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
         alipay: Optional[Alipay]
-        alma: Optional[Alma]
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
-        billie: Optional[Billie]
         boleto: Optional[Boleto]
         card: Optional[Card]
         cashapp: Optional[Cashapp]
@@ -1804,7 +1715,6 @@ class Session(
         pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
-        satispay: Optional[Satispay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
@@ -1814,12 +1724,10 @@ class Session(
             "affirm": Affirm,
             "afterpay_clearpay": AfterpayClearpay,
             "alipay": Alipay,
-            "alma": Alma,
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
-            "billie": Billie,
             "boleto": Boleto,
             "card": Card,
             "cashapp": Cashapp,
@@ -1846,7 +1754,6 @@ class Session(
             "pix": Pix,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
-            "satispay": Satispay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "swish": Swish,
@@ -2366,10 +2273,6 @@ class Session(
         """
         Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
         """
-        branding_settings: NotRequired["Session.CreateParamsBrandingSettings"]
-        """
-        The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `custom`.
-        """
         cancel_url: NotRequired[str]
         """
         If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
@@ -2443,63 +2346,6 @@ class Session(
         discounts: NotRequired[List["Session.CreateParamsDiscount"]]
         """
         The coupon or promotion code to apply to this Session. Currently, only up to one may be specified.
-        """
-        excluded_payment_method_types: NotRequired[
-            List[
-                Literal[
-                    "acss_debit",
-                    "affirm",
-                    "afterpay_clearpay",
-                    "alipay",
-                    "alma",
-                    "amazon_pay",
-                    "au_becs_debit",
-                    "bacs_debit",
-                    "bancontact",
-                    "billie",
-                    "blik",
-                    "boleto",
-                    "card",
-                    "cashapp",
-                    "crypto",
-                    "customer_balance",
-                    "eps",
-                    "fpx",
-                    "giropay",
-                    "grabpay",
-                    "ideal",
-                    "kakao_pay",
-                    "klarna",
-                    "konbini",
-                    "kr_card",
-                    "mobilepay",
-                    "multibanco",
-                    "naver_pay",
-                    "nz_bank_account",
-                    "oxxo",
-                    "p24",
-                    "pay_by_bank",
-                    "payco",
-                    "paynow",
-                    "paypal",
-                    "paypay",
-                    "pix",
-                    "promptpay",
-                    "revolut_pay",
-                    "samsung_pay",
-                    "satispay",
-                    "sepa_debit",
-                    "sofort",
-                    "swish",
-                    "twint",
-                    "us_bank_account",
-                    "wechat_pay",
-                    "zip",
-                ]
-            ]
-        ]
-        """
-        A list of the types of payment methods (e.g., `card`) that should be excluded from this Checkout Session. This should only be used when payment methods for this Checkout Session are managed through the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
         """
         expand: NotRequired[List[str]]
         """
@@ -2576,14 +2422,6 @@ class Session(
         mode: NotRequired[Literal["payment", "setup", "subscription"]]
         """
         The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
-        """
-        name_collection: NotRequired["Session.CreateParamsNameCollection"]
-        """
-        Controls name collection settings for the session.
-
-        You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
-
-        If a [Customer](https://stripe.com/docs/api/customers) is created or provided, the names can be saved to the Customer object as well.
         """
         optional_items: NotRequired[List["Session.CreateParamsOptionalItem"]]
         """
@@ -3276,10 +3114,6 @@ class Session(
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
-        unit_label: NotRequired[str]
-        """
-        A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
-        """
 
     class CreateParamsLineItemPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
@@ -3289,36 +3123,6 @@ class Session(
         interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
-        """
-
-    class CreateParamsNameCollection(TypedDict):
-        business: NotRequired["Session.CreateParamsNameCollectionBusiness"]
-        """
-        Controls settings applied for collecting the customer's business name on the session.
-        """
-        individual: NotRequired["Session.CreateParamsNameCollectionIndividual"]
-        """
-        Controls settings applied for collecting the customer's individual name on the session.
-        """
-
-    class CreateParamsNameCollectionBusiness(TypedDict):
-        enabled: bool
-        """
-        Enable business name collection on the Checkout Session. Defaults to `false`.
-        """
-        optional: NotRequired[bool]
-        """
-        Whether the customer is required to provide a business name before completing the Checkout Session. Defaults to `false`.
-        """
-
-    class CreateParamsNameCollectionIndividual(TypedDict):
-        enabled: bool
-        """
-        Enable individual name collection on the Checkout Session. Defaults to `false`.
-        """
-        optional: NotRequired[bool]
-        """
-        Whether the customer is required to provide their name before completing the Checkout Session. Defaults to `false`.
         """
 
     class CreateParamsOptionalItem(TypedDict):
@@ -3462,11 +3266,11 @@ class Session(
         """
         line1: str
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -3519,10 +3323,6 @@ class Session(
         """
         contains details about the Alipay payment method options.
         """
-        alma: NotRequired["Session.CreateParamsPaymentMethodOptionsAlma"]
-        """
-        contains details about the Alma payment method options.
-        """
         amazon_pay: NotRequired[
             "Session.CreateParamsPaymentMethodOptionsAmazonPay"
         ]
@@ -3547,10 +3347,6 @@ class Session(
         """
         contains details about the Bancontact payment method options.
         """
-        billie: NotRequired["Session.CreateParamsPaymentMethodOptionsBillie"]
-        """
-        contains details about the Billie payment method options.
-        """
         boleto: NotRequired["Session.CreateParamsPaymentMethodOptionsBoleto"]
         """
         contains details about the Boleto payment method options.
@@ -3568,12 +3364,6 @@ class Session(
         ]
         """
         contains details about the Customer Balance payment method options.
-        """
-        demo_pay: NotRequired[
-            "Session.CreateParamsPaymentMethodOptionsDemoPay"
-        ]
-        """
-        contains details about the DemoPay payment method options.
         """
         eps: NotRequired["Session.CreateParamsPaymentMethodOptionsEps"]
         """
@@ -3681,12 +3471,6 @@ class Session(
         """
         contains details about the Samsung Pay payment method options.
         """
-        satispay: NotRequired[
-            "Session.CreateParamsPaymentMethodOptionsSatispay"
-        ]
-        """
-        contains details about the Satispay payment method options.
-        """
         sepa_debit: NotRequired[
             "Session.CreateParamsPaymentMethodOptionsSepaDebit"
         ]
@@ -3775,10 +3559,6 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsAffirm(TypedDict):
-        capture_method: NotRequired[Literal["manual"]]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3791,10 +3571,6 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
-        capture_method: NotRequired[Literal["manual"]]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3818,17 +3594,7 @@ class Session(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
-    class CreateParamsPaymentMethodOptionsAlma(TypedDict):
-        capture_method: NotRequired[Literal["manual"]]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
-
     class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
-        capture_method: NotRequired[Literal["manual"]]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3898,12 +3664,6 @@ class Session(
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
-    class CreateParamsPaymentMethodOptionsBillie(TypedDict):
-        capture_method: NotRequired[Literal["manual"]]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
-
     class CreateParamsPaymentMethodOptionsBoleto(TypedDict):
         expires_after_days: NotRequired[int]
         """
@@ -3923,10 +3683,6 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
-        capture_method: NotRequired[Literal["manual"]]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
         installments: NotRequired[
             "Session.CreateParamsPaymentMethodOptionsCardInstallments"
         ]
@@ -4013,10 +3769,6 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsCashapp(TypedDict):
-        capture_method: NotRequired[Literal["manual"]]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
         setup_future_usage: NotRequired[
             Literal["none", "off_session", "on_session"]
         ]
@@ -4098,18 +3850,6 @@ class Session(
         The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
         """
 
-    class CreateParamsPaymentMethodOptionsDemoPay(TypedDict):
-        setup_future_usage: NotRequired[Literal["none", "off_session"]]
-        """
-        Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
-
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
-
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
-        """
-
     class CreateParamsPaymentMethodOptionsEps(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -4187,10 +3927,6 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
-        capture_method: NotRequired[Literal["manual"]]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4275,10 +4011,6 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsLink(TypedDict):
-        capture_method: NotRequired[Literal["manual"]]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4291,10 +4023,6 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsMobilepay(TypedDict):
-        capture_method: NotRequired[Literal["manual"]]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4587,10 +4315,6 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
-        capture_method: NotRequired[Literal["manual"]]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4603,12 +4327,6 @@ class Session(
         """
 
     class CreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
-        capture_method: NotRequired[Literal["manual"]]
-        """
-        Controls when the funds will be captured from the customer's account.
-        """
-
-    class CreateParamsPaymentMethodOptionsSatispay(TypedDict):
         capture_method: NotRequired[Literal["manual"]]
         """
         Controls when the funds will be captured from the customer's account.
@@ -5259,21 +4977,9 @@ class Session(
         """
 
     class CreateParamsSubscriptionDataBillingMode(TypedDict):
-        flexible: NotRequired[
-            "Session.CreateParamsSubscriptionDataBillingModeFlexible"
-        ]
-        """
-        Configure behavior for flexible billing mode.
-        """
         type: Literal["classic", "flexible"]
         """
-        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
-        """
-
-    class CreateParamsSubscriptionDataBillingModeFlexible(TypedDict):
-        proration_discounts: NotRequired[Literal["included", "itemized"]]
-        """
-        Controls how invoices and invoice items display proration amounts and discount amounts.
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
         """
 
     class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
@@ -5517,11 +5223,11 @@ class Session(
         """
         line1: str
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -5844,7 +5550,6 @@ class Session(
     """
     Describes whether Checkout should collect the customer's billing address. Defaults to `auto`.
     """
-    branding_settings: Optional[BrandingSettings]
     cancel_url: Optional[str]
     """
     If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website.
@@ -5921,10 +5626,6 @@ class Session(
     discounts: Optional[List[Discount]]
     """
     List of coupons and promotion codes attached to the Checkout Session.
-    """
-    excluded_payment_method_types: Optional[List[str]]
-    """
-    A list of the types of payment methods (e.g., `card`) that should be excluded from this Checkout Session. This should only be used when payment methods for this Checkout Session are managed through the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
     """
     expires_at: int
     """
@@ -6006,7 +5707,6 @@ class Session(
     """
     The mode of the Checkout Session.
     """
-    name_collection: Optional[NameCollection]
     object: Literal["checkout.session"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -6509,7 +6209,6 @@ class Session(
         "customer_details": CustomerDetails,
         "discounts": Discount,
         "invoice_creation": InvoiceCreation,
-        "name_collection": NameCollection,
         "optional_items": OptionalItem,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,

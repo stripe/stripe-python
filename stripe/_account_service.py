@@ -244,11 +244,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -1279,11 +1279,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -1717,11 +1717,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -1817,11 +1817,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -2129,15 +2129,23 @@ class AccountService(StripeService):
             ]
         ]
         """
-        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
+        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
         """
         weekly_payout_days: NotRequired[
             List[
-                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
+                Literal[
+                    "friday",
+                    "monday",
+                    "saturday",
+                    "sunday",
+                    "thursday",
+                    "tuesday",
+                    "wednesday",
+                ]
             ]
         ]
         """
-        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
         """
 
     class CreateParamsSettingsTaxForms(TypedDict):
@@ -2460,11 +2468,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -3492,11 +3500,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -3860,11 +3868,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -3960,11 +3968,11 @@ class AccountService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -4276,15 +4284,23 @@ class AccountService(StripeService):
             ]
         ]
         """
-        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. Required and applicable only if `interval` is `weekly`.
+        The day of the week when available funds are paid out, specified as `monday`, `tuesday`, etc. (required and applicable only if `interval` is `weekly`.)
         """
         weekly_payout_days: NotRequired[
             List[
-                Literal["friday", "monday", "thursday", "tuesday", "wednesday"]
+                Literal[
+                    "friday",
+                    "monday",
+                    "saturday",
+                    "sunday",
+                    "thursday",
+                    "tuesday",
+                    "wednesday",
+                ]
             ]
         ]
         """
-        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
+        The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. (required and applicable only if `interval` is `weekly` and `weekly_anchor` is not set.)
         """
 
     class UpdateParamsSettingsTaxForms(TypedDict):

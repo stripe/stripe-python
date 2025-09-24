@@ -6,7 +6,7 @@ from stripe._util import sanitize_id
 from stripe.v2._amount import AmountParam
 from stripe.v2._list_object import ListObject
 from stripe.v2.payments._off_session_payment import OffSessionPayment
-from typing import Dict, Optional, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -19,6 +19,12 @@ class OffSessionPaymentService(StripeService):
         """
         The “presentment amount” to be collected from the customer.
         """
+        amount_details: NotRequired[
+            "OffSessionPaymentService.CreateParamsAmountDetails"
+        ]
+        """
+        Provides industry-specific information about the amount.
+        """
         cadence: Literal["recurring", "unscheduled"]
         """
         The frequency of the underlying payment.
@@ -26,6 +32,12 @@ class OffSessionPaymentService(StripeService):
         customer: str
         """
         ID of the Customer to which this OffSessionPayment belongs.
+        """
+        mandate_data: NotRequired[
+            "OffSessionPaymentService.CreateParamsMandateData"
+        ]
+        """
+        This hash contains details about the Mandate to create.
         """
         metadata: Dict[str, str]
         """
@@ -41,6 +53,18 @@ class OffSessionPaymentService(StripeService):
         payment_method: str
         """
         ID of the payment method used in this OffSessionPayment.
+        """
+        payment_method_options: NotRequired[
+            "OffSessionPaymentService.CreateParamsPaymentMethodOptions"
+        ]
+        """
+        Payment method options for the off-session payment.
+        """
+        payments_orchestration: NotRequired[
+            "OffSessionPaymentService.CreateParamsPaymentsOrchestration"
+        ]
+        """
+        Details about the payments orchestration configuration.
         """
         retry_details: NotRequired[
             "OffSessionPaymentService.CreateParamsRetryDetails"
@@ -72,8 +96,131 @@ class OffSessionPaymentService(StripeService):
         The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.corp.stripe.com/payments/connected-accounts).
         """
 
+    class CreateParamsAmountDetails(TypedDict):
+        discount_amount: NotRequired[int]
+        """
+        The amount the total transaction was discounted for.
+        """
+        line_items: List[
+            "OffSessionPaymentService.CreateParamsAmountDetailsLineItem"
+        ]
+        """
+        A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        """
+        shipping: NotRequired[
+            "OffSessionPaymentService.CreateParamsAmountDetailsShipping"
+        ]
+        """
+        Contains information about the shipping portion of the amount.
+        """
+        tax: NotRequired[
+            "OffSessionPaymentService.CreateParamsAmountDetailsTax"
+        ]
+        """
+        Contains information about the tax portion of the amount.
+        """
+
+    class CreateParamsAmountDetailsLineItem(TypedDict):
+        discount_amount: NotRequired[int]
+        """
+        The amount an item was discounted for. Positive integer.
+        """
+        product_code: NotRequired[str]
+        """
+        Unique identifier of the product. At most 12 characters long.
+        """
+        product_name: str
+        """
+        Name of the product. At most 100 characters long.
+        """
+        quantity: int
+        """
+        Number of items of the product. Positive integer.
+        """
+        tax: NotRequired[
+            "OffSessionPaymentService.CreateParamsAmountDetailsLineItemTax"
+        ]
+        """
+        Contains information about the tax on the item.
+        """
+        unit_cost: int
+        """
+        Cost of the product. Non-negative integer.
+        """
+
+    class CreateParamsAmountDetailsLineItemTax(TypedDict):
+        total_tax_amount: NotRequired[int]
+        """
+        Total portion of the amount that is for tax.
+        """
+
+    class CreateParamsAmountDetailsShipping(TypedDict):
+        amount: NotRequired[int]
+        """
+        Portion of the amount that is for shipping.
+        """
+        from_postal_code: NotRequired[str]
+        """
+        The postal code that represents the shipping source.
+        """
+        to_postal_code: NotRequired[str]
+        """
+        The postal code that represents the shipping destination.
+        """
+
+    class CreateParamsAmountDetailsTax(TypedDict):
+        total_tax_amount: NotRequired[int]
+        """
+        Total portion of the amount that is for tax.
+        """
+
+    class CreateParamsMandateData(TypedDict):
+        customer_acceptance: "OffSessionPaymentService.CreateParamsMandateDataCustomerAcceptance"
+        """
+        This hash contains details about the customer acceptance of the Mandate.
+        """
+
+    class CreateParamsMandateDataCustomerAcceptance(TypedDict):
+        accepted_at: NotRequired[str]
+        """
+        The time at which the customer accepted the Mandate.
+        """
+        type: Literal["offline"]
+        """
+        The type of customer acceptance information included with the Mandate.
+        """
+
+    class CreateParamsPaymentMethodOptions(TypedDict):
+        card: NotRequired[
+            "OffSessionPaymentService.CreateParamsPaymentMethodOptionsCard"
+        ]
+        """
+        Payment method options for the card payment type.
+        """
+
+    class CreateParamsPaymentMethodOptionsCard(TypedDict):
+        network_transaction_id: str
+        """
+        If you are making a Credential On File transaction with a previously saved card, you should pass the Network Transaction ID
+        from a prior initial authorization on Stripe (from a successful SetupIntent or a PaymentIntent with `setup_future_usage` set),
+        or one that you have obtained from another payment processor. This is a token from the network which uniquely identifies the transaction.
+        Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data.
+        Note that you should pass in a Network Transaction ID if you have one, regardless of whether this is a
+        Customer-Initiated Transaction (CIT) or a Merchant-Initiated Transaction (MIT).
+        """
+
+    class CreateParamsPaymentsOrchestration(TypedDict):
+        enabled: bool
+        """
+        True when you want to enable payments orchestration for this off-session payment. False otherwise.
+        """
+
     class CreateParamsRetryDetails(TypedDict):
-        retry_strategy: Literal["none", "smart"]
+        retry_policy: NotRequired[str]
+        """
+        The pre-configured retry policy to use for the payment.
+        """
+        retry_strategy: Literal["heuristic", "none", "scheduled", "smart"]
         """
         Indicates the strategy for how you want Stripe to retry the payment.
         """

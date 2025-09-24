@@ -34,6 +34,10 @@ class ReceivedDebit(StripeObject):
         """
         The Financial Address that was debited.
         """
+        origin_type: Literal["us_bank_account"]
+        """
+        Open Enum. Indicates the origin type through which this debit was initiated.
+        """
         payment_method_type: Literal["us_bank_account"]
         """
         Open Enum. The type of the payment method used to originate the debit.

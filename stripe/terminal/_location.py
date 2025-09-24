@@ -37,11 +37,11 @@ class Location(
         """
         line1: Optional[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: Optional[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: Optional[str]
         """
@@ -52,94 +52,18 @@ class Location(
         State, county, province, or region.
         """
 
-    class AddressKana(StripeObject):
-        city: Optional[str]
-        """
-        City/Ward.
-        """
-        country: Optional[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: Optional[str]
-        """
-        Block/Building number.
-        """
-        line2: Optional[str]
-        """
-        Building details.
-        """
-        postal_code: Optional[str]
-        """
-        ZIP or postal code.
-        """
-        state: Optional[str]
-        """
-        Prefecture.
-        """
-        town: Optional[str]
-        """
-        Town/cho-me.
-        """
-
-    class AddressKanji(StripeObject):
-        city: Optional[str]
-        """
-        City/Ward.
-        """
-        country: Optional[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: Optional[str]
-        """
-        Block/Building number.
-        """
-        line2: Optional[str]
-        """
-        Building details.
-        """
-        postal_code: Optional[str]
-        """
-        ZIP or postal code.
-        """
-        state: Optional[str]
-        """
-        Prefecture.
-        """
-        town: Optional[str]
-        """
-        Town/cho-me.
-        """
-
     class CreateParams(RequestOptions):
-        address: NotRequired["Location.CreateParamsAddress"]
+        address: "Location.CreateParamsAddress"
         """
         The full address of the location.
-        """
-        address_kana: NotRequired["Location.CreateParamsAddressKana"]
-        """
-        The Kana variation of the full address of the location (Japan only).
-        """
-        address_kanji: NotRequired["Location.CreateParamsAddressKanji"]
-        """
-        The Kanji variation of the full address of the location (Japan only).
         """
         configuration_overrides: NotRequired[str]
         """
         The ID of a configuration that will be used to customize all readers in this location.
         """
-        display_name: NotRequired[str]
+        display_name: str
         """
         A name for the location. Maximum length is 1000 characters.
-        """
-        display_name_kana: NotRequired[str]
-        """
-        The Kana variation of the name for the location (Japan only). Maximum length is 1000 characters.
-        """
-        display_name_kanji: NotRequired[str]
-        """
-        The Kanji variation of the name for the location (Japan only). Maximum length is 1000 characters.
         """
         expand: NotRequired[List[str]]
         """
@@ -148,10 +72,6 @@ class Location(
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        phone: NotRequired[str]
-        """
-        The phone number for the location.
         """
 
     class CreateParamsAddress(TypedDict):
@@ -165,11 +85,11 @@ class Location(
         """
         line1: NotRequired[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -178,66 +98,6 @@ class Location(
         state: NotRequired[str]
         """
         State, county, province, or region.
-        """
-
-    class CreateParamsAddressKana(TypedDict):
-        city: NotRequired[str]
-        """
-        City or ward.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Block or building number.
-        """
-        line2: NotRequired[str]
-        """
-        Building details.
-        """
-        postal_code: NotRequired[str]
-        """
-        Postal code.
-        """
-        state: NotRequired[str]
-        """
-        Prefecture.
-        """
-        town: NotRequired[str]
-        """
-        Town or cho-me.
-        """
-
-    class CreateParamsAddressKanji(TypedDict):
-        city: NotRequired[str]
-        """
-        City or ward.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Block or building number.
-        """
-        line2: NotRequired[str]
-        """
-        Building details.
-        """
-        postal_code: NotRequired[str]
-        """
-        Postal code.
-        """
-        state: NotRequired[str]
-        """
-        Prefecture.
-        """
-        town: NotRequired[str]
-        """
-        Town or cho-me.
         """
 
     class DeleteParams(RequestOptions):
@@ -266,14 +126,6 @@ class Location(
         """
         The full address of the location. You can't change the location's `country`. If you need to modify the `country` field, create a new `Location` object and re-register any existing readers to that location.
         """
-        address_kana: NotRequired["Location.ModifyParamsAddressKana"]
-        """
-        The Kana variation of the full address of the location (Japan only).
-        """
-        address_kanji: NotRequired["Location.ModifyParamsAddressKanji"]
-        """
-        The Kanji variation of the full address of the location (Japan only).
-        """
         configuration_overrides: NotRequired["Literal['']|str"]
         """
         The ID of a configuration that will be used to customize all readers in this location.
@@ -282,14 +134,6 @@ class Location(
         """
         A name for the location.
         """
-        display_name_kana: NotRequired["Literal['']|str"]
-        """
-        The Kana variation of the name for the location (Japan only).
-        """
-        display_name_kanji: NotRequired["Literal['']|str"]
-        """
-        The Kanji variation of the name for the location (Japan only).
-        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -297,10 +141,6 @@ class Location(
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        phone: NotRequired["Literal['']|str"]
-        """
-        The phone number for the location.
         """
 
     class ModifyParamsAddress(TypedDict):
@@ -314,11 +154,11 @@ class Location(
         """
         line1: NotRequired[str]
         """
-        Address line 1, such as the street, PO Box, or company name.
+        Address line 1 (e.g., street, PO Box, or company name).
         """
         line2: NotRequired[str]
         """
-        Address line 2, such as the apartment, suite, unit, or building.
+        Address line 2 (e.g., apartment, suite, unit, or building).
         """
         postal_code: NotRequired[str]
         """
@@ -329,66 +169,6 @@ class Location(
         State, county, province, or region.
         """
 
-    class ModifyParamsAddressKana(TypedDict):
-        city: NotRequired[str]
-        """
-        City or ward.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Block or building number.
-        """
-        line2: NotRequired[str]
-        """
-        Building details.
-        """
-        postal_code: NotRequired[str]
-        """
-        Postal code.
-        """
-        state: NotRequired[str]
-        """
-        Prefecture.
-        """
-        town: NotRequired[str]
-        """
-        Town or cho-me.
-        """
-
-    class ModifyParamsAddressKanji(TypedDict):
-        city: NotRequired[str]
-        """
-        City or ward.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Block or building number.
-        """
-        line2: NotRequired[str]
-        """
-        Building details.
-        """
-        postal_code: NotRequired[str]
-        """
-        Postal code.
-        """
-        state: NotRequired[str]
-        """
-        Prefecture.
-        """
-        town: NotRequired[str]
-        """
-        Town or cho-me.
-        """
-
     class RetrieveParams(RequestOptions):
         expand: NotRequired[List[str]]
         """
@@ -396,8 +176,6 @@ class Location(
         """
 
     address: Address
-    address_kana: Optional[AddressKana]
-    address_kanji: Optional[AddressKanji]
     configuration_overrides: Optional[str]
     """
     The ID of a configuration that will be used to customize all readers in this location.
@@ -409,14 +187,6 @@ class Location(
     display_name: str
     """
     The display name of the location.
-    """
-    display_name_kana: Optional[str]
-    """
-    The Kana variation of the display name of the location.
-    """
-    display_name_kanji: Optional[str]
-    """
-    The Kanji variation of the display name of the location.
     """
     id: str
     """
@@ -433,10 +203,6 @@ class Location(
     object: Literal["terminal.location"]
     """
     String representing the object's type. Objects of the same type share the same value.
-    """
-    phone: Optional[str]
-    """
-    The phone number of the location.
     """
 
     @classmethod
@@ -663,8 +429,4 @@ class Location(
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {
-        "address": Address,
-        "address_kana": AddressKana,
-        "address_kanji": AddressKanji,
-    }
+    _inner_class_types = {"address": Address}

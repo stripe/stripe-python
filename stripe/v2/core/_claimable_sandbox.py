@@ -20,21 +20,6 @@ class ClaimableSandbox(StripeObject):
         "v2.core.claimable_sandbox"
     )
 
-    class ApiKeys(StripeObject):
-        mcp: Optional[str]
-        """
-        Used to communicate with [Stripe's MCP server](https://docs.stripe.com/mcp).
-        This allows LLM agents to securely operate on a Stripe account.
-        """
-        publishable: str
-        """
-        Publicly accessible in a web or mobile app client-side code.
-        """
-        secret: str
-        """
-        Should be stored securely in server-side code (such as an environment variable).
-        """
-
     class Prefill(StripeObject):
         country: str
         """
@@ -51,17 +36,53 @@ class ClaimableSandbox(StripeObject):
         Name for the sandbox.
         """
 
-    api_keys: ApiKeys
-    """
-    Keys that can be used to set up an integration for this sandbox and operate on the account.
-    """
-    claim_url: str
+    class SandboxDetails(StripeObject):
+        class ApiKeys(StripeObject):
+            mcp: Optional[str]
+            """
+            Used to communicate with [Stripe's MCP server](https://docs.stripe.com/mcp).
+            This allows LLM agents to securely operate on a Stripe account.
+            """
+            publishable: str
+            """
+            Publicly accessible in a web or mobile app client-side code.
+            """
+            secret: str
+            """
+            Should be stored securely in server-side code (such as an environment variable).
+            """
+
+        account: str
+        """
+        The sandbox's Stripe account ID.
+        """
+        api_keys: Optional[ApiKeys]
+        """
+        Keys that can be used to set up an integration for this sandbox and operate on the account. This will be present only in the create response, and will be null in subsequent retrieve responses.
+        """
+        owner_account: Optional[str]
+        """
+        The livemode sandbox Stripe account ID. This field is only set if the user activates their sandbox
+        and chooses to install your platform's Stripe App in their live account.
+        """
+        _inner_class_types = {"api_keys": ApiKeys}
+
+    claim_url: Optional[str]
     """
     URL for user to claim sandbox into their existing Stripe account.
+    The value will be null if the sandbox status is `claimed` or `expired`.
+    """
+    claimed_at: Optional[str]
+    """
+    The timestamp the sandbox was claimed. The value will be null if the sandbox status is not `claimed`.
     """
     created: str
     """
     When the sandbox is created.
+    """
+    expires_at: Optional[str]
+    """
+    The timestamp the sandbox will expire. The value will be null if the sandbox is `claimed`.
     """
     id: str
     """
@@ -77,6 +98,17 @@ class ClaimableSandbox(StripeObject):
     """
     prefill: Prefill
     """
-    Values prefilled during the creation of the sandbox.
+    Values prefilled during the creation of the sandbox. When a user claims the sandbox, they will be able to update these values.
     """
-    _inner_class_types = {"api_keys": ApiKeys, "prefill": Prefill}
+    sandbox_details: SandboxDetails
+    """
+    Data about the Stripe sandbox object.
+    """
+    status: Literal["claimed", "expired", "unclaimed"]
+    """
+    Status of the sandbox. One of `unclaimed`, `expired`, `claimed`.
+    """
+    _inner_class_types = {
+        "prefill": Prefill,
+        "sandbox_details": SandboxDetails,
+    }

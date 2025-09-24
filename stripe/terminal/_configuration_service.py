@@ -11,12 +11,6 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class ConfigurationService(StripeService):
     class CreateParams(TypedDict):
-        bbpos_wisepad3: NotRequired[
-            "ConfigurationService.CreateParamsBbposWisepad3"
-        ]
-        """
-        An object containing device type specific settings for BBPOS WisePad 3 readers
-        """
         bbpos_wisepos_e: NotRequired[
             "ConfigurationService.CreateParamsBbposWiseposE"
         ]
@@ -68,12 +62,6 @@ class ConfigurationService(StripeService):
         wifi: NotRequired["Literal['']|ConfigurationService.CreateParamsWifi"]
         """
         Configurations for connecting to a WiFi network.
-        """
-
-    class CreateParamsBbposWisepad3(TypedDict):
-        splashscreen: NotRequired["Literal['']|str"]
-        """
-        A File ID representing an image you would like displayed on the reader.
         """
 
     class CreateParamsBbposWiseposE(TypedDict):
@@ -604,12 +592,6 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParams(TypedDict):
-        bbpos_wisepad3: NotRequired[
-            "Literal['']|ConfigurationService.UpdateParamsBbposWisepad3"
-        ]
-        """
-        An object containing device type specific settings for BBPOS WisePad 3 readers
-        """
         bbpos_wisepos_e: NotRequired[
             "Literal['']|ConfigurationService.UpdateParamsBbposWiseposE"
         ]
@@ -663,12 +645,6 @@ class ConfigurationService(StripeService):
         wifi: NotRequired["Literal['']|ConfigurationService.UpdateParamsWifi"]
         """
         Configurations for connecting to a WiFi network.
-        """
-
-    class UpdateParamsBbposWisepad3(TypedDict):
-        splashscreen: NotRequired["Literal['']|str"]
-        """
-        A File ID representing an image you would like displayed on the reader.
         """
 
     class UpdateParamsBbposWiseposE(TypedDict):

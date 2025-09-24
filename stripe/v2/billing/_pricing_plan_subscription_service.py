@@ -7,7 +7,7 @@ from stripe.v2._list_object import ListObject
 from stripe.v2.billing._pricing_plan_subscription import (
     PricingPlanSubscription,
 )
-from typing import Optional, cast
+from typing import Dict, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -52,6 +52,16 @@ class PricingPlanSubscriptionService(StripeService):
 
     class RetrieveParams(TypedDict):
         pass
+
+    class UpdateParams(TypedDict):
+        clear_cancel_at: NotRequired[bool]
+        """
+        When set to true, the `servicing_status_transition.will_cancel_at` field will be cleared.
+        """
+        metadata: NotRequired[Dict[str, Optional[str]]]
+        """
+        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        """
 
     def list(
         self,
@@ -130,6 +140,50 @@ class PricingPlanSubscriptionService(StripeService):
             PricingPlanSubscription,
             await self._request_async(
                 "get",
+                "/v2/billing/pricing_plan_subscriptions/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def update(
+        self,
+        id: str,
+        params: Optional["PricingPlanSubscriptionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> PricingPlanSubscription:
+        """
+        Update a Pricing Plan Subscription object.
+        """
+        return cast(
+            PricingPlanSubscription,
+            self._request(
+                "post",
+                "/v2/billing/pricing_plan_subscriptions/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        params: Optional["PricingPlanSubscriptionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> PricingPlanSubscription:
+        """
+        Update a Pricing Plan Subscription object.
+        """
+        return cast(
+            PricingPlanSubscription,
+            await self._request_async(
+                "post",
                 "/v2/billing/pricing_plan_subscriptions/{id}".format(
                     id=sanitize_id(id),
                 ),

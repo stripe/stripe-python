@@ -402,6 +402,8 @@ class _APIRequestor(object):
             return error.NotCancelableError(**error_args)
         elif type == "quota_exceeded":
             return error.QuotaExceededError(**error_args)
+        elif type == "rate_limit":
+            return error.RateLimitError(**error_args)
         elif type == "recipient_not_notifiable":
             return error.RecipientNotNotifiableError(**error_args)
         elif type == "temporary_session_expired":

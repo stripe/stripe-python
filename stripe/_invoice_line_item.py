@@ -521,10 +521,6 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
-        unit_label: NotRequired[str]
-        """
-        A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
-        """
 
     class ModifyParamsPricing(TypedDict):
         price: NotRequired[str]

@@ -28,10 +28,6 @@ class V2CoreHealthTrafficVolumeDropResolvedEvent(Event):
             The size of the observation time window.
             """
 
-        alert_id: str
-        """
-        The alert ID.
-        """
         grouping_key: str
         """
         The grouping key for the alert.

@@ -51,6 +51,10 @@ class ServiceActionService(StripeService):
         """
         Defines the scope where the credit grant is applicable.
         """
+        category: NotRequired[Literal["paid", "promotional"]]
+        """
+        The category of the credit grant.
+        """
         expiry_config: (
             "ServiceActionService.CreateParamsCreditGrantExpiryConfig"
         )
@@ -60,6 +64,10 @@ class ServiceActionService(StripeService):
         name: str
         """
         A descriptive name shown in dashboard.
+        """
+        priority: NotRequired[int]
+        """
+        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
         """
 
     class CreateParamsCreditGrantAmount(TypedDict):
@@ -119,6 +127,10 @@ class ServiceActionService(StripeService):
         """
         Defines the scope where the credit grant is applicable.
         """
+        category: NotRequired[Literal["paid", "promotional"]]
+        """
+        The category of the credit grant.
+        """
         expiry_config: (
             "ServiceActionService.CreateParamsCreditGrantPerTenantExpiryConfig"
         )
@@ -132,6 +144,10 @@ class ServiceActionService(StripeService):
         name: str
         """
         Customer-facing name for the credit grant.
+        """
+        priority: NotRequired[int]
+        """
+        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
         """
 
     class CreateParamsCreditGrantPerTenantAmount(TypedDict):
@@ -233,6 +249,36 @@ class ServiceActionService(StripeService):
     class RetrieveParams(TypedDict):
         pass
 
+    class UpdateParams(TypedDict):
+        lookup_key: NotRequired[str]
+        """
+        An internal key you can use to search for this service action. Maximum length of 200 characters.
+        """
+        credit_grant: NotRequired[
+            "ServiceActionService.UpdateParamsCreditGrant"
+        ]
+        """
+        Details for the credit grant. Can only be set if the service action's `type` is `credit_grant`.
+        """
+        credit_grant_per_tenant: NotRequired[
+            "ServiceActionService.UpdateParamsCreditGrantPerTenant"
+        ]
+        """
+        Details for the credit grant per tenant. Can only be set if the service action's `type` is `credit_grant_per_tenant`.
+        """
+
+    class UpdateParamsCreditGrant(TypedDict):
+        name: NotRequired[str]
+        """
+        A descriptive name shown in dashboard.
+        """
+
+    class UpdateParamsCreditGrantPerTenant(TypedDict):
+        name: NotRequired[str]
+        """
+        A descriptive name shown in dashboard.
+        """
+
     def create(
         self,
         params: "ServiceActionService.CreateParams",
@@ -304,6 +350,46 @@ class ServiceActionService(StripeService):
             ServiceAction,
             await self._request_async(
                 "get",
+                "/v2/billing/service_actions/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def update(
+        self,
+        id: str,
+        params: Optional["ServiceActionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> ServiceAction:
+        """
+        Update a ServiceAction object.
+        """
+        return cast(
+            ServiceAction,
+            self._request(
+                "post",
+                "/v2/billing/service_actions/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        params: Optional["ServiceActionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> ServiceAction:
+        """
+        Update a ServiceAction object.
+        """
+        return cast(
+            ServiceAction,
+            await self._request_async(
+                "post",
                 "/v2/billing/service_actions/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,

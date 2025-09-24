@@ -70,6 +70,35 @@ class PayoutMethod(StripeObject):
         The last 4 digits of the card number.
         """
 
+    class CryptoWallet(StripeObject):
+        address: str
+        """
+        Destination wallet address.
+        """
+        archived: bool
+        """
+        Whether the crypto wallet was archived. Crypto wallets can be archived through the /archive API,
+        and they will not be automatically archived by Stripe. Archived crypto wallets cannot be used as
+        payout method and will not appear in the payout method list.
+        """
+        memo: Optional[str]
+        """
+        Optional field, required if network supports memos (only "stellar" currently).
+        """
+        network: Literal[
+            "arbitrum",
+            "avalanche_c_chain",
+            "base",
+            "ethereum",
+            "optimism",
+            "polygon",
+            "solana",
+            "stellar",
+        ]
+        """
+        Which rail is being used to make an outbound money movement to this wallet.
+        """
+
     class UsageStatus(StripeObject):
         payments: Literal["eligible", "invalid", "requires_action"]
         """
@@ -96,6 +125,10 @@ class PayoutMethod(StripeObject):
     """
     Created timestamp.
     """
+    crypto_wallet: Optional[CryptoWallet]
+    """
+    The PayoutMethodCryptoWallet object details.
+    """
     id: str
     """
     ID of the PayoutMethod object.
@@ -112,7 +145,7 @@ class PayoutMethod(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    type: Literal["bank_account", "card"]
+    type: Literal["bank_account", "card", "crypto_wallet"]
     """
     Closed Enum. The type of payout method.
     """
@@ -123,5 +156,6 @@ class PayoutMethod(StripeObject):
     _inner_class_types = {
         "bank_account": BankAccount,
         "card": Card,
+        "crypto_wallet": CryptoWallet,
         "usage_status": UsageStatus,
     }
