@@ -20,19 +20,28 @@ class Discount(StripeObject):
     """
 
     OBJECT_NAME: ClassVar[Literal["discount"]] = "discount"
+
+    class Source(StripeObject):
+        coupon: Optional[ExpandableField["Coupon"]]
+        """
+        The coupon that was redeemed to create this discount.
+        """
+        type: Literal["coupon"]
+        """
+        The source type of the discount.
+        """
+
     checkout_session: Optional[str]
     """
     The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode.
     """
-    coupon: "Coupon"
-    """
-    A coupon contains information about a percent-off or amount-off discount you
-    might want to apply to a customer. Coupons may be applied to [subscriptions](https://stripe.com/docs/api#subscriptions), [invoices](https://stripe.com/docs/api#invoices),
-    [checkout sessions](https://stripe.com/docs/api/checkout/sessions), [quotes](https://stripe.com/docs/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge) or [payment intents](https://stripe.com/docs/api/payment_intents).
-    """
     customer: Optional[ExpandableField["Customer"]]
     """
     The ID of the customer associated with this discount.
+    """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
     """
     end: Optional[int]
     """
@@ -58,6 +67,7 @@ class Discount(StripeObject):
     """
     The promotion code applied to create this discount.
     """
+    source: Source
     start: int
     """
     Date that the coupon was applied.
@@ -70,7 +80,4 @@ class Discount(StripeObject):
     """
     The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
     """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
-    """
+    _inner_class_types = {"source": Source}

@@ -30,13 +30,13 @@ class Event(StripeObject):
             The idempotency key transmitted during the request.
             """
 
-        type: Literal["request"]
-        """
-        Event reason type.
-        """
         request: Optional[Request]
         """
         Information on the API request that instigated the event.
+        """
+        type: Literal["request"]
+        """
+        Event reason type.
         """
         _inner_class_types = {"request": Request}
 
@@ -52,6 +52,10 @@ class Event(StripeObject):
     """
     Unique identifier for the event.
     """
+    livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["v2.core.event"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
@@ -63,10 +67,6 @@ class Event(StripeObject):
     type: str
     """
     The type of the event.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
     _inner_class_types = {"reason": Reason}
 

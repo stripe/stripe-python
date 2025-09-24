@@ -39,11 +39,11 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -152,6 +152,10 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         Document ID number.
         """
+        sex: Optional[Literal["[redacted]", "female", "male", "unknown"]]
+        """
+        Sex of the person in the document.
+        """
         status: Literal["unverified", "verified"]
         """
         Status of this `document` check.
@@ -159,6 +163,14 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         type: Optional[Literal["driving_license", "id_card", "passport"]]
         """
         Type of the document.
+        """
+        unparsed_place_of_birth: Optional[str]
+        """
+        Place of birth as it appears in the document.
+        """
+        unparsed_sex: Optional[str]
+        """
+        Sex as it appears in the document.
         """
         _inner_class_types = {
             "address": Address,

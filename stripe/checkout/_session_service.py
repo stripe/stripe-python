@@ -6,7 +6,7 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.checkout._session import Session
 from stripe.checkout._session_line_item_service import SessionLineItemService
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -39,6 +39,12 @@ class SessionService(StripeService):
         billing_address_collection: NotRequired[Literal["auto", "required"]]
         """
         Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
+        """
+        branding_settings: NotRequired[
+            "SessionService.CreateParamsBrandingSettings"
+        ]
+        """
+        The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `custom`.
         """
         cancel_url: NotRequired[str]
         """
@@ -114,6 +120,63 @@ class SessionService(StripeService):
         """
         The coupon or promotion code to apply to this Session. Currently, only up to one may be specified.
         """
+        excluded_payment_method_types: NotRequired[
+            List[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "grabpay",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "pix",
+                    "promptpay",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "sepa_debit",
+                    "sofort",
+                    "swish",
+                    "twint",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ]
+            ]
+        ]
+        """
+        A list of the types of payment methods (e.g., `card`) that should be excluded from this Checkout Session. This should only be used when payment methods for this Checkout Session are managed through the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -130,7 +193,7 @@ class SessionService(StripeService):
         """
         line_items: NotRequired[List["SessionService.CreateParamsLineItem"]]
         """
-        A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices).
+        A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://stripe.com/docs/api/prices). The parameter is required for `payment` and `subscription` mode.
 
         For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
 
@@ -192,6 +255,16 @@ class SessionService(StripeService):
         """
         The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
         """
+        name_collection: NotRequired[
+            "SessionService.CreateParamsNameCollection"
+        ]
+        """
+        Controls name collection settings for the session.
+
+        You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
+
+        If a [Customer](https://stripe.com/docs/api/customers) is created or provided, the names can be saved to the Customer object as well.
+        """
         optional_items: NotRequired[
             List["SessionService.CreateParamsOptionalItem"]
         ]
@@ -203,6 +276,10 @@ class SessionService(StripeService):
         For `payment` mode, there is a maximum of 100 combined line items and optional items, however it is recommended to consolidate items if there are more than a few dozen.
 
         For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
+        """
+        origin_context: NotRequired[Literal["mobile_app", "web"]]
+        """
+        Where the user is coming from. This informs the optimizations that are applied to the session.
         """
         payment_intent_data: NotRequired[
             "SessionService.CreateParamsPaymentIntentData"
@@ -254,6 +331,7 @@ class SessionService(StripeService):
                     "boleto",
                     "card",
                     "cashapp",
+                    "crypto",
                     "customer_balance",
                     "eps",
                     "fpx",
@@ -268,12 +346,14 @@ class SessionService(StripeService):
                     "mobilepay",
                     "multibanco",
                     "naver_pay",
+                    "nz_bank_account",
                     "oxxo",
                     "p24",
                     "pay_by_bank",
                     "payco",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "pix",
                     "promptpay",
                     "revolut_pay",
@@ -296,7 +376,7 @@ class SessionService(StripeService):
         See [Dynamic Payment Methods](https://stripe.com/docs/payments/payment-methods/integration-options#using-dynamic-payment-methods) for more details.
 
         Read more about the supported payment methods and their requirements in our [payment
-        method details guide](https://stripe.com/docs/payments/checkout/payment-methods).
+        method details guide](https://docs.stripe.com/docs/payments/checkout/payment-methods).
 
         If multiple payment methods are passed, Checkout will dynamically reorder them to
         prioritize the most relevant payment methods based on the customer's location and
@@ -394,7 +474,7 @@ class SessionService(StripeService):
     class CreateParamsAdaptivePricing(TypedDict):
         enabled: NotRequired[bool]
         """
-        Set to `true` to enable [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
+        If set to `true`, Adaptive Pricing is available on [eligible sessions](https://docs.stripe.com/payments/currencies/localize-prices/adaptive-pricing?payment-ui=stripe-hosted#restrictions). Defaults to your [dashboard setting](https://dashboard.stripe.com/settings/adaptive-pricing).
         """
 
     class CreateParamsAfterExpiration(TypedDict):
@@ -439,6 +519,68 @@ class SessionService(StripeService):
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
+        """
+
+    class CreateParamsBrandingSettings(TypedDict):
+        background_color: NotRequired["Literal['']|str"]
+        """
+        A hex color value starting with `#` representing the background color for the Checkout Session.
+        """
+        border_style: NotRequired[
+            "Literal['']|Literal['pill', 'rectangular', 'rounded']"
+        ]
+        """
+        The border style for the Checkout Session.
+        """
+        button_color: NotRequired["Literal['']|str"]
+        """
+        A hex color value starting with `#` representing the button color for the Checkout Session.
+        """
+        display_name: NotRequired[str]
+        """
+        A string to override the business name shown on the Checkout Session.
+        """
+        font_family: NotRequired[
+            "Literal['']|Literal['be_vietnam_pro', 'bitter', 'chakra_petch', 'default', 'hahmlet', 'inconsolata', 'inter', 'lato', 'lora', 'm_plus_1_code', 'montserrat', 'noto_sans', 'noto_sans_jp', 'noto_serif', 'nunito', 'open_sans', 'pridi', 'pt_sans', 'pt_serif', 'raleway', 'roboto', 'roboto_slab', 'source_sans_pro', 'titillium_web', 'ubuntu_mono', 'zen_maru_gothic']"
+        ]
+        """
+        The font family for the Checkout Session corresponding to one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
+        """
+        icon: NotRequired["SessionService.CreateParamsBrandingSettingsIcon"]
+        """
+        The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+        """
+        logo: NotRequired["SessionService.CreateParamsBrandingSettingsLogo"]
+        """
+        The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+        """
+
+    class CreateParamsBrandingSettingsIcon(TypedDict):
+        file: NotRequired[str]
+        """
+        The ID of a [File upload](https://stripe.com/docs/api/files) representing the icon. Purpose must be `business_icon`. Required if `type` is `file` and disallowed otherwise.
+        """
+        type: Literal["file", "url"]
+        """
+        The type of image for the icon. Must be one of `file` or `url`.
+        """
+        url: NotRequired[str]
+        """
+        The URL of the image. Required if `type` is `url` and disallowed otherwise.
+        """
+
+    class CreateParamsBrandingSettingsLogo(TypedDict):
+        file: NotRequired[str]
+        """
+        The ID of a [File upload](https://stripe.com/docs/api/files) representing the logo. Purpose must be `business_logo`. Required if `type` is `file` and disallowed otherwise.
+        """
+        type: Literal["file", "url"]
+        """
+        The type of image for the logo. Must be one of `file` or `url`.
+        """
+        url: NotRequired[str]
+        """
+        The URL of the image. Required if `type` is `url` and disallowed otherwise.
         """
 
     class CreateParamsConsentCollection(TypedDict):
@@ -706,6 +848,10 @@ class SessionService(StripeService):
         """
         How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
         """
+        template: NotRequired[str]
+        """
+        ID of the invoice rendering template to use for this invoice.
+        """
 
     class CreateParamsLineItem(TypedDict):
         adjustable_quantity: NotRequired[
@@ -806,6 +952,10 @@ class SessionService(StripeService):
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
+        unit_label: NotRequired[str]
+        """
+        A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+        """
 
     class CreateParamsLineItemPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
@@ -815,6 +965,40 @@ class SessionService(StripeService):
         interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+        """
+
+    class CreateParamsNameCollection(TypedDict):
+        business: NotRequired[
+            "SessionService.CreateParamsNameCollectionBusiness"
+        ]
+        """
+        Controls settings applied for collecting the customer's business name on the session.
+        """
+        individual: NotRequired[
+            "SessionService.CreateParamsNameCollectionIndividual"
+        ]
+        """
+        Controls settings applied for collecting the customer's individual name on the session.
+        """
+
+    class CreateParamsNameCollectionBusiness(TypedDict):
+        enabled: bool
+        """
+        Enable business name collection on the Checkout Session. Defaults to `false`.
+        """
+        optional: NotRequired[bool]
+        """
+        Whether the customer is required to provide a business name before completing the Checkout Session. Defaults to `false`.
+        """
+
+    class CreateParamsNameCollectionIndividual(TypedDict):
+        enabled: bool
+        """
+        Enable individual name collection on the Checkout Session. Defaults to `false`.
+        """
+        optional: NotRequired[bool]
+        """
+        Whether the customer is required to provide their name before completing the Checkout Session. Defaults to `false`.
         """
 
     class CreateParamsOptionalItem(TypedDict):
@@ -870,7 +1054,7 @@ class SessionService(StripeService):
         """
         The Stripe account ID for which these funds are intended. For details,
         see the PaymentIntents [use case for connected
-        accounts](https://stripe.com/docs/payments/connected-accounts).
+        accounts](https://docs.stripe.com/docs/payments/connected-accounts).
         """
         receipt_email: NotRequired[str]
         """
@@ -960,11 +1144,11 @@ class SessionService(StripeService):
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1021,6 +1205,12 @@ class SessionService(StripeService):
         """
         contains details about the Alipay payment method options.
         """
+        alma: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsAlma"
+        ]
+        """
+        contains details about the Alma payment method options.
+        """
         amazon_pay: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsAmazonPay"
         ]
@@ -1045,6 +1235,12 @@ class SessionService(StripeService):
         """
         contains details about the Bancontact payment method options.
         """
+        billie: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsBillie"
+        ]
+        """
+        contains details about the Billie payment method options.
+        """
         boleto: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsBoleto"
         ]
@@ -1068,6 +1264,12 @@ class SessionService(StripeService):
         ]
         """
         contains details about the Customer Balance payment method options.
+        """
+        demo_pay: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsDemoPay"
+        ]
+        """
+        contains details about the DemoPay payment method options.
         """
         eps: NotRequired["SessionService.CreateParamsPaymentMethodOptionsEps"]
         """
@@ -1193,6 +1395,12 @@ class SessionService(StripeService):
         """
         contains details about the Samsung Pay payment method options.
         """
+        satispay: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsSatispay"
+        ]
+        """
+        contains details about the Satispay payment method options.
+        """
         sepa_debit: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsSepaDebit"
         ]
@@ -1241,11 +1449,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
         target_date: NotRequired[str]
         """
@@ -1285,27 +1493,35 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsAffirm(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsAlipay(TypedDict):
@@ -1313,23 +1529,33 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsAlma(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
         """
 
     class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
@@ -1337,11 +1563,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
         target_date: NotRequired[str]
         """
@@ -1361,11 +1587,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
         target_date: NotRequired[str]
         """
@@ -1383,11 +1609,17 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+        """
+
+    class CreateParamsPaymentMethodOptionsBillie(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
         """
 
     class CreateParamsPaymentMethodOptionsBoleto(TypedDict):
@@ -1401,14 +1633,18 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         installments: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsCardInstallments"
         ]
@@ -1419,21 +1655,21 @@ class SessionService(StripeService):
             Literal["if_available", "never"]
         ]
         """
-        Request ability to [capture beyond the standard authorization validity window](https://stripe.com/payments/extended-authorization) for this CheckoutSession.
+        Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this CheckoutSession.
         """
         request_incremental_authorization: NotRequired[
             Literal["if_available", "never"]
         ]
         """
-        Request ability to [increment the authorization](https://stripe.com/payments/incremental-authorization) for this CheckoutSession.
+        Request ability to [increment the authorization](https://docs.stripe.com/payments/incremental-authorization) for this CheckoutSession.
         """
         request_multicapture: NotRequired[Literal["if_available", "never"]]
         """
-        Request ability to make [multiple captures](https://stripe.com/payments/multicapture) for this CheckoutSession.
+        Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this CheckoutSession.
         """
         request_overcapture: NotRequired[Literal["if_available", "never"]]
         """
-        Request ability to [overcapture](https://stripe.com/payments/overcapture) for this CheckoutSession.
+        Request ability to [overcapture](https://docs.stripe.com/payments/overcapture) for this CheckoutSession.
         """
         request_three_d_secure: NotRequired[
             Literal["any", "automatic", "challenge"]
@@ -1451,11 +1687,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
         statement_descriptor_suffix_kana: NotRequired[str]
         """
@@ -1489,17 +1725,21 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsCashapp(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[
             Literal["none", "off_session", "on_session"]
         ]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsCustomerBalance(TypedDict):
@@ -1517,11 +1757,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
@@ -1570,16 +1810,28 @@ class SessionService(StripeService):
         The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
         """
 
+    class CreateParamsPaymentMethodOptionsDemoPay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+        """
+
     class CreateParamsPaymentMethodOptionsEps(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsFpx(TypedDict):
@@ -1587,11 +1839,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsGiropay(TypedDict):
@@ -1599,11 +1851,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsGrabpay(TypedDict):
@@ -1611,11 +1863,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsIdeal(TypedDict):
@@ -1623,11 +1875,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsKakaoPay(TypedDict):
@@ -1639,23 +1891,67 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+        """
+        subscriptions: NotRequired[
+            "Literal['']|List[SessionService.CreateParamsPaymentMethodOptionsKlarnaSubscription]"
+        ]
+        """
+        Subscription details if the Checkout Session sets up a future subscription.
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Unit of time between subscription charges.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+        """
+        name: NotRequired[str]
+        """
+        Name for subscription.
+        """
+        next_billing: "SessionService.CreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling"
+        """
+        Describes the upcoming charge for this subscription.
+        """
+        reference: str
+        """
+        A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The amount of the next charge for the subscription.
+        """
+        date: str
+        """
+        The date of the next charge for the subscription in YYYY-MM-DD format.
         """
 
     class CreateParamsPaymentMethodOptionsKonbini(TypedDict):
@@ -1667,11 +1963,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsKrCard(TypedDict):
@@ -1683,35 +1979,43 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsLink(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsMobilepay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsMultibanco(TypedDict):
@@ -1719,11 +2023,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsNaverPay(TypedDict):
@@ -1735,11 +2039,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsOxxo(TypedDict):
@@ -1751,11 +2055,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsP24(TypedDict):
@@ -1763,11 +2067,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
         tos_shown_and_accepted: NotRequired[bool]
         """
@@ -1788,11 +2092,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsPaypal(TypedDict):
@@ -1842,34 +2146,58 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
+        amount_includes_iof: NotRequired[Literal["always", "never"]]
+        """
+        Determines if the amount includes the IOF tax. Defaults to `never`.
+        """
         expires_after_seconds: NotRequired[int]
         """
         The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
         """
+        setup_future_usage: NotRequired[Literal["none"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+        """
 
     class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+
+    class CreateParamsPaymentMethodOptionsSatispay(TypedDict):
         capture_method: NotRequired[Literal["manual"]]
         """
         Controls when the funds will be captured from the customer's account.
@@ -1888,11 +2216,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
         target_date: NotRequired[str]
         """
@@ -1910,11 +2238,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPaymentMethodOptionsSwish(TypedDict):
@@ -1936,11 +2264,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
         target_date: NotRequired[str]
         """
@@ -1984,11 +2312,11 @@ class SessionService(StripeService):
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
-        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
 
-        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
-        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://stripe.com/strong-customer-authentication).
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
     class CreateParamsPermissions(TypedDict):
@@ -2017,6 +2345,10 @@ class SessionService(StripeService):
         ]
         """
         Uses the `allow_redisplay` value of each saved payment method to filter the set presented to a returning customer. By default, only saved payment methods with 'allow_redisplay: ‘always' are shown in Checkout.
+        """
+        payment_method_remove: NotRequired[Literal["disabled", "enabled"]]
+        """
+        Enable customers to choose if they wish to remove their saved payment methods. Disabled by default.
         """
         payment_method_save: NotRequired[Literal["disabled", "enabled"]]
         """
@@ -2415,6 +2747,12 @@ class SessionService(StripeService):
         """
         A future timestamp to anchor the subscription's billing cycle for new subscriptions.
         """
+        billing_mode: NotRequired[
+            "SessionService.CreateParamsSubscriptionDataBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         default_tax_rates: NotRequired[List[str]]
         """
         The tax rates that will apply to any subscription item that does not have
@@ -2453,20 +2791,35 @@ class SessionService(StripeService):
         """
         trial_end: NotRequired[int]
         """
-        Unix timestamp representing the end of the trial period the customer
-        will get before being charged for the first time. Has to be at least
-        48 hours in the future.
+        Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
         """
         trial_period_days: NotRequired[int]
         """
-        Integer representing the number of trial period days before the
-        customer is charged for the first time. Has to be at least 1.
+        Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
         """
         trial_settings: NotRequired[
             "SessionService.CreateParamsSubscriptionDataTrialSettings"
         ]
         """
         Settings related to subscription trials.
+        """
+
+    class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SessionService.CreateParamsSubscriptionDataBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
+        type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsSubscriptionDataBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
         """
 
     class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
@@ -2666,11 +3019,11 @@ class SessionService(StripeService):
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2804,8 +3157,8 @@ class SessionService(StripeService):
 
     def list(
         self,
-        params: "SessionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Session]:
         """
         Returns a list of Checkout Sessions.
@@ -2823,8 +3176,8 @@ class SessionService(StripeService):
 
     async def list_async(
         self,
-        params: "SessionService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Session]:
         """
         Returns a list of Checkout Sessions.
@@ -2842,8 +3195,8 @@ class SessionService(StripeService):
 
     def create(
         self,
-        params: "SessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Creates a Checkout Session object.
@@ -2861,8 +3214,8 @@ class SessionService(StripeService):
 
     async def create_async(
         self,
-        params: "SessionService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Creates a Checkout Session object.
@@ -2881,8 +3234,8 @@ class SessionService(StripeService):
     def retrieve(
         self,
         session: str,
-        params: "SessionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Retrieves a Checkout Session object.
@@ -2903,8 +3256,8 @@ class SessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
-        params: "SessionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Retrieves a Checkout Session object.
@@ -2925,11 +3278,13 @@ class SessionService(StripeService):
     def update(
         self,
         session: str,
-        params: "SessionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Updates a Checkout Session object.
+
+        Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
         """
         return cast(
             Session,
@@ -2947,11 +3302,13 @@ class SessionService(StripeService):
     async def update_async(
         self,
         session: str,
-        params: "SessionService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         Updates a Checkout Session object.
+
+        Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
         """
         return cast(
             Session,
@@ -2969,8 +3326,8 @@ class SessionService(StripeService):
     def expire(
         self,
         session: str,
-        params: "SessionService.ExpireParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.ExpireParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -2993,8 +3350,8 @@ class SessionService(StripeService):
     async def expire_async(
         self,
         session: str,
-        params: "SessionService.ExpireParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SessionService.ExpireParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Session:
         """
         A Checkout Session can be expired when it is in one of these statuses: open

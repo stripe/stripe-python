@@ -56,8 +56,7 @@ class Charge(
 ):
     """
     The `Charge` object represents a single attempt to move money into your Stripe account.
-    PaymentIntent confirmation is the most common way to create Charges, but transferring
-    money to a different Stripe account through Connect also creates Charges.
+    PaymentIntent confirmation is the most common way to create Charges, but [Account Debits](https://stripe.com/docs/connect/account-debits) may also create Charges.
     Some legacy payment flows create Charges directly, which is not recommended for new integrations.
     """
 
@@ -75,11 +74,11 @@ class Charge(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -166,7 +165,7 @@ class Charge(
         """
         network_decline_code: Optional[str]
         """
-        For charges declined by the network, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        For charges declined by the network, an alphanumeric code which indicates the reason the charge failed.
         """
         network_status: Optional[str]
         """
@@ -174,7 +173,7 @@ class Charge(
         """
         reason: Optional[str]
         """
-        An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
+        An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges blocked because the payment is unlikely to be authorized have the value `low_probability_of_authorization`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
         """
         risk_level: Optional[str]
         """
@@ -270,6 +269,14 @@ class Charge(
             """
 
         class Affirm(StripeObject):
+            location: Optional[str]
+            """
+            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            """
             transaction_id: Optional[str]
             """
             The Affirm transaction ID associated with this payment.
@@ -300,14 +307,25 @@ class Charge(
             """
 
         class Alma(StripeObject):
-            pass
+            class Installments(StripeObject):
+                count: int
+                """
+                The number of installments.
+                """
+
+            installments: Optional[Installments]
+            transaction_id: Optional[str]
+            """
+            The Alma transaction ID associated with this payment.
+            """
+            _inner_class_types = {"installments": Installments}
 
         class AmazonPay(StripeObject):
             class Funding(StripeObject):
                 class Card(StripeObject):
                     brand: Optional[str]
                     """
-                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
                     """
                     country: Optional[str]
                     """
@@ -338,6 +356,10 @@ class Charge(
                 _inner_class_types = {"card": Card}
 
             funding: Optional[Funding]
+            transaction_id: Optional[str]
+            """
+            The Amazon Pay transaction ID associated with this payment.
+            """
             _inner_class_types = {"funding": Funding}
 
         class AuBecsDebit(StripeObject):
@@ -413,7 +435,10 @@ class Charge(
             """
 
         class Billie(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Billie transaction ID associated with this payment.
+            """
 
         class Blik(StripeObject):
             buyer_id: Optional[str]
@@ -465,9 +490,9 @@ class Charge(
                     For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
                     One of `month`.
                     """
-                    type: Literal["fixed_count"]
+                    type: Literal["bonus", "fixed_count", "revolving"]
                     """
-                    Type of installment plan, one of `fixed_count`.
+                    Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                     """
 
                 plan: Optional[Plan]
@@ -585,11 +610,11 @@ class Charge(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -611,11 +636,11 @@ class Charge(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -662,11 +687,11 @@ class Charge(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -688,11 +713,11 @@ class Charge(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -767,7 +792,7 @@ class Charge(
             """
             brand: Optional[str]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
             capture_before: Optional[int]
             """
@@ -811,7 +836,7 @@ class Charge(
             incremental_authorization: Optional[IncrementalAuthorization]
             installments: Optional[Installments]
             """
-            Installment details for this payment (Mexico only).
+            Installment details for this payment.
 
             For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
             """
@@ -889,11 +914,11 @@ class Charge(
                 """
                 application_cryptogram: Optional[str]
                 """
-                EMV tag 9F26, cryptogram generated by the integrated circuit chip.
+                The Application Cryptogram, a unique value generated by the card to authenticate the transaction with issuers.
                 """
                 application_preferred_name: Optional[str]
                 """
-                Mnenomic of the Application Identifier.
+                The Application Identifier (AID) on the card used to determine which networks are eligible to process the transaction. Referenced from EMV tag 9F12, data encoded on the card's chip.
                 """
                 authorization_code: Optional[str]
                 """
@@ -909,15 +934,15 @@ class Charge(
                 """
                 dedicated_file_name: Optional[str]
                 """
-                EMV tag 84. Similar to the application identifier stored on the integrated circuit chip.
+                Similar to the application_preferred_name, identifying the applications (AIDs) available on the card. Referenced from EMV tag 84.
                 """
                 terminal_verification_results: Optional[str]
                 """
-                The outcome of a series of EMV functions performed by the card reader.
+                A 5-byte string that records the checks and validations that occur between the card and the terminal. These checks determine how the terminal processes the transaction and what risk tolerance is acceptable. Referenced from EMV Tag 95.
                 """
                 transaction_status_information: Optional[str]
                 """
-                An indication of various EMV functions performed during the transaction.
+                An indication of which steps were completed during the card read process. Referenced from EMV Tag 9B.
                 """
 
             class Wallet(StripeObject):
@@ -934,7 +959,7 @@ class Charge(
             """
             brand: Optional[str]
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
             brand_product: Optional[str]
             """
@@ -1016,7 +1041,7 @@ class Charge(
             """
             preferred_locales: Optional[List[str]]
             """
-            EMV tag 5F2D. Preferred languages specified by the integrated circuit chip.
+            The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
             """
             read_method: Optional[
                 Literal[
@@ -1049,6 +1074,28 @@ class Charge(
             cashtag: Optional[str]
             """
             A public identifier for buyers using Cash App.
+            """
+            transaction_id: Optional[str]
+            """
+            A unique and immutable identifier of payments assigned by Cash App
+            """
+
+        class Crypto(StripeObject):
+            buyer_address: Optional[str]
+            """
+            The wallet address of the customer.
+            """
+            network: Optional[Literal["base", "ethereum", "polygon"]]
+            """
+            The blockchain network that the transaction was sent on.
+            """
+            token_currency: Optional[Literal["usdc", "usdg", "usdp"]]
+            """
+            The token currency that the transaction was sent with.
+            """
+            transaction_hash: Optional[str]
+            """
+            The blockchain transaction hash of the crypto payment.
             """
 
         class CustomerBalance(StripeObject):
@@ -1166,6 +1213,7 @@ class Charge(
                     "abn_amro",
                     "asn_bank",
                     "bunq",
+                    "buut",
                     "handelsbanken",
                     "ing",
                     "knab",
@@ -1182,7 +1230,7 @@ class Charge(
                 ]
             ]
             """
-            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
             """
             bic: Optional[
                 Literal[
@@ -1190,6 +1238,7 @@ class Charge(
                     "ASNBNL21",
                     "BITSNL2A",
                     "BUNQNL2A",
+                    "BUUTNL2A",
                     "FVLBNL22",
                     "HANDNL2A",
                     "INGBNL2A",
@@ -1236,11 +1285,11 @@ class Charge(
                 """
                 application_cryptogram: Optional[str]
                 """
-                EMV tag 9F26, cryptogram generated by the integrated circuit chip.
+                The Application Cryptogram, a unique value generated by the card to authenticate the transaction with issuers.
                 """
                 application_preferred_name: Optional[str]
                 """
-                Mnenomic of the Application Identifier.
+                The Application Identifier (AID) on the card used to determine which networks are eligible to process the transaction. Referenced from EMV tag 9F12, data encoded on the card's chip.
                 """
                 authorization_code: Optional[str]
                 """
@@ -1256,15 +1305,15 @@ class Charge(
                 """
                 dedicated_file_name: Optional[str]
                 """
-                EMV tag 84. Similar to the application identifier stored on the integrated circuit chip.
+                Similar to the application_preferred_name, identifying the applications (AIDs) available on the card. Referenced from EMV tag 84.
                 """
                 terminal_verification_results: Optional[str]
                 """
-                The outcome of a series of EMV functions performed by the card reader.
+                A 5-byte string that records the checks and validations that occur between the card and the terminal. These checks determine how the terminal processes the transaction and what risk tolerance is acceptable. Referenced from EMV Tag 95.
                 """
                 transaction_status_information: Optional[str]
                 """
-                An indication of various EMV functions performed during the transaction.
+                An indication of which steps were completed during the card read process. Referenced from EMV Tag 9B.
                 """
 
             brand: Optional[str]
@@ -1331,7 +1380,7 @@ class Charge(
             """
             preferred_locales: Optional[List[str]]
             """
-            EMV tag 5F2D. Preferred languages specified by the integrated circuit chip.
+            The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
             """
             read_method: Optional[
                 Literal[
@@ -1355,6 +1404,10 @@ class Charge(
             buyer_id: Optional[str]
             """
             A unique identifier for the buyer as determined by the local payment processor.
+            """
+            transaction_id: Optional[str]
+            """
+            The Kakao Pay transaction ID associated with this payment.
             """
 
         class Klarna(StripeObject):
@@ -1440,6 +1493,10 @@ class Charge(
             """
             The last four digits of the card. This may not be present for American Express cards.
             """
+            transaction_id: Optional[str]
+            """
+            The Korean Card transaction ID associated with this payment.
+            """
 
         class Link(StripeObject):
             country: Optional[str]
@@ -1447,6 +1504,9 @@ class Charge(
             Two-letter ISO code representing the funding source country beneath the Link payment.
             You could use this attribute to get a sense of international fees.
             """
+
+        class MbWay(StripeObject):
+            pass
 
         class Mobilepay(StripeObject):
             class Card(StripeObject):
@@ -1491,6 +1551,10 @@ class Charge(
             buyer_id: Optional[str]
             """
             A unique identifier for the buyer as determined by the local payment processor.
+            """
+            transaction_id: Optional[str]
+            """
+            The Naver Pay transaction ID associated with this payment.
             """
 
         class NzBankAccount(StripeObject):
@@ -1578,8 +1642,20 @@ class Charge(
             """
             A unique identifier for the buyer as determined by the local payment processor.
             """
+            transaction_id: Optional[str]
+            """
+            The Payco transaction ID associated with this payment.
+            """
 
         class Paynow(StripeObject):
+            location: Optional[str]
+            """
+            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            """
             reference: Optional[str]
             """
             Reference number associated with this PayNow payment
@@ -1628,6 +1704,9 @@ class Charge(
             """
             _inner_class_types = {"seller_protection": SellerProtection}
 
+        class Paypay(StripeObject):
+            pass
+
         class Pix(StripeObject):
             bank_transaction_id: Optional[str]
             """
@@ -1645,7 +1724,7 @@ class Charge(
                 class Card(StripeObject):
                     brand: Optional[str]
                     """
-                    Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
                     """
                     country: Optional[str]
                     """
@@ -1676,6 +1755,10 @@ class Charge(
                 _inner_class_types = {"card": Card}
 
             funding: Optional[Funding]
+            transaction_id: Optional[str]
+            """
+            The Revolut Pay transaction ID associated with this payment.
+            """
             _inner_class_types = {"funding": Funding}
 
         class SamsungPay(StripeObject):
@@ -1683,9 +1766,16 @@ class Charge(
             """
             A unique identifier for the buyer as determined by the local payment processor.
             """
+            transaction_id: Optional[str]
+            """
+            The Samsung Pay transaction ID associated with this payment.
+            """
 
         class Satispay(StripeObject):
-            pass
+            transaction_id: Optional[str]
+            """
+            The Satispay transaction ID associated with this payment.
+            """
 
         class SepaCreditTransfer(StripeObject):
             bank_name: Optional[str]
@@ -1831,6 +1921,14 @@ class Charge(
             """
             Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
             """
+            location: Optional[str]
+            """
+            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            """
             transaction_id: Optional[str]
             """
             Transaction ID of this particular WeChat Pay transaction.
@@ -1856,6 +1954,7 @@ class Charge(
         card: Optional[Card]
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
+        crypto: Optional[Crypto]
         customer_balance: Optional[CustomerBalance]
         eps: Optional[Eps]
         fpx: Optional[Fpx]
@@ -1868,6 +1967,7 @@ class Charge(
         konbini: Optional[Konbini]
         kr_card: Optional[KrCard]
         link: Optional[Link]
+        mb_way: Optional[MbWay]
         mobilepay: Optional[Mobilepay]
         multibanco: Optional[Multibanco]
         naver_pay: Optional[NaverPay]
@@ -1878,6 +1978,7 @@ class Charge(
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -1917,6 +2018,7 @@ class Charge(
             "card": Card,
             "card_present": CardPresent,
             "cashapp": Cashapp,
+            "crypto": Crypto,
             "customer_balance": CustomerBalance,
             "eps": Eps,
             "fpx": Fpx,
@@ -1929,6 +2031,7 @@ class Charge(
             "konbini": Konbini,
             "kr_card": KrCard,
             "link": Link,
+            "mb_way": MbWay,
             "mobilepay": Mobilepay,
             "multibanco": Multibanco,
             "naver_pay": NaverPay,
@@ -1939,6 +2042,7 @@ class Charge(
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "paypay": Paypay,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
@@ -1959,7 +2063,7 @@ class Charge(
     class PresentmentDetails(StripeObject):
         presentment_amount: int
         """
-        Amount intended to be collected by this payment, denominated in presentment_currency.
+        Amount intended to be collected by this payment, denominated in `presentment_currency`.
         """
         presentment_currency: str
         """
@@ -1984,11 +2088,11 @@ class Charge(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -2197,11 +2301,11 @@ class Charge(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2365,11 +2469,11 @@ class Charge(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2605,9 +2709,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         return cast(
             "Charge",
@@ -2628,9 +2732,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         ...
 
@@ -2639,9 +2743,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         ...
 
@@ -2652,9 +2756,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         return cast(
             "Charge",
@@ -2674,9 +2778,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         return cast(
             "Charge",
@@ -2697,9 +2801,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         ...
 
@@ -2710,9 +2814,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         ...
 
@@ -2723,9 +2827,9 @@ class Charge(
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
-        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
 
-        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
         """
         return cast(
             "Charge",
@@ -2741,7 +2845,7 @@ class Charge(
     @classmethod
     def create(cls, **params: Unpack["Charge.CreateParams"]) -> "Charge":
         """
-        This method is no longer recommended—use the [Payment Intents API](https://stripe.com/docs/api/payment_intents)
+        This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
         to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
         object used to request payment.
         """
@@ -2759,7 +2863,7 @@ class Charge(
         cls, **params: Unpack["Charge.CreateParams"]
     ) -> "Charge":
         """
-        This method is no longer recommended—use the [Payment Intents API](https://stripe.com/docs/api/payment_intents)
+        This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
         to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
         object used to request payment.
         """
@@ -2873,7 +2977,7 @@ class Charge(
         cls, *args, **kwargs: Unpack["Charge.SearchParams"]
     ) -> SearchResultObject["Charge"]:
         """
-        Search for charges you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -2885,7 +2989,7 @@ class Charge(
         cls, *args, **kwargs: Unpack["Charge.SearchParams"]
     ) -> SearchResultObject["Charge"]:
         """
-        Search for charges you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.

@@ -46,11 +46,11 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
                 """
                 line1: Optional[str]
                 """
-                Address line 1 (e.g., street, PO Box, or company name).
+                Address line 1, such as the street, PO Box, or company name.
                 """
                 line2: Optional[str]
                 """
-                Address line 2 (e.g., apartment, suite, unit, or building).
+                Address line 2, such as the apartment, suite, unit, or building.
                 """
                 postal_code: Optional[str]
                 """
@@ -149,9 +149,9 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             """
             A `Payout` object is created when you receive funds from Stripe, or when you
             initiate a payout to either a bank account or debit card of a [connected
-            Stripe account](https://stripe.com/docs/connect/bank-debit-card-payouts). You can retrieve individual payouts,
+            Stripe account](https://docs.stripe.com/docs/connect/bank-debit-card-payouts). You can retrieve individual payouts,
             and list all payouts. Payouts are made on [varying
-            schedules](https://stripe.com/docs/connect/manage-payout-schedule), depending on your country and
+            schedules](https://docs.stripe.com/docs/connect/manage-payout-schedule), depending on your country and
             industry.
 
             Related guide: [Receiving payouts](https://stripe.com/docs/payouts)

@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe._webhook_endpoint import WebhookEndpoint
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -124,6 +124,11 @@ class WebhookEndpointService(StripeService):
                 "2025-03-01.dashboard",
                 "2025-03-31.basil",
                 "2025-04-30.basil",
+                "2025-05-28.basil",
+                "2025-06-30.basil",
+                "2025-07-30.basil",
+                "2025-08-27.basil",
+                "2025-09-30.clover",
             ]
         ]
         """
@@ -239,6 +244,7 @@ class WebhookEndpointService(StripeService):
                 "invoice.updated",
                 "invoice.voided",
                 "invoice.will_be_due",
+                "invoice_payment.paid",
                 "invoiceitem.created",
                 "invoiceitem.deleted",
                 "issuing_authorization.created",
@@ -337,6 +343,7 @@ class WebhookEndpointService(StripeService):
                 "tax_rate.updated",
                 "terminal.reader.action_failed",
                 "terminal.reader.action_succeeded",
+                "terminal.reader.action_updated",
                 "test_helpers.test_clock.advancing",
                 "test_helpers.test_clock.created",
                 "test_helpers.test_clock.deleted",
@@ -544,6 +551,7 @@ class WebhookEndpointService(StripeService):
                     "invoice.updated",
                     "invoice.voided",
                     "invoice.will_be_due",
+                    "invoice_payment.paid",
                     "invoiceitem.created",
                     "invoiceitem.deleted",
                     "issuing_authorization.created",
@@ -642,6 +650,7 @@ class WebhookEndpointService(StripeService):
                     "tax_rate.updated",
                     "terminal.reader.action_failed",
                     "terminal.reader.action_succeeded",
+                    "terminal.reader.action_updated",
                     "test_helpers.test_clock.advancing",
                     "test_helpers.test_clock.created",
                     "test_helpers.test_clock.deleted",
@@ -714,8 +723,8 @@ class WebhookEndpointService(StripeService):
     def delete(
         self,
         webhook_endpoint: str,
-        params: "WebhookEndpointService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["WebhookEndpointService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -736,8 +745,8 @@ class WebhookEndpointService(StripeService):
     async def delete_async(
         self,
         webhook_endpoint: str,
-        params: "WebhookEndpointService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["WebhookEndpointService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -758,8 +767,8 @@ class WebhookEndpointService(StripeService):
     def retrieve(
         self,
         webhook_endpoint: str,
-        params: "WebhookEndpointService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["WebhookEndpointService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
         Retrieves the webhook endpoint with the given ID.
@@ -780,8 +789,8 @@ class WebhookEndpointService(StripeService):
     async def retrieve_async(
         self,
         webhook_endpoint: str,
-        params: "WebhookEndpointService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["WebhookEndpointService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
         Retrieves the webhook endpoint with the given ID.
@@ -802,8 +811,8 @@ class WebhookEndpointService(StripeService):
     def update(
         self,
         webhook_endpoint: str,
-        params: "WebhookEndpointService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["WebhookEndpointService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
         Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.
@@ -824,8 +833,8 @@ class WebhookEndpointService(StripeService):
     async def update_async(
         self,
         webhook_endpoint: str,
-        params: "WebhookEndpointService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["WebhookEndpointService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
         Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.
@@ -845,8 +854,8 @@ class WebhookEndpointService(StripeService):
 
     def list(
         self,
-        params: "WebhookEndpointService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["WebhookEndpointService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[WebhookEndpoint]:
         """
         Returns a list of your webhook endpoints.
@@ -864,8 +873,8 @@ class WebhookEndpointService(StripeService):
 
     async def list_async(
         self,
-        params: "WebhookEndpointService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["WebhookEndpointService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[WebhookEndpoint]:
         """
         Returns a list of your webhook endpoints.
@@ -884,7 +893,7 @@ class WebhookEndpointService(StripeService):
     def create(
         self,
         params: "WebhookEndpointService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
         A webhook endpoint must have a url and a list of enabled_events. You may optionally specify the Boolean connect parameter. If set to true, then a Connect webhook endpoint that notifies the specified url about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified url only about events from your account is created. You can also create webhook endpoints in the [webhooks settings](https://dashboard.stripe.com/account/webhooks) section of the Dashboard.
@@ -903,7 +912,7 @@ class WebhookEndpointService(StripeService):
     async def create_async(
         self,
         params: "WebhookEndpointService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> WebhookEndpoint:
         """
         A webhook endpoint must have a url and a list of enabled_events. You may optionally specify the Boolean connect parameter. If set to true, then a Connect webhook endpoint that notifies the specified url about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified url only about events from your account is created. You can also create webhook endpoints in the [webhooks settings](https://dashboard.stripe.com/account/webhooks) section of the Dashboard.

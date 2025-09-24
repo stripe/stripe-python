@@ -31,6 +31,7 @@ class Capability(UpdateableAPIResource["Capability"]):
 
         class Error(StripeObject):
             code: Literal[
+                "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
@@ -73,6 +74,7 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "unsupported_business_type",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
                 "verification_document_address_missing",
@@ -199,6 +201,7 @@ class Capability(UpdateableAPIResource["Capability"]):
 
         class Error(StripeObject):
             code: Literal[
+                "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
@@ -241,6 +244,7 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "unsupported_business_type",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
                 "verification_document_address_missing",
@@ -313,7 +317,7 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         current_deadline: Optional[int]
         """
-        Date by which the fields in `currently_due` must be collected to keep the capability enabled for the account. These fields may disable the capability sooner if the next threshold is reached before they are collected.
+        The date by which all required account information must be both submitted and verified. This includes fields listed in `currently_due` as well as those in `pending_verification`. If any required information is missing or unverified by this date, the account may be disabled. Note that `current_deadline` may change if additional `currently_due` requirements are requested.
         """
         currently_due: List[str]
         """
@@ -376,7 +380,7 @@ class Capability(UpdateableAPIResource["Capability"]):
     Time at which the capability was requested. Measured in seconds since the Unix epoch.
     """
     requirements: Optional[Requirements]
-    status: Literal["active", "disabled", "inactive", "pending", "unrequested"]
+    status: Literal["active", "inactive", "pending", "unrequested"]
     """
     The status of the capability.
     """

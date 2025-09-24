@@ -210,11 +210,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -236,11 +236,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -328,7 +328,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         """
         status: str
         """
-        The status of the redirect, either `pending` (ready to be used by your customer to authenticate the transaction), `succeeded` (succesful authentication, cannot be reused) or `not_required` (redirect should not be used) or `failed` (failed authentication, cannot be reused).
+        The status of the redirect, either `pending` (ready to be used by your customer to authenticate the transaction), `succeeded` (successful authentication, cannot be reused) or `not_required` (redirect should not be used) or `failed` (failed authentication, cannot be reused).
         """
         url: str
         """
@@ -405,11 +405,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
                 """
                 line1: Optional[str]
                 """
-                Address line 1 (e.g., street, PO Box, or company name).
+                Address line 1, such as the street, PO Box, or company name.
                 """
                 line2: Optional[str]
                 """
-                Address line 2 (e.g., apartment, suite, unit, or building).
+                Address line 2, such as the apartment, suite, unit, or building.
                 """
                 postal_code: Optional[str]
                 """
@@ -652,11 +652,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -738,11 +738,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -902,11 +902,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -974,11 +974,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1268,7 +1268,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         """
         Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
-        This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
+        This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://docs.stripe.com/docs/sources) for more detail.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -1287,7 +1287,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         """
         Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
 
-        This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
+        This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://docs.stripe.com/docs/sources) for more detail.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(

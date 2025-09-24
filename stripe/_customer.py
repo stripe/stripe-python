@@ -80,11 +80,11 @@ class Customer(
         """
         line1: Optional[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: Optional[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: Optional[str]
         """
@@ -149,11 +149,11 @@ class Customer(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -300,6 +300,10 @@ class Customer(
         """
         An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
         """
+        business_name: NotRequired["Literal['']|str"]
+        """
+        The customer's business name. This may be up to *150 characters*.
+        """
         cash_balance: NotRequired["Customer.CreateParamsCashBalance"]
         """
         Balance information and default balance settings for this customer.
@@ -315,6 +319,10 @@ class Customer(
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        individual_name: NotRequired["Literal['']|str"]
+        """
+        The customer's full name. This may be up to *150 characters*.
         """
         invoice_prefix: NotRequired[str]
         """
@@ -381,11 +389,11 @@ class Customer(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -480,11 +488,11 @@ class Customer(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -922,6 +930,7 @@ class Customer(
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",
@@ -933,6 +942,7 @@ class Customer(
                 "konbini",
                 "kr_card",
                 "link",
+                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
@@ -943,6 +953,7 @@ class Customer(
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",
@@ -1042,6 +1053,10 @@ class Customer(
         """
         An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
         """
+        business_name: NotRequired["Literal['']|str"]
+        """
+        The customer's business name. This may be up to *150 characters*.
+        """
         cash_balance: NotRequired["Customer.ModifyParamsCashBalance"]
         """
         Balance information and default balance settings for this customer.
@@ -1065,6 +1080,10 @@ class Customer(
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        individual_name: NotRequired["Literal['']|str"]
+        """
+        The customer's full name. This may be up to *150 characters*.
         """
         invoice_prefix: NotRequired[str]
         """
@@ -1122,11 +1141,11 @@ class Customer(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1221,11 +1240,11 @@ class Customer(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1332,11 +1351,11 @@ class Customer(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1413,7 +1432,11 @@ class Customer(
     """
     balance: Optional[int]
     """
-    The current balance, if any, that's stored on the customer. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that's added to their next invoice. The balance only considers amounts that Stripe hasn't successfully applied to any invoice. It doesn't reflect unpaid invoices. This balance is only taken into account after invoices finalize.
+    The current balance, if any, that's stored on the customer in their default currency. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that's added to their next invoice. The balance only considers amounts that Stripe hasn't successfully applied to any invoice. It doesn't reflect unpaid invoices. This balance is only taken into account after invoices finalize. For multi-currency balances, see [invoice_credit_balance](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance).
+    """
+    business_name: Optional[str]
+    """
+    The customer's business name.
     """
     cash_balance: Optional["CashBalance"]
     """
@@ -1434,6 +1457,10 @@ class Customer(
     ID of the default payment source for the customer.
 
     If you use payment methods created through the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) field instead.
+    """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
     """
     delinquent: Optional[bool]
     """
@@ -1458,6 +1485,10 @@ class Customer(
     id: str
     """
     Unique identifier for the object.
+    """
+    individual_name: Optional[str]
+    """
+    The customer's individual name.
     """
     invoice_credit_balance: Optional[Dict[str, int]]
     """
@@ -1522,10 +1553,6 @@ class Customer(
     test_clock: Optional[ExpandableField["TestClock"]]
     """
     ID of the test clock that this customer belongs to.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod
@@ -2247,7 +2274,7 @@ class Customer(
         cls, *args, **kwargs: Unpack["Customer.SearchParams"]
     ) -> SearchResultObject["Customer"]:
         """
-        Search for customers you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -2259,7 +2286,7 @@ class Customer(
         cls, *args, **kwargs: Unpack["Customer.SearchParams"]
     ) -> SearchResultObject["Customer"]:
         """
-        Search for customers you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -2287,7 +2314,7 @@ class Customer(
         **params: Unpack["Customer.ListBalanceTransactionsParams"],
     ) -> ListObject["CustomerBalanceTransaction"]:
         """
-        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             ListObject["CustomerBalanceTransaction"],
@@ -2307,7 +2334,7 @@ class Customer(
         **params: Unpack["Customer.ListBalanceTransactionsParams"],
     ) -> ListObject["CustomerBalanceTransaction"]:
         """
-        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             ListObject["CustomerBalanceTransaction"],
@@ -2327,7 +2354,7 @@ class Customer(
         **params: Unpack["Customer.CreateBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
-        Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
+        Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             "CustomerBalanceTransaction",
@@ -2347,7 +2374,7 @@ class Customer(
         **params: Unpack["Customer.CreateBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
-        Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
+        Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             "CustomerBalanceTransaction",
@@ -2368,7 +2395,7 @@ class Customer(
         **params: Unpack["Customer.RetrieveBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
-        Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             "CustomerBalanceTransaction",
@@ -2390,7 +2417,7 @@ class Customer(
         **params: Unpack["Customer.RetrieveBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
-        Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
             "CustomerBalanceTransaction",
@@ -2455,7 +2482,7 @@ class Customer(
         **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
-        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
         return cast(
             ListObject["CustomerCashBalanceTransaction"],
@@ -2475,7 +2502,7 @@ class Customer(
         **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
-        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
         return cast(
             ListObject["CustomerCashBalanceTransaction"],
@@ -2496,7 +2523,7 @@ class Customer(
         **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"],
     ) -> "CustomerCashBalanceTransaction":
         """
-        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
         return cast(
             "CustomerCashBalanceTransaction",
@@ -2518,7 +2545,7 @@ class Customer(
         **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"],
     ) -> "CustomerCashBalanceTransaction":
         """
-        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
         """
         return cast(
             "CustomerCashBalanceTransaction",
@@ -2577,7 +2604,7 @@ class Customer(
 
         If the card's owner has no default card, then the new card will become the default.
         However, if the owner already has a default, then it will not change.
-        To change the default, you should [update the customer](https://stripe.com/docs/api#update_customer) to have a new default_source.
+        To change the default, you should [update the customer](https://docs.stripe.com/docs/api#update_customer) to have a new default_source.
         """
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],
@@ -2599,7 +2626,7 @@ class Customer(
 
         If the card's owner has no default card, then the new card will become the default.
         However, if the owner already has a default, then it will not change.
-        To change the default, you should [update the customer](https://stripe.com/docs/api#update_customer) to have a new default_source.
+        To change the default, you should [update the customer](https://docs.stripe.com/docs/api#update_customer) to have a new default_source.
         """
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],

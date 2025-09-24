@@ -542,6 +542,10 @@ class Product(
     """
     The ID of the [Price](https://stripe.com/docs/api/prices) object that is the default price for this product.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     description: Optional[str]
     """
     The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
@@ -605,10 +609,6 @@ class Product(
     url: Optional[str]
     """
     A URL of a publicly-accessible webpage for this product.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod
@@ -838,7 +838,7 @@ class Product(
         cls, *args, **kwargs: Unpack["Product.SearchParams"]
     ) -> SearchResultObject["Product"]:
         """
-        Search for products you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for products you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -850,7 +850,7 @@ class Product(
         cls, *args, **kwargs: Unpack["Product.SearchParams"]
     ) -> SearchResultObject["Product"]:
         """
-        Search for products you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for products you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.

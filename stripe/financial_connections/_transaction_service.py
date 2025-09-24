@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.financial_connections._transaction import Transaction
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -77,7 +77,7 @@ class TransactionService(StripeService):
     def list(
         self,
         params: "TransactionService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transaction]:
         """
         Returns a list of Financial Connections Transaction objects.
@@ -96,7 +96,7 @@ class TransactionService(StripeService):
     async def list_async(
         self,
         params: "TransactionService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Transaction]:
         """
         Returns a list of Financial Connections Transaction objects.
@@ -115,8 +115,8 @@ class TransactionService(StripeService):
     def retrieve(
         self,
         transaction: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves the details of a Financial Connections Transaction
@@ -137,8 +137,8 @@ class TransactionService(StripeService):
     async def retrieve_async(
         self,
         transaction: str,
-        params: "TransactionService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["TransactionService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Transaction:
         """
         Retrieves the details of a Financial Connections Transaction

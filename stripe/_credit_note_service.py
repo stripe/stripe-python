@@ -9,7 +9,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -22,7 +22,7 @@ class CreditNoteService(StripeService):
     class CreateParams(TypedDict):
         amount: NotRequired[int]
         """
-        The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+        The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         credit_amount: NotRequired[int]
         """
@@ -46,7 +46,7 @@ class CreditNoteService(StripeService):
         """
         lines: NotRequired[List["CreditNoteService.CreateParamsLine"]]
         """
-        Line items that make up the credit note.
+        Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         memo: NotRequired[str]
         """
@@ -83,7 +83,7 @@ class CreditNoteService(StripeService):
             "CreditNoteService.CreateParamsShippingCost"
         ]
         """
-        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
 
     class CreateParamsLine(TypedDict):
@@ -147,7 +147,7 @@ class CreditNoteService(StripeService):
         """
         refund: NotRequired[str]
         """
-        ID of an existing refund to link this credit note to.
+        ID of an existing refund to link this credit note to. Required when `type` is `refund`.
         """
 
     class CreateParamsShippingCost(TypedDict):
@@ -207,7 +207,7 @@ class CreditNoteService(StripeService):
     class PreviewParams(TypedDict):
         amount: NotRequired[int]
         """
-        The integer amount in cents (or local equivalent) representing the total amount of the credit note.
+        The integer amount in cents (or local equivalent) representing the total amount of the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         credit_amount: NotRequired[int]
         """
@@ -231,7 +231,7 @@ class CreditNoteService(StripeService):
         """
         lines: NotRequired[List["CreditNoteService.PreviewParamsLine"]]
         """
-        Line items that make up the credit note.
+        Line items that make up the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
         memo: NotRequired[str]
         """
@@ -268,7 +268,7 @@ class CreditNoteService(StripeService):
             "CreditNoteService.PreviewParamsShippingCost"
         ]
         """
-        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note.
+        When shipping_cost contains the shipping_rate from the invoice, the shipping_cost is included in the credit note. One of `amount`, `lines`, or `shipping_cost` must be provided.
         """
 
     class PreviewParamsLine(TypedDict):
@@ -332,7 +332,7 @@ class CreditNoteService(StripeService):
         """
         refund: NotRequired[str]
         """
-        ID of an existing refund to link this credit note to.
+        ID of an existing refund to link this credit note to. Required when `type` is `refund`.
         """
 
     class PreviewParamsShippingCost(TypedDict):
@@ -369,8 +369,8 @@ class CreditNoteService(StripeService):
 
     def list(
         self,
-        params: "CreditNoteService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CreditNoteService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditNote]:
         """
         Returns a list of credit notes.
@@ -388,8 +388,8 @@ class CreditNoteService(StripeService):
 
     async def list_async(
         self,
-        params: "CreditNoteService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CreditNoteService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditNote]:
         """
         Returns a list of credit notes.
@@ -408,23 +408,22 @@ class CreditNoteService(StripeService):
     def create(
         self,
         params: "CreditNoteService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditNote:
         """
-        Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
-        its amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result
-        in any combination of the following:
+        Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
+        This amount is indicated by the credit note's pre_payment_amount. The excess amount is indicated by post_payment_amount, and it can result in any combination of the following:
 
 
-        Refund: create a new refund (using refund_amount) or link an existing refund (using refund).
+        Refunds: create a new refund (using refund_amount) or link existing refunds (using refunds).
         Customer balance credit: credit the customer's balance (using credit_amount) which will be automatically applied to their next invoice when it's finalized.
         Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).
 
 
-        For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.
+        The sum of refunds, customer balance credits, and outside of Stripe credits must equal the post_payment_amount.
 
-        You may issue multiple credit notes for an invoice. Each credit note will increment the invoice's pre_payment_credit_notes_amount
-        or post_payment_credit_notes_amount depending on its status at the time of credit note creation.
+        You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
+        post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
         """
         return cast(
             CreditNote,
@@ -440,23 +439,22 @@ class CreditNoteService(StripeService):
     async def create_async(
         self,
         params: "CreditNoteService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditNote:
         """
-        Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
-        its amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result
-        in any combination of the following:
+        Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
+        This amount is indicated by the credit note's pre_payment_amount. The excess amount is indicated by post_payment_amount, and it can result in any combination of the following:
 
 
-        Refund: create a new refund (using refund_amount) or link an existing refund (using refund).
+        Refunds: create a new refund (using refund_amount) or link existing refunds (using refunds).
         Customer balance credit: credit the customer's balance (using credit_amount) which will be automatically applied to their next invoice when it's finalized.
         Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).
 
 
-        For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.
+        The sum of refunds, customer balance credits, and outside of Stripe credits must equal the post_payment_amount.
 
-        You may issue multiple credit notes for an invoice. Each credit note will increment the invoice's pre_payment_credit_notes_amount
-        or post_payment_credit_notes_amount depending on its status at the time of credit note creation.
+        You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
+        post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
         """
         return cast(
             CreditNote,
@@ -472,8 +470,8 @@ class CreditNoteService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "CreditNoteService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CreditNoteService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditNote:
         """
         Retrieves the credit note object with the given identifier.
@@ -492,8 +490,8 @@ class CreditNoteService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "CreditNoteService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CreditNoteService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditNote:
         """
         Retrieves the credit note object with the given identifier.
@@ -512,8 +510,8 @@ class CreditNoteService(StripeService):
     def update(
         self,
         id: str,
-        params: "CreditNoteService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CreditNoteService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditNote:
         """
         Updates an existing credit note.
@@ -532,8 +530,8 @@ class CreditNoteService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "CreditNoteService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CreditNoteService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditNote:
         """
         Updates an existing credit note.
@@ -552,7 +550,7 @@ class CreditNoteService(StripeService):
     def preview(
         self,
         params: "CreditNoteService.PreviewParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditNote:
         """
         Get a preview of a credit note without creating it.
@@ -571,7 +569,7 @@ class CreditNoteService(StripeService):
     async def preview_async(
         self,
         params: "CreditNoteService.PreviewParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CreditNote:
         """
         Get a preview of a credit note without creating it.
@@ -590,11 +588,11 @@ class CreditNoteService(StripeService):
     def void_credit_note(
         self,
         id: str,
-        params: "CreditNoteService.VoidCreditNoteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CreditNoteService.VoidCreditNoteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditNote:
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             CreditNote,
@@ -610,11 +608,11 @@ class CreditNoteService(StripeService):
     async def void_credit_note_async(
         self,
         id: str,
-        params: "CreditNoteService.VoidCreditNoteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["CreditNoteService.VoidCreditNoteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> CreditNote:
         """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
             CreditNote,

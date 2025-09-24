@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing_portal._configuration import Configuration
-from typing import Dict, List, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -36,6 +36,10 @@ class ConfigurationService(StripeService):
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: NotRequired["Literal['']|str"]
+        """
+        The name of the configuration.
         """
 
     class CreateParamsBusinessProfile(TypedDict):
@@ -183,8 +187,20 @@ class ConfigurationService(StripeService):
         """
         Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
         """
+        trial_update_behavior: NotRequired[
+            Literal["continue_trial", "end_trial"]
+        ]
+        """
+        The behavior when updating a subscription that is trialing.
+        """
 
     class CreateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
+        adjustable_quantity: NotRequired[
+            "ConfigurationService.CreateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity"
+        ]
+        """
+        Control whether the quantity of the product can be adjusted.
+        """
         prices: List[str]
         """
         The list of price IDs for the product that a subscription can be updated to.
@@ -192,6 +208,22 @@ class ConfigurationService(StripeService):
         product: str
         """
         The product id.
+        """
+
+    class CreateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity(
+        TypedDict,
+    ):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative integer.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity that can be set for the product.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity that can be set for the product.
         """
 
     class CreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd(TypedDict):
@@ -280,6 +312,10 @@ class ConfigurationService(StripeService):
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: NotRequired["Literal['']|str"]
+        """
+        The name of the configuration.
         """
 
     class UpdateParamsBusinessProfile(TypedDict):
@@ -415,8 +451,20 @@ class ConfigurationService(StripeService):
         """
         Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
         """
+        trial_update_behavior: NotRequired[
+            Literal["continue_trial", "end_trial"]
+        ]
+        """
+        The behavior when updating a subscription that is trialing.
+        """
 
     class UpdateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
+        adjustable_quantity: NotRequired[
+            "ConfigurationService.UpdateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity"
+        ]
+        """
+        Control whether the quantity of the product can be adjusted.
+        """
         prices: List[str]
         """
         The list of price IDs for the product that a subscription can be updated to.
@@ -424,6 +472,22 @@ class ConfigurationService(StripeService):
         product: str
         """
         The product id.
+        """
+
+    class UpdateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity(
+        TypedDict,
+    ):
+        enabled: bool
+        """
+        Set to true if the quantity can be adjusted to any non-negative integer.
+        """
+        maximum: NotRequired[int]
+        """
+        The maximum quantity that can be set for the product.
+        """
+        minimum: NotRequired[int]
+        """
+        The minimum quantity that can be set for the product.
         """
 
     class UpdateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd(TypedDict):
@@ -452,8 +516,8 @@ class ConfigurationService(StripeService):
 
     def list(
         self,
-        params: "ConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Configuration]:
         """
         Returns a list of configurations that describe the functionality of the customer portal.
@@ -471,8 +535,8 @@ class ConfigurationService(StripeService):
 
     async def list_async(
         self,
-        params: "ConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Configuration]:
         """
         Returns a list of configurations that describe the functionality of the customer portal.
@@ -491,7 +555,7 @@ class ConfigurationService(StripeService):
     def create(
         self,
         params: "ConfigurationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Creates a configuration that describes the functionality and behavior of a PortalSession
@@ -510,7 +574,7 @@ class ConfigurationService(StripeService):
     async def create_async(
         self,
         params: "ConfigurationService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Creates a configuration that describes the functionality and behavior of a PortalSession
@@ -529,8 +593,8 @@ class ConfigurationService(StripeService):
     def retrieve(
         self,
         configuration: str,
-        params: "ConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Retrieves a configuration that describes the functionality of the customer portal.
@@ -551,8 +615,8 @@ class ConfigurationService(StripeService):
     async def retrieve_async(
         self,
         configuration: str,
-        params: "ConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Retrieves a configuration that describes the functionality of the customer portal.
@@ -573,8 +637,8 @@ class ConfigurationService(StripeService):
     def update(
         self,
         configuration: str,
-        params: "ConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Updates a configuration that describes the functionality of the customer portal.
@@ -595,8 +659,8 @@ class ConfigurationService(StripeService):
     async def update_async(
         self,
         configuration: str,
-        params: "ConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Updates a configuration that describes the functionality of the customer portal.

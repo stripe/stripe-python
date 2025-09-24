@@ -315,6 +315,10 @@ class Plan(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     id: str
     """
     Unique identifier for the object.
@@ -371,15 +375,11 @@ class Plan(
     """
     Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
     """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
-    """
 
     @classmethod
     def create(cls, **params: Unpack["Plan.CreateParams"]) -> "Plan":
         """
-        You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+        You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
         """
         return cast(
             "Plan",
@@ -395,7 +395,7 @@ class Plan(
         cls, **params: Unpack["Plan.CreateParams"]
     ) -> "Plan":
         """
-        You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+        You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
         """
         return cast(
             "Plan",

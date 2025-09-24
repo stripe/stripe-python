@@ -4,7 +4,7 @@ from stripe._login_link import LoginLink
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -18,13 +18,13 @@ class AccountLoginLinkService(StripeService):
     def create(
         self,
         account: str,
-        params: "AccountLoginLinkService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountLoginLinkService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> LoginLink:
         """
         Creates a login link for a connected account to access the Express Dashboard.
 
-        You can only create login links for accounts that use the [Express Dashboard](https://stripe.com/connect/express-dashboard) and are connected to your platform.
+        You can only create login links for accounts that use the [Express Dashboard](https://docs.stripe.com/connect/express-dashboard) and are connected to your platform.
         """
         return cast(
             LoginLink,
@@ -42,13 +42,13 @@ class AccountLoginLinkService(StripeService):
     async def create_async(
         self,
         account: str,
-        params: "AccountLoginLinkService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["AccountLoginLinkService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> LoginLink:
         """
         Creates a login link for a connected account to access the Express Dashboard.
 
-        You can only create login links for accounts that use the [Express Dashboard](https://stripe.com/connect/express-dashboard) and are connected to your platform.
+        You can only create login links for accounts that use the [Express Dashboard](https://docs.stripe.com/connect/express-dashboard) and are connected to your platform.
         """
         return cast(
             LoginLink,

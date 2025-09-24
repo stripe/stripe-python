@@ -4,7 +4,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.apps._secret import Secret
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -122,7 +122,9 @@ class SecretService(StripeService):
         """
 
     def list(
-        self, params: "SecretService.ListParams", options: RequestOptions = {}
+        self,
+        params: "SecretService.ListParams",
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Secret]:
         """
         List all secrets stored on the given scope.
@@ -139,7 +141,9 @@ class SecretService(StripeService):
         )
 
     async def list_async(
-        self, params: "SecretService.ListParams", options: RequestOptions = {}
+        self,
+        params: "SecretService.ListParams",
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Secret]:
         """
         List all secrets stored on the given scope.
@@ -158,7 +162,7 @@ class SecretService(StripeService):
     def create(
         self,
         params: "SecretService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Secret:
         """
         Create or replace a secret in the secret store.
@@ -177,7 +181,7 @@ class SecretService(StripeService):
     async def create_async(
         self,
         params: "SecretService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Secret:
         """
         Create or replace a secret in the secret store.
@@ -194,7 +198,9 @@ class SecretService(StripeService):
         )
 
     def find(
-        self, params: "SecretService.FindParams", options: RequestOptions = {}
+        self,
+        params: "SecretService.FindParams",
+        options: Optional[RequestOptions] = None,
     ) -> Secret:
         """
         Finds a secret in the secret store by name and scope.
@@ -211,7 +217,9 @@ class SecretService(StripeService):
         )
 
     async def find_async(
-        self, params: "SecretService.FindParams", options: RequestOptions = {}
+        self,
+        params: "SecretService.FindParams",
+        options: Optional[RequestOptions] = None,
     ) -> Secret:
         """
         Finds a secret in the secret store by name and scope.
@@ -230,7 +238,7 @@ class SecretService(StripeService):
     def delete_where(
         self,
         params: "SecretService.DeleteWhereParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Secret:
         """
         Deletes a secret from the secret store by name and scope.
@@ -249,7 +257,7 @@ class SecretService(StripeService):
     async def delete_where_async(
         self,
         params: "SecretService.DeleteWhereParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Secret:
         """
         Deletes a secret from the secret store by name and scope.

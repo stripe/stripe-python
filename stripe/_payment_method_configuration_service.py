@@ -5,7 +5,7 @@ from stripe._payment_method_configuration import PaymentMethodConfiguration
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -79,7 +79,7 @@ class PaymentMethodConfigurationService(StripeService):
             "PaymentMethodConfigurationService.CreateParamsBillie"
         ]
         """
-        Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+        Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
         """
         blik: NotRequired["PaymentMethodConfigurationService.CreateParamsBlik"]
         """
@@ -125,6 +125,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
         """
+        fr_meal_voucher_conecs: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsFrMealVoucherConecs"
+        ]
+        """
+        Meal vouchers in France, or “titres-restaurant”, is a local benefits program commonly offered by employers for their employees to purchase prepared food and beverages on working days. Check this [page](https://stripe.com/docs/payments/benefits/fr-meal-vouchers) for more details.
+        """
         giropay: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsGiropay"
         ]
@@ -153,6 +159,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in Australia, Canada, Hong Kong, Japan, New Zealand, Singapore, Switzerland, United Kingdom, United States, and all countries in the European Economic Area except Iceland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
         """
+        kakao_pay: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsKakaoPay"
+        ]
+        """
+        Kakao Pay is a popular local wallet available in South Korea.
+        """
         klarna: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsKlarna"
         ]
@@ -164,6 +176,12 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         Konbini allows customers in Japan to pay for bills and online purchases at convenience stores with cash. Check this [page](https://stripe.com/docs/payments/konbini) for more details.
+        """
+        kr_card: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsKrCard"
+        ]
+        """
+        Korean cards let users pay using locally issued cards from South Korea.
         """
         link: NotRequired["PaymentMethodConfigurationService.CreateParamsLink"]
         """
@@ -184,6 +202,12 @@ class PaymentMethodConfigurationService(StripeService):
         name: NotRequired[str]
         """
         Configuration name.
+        """
+        naver_pay: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsNaverPay"
+        ]
+        """
+        Naver Pay is a popular local wallet available in South Korea.
         """
         nz_bank_account: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsNzBankAccount"
@@ -209,6 +233,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
         """
+        payco: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsPayco"
+        ]
+        """
+        PAYCO is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
+        """
         paynow: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsPaynow"
         ]
@@ -220,6 +250,12 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
+        """
+        paypay: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsPaypay"
+        ]
+        """
+        Customers can pay with PayPay online or using the PayPay app.
         """
         pix: NotRequired["PaymentMethodConfigurationService.CreateParamsPix"]
         """
@@ -237,11 +273,17 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer's stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
         """
+        samsung_pay: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsSamsungPay"
+        ]
+        """
+        Samsung Pay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
+        """
         satispay: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsSatispay"
         ]
         """
-        Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+        Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://docs.stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
         """
         sepa_debit: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsSepaDebit"
@@ -564,6 +606,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsFrMealVoucherConecs(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsFrMealVoucherConecsDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsFrMealVoucherConecsDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsGiropay(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsGiropayDisplayPreference"
@@ -634,6 +690,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsKakaoPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsKakaoPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsKakaoPayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsKlarna(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsKlarnaDisplayPreference"
@@ -657,6 +727,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class CreateParamsKonbiniDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsKrCard(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsKrCardDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsKrCardDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -699,6 +783,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class CreateParamsMultibancoDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsNaverPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsNaverPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsNaverPayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -760,6 +858,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class CreateParamsPayco(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsPaycoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPaycoDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class CreateParamsPaynow(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsPaynowDisplayPreference"
@@ -783,6 +895,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class CreateParamsPaypalDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsPaypay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsPaypayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsPaypayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -825,6 +951,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class CreateParamsRevolutPayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsSamsungPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.CreateParamsSamsungPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsSamsungPayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1043,7 +1183,7 @@ class PaymentMethodConfigurationService(StripeService):
             "PaymentMethodConfigurationService.UpdateParamsBillie"
         ]
         """
-        Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+        Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
         """
         blik: NotRequired["PaymentMethodConfigurationService.UpdateParamsBlik"]
         """
@@ -1089,6 +1229,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Financial Process Exchange (FPX) is a Malaysia-based payment method that allows customers to complete transactions online using their bank credentials. Bank Negara Malaysia (BNM), the Central Bank of Malaysia, and eleven other major Malaysian financial institutions are members of the PayNet Group, which owns and operates FPX. It is one of the most popular online payment methods in Malaysia, with nearly 90 million transactions in 2018 according to BNM. Check this [page](https://stripe.com/docs/payments/fpx) for more details.
         """
+        fr_meal_voucher_conecs: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsFrMealVoucherConecs"
+        ]
+        """
+        Meal vouchers in France, or “titres-restaurant”, is a local benefits program commonly offered by employers for their employees to purchase prepared food and beverages on working days. Check this [page](https://stripe.com/docs/payments/benefits/fr-meal-vouchers) for more details.
+        """
         giropay: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsGiropay"
         ]
@@ -1117,6 +1263,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in Australia, Canada, Hong Kong, Japan, New Zealand, Singapore, Switzerland, United Kingdom, United States, and all countries in the European Economic Area except Iceland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
         """
+        kakao_pay: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsKakaoPay"
+        ]
+        """
+        Kakao Pay is a popular local wallet available in South Korea.
+        """
         klarna: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsKlarna"
         ]
@@ -1128,6 +1280,12 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         Konbini allows customers in Japan to pay for bills and online purchases at convenience stores with cash. Check this [page](https://stripe.com/docs/payments/konbini) for more details.
+        """
+        kr_card: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsKrCard"
+        ]
+        """
+        Korean cards let users pay using locally issued cards from South Korea.
         """
         link: NotRequired["PaymentMethodConfigurationService.UpdateParamsLink"]
         """
@@ -1149,6 +1307,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Configuration name.
         """
+        naver_pay: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsNaverPay"
+        ]
+        """
+        Naver Pay is a popular local wallet available in South Korea.
+        """
         nz_bank_account: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsNzBankAccount"
         ]
@@ -1169,6 +1333,12 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Pay by bank is a redirect payment method backed by bank transfers. A customer is redirected to their bank to authorize a bank transfer for a given amount. This removes a lot of the error risks inherent in waiting for the customer to initiate a transfer themselves, and is less expensive than card payments.
         """
+        payco: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsPayco"
+        ]
+        """
+        PAYCO is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
+        """
         paynow: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsPaynow"
         ]
@@ -1180,6 +1350,12 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
+        """
+        paypay: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsPaypay"
+        ]
+        """
+        Customers can pay with PayPay online or using the PayPay app.
         """
         pix: NotRequired["PaymentMethodConfigurationService.UpdateParamsPix"]
         """
@@ -1197,11 +1373,17 @@ class PaymentMethodConfigurationService(StripeService):
         """
         Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer's stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
         """
+        samsung_pay: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsSamsungPay"
+        ]
+        """
+        Samsung Pay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
+        """
         satispay: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsSatispay"
         ]
         """
-        Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+        Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://docs.stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
         """
         sepa_debit: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsSepaDebit"
@@ -1524,6 +1706,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class UpdateParamsFrMealVoucherConecs(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsFrMealVoucherConecsDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsFrMealVoucherConecsDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class UpdateParamsGiropay(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsGiropayDisplayPreference"
@@ -1594,6 +1790,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class UpdateParamsKakaoPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsKakaoPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsKakaoPayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class UpdateParamsKlarna(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsKlarnaDisplayPreference"
@@ -1617,6 +1827,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsKonbiniDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsKrCard(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsKrCardDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsKrCardDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1659,6 +1883,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsMultibancoDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsNaverPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsNaverPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsNaverPayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1720,6 +1958,20 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
+    class UpdateParamsPayco(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsPaycoDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsPaycoDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
     class UpdateParamsPaynow(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.UpdateParamsPaynowDisplayPreference"
@@ -1743,6 +1995,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsPaypalDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsPaypay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsPaypayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsPaypayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1785,6 +2051,20 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsRevolutPayDisplayPreference(TypedDict):
+        preference: NotRequired[Literal["none", "off", "on"]]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class UpdateParamsSamsungPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfigurationService.UpdateParamsSamsungPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class UpdateParamsSamsungPayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.
@@ -1904,8 +2184,10 @@ class PaymentMethodConfigurationService(StripeService):
 
     def list(
         self,
-        params: "PaymentMethodConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.ListParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethodConfiguration]:
         """
         List payment method configurations
@@ -1923,8 +2205,10 @@ class PaymentMethodConfigurationService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentMethodConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.ListParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethodConfiguration]:
         """
         List payment method configurations
@@ -1942,8 +2226,10 @@ class PaymentMethodConfigurationService(StripeService):
 
     def create(
         self,
-        params: "PaymentMethodConfigurationService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.CreateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Creates a payment method configuration
@@ -1961,8 +2247,10 @@ class PaymentMethodConfigurationService(StripeService):
 
     async def create_async(
         self,
-        params: "PaymentMethodConfigurationService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.CreateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Creates a payment method configuration
@@ -1981,8 +2269,10 @@ class PaymentMethodConfigurationService(StripeService):
     def retrieve(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Retrieve payment method configuration
@@ -2003,8 +2293,10 @@ class PaymentMethodConfigurationService(StripeService):
     async def retrieve_async(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.RetrieveParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Retrieve payment method configuration
@@ -2025,8 +2317,10 @@ class PaymentMethodConfigurationService(StripeService):
     def update(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.UpdateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Update payment method configuration
@@ -2047,8 +2341,10 @@ class PaymentMethodConfigurationService(StripeService):
     async def update_async(
         self,
         configuration: str,
-        params: "PaymentMethodConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional[
+            "PaymentMethodConfigurationService.UpdateParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethodConfiguration:
         """
         Update payment method configuration

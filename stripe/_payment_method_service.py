@@ -5,7 +5,7 @@ from stripe._payment_method import PaymentMethod
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -93,6 +93,10 @@ class PaymentMethodService(StripeService):
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired["PaymentMethodService.CreateParamsCrypto"]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer: NotRequired[str]
         """
         The `Customer` to whom the original PaymentMethod is attached.
@@ -153,6 +157,10 @@ class PaymentMethodService(StripeService):
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired["PaymentMethodService.CreateParamsMbWay"]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -202,6 +210,10 @@ class PaymentMethodService(StripeService):
         paypal: NotRequired["PaymentMethodService.CreateParamsPaypal"]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired["PaymentMethodService.CreateParamsPaypay"]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired["PaymentMethodService.CreateParamsPix"]
         """
@@ -261,6 +273,7 @@ class PaymentMethodService(StripeService):
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",
@@ -272,6 +285,7 @@ class PaymentMethodService(StripeService):
                 "konbini",
                 "kr_card",
                 "link",
+                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
@@ -282,6 +296,7 @@ class PaymentMethodService(StripeService):
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",
@@ -404,11 +419,11 @@ class PaymentMethodService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -463,6 +478,9 @@ class PaymentMethodService(StripeService):
         """
 
     class CreateParamsCashapp(TypedDict):
+        pass
+
+    class CreateParamsCrypto(TypedDict):
         pass
 
     class CreateParamsCustomerBalance(TypedDict):
@@ -550,6 +568,7 @@ class PaymentMethodService(StripeService):
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -602,6 +621,9 @@ class PaymentMethodService(StripeService):
         pass
 
     class CreateParamsLink(TypedDict):
+        pass
+
+    class CreateParamsMbWay(TypedDict):
         pass
 
     class CreateParamsMobilepay(TypedDict):
@@ -687,6 +709,9 @@ class PaymentMethodService(StripeService):
         pass
 
     class CreateParamsPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaypay(TypedDict):
         pass
 
     class CreateParamsPix(TypedDict):
@@ -799,6 +824,7 @@ class PaymentMethodService(StripeService):
                 "boleto",
                 "card",
                 "cashapp",
+                "crypto",
                 "customer_balance",
                 "eps",
                 "fpx",
@@ -810,6 +836,7 @@ class PaymentMethodService(StripeService):
                 "konbini",
                 "kr_card",
                 "link",
+                "mb_way",
                 "mobilepay",
                 "multibanco",
                 "naver_pay",
@@ -820,6 +847,7 @@ class PaymentMethodService(StripeService):
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",
@@ -865,17 +893,9 @@ class PaymentMethodService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
-        link: NotRequired["PaymentMethodService.UpdateParamsLink"]
-        """
-        If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
-        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        pay_by_bank: NotRequired["PaymentMethodService.UpdateParamsPayByBank"]
-        """
-        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
         """
         us_bank_account: NotRequired[
             "PaymentMethodService.UpdateParamsUsBankAccount"
@@ -919,11 +939,11 @@ class PaymentMethodService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -956,12 +976,6 @@ class PaymentMethodService(StripeService):
         The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
         """
 
-    class UpdateParamsLink(TypedDict):
-        pass
-
-    class UpdateParamsPayByBank(TypedDict):
-        pass
-
     class UpdateParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired[Literal["company", "individual"]]
         """
@@ -974,11 +988,11 @@ class PaymentMethodService(StripeService):
 
     def list(
         self,
-        params: "PaymentMethodService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethod]:
         """
-        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer_list) API instead.
+        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
         """
         return cast(
             ListObject[PaymentMethod],
@@ -993,11 +1007,11 @@ class PaymentMethodService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentMethodService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethod]:
         """
-        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer_list) API instead.
+        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
         """
         return cast(
             ListObject[PaymentMethod],
@@ -1012,13 +1026,13 @@ class PaymentMethodService(StripeService):
 
     def create(
         self,
-        params: "PaymentMethodService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
-        Creates a PaymentMethod object. Read the [Stripe.js reference](https://stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
+        Creates a PaymentMethod object. Read the [Stripe.js reference](https://docs.stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
 
-        Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
+        Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://docs.stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
         """
         return cast(
             PaymentMethod,
@@ -1033,13 +1047,13 @@ class PaymentMethodService(StripeService):
 
     async def create_async(
         self,
-        params: "PaymentMethodService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
-        Creates a PaymentMethod object. Read the [Stripe.js reference](https://stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
+        Creates a PaymentMethod object. Read the [Stripe.js reference](https://docs.stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
 
-        Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
+        Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://docs.stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
         """
         return cast(
             PaymentMethod,
@@ -1055,11 +1069,11 @@ class PaymentMethodService(StripeService):
     def retrieve(
         self,
         payment_method: str,
-        params: "PaymentMethodService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
-        Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer)
+        Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer)
         """
         return cast(
             PaymentMethod,
@@ -1077,11 +1091,11 @@ class PaymentMethodService(StripeService):
     async def retrieve_async(
         self,
         payment_method: str,
-        params: "PaymentMethodService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
-        Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer)
+        Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer)
         """
         return cast(
             PaymentMethod,
@@ -1099,11 +1113,11 @@ class PaymentMethodService(StripeService):
     def update(
         self,
         payment_method: str,
-        params: "PaymentMethodService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
-        Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
+        Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
         """
         return cast(
             PaymentMethod,
@@ -1121,11 +1135,11 @@ class PaymentMethodService(StripeService):
     async def update_async(
         self,
         payment_method: str,
-        params: "PaymentMethodService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
-        Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
+        Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
         """
         return cast(
             PaymentMethod,
@@ -1144,21 +1158,21 @@ class PaymentMethodService(StripeService):
         self,
         payment_method: str,
         params: "PaymentMethodService.AttachParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
         Attaches a PaymentMethod object to a Customer.
 
-        To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://stripe.com/docs/api/setup_intents)
-        or a PaymentIntent with [setup_future_usage](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
+        To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://docs.stripe.com/docs/api/setup_intents)
+        or a PaymentIntent with [setup_future_usage](https://docs.stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
         These approaches will perform any necessary steps to set up the PaymentMethod for future payments. Using the /v1/payment_methods/:id/attach
         endpoint without first using a SetupIntent or PaymentIntent with setup_future_usage does not optimize the PaymentMethod for
         future use, which makes later declines and payment friction more likely.
-        See [Optimizing cards for future payments](https://stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
+        See [Optimizing cards for future payments](https://docs.stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
         future payments.
 
         To use this PaymentMethod as the default for invoice or subscription payments,
-        set [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
+        set [invoice_settings.default_payment_method](https://docs.stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
         on the Customer to the PaymentMethod's ID.
         """
         return cast(
@@ -1178,21 +1192,21 @@ class PaymentMethodService(StripeService):
         self,
         payment_method: str,
         params: "PaymentMethodService.AttachParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
         Attaches a PaymentMethod object to a Customer.
 
-        To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://stripe.com/docs/api/setup_intents)
-        or a PaymentIntent with [setup_future_usage](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
+        To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://docs.stripe.com/docs/api/setup_intents)
+        or a PaymentIntent with [setup_future_usage](https://docs.stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
         These approaches will perform any necessary steps to set up the PaymentMethod for future payments. Using the /v1/payment_methods/:id/attach
         endpoint without first using a SetupIntent or PaymentIntent with setup_future_usage does not optimize the PaymentMethod for
         future use, which makes later declines and payment friction more likely.
-        See [Optimizing cards for future payments](https://stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
+        See [Optimizing cards for future payments](https://docs.stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
         future payments.
 
         To use this PaymentMethod as the default for invoice or subscription payments,
-        set [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
+        set [invoice_settings.default_payment_method](https://docs.stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
         on the Customer to the PaymentMethod's ID.
         """
         return cast(
@@ -1211,8 +1225,8 @@ class PaymentMethodService(StripeService):
     def detach(
         self,
         payment_method: str,
-        params: "PaymentMethodService.DetachParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodService.DetachParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -1233,8 +1247,8 @@ class PaymentMethodService(StripeService):
     async def detach_async(
         self,
         payment_method: str,
-        params: "PaymentMethodService.DetachParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PaymentMethodService.DetachParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.

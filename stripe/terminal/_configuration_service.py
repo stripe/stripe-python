@@ -5,12 +5,18 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.terminal._configuration import Configuration
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ConfigurationService(StripeService):
     class CreateParams(TypedDict):
+        bbpos_wisepad3: NotRequired[
+            "ConfigurationService.CreateParamsBbposWisepad3"
+        ]
+        """
+        An object containing device type specific settings for BBPOS WisePad 3 readers
+        """
         bbpos_wisepos_e: NotRequired[
             "ConfigurationService.CreateParamsBbposWiseposE"
         ]
@@ -58,6 +64,12 @@ class ConfigurationService(StripeService):
         Configurations for connecting to a WiFi network.
         """
 
+    class CreateParamsBbposWisepad3(TypedDict):
+        splashscreen: NotRequired["Literal['']|str"]
+        """
+        A File ID representing an image you would like displayed on the reader.
+        """
+
     class CreateParamsBbposWiseposE(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
@@ -87,9 +99,17 @@ class ConfigurationService(StripeService):
         """
 
     class CreateParamsTipping(TypedDict):
+        aed: NotRequired["ConfigurationService.CreateParamsTippingAed"]
+        """
+        Tipping configuration for AED
+        """
         aud: NotRequired["ConfigurationService.CreateParamsTippingAud"]
         """
         Tipping configuration for AUD
+        """
+        bgn: NotRequired["ConfigurationService.CreateParamsTippingBgn"]
+        """
+        Tipping configuration for BGN
         """
         cad: NotRequired["ConfigurationService.CreateParamsTippingCad"]
         """
@@ -119,9 +139,17 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for HKD
         """
+        huf: NotRequired["ConfigurationService.CreateParamsTippingHuf"]
+        """
+        Tipping configuration for HUF
+        """
         jpy: NotRequired["ConfigurationService.CreateParamsTippingJpy"]
         """
         Tipping configuration for JPY
+        """
+        mxn: NotRequired["ConfigurationService.CreateParamsTippingMxn"]
+        """
+        Tipping configuration for MXN
         """
         myr: NotRequired["ConfigurationService.CreateParamsTippingMyr"]
         """
@@ -139,6 +167,10 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for PLN
         """
+        ron: NotRequired["ConfigurationService.CreateParamsTippingRon"]
+        """
+        Tipping configuration for RON
+        """
         sek: NotRequired["ConfigurationService.CreateParamsTippingSek"]
         """
         Tipping configuration for SEK
@@ -152,7 +184,35 @@ class ConfigurationService(StripeService):
         Tipping configuration for USD
         """
 
+    class CreateParamsTippingAed(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
     class CreateParamsTippingAud(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingBgn(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -264,7 +324,35 @@ class ConfigurationService(StripeService):
         Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
         """
 
+    class CreateParamsTippingHuf(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
     class CreateParamsTippingJpy(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingMxn(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -321,6 +409,20 @@ class ConfigurationService(StripeService):
         """
 
     class CreateParamsTippingPln(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class CreateParamsTippingRon(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -490,6 +592,12 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParams(TypedDict):
+        bbpos_wisepad3: NotRequired[
+            "Literal['']|ConfigurationService.UpdateParamsBbposWisepad3"
+        ]
+        """
+        An object containing device type specific settings for BBPOS WisePad 3 readers
+        """
         bbpos_wisepos_e: NotRequired[
             "Literal['']|ConfigurationService.UpdateParamsBbposWiseposE"
         ]
@@ -539,6 +647,12 @@ class ConfigurationService(StripeService):
         Configurations for connecting to a WiFi network.
         """
 
+    class UpdateParamsBbposWisepad3(TypedDict):
+        splashscreen: NotRequired["Literal['']|str"]
+        """
+        A File ID representing an image you would like displayed on the reader.
+        """
+
     class UpdateParamsBbposWiseposE(TypedDict):
         splashscreen: NotRequired["Literal['']|str"]
         """
@@ -568,9 +682,17 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParamsTipping(TypedDict):
+        aed: NotRequired["ConfigurationService.UpdateParamsTippingAed"]
+        """
+        Tipping configuration for AED
+        """
         aud: NotRequired["ConfigurationService.UpdateParamsTippingAud"]
         """
         Tipping configuration for AUD
+        """
+        bgn: NotRequired["ConfigurationService.UpdateParamsTippingBgn"]
+        """
+        Tipping configuration for BGN
         """
         cad: NotRequired["ConfigurationService.UpdateParamsTippingCad"]
         """
@@ -600,9 +722,17 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for HKD
         """
+        huf: NotRequired["ConfigurationService.UpdateParamsTippingHuf"]
+        """
+        Tipping configuration for HUF
+        """
         jpy: NotRequired["ConfigurationService.UpdateParamsTippingJpy"]
         """
         Tipping configuration for JPY
+        """
+        mxn: NotRequired["ConfigurationService.UpdateParamsTippingMxn"]
+        """
+        Tipping configuration for MXN
         """
         myr: NotRequired["ConfigurationService.UpdateParamsTippingMyr"]
         """
@@ -620,6 +750,10 @@ class ConfigurationService(StripeService):
         """
         Tipping configuration for PLN
         """
+        ron: NotRequired["ConfigurationService.UpdateParamsTippingRon"]
+        """
+        Tipping configuration for RON
+        """
         sek: NotRequired["ConfigurationService.UpdateParamsTippingSek"]
         """
         Tipping configuration for SEK
@@ -633,7 +767,35 @@ class ConfigurationService(StripeService):
         Tipping configuration for USD
         """
 
+    class UpdateParamsTippingAed(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
     class UpdateParamsTippingAud(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class UpdateParamsTippingBgn(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -745,7 +907,35 @@ class ConfigurationService(StripeService):
         Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
         """
 
+    class UpdateParamsTippingHuf(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
     class UpdateParamsTippingJpy(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class UpdateParamsTippingMxn(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -802,6 +992,20 @@ class ConfigurationService(StripeService):
         """
 
     class UpdateParamsTippingPln(TypedDict):
+        fixed_amounts: NotRequired[List[int]]
+        """
+        Fixed amounts displayed when collecting a tip
+        """
+        percentages: NotRequired[List[int]]
+        """
+        Percentages displayed when collecting a tip
+        """
+        smart_tip_threshold: NotRequired[int]
+        """
+        Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+        """
+
+    class UpdateParamsTippingRon(TypedDict):
         fixed_amounts: NotRequired[List[int]]
         """
         Fixed amounts displayed when collecting a tip
@@ -942,8 +1146,8 @@ class ConfigurationService(StripeService):
     def delete(
         self,
         configuration: str,
-        params: "ConfigurationService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Deletes a Configuration object.
@@ -964,8 +1168,8 @@ class ConfigurationService(StripeService):
     async def delete_async(
         self,
         configuration: str,
-        params: "ConfigurationService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Deletes a Configuration object.
@@ -986,8 +1190,8 @@ class ConfigurationService(StripeService):
     def retrieve(
         self,
         configuration: str,
-        params: "ConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Retrieves a Configuration object.
@@ -1008,8 +1212,8 @@ class ConfigurationService(StripeService):
     async def retrieve_async(
         self,
         configuration: str,
-        params: "ConfigurationService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Retrieves a Configuration object.
@@ -1030,8 +1234,8 @@ class ConfigurationService(StripeService):
     def update(
         self,
         configuration: str,
-        params: "ConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Updates a new Configuration object.
@@ -1052,8 +1256,8 @@ class ConfigurationService(StripeService):
     async def update_async(
         self,
         configuration: str,
-        params: "ConfigurationService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Updates a new Configuration object.
@@ -1073,8 +1277,8 @@ class ConfigurationService(StripeService):
 
     def list(
         self,
-        params: "ConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Configuration]:
         """
         Returns a list of Configuration objects.
@@ -1092,8 +1296,8 @@ class ConfigurationService(StripeService):
 
     async def list_async(
         self,
-        params: "ConfigurationService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Configuration]:
         """
         Returns a list of Configuration objects.
@@ -1111,8 +1315,8 @@ class ConfigurationService(StripeService):
 
     def create(
         self,
-        params: "ConfigurationService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Creates a new Configuration object.
@@ -1130,8 +1334,8 @@ class ConfigurationService(StripeService):
 
     async def create_async(
         self,
-        params: "ConfigurationService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ConfigurationService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Configuration:
         """
         Creates a new Configuration object.

@@ -11,6 +11,7 @@ import urllib3
 import stripe
 from stripe import util
 from stripe._api_requestor import _api_encode, _APIRequestor
+from stripe._customer import Customer
 from stripe._request_options import RequestOptions
 from stripe._requestor_options import (
     RequestorOptions,
@@ -21,6 +22,7 @@ from stripe._stripe_response import (
     StripeStreamResponse,
     StripeStreamResponseAsync,
 )
+from stripe.v2._deleted_object import DeletedObject
 from tests.http_client_mock import HTTPClientMock
 
 VALID_API_METHODS = ("get", "post", "delete")
@@ -470,6 +472,53 @@ class TestAPIRequestor(object):
                     encoded,
                 )
                 http_client_mock.assert_requested(method, abs_url=abs_url)
+
+    def test_delete_methods(self, requestor, http_client_mock):
+        for path in [self.v1_path, self.v2_path]:
+            method = "delete"
+            http_client_mock.stub_request(
+                method,
+                path=path,
+                rbody=json.dumps({"id": "abc_123", "object": "customer"}),
+                rcode=200,
+            )
+
+            resp = requestor.request(method, path, {}, base_address="api")
+
+            http_client_mock.assert_requested(method, post_data=None)
+
+            if path == self.v1_path:
+                assert isinstance(resp, Customer)
+            else:
+                assert isinstance(resp, DeletedObject)
+
+            assert resp.id == "abc_123"
+            assert resp.object == "customer"
+
+    @pytest.mark.anyio
+    async def test_delete_methods_async(self, requestor, http_client_mock):
+        for path in [self.v1_path, self.v2_path]:
+            method = "delete"
+            http_client_mock.stub_request(
+                method,
+                path=path,
+                rbody=json.dumps({"id": "abc_123", "object": "customer"}),
+                rcode=200,
+            )
+
+            resp = await requestor.request_async(
+                method, path, {}, base_address="api"
+            )
+
+            http_client_mock.assert_requested(method, post_data=None)
+
+            if path == self.v1_path:
+                assert isinstance(resp, Customer)
+            else:
+                assert isinstance(resp, DeletedObject)
+
+            assert resp.id == "abc_123"
+            assert resp.object == "customer"
 
     def test_uses_headers(self, requestor, http_client_mock):
         http_client_mock.stub_request(

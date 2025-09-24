@@ -16,6 +16,7 @@ OBJECT_CLASSES = {
     stripe.ApplicationFeeRefund.OBJECT_NAME: stripe.ApplicationFeeRefund,
     stripe.apps.Secret.OBJECT_NAME: stripe.apps.Secret,
     stripe.Balance.OBJECT_NAME: stripe.Balance,
+    stripe.BalanceSettings.OBJECT_NAME: stripe.BalanceSettings,
     stripe.BalanceTransaction.OBJECT_NAME: stripe.BalanceTransaction,
     stripe.BankAccount.OBJECT_NAME: stripe.BankAccount,
     stripe.billing_portal.Configuration.OBJECT_NAME: stripe.billing_portal.Configuration,

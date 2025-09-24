@@ -32,7 +32,7 @@ class Session(CreateableAPIResource["Session"]):
     Create sessions on-demand when customers intend to manage their subscriptions
     and billing details.
 
-    Related guide: [Customer management](https://stripe.com/customer-management)
+    Related guide: [Customer management](https://docs.stripe.com/customer-management)
     """
 
     OBJECT_NAME: ClassVar[Literal["billing_portal.session"]] = (
@@ -131,7 +131,7 @@ class Session(CreateableAPIResource["Session"]):
 
             discounts: Optional[List[Discount]]
             """
-            The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
+            The coupon or promotion code to apply to this subscription update.
             """
             items: List[Item]
             """
@@ -360,7 +360,7 @@ class Session(CreateableAPIResource["Session"]):
             ]
         ]
         """
-        The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
+        The coupon or promotion code to apply to this subscription update.
         """
         items: List[
             "Session.CreateParamsFlowDataSubscriptionUpdateConfirmItem"

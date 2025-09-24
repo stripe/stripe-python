@@ -25,7 +25,7 @@ pip install --upgrade stripe
 Install from source with:
 
 ```sh
-python setup.py install
+python -m pip install .
 ```
 
 ### Requirements
@@ -37,7 +37,7 @@ python setup.py install
 [The Python Software Foundation (PSF)](https://www.python.org/psf-landing/) community [announced the end of support of Python 2](https://www.python.org/doc/sunset-python-2/) on 01 January 2020.
 Starting with version 6.0.0 Stripe SDK Python packages will no longer support Python 2.7. To continue to get new features and security updates, please make sure to update your Python runtime to Python 3.6+.
 
-The last version of the Stripe SDK that supports Python 2.7 is 5.5.0.
+The last version of the Stripe SDK that supported Python 2.7 was **5.5.0**.
 
 ## Usage
 
@@ -51,13 +51,13 @@ from stripe import StripeClient
 client = StripeClient("sk_test_...")
 
 # list customers
-customers = client.customers.list()
+customers = client.v1.customers.list()
 
 # print the first customer's email
 print(customers.data[0].email)
 
 # retrieve specific Customer
-customer = client.customers.retrieve("cus_123456789")
+customer = client.v1.customers.retrieve("cus_123456789")
 
 # print that customer's email
 print(customer.email)
@@ -65,7 +65,7 @@ print(customer.email)
 
 ### StripeClient vs legacy pattern
 
-We introduced the `StripeClient` class in v8 of the Python SDK. The legacy pattern used prior to that version is still available to use but will be marked as deprecated soon. Review the [migration guide to use StripeClient](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v8-(StripeClient)) to move from the legacy pattern.
+We introduced the `StripeClient` class in v8 of the Python SDK. The legacy pattern used prior to that version is still available to use but will be marked as deprecated soon. Review the [migration guide to use StripeClient](<https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v8-(StripeClient)>) to move from the legacy pattern.
 
 Once the legacy pattern is deprecated, new API endpoints will only be accessible in the StripeClient. While there are no current plans to remove the legacy pattern for existing API endpoints, this may change in the future.
 
@@ -89,7 +89,7 @@ from stripe import StripeClient
 client = StripeClient("sk_test_...")
 
 # list customers
-client.customers.list(
+client.v1.customers.list(
     options={
         "api_key": "sk_test_...",
         "stripe_account": "acct_...",
@@ -98,7 +98,7 @@ client.customers.list(
 )
 
 # retrieve single customer
-client.customers.retrieve(
+client.v1.customers.retrieve(
     "cus_123456789",
     options={
         "api_key": "sk_test_...",
@@ -111,13 +111,13 @@ client.customers.retrieve(
 ### Configuring an HTTP Client
 
 You can configure your `StripeClient` to use `urlfetch`, `requests`, `pycurl`, or
-`urllib2` with the `http_client` option:
+`urllib` with the `http_client` option:
 
 ```python
-client = StripeClient("sk_test_...", http_client=stripe.UrlFetchClient())
-client = StripeClient("sk_test_...", http_client=stripe.RequestsClient())
-client = StripeClient("sk_test_...", http_client=stripe.PycurlClient())
-client = StripeClient("sk_test_...", http_client=stripe.Urllib2Client())
+client = StripeClient("sk_test_...", http_client=stripe.http_client.UrlFetchClient())
+client = StripeClient("sk_test_...", http_client=stripe.http_client.RequestsClient())
+client = StripeClient("sk_test_...", http_client=stripe.http_client.PycurlClient())
+client = StripeClient("sk_test_...", http_client=stripe.http_client.UrllibClient())
 ```
 
 Without a configured client, by default the library will attempt to load
@@ -181,7 +181,7 @@ There are a few options for enabling it:
 You can access the HTTP response code and headers using the `last_response` property of the returned resource.
 
 ```python
-customer = client.customers.retrieve(
+customer = client.v1.customers.retrieve(
     "cus_123456789"
 )
 
@@ -248,23 +248,27 @@ be aware that the data you see at runtime may not match the types.
 
 ### Public Preview SDKs
 
-Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `-beta.X` suffix like `12.2.0-beta.2`.
+Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `bX` suffix like `12.2.0b2`.
 We would love for you to try these as we incrementally release new features and improve them based on your feedback.
 
-The public preview SDKs are different versions of the same package as the stable SDKs. They are appended with `b.X` such as `10.1.0b1`. To install, choose the version that includes support for the preview feature you are interested in by reviewing the [releases page](https://github.com/stripe/stripe-dotnet/releases/) and then use it in the `pip install` command:
+To install, pick the latest version with the `bX` suffix by reviewing the [releases page](https://github.com/stripe/stripe-python/releases/) and then use it in the `pip install` command:
 
 ```
 pip install stripe==<replace-with-the-version-of-your-choice>
 ```
 
 > **Note**
-> There can be breaking changes between two versions of the public preview SDKs without a bump in the major version. Therefore we recommend pinning the package version to a specific version in your [requirements file](https://pip.pypa.io/en/stable/user_guide/#requirements-files) or `setup.py`. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest public preview SDK.
+> There can be breaking changes between two versions of the public preview SDKs without a bump in the major version. Therefore we recommend pinning the package version to a specific version in your [pyproject.toml](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#dependencies-and-requirements) or [requirements file](https://pip.pypa.io/en/stable/user_guide/#requirements-files). This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest public preview SDK.
 
 Some preview features require a name and version to be set in the `Stripe-Version` header like `feature_beta=v3`. If your preview feature has this requirement, use the `stripe.add_beta_version` function (available only in the public preview SDKs):
 
 ```python
 stripe.add_beta_version("feature_beta", "v3")
 ```
+
+### Private Preview SDKs
+
+Stripe has features in the [private preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `aX` suffix like `12.2.0a2`. These are invite-only features. Once invited, you can install the private preview SDKs by following the same instructions as for the [public preview SDKs](https://github.com/stripe/stripe-python?tab=readme-ov-file#public-preview-sdks) above and replacing the suffix `b` with `a` in package versions.
 
 ### Custom requests
 
@@ -288,7 +292,7 @@ with `_async`.
 ```python
 # With StripeClient
 client = StripeClient("sk_test_...")
-customer = await client.customers.retrieve_async("cus_xyz")
+customer = await client.v1.customers.retrieve_async("cus_xyz")
 
 # With global client
 stripe.api_key = "sk_test_..."
@@ -386,7 +390,7 @@ Run the linter with:
 
 ```sh
 just lint
-# or: venv/bin/python -m flake8 --show-source stripe tests setup.py
+# or: venv/bin/python -m flake8 --show-source stripe tests
 ```
 
 The library uses [Ruff][ruff] for code formatting. Code must be formatted

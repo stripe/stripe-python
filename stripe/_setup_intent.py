@@ -127,22 +127,27 @@ class SetupIntent(
                 "coupon_expired",
                 "customer_max_payment_methods",
                 "customer_max_subscriptions",
+                "customer_session_expired",
                 "customer_tax_location_invalid",
                 "debit_not_authorized",
                 "email_invalid",
                 "expired_card",
                 "financial_connections_account_inactive",
+                "financial_connections_account_pending_account_numbers",
+                "financial_connections_account_unavailable_account_numbers",
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
                 "forwarding_api_retryable_upstream_error",
                 "forwarding_api_upstream_connection_error",
                 "forwarding_api_upstream_connection_timeout",
+                "forwarding_api_upstream_error",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
                 "incorrect_number",
                 "incorrect_zip",
+                "india_recurring_payment_mandate_canceled",
                 "instant_payouts_config_disabled",
                 "instant_payouts_currency_disabled",
                 "instant_payouts_limit_exceeded",
@@ -282,7 +287,7 @@ class SetupIntent(
         """
         network_decline_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+        For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
         """
         param: Optional[str]
         """
@@ -412,7 +417,7 @@ class SetupIntent(
         redirect_to_url: Optional[RedirectToUrl]
         type: str
         """
-        Type of the next action to perform, one of `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
+        Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
         """
         use_stripe_sdk: Optional[Dict[str, Any]]
         """
@@ -565,6 +570,16 @@ class SetupIntent(
         class CardPresent(StripeObject):
             pass
 
+        class Klarna(StripeObject):
+            currency: Optional[str]
+            """
+            The currency of the setup intent. Three letter ISO currency code.
+            """
+            preferred_locale: Optional[str]
+            """
+            Preferred locale of the Klarna checkout page that the customer is redirected to.
+            """
+
         class Link(StripeObject):
             persistent_token: Optional[str]
             """
@@ -647,6 +662,7 @@ class SetupIntent(
         bacs_debit: Optional[BacsDebit]
         card: Optional[Card]
         card_present: Optional[CardPresent]
+        klarna: Optional[Klarna]
         link: Optional[Link]
         paypal: Optional[Paypal]
         sepa_debit: Optional[SepaDebit]
@@ -657,6 +673,7 @@ class SetupIntent(
             "bacs_debit": BacsDebit,
             "card": Card,
             "card_present": CardPresent,
+            "klarna": Klarna,
             "link": Link,
             "paypal": Paypal,
             "sepa_debit": SepaDebit,
@@ -839,6 +856,10 @@ class SetupIntent(
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataCrypto"]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer_balance: NotRequired[
             "SetupIntent.ConfirmParamsPaymentMethodDataCustomerBalance"
         ]
@@ -901,6 +922,10 @@ class SetupIntent(
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataMbWay"]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -954,6 +979,10 @@ class SetupIntent(
         paypal: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataPaypal"]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataPaypay"]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataPix"]
         """
@@ -1021,6 +1050,7 @@ class SetupIntent(
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -1032,6 +1062,7 @@ class SetupIntent(
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -1042,6 +1073,7 @@ class SetupIntent(
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -1165,11 +1197,11 @@ class SetupIntent(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1190,6 +1222,9 @@ class SetupIntent(
         """
 
     class ConfirmParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataCrypto(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataCustomerBalance(TypedDict):
@@ -1277,6 +1312,7 @@ class SetupIntent(
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -1329,6 +1365,9 @@ class SetupIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataMbWay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataMobilepay(TypedDict):
@@ -1414,6 +1453,9 @@ class SetupIntent(
         pass
 
     class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class ConfirmParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataPix(TypedDict):
@@ -1511,6 +1553,12 @@ class SetupIntent(
         ]
         """
         If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
+        klarna: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsKlarna"
+        ]
+        """
+        If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method options.
         """
         link: NotRequired["SetupIntent.ConfirmParamsPaymentMethodOptionsLink"]
         """
@@ -1764,6 +1812,133 @@ class SetupIntent(
         message extension: CB-SCORE; numeric value 0-99
         """
 
+    class ConfirmParamsPaymentMethodOptionsKlarna(TypedDict):
+        currency: NotRequired[str]
+        """
+        The currency of the SetupIntent. Three letter ISO currency code.
+        """
+        on_demand: NotRequired[
+            "SetupIntent.ConfirmParamsPaymentMethodOptionsKlarnaOnDemand"
+        ]
+        """
+        On-demand details if setting up a payment method for on-demand payments.
+        """
+        preferred_locale: NotRequired[
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-CH",
+                "de-DE",
+                "el-GR",
+                "en-AT",
+                "en-AU",
+                "en-BE",
+                "en-CA",
+                "en-CH",
+                "en-CZ",
+                "en-DE",
+                "en-DK",
+                "en-ES",
+                "en-FI",
+                "en-FR",
+                "en-GB",
+                "en-GR",
+                "en-IE",
+                "en-IT",
+                "en-NL",
+                "en-NO",
+                "en-NZ",
+                "en-PL",
+                "en-PT",
+                "en-RO",
+                "en-SE",
+                "en-US",
+                "es-ES",
+                "es-US",
+                "fi-FI",
+                "fr-BE",
+                "fr-CA",
+                "fr-CH",
+                "fr-FR",
+                "it-CH",
+                "it-IT",
+                "nb-NO",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "ro-RO",
+                "sv-FI",
+                "sv-SE",
+            ]
+        ]
+        """
+        Preferred language of the Klarna authorization page that the customer is redirected to
+        """
+        subscriptions: NotRequired[
+            "Literal['']|List[SetupIntent.ConfirmParamsPaymentMethodOptionsKlarnaSubscription]"
+        ]
+        """
+        Subscription details if setting up or charging a subscription
+        """
+
+    class ConfirmParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
+        average_amount: NotRequired[int]
+        """
+        Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        maximum_amount: NotRequired[int]
+        """
+        The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        minimum_amount: NotRequired[int]
+        """
+        The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        purchase_interval: NotRequired[Literal["day", "month", "week", "year"]]
+        """
+        Interval at which the customer is making purchases
+        """
+        purchase_interval_count: NotRequired[int]
+        """
+        The number of `purchase_interval` between charges
+        """
+
+    class ConfirmParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Unit of time between subscription charges.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+        """
+        name: NotRequired[str]
+        """
+        Name for subscription.
+        """
+        next_billing: "SetupIntent.ConfirmParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling"
+        """
+        Describes the upcoming charge for this subscription.
+        """
+        reference: str
+        """
+        A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The amount of the next charge for the subscription.
+        """
+        date: str
+        """
+        The date of the next charge for the subscription in YYYY-MM-DD format.
+        """
+
     class ConfirmParamsPaymentMethodOptionsLink(TypedDict):
         persistent_token: NotRequired[str]
         """
@@ -1950,7 +2125,7 @@ class SetupIntent(
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
+        The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
         """
         return_url: NotRequired[str]
         """
@@ -2105,6 +2280,10 @@ class SetupIntent(
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired["SetupIntent.CreateParamsPaymentMethodDataCrypto"]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer_balance: NotRequired[
             "SetupIntent.CreateParamsPaymentMethodDataCustomerBalance"
         ]
@@ -2165,6 +2344,10 @@ class SetupIntent(
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired["SetupIntent.CreateParamsPaymentMethodDataMbWay"]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -2218,6 +2401,10 @@ class SetupIntent(
         paypal: NotRequired["SetupIntent.CreateParamsPaymentMethodDataPaypal"]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired["SetupIntent.CreateParamsPaymentMethodDataPaypay"]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired["SetupIntent.CreateParamsPaymentMethodDataPix"]
         """
@@ -2285,6 +2472,7 @@ class SetupIntent(
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -2296,6 +2484,7 @@ class SetupIntent(
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -2306,6 +2495,7 @@ class SetupIntent(
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -2429,11 +2619,11 @@ class SetupIntent(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2454,6 +2644,9 @@ class SetupIntent(
         """
 
     class CreateParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataCrypto(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):
@@ -2541,6 +2734,7 @@ class SetupIntent(
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -2593,6 +2787,9 @@ class SetupIntent(
         pass
 
     class CreateParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataMbWay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataMobilepay(TypedDict):
@@ -2678,6 +2875,9 @@ class SetupIntent(
         pass
 
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class CreateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataPix(TypedDict):
@@ -2775,6 +2975,12 @@ class SetupIntent(
         ]
         """
         If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
+        klarna: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsKlarna"
+        ]
+        """
+        If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method options.
         """
         link: NotRequired["SetupIntent.CreateParamsPaymentMethodOptionsLink"]
         """
@@ -3028,6 +3234,133 @@ class SetupIntent(
         message extension: CB-SCORE; numeric value 0-99
         """
 
+    class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
+        currency: NotRequired[str]
+        """
+        The currency of the SetupIntent. Three letter ISO currency code.
+        """
+        on_demand: NotRequired[
+            "SetupIntent.CreateParamsPaymentMethodOptionsKlarnaOnDemand"
+        ]
+        """
+        On-demand details if setting up a payment method for on-demand payments.
+        """
+        preferred_locale: NotRequired[
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-CH",
+                "de-DE",
+                "el-GR",
+                "en-AT",
+                "en-AU",
+                "en-BE",
+                "en-CA",
+                "en-CH",
+                "en-CZ",
+                "en-DE",
+                "en-DK",
+                "en-ES",
+                "en-FI",
+                "en-FR",
+                "en-GB",
+                "en-GR",
+                "en-IE",
+                "en-IT",
+                "en-NL",
+                "en-NO",
+                "en-NZ",
+                "en-PL",
+                "en-PT",
+                "en-RO",
+                "en-SE",
+                "en-US",
+                "es-ES",
+                "es-US",
+                "fi-FI",
+                "fr-BE",
+                "fr-CA",
+                "fr-CH",
+                "fr-FR",
+                "it-CH",
+                "it-IT",
+                "nb-NO",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "ro-RO",
+                "sv-FI",
+                "sv-SE",
+            ]
+        ]
+        """
+        Preferred language of the Klarna authorization page that the customer is redirected to
+        """
+        subscriptions: NotRequired[
+            "Literal['']|List[SetupIntent.CreateParamsPaymentMethodOptionsKlarnaSubscription]"
+        ]
+        """
+        Subscription details if setting up or charging a subscription
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
+        average_amount: NotRequired[int]
+        """
+        Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        maximum_amount: NotRequired[int]
+        """
+        The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        minimum_amount: NotRequired[int]
+        """
+        The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        purchase_interval: NotRequired[Literal["day", "month", "week", "year"]]
+        """
+        Interval at which the customer is making purchases
+        """
+        purchase_interval_count: NotRequired[int]
+        """
+        The number of `purchase_interval` between charges
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Unit of time between subscription charges.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+        """
+        name: NotRequired[str]
+        """
+        Name for subscription.
+        """
+        next_billing: "SetupIntent.CreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling"
+        """
+        Describes the upcoming charge for this subscription.
+        """
+        reference: str
+        """
+        A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+        """
+
+    class CreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The amount of the next charge for the subscription.
+        """
+        date: str
+        """
+        The date of the next charge for the subscription in YYYY-MM-DD format.
+        """
+
     class CreateParamsPaymentMethodOptionsLink(TypedDict):
         persistent_token: NotRequired[str]
         """
@@ -3252,7 +3585,7 @@ class SetupIntent(
         """
         payment_method_types: NotRequired[List[str]]
         """
-        The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
+        The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
         """
 
     class ModifyParamsPaymentMethodData(TypedDict):
@@ -3334,6 +3667,10 @@ class SetupIntent(
         """
         If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
         """
+        crypto: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataCrypto"]
+        """
+        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
+        """
         customer_balance: NotRequired[
             "SetupIntent.ModifyParamsPaymentMethodDataCustomerBalance"
         ]
@@ -3394,6 +3731,10 @@ class SetupIntent(
         """
         If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
         """
+        mb_way: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataMbWay"]
+        """
+        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
+        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -3447,6 +3788,10 @@ class SetupIntent(
         paypal: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataPaypal"]
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
+        """
+        paypay: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataPaypay"]
+        """
+        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
         """
         pix: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataPix"]
         """
@@ -3514,6 +3859,7 @@ class SetupIntent(
             "blik",
             "boleto",
             "cashapp",
+            "crypto",
             "customer_balance",
             "eps",
             "fpx",
@@ -3525,6 +3871,7 @@ class SetupIntent(
             "konbini",
             "kr_card",
             "link",
+            "mb_way",
             "mobilepay",
             "multibanco",
             "naver_pay",
@@ -3535,6 +3882,7 @@ class SetupIntent(
             "payco",
             "paynow",
             "paypal",
+            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -3658,11 +4006,11 @@ class SetupIntent(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -3683,6 +4031,9 @@ class SetupIntent(
         """
 
     class ModifyParamsPaymentMethodDataCashapp(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataCrypto(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataCustomerBalance(TypedDict):
@@ -3770,6 +4121,7 @@ class SetupIntent(
                 "abn_amro",
                 "asn_bank",
                 "bunq",
+                "buut",
                 "handelsbanken",
                 "ing",
                 "knab",
@@ -3822,6 +4174,9 @@ class SetupIntent(
         pass
 
     class ModifyParamsPaymentMethodDataLink(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataMbWay(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataMobilepay(TypedDict):
@@ -3907,6 +4262,9 @@ class SetupIntent(
         pass
 
     class ModifyParamsPaymentMethodDataPaypal(TypedDict):
+        pass
+
+    class ModifyParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataPix(TypedDict):
@@ -4004,6 +4362,12 @@ class SetupIntent(
         ]
         """
         If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
+        """
+        klarna: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsKlarna"
+        ]
+        """
+        If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method options.
         """
         link: NotRequired["SetupIntent.ModifyParamsPaymentMethodOptionsLink"]
         """
@@ -4257,6 +4621,133 @@ class SetupIntent(
         message extension: CB-SCORE; numeric value 0-99
         """
 
+    class ModifyParamsPaymentMethodOptionsKlarna(TypedDict):
+        currency: NotRequired[str]
+        """
+        The currency of the SetupIntent. Three letter ISO currency code.
+        """
+        on_demand: NotRequired[
+            "SetupIntent.ModifyParamsPaymentMethodOptionsKlarnaOnDemand"
+        ]
+        """
+        On-demand details if setting up a payment method for on-demand payments.
+        """
+        preferred_locale: NotRequired[
+            Literal[
+                "cs-CZ",
+                "da-DK",
+                "de-AT",
+                "de-CH",
+                "de-DE",
+                "el-GR",
+                "en-AT",
+                "en-AU",
+                "en-BE",
+                "en-CA",
+                "en-CH",
+                "en-CZ",
+                "en-DE",
+                "en-DK",
+                "en-ES",
+                "en-FI",
+                "en-FR",
+                "en-GB",
+                "en-GR",
+                "en-IE",
+                "en-IT",
+                "en-NL",
+                "en-NO",
+                "en-NZ",
+                "en-PL",
+                "en-PT",
+                "en-RO",
+                "en-SE",
+                "en-US",
+                "es-ES",
+                "es-US",
+                "fi-FI",
+                "fr-BE",
+                "fr-CA",
+                "fr-CH",
+                "fr-FR",
+                "it-CH",
+                "it-IT",
+                "nb-NO",
+                "nl-BE",
+                "nl-NL",
+                "pl-PL",
+                "pt-PT",
+                "ro-RO",
+                "sv-FI",
+                "sv-SE",
+            ]
+        ]
+        """
+        Preferred language of the Klarna authorization page that the customer is redirected to
+        """
+        subscriptions: NotRequired[
+            "Literal['']|List[SetupIntent.ModifyParamsPaymentMethodOptionsKlarnaSubscription]"
+        ]
+        """
+        Subscription details if setting up or charging a subscription
+        """
+
+    class ModifyParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
+        average_amount: NotRequired[int]
+        """
+        Your average amount value. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        maximum_amount: NotRequired[int]
+        """
+        The maximum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        minimum_amount: NotRequired[int]
+        """
+        The lowest or minimum value you may charge a customer per purchase. You can use a value across your customer base, or segment based on customer type, country, etc.
+        """
+        purchase_interval: NotRequired[Literal["day", "month", "week", "year"]]
+        """
+        Interval at which the customer is making purchases
+        """
+        purchase_interval_count: NotRequired[int]
+        """
+        The number of `purchase_interval` between charges
+        """
+
+    class ModifyParamsPaymentMethodOptionsKlarnaSubscription(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Unit of time between subscription charges.
+        """
+        interval_count: NotRequired[int]
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription charges. For example, `interval=month` and `interval_count=3` charges every 3 months.
+        """
+        name: NotRequired[str]
+        """
+        Name for subscription.
+        """
+        next_billing: "SetupIntent.ModifyParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling"
+        """
+        Describes the upcoming charge for this subscription.
+        """
+        reference: str
+        """
+        A non-customer-facing reference to correlate subscription charges in the Klarna app. Use a value that persists across subscription charges.
+        """
+
+    class ModifyParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling(
+        TypedDict,
+    ):
+        amount: int
+        """
+        The amount of the next charge for the subscription.
+        """
+        date: str
+        """
+        The date of the next charge for the subscription in YYYY-MM-DD format.
+        """
+
     class ModifyParamsPaymentMethodOptionsLink(TypedDict):
         persistent_token: NotRequired[str]
         """
@@ -4485,7 +4976,7 @@ class SetupIntent(
     """
     payment_method_types: List[str]
     """
-    The list of payment method types (e.g. card) that this SetupIntent is allowed to set up.
+    The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     """
     single_use_mandate: Optional[ExpandableField["Mandate"]]
     """
@@ -4516,7 +5007,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         return cast(
             "SetupIntent",
@@ -4537,7 +5028,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         ...
 
@@ -4548,7 +5039,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         ...
 
@@ -4559,7 +5050,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         return cast(
             "SetupIntent",
@@ -4579,7 +5070,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         return cast(
             "SetupIntent",
@@ -4600,7 +5091,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         ...
 
@@ -4611,7 +5102,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         ...
 
@@ -4622,7 +5113,7 @@ class SetupIntent(
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
-        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         return cast(
             "SetupIntent",
@@ -4856,7 +5347,7 @@ class SetupIntent(
         """
         Creates a SetupIntent object.
 
-        After you create the SetupIntent, attach a payment method and [confirm](https://stripe.com/docs/api/setup_intents/confirm)
+        After you create the SetupIntent, attach a payment method and [confirm](https://docs.stripe.com/docs/api/setup_intents/confirm)
         it to collect any required permissions to charge the payment method later.
         """
         return cast(
@@ -4875,7 +5366,7 @@ class SetupIntent(
         """
         Creates a SetupIntent object.
 
-        After you create the SetupIntent, attach a payment method and [confirm](https://stripe.com/docs/api/setup_intents/confirm)
+        After you create the SetupIntent, attach a payment method and [confirm](https://docs.stripe.com/docs/api/setup_intents/confirm)
         it to collect any required permissions to charge the payment method later.
         """
         return cast(
@@ -4970,7 +5461,7 @@ class SetupIntent(
 
         Client-side retrieval using a publishable key is allowed when the client_secret is provided in the query string.
 
-        When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://stripe.com/docs/api#setup_intent_object) object reference for more details.
+        When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://docs.stripe.com/api#setup_intent_object) object reference for more details.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -4985,7 +5476,7 @@ class SetupIntent(
 
         Client-side retrieval using a publishable key is allowed when the client_secret is provided in the query string.
 
-        When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://stripe.com/docs/api#setup_intent_object) object reference for more details.
+        When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://docs.stripe.com/api#setup_intent_object) object reference for more details.
         """
         instance = cls(id, **params)
         await instance.refresh_async()

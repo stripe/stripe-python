@@ -5,7 +5,7 @@ from stripe._payout import Payout
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -44,6 +44,10 @@ class PayoutService(StripeService):
         method: NotRequired[Literal["instant", "standard"]]
         """
         The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
+        """
+        payout_method: NotRequired[str]
+        """
+        The ID of a v2 FinancialAccount to send funds to.
         """
         source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
         """
@@ -152,8 +156,8 @@ class PayoutService(StripeService):
 
     def list(
         self,
-        params: "PayoutService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Payout]:
         """
         Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
@@ -171,8 +175,8 @@ class PayoutService(StripeService):
 
     async def list_async(
         self,
-        params: "PayoutService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Payout]:
         """
         Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
@@ -191,14 +195,14 @@ class PayoutService(StripeService):
     def create(
         self,
         params: "PayoutService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
-        To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://stripe.com/docs/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
+        To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://docs.stripe.com/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
 
         If your API key is in test mode, money won't actually be sent, though every other action occurs as if you're in live mode.
 
-        If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://stripe.com/docs/api#balance_object) details available and pending amounts by source type.
+        If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://docs.stripe.com/api#balance_object) details available and pending amounts by source type.
         """
         return cast(
             Payout,
@@ -214,14 +218,14 @@ class PayoutService(StripeService):
     async def create_async(
         self,
         params: "PayoutService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
-        To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://stripe.com/docs/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
+        To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://docs.stripe.com/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
 
         If your API key is in test mode, money won't actually be sent, though every other action occurs as if you're in live mode.
 
-        If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://stripe.com/docs/api#balance_object) details available and pending amounts by source type.
+        If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://docs.stripe.com/api#balance_object) details available and pending amounts by source type.
         """
         return cast(
             Payout,
@@ -237,8 +241,8 @@ class PayoutService(StripeService):
     def retrieve(
         self,
         payout: str,
-        params: "PayoutService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
         Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.
@@ -257,8 +261,8 @@ class PayoutService(StripeService):
     async def retrieve_async(
         self,
         payout: str,
-        params: "PayoutService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
         Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.
@@ -277,8 +281,8 @@ class PayoutService(StripeService):
     def update(
         self,
         payout: str,
-        params: "PayoutService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
         Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
@@ -297,8 +301,8 @@ class PayoutService(StripeService):
     async def update_async(
         self,
         payout: str,
-        params: "PayoutService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
         Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
@@ -317,8 +321,8 @@ class PayoutService(StripeService):
     def cancel(
         self,
         payout: str,
-        params: "PayoutService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -339,8 +343,8 @@ class PayoutService(StripeService):
     async def cancel_async(
         self,
         payout: str,
-        params: "PayoutService.CancelParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutService.CancelParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -361,8 +365,8 @@ class PayoutService(StripeService):
     def reverse(
         self,
         payout: str,
-        params: "PayoutService.ReverseParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutService.ReverseParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
@@ -385,8 +389,8 @@ class PayoutService(StripeService):
     async def reverse_async(
         self,
         payout: str,
-        params: "PayoutService.ReverseParams" = {},
-        options: RequestOptions = {},
+        params: Optional["PayoutService.ReverseParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.

@@ -7,7 +7,7 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -159,6 +159,10 @@ class InvoiceService(StripeService):
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
+        unit_label: NotRequired[str]
+        """
+        A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+        """
 
     class AddLinesParamsLinePricing(TypedDict):
         price: NotRequired[str]
@@ -263,6 +267,16 @@ class InvoiceService(StripeService):
         The high-level tax type, such as `vat` or `sales_tax`.
         """
 
+    class AttachPaymentParams(TypedDict):
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        payment_intent: NotRequired[str]
+        """
+        The ID of the PaymentIntent to attach to the invoice.
+        """
+
     class CreateParams(TypedDict):
         account_tax_ids: NotRequired["Literal['']|List[str]"]
         """
@@ -274,7 +288,7 @@ class InvoiceService(StripeService):
         """
         auto_advance: NotRequired[bool]
         """
-        Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
+        Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action. Defaults to false.
         """
         automatic_tax: NotRequired["InvoiceService.CreateParamsAutomaticTax"]
         """
@@ -282,7 +296,7 @@ class InvoiceService(StripeService):
         """
         automatically_finalizes_at: NotRequired[int]
         """
-        The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state.
+        The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -483,10 +497,10 @@ class InvoiceService(StripeService):
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -566,7 +580,7 @@ class InvoiceService(StripeService):
             "InvoiceService.CreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this invoice (Mexico Only).
+        Installment configuration for payments attempted on this invoice.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -604,9 +618,9 @@ class InvoiceService(StripeService):
         For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
-        type: Literal["fixed_count"]
+        type: Literal["bonus", "fixed_count", "revolving"]
         """
-        Type of installment plan, one of `fixed_count`.
+        Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(
@@ -875,11 +889,11 @@ class InvoiceService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1035,11 +1049,11 @@ class InvoiceService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1077,11 +1091,11 @@ class InvoiceService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1366,6 +1380,12 @@ class InvoiceService(StripeService):
         """
 
     class CreatePreviewParamsScheduleDetails(TypedDict):
+        billing_mode: NotRequired[
+            "InvoiceService.CreatePreviewParamsScheduleDetailsBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         end_behavior: NotRequired[Literal["cancel", "release"]]
         """
         Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
@@ -1381,6 +1401,24 @@ class InvoiceService(StripeService):
         ]
         """
         In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
+        """
+
+    class CreatePreviewParamsScheduleDetailsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "InvoiceService.CreatePreviewParamsScheduleDetailsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
+        type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreatePreviewParamsScheduleDetailsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
         """
 
     class CreatePreviewParamsScheduleDetailsPhase(TypedDict):
@@ -1405,6 +1443,12 @@ class InvoiceService(StripeService):
         billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+        """
+        billing_thresholds: NotRequired[
+            "Literal['']|InvoiceService.CreatePreviewParamsScheduleDetailsPhaseBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -1434,6 +1478,12 @@ class InvoiceService(StripeService):
         """
         The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
+        duration: NotRequired[
+            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseDuration"
+        ]
+        """
+        The number of intervals the phase should last. If set, `end_date` must not be set.
+        """
         end_date: NotRequired["int|Literal['now']"]
         """
         The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
@@ -1450,10 +1500,6 @@ class InvoiceService(StripeService):
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
@@ -1466,7 +1512,7 @@ class InvoiceService(StripeService):
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
+        Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         """
         start_date: NotRequired["int|Literal['now']"]
         """
@@ -1495,6 +1541,16 @@ class InvoiceService(StripeService):
         ]
         """
         The coupons to redeem into discounts for the item.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -1529,6 +1585,42 @@ class InvoiceService(StripeService):
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriod(
+        TypedDict,
+    ):
+        end: "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: "InvoiceService.CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodStart"
+        """
+        Start of the invoice item period.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodEnd(
+        TypedDict,
+    ):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "phase_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPeriodStart(
+        TypedDict,
+    ):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "phase_start", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemPriceData(
@@ -1581,6 +1673,16 @@ class InvoiceService(StripeService):
         Type of the account referenced in the request.
         """
 
+    class CreatePreviewParamsScheduleDetailsPhaseBillingThresholds(TypedDict):
+        amount_gte: NotRequired[int]
+        """
+        Monetary threshold that triggers the subscription to advance to a new billing period
+        """
+        reset_billing_cycle_anchor: NotRequired[bool]
+        """
+        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+        """
+
     class CreatePreviewParamsScheduleDetailsPhaseDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -1593,6 +1695,16 @@ class InvoiceService(StripeService):
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies phase duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseInvoiceSettings(TypedDict):
@@ -1624,6 +1736,12 @@ class InvoiceService(StripeService):
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseItem(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|InvoiceService.CreatePreviewParamsScheduleDetailsPhaseItemBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         discounts: NotRequired[
             "Literal['']|List[InvoiceService.CreatePreviewParamsScheduleDetailsPhaseItemDiscount]"
         ]
@@ -1655,6 +1773,14 @@ class InvoiceService(StripeService):
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class CreatePreviewParamsScheduleDetailsPhaseItemBillingThresholds(
+        TypedDict,
+    ):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class CreatePreviewParamsScheduleDetailsPhaseItemDiscount(TypedDict):
@@ -1726,7 +1852,15 @@ class InvoiceService(StripeService):
         """
         For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
         """
-        cancel_at: NotRequired["Literal['']|int"]
+        billing_mode: NotRequired[
+            "InvoiceService.CreatePreviewParamsSubscriptionDetailsBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
+        cancel_at: NotRequired[
+            "Literal['']|int|Literal['max_period_end', 'min_period_end']"
+        ]
         """
         A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
         """
@@ -1771,7 +1905,31 @@ class InvoiceService(StripeService):
         If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_details.items` or `subscription` is required.
         """
 
+    class CreatePreviewParamsSubscriptionDetailsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "InvoiceService.CreatePreviewParamsSubscriptionDetailsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
+        type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreatePreviewParamsSubscriptionDetailsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
+        """
+
     class CreatePreviewParamsSubscriptionDetailsItem(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|InvoiceService.CreatePreviewParamsSubscriptionDetailsItemBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         clear_usage: NotRequired[bool]
         """
         Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
@@ -1815,6 +1973,14 @@ class InvoiceService(StripeService):
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class CreatePreviewParamsSubscriptionDetailsItemBillingThresholds(
+        TypedDict,
+    ):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class CreatePreviewParamsSubscriptionDetailsItemDiscount(TypedDict):
@@ -2200,6 +2366,10 @@ class InvoiceService(StripeService):
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
+        unit_label: NotRequired[str]
+        """
+        A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+        """
 
     class UpdateLinesParamsLinePricing(TypedDict):
         price: NotRequired[str]
@@ -2325,7 +2495,7 @@ class InvoiceService(StripeService):
         """
         automatically_finalizes_at: NotRequired[int]
         """
-        The time when this invoice should be scheduled to finalize. The invoice will be finalized at this time if it is still in draft state. To turn off automatic finalization, set `auto_advance` to false.
+        The time when this invoice should be scheduled to finalize (up to 5 years in the future). The invoice is finalized at this time if it's still in draft state. To turn off automatic finalization, set `auto_advance` to false.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -2498,10 +2668,10 @@ class InvoiceService(StripeService):
         Payment-method-specific configuration to provide to the invoice's PaymentIntent.
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+            "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
         ]
         """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -2581,7 +2751,7 @@ class InvoiceService(StripeService):
             "InvoiceService.UpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallments"
         ]
         """
-        Installment configuration for payments attempted on this invoice (Mexico Only).
+        Installment configuration for payments attempted on this invoice.
 
         For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
         """
@@ -2619,9 +2789,9 @@ class InvoiceService(StripeService):
         For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
         One of `month`.
         """
-        type: Literal["fixed_count"]
+        type: Literal["bonus", "fixed_count", "revolving"]
         """
-        Type of installment plan, one of `fixed_count`.
+        Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(
@@ -2890,11 +3060,11 @@ class InvoiceService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2924,11 +3094,11 @@ class InvoiceService(StripeService):
     def delete(
         self,
         invoice: str,
-        params: "InvoiceService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+        Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
         """
         return cast(
             Invoice,
@@ -2944,11 +3114,11 @@ class InvoiceService(StripeService):
     async def delete_async(
         self,
         invoice: str,
-        params: "InvoiceService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+        Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
         """
         return cast(
             Invoice,
@@ -2964,8 +3134,8 @@ class InvoiceService(StripeService):
     def retrieve(
         self,
         invoice: str,
-        params: "InvoiceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Retrieves the invoice with the given ID.
@@ -2984,8 +3154,8 @@ class InvoiceService(StripeService):
     async def retrieve_async(
         self,
         invoice: str,
-        params: "InvoiceService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Retrieves the invoice with the given ID.
@@ -3004,15 +3174,15 @@ class InvoiceService(StripeService):
     def update(
         self,
         invoice: str,
-        params: "InvoiceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        Draft invoices are fully editable. Once an invoice is [finalized](https://stripe.com/docs/billing/invoices/workflow#finalized),
+        Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
         monetary values, as well as collection_method, become uneditable.
 
         If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
-        sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
+        sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
         auto_advance=false.
         """
         return cast(
@@ -3029,15 +3199,15 @@ class InvoiceService(StripeService):
     async def update_async(
         self,
         invoice: str,
-        params: "InvoiceService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        Draft invoices are fully editable. Once an invoice is [finalized](https://stripe.com/docs/billing/invoices/workflow#finalized),
+        Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
         monetary values, as well as collection_method, become uneditable.
 
         If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
-        sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
+        sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
         auto_advance=false.
         """
         return cast(
@@ -3053,8 +3223,8 @@ class InvoiceService(StripeService):
 
     def list(
         self,
-        params: "InvoiceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Invoice]:
         """
         You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
@@ -3072,8 +3242,8 @@ class InvoiceService(StripeService):
 
     async def list_async(
         self,
-        params: "InvoiceService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Invoice]:
         """
         You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
@@ -3091,11 +3261,11 @@ class InvoiceService(StripeService):
 
     def create(
         self,
-        params: "InvoiceService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://stripe.com/docs/api#finalize_invoice) the invoice to your customers.
+        This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
         """
         return cast(
             Invoice,
@@ -3110,11 +3280,11 @@ class InvoiceService(StripeService):
 
     async def create_async(
         self,
-        params: "InvoiceService.CreateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.CreateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://stripe.com/docs/api#finalize_invoice) the invoice to your customers.
+        This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
         """
         return cast(
             Invoice,
@@ -3130,10 +3300,10 @@ class InvoiceService(StripeService):
     def search(
         self,
         params: "InvoiceService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Invoice]:
         """
-        Search for invoices you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for invoices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -3152,10 +3322,10 @@ class InvoiceService(StripeService):
     async def search_async(
         self,
         params: "InvoiceService.SearchParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Invoice]:
         """
-        Search for invoices you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for invoices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -3175,7 +3345,7 @@ class InvoiceService(StripeService):
         self,
         invoice: str,
         params: "InvoiceService.AddLinesParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
@@ -3197,7 +3367,7 @@ class InvoiceService(StripeService):
         self,
         invoice: str,
         params: "InvoiceService.AddLinesParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
@@ -3215,11 +3385,73 @@ class InvoiceService(StripeService):
             ),
         )
 
+    def attach_payment(
+        self,
+        invoice: str,
+        params: Optional["InvoiceService.AttachPaymentParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> Invoice:
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
+        """
+        return cast(
+            Invoice,
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/attach_payment".format(
+                    invoice=sanitize_id(invoice),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def attach_payment_async(
+        self,
+        invoice: str,
+        params: Optional["InvoiceService.AttachPaymentParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> Invoice:
+        """
+        Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
+
+        For the PaymentIntent, when the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it's attached, it's
+        credited to the invoice immediately.
+
+        See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
+        """
+        return cast(
+            Invoice,
+            await self._request_async(
+                "post",
+                "/v1/invoices/{invoice}/attach_payment".format(
+                    invoice=sanitize_id(invoice),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def finalize_invoice(
         self,
         invoice: str,
-        params: "InvoiceService.FinalizeInvoiceParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.FinalizeInvoiceParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -3240,8 +3472,8 @@ class InvoiceService(StripeService):
     async def finalize_invoice_async(
         self,
         invoice: str,
-        params: "InvoiceService.FinalizeInvoiceParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.FinalizeInvoiceParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -3262,8 +3494,8 @@ class InvoiceService(StripeService):
     def mark_uncollectible(
         self,
         invoice: str,
-        params: "InvoiceService.MarkUncollectibleParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.MarkUncollectibleParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -3284,8 +3516,8 @@ class InvoiceService(StripeService):
     async def mark_uncollectible_async(
         self,
         invoice: str,
-        params: "InvoiceService.MarkUncollectibleParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.MarkUncollectibleParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -3306,8 +3538,8 @@ class InvoiceService(StripeService):
     def pay(
         self,
         invoice: str,
-        params: "InvoiceService.PayParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.PayParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -3328,8 +3560,8 @@ class InvoiceService(StripeService):
     async def pay_async(
         self,
         invoice: str,
-        params: "InvoiceService.PayParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.PayParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -3351,7 +3583,7 @@ class InvoiceService(StripeService):
         self,
         invoice: str,
         params: "InvoiceService.RemoveLinesParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
@@ -3373,7 +3605,7 @@ class InvoiceService(StripeService):
         self,
         invoice: str,
         params: "InvoiceService.RemoveLinesParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
@@ -3394,8 +3626,8 @@ class InvoiceService(StripeService):
     def send_invoice(
         self,
         invoice: str,
-        params: "InvoiceService.SendInvoiceParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.SendInvoiceParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -3418,8 +3650,8 @@ class InvoiceService(StripeService):
     async def send_invoice_async(
         self,
         invoice: str,
-        params: "InvoiceService.SendInvoiceParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.SendInvoiceParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -3443,7 +3675,7 @@ class InvoiceService(StripeService):
         self,
         invoice: str,
         params: "InvoiceService.UpdateLinesParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
@@ -3465,7 +3697,7 @@ class InvoiceService(StripeService):
         self,
         invoice: str,
         params: "InvoiceService.UpdateLinesParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
@@ -3486,13 +3718,13 @@ class InvoiceService(StripeService):
     def void_invoice(
         self,
         invoice: str,
-        params: "InvoiceService.VoidInvoiceParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.VoidInvoiceParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+        Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
 
-        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
+        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://docs.stripe.com/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
         """
         return cast(
             Invoice,
@@ -3510,13 +3742,13 @@ class InvoiceService(StripeService):
     async def void_invoice_async(
         self,
         invoice: str,
-        params: "InvoiceService.VoidInvoiceParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.VoidInvoiceParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
-        Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+        Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
 
-        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://stripe.com/docs/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
+        Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://docs.stripe.com/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
         """
         return cast(
             Invoice,
@@ -3533,15 +3765,17 @@ class InvoiceService(StripeService):
 
     def create_preview(
         self,
-        params: "InvoiceService.CreatePreviewParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.CreatePreviewParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         At any time, you can preview the upcoming invoice for a subscription or subscription schedule. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
 
-        Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
+        You can also preview the effects of creating or updating a subscription or subscription schedule, including a preview of any prorations that will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update.
 
-        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
+        The recommended way to get only the prorations being previewed on the invoice is to consider line items where parent.subscription_item_details.proration is true.
+
+        Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
 
         Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
         """
@@ -3558,15 +3792,17 @@ class InvoiceService(StripeService):
 
     async def create_preview_async(
         self,
-        params: "InvoiceService.CreatePreviewParams" = {},
-        options: RequestOptions = {},
+        params: Optional["InvoiceService.CreatePreviewParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
         At any time, you can preview the upcoming invoice for a subscription or subscription schedule. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
 
-        Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
+        You can also preview the effects of creating or updating a subscription or subscription schedule, including a preview of any prorations that will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update.
 
-        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass the subscription_details.proration_date parameter when doing the actual subscription update. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_details.proration_date value passed in the request.
+        The recommended way to get only the prorations being previewed on the invoice is to consider line items where parent.subscription_item_details.proration is true.
+
+        Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
 
         Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
         """

@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.treasury._received_debit import ReceivedDebit
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -69,7 +69,7 @@ class ReceivedDebitService(StripeService):
     def create(
         self,
         params: "ReceivedDebitService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedDebit:
         """
         Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
@@ -88,7 +88,7 @@ class ReceivedDebitService(StripeService):
     async def create_async(
         self,
         params: "ReceivedDebitService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ReceivedDebit:
         """
         Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.

@@ -755,6 +755,12 @@ class Authorization(
         """
         Fleet-specific information for authorizations using Fleet cards.
         """
+        fraud_disputability_likelihood: NotRequired[
+            Literal["neutral", "unknown", "very_likely", "very_unlikely"]
+        ]
+        """
+        Probability that this transaction can be disputed in the event of fraud. Assessed by comparing the characteristics of the authorization to card network rules.
+        """
         fuel: NotRequired["Authorization.CreateParamsFuel"]
         """
         Information about fuel that was purchased with this transaction.
@@ -778,6 +784,12 @@ class Authorization(
         network_data: NotRequired["Authorization.CreateParamsNetworkData"]
         """
         Details about the authorization, such as identifiers, set by the card network.
+        """
+        risk_assessment: NotRequired[
+            "Authorization.CreateParamsRiskAssessment"
+        ]
+        """
+        Stripe's assessment of the fraud risk for this authorization.
         """
         verification_data: NotRequired[
             "Authorization.CreateParamsVerificationData"
@@ -1274,6 +1286,48 @@ class Authorization(
         Identifier assigned to the acquirer by the card network.
         """
 
+    class CreateParamsRiskAssessment(TypedDict):
+        card_testing_risk: NotRequired[
+            "Authorization.CreateParamsRiskAssessmentCardTestingRisk"
+        ]
+        """
+        Stripe's assessment of this authorization's likelihood of being card testing activity.
+        """
+        merchant_dispute_risk: NotRequired[
+            "Authorization.CreateParamsRiskAssessmentMerchantDisputeRisk"
+        ]
+        """
+        The dispute risk of the merchant (the seller on a purchase) on an authorization based on all Stripe Issuing activity.
+        """
+
+    class CreateParamsRiskAssessmentCardTestingRisk(TypedDict):
+        invalid_account_number_decline_rate_past_hour: NotRequired[int]
+        """
+        The % of declines due to a card number not existing in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of card testing activity, meaning bad actors may be attempting different card number combinations to guess a correct one. Takes on values between 0 and 100.
+        """
+        invalid_credentials_decline_rate_past_hour: NotRequired[int]
+        """
+        The % of declines due to incorrect verification data (like CVV or expiry) in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of bad actors attempting to utilize valid card credentials at merchants with verification requirements. Takes on values between 0 and 100.
+        """
+        risk_level: Literal[
+            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+        ]
+        """
+        The likelihood that this authorization is associated with card testing activity. This is assessed by evaluating decline activity over the last hour.
+        """
+
+    class CreateParamsRiskAssessmentMerchantDisputeRisk(TypedDict):
+        dispute_rate: NotRequired[int]
+        """
+        The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
+        """
+        risk_level: Literal[
+            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+        ]
+        """
+        The likelihood that authorizations from this merchant will result in a dispute based on their history on Stripe Issuing.
+        """
+
     class CreateParamsVerificationData(TypedDict):
         address_line1_check: NotRequired[
             Literal["match", "mismatch", "not_provided"]
@@ -1721,8 +1775,8 @@ class Authorization(
         **params: Unpack["Authorization.ApproveParams"],
     ) -> "Authorization":
         """
-        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         return cast(
             "Authorization",
@@ -1741,8 +1795,8 @@ class Authorization(
         authorization: str, **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
         """
-        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         ...
 
@@ -1751,8 +1805,8 @@ class Authorization(
         self, **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
         """
-        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         ...
 
@@ -1761,8 +1815,8 @@ class Authorization(
         self, **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
         """
-        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         return cast(
             "Authorization",
@@ -1782,8 +1836,8 @@ class Authorization(
         **params: Unpack["Authorization.ApproveParams"],
     ) -> "Authorization":
         """
-        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         return cast(
             "Authorization",
@@ -1802,8 +1856,8 @@ class Authorization(
         authorization: str, **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
         """
-        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         ...
 
@@ -1812,8 +1866,8 @@ class Authorization(
         self, **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
         """
-        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         ...
 
@@ -1822,8 +1876,8 @@ class Authorization(
         self, **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
         """
-        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         return cast(
             "Authorization",
@@ -1843,8 +1897,8 @@ class Authorization(
         **params: Unpack["Authorization.DeclineParams"],
     ) -> "Authorization":
         """
-        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         return cast(
             "Authorization",
@@ -1863,8 +1917,8 @@ class Authorization(
         authorization: str, **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
         """
-        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         ...
 
@@ -1873,8 +1927,8 @@ class Authorization(
         self, **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
         """
-        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         ...
 
@@ -1883,8 +1937,8 @@ class Authorization(
         self, **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
         """
-        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         return cast(
             "Authorization",
@@ -1904,8 +1958,8 @@ class Authorization(
         **params: Unpack["Authorization.DeclineParams"],
     ) -> "Authorization":
         """
-        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         return cast(
             "Authorization",
@@ -1924,8 +1978,8 @@ class Authorization(
         authorization: str, **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
         """
-        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         ...
 
@@ -1934,8 +1988,8 @@ class Authorization(
         self, **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
         """
-        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         ...
 
@@ -1944,8 +1998,8 @@ class Authorization(
         self, **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
         """
-        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
-        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         return cast(
             "Authorization",

@@ -51,11 +51,11 @@ class Dispute(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -114,11 +114,11 @@ class Dispute(
                         """
                         line1: Optional[str]
                         """
-                        Address line 1 (e.g., street, PO Box, or company name).
+                        Address line 1, such as the street, PO Box, or company name.
                         """
                         line2: Optional[str]
                         """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        Address line 2, such as the apartment, suite, unit, or building.
                         """
                         postal_code: Optional[str]
                         """
@@ -366,9 +366,11 @@ class Dispute(
         class Card(StripeObject):
             brand: str
             """
-            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
             """
-            case_type: Literal["chargeback", "inquiry"]
+            case_type: Literal[
+                "block", "chargeback", "compliance", "inquiry", "resolution"
+            ]
             """
             The type of dispute opened. Different case types may have varying fees and financial impact.
             """
@@ -378,6 +380,10 @@ class Dispute(
             """
 
         class Klarna(StripeObject):
+            chargeback_loss_reason_code: Optional[str]
+            """
+            Chargeback loss reason mapped by Stripe from Klarna's chargeback loss reason
+            """
             reason_code: Optional[str]
             """
             The reason for the dispute as defined by Klarna
@@ -681,11 +687,11 @@ class Dispute(
         """
         line1: NotRequired["Literal['']|str"]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired["Literal['']|str"]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired["Literal['']|str"]
         """
@@ -747,11 +753,11 @@ class Dispute(
         """
         line1: NotRequired["Literal['']|str"]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired["Literal['']|str"]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired["Literal['']|str"]
         """
@@ -794,7 +800,9 @@ class Dispute(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    enhanced_eligibility_types: List[Literal["visa_compelling_evidence_3"]]
+    enhanced_eligibility_types: List[
+        Literal["visa_compelling_evidence_3", "visa_compliance"]
+    ]
     """
     List of eligibility types that are included in `enhanced_evidence`.
     """
@@ -831,7 +839,7 @@ class Dispute(
     payment_method_details: Optional[PaymentMethodDetails]
     reason: str
     """
-    Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://stripe.com/docs/disputes/categories).
+    Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `noncompliant`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://stripe.com/docs/disputes/categories).
     """
     status: Literal[
         "lost",
@@ -843,7 +851,7 @@ class Dispute(
         "won",
     ]
     """
-    Current status of dispute. Possible values are `warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, or `lost`.
+    The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
     """
 
     @classmethod
@@ -1017,7 +1025,7 @@ class Dispute(
         """
         When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
 
-        Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://stripe.com/docs/disputes/categories).
+        Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://docs.stripe.com/docs/disputes/categories).
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -1036,7 +1044,7 @@ class Dispute(
         """
         When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
 
-        Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://stripe.com/docs/disputes/categories).
+        Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://docs.stripe.com/docs/disputes/categories).
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(

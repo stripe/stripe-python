@@ -3,7 +3,7 @@
 from stripe._customer_session import CustomerSession
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -75,7 +75,7 @@ class CustomerSessionService(StripeService):
         """
         payment_method_redisplay_limit: NotRequired[int]
         """
-        Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `3`.
+        Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `3`. The maximum redisplay limit is `10`.
         """
         payment_method_remove: NotRequired[Literal["disabled", "enabled"]]
         """
@@ -107,7 +107,7 @@ class CustomerSessionService(StripeService):
     def create(
         self,
         params: "CustomerSessionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CustomerSession:
         """
         Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
@@ -126,7 +126,7 @@ class CustomerSessionService(StripeService):
     async def create_async(
         self,
         params: "CustomerSessionService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> CustomerSession:
         """
         Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.

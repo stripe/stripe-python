@@ -10,13 +10,14 @@ _default:
     just --list --unsorted
 
 # ⭐ run all unit tests
+[positional-arguments]
 test *args: install-test-deps
     # configured in pyproject.toml
-    pytest {{ args }}
+    pytest "$@"
 
 # ⭐ check for potential mistakes
 lint: install-dev-deps
-    python -m flake8 --show-source stripe tests setup.py
+    python -m flake8 --show-source stripe tests
 
 # verify types. optional argument to test as of a specific minor python version (e.g. `8` to test `python 3.8`); otherwise uses current version
 typecheck minor_py_version="": install-test-deps install-dev-deps
@@ -40,6 +41,7 @@ reset: clean && venv
 
 # build the package for upload
 build: install-build-deps
+    rm -rf dist
     python -m build
     python -m twine check dist/*
 
@@ -77,3 +79,5 @@ venv:
 update-version version:
     echo "{{ version }}" > VERSION
     perl -pi -e 's|VERSION = "[.\d\w]+"|VERSION = "{{ version }}"|' stripe/_version.py
+    perl -pi -e 's|^version = "[.\d\w]+"|version = "{{ version }}"|' pyproject.toml
+

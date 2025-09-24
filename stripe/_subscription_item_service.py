@@ -5,12 +5,18 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._subscription_item import SubscriptionItem
 from stripe._util import sanitize_id
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class SubscriptionItemService(StripeService):
     class CreateParams(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionItemService.CreateParamsBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionItemService.CreateParamsDiscount]"
         ]
@@ -40,7 +46,7 @@ class SubscriptionItemService(StripeService):
 
         Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
 
-        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://docs.stripe.com/changelog/2019-03-14) to learn more.
         """
         plan: NotRequired[str]
         """
@@ -77,6 +83,12 @@ class SubscriptionItemService(StripeService):
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class CreateParamsBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class CreateParamsDiscount(TypedDict):
@@ -176,6 +188,12 @@ class SubscriptionItemService(StripeService):
         """
 
     class UpdateParams(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionItemService.UpdateParamsBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionItemService.UpdateParamsDiscount]"
         ]
@@ -209,7 +227,7 @@ class SubscriptionItemService(StripeService):
 
         Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
 
-        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://docs.stripe.com/changelog/2019-03-14) to learn more.
         """
         plan: NotRequired[str]
         """
@@ -242,6 +260,12 @@ class SubscriptionItemService(StripeService):
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class UpdateParamsBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class UpdateParamsDiscount(TypedDict):
@@ -299,8 +323,8 @@ class SubscriptionItemService(StripeService):
     def delete(
         self,
         item: str,
-        params: "SubscriptionItemService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionItemService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -319,8 +343,8 @@ class SubscriptionItemService(StripeService):
     async def delete_async(
         self,
         item: str,
-        params: "SubscriptionItemService.DeleteParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionItemService.DeleteParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -339,8 +363,8 @@ class SubscriptionItemService(StripeService):
     def retrieve(
         self,
         item: str,
-        params: "SubscriptionItemService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionItemService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Retrieves the subscription item with the given ID.
@@ -359,8 +383,8 @@ class SubscriptionItemService(StripeService):
     async def retrieve_async(
         self,
         item: str,
-        params: "SubscriptionItemService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionItemService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Retrieves the subscription item with the given ID.
@@ -379,8 +403,8 @@ class SubscriptionItemService(StripeService):
     def update(
         self,
         item: str,
-        params: "SubscriptionItemService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionItemService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Updates the plan or quantity of an item on a current subscription.
@@ -399,8 +423,8 @@ class SubscriptionItemService(StripeService):
     async def update_async(
         self,
         item: str,
-        params: "SubscriptionItemService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SubscriptionItemService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Updates the plan or quantity of an item on a current subscription.
@@ -419,7 +443,7 @@ class SubscriptionItemService(StripeService):
     def list(
         self,
         params: "SubscriptionItemService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SubscriptionItem]:
         """
         Returns a list of your subscription items for a given subscription.
@@ -438,7 +462,7 @@ class SubscriptionItemService(StripeService):
     async def list_async(
         self,
         params: "SubscriptionItemService.ListParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[SubscriptionItem]:
         """
         Returns a list of your subscription items for a given subscription.
@@ -457,7 +481,7 @@ class SubscriptionItemService(StripeService):
     def create(
         self,
         params: "SubscriptionItemService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Adds a new item to an existing subscription. No existing items will be changed or replaced.
@@ -476,7 +500,7 @@ class SubscriptionItemService(StripeService):
     async def create_async(
         self,
         params: "SubscriptionItemService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
         Adds a new item to an existing subscription. No existing items will be changed or replaced.

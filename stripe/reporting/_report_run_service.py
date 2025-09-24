@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.reporting._report_run import ReportRun
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -194,6 +194,7 @@ class ReportRunService(StripeService):
                 "America/Coral_Harbour",
                 "America/Cordoba",
                 "America/Costa_Rica",
+                "America/Coyhaique",
                 "America/Creston",
                 "America/Cuiaba",
                 "America/Curacao",
@@ -747,8 +748,8 @@ class ReportRunService(StripeService):
 
     def list(
         self,
-        params: "ReportRunService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReportRunService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReportRun]:
         """
         Returns a list of Report Runs, with the most recent appearing first.
@@ -766,8 +767,8 @@ class ReportRunService(StripeService):
 
     async def list_async(
         self,
-        params: "ReportRunService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReportRunService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ReportRun]:
         """
         Returns a list of Report Runs, with the most recent appearing first.
@@ -786,7 +787,7 @@ class ReportRunService(StripeService):
     def create(
         self,
         params: "ReportRunService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ReportRun:
         """
         Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
@@ -805,7 +806,7 @@ class ReportRunService(StripeService):
     async def create_async(
         self,
         params: "ReportRunService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> ReportRun:
         """
         Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
@@ -824,8 +825,8 @@ class ReportRunService(StripeService):
     def retrieve(
         self,
         report_run: str,
-        params: "ReportRunService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReportRunService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReportRun:
         """
         Retrieves the details of an existing Report Run.
@@ -846,8 +847,8 @@ class ReportRunService(StripeService):
     async def retrieve_async(
         self,
         report_run: str,
-        params: "ReportRunService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ReportRunService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ReportRun:
         """
         Retrieves the details of an existing Report Run.

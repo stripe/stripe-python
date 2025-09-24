@@ -24,7 +24,7 @@ class Review(ListableAPIResource["Review"]):
     """
     Reviews can be used to supplement automated fraud detection with human expertise.
 
-    Learn more about [Radar](https://stripe.com/radar) and reviewing payments
+    Learn more about [Radar](https://docs.stripe.com/radar) and reviewing payments
     [here](https://stripe.com/docs/radar/reviews).
     """
 
@@ -132,16 +132,18 @@ class Review(ListableAPIResource["Review"]):
     """
     closed_reason: Optional[
         Literal[
+            "acknowledged",
             "approved",
             "canceled",
             "disputed",
+            "payment_never_settled",
             "redacted",
             "refunded",
             "refunded_as_fraud",
         ]
     ]
     """
-    The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, or `canceled`.
+    The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, `canceled`, `payment_never_settled`, or `acknowledged`.
     """
     created: int
     """
@@ -181,7 +183,7 @@ class Review(ListableAPIResource["Review"]):
     """
     reason: str
     """
-    The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, or `canceled`.
+    The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, `canceled`, `payment_never_settled`, or `acknowledged`.
     """
     session: Optional[Session]
     """

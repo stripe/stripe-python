@@ -48,6 +48,27 @@ class SubscriptionSchedule(
         "subscription_schedule"
     )
 
+    class BillingMode(StripeObject):
+        class Flexible(StripeObject):
+            proration_discounts: Optional[Literal["included", "itemized"]]
+            """
+            Controls how invoices and invoice items display proration amounts and discount amounts.
+            """
+
+        flexible: Optional[Flexible]
+        """
+        Configure behavior for flexible billing mode
+        """
+        type: Literal["classic", "flexible"]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
+        updated_at: Optional[int]
+        """
+        Details on when the current billing_mode was adopted.
+        """
+        _inner_class_types = {"flexible": Flexible}
+
     class CurrentPhase(StripeObject):
         end_date: int
         """
@@ -83,6 +104,16 @@ class SubscriptionSchedule(
             The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
             """
             _inner_class_types = {"liability": Liability}
+
+        class BillingThresholds(StripeObject):
+            amount_gte: Optional[int]
+            """
+            Monetary threshold that triggers the subscription to create an invoice
+            """
+            reset_billing_cycle_anchor: Optional[bool]
+            """
+            Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
+            """
 
         class InvoiceSettings(StripeObject):
             class Issuer(StripeObject):
@@ -125,6 +156,10 @@ class SubscriptionSchedule(
         """
         Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
+        billing_thresholds: Optional[BillingThresholds]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
+        """
         collection_method: Optional[
             Literal["charge_automatically", "send_invoice"]
         ]
@@ -150,6 +185,7 @@ class SubscriptionSchedule(
         """
         _inner_class_types = {
             "automatic_tax": AutomaticTax,
+            "billing_thresholds": BillingThresholds,
             "invoice_settings": InvoiceSettings,
             "transfer_data": TransferData,
         }
@@ -170,10 +206,44 @@ class SubscriptionSchedule(
                 ID of the promotion code to create a new discount for.
                 """
 
+            class Period(StripeObject):
+                class End(StripeObject):
+                    timestamp: Optional[int]
+                    """
+                    A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+                    """
+                    type: Literal[
+                        "min_item_period_end", "phase_end", "timestamp"
+                    ]
+                    """
+                    Select how to calculate the end of the invoice item period.
+                    """
+
+                class Start(StripeObject):
+                    timestamp: Optional[int]
+                    """
+                    A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+                    """
+                    type: Literal[
+                        "max_item_period_start", "phase_start", "timestamp"
+                    ]
+                    """
+                    Select how to calculate the start of the invoice item period.
+                    """
+
+                end: End
+                start: Start
+                _inner_class_types = {"end": End, "start": Start}
+
             discounts: List[Discount]
             """
             The stackable discounts that will be applied to the item.
             """
+            metadata: Optional[Dict[str, str]]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            """
+            period: Period
             price: ExpandableField["Price"]
             """
             ID of the price used to generate the invoice item.
@@ -186,7 +256,7 @@ class SubscriptionSchedule(
             """
             The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
             """
-            _inner_class_types = {"discounts": Discount}
+            _inner_class_types = {"discounts": Discount, "period": Period}
 
         class AutomaticTax(StripeObject):
             class Liability(StripeObject):
@@ -212,6 +282,16 @@ class SubscriptionSchedule(
             The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
             """
             _inner_class_types = {"liability": Liability}
+
+        class BillingThresholds(StripeObject):
+            amount_gte: Optional[int]
+            """
+            Monetary threshold that triggers the subscription to create an invoice
+            """
+            reset_billing_cycle_anchor: Optional[bool]
+            """
+            Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
+            """
 
         class Discount(StripeObject):
             coupon: Optional[ExpandableField["Coupon"]]
@@ -253,6 +333,12 @@ class SubscriptionSchedule(
             _inner_class_types = {"issuer": Issuer}
 
         class Item(StripeObject):
+            class BillingThresholds(StripeObject):
+                usage_gte: Optional[int]
+                """
+                Usage threshold that triggers the subscription to create an invoice
+                """
+
             class Discount(StripeObject):
                 coupon: Optional[ExpandableField["Coupon"]]
                 """
@@ -267,6 +353,10 @@ class SubscriptionSchedule(
                 ID of the promotion code to create a new discount for.
                 """
 
+            billing_thresholds: Optional[BillingThresholds]
+            """
+            Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
+            """
             discounts: List[Discount]
             """
             The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
@@ -291,7 +381,10 @@ class SubscriptionSchedule(
             """
             The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`.
             """
-            _inner_class_types = {"discounts": Discount}
+            _inner_class_types = {
+                "billing_thresholds": BillingThresholds,
+                "discounts": Discount,
+            }
 
         class TransferData(StripeObject):
             amount_percent: Optional[float]
@@ -315,6 +408,10 @@ class SubscriptionSchedule(
         billing_cycle_anchor: Optional[Literal["automatic", "phase_start"]]
         """
         Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+        """
+        billing_thresholds: Optional[BillingThresholds]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
         """
         collection_method: Optional[
             Literal["charge_automatically", "send_invoice"]
@@ -366,7 +463,7 @@ class SubscriptionSchedule(
             "always_invoice", "create_prorations", "none"
         ]
         """
-        If the subscription schedule will prorate when transitioning to this phase. Possible values are `create_prorations` and `none`.
+        When transitioning phases, controls how prorations are handled (if any). Possible values are `create_prorations`, `none`, and `always_invoice`.
         """
         start_date: int
         """
@@ -383,6 +480,7 @@ class SubscriptionSchedule(
         _inner_class_types = {
             "add_invoice_items": AddInvoiceItem,
             "automatic_tax": AutomaticTax,
+            "billing_thresholds": BillingThresholds,
             "discounts": Discount,
             "invoice_settings": InvoiceSettings,
             "items": Item,
@@ -404,6 +502,12 @@ class SubscriptionSchedule(
         """
 
     class CreateParams(RequestOptions):
+        billing_mode: NotRequired[
+            "SubscriptionSchedule.CreateParamsBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         customer: NotRequired[str]
         """
         The identifier of the customer to create the subscription schedule for.
@@ -441,6 +545,24 @@ class SubscriptionSchedule(
         When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
         """
 
+    class CreateParamsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SubscriptionSchedule.CreateParamsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
+        type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
+        """
+
     class CreateParamsDefaultSettings(TypedDict):
         application_fee_percent: NotRequired[float]
         """
@@ -455,6 +577,12 @@ class SubscriptionSchedule(
         billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+        """
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionSchedule.CreateParamsDefaultSettingsBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -507,6 +635,16 @@ class SubscriptionSchedule(
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
+        """
+
+    class CreateParamsDefaultSettingsBillingThresholds(TypedDict):
+        amount_gte: NotRequired[int]
+        """
+        Monetary threshold that triggers the subscription to advance to a new billing period
+        """
+        reset_billing_cycle_anchor: NotRequired[bool]
+        """
+        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
 
     class CreateParamsDefaultSettingsInvoiceSettings(TypedDict):
@@ -566,6 +704,12 @@ class SubscriptionSchedule(
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionSchedule.CreateParamsPhaseBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
         ]
@@ -594,6 +738,10 @@ class SubscriptionSchedule(
         """
         The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
+        duration: NotRequired["SubscriptionSchedule.CreateParamsPhaseDuration"]
+        """
+        The number of intervals the phase should last. If set, `end_date` must not be set.
+        """
         end_date: NotRequired[int]
         """
         The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
@@ -608,10 +756,6 @@ class SubscriptionSchedule(
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
@@ -624,7 +768,7 @@ class SubscriptionSchedule(
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
+        Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         """
         transfer_data: NotRequired[
             "SubscriptionSchedule.CreateParamsPhaseTransferData"
@@ -649,6 +793,16 @@ class SubscriptionSchedule(
         ]
         """
         The coupons to redeem into discounts for the item.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -681,6 +835,38 @@ class SubscriptionSchedule(
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemPeriod(TypedDict):
+        end: "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: (
+            "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPeriodStart"
+        )
+        """
+        Start of the invoice item period.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemPeriodEnd(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "phase_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class CreateParamsPhaseAddInvoiceItemPeriodStart(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "phase_start", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class CreateParamsPhaseAddInvoiceItemPriceData(TypedDict):
@@ -729,6 +915,16 @@ class SubscriptionSchedule(
         Type of the account referenced in the request.
         """
 
+    class CreateParamsPhaseBillingThresholds(TypedDict):
+        amount_gte: NotRequired[int]
+        """
+        Monetary threshold that triggers the subscription to advance to a new billing period
+        """
+        reset_billing_cycle_anchor: NotRequired[bool]
+        """
+        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+        """
+
     class CreateParamsPhaseDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -741,6 +937,16 @@ class SubscriptionSchedule(
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsPhaseDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies phase duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class CreateParamsPhaseInvoiceSettings(TypedDict):
@@ -770,6 +976,12 @@ class SubscriptionSchedule(
         """
 
     class CreateParamsPhaseItem(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionSchedule.CreateParamsPhaseItemBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionSchedule.CreateParamsPhaseItemDiscount]"
         ]
@@ -801,6 +1013,12 @@ class SubscriptionSchedule(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class CreateParamsPhaseItemBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class CreateParamsPhaseItemDiscount(TypedDict):
@@ -1016,7 +1234,7 @@ class SubscriptionSchedule(
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        If the update changes the current phase, indicates whether the changes should be prorated. The default value is `create_prorations`.
+        If the update changes the billing configuration (item price, quantity, etc.) of the current phase, indicates how prorations from this change should be handled. The default value is `create_prorations`.
         """
 
     class ModifyParamsDefaultSettings(TypedDict):
@@ -1033,6 +1251,12 @@ class SubscriptionSchedule(
         billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+        """
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionSchedule.ModifyParamsDefaultSettingsBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
@@ -1085,6 +1309,16 @@ class SubscriptionSchedule(
         type: Literal["account", "self"]
         """
         Type of the account referenced in the request.
+        """
+
+    class ModifyParamsDefaultSettingsBillingThresholds(TypedDict):
+        amount_gte: NotRequired[int]
+        """
+        Monetary threshold that triggers the subscription to advance to a new billing period
+        """
+        reset_billing_cycle_anchor: NotRequired[bool]
+        """
+        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
         """
 
     class ModifyParamsDefaultSettingsInvoiceSettings(TypedDict):
@@ -1144,6 +1378,12 @@ class SubscriptionSchedule(
         """
         Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
         """
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionSchedule.ModifyParamsPhaseBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         collection_method: NotRequired[
             Literal["charge_automatically", "send_invoice"]
         ]
@@ -1172,6 +1412,10 @@ class SubscriptionSchedule(
         """
         The coupons to redeem into discounts for the schedule phase. If not specified, inherits the discount from the subscription's customer. Pass an empty string to avoid inheriting any discounts.
         """
+        duration: NotRequired["SubscriptionSchedule.ModifyParamsPhaseDuration"]
+        """
+        The number of intervals the phase should last. If set, `end_date` must not be set.
+        """
         end_date: NotRequired["int|Literal['now']"]
         """
         The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
@@ -1186,10 +1430,6 @@ class SubscriptionSchedule(
         """
         List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
         """
-        iterations: NotRequired[int]
-        """
-        Integer representing the multiplier applied to the price interval. For example, `iterations=2` applied to a price with `interval=month` and `interval_count=3` results in a phase of duration `2 * 3 months = 6 months`. If set, `end_date` must not be set.
-        """
         metadata: NotRequired[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
@@ -1202,7 +1442,7 @@ class SubscriptionSchedule(
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Whether the subscription schedule will create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase. The default value is `create_prorations`. This setting controls prorations when a phase is started asynchronously and it is persisted as a field on the phase. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration of the current phase.
+        Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         """
         start_date: NotRequired["int|Literal['now']"]
         """
@@ -1231,6 +1471,16 @@ class SubscriptionSchedule(
         ]
         """
         The coupons to redeem into discounts for the item.
+        """
+        metadata: NotRequired[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired[
+            "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPeriod"
+        ]
+        """
+        The period associated with this invoice item. If not set, `period.start.type` defaults to `max_item_period_start` and `period.end.type` defaults to `min_item_period_end`.
         """
         price: NotRequired[str]
         """
@@ -1263,6 +1513,38 @@ class SubscriptionSchedule(
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsPhaseAddInvoiceItemPeriod(TypedDict):
+        end: "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPeriodEnd"
+        """
+        End of the invoice item period.
+        """
+        start: (
+            "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPeriodStart"
+        )
+        """
+        Start of the invoice item period.
+        """
+
+    class ModifyParamsPhaseAddInvoiceItemPeriodEnd(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+        """
+        type: Literal["min_item_period_end", "phase_end", "timestamp"]
+        """
+        Select how to calculate the end of the invoice item period.
+        """
+
+    class ModifyParamsPhaseAddInvoiceItemPeriodStart(TypedDict):
+        timestamp: NotRequired[int]
+        """
+        A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+        """
+        type: Literal["max_item_period_start", "phase_start", "timestamp"]
+        """
+        Select how to calculate the start of the invoice item period.
         """
 
     class ModifyParamsPhaseAddInvoiceItemPriceData(TypedDict):
@@ -1311,6 +1593,16 @@ class SubscriptionSchedule(
         Type of the account referenced in the request.
         """
 
+    class ModifyParamsPhaseBillingThresholds(TypedDict):
+        amount_gte: NotRequired[int]
+        """
+        Monetary threshold that triggers the subscription to advance to a new billing period
+        """
+        reset_billing_cycle_anchor: NotRequired[bool]
+        """
+        Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged.
+        """
+
     class ModifyParamsPhaseDiscount(TypedDict):
         coupon: NotRequired[str]
         """
@@ -1323,6 +1615,16 @@ class SubscriptionSchedule(
         promotion_code: NotRequired[str]
         """
         ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsPhaseDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies phase duration. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired[int]
+        """
+        The multiplier applied to the interval.
         """
 
     class ModifyParamsPhaseInvoiceSettings(TypedDict):
@@ -1352,6 +1654,12 @@ class SubscriptionSchedule(
         """
 
     class ModifyParamsPhaseItem(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionSchedule.ModifyParamsPhaseItemBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionSchedule.ModifyParamsPhaseItemDiscount]"
         ]
@@ -1383,6 +1691,12 @@ class SubscriptionSchedule(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class ModifyParamsPhaseItemBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class ModifyParamsPhaseItemDiscount(TypedDict):
@@ -1468,6 +1782,10 @@ class SubscriptionSchedule(
     application: Optional[ExpandableField["Application"]]
     """
     ID of the Connect Application that created the schedule.
+    """
+    billing_mode: BillingMode
+    """
+    The billing mode of the subscription.
     """
     canceled_at: Optional[int]
     """
@@ -1894,6 +2212,7 @@ class SubscriptionSchedule(
         return instance
 
     _inner_class_types = {
+        "billing_mode": BillingMode,
         "current_phase": CurrentPhase,
         "default_settings": DefaultSettings,
         "phases": Phase,

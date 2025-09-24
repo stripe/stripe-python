@@ -97,9 +97,9 @@ class Quote(
                         """
                         rate: "TaxRate"
                         """
-                        Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
+                        Tax rates can be applied to [invoices](https://docs.stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://docs.stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://docs.stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-                        Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
+                        Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                         """
                         taxability_reason: Optional[
                             Literal[
@@ -195,9 +195,9 @@ class Quote(
                         """
                         rate: "TaxRate"
                         """
-                        Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
+                        Tax rates can be applied to [invoices](https://docs.stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://docs.stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://docs.stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-                        Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
+                        Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                         """
                         taxability_reason: Optional[
                             Literal[
@@ -316,6 +316,24 @@ class Quote(
         """
 
     class SubscriptionData(StripeObject):
+        class BillingMode(StripeObject):
+            class Flexible(StripeObject):
+                proration_discounts: Optional[Literal["included", "itemized"]]
+                """
+                Controls how invoices and invoice items display proration amounts and discount amounts.
+                """
+
+            flexible: Optional[Flexible]
+            type: Literal["classic", "flexible"]
+            """
+            Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+            """
+            _inner_class_types = {"flexible": Flexible}
+
+        billing_mode: BillingMode
+        """
+        The billing mode of the quote.
+        """
         description: Optional[str]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
@@ -332,6 +350,7 @@ class Quote(
         """
         Integer representing the number of trial period days before the customer is charged for the first time.
         """
+        _inner_class_types = {"billing_mode": BillingMode}
 
     class TotalDetails(StripeObject):
         class Breakdown(StripeObject):
@@ -355,9 +374,9 @@ class Quote(
                 """
                 rate: "TaxRate"
                 """
-                Tax rates can be applied to [invoices](https://stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
+                Tax rates can be applied to [invoices](https://docs.stripe.com/invoicing/taxes/tax-rates), [subscriptions](https://docs.stripe.com/billing/taxes/tax-rates) and [Checkout Sessions](https://docs.stripe.com/payments/checkout/use-manual-tax-rates) to collect tax.
 
-                Related guide: [Tax rates](https://stripe.com/billing/taxes/tax-rates)
+                Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                 """
                 taxability_reason: Optional[
                     Literal[
@@ -664,6 +683,12 @@ class Quote(
         """
 
     class CreateParamsSubscriptionData(TypedDict):
+        billing_mode: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillingMode"
+        ]
+        """
+        Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+        """
         description: NotRequired[str]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
@@ -672,7 +697,7 @@ class Quote(
             "Literal['']|Literal['current_period_end']|int"
         ]
         """
-        When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
+        When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
         """
         metadata: NotRequired[Dict[str, str]]
         """
@@ -681,6 +706,24 @@ class Quote(
         trial_period_days: NotRequired["Literal['']|int"]
         """
         Integer representing the number of trial period days before the customer is charged for the first time.
+        """
+
+    class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        flexible: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
+        type: Literal["classic", "flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+        """
+
+    class CreateParamsSubscriptionDataBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
         """
 
     class CreateParamsTransferData(TypedDict):
@@ -994,7 +1037,7 @@ class Quote(
             "Literal['']|Literal['current_period_end']|int"
         ]
         """
-        When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
+        When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
         """
         metadata: NotRequired[Dict[str, str]]
         """

@@ -187,7 +187,10 @@ class Refund(
             pass
 
         class Paypal(StripeObject):
-            pass
+            network_decline_code: Optional[str]
+            """
+            For refunds declined by the network, a decline code provided by the network which indicates the reason the refund failed.
+            """
 
         class Pix(StripeObject):
             pass
@@ -338,7 +341,7 @@ class Refund(
     class PresentmentDetails(StripeObject):
         presentment_amount: int
         """
-        Amount intended to be collected by this payment, denominated in presentment_currency.
+        Amount intended to be collected by this payment, denominated in `presentment_currency`.
         """
         presentment_currency: str
         """

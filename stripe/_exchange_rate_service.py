@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -36,10 +36,12 @@ class ExchangeRateService(StripeService):
 
     def list(
         self,
-        params: "ExchangeRateService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ExchangeRateService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ExchangeRate]:
         """
+        [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
         Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
         """
         return cast(
@@ -55,10 +57,12 @@ class ExchangeRateService(StripeService):
 
     async def list_async(
         self,
-        params: "ExchangeRateService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ExchangeRateService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[ExchangeRate]:
         """
+        [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
         Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
         """
         return cast(
@@ -75,10 +79,12 @@ class ExchangeRateService(StripeService):
     def retrieve(
         self,
         rate_id: str,
-        params: "ExchangeRateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ExchangeRateService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ExchangeRate:
         """
+        [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
         Retrieves the exchange rates from the given currency to every supported currency.
         """
         return cast(
@@ -97,10 +103,12 @@ class ExchangeRateService(StripeService):
     async def retrieve_async(
         self,
         rate_id: str,
-        params: "ExchangeRateService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["ExchangeRateService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ExchangeRate:
         """
+        [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
         Retrieves the exchange rates from the given currency to every supported currency.
         """
         return cast(

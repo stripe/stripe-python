@@ -5,7 +5,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.entitlements._feature import Feature
-from typing import Dict, List, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -80,8 +80,8 @@ class FeatureService(StripeService):
 
     def list(
         self,
-        params: "FeatureService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FeatureService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Feature]:
         """
         Retrieve a list of features
@@ -99,8 +99,8 @@ class FeatureService(StripeService):
 
     async def list_async(
         self,
-        params: "FeatureService.ListParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FeatureService.ListParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> ListObject[Feature]:
         """
         Retrieve a list of features
@@ -119,7 +119,7 @@ class FeatureService(StripeService):
     def create(
         self,
         params: "FeatureService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Feature:
         """
         Creates a feature
@@ -138,7 +138,7 @@ class FeatureService(StripeService):
     async def create_async(
         self,
         params: "FeatureService.CreateParams",
-        options: RequestOptions = {},
+        options: Optional[RequestOptions] = None,
     ) -> Feature:
         """
         Creates a feature
@@ -157,8 +157,8 @@ class FeatureService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: "FeatureService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FeatureService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Feature:
         """
         Retrieves a feature
@@ -177,8 +177,8 @@ class FeatureService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: "FeatureService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FeatureService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Feature:
         """
         Retrieves a feature
@@ -197,8 +197,8 @@ class FeatureService(StripeService):
     def update(
         self,
         id: str,
-        params: "FeatureService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FeatureService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Feature:
         """
         Update a feature's metadata or permanently deactivate it.
@@ -217,8 +217,8 @@ class FeatureService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "FeatureService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["FeatureService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Feature:
         """
         Update a feature's metadata or permanently deactivate it.

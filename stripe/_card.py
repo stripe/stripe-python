@@ -79,7 +79,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     brand: str
     """
-    Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
+    Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
     """
     country: Optional[str]
     """
@@ -87,7 +87,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     currency: Optional[str]
     """
-    Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available when returned as an [External Account](https://stripe.com/api/external_account_cards/object) where [controller.is_controller](https://stripe.com/api/accounts/object#account_object-controller-is_controller) is `true`.
+    Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available when returned as an [External Account](https://docs.stripe.com/api/external_account_cards/object) where [controller.is_controller](https://docs.stripe.com/api/accounts/object#account_object-controller-is_controller) is `true`.
     """
     customer: Optional[ExpandableField["Customer"]]
     """
@@ -99,7 +99,11 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     default_for_currency: Optional[bool]
     """
-    Whether this card is the default external account for its currency. This property is only available for accounts where [controller.requirement_collection](https://stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+    Whether this card is the default external account for its currency. This property is only available for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
+    """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
     """
     description: Optional[str]
     """
@@ -167,10 +171,6 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     tokenization_method: Optional[str]
     """
     If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod

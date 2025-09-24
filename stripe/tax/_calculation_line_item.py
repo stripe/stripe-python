@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 
 
@@ -115,6 +115,10 @@ class CalculationLineItem(StripeObject):
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
+    metadata: Optional[Dict[str, str]]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["tax.calculation_line_item"]
     """

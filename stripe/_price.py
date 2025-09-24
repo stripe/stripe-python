@@ -663,6 +663,10 @@ class Price(
     """
     When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
     """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
     id: str
     """
     Unique identifier for the object.
@@ -723,10 +727,6 @@ class Price(
     """
     The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
     """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
-    """
 
     @classmethod
     def create(cls, **params: Unpack["Price.CreateParams"]) -> "Price":
@@ -761,7 +761,7 @@ class Price(
     @classmethod
     def list(cls, **params: Unpack["Price.ListParams"]) -> ListObject["Price"]:
         """
-        Returns a list of your active prices, excluding [inline prices](https://stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
+        Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
         """
         result = cls._static_request(
             "get",
@@ -781,7 +781,7 @@ class Price(
         cls, **params: Unpack["Price.ListParams"]
     ) -> ListObject["Price"]:
         """
-        Returns a list of your active prices, excluding [inline prices](https://stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
+        Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
         """
         result = await cls._static_request_async(
             "get",
@@ -857,7 +857,7 @@ class Price(
         cls, *args, **kwargs: Unpack["Price.SearchParams"]
     ) -> SearchResultObject["Price"]:
         """
-        Search for prices you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for prices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -869,7 +869,7 @@ class Price(
         cls, *args, **kwargs: Unpack["Price.SearchParams"]
     ) -> SearchResultObject["Price"]:
         """
-        Search for prices you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Search for prices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
         conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
         to an hour behind during outages. Search functionality is not available to merchants in India.

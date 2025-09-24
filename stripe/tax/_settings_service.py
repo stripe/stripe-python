@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.tax._settings import Settings
-from typing import List, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -57,11 +57,11 @@ class SettingsService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -69,13 +69,13 @@ class SettingsService(StripeService):
         """
         state: NotRequired[str]
         """
-        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
         """
 
     def retrieve(
         self,
-        params: "SettingsService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SettingsService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Settings:
         """
         Retrieves Tax Settings for a merchant.
@@ -93,8 +93,8 @@ class SettingsService(StripeService):
 
     async def retrieve_async(
         self,
-        params: "SettingsService.RetrieveParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SettingsService.RetrieveParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Settings:
         """
         Retrieves Tax Settings for a merchant.
@@ -112,8 +112,8 @@ class SettingsService(StripeService):
 
     def update(
         self,
-        params: "SettingsService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SettingsService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Settings:
         """
         Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
@@ -131,8 +131,8 @@ class SettingsService(StripeService):
 
     async def update_async(
         self,
-        params: "SettingsService.UpdateParams" = {},
-        options: RequestOptions = {},
+        params: Optional["SettingsService.UpdateParams"] = None,
+        options: Optional[RequestOptions] = None,
     ) -> Settings:
         """
         Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.

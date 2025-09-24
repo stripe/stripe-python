@@ -6,6 +6,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
@@ -37,7 +38,19 @@ class SubscriptionItem(
 
     OBJECT_NAME: ClassVar[Literal["subscription_item"]] = "subscription_item"
 
+    class BillingThresholds(StripeObject):
+        usage_gte: Optional[int]
+        """
+        Usage threshold that triggers the subscription to create an invoice
+        """
+
     class CreateParams(RequestOptions):
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionItem.CreateParamsBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionItem.CreateParamsDiscount]"
         ]
@@ -67,7 +80,7 @@ class SubscriptionItem(
 
         Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
 
-        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://docs.stripe.com/changelog/2019-03-14) to learn more.
         """
         plan: NotRequired[str]
         """
@@ -102,6 +115,12 @@ class SubscriptionItem(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class CreateParamsBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class CreateParamsDiscount(TypedDict):
@@ -195,6 +214,12 @@ class SubscriptionItem(
         """
 
     class ModifyParams(RequestOptions):
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionItem.ModifyParamsBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+        """
         discounts: NotRequired[
             "Literal['']|List[SubscriptionItem.ModifyParamsDiscount]"
         ]
@@ -228,7 +253,7 @@ class SubscriptionItem(
 
         Use `pending_if_incomplete` to update the subscription using [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://stripe.com/docs/billing/pending-updates-reference#supported-attributes).
 
-        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://stripe.com/docs/upgrades#2019-03-14) to learn more.
+        Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://docs.stripe.com/changelog/2019-03-14) to learn more.
         """
         plan: NotRequired[str]
         """
@@ -259,6 +284,12 @@ class SubscriptionItem(
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
         A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class ModifyParamsBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
     class ModifyParamsDiscount(TypedDict):
@@ -319,6 +350,10 @@ class SubscriptionItem(
         Specifies which fields in the response should be expanded.
         """
 
+    billing_thresholds: Optional[BillingThresholds]
+    """
+    Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
+    """
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -330,6 +365,10 @@ class SubscriptionItem(
     current_period_start: int
     """
     The start time of this subscription item's current billing period.
+    """
+    deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
     """
     discounts: List[ExpandableField["Discount"]]
     """
@@ -378,10 +417,6 @@ class SubscriptionItem(
     tax_rates: Optional[List["TaxRate"]]
     """
     The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
     """
 
     @classmethod
@@ -609,3 +644,5 @@ class SubscriptionItem(
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    _inner_class_types = {"billing_thresholds": BillingThresholds}
