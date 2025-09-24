@@ -29174,30 +29174,6 @@ class TestGeneratedExamples(object):
             post_data="end_behavior=release",
         )
 
-    def test_subscription_schedules_post_2_service_non_namespaced(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.subscription_schedules.update(
-            "sub_sched_xxxxxxxxxxxxx",
-            {"end_behavior": "release"},
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v1/subscription_schedules/sub_sched_xxxxxxxxxxxxx",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="end_behavior=release",
-        )
-
     def test_subscription_schedules_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
