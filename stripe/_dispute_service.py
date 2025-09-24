@@ -79,6 +79,17 @@ class DisputeService(StripeService):
         """
         Specifies which fields in the response should be expanded.
         """
+        intended_submission_method: NotRequired[
+            Literal[
+                "manual",
+                "prefer_manual",
+                "prefer_smart_disputes",
+                "smart_disputes",
+            ]
+        ]
+        """
+        Intended submission method for the dispute.
+        """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -289,11 +300,11 @@ class DisputeService(StripeService):
         """
         line1: NotRequired["Literal['']|str"]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired["Literal['']|str"]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired["Literal['']|str"]
         """
@@ -355,11 +366,11 @@ class DisputeService(StripeService):
         """
         line1: NotRequired["Literal['']|str"]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired["Literal['']|str"]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired["Literal['']|str"]
         """

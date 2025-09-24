@@ -846,6 +846,7 @@ class PaymentLink(
                     "pay_by_bank",
                     "paynow",
                     "paypal",
+                    "paypay",
                     "payto",
                     "pix",
                     "promptpay",
@@ -1299,6 +1300,10 @@ class PaymentLink(
         tax_code: NotRequired[str]
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        """
+        unit_label: NotRequired[str]
+        """
+        A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
         """
 
     class CreateParamsLineItemPriceDataRecurring(TypedDict):
@@ -1856,7 +1861,7 @@ class PaymentLink(
         If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
         """
         payment_method_types: NotRequired[
-            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mb_way', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'satispay', 'sepa_debit', 'shopeepay', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mb_way', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'satispay', 'sepa_debit', 'shopeepay', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
         ]
         """
         The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
@@ -2681,6 +2686,7 @@ class PaymentLink(
                 "pay_by_bank",
                 "paynow",
                 "paypal",
+                "paypay",
                 "payto",
                 "pix",
                 "promptpay",

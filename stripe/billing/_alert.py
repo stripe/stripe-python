@@ -189,6 +189,12 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
 
     class CreateParamsCreditBalanceThresholdFilter(TypedDict):
+        credit_grants: NotRequired[
+            "Alert.CreateParamsCreditBalanceThresholdFilterCreditGrants"
+        ]
+        """
+        The credit grants for which to configure the credit balance alert.
+        """
         customer: NotRequired[str]
         """
         Limit the scope to this credit balance alert only to this customer.
@@ -196,6 +202,60 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         type: Literal["customer", "tenant"]
         """
         What type of filter is being applied to this credit balance alert.
+        """
+
+    class CreateParamsCreditBalanceThresholdFilterCreditGrants(TypedDict):
+        applicability_config: "Alert.CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfig"
+        """
+        The applicability configuration for this credit grants filter.
+        """
+
+    class CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfig(
+        TypedDict,
+    ):
+        scope: "Alert.CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScope"
+        """
+        Specify the scope of this applicability config.
+        """
+
+    class CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScope(
+        TypedDict,
+    ):
+        billable_items: NotRequired[
+            List[
+                "Alert.CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScopeBillableItem"
+            ]
+        ]
+        """
+        A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+        """
+        price_type: NotRequired[Literal["metered"]]
+        """
+        The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
+        """
+        prices: NotRequired[
+            List[
+                "Alert.CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScopePrice"
+            ]
+        ]
+        """
+        A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+        """
+
+    class CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScopeBillableItem(
+        TypedDict,
+    ):
+        id: str
+        """
+        The billable item ID this credit grant should apply to.
+        """
+
+    class CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScopePrice(
+        TypedDict,
+    ):
+        id: str
+        """
+        The price ID this credit grant should apply to.
         """
 
     class CreateParamsCreditBalanceThresholdLte(TypedDict):
@@ -251,7 +311,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
         recurrence: Literal["one_time"]
         """
-        Whether the alert should only fire only once, or once per billing cycle.
+        Defines how the alert will behave.
         """
 
     class CreateParamsUsageThresholdFilter(TypedDict):

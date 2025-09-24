@@ -77,14 +77,33 @@ class CreditNote(
         """
 
     class Refund(StripeObject):
+        class PaymentRecordRefund(StripeObject):
+            payment_record: str
+            """
+            ID of the payment record.
+            """
+            refund_group: str
+            """
+            ID of the refund group.
+            """
+
         amount_refunded: int
         """
         Amount of the refund that applies to this credit note, in cents (or local equivalent).
+        """
+        payment_record_refund: Optional[PaymentRecordRefund]
+        """
+        The PaymentRecord refund details associated with this credit note refund.
         """
         refund: ExpandableField["RefundResource"]
         """
         ID of the refund.
         """
+        type: Optional[Literal["payment_record_refund", "refund"]]
+        """
+        Type of the refund, one of `refund` or `payment_record_refund`.
+        """
+        _inner_class_types = {"payment_record_refund": PaymentRecordRefund}
 
     class ShippingCost(StripeObject):
         class Tax(StripeObject):
@@ -318,9 +337,29 @@ class CreditNote(
         """
         Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
         """
+        payment_record_refund: NotRequired[
+            "CreditNote.CreateParamsRefundPaymentRecordRefund"
+        ]
+        """
+        The PaymentRecord refund details to link to this credit note. Required when `type` is `payment_record_refund`.
+        """
         refund: NotRequired[str]
         """
         ID of an existing refund to link this credit note to. Required when `type` is `refund`.
+        """
+        type: NotRequired[Literal["payment_record_refund", "refund"]]
+        """
+        Type of the refund, one of `refund` or `payment_record_refund`. Defaults to `refund`.
+        """
+
+    class CreateParamsRefundPaymentRecordRefund(TypedDict):
+        payment_record: str
+        """
+        The ID of the PaymentRecord with the refund to link to this credit note.
+        """
+        refund_group: str
+        """
+        The PaymentRecord refund group to link to this credit note. For refunds processed off-Stripe, this will correspond to the `processor_details.custom.refund_reference` field provided when reporting the refund on the PaymentRecord.
         """
 
     class CreateParamsShippingCost(TypedDict):
@@ -549,9 +588,29 @@ class CreditNote(
         """
         Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
         """
+        payment_record_refund: NotRequired[
+            "CreditNote.PreviewLinesParamsRefundPaymentRecordRefund"
+        ]
+        """
+        The PaymentRecord refund details to link to this credit note. Required when `type` is `payment_record_refund`.
+        """
         refund: NotRequired[str]
         """
         ID of an existing refund to link this credit note to. Required when `type` is `refund`.
+        """
+        type: NotRequired[Literal["payment_record_refund", "refund"]]
+        """
+        Type of the refund, one of `refund` or `payment_record_refund`. Defaults to `refund`.
+        """
+
+    class PreviewLinesParamsRefundPaymentRecordRefund(TypedDict):
+        payment_record: str
+        """
+        The ID of the PaymentRecord with the refund to link to this credit note.
+        """
+        refund_group: str
+        """
+        The PaymentRecord refund group to link to this credit note. For refunds processed off-Stripe, this will correspond to the `processor_details.custom.refund_reference` field provided when reporting the refund on the PaymentRecord.
         """
 
     class PreviewLinesParamsShippingCost(TypedDict):
@@ -684,9 +743,29 @@ class CreditNote(
         """
         Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
         """
+        payment_record_refund: NotRequired[
+            "CreditNote.PreviewParamsRefundPaymentRecordRefund"
+        ]
+        """
+        The PaymentRecord refund details to link to this credit note. Required when `type` is `payment_record_refund`.
+        """
         refund: NotRequired[str]
         """
         ID of an existing refund to link this credit note to. Required when `type` is `refund`.
+        """
+        type: NotRequired[Literal["payment_record_refund", "refund"]]
+        """
+        Type of the refund, one of `refund` or `payment_record_refund`. Defaults to `refund`.
+        """
+
+    class PreviewParamsRefundPaymentRecordRefund(TypedDict):
+        payment_record: str
+        """
+        The ID of the PaymentRecord with the refund to link to this credit note.
+        """
+        refund_group: str
+        """
+        The PaymentRecord refund group to link to this credit note. For refunds processed off-Stripe, this will correspond to the `processor_details.custom.refund_reference` field provided when reporting the refund on the PaymentRecord.
         """
 
     class PreviewParamsShippingCost(TypedDict):
