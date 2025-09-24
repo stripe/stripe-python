@@ -703,6 +703,12 @@ class SubscriptionScheduleService(StripeService):
         """
 
     class CreateParamsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SubscriptionScheduleService.CreateParamsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
         Controls the calculation and orchestration of prorations and invoices for subscriptions.

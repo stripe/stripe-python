@@ -80,11 +80,11 @@ class Customer(
         """
         line1: Optional[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: Optional[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: Optional[str]
         """
@@ -149,11 +149,11 @@ class Customer(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -300,6 +300,10 @@ class Customer(
         """
         An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
         """
+        business_name: NotRequired["Literal['']|str"]
+        """
+        The customer's business name. This may be up to *150 characters*.
+        """
         cash_balance: NotRequired["Customer.CreateParamsCashBalance"]
         """
         Balance information and default balance settings for this customer.
@@ -315,6 +319,10 @@ class Customer(
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        individual_name: NotRequired["Literal['']|str"]
+        """
+        The customer's full name. This may be up to *150 characters*.
         """
         invoice_prefix: NotRequired[str]
         """
@@ -381,11 +389,11 @@ class Customer(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -480,11 +488,11 @@ class Customer(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1051,6 +1059,10 @@ class Customer(
         """
         An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
         """
+        business_name: NotRequired["Literal['']|str"]
+        """
+        The customer's business name. This may be up to *150 characters*.
+        """
         cash_balance: NotRequired["Customer.ModifyParamsCashBalance"]
         """
         Balance information and default balance settings for this customer.
@@ -1074,6 +1086,10 @@ class Customer(
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
+        """
+        individual_name: NotRequired["Literal['']|str"]
+        """
+        The customer's full name. This may be up to *150 characters*.
         """
         invoice_prefix: NotRequired[str]
         """
@@ -1131,11 +1147,11 @@ class Customer(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1230,11 +1246,11 @@ class Customer(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1341,11 +1357,11 @@ class Customer(
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1472,6 +1488,10 @@ class Customer(
     id: str
     """
     Unique identifier for the object.
+    """
+    individual_name: Optional[str]
+    """
+    The customer's individual name.
     """
     invoice_credit_balance: Optional[Dict[str, int]]
     """

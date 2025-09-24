@@ -195,6 +195,10 @@ class InvoiceService(StripeService):
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
+        unit_label: NotRequired[str]
+        """
+        A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+        """
 
     class AddLinesParamsLinePricing(TypedDict):
         price: NotRequired[str]
@@ -636,7 +640,7 @@ class InvoiceService(StripeService):
             "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
         ]
         """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         """
 
     class CreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -1081,11 +1085,11 @@ class InvoiceService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1249,11 +1253,11 @@ class InvoiceService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1291,11 +1295,11 @@ class InvoiceService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -2219,6 +2223,12 @@ class InvoiceService(StripeService):
         """
 
     class CreatePreviewParamsScheduleDetailsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "InvoiceService.CreatePreviewParamsScheduleDetailsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
         Controls the calculation and orchestration of prorations and invoices for subscriptions.
@@ -2935,6 +2945,12 @@ class InvoiceService(StripeService):
         """
 
     class CreatePreviewParamsSubscriptionDetailsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "InvoiceService.CreatePreviewParamsSubscriptionDetailsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
         Controls the calculation and orchestration of prorations and invoices for subscriptions.
@@ -3465,6 +3481,10 @@ class InvoiceService(StripeService):
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
+        unit_label: NotRequired[str]
+        """
+        A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+        """
 
     class UpdateLinesParamsLinePricing(TypedDict):
         price: NotRequired[str]
@@ -3826,7 +3846,7 @@ class InvoiceService(StripeService):
             "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
         ]
         """
-        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
         """
 
     class UpdateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
@@ -4271,11 +4291,11 @@ class InvoiceService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """

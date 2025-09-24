@@ -40,6 +40,12 @@ class SessionService(StripeService):
         """
         Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
         """
+        branding_settings: NotRequired[
+            "SessionService.CreateParamsBrandingSettings"
+        ]
+        """
+        The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `custom`.
+        """
         cancel_url: NotRequired[str]
         """
         If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
@@ -118,6 +124,63 @@ class SessionService(StripeService):
         """
         The coupon or promotion code to apply to this Session. Currently, only up to one may be specified.
         """
+        excluded_payment_method_types: NotRequired[
+            List[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "grabpay",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "pix",
+                    "promptpay",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "sepa_debit",
+                    "sofort",
+                    "swish",
+                    "twint",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ]
+            ]
+        ]
+        """
+        A list of the types of payment methods (e.g., `card`) that should be excluded from this Checkout Session. This should only be used when payment methods for this Checkout Session are managed through the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -195,6 +258,16 @@ class SessionService(StripeService):
         mode: NotRequired[Literal["payment", "setup", "subscription"]]
         """
         The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
+        """
+        name_collection: NotRequired[
+            "SessionService.CreateParamsNameCollection"
+        ]
+        """
+        Controls name collection settings for the session.
+
+        You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
+
+        If a [Customer](https://stripe.com/docs/api/customers) is created or provided, the names can be saved to the Customer object as well.
         """
         optional_items: NotRequired[
             List["SessionService.CreateParamsOptionalItem"]
@@ -905,6 +978,10 @@ class SessionService(StripeService):
         """
         A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
         """
+        unit_label: NotRequired[str]
+        """
+        A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+        """
 
     class CreateParamsLineItemPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
@@ -914,6 +991,40 @@ class SessionService(StripeService):
         interval_count: NotRequired[int]
         """
         The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+        """
+
+    class CreateParamsNameCollection(TypedDict):
+        business: NotRequired[
+            "SessionService.CreateParamsNameCollectionBusiness"
+        ]
+        """
+        Controls settings applied for collecting the customer's business name on the session.
+        """
+        individual: NotRequired[
+            "SessionService.CreateParamsNameCollectionIndividual"
+        ]
+        """
+        Controls settings applied for collecting the customer's individual name on the session.
+        """
+
+    class CreateParamsNameCollectionBusiness(TypedDict):
+        enabled: bool
+        """
+        Enable business name collection on the Checkout Session. Defaults to `false`.
+        """
+        optional: NotRequired[bool]
+        """
+        Whether the customer is required to provide a business name before completing the Checkout Session. Defaults to `false`.
+        """
+
+    class CreateParamsNameCollectionIndividual(TypedDict):
+        enabled: bool
+        """
+        Enable individual name collection on the Checkout Session. Defaults to `false`.
+        """
+        optional: NotRequired[bool]
+        """
+        Whether the customer is required to provide their name before completing the Checkout Session. Defaults to `false`.
         """
 
     class CreateParamsOptionalItem(TypedDict):
@@ -1059,11 +1170,11 @@ class SessionService(StripeService):
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -1120,6 +1231,12 @@ class SessionService(StripeService):
         """
         contains details about the Alipay payment method options.
         """
+        alma: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsAlma"
+        ]
+        """
+        contains details about the Alma payment method options.
+        """
         amazon_pay: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsAmazonPay"
         ]
@@ -1144,6 +1261,12 @@ class SessionService(StripeService):
         """
         contains details about the Bancontact payment method options.
         """
+        billie: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsBillie"
+        ]
+        """
+        contains details about the Billie payment method options.
+        """
         boleto: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsBoleto"
         ]
@@ -1167,6 +1290,12 @@ class SessionService(StripeService):
         ]
         """
         contains details about the Customer Balance payment method options.
+        """
+        demo_pay: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsDemoPay"
+        ]
+        """
+        contains details about the DemoPay payment method options.
         """
         eps: NotRequired["SessionService.CreateParamsPaymentMethodOptionsEps"]
         """
@@ -1298,6 +1427,12 @@ class SessionService(StripeService):
         """
         contains details about the Samsung Pay payment method options.
         """
+        satispay: NotRequired[
+            "SessionService.CreateParamsPaymentMethodOptionsSatispay"
+        ]
+        """
+        contains details about the Satispay payment method options.
+        """
         sepa_debit: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsSepaDebit"
         ]
@@ -1390,6 +1525,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsAffirm(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1402,6 +1541,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1425,7 +1568,17 @@ class SessionService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
+    class CreateParamsPaymentMethodOptionsAlma(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+
     class CreateParamsPaymentMethodOptionsAmazonPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1495,6 +1648,12 @@ class SessionService(StripeService):
         When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
         """
 
+    class CreateParamsPaymentMethodOptionsBillie(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+
     class CreateParamsPaymentMethodOptionsBoleto(TypedDict):
         expires_after_days: NotRequired[int]
         """
@@ -1514,6 +1673,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         installments: NotRequired[
             "SessionService.CreateParamsPaymentMethodOptionsCardInstallments"
         ]
@@ -1600,6 +1763,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsCashapp(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[
             Literal["none", "off_session", "on_session"]
         ]
@@ -1681,6 +1848,18 @@ class SessionService(StripeService):
         The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
         """
 
+    class CreateParamsPaymentMethodOptionsDemoPay(TypedDict):
+        setup_future_usage: NotRequired[Literal["none", "off_session"]]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+        If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+        When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+        """
+
     class CreateParamsPaymentMethodOptionsEps(TypedDict):
         setup_future_usage: NotRequired[Literal["none"]]
         """
@@ -1758,6 +1937,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1842,6 +2025,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsLink(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1854,6 +2041,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsMobilepay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2146,6 +2337,10 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
         setup_future_usage: NotRequired[Literal["none", "off_session"]]
         """
         Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2158,6 +2353,12 @@ class SessionService(StripeService):
         """
 
     class CreateParamsPaymentMethodOptionsSamsungPay(TypedDict):
+        capture_method: NotRequired[Literal["manual"]]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+
+    class CreateParamsPaymentMethodOptionsSatispay(TypedDict):
         capture_method: NotRequired[Literal["manual"]]
         """
         Controls when the funds will be captured from the customer's account.
@@ -2808,6 +3009,12 @@ class SessionService(StripeService):
         """
 
     class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SessionService.CreateParamsSubscriptionDataBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
         Controls the calculation and orchestration of prorations and invoices for subscriptions.
@@ -3042,11 +3249,11 @@ class SessionService(StripeService):
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """

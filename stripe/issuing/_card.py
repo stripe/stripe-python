@@ -47,11 +47,11 @@ class Card(
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """
@@ -74,11 +74,11 @@ class Card(
                 """
                 line1: Optional[str]
                 """
-                Address line 1 (e.g., street, PO Box, or company name).
+                Address line 1, such as the street, PO Box, or company name.
                 """
                 line2: Optional[str]
                 """
-                Address line 2 (e.g., apartment, suite, unit, or building).
+                Address line 2, such as the apartment, suite, unit, or building.
                 """
                 postal_code: Optional[str]
                 """
@@ -1182,6 +1182,14 @@ class Card(
         """
         The currency for the card.
         """
+        exp_month: NotRequired[int]
+        """
+        The desired expiration month (1-12) for this card if [specifying a custom expiration date](https://docs.stripe.com/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
+        """
+        exp_year: NotRequired[int]
+        """
+        The desired 4-digit expiration year for this card if [specifying a custom expiration date](https://docs.stripe.com/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
+        """
         expand: NotRequired[List[str]]
         """
         Specifies which fields in the response should be expanded.
@@ -1286,11 +1294,11 @@ class Card(
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: str
         """
@@ -2421,11 +2429,11 @@ class Card(
         """
         line1: str
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: str
         """
@@ -3498,6 +3506,10 @@ class Card(
     ]
     """
     The reason why the previous card needed to be replaced.
+    """
+    second_line: Optional[str]
+    """
+    Text separate from cardholder name, printed on the card.
     """
     shipping: Optional[Shipping]
     """

@@ -581,10 +581,18 @@ class Quote(
             }
 
         class BillingMode(StripeObject):
+            class Flexible(StripeObject):
+                proration_discounts: Optional[Literal["included", "itemized"]]
+                """
+                Controls how invoices and invoice items display proration amounts and discount amounts.
+                """
+
+            flexible: Optional[Flexible]
             type: Literal["classic", "flexible"]
             """
             Controls how prorations and invoices for subscriptions are calculated and orchestrated.
             """
+            _inner_class_types = {"flexible": Flexible}
 
         class Prebilling(StripeObject):
             iterations: int
@@ -1868,6 +1876,12 @@ class Quote(
         """
 
     class CreateParamsSubscriptionDataBillingMode(TypedDict):
+        flexible: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
         Controls the calculation and orchestration of prorations and invoices for subscriptions.

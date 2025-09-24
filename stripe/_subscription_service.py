@@ -87,7 +87,7 @@ class SubscriptionService(StripeService):
             "SubscriptionService.CreateParamsBillingCycleAnchorConfig"
         ]
         """
-        Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurence of the day_of_month at the hour, minute, and second UTC.
+        Mutually exclusive with billing_cycle_anchor and only valid with monthly and yearly price intervals. When provided, the billing_cycle_anchor is set to the next occurrence of the day_of_month at the hour, minute, and second UTC.
         """
         billing_mode: NotRequired[
             "SubscriptionService.CreateParamsBillingMode"
@@ -430,6 +430,12 @@ class SubscriptionService(StripeService):
         """
 
     class CreateParamsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SubscriptionService.CreateParamsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["classic", "flexible"]
         """
         Controls the calculation and orchestration of prorations and invoices for subscriptions.
@@ -1150,7 +1156,22 @@ class SubscriptionService(StripeService):
         """
 
     class MigrateParamsBillingMode(TypedDict):
+        flexible: NotRequired[
+            "SubscriptionService.MigrateParamsBillingModeFlexible"
+        ]
+        """
+        Configure behavior for flexible billing mode.
+        """
         type: Literal["flexible"]
+        """
+        Controls the calculation and orchestration of prorations and invoices for subscriptions.
+        """
+
+    class MigrateParamsBillingModeFlexible(TypedDict):
+        proration_discounts: NotRequired[Literal["included", "itemized"]]
+        """
+        Controls how invoices and invoice items display proration amounts and discount amounts.
+        """
 
     class ResumeParams(TypedDict):
         billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
