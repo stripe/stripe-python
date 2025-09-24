@@ -207,6 +207,6 @@ class V1BillingMeterErrorReportTriggeredEvent(Event):
                 "get",
                 self.related_object.url,
                 base_address="api",
-                options={"stripe_account": self.context},
+                options={"stripe_context": self.context},
             ),
         )
