@@ -32,6 +32,9 @@ from stripe.v2._event import EventNotification
 from typing import Any, Dict, Optional, Union, cast
 from typing_extensions import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from stripe._stripe_context import StripeContext
+
 # Non-generated services
 from stripe._oauth_service import OAuthService
 
@@ -124,7 +127,7 @@ class StripeClient(object):
         api_key: str,
         *,
         stripe_account: Optional[str] = None,
-        stripe_context: Optional[str] = None,
+        stripe_context: "Optional[Union[str, StripeContext]]" = None,
         stripe_version: Optional[str] = None,
         base_addresses: Optional[BaseAddresses] = None,
         client_id: Optional[str] = None,
