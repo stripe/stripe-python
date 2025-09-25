@@ -161,18 +161,6 @@ from stripe.events._v1_customer_deleted_event import (
     V1CustomerDeletedEvent,
     V1CustomerDeletedEventNotification,
 )
-from stripe.events._v1_customer_discount_created_event import (
-    V1CustomerDiscountCreatedEvent,
-    V1CustomerDiscountCreatedEventNotification,
-)
-from stripe.events._v1_customer_discount_deleted_event import (
-    V1CustomerDiscountDeletedEvent,
-    V1CustomerDiscountDeletedEventNotification,
-)
-from stripe.events._v1_customer_discount_updated_event import (
-    V1CustomerDiscountUpdatedEvent,
-    V1CustomerDiscountUpdatedEventNotification,
-)
 from stripe.events._v1_customer_subscription_created_event import (
     V1CustomerSubscriptionCreatedEvent,
     V1CustomerSubscriptionCreatedEventNotification,
@@ -1300,9 +1288,6 @@ V2_EVENT_CLASS_LOOKUP = {
     V1CreditNoteVoidedEvent.LOOKUP_TYPE: V1CreditNoteVoidedEvent,
     V1CustomerCreatedEvent.LOOKUP_TYPE: V1CustomerCreatedEvent,
     V1CustomerDeletedEvent.LOOKUP_TYPE: V1CustomerDeletedEvent,
-    V1CustomerDiscountCreatedEvent.LOOKUP_TYPE: V1CustomerDiscountCreatedEvent,
-    V1CustomerDiscountDeletedEvent.LOOKUP_TYPE: V1CustomerDiscountDeletedEvent,
-    V1CustomerDiscountUpdatedEvent.LOOKUP_TYPE: V1CustomerDiscountUpdatedEvent,
     V1CustomerSubscriptionCreatedEvent.LOOKUP_TYPE: V1CustomerSubscriptionCreatedEvent,
     V1CustomerSubscriptionDeletedEvent.LOOKUP_TYPE: V1CustomerSubscriptionDeletedEvent,
     V1CustomerSubscriptionPausedEvent.LOOKUP_TYPE: V1CustomerSubscriptionPausedEvent,
@@ -1617,9 +1602,6 @@ V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     V1CreditNoteVoidedEventNotification.LOOKUP_TYPE: V1CreditNoteVoidedEventNotification,
     V1CustomerCreatedEventNotification.LOOKUP_TYPE: V1CustomerCreatedEventNotification,
     V1CustomerDeletedEventNotification.LOOKUP_TYPE: V1CustomerDeletedEventNotification,
-    V1CustomerDiscountCreatedEventNotification.LOOKUP_TYPE: V1CustomerDiscountCreatedEventNotification,
-    V1CustomerDiscountDeletedEventNotification.LOOKUP_TYPE: V1CustomerDiscountDeletedEventNotification,
-    V1CustomerDiscountUpdatedEventNotification.LOOKUP_TYPE: V1CustomerDiscountUpdatedEventNotification,
     V1CustomerSubscriptionCreatedEventNotification.LOOKUP_TYPE: V1CustomerSubscriptionCreatedEventNotification,
     V1CustomerSubscriptionDeletedEventNotification.LOOKUP_TYPE: V1CustomerSubscriptionDeletedEventNotification,
     V1CustomerSubscriptionPausedEventNotification.LOOKUP_TYPE: V1CustomerSubscriptionPausedEventNotification,
@@ -1934,9 +1916,6 @@ ALL_EVENT_NOTIFICATIONS = Union[
     V1CreditNoteVoidedEventNotification,
     V1CustomerCreatedEventNotification,
     V1CustomerDeletedEventNotification,
-    V1CustomerDiscountCreatedEventNotification,
-    V1CustomerDiscountDeletedEventNotification,
-    V1CustomerDiscountUpdatedEventNotification,
     V1CustomerSubscriptionCreatedEventNotification,
     V1CustomerSubscriptionDeletedEventNotification,
     V1CustomerSubscriptionPausedEventNotification,
