@@ -60,6 +60,7 @@ include = [
   "tests/test_generated_examples.py",
   "tests/test_exports.py",
   "tests/test_http_client.py",
+  "tests/test_v2_event.py",
 ]
 exclude = ["build", "**/__pycache__"]
 reportMissingTypeArgument = true

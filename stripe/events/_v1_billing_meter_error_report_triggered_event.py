@@ -2,12 +2,75 @@
 # File generated from our OpenAPI spec
 from stripe._api_mode import ApiMode
 from stripe._api_requestor import _APIRequestor
+from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
+from stripe._util import get_api_mode
 from stripe.billing._meter import Meter
-from stripe.v2._event import Event
+from stripe.v2._event import Event, EventNotification, RelatedObject
 from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from typing_extensions import Literal, override
+
+
+class V1BillingMeterErrorReportTriggeredEventNotification(EventNotification):
+    LOOKUP_TYPE = "v1.billing.meter.error_report_triggered"
+    type: Literal["v1.billing.meter.error_report_triggered"]
+    related_object: RelatedObject
+
+    def __init__(
+        self, parsed_body: Dict[str, Any], client: StripeClient
+    ) -> None:
+        super().__init__(
+            parsed_body,
+            client,
+        )
+        self.related_object = RelatedObject(parsed_body["related_object"])
+
+    @override
+    def fetch_event(self) -> "V1BillingMeterErrorReportTriggeredEvent":
+        return cast(
+            "V1BillingMeterErrorReportTriggeredEvent",
+            super().fetch_event(),
+        )
+
+    def fetch_related_object(self) -> "Meter":
+        response = self._client.raw_request(
+            "get",
+            self.related_object.url,
+            stripe_context=self.context,
+            usage=["fetch_related_object"],
+        )
+        return cast(
+            "Meter",
+            self._client.deserialize(
+                response,
+                api_mode=get_api_mode(self.related_object.url),
+            ),
+        )
+
+    @override
+    async def fetch_event_async(
+        self,
+    ) -> "V1BillingMeterErrorReportTriggeredEvent":
+        return cast(
+            "V1BillingMeterErrorReportTriggeredEvent",
+            await super().fetch_event_async(),
+        )
+
+    async def fetch_related_object_async(self) -> "Meter":
+        response = await self._client.raw_request_async(
+            "get",
+            self.related_object.url,
+            stripe_context=self.context,
+            usage=["fetch_related_object"],
+        )
+        return cast(
+            "Meter",
+            self._client.deserialize(
+                response,
+                api_mode=get_api_mode(self.related_object.url),
+            ),
+        )
 
 
 class V1BillingMeterErrorReportTriggeredEvent(Event):
@@ -144,6 +207,6 @@ class V1BillingMeterErrorReportTriggeredEvent(Event):
                 "get",
                 self.related_object.url,
                 base_address="api",
-                options={"stripe_account": self.context},
+                options={"stripe_context": self.context},
             ),
         )

@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from typing import Union
 from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEvent,
+    V1BillingMeterErrorReportTriggeredEventNotification,
 )
 from stripe.events._v1_billing_meter_no_meter_found_event import (
     V1BillingMeterNoMeterFoundEvent,
+    V1BillingMeterNoMeterFoundEventNotification,
 )
 from stripe.events._v2_billing_bill_setting_updated_event import (
     V2BillingBillSettingUpdatedEvent,
@@ -65,6 +68,7 @@ from stripe.events._v2_core_account_person_updated_event import (
 )
 from stripe.events._v2_core_event_destination_ping_event import (
     V2CoreEventDestinationPingEvent,
+    V2CoreEventDestinationPingEventNotification,
 )
 from stripe.events._v2_money_management_adjustment_created_event import (
     V2MoneyManagementAdjustmentCreatedEvent,
@@ -191,7 +195,7 @@ from stripe.events._v2_payments_off_session_payment_succeeded_event import (
 )
 
 
-THIN_EVENT_CLASSES = {
+V2_EVENT_CLASS_LOOKUP = {
     V1BillingMeterErrorReportTriggeredEvent.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEvent,
     V1BillingMeterNoMeterFoundEvent.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEvent,
     V2BillingBillSettingUpdatedEvent.LOOKUP_TYPE: V2BillingBillSettingUpdatedEvent,
@@ -256,3 +260,15 @@ THIN_EVENT_CLASSES = {
     V2PaymentsOffSessionPaymentFailedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentFailedEvent,
     V2PaymentsOffSessionPaymentSucceededEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentSucceededEvent,
 }
+
+V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
+    V1BillingMeterErrorReportTriggeredEventNotification.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEventNotification,
+    V1BillingMeterNoMeterFoundEventNotification.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEventNotification,
+    V2CoreEventDestinationPingEventNotification.LOOKUP_TYPE: V2CoreEventDestinationPingEventNotification,
+}
+
+ALL_EVENT_NOTIFICATIONS = Union[
+    V1BillingMeterErrorReportTriggeredEventNotification,
+    V1BillingMeterNoMeterFoundEventNotification,
+    V2CoreEventDestinationPingEventNotification,
+]
