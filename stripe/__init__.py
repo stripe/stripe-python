@@ -131,6 +131,7 @@ from stripe._search_result_object import (
 )
 from stripe._stripe_object import StripeObject as StripeObject
 from stripe._request_options import RequestOptions as RequestOptions
+from stripe._stripe_context import StripeContext as StripeContext
 from stripe._createable_api_resource import (
     CreateableAPIResource as CreateableAPIResource,
 )

@@ -500,8 +500,8 @@ class _APIRequestor(object):
             headers["Stripe-Account"] = stripe_account
 
         stripe_context = options.get("stripe_context")
-        if stripe_context:
-            headers["Stripe-Context"] = stripe_context
+        if stripe_context and str(stripe_context):
+            headers["Stripe-Context"] = str(stripe_context)
 
         idempotency_key = options.get("idempotency_key")
         if idempotency_key:

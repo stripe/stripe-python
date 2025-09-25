@@ -32,6 +32,9 @@ from stripe.v2._event import EventNotification
 from typing import Any, Dict, Optional, Union, cast
 from typing_extensions import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from stripe._stripe_context import StripeContext
+
 # Non-generated services
 from stripe._oauth_service import OAuthService
 
@@ -124,7 +127,7 @@ class StripeClient(object):
         api_key: str,
         *,
         stripe_account: Optional[str] = None,
-        stripe_context: Optional[str] = None,
+        stripe_context: "Optional[Union[str, StripeContext]]" = None,
         stripe_version: Optional[str] = None,
         base_addresses: Optional[BaseAddresses] = None,
         client_id: Optional[str] = None,
@@ -248,19 +251,8 @@ class StripeClient(object):
         api_mode = get_api_mode(url_)
         base_address = params.pop("base", "api")
 
-        stripe_context = params.pop("stripe_context", None)
-
         # we manually pass usage in event internals, so use those if available
         usage = params.pop("usage", ["raw_request"])
-
-        # stripe-context goes *here* and not in api_requestor. Properties
-        # go on api_requestor when you want them to persist onto requests
-        # made when you call instance methods on APIResources that come from
-        # the first request. No need for that here, as we aren't deserializing APIResources
-        if stripe_context is not None:
-            options["headers"] = options.get("headers", {})
-            assert isinstance(options["headers"], dict)
-            options["headers"].update({"Stripe-Context": stripe_context})
 
         rbody, rcode, rheaders = self._requestor.request_raw(
             method_,

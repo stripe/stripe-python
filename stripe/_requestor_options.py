@@ -2,13 +2,17 @@
 import stripe  # noqa: IMP101
 from stripe._base_address import BaseAddresses
 
-from typing import Optional
+from typing import Optional, Union
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe._stripe_context import StripeContext
 
 
 class RequestorOptions(object):
     api_key: Optional[str]
     stripe_account: Optional[str]
-    stripe_context: Optional[str]
+    stripe_context: "Optional[Union[str, StripeContext]]"
     stripe_version: Optional[str]
     base_addresses: BaseAddresses
     max_network_retries: Optional[int]
@@ -17,7 +21,7 @@ class RequestorOptions(object):
         self,
         api_key: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        stripe_context: Optional[str] = None,
+        stripe_context: "Optional[Union[str, StripeContext]]" = None,
         stripe_version: Optional[str] = None,
         base_addresses: Optional[BaseAddresses] = None,
         max_network_retries: Optional[int] = None,
