@@ -4,9 +4,32 @@ from stripe._api_mode import ApiMode
 from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
-from stripe.v2._event import Event
-from typing import Any, Dict, Optional
-from typing_extensions import Literal
+from stripe.v2._event import Event, EventNotification
+from typing import Any, Dict, Optional, cast
+from typing_extensions import Literal, override
+
+
+class V2CoreHealthEventGenerationFailureResolvedEventNotification(
+    EventNotification,
+):
+    LOOKUP_TYPE = "v2.core.health.event_generation_failure.resolved"
+    type: Literal["v2.core.health.event_generation_failure.resolved"]
+
+    @override
+    def fetch_event(self) -> "V2CoreHealthEventGenerationFailureResolvedEvent":
+        return cast(
+            "V2CoreHealthEventGenerationFailureResolvedEvent",
+            super().fetch_event(),
+        )
+
+    @override
+    async def fetch_event_async(
+        self,
+    ) -> "V2CoreHealthEventGenerationFailureResolvedEvent":
+        return cast(
+            "V2CoreHealthEventGenerationFailureResolvedEvent",
+            await super().fetch_event_async(),
+        )
 
 
 class V2CoreHealthEventGenerationFailureResolvedEvent(Event):

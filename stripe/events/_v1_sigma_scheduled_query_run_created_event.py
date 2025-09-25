@@ -1,10 +1,73 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
+from stripe._util import get_api_mode
 from stripe.sigma._scheduled_query_run import ScheduledQueryRun
-from stripe.v2._event import Event
-from typing import cast
-from typing_extensions import Literal
+from stripe.v2._event import Event, EventNotification, RelatedObject
+from typing import Any, Dict, cast
+from typing_extensions import Literal, override
+
+
+class V1SigmaScheduledQueryRunCreatedEventNotification(EventNotification):
+    LOOKUP_TYPE = "v1.sigma.scheduled_query_run.created"
+    type: Literal["v1.sigma.scheduled_query_run.created"]
+    related_object: RelatedObject
+
+    def __init__(
+        self, parsed_body: Dict[str, Any], client: StripeClient
+    ) -> None:
+        super().__init__(
+            parsed_body,
+            client,
+        )
+        self.related_object = RelatedObject(parsed_body["related_object"])
+
+    @override
+    def fetch_event(self) -> "V1SigmaScheduledQueryRunCreatedEvent":
+        return cast(
+            "V1SigmaScheduledQueryRunCreatedEvent",
+            super().fetch_event(),
+        )
+
+    def fetch_related_object(self) -> "ScheduledQueryRun":
+        response = self._client.raw_request(
+            "get",
+            self.related_object.url,
+            stripe_context=self.context,
+            usage=["fetch_related_object"],
+        )
+        return cast(
+            "ScheduledQueryRun",
+            self._client.deserialize(
+                response,
+                api_mode=get_api_mode(self.related_object.url),
+            ),
+        )
+
+    @override
+    async def fetch_event_async(
+        self,
+    ) -> "V1SigmaScheduledQueryRunCreatedEvent":
+        return cast(
+            "V1SigmaScheduledQueryRunCreatedEvent",
+            await super().fetch_event_async(),
+        )
+
+    async def fetch_related_object_async(self) -> "ScheduledQueryRun":
+        response = await self._client.raw_request_async(
+            "get",
+            self.related_object.url,
+            stripe_context=self.context,
+            usage=["fetch_related_object"],
+        )
+        return cast(
+            "ScheduledQueryRun",
+            self._client.deserialize(
+                response,
+                api_mode=get_api_mode(self.related_object.url),
+            ),
+        )
 
 
 class V1SigmaScheduledQueryRunCreatedEvent(Event):
@@ -40,6 +103,6 @@ class V1SigmaScheduledQueryRunCreatedEvent(Event):
                 "get",
                 self.related_object.url,
                 base_address="api",
-                options={"stripe_account": self.context},
+                options={"stripe_context": self.context},
             ),
         )
