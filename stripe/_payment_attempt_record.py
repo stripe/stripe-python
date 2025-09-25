@@ -372,11 +372,11 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 """
                 line1: Optional[str]
                 """
-                Address line 1 (e.g., street, PO Box, or company name).
+                Address line 1, such as the street, PO Box, or company name.
                 """
                 line2: Optional[str]
                 """
-                Address line 2 (e.g., apartment, suite, unit, or building).
+                Address line 2, such as the apartment, suite, unit, or building.
                 """
                 postal_code: Optional[str]
                 """
@@ -431,6 +431,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
 
             class NetworkToken(StripeObject):
                 used: bool
+                """
+                Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
+                """
 
             class ThreeDSecure(StripeObject):
                 authentication_flow: Optional[
@@ -458,6 +461,31 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                     ]
                 ]
                 version: Optional[Literal["1.0.2", "2.1.0", "2.2.0"]]
+
+            class Wallet(StripeObject):
+                class ApplePay(StripeObject):
+                    type: str
+                    """
+                    Type of the apple_pay transaction, one of `apple_pay` or `apple_pay_later`.
+                    """
+
+                class GooglePay(StripeObject):
+                    pass
+
+                apple_pay: Optional[ApplePay]
+                dynamic_last4: Optional[str]
+                """
+                (For tokenized numbers only.) The last four digits of the device account number.
+                """
+                google_pay: Optional[GooglePay]
+                type: str
+                """
+                The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+                """
+                _inner_class_types = {
+                    "apple_pay": ApplePay,
+                    "google_pay": GooglePay,
+                }
 
             brand: Literal[
                 "amex",
@@ -545,10 +573,15 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Populated if this transaction used 3D Secure authentication.
             """
+            wallet: Optional[Wallet]
+            """
+            If this Card is part of a card wallet, this contains the details of the card wallet.
+            """
             _inner_class_types = {
                 "checks": Checks,
                 "network_token": NetworkToken,
                 "three_d_secure": ThreeDSecure,
+                "wallet": Wallet,
             }
 
         class CardPresent(StripeObject):
@@ -1340,6 +1373,14 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
 
         class Paynow(StripeObject):
+            location: Optional[str]
+            """
+            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            """
             reference: Optional[str]
             """
             Reference number associated with this PayNow payment
@@ -1371,11 +1412,11 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 """
                 line1: Optional[str]
                 """
-                Address line 1 (e.g., street, PO Box, or company name).
+                Address line 1, such as the street, PO Box, or company name.
                 """
                 line2: Optional[str]
                 """
-                Address line 2 (e.g., apartment, suite, unit, or building).
+                Address line 2, such as the apartment, suite, unit, or building.
                 """
                 postal_code: Optional[str]
                 """
@@ -1397,11 +1438,11 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 """
                 line1: Optional[str]
                 """
-                Address line 1 (e.g., street, PO Box, or company name).
+                Address line 1, such as the street, PO Box, or company name.
                 """
                 line2: Optional[str]
                 """
-                Address line 2 (e.g., apartment, suite, unit, or building).
+                Address line 2, such as the apartment, suite, unit, or building.
                 """
                 postal_code: Optional[str]
                 """
@@ -1465,6 +1506,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 "shipping": Shipping,
                 "verified_address": VerifiedAddress,
             }
+
+        class Paypay(StripeObject):
+            pass
 
         class Payto(StripeObject):
             bsb_number: Optional[str]
@@ -1795,6 +1839,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
         payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
@@ -1870,6 +1915,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "paypay": Paypay,
             "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
@@ -1894,7 +1940,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
 
     class ProcessorDetails(StripeObject):
         class Custom(StripeObject):
-            payment_reference: str
+            payment_reference: Optional[str]
             """
             An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
             """
@@ -1923,11 +1969,11 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             line1: Optional[str]
             """
-            Address line 1 (e.g., street, PO Box, or company name).
+            Address line 1, such as the street, PO Box, or company name.
             """
             line2: Optional[str]
             """
-            Address line 2 (e.g., apartment, suite, unit, or building).
+            Address line 2, such as the apartment, suite, unit, or building.
             """
             postal_code: Optional[str]
             """

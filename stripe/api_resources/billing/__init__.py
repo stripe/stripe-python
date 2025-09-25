@@ -16,6 +16,7 @@ warn(
     stacklevel=2,
 )
 if not TYPE_CHECKING:
+    from stripe.api_resources.billing import analytics
     from stripe.api_resources.billing.alert import Alert
     from stripe.api_resources.billing.alert_triggered import AlertTriggered
     from stripe.api_resources.billing.credit_balance_summary import (
@@ -33,5 +34,3 @@ if not TYPE_CHECKING:
     from stripe.api_resources.billing.meter_event_summary import (
         MeterEventSummary,
     )
-    from stripe.api_resources.billing.meter_usage import MeterUsage
-    from stripe.api_resources.billing.meter_usage_row import MeterUsageRow

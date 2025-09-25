@@ -55,11 +55,11 @@ class Person(UpdateableAPIResource["Person"]):
         """
         line1: Optional[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: Optional[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: Optional[str]
         """
@@ -157,6 +157,7 @@ class Person(UpdateableAPIResource["Person"]):
 
         class Error(StripeObject):
             code: Literal[
+                "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
@@ -199,6 +200,7 @@ class Person(UpdateableAPIResource["Person"]):
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "unsupported_business_type",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
                 "verification_document_address_missing",
@@ -302,11 +304,11 @@ class Person(UpdateableAPIResource["Person"]):
         """
         line1: Optional[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: Optional[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: Optional[str]
         """
@@ -364,6 +366,7 @@ class Person(UpdateableAPIResource["Person"]):
 
         class Error(StripeObject):
             code: Literal[
+                "external_request",
                 "information_missing",
                 "invalid_address_city_state_postal_code",
                 "invalid_address_highway_contract_box",
@@ -406,6 +409,7 @@ class Person(UpdateableAPIResource["Person"]):
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "unsupported_business_type",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
                 "verification_document_address_missing",
