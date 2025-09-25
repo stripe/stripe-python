@@ -1704,9 +1704,6 @@ class Charge(
             """
             _inner_class_types = {"seller_protection": SellerProtection}
 
-        class Paypay(StripeObject):
-            pass
-
         class Pix(StripeObject):
             bank_transaction_id: Optional[str]
             """
@@ -1978,7 +1975,6 @@ class Charge(
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
-        paypay: Optional[Paypay]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -2042,7 +2038,6 @@ class Charge(
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
-            "paypay": Paypay,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,

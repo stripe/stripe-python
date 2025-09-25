@@ -346,12 +346,6 @@ class SetupIntentService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        paypay: NotRequired[
-            "SetupIntentService.ConfirmParamsPaymentMethodDataPaypay"
-        ]
-        """
-        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
-        """
         pix: NotRequired[
             "SetupIntentService.ConfirmParamsPaymentMethodDataPix"
         ]
@@ -449,7 +443,6 @@ class SetupIntentService(StripeService):
             "payco",
             "paynow",
             "paypal",
-            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -833,9 +826,6 @@ class SetupIntentService(StripeService):
         pass
 
     class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
-        pass
-
-    class ConfirmParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataPix(TypedDict):
@@ -1818,12 +1808,6 @@ class SetupIntentService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        paypay: NotRequired[
-            "SetupIntentService.CreateParamsPaymentMethodDataPaypay"
-        ]
-        """
-        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
-        """
         pix: NotRequired["SetupIntentService.CreateParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -1919,7 +1903,6 @@ class SetupIntentService(StripeService):
             "payco",
             "paynow",
             "paypal",
-            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -2301,9 +2284,6 @@ class SetupIntentService(StripeService):
         pass
 
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataPix(TypedDict):
@@ -3261,12 +3241,6 @@ class SetupIntentService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        paypay: NotRequired[
-            "SetupIntentService.UpdateParamsPaymentMethodDataPaypay"
-        ]
-        """
-        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
-        """
         pix: NotRequired["SetupIntentService.UpdateParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -3362,7 +3336,6 @@ class SetupIntentService(StripeService):
             "payco",
             "paynow",
             "paypal",
-            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -3744,9 +3717,6 @@ class SetupIntentService(StripeService):
         pass
 
     class UpdateParamsPaymentMethodDataPaypal(TypedDict):
-        pass
-
-    class UpdateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class UpdateParamsPaymentMethodDataPix(TypedDict):

@@ -251,12 +251,6 @@ class PaymentMethodConfigurationService(StripeService):
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
         """
-        paypay: NotRequired[
-            "PaymentMethodConfigurationService.CreateParamsPaypay"
-        ]
-        """
-        Customers can pay with PayPay online or using the PayPay app.
-        """
         pix: NotRequired["PaymentMethodConfigurationService.CreateParamsPix"]
         """
         Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
@@ -900,20 +894,6 @@ class PaymentMethodConfigurationService(StripeService):
         The account's preference for whether or not to display this payment method.
         """
 
-    class CreateParamsPaypay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfigurationService.CreateParamsPaypayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsPaypayDisplayPreference(TypedDict):
-        preference: NotRequired[Literal["none", "off", "on"]]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
     class CreateParamsPix(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfigurationService.CreateParamsPixDisplayPreference"
@@ -1350,12 +1330,6 @@ class PaymentMethodConfigurationService(StripeService):
         ]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
-        """
-        paypay: NotRequired[
-            "PaymentMethodConfigurationService.UpdateParamsPaypay"
-        ]
-        """
-        Customers can pay with PayPay online or using the PayPay app.
         """
         pix: NotRequired["PaymentMethodConfigurationService.UpdateParamsPix"]
         """
@@ -1995,20 +1969,6 @@ class PaymentMethodConfigurationService(StripeService):
         """
 
     class UpdateParamsPaypalDisplayPreference(TypedDict):
-        preference: NotRequired[Literal["none", "off", "on"]]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
-    class UpdateParamsPaypay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfigurationService.UpdateParamsPaypayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class UpdateParamsPaypayDisplayPreference(TypedDict):
         preference: NotRequired[Literal["none", "off", "on"]]
         """
         The account's preference for whether or not to display this payment method.

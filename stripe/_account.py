@@ -362,10 +362,6 @@ class Account(
         """
         The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
         """
-        paypay_payments: Optional[Literal["active", "inactive", "pending"]]
-        """
-        The status of the Paypay capability of the account, or whether the account can directly process Paypay payments.
-        """
         pix_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the pix payments capability of the account, or whether the account can directly process pix charges.
@@ -1919,12 +1915,6 @@ class Account(
         """
         The paynow_payments capability.
         """
-        paypay_payments: NotRequired[
-            "Account.CreateParamsCapabilitiesPaypayPayments"
-        ]
-        """
-        The paypay_payments capability.
-        """
         pix_payments: NotRequired[
             "Account.CreateParamsCapabilitiesPixPayments"
         ]
@@ -2277,12 +2267,6 @@ class Account(
         """
 
     class CreateParamsCapabilitiesPaynowPayments(TypedDict):
-        requested: NotRequired[bool]
-        """
-        Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
-        """
-
-    class CreateParamsCapabilitiesPaypayPayments(TypedDict):
         requested: NotRequired[bool]
         """
         Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

@@ -1179,9 +1179,6 @@ class PaymentMethod(
         PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
         """
 
-    class Paypay(StripeObject):
-        pass
-
     class Pix(StripeObject):
         pass
 
@@ -1545,10 +1542,6 @@ class PaymentMethod(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        paypay: NotRequired["PaymentMethod.CreateParamsPaypay"]
-        """
-        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
-        """
         pix: NotRequired["PaymentMethod.CreateParamsPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -1628,7 +1621,6 @@ class PaymentMethod(
                 "payco",
                 "paynow",
                 "paypal",
-                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",
@@ -2041,9 +2033,6 @@ class PaymentMethod(
     class CreateParamsPaypal(TypedDict):
         pass
 
-    class CreateParamsPaypay(TypedDict):
-        pass
-
     class CreateParamsPix(TypedDict):
         pass
 
@@ -2177,7 +2166,6 @@ class PaymentMethod(
                 "payco",
                 "paynow",
                 "paypal",
-                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",
@@ -2382,7 +2370,6 @@ class PaymentMethod(
     payco: Optional[Payco]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
-    paypay: Optional[Paypay]
     pix: Optional[Pix]
     promptpay: Optional[Promptpay]
     radar_options: Optional[RadarOptions]
@@ -2436,7 +2423,6 @@ class PaymentMethod(
         "payco",
         "paynow",
         "paypal",
-        "paypay",
         "pix",
         "promptpay",
         "revolut_pay",
@@ -2954,7 +2940,6 @@ class PaymentMethod(
         "payco": Payco,
         "paynow": Paynow,
         "paypal": Paypal,
-        "paypay": Paypay,
         "pix": Pix,
         "promptpay": Promptpay,
         "radar_options": RadarOptions,
