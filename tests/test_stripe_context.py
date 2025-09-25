@@ -128,6 +128,16 @@ class TestStripeContextIntegration:
         merged = merge_options(requestor, request)
         assert merged.get("stripe_context") == "request/string"
 
+    def test_request_can_clear_client_context(self):
+        client_context = StripeContext(["client"])
+        requestor = RequestorOptions(
+            api_key="sk_test_123", stripe_context=client_context
+        )
+        request: RequestOptions = {"stripe_context": StripeContext()}
+
+        merged = merge_options(requestor, request)
+        assert merged.get("stripe_context") is None
+
     def test_stripe_client_accepts_string(self):
         client = stripe.StripeClient(
             api_key="sk_test_123", stripe_context="a/b/c"
