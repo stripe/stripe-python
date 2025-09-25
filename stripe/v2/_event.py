@@ -155,8 +155,6 @@ class EventNotification:
         context_value = parsed_body.get("context")
         if context_value:
             self.context = StripeContext.parse(context_value)
-        else:
-            self.context = None
 
         if parsed_body.get("reason"):
             self.reason = Reason(parsed_body["reason"])

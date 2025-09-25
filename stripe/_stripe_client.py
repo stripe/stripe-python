@@ -251,19 +251,8 @@ class StripeClient(object):
         api_mode = get_api_mode(url_)
         base_address = params.pop("base", "api")
 
-        stripe_context = params.pop("stripe_context", None)
-
         # we manually pass usage in event internals, so use those if available
         usage = params.pop("usage", ["raw_request"])
-
-        # stripe-context goes *here* and not in api_requestor. Properties
-        # go on api_requestor when you want them to persist onto requests
-        # made when you call instance methods on APIResources that come from
-        # the first request. No need for that here, as we aren't deserializing APIResources
-        if stripe_context is not None:
-            options["headers"] = options.get("headers", {})
-            assert isinstance(options["headers"], dict)
-            options["headers"].update({"Stripe-Context": stripe_context})
 
         rbody, rcode, rheaders = self._requestor.request_raw(
             method_,
