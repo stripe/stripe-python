@@ -72,7 +72,6 @@ class CustomerPaymentMethodService(StripeService):
                 "payco",
                 "paynow",
                 "paypal",
-                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",

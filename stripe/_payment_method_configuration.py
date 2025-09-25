@@ -895,28 +895,6 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
-    class Paypay(StripeObject):
-        class DisplayPreference(StripeObject):
-            overridable: Optional[bool]
-            """
-            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
-            """
-            preference: Literal["none", "off", "on"]
-            """
-            The account's display preference.
-            """
-            value: Literal["off", "on"]
-            """
-            The effective display preference value.
-            """
-
-        available: bool
-        """
-        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
-        """
-        display_preference: DisplayPreference
-        _inner_class_types = {"display_preference": DisplayPreference}
-
     class Pix(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1393,10 +1371,6 @@ class PaymentMethodConfiguration(
         paypal: NotRequired["PaymentMethodConfiguration.CreateParamsPaypal"]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
-        """
-        paypay: NotRequired["PaymentMethodConfiguration.CreateParamsPaypay"]
-        """
-        Customers can pay with PayPay online or using the PayPay app.
         """
         pix: NotRequired["PaymentMethodConfiguration.CreateParamsPix"]
         """
@@ -2035,20 +2009,6 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
-    class CreateParamsPaypay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.CreateParamsPaypayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class CreateParamsPaypayDisplayPreference(TypedDict):
-        preference: NotRequired[Literal["none", "off", "on"]]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
     class CreateParamsPix(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.CreateParamsPixDisplayPreference"
@@ -2451,10 +2411,6 @@ class PaymentMethodConfiguration(
         paypal: NotRequired["PaymentMethodConfiguration.ModifyParamsPaypal"]
         """
         PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
-        """
-        paypay: NotRequired["PaymentMethodConfiguration.ModifyParamsPaypay"]
-        """
-        Customers can pay with PayPay online or using the PayPay app.
         """
         pix: NotRequired["PaymentMethodConfiguration.ModifyParamsPix"]
         """
@@ -3093,20 +3049,6 @@ class PaymentMethodConfiguration(
         The account's preference for whether or not to display this payment method.
         """
 
-    class ModifyParamsPaypay(TypedDict):
-        display_preference: NotRequired[
-            "PaymentMethodConfiguration.ModifyParamsPaypayDisplayPreference"
-        ]
-        """
-        Whether or not the payment method should be displayed.
-        """
-
-    class ModifyParamsPaypayDisplayPreference(TypedDict):
-        preference: NotRequired[Literal["none", "off", "on"]]
-        """
-        The account's preference for whether or not to display this payment method.
-        """
-
     class ModifyParamsPix(TypedDict):
         display_preference: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsPixDisplayPreference"
@@ -3352,7 +3294,6 @@ class PaymentMethodConfiguration(
     payco: Optional[Payco]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
-    paypay: Optional[Paypay]
     pix: Optional[Pix]
     promptpay: Optional[Promptpay]
     revolut_pay: Optional[RevolutPay]
@@ -3542,7 +3483,6 @@ class PaymentMethodConfiguration(
         "payco": Payco,
         "paynow": Paynow,
         "paypal": Paypal,
-        "paypay": Paypay,
         "pix": Pix,
         "promptpay": Promptpay,
         "revolut_pay": RevolutPay,

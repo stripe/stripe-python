@@ -1248,9 +1248,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
             """
 
-        class Paypay(StripeObject):
-            pass
-
         class Pix(StripeObject):
             pass
 
@@ -1459,7 +1456,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
-        paypay: Optional[Paypay]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -1509,7 +1505,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payco",
             "paynow",
             "paypal",
-            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -1570,7 +1565,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
-            "paypay": Paypay,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
@@ -1892,12 +1886,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        paypay: NotRequired[
-            "ConfirmationToken.CreateParamsPaymentMethodDataPaypay"
-        ]
-        """
-        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
-        """
         pix: NotRequired["ConfirmationToken.CreateParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -1993,7 +1981,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payco",
             "paynow",
             "paypal",
-            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -2375,9 +2362,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         pass
 
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
-        pass
-
-    class CreateParamsPaymentMethodDataPaypay(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataPix(TypedDict):

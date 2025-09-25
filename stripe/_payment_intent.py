@@ -2160,9 +2160,6 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
-        class Paypay(StripeObject):
-            pass
-
         class Pix(StripeObject):
             amount_includes_iof: Optional[Literal["always", "never"]]
             """
@@ -2447,7 +2444,6 @@ class PaymentIntent(
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
-        paypay: Optional[Paypay]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -2500,7 +2496,6 @@ class PaymentIntent(
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
-            "paypay": Paypay,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
@@ -2700,7 +2695,7 @@ class PaymentIntent(
         Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://stripe.com/docs/payments/save-card-without-authentication).
         """
         excluded_payment_method_types: NotRequired[
-            "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+            "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
         ]
         """
         The list of payment method types to exclude from use with this payment.
@@ -3046,12 +3041,6 @@ class PaymentIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        paypay: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentMethodDataPaypay"
-        ]
-        """
-        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
-        """
         pix: NotRequired["PaymentIntent.ConfirmParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -3143,7 +3132,6 @@ class PaymentIntent(
             "payco",
             "paynow",
             "paypal",
-            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -3527,9 +3515,6 @@ class PaymentIntent(
     class ConfirmParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
-    class ConfirmParamsPaymentMethodDataPaypay(TypedDict):
-        pass
-
     class ConfirmParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -3831,12 +3816,6 @@ class PaymentIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
-        """
-        paypay: NotRequired[
-            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPaypay"
-        ]
-        """
-        If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
         """
         pix: NotRequired[
             "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPix"
@@ -5112,16 +5091,6 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
-    class ConfirmParamsPaymentMethodOptionsPaypay(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds are captured from the customer's account.
-
-        If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
-        """
-
     class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
         amount_includes_iof: NotRequired[Literal["always", "never"]]
         """
@@ -5578,7 +5547,6 @@ class PaymentIntent(
                     "payco",
                     "paynow",
                     "paypal",
-                    "paypay",
                     "pix",
                     "promptpay",
                     "revolut_pay",
@@ -5977,12 +5945,6 @@ class PaymentIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        paypay: NotRequired[
-            "PaymentIntent.CreateParamsPaymentMethodDataPaypay"
-        ]
-        """
-        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
-        """
         pix: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -6074,7 +6036,6 @@ class PaymentIntent(
             "payco",
             "paynow",
             "paypal",
-            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -6458,9 +6419,6 @@ class PaymentIntent(
     class CreateParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
-    class CreateParamsPaymentMethodDataPaypay(TypedDict):
-        pass
-
     class CreateParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -6762,12 +6720,6 @@ class PaymentIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
-        """
-        paypay: NotRequired[
-            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPaypay"
-        ]
-        """
-        If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
         """
         pix: NotRequired[
             "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPix"
@@ -8043,16 +7995,6 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
-    class CreateParamsPaymentMethodOptionsPaypay(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds are captured from the customer's account.
-
-        If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
-        """
-
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
         amount_includes_iof: NotRequired[Literal["always", "never"]]
         """
@@ -8549,7 +8491,7 @@ class PaymentIntent(
         An arbitrary string attached to the object. Often useful for displaying to users.
         """
         excluded_payment_method_types: NotRequired[
-            "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+            "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
         ]
         """
         The list of payment method types to exclude from use with this payment.
@@ -8848,12 +8790,6 @@ class PaymentIntent(
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        paypay: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentMethodDataPaypay"
-        ]
-        """
-        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
-        """
         pix: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -8945,7 +8881,6 @@ class PaymentIntent(
             "payco",
             "paynow",
             "paypal",
-            "paypay",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -9329,9 +9264,6 @@ class PaymentIntent(
     class ModifyParamsPaymentMethodDataPaypal(TypedDict):
         pass
 
-    class ModifyParamsPaymentMethodDataPaypay(TypedDict):
-        pass
-
     class ModifyParamsPaymentMethodDataPix(TypedDict):
         pass
 
@@ -9633,12 +9565,6 @@ class PaymentIntent(
         ]
         """
         If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
-        """
-        paypay: NotRequired[
-            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPaypay"
-        ]
-        """
-        If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
         """
         pix: NotRequired[
             "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPix"
@@ -10914,16 +10840,6 @@ class PaymentIntent(
         If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         """
 
-    class ModifyParamsPaymentMethodOptionsPaypay(TypedDict):
-        capture_method: NotRequired["Literal['']|Literal['manual']"]
-        """
-        Controls when the funds are captured from the customer's account.
-
-        If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
-
-        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
-        """
-
     class ModifyParamsPaymentMethodOptionsPix(TypedDict):
         amount_includes_iof: NotRequired[Literal["always", "never"]]
         """
@@ -11447,7 +11363,6 @@ class PaymentIntent(
                 "payco",
                 "paynow",
                 "paypal",
-                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",

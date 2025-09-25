@@ -211,10 +211,6 @@ class PaymentMethodService(StripeService):
         """
         If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         """
-        paypay: NotRequired["PaymentMethodService.CreateParamsPaypay"]
-        """
-        If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
-        """
         pix: NotRequired["PaymentMethodService.CreateParamsPix"]
         """
         If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -296,7 +292,6 @@ class PaymentMethodService(StripeService):
                 "payco",
                 "paynow",
                 "paypal",
-                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",
@@ -711,9 +706,6 @@ class PaymentMethodService(StripeService):
     class CreateParamsPaypal(TypedDict):
         pass
 
-    class CreateParamsPaypay(TypedDict):
-        pass
-
     class CreateParamsPix(TypedDict):
         pass
 
@@ -847,7 +839,6 @@ class PaymentMethodService(StripeService):
                 "payco",
                 "paynow",
                 "paypal",
-                "paypay",
                 "pix",
                 "promptpay",
                 "revolut_pay",
