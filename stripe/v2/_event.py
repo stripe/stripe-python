@@ -7,6 +7,7 @@ from typing_extensions import Literal, TYPE_CHECKING
 
 from stripe._stripe_object import StripeObject
 from stripe._util import get_api_mode
+from stripe._stripe_context import StripeContext
 
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
@@ -135,7 +136,7 @@ class EventNotification:
     """
     Livemode indicates if the event is from a production(true) or test(false) account.
     """
-    context: Optional[str] = None
+    context: Optional[StripeContext] = None
     """
     [Optional] Authentication context needed to fetch the event or related object.
     """
@@ -151,7 +152,9 @@ class EventNotification:
         self.type = parsed_body["type"]
         self.created = parsed_body["created"]
         self.livemode = bool(parsed_body.get("livemode"))
-        self.context = parsed_body.get("context")
+        context_value = parsed_body.get("context")
+        if context_value:
+            self.context = StripeContext.parse(context_value)
 
         if parsed_body.get("reason"):
             self.reason = Reason(parsed_body["reason"])
