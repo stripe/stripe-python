@@ -1,13 +1,16 @@
 from stripe._requestor_options import RequestorOptions
 from typing import Mapping, Optional, Dict, Tuple, Any
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import NotRequired, TypedDict, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe._stripe_context import StripeContext
 
 
 class RequestOptions(TypedDict):
     api_key: NotRequired["str|None"]
     stripe_version: NotRequired["str|None"]
     stripe_account: NotRequired["str|None"]
-    stripe_context: NotRequired["str|None"]
+    stripe_context: NotRequired["str | StripeContext | None"]
     max_network_retries: NotRequired["int|None"]
     idempotency_key: NotRequired["str|None"]
     content_type: NotRequired["str|None"]
