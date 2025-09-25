@@ -5,7 +5,6 @@ from typing import ClassVar, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe._discount import Discount as DiscountResource
     from stripe._price import Price
     from stripe._tax_rate import TaxRate
 
@@ -22,7 +21,7 @@ class LineItem(StripeObject):
         """
         The amount discounted.
         """
-        discount: "DiscountResource"
+        discount: "Discount"
         """
         A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
         It contains information about when the discount began, when it will end, and what it is applied to.

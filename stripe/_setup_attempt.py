@@ -3,26 +3,19 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional, Union
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
     from stripe._application import Application
     from stripe._bank_account import BankAccount
-    from stripe._card import Card as CardResource
     from stripe._customer import Customer
     from stripe._mandate import Mandate
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
+    from stripe._setup_attempt_list_params import SetupAttemptListParams
     from stripe._setup_intent import SetupIntent
     from stripe._source import Source
 
@@ -723,9 +716,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
         Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
         """
-        source: Optional[
-            Union["Account", "BankAccount", "CardResource", "Source"]
-        ]
+        source: Optional[Union["Account", "BankAccount", "Card", "Source"]]
         type: Literal[
             "api_error",
             "card_error",
@@ -734,53 +725,6 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         ]
         """
         The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
-        """
-
-    class ListParams(RequestOptions):
-        created: NotRequired["SetupAttempt.ListParamsCreated|int"]
-        """
-        A filter on the list, based on the object `created` field. The value
-        can be a string with an integer Unix timestamp or a
-        dictionary with a number of different query options.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        setup_intent: str
-        """
-        Only return SetupAttempts created by the SetupIntent specified by
-        this ID.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
         """
 
     application: Optional[ExpandableField["Application"]]
@@ -847,7 +791,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["SetupAttempt.ListParams"]
+        cls, **params: Unpack["SetupAttemptListParams"]
     ) -> ListObject["SetupAttempt"]:
         """
         Returns a list of SetupAttempts that associate with a provided SetupIntent.
@@ -867,7 +811,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["SetupAttempt.ListParams"]
+        cls, **params: Unpack["SetupAttemptListParams"]
     ) -> ListObject["SetupAttempt"]:
         """
         Returns a list of SetupAttempts that associate with a provided SetupIntent.

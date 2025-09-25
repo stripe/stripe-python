@@ -3,6 +3,12 @@
 from stripe.sigma._scheduled_query_run import (
     ScheduledQueryRun as ScheduledQueryRun,
 )
+from stripe.sigma._scheduled_query_run_list_params import (
+    ScheduledQueryRunListParams as ScheduledQueryRunListParams,
+)
+from stripe.sigma._scheduled_query_run_retrieve_params import (
+    ScheduledQueryRunRetrieveParams as ScheduledQueryRunRetrieveParams,
+)
 from stripe.sigma._scheduled_query_run_service import (
     ScheduledQueryRunService as ScheduledQueryRunService,
 )

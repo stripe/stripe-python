@@ -4,74 +4,23 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._personalization_design import PersonalizationDesign
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from stripe.test_helpers.issuing._personalization_design_activate_params import (
+    PersonalizationDesignActivateParams,
+)
+from stripe.test_helpers.issuing._personalization_design_deactivate_params import (
+    PersonalizationDesignDeactivateParams,
+)
+from stripe.test_helpers.issuing._personalization_design_reject_params import (
+    PersonalizationDesignRejectParams,
+)
+from typing import Optional, cast
 
 
 class PersonalizationDesignService(StripeService):
-    class ActivateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class DeactivateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RejectParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        rejection_reasons: (
-            "PersonalizationDesignService.RejectParamsRejectionReasons"
-        )
-        """
-        The reason(s) the personalization design was rejected.
-        """
-
-    class RejectParamsRejectionReasons(TypedDict):
-        card_logo: NotRequired[
-            List[
-                Literal[
-                    "geographic_location",
-                    "inappropriate",
-                    "network_name",
-                    "non_binary_image",
-                    "non_fiat_currency",
-                    "other",
-                    "other_entity",
-                    "promotional_material",
-                ]
-            ]
-        ]
-        """
-        The reason(s) the card logo was rejected.
-        """
-        carrier_text: NotRequired[
-            List[
-                Literal[
-                    "geographic_location",
-                    "inappropriate",
-                    "network_name",
-                    "non_fiat_currency",
-                    "other",
-                    "other_entity",
-                    "promotional_material",
-                ]
-            ]
-        ]
-        """
-        The reason(s) the carrier text was rejected.
-        """
-
     def activate(
         self,
         personalization_design: str,
-        params: Optional["PersonalizationDesignService.ActivateParams"] = None,
+        params: Optional["PersonalizationDesignActivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
@@ -93,7 +42,7 @@ class PersonalizationDesignService(StripeService):
     async def activate_async(
         self,
         personalization_design: str,
-        params: Optional["PersonalizationDesignService.ActivateParams"] = None,
+        params: Optional["PersonalizationDesignActivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
@@ -115,9 +64,7 @@ class PersonalizationDesignService(StripeService):
     def deactivate(
         self,
         personalization_design: str,
-        params: Optional[
-            "PersonalizationDesignService.DeactivateParams"
-        ] = None,
+        params: Optional["PersonalizationDesignDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
@@ -139,9 +86,7 @@ class PersonalizationDesignService(StripeService):
     async def deactivate_async(
         self,
         personalization_design: str,
-        params: Optional[
-            "PersonalizationDesignService.DeactivateParams"
-        ] = None,
+        params: Optional["PersonalizationDesignDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
@@ -163,7 +108,7 @@ class PersonalizationDesignService(StripeService):
     def reject(
         self,
         personalization_design: str,
-        params: "PersonalizationDesignService.RejectParams",
+        params: "PersonalizationDesignRejectParams",
         options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """
@@ -185,7 +130,7 @@ class PersonalizationDesignService(StripeService):
     async def reject_async(
         self,
         personalization_design: str,
-        params: "PersonalizationDesignService.RejectParams",
+        params: "PersonalizationDesignRejectParams",
         options: Optional[RequestOptions] = None,
     ) -> PersonalizationDesign:
         """

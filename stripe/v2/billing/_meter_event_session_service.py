@@ -3,17 +3,16 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.v2.billing._meter_event_session import MeterEventSession
+from stripe.v2.billing._meter_event_session_create_params import (
+    MeterEventSessionCreateParams,
+)
 from typing import Optional, cast
-from typing_extensions import TypedDict
 
 
 class MeterEventSessionService(StripeService):
-    class CreateParams(TypedDict):
-        pass
-
     def create(
         self,
-        params: Optional["MeterEventSessionService.CreateParams"] = None,
+        params: Optional["MeterEventSessionCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> MeterEventSession:
         """
@@ -32,7 +31,7 @@ class MeterEventSessionService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["MeterEventSessionService.CreateParams"] = None,
+        params: Optional["MeterEventSessionCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> MeterEventSession:
         """

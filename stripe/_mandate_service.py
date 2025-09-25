@@ -1,24 +1,18 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._mandate import Mandate
+from stripe._mandate_retrieve_params import MandateRetrieveParams
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
 
 
 class MandateService(StripeService):
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def retrieve(
         self,
         mandate: str,
-        params: Optional["MandateService.RetrieveParams"] = None,
+        params: Optional["MandateRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Mandate:
         """
@@ -38,7 +32,7 @@ class MandateService(StripeService):
     async def retrieve_async(
         self,
         mandate: str,
-        params: Optional["MandateService.RetrieveParams"] = None,
+        params: Optional["MandateRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Mandate:
         """
