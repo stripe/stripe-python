@@ -161,7 +161,9 @@ class EventNotification:
     @staticmethod
     def from_json(payload: str, client: "StripeClient") -> "EventNotification":
         """
-        The `from_json` constructor shouldn't be used in production code (since it doesn't validate webhook signatures). But it's useful for testing. It's also called by `StripeClient.parse_event_notification`.
+        Helper for constructing an Event Notification. Doesn't perform signature validation, so you
+        should use StripeClient.parseEventNotification() instead for initial handling.
+        This is useful in unit tests and working with EventNotifications that you've already validated the authenticity of.
         """
         parsed_body = json.loads(payload)
 
