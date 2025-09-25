@@ -15,6 +15,11 @@ test *args: install-test-deps
     # configured in pyproject.toml
     pytest "$@"
 
+# run a single test by name
+test-one test_name: install-test-deps
+    # don't use all cores, there's a spin up time to that and we're only using one test
+    pytest -k "{{ test_name }}" -n 0
+
 # ⭐ check for potential mistakes
 lint: install-dev-deps
     python -m flake8 --show-source stripe tests
