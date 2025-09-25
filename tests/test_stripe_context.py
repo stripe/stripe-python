@@ -133,10 +133,11 @@ class TestStripeContextIntegration:
         requestor = RequestorOptions(
             api_key="sk_test_123", stripe_context=client_context
         )
-        request: RequestOptions = {"stripe_context": StripeContext()}
+        ctx = StripeContext()
+        request: RequestOptions = {"stripe_context": ctx}
 
         merged = merge_options(requestor, request)
-        assert merged.get("stripe_context") is None
+        assert merged.get("stripe_context") is ctx
 
     def test_stripe_client_accepts_string(self):
         client = stripe.StripeClient(

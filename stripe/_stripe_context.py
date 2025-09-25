@@ -31,9 +31,6 @@ class StripeContext:
             return False
         return self._segments == other._segments
 
-    def __bool__(self) -> bool:
-        return bool(self._segments)
-
     @staticmethod
     def parse(context_str: str) -> "StripeContext":
         if not context_str:
