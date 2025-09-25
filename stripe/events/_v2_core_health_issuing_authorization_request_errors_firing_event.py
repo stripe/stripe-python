@@ -5,9 +5,34 @@ from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2._amount import Amount
-from stripe.v2._event import Event
-from typing import Any, Dict, Optional
-from typing_extensions import Literal
+from stripe.v2._event import Event, EventNotification
+from typing import Any, Dict, Optional, cast
+from typing_extensions import Literal, override
+
+
+class V2CoreHealthIssuingAuthorizationRequestErrorsFiringEventNotification(
+    EventNotification,
+):
+    LOOKUP_TYPE = "v2.core.health.issuing_authorization_request_errors.firing"
+    type: Literal["v2.core.health.issuing_authorization_request_errors.firing"]
+
+    @override
+    def fetch_event(
+        self,
+    ) -> "V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent":
+        return cast(
+            "V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent",
+            super().fetch_event(),
+        )
+
+    @override
+    async def fetch_event_async(
+        self,
+    ) -> "V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent":
+        return cast(
+            "V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent",
+            await super().fetch_event_async(),
+        )
 
 
 class V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent(Event):

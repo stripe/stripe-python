@@ -4,9 +4,30 @@ from stripe._api_mode import ApiMode
 from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
-from stripe.v2._event import Event
-from typing import Any, Dict, Optional
-from typing_extensions import Literal
+from stripe.v2._event import Event, EventNotification
+from typing import Any, Dict, Optional, cast
+from typing_extensions import Literal, override
+
+
+class V2CoreHealthWebhookLatencyFiringEventNotification(EventNotification):
+    LOOKUP_TYPE = "v2.core.health.webhook_latency.firing"
+    type: Literal["v2.core.health.webhook_latency.firing"]
+
+    @override
+    def fetch_event(self) -> "V2CoreHealthWebhookLatencyFiringEvent":
+        return cast(
+            "V2CoreHealthWebhookLatencyFiringEvent",
+            super().fetch_event(),
+        )
+
+    @override
+    async def fetch_event_async(
+        self,
+    ) -> "V2CoreHealthWebhookLatencyFiringEvent":
+        return cast(
+            "V2CoreHealthWebhookLatencyFiringEvent",
+            await super().fetch_event_async(),
+        )
 
 
 class V2CoreHealthWebhookLatencyFiringEvent(Event):

@@ -35,6 +35,7 @@ class TypingImportsChecker:
         "Unpack",
         "Awaitable",
         "Never",
+        "override",
     ]
 
     allowed_typing_imports = [

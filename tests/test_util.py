@@ -1,8 +1,12 @@
 import sys
 from collections import namedtuple
 
+import pytest
+
 import stripe
 from stripe import util
+from stripe._api_mode import ApiMode
+from stripe._util import get_api_mode
 
 LogTestCase = namedtuple("LogTestCase", "env flag should_output")
 FmtTestCase = namedtuple("FmtTestCase", "props expected")
@@ -152,3 +156,16 @@ class TestUtil(object):
         if isinstance(sanitized_id, bytes):
             sanitized_id = sanitized_id.decode("utf-8", "strict")
         assert sanitized_id == "cu++%25x+123"
+
+    @pytest.mark.parametrize(
+        ["url", "expected"],
+        [
+            ("/v2/core/events", "V2"),
+            ("/v2/v1/core/events", "V2"),
+            ("/v1/events", "V1"),
+            ("/oauth/authorize", "V1"),
+            ("something/v2/core/events", "V1"),
+        ],
+    )
+    def test_get_api_mode(self, url: str, expected: ApiMode):
+        assert get_api_mode(url) == expected
