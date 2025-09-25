@@ -701,6 +701,12 @@ class Invoice(
         """
 
     class Parent(StripeObject):
+        class BillingCadenceDetails(StripeObject):
+            billing_cadence: str
+            """
+            The billing cadence that generated this invoice
+            """
+
         class QuoteDetails(StripeObject):
             quote: str
             """
@@ -739,6 +745,10 @@ class Invoice(
             """
             _inner_class_types = {"pause_collection": PauseCollection}
 
+        billing_cadence_details: Optional[BillingCadenceDetails]
+        """
+        Details about the billing cadence that generated this invoice
+        """
         quote_details: Optional[QuoteDetails]
         """
         Details about the quote that generated this invoice
@@ -747,11 +757,14 @@ class Invoice(
         """
         Details about the subscription that generated this invoice
         """
-        type: Literal["quote_details", "subscription_details"]
+        type: Literal[
+            "billing_cadence_details", "quote_details", "subscription_details"
+        ]
         """
         The type of parent that generated this invoice
         """
         _inner_class_types = {
+            "billing_cadence_details": BillingCadenceDetails,
             "quote_details": QuoteDetails,
             "subscription_details": SubscriptionDetails,
         }
@@ -2389,6 +2402,10 @@ class Invoice(
         automatic_tax: NotRequired["Invoice.CreatePreviewParamsAutomaticTax"]
         """
         Settings for automatic tax lookup for this invoice preview.
+        """
+        billing_cadence: NotRequired[str]
+        """
+        The identifier of the billing cadence for which you'd like to retrieve the upcoming invoice.Cannot be provided when `subscription`, `schedule`, `subscription_details` or `schedule_details` are provided.
         """
         currency: NotRequired[str]
         """
