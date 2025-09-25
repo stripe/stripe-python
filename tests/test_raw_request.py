@@ -66,7 +66,7 @@ class TestRawRequest(object):
         )
         assert isinstance(deserialized, stripe.Account)
 
-    def test_preview_request_post(
+    def test_v2_request_post(
         self, http_client_mock, stripe_mock_stripe_client
     ):
         http_client_mock.stub_request(
@@ -123,7 +123,7 @@ class TestRawRequest(object):
             extra_headers=extra_headers,
         )
 
-    def test_preview_request_default_api_version(
+    def test_v2_request_default_api_version(
         self, http_client_mock, stripe_mock_stripe_client
     ):
         http_client_mock.stub_request(
@@ -144,7 +144,7 @@ class TestRawRequest(object):
             path=self.GET_REL_URL_V2,
         )
 
-    def test_preview_request_overridden_api_version(
+    def test_v2_request_overridden_api_version(
         self, http_client_mock, stripe_mock_stripe_client
     ):
         http_client_mock.stub_request(
