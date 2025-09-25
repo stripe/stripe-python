@@ -200,7 +200,7 @@ class EventNotification:
 
 class UnknownEventNotification(EventNotification):
     """
-    Represents a Thin Event payload that the SDK doesn't have types for. May have a related object.
+    Represents an EventNotification payload that the SDK doesn't have types for. May have a related object.
     """
 
     related_object: Optional[RelatedObject] = None
