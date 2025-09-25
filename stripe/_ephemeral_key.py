@@ -4,8 +4,11 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import Literal, NotRequired, Unpack
+from typing import ClassVar, Optional, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe._ephemeral_key_delete_params import EphemeralKeyDeleteParams
 
 
 class EphemeralKey(
@@ -13,13 +16,6 @@ class EphemeralKey(
     DeletableAPIResource["EphemeralKey"],
 ):
     OBJECT_NAME: ClassVar[Literal["ephemeral_key"]] = "ephemeral_key"
-
-    class DeleteParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -47,7 +43,7 @@ class EphemeralKey(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["EphemeralKey.DeleteParams"]
+        cls, sid: str, **params: Unpack["EphemeralKeyDeleteParams"]
     ) -> "EphemeralKey":
         """
         Invalidates a short-lived API key for a given resource.
@@ -65,7 +61,7 @@ class EphemeralKey(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["EphemeralKey.DeleteParams"]
+        sid: str, **params: Unpack["EphemeralKeyDeleteParams"]
     ) -> "EphemeralKey":
         """
         Invalidates a short-lived API key for a given resource.
@@ -74,7 +70,7 @@ class EphemeralKey(
 
     @overload
     def delete(
-        self, **params: Unpack["EphemeralKey.DeleteParams"]
+        self, **params: Unpack["EphemeralKeyDeleteParams"]
     ) -> "EphemeralKey":
         """
         Invalidates a short-lived API key for a given resource.
@@ -83,7 +79,7 @@ class EphemeralKey(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["EphemeralKey.DeleteParams"]
+        self, **params: Unpack["EphemeralKeyDeleteParams"]
     ) -> "EphemeralKey":
         """
         Invalidates a short-lived API key for a given resource.
@@ -96,7 +92,7 @@ class EphemeralKey(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["EphemeralKey.DeleteParams"]
+        cls, sid: str, **params: Unpack["EphemeralKeyDeleteParams"]
     ) -> "EphemeralKey":
         """
         Invalidates a short-lived API key for a given resource.
@@ -114,7 +110,7 @@ class EphemeralKey(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["EphemeralKey.DeleteParams"]
+        sid: str, **params: Unpack["EphemeralKeyDeleteParams"]
     ) -> "EphemeralKey":
         """
         Invalidates a short-lived API key for a given resource.
@@ -123,7 +119,7 @@ class EphemeralKey(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["EphemeralKey.DeleteParams"]
+        self, **params: Unpack["EphemeralKeyDeleteParams"]
     ) -> "EphemeralKey":
         """
         Invalidates a short-lived API key for a given resource.
@@ -132,7 +128,7 @@ class EphemeralKey(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["EphemeralKey.DeleteParams"]
+        self, **params: Unpack["EphemeralKeyDeleteParams"]
     ) -> "EphemeralKey":
         """
         Invalidates a short-lived API key for a given resource.

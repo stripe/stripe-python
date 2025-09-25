@@ -4,21 +4,15 @@ from stripe._refund import Refund
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from stripe.test_helpers._refund_expire_params import RefundExpireParams
+from typing import Optional, cast
 
 
 class RefundService(StripeService):
-    class ExpireParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def expire(
         self,
         refund: str,
-        params: Optional["RefundService.ExpireParams"] = None,
+        params: Optional["RefundExpireParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Refund:
         """
@@ -40,7 +34,7 @@ class RefundService(StripeService):
     async def expire_async(
         self,
         refund: str,
-        params: Optional["RefundService.ExpireParams"] = None,
+        params: Optional["RefundExpireParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Refund:
         """

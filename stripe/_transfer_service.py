@@ -4,10 +4,13 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._transfer import Transfer
+from stripe._transfer_create_params import TransferCreateParams
+from stripe._transfer_list_params import TransferListParams
+from stripe._transfer_retrieve_params import TransferRetrieveParams
 from stripe._transfer_reversal_service import TransferReversalService
+from stripe._transfer_update_params import TransferUpdateParams
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
 
 
 class TransferService(StripeService):
@@ -15,115 +18,9 @@ class TransferService(StripeService):
         super().__init__(requestor)
         self.reversals = TransferReversalService(self._requestor)
 
-    class CreateParams(TypedDict):
-        amount: NotRequired[int]
-        """
-        A positive integer in cents (or local equivalent) representing how much to transfer.
-        """
-        currency: str
-        """
-        Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies).
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        destination: str
-        """
-        The ID of a connected Stripe account. [See the Connect documentation](https://docs.stripe.com/docs/connect/separate-charges-and-transfers) for details.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        source_transaction: NotRequired[str]
-        """
-        You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-availability) for details.
-        """
-        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
-        """
-        The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`.
-        """
-        transfer_group: NotRequired[str]
-        """
-        A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
-        """
-
-    class ListParams(TypedDict):
-        created: NotRequired["TransferService.ListParamsCreated|int"]
-        """
-        Only return transfers that were created during the given date interval.
-        """
-        destination: NotRequired[str]
-        """
-        Only return transfers for the destination specified by this account ID.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        transfer_group: NotRequired[str]
-        """
-        Only return transfers with the specified transfer group.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class UpdateParams(TypedDict):
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-
     def list(
         self,
-        params: Optional["TransferService.ListParams"] = None,
+        params: Optional["TransferListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Transfer]:
         """
@@ -142,7 +39,7 @@ class TransferService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["TransferService.ListParams"] = None,
+        params: Optional["TransferListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Transfer]:
         """
@@ -161,7 +58,7 @@ class TransferService(StripeService):
 
     def create(
         self,
-        params: "TransferService.CreateParams",
+        params: "TransferCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
@@ -180,7 +77,7 @@ class TransferService(StripeService):
 
     async def create_async(
         self,
-        params: "TransferService.CreateParams",
+        params: "TransferCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
@@ -200,7 +97,7 @@ class TransferService(StripeService):
     def retrieve(
         self,
         transfer: str,
-        params: Optional["TransferService.RetrieveParams"] = None,
+        params: Optional["TransferRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
@@ -222,7 +119,7 @@ class TransferService(StripeService):
     async def retrieve_async(
         self,
         transfer: str,
-        params: Optional["TransferService.RetrieveParams"] = None,
+        params: Optional["TransferRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
@@ -244,7 +141,7 @@ class TransferService(StripeService):
     def update(
         self,
         transfer: str,
-        params: Optional["TransferService.UpdateParams"] = None,
+        params: Optional["TransferUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """
@@ -268,7 +165,7 @@ class TransferService(StripeService):
     async def update_async(
         self,
         transfer: str,
-        params: Optional["TransferService.UpdateParams"] = None,
+        params: Optional["TransferUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Transfer:
         """

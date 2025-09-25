@@ -1,24 +1,20 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._account_login_link_create_params import (
+    AccountLoginLinkCreateParams,
+)
 from stripe._login_link import LoginLink
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
 
 
 class AccountLoginLinkService(StripeService):
-    class CreateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def create(
         self,
         account: str,
-        params: Optional["AccountLoginLinkService.CreateParams"] = None,
+        params: Optional["AccountLoginLinkCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> LoginLink:
         """
@@ -42,7 +38,7 @@ class AccountLoginLinkService(StripeService):
     async def create_async(
         self,
         account: str,
-        params: Optional["AccountLoginLinkService.CreateParams"] = None,
+        params: Optional["AccountLoginLinkCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> LoginLink:
         """

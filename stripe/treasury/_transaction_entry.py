@@ -3,16 +3,9 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.issuing._authorization import Authorization
@@ -24,6 +17,12 @@ if TYPE_CHECKING:
     from stripe.treasury._received_credit import ReceivedCredit
     from stripe.treasury._received_debit import ReceivedDebit
     from stripe.treasury._transaction import Transaction
+    from stripe.treasury._transaction_entry_list_params import (
+        TransactionEntryListParams,
+    )
+    from stripe.treasury._transaction_entry_retrieve_params import (
+        TransactionEntryRetrieveParams,
+    )
 
 
 class TransactionEntry(ListableAPIResource["TransactionEntry"]):
@@ -109,83 +108,6 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
         ]
         """
         Type of the flow that created the Transaction. Set to the same value as `flow_type`.
-        """
-
-    class ListParams(RequestOptions):
-        created: NotRequired["TransactionEntry.ListParamsCreated|int"]
-        """
-        Only return TransactionEntries that were created during the given date interval.
-        """
-        effective_at: NotRequired["TransactionEntry.ListParamsEffectiveAt|int"]
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        Returns objects associated with this FinancialAccount.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        order_by: NotRequired[Literal["created", "effective_at"]]
-        """
-        The results are in reverse chronological order by `created` or `effective_at`. The default is `created`.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        transaction: NotRequired[str]
-        """
-        Only return TransactionEntries associated with this Transaction.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ListParamsEffectiveAt(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
         """
 
     balance_impact: BalanceImpact
@@ -274,7 +196,7 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["TransactionEntry.ListParams"]
+        cls, **params: Unpack["TransactionEntryListParams"]
     ) -> ListObject["TransactionEntry"]:
         """
         Retrieves a list of TransactionEntry objects.
@@ -294,7 +216,7 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["TransactionEntry.ListParams"]
+        cls, **params: Unpack["TransactionEntryListParams"]
     ) -> ListObject["TransactionEntry"]:
         """
         Retrieves a list of TransactionEntry objects.
@@ -314,7 +236,7 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["TransactionEntry.RetrieveParams"]
+        cls, id: str, **params: Unpack["TransactionEntryRetrieveParams"]
     ) -> "TransactionEntry":
         """
         Retrieves a TransactionEntry object.
@@ -325,7 +247,7 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["TransactionEntry.RetrieveParams"]
+        cls, id: str, **params: Unpack["TransactionEntryRetrieveParams"]
     ) -> "TransactionEntry":
         """
         Retrieves a TransactionEntry object.
