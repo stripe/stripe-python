@@ -100,8 +100,6 @@ from stripe._webhook import (
 # StripeClient
 from stripe._stripe_client import StripeClient as StripeClient  # noqa
 
-from stripe.v2._event import ThinEvent as ThinEvent  # noqa
-
 
 # Sets some basic information about the running application that's sent along
 # with API requests. Useful for plugin authors to identify their plugin when

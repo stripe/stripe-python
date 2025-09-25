@@ -1,5 +1,12 @@
 from stripe.v2._list_object import ListObject as ListObject
 from stripe.v2._amount import Amount as Amount, AmountParam as AmountParam
+from stripe.v2._event import (
+    EventNotification as EventNotification,
+    UnknownEventNotification as UnknownEventNotification,
+    RelatedObject as RelatedObject,
+    Reason as Reason,
+    ReasonRequest as ReasonRequest,
+)
 
 
 # The beginning of the section generated from our OpenAPI spec

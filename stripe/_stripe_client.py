@@ -27,9 +27,10 @@ from stripe._stripe_response import StripeResponse
 from stripe._util import _convert_to_stripe_object, get_api_mode, deprecated  # noqa: F401
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
-from stripe.v2._event import ThinEvent
+from stripe.v2._event import EventNotification
 
 from typing import Any, Dict, Optional, Union, cast
+from typing_extensions import TYPE_CHECKING
 
 # Non-generated services
 from stripe._oauth_service import OAuthService
@@ -113,6 +114,9 @@ from stripe._treasury_service import TreasuryService
 from stripe._webhook_endpoint_service import WebhookEndpointService
 # services: The end of the section generated from our OpenAPI spec
 
+if TYPE_CHECKING:
+    from stripe.events._event_classes import ALL_EVENT_NOTIFICATIONS
+
 
 class StripeClient(object):
     def __init__(
@@ -192,13 +196,18 @@ class StripeClient(object):
         self.v2 = V2Services(self._requestor)
         # top-level services: The end of the section generated from our OpenAPI spec
 
-    def parse_thin_event(
+    def parse_event_notification(
         self,
         raw: Union[bytes, str, bytearray],
         sig_header: str,
         secret: str,
         tolerance: int = Webhook.DEFAULT_TOLERANCE,
-    ) -> ThinEvent:
+    ) -> "ALL_EVENT_NOTIFICATIONS":
+        """
+        This should be your main method for interacting with `EventNotifications`. It's the V2 equivalent of `construct_event()`, but with better typing support.
+
+        It returns a union representing all known `EventNotification` classes. They have a `type` property that can be used for narrowing, which will get you very specific type support. If parsing an event the SDK isn't familiar with, it'll instead return `UnknownEventNotification`. That's not reflected in the return type of the function (because it messes up type narrowing) but is otherwise intended.
+        """
         payload = (
             cast(Union[bytes, bytearray], raw).decode("utf-8")
             if hasattr(raw, "decode")
@@ -207,7 +216,10 @@ class StripeClient(object):
 
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
-        return ThinEvent(payload)
+        return cast(
+            "ALL_EVENT_NOTIFICATIONS",
+            EventNotification.from_json(payload, self),
+        )
 
     def construct_event(
         self,
@@ -238,6 +250,9 @@ class StripeClient(object):
 
         stripe_context = params.pop("stripe_context", None)
 
+        # we manually pass usage in event internals, so use those if available
+        usage = params.pop("usage", ["raw_request"])
+
         # stripe-context goes *here* and not in api_requestor. Properties
         # go on api_requestor when you want them to persist onto requests
         # made when you call instance methods on APIResources that come from
@@ -254,7 +269,7 @@ class StripeClient(object):
             options=options,
             base_address=base_address,
             api_mode=api_mode,
-            usage=["raw_request"],
+            usage=usage,
         )
 
         return self._requestor._interpret_response(
@@ -288,6 +303,9 @@ class StripeClient(object):
         *,
         api_mode: ApiMode,
     ) -> StripeObject:
+        """
+        Used to translate the result of a `raw_request` into a StripeObject.
+        """
         return _convert_to_stripe_object(
             resp=resp,
             params=params,
