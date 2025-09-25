@@ -3,7 +3,7 @@ from typing import List, Optional
 
 class StripeContext:
     """
-    The StripeContext class provides convenience methods for interacting with the `Stripe-Context` header.
+    The StripeContext class provides an immutable container and convenience methods for interacting with the `Stripe-Context` header. All methods return a new instance of StripeContext.
 
     You can use it whenever you're initializing a `StripeClient` or sending `stripe_context` with a request. It's also found in the `EventNotification.context` property.
     """
@@ -30,6 +30,9 @@ class StripeContext:
         if not isinstance(other, StripeContext):
             return False
         return self._segments == other._segments
+
+    def __bool__(self) -> bool:
+        return bool(self._segments)
 
     @staticmethod
     def parse(context_str: str) -> "StripeContext":

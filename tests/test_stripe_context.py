@@ -184,9 +184,10 @@ class TestStripeContextIntegration:
         assert notification.context is None
 
     @pytest.mark.parametrize(
-        "options, expected",
+        ["options", "expected"],
         [
             ({}, None),
+            ({"stripe_context": StripeContext()}, None),
             (
                 {"stripe_context": "workspace_123/account_456"},
                 "workspace_123/account_456",
