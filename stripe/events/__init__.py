@@ -163,18 +163,6 @@ from stripe.events._v1_customer_deleted_event import (
     V1CustomerDeletedEvent as V1CustomerDeletedEvent,
     V1CustomerDeletedEventNotification as V1CustomerDeletedEventNotification,
 )
-from stripe.events._v1_customer_discount_created_event import (
-    V1CustomerDiscountCreatedEvent as V1CustomerDiscountCreatedEvent,
-    V1CustomerDiscountCreatedEventNotification as V1CustomerDiscountCreatedEventNotification,
-)
-from stripe.events._v1_customer_discount_deleted_event import (
-    V1CustomerDiscountDeletedEvent as V1CustomerDiscountDeletedEvent,
-    V1CustomerDiscountDeletedEventNotification as V1CustomerDiscountDeletedEventNotification,
-)
-from stripe.events._v1_customer_discount_updated_event import (
-    V1CustomerDiscountUpdatedEvent as V1CustomerDiscountUpdatedEvent,
-    V1CustomerDiscountUpdatedEventNotification as V1CustomerDiscountUpdatedEventNotification,
-)
 from stripe.events._v1_customer_subscription_created_event import (
     V1CustomerSubscriptionCreatedEvent as V1CustomerSubscriptionCreatedEvent,
     V1CustomerSubscriptionCreatedEventNotification as V1CustomerSubscriptionCreatedEventNotification,
