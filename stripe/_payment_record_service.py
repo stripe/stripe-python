@@ -42,6 +42,94 @@ class PaymentRecordService(StripeService):
         """
         metadata: NotRequired["Literal['']|Dict[str, str]"]
 
+    class ReportPaymentAttemptInformationalParams(TypedDict):
+        customer_details: NotRequired[
+            "PaymentRecordService.ReportPaymentAttemptInformationalParamsCustomerDetails"
+        ]
+        """
+        Customer information for this payment.
+        """
+        description: NotRequired["Literal['']|str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        expand: NotRequired[List[str]]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        shipping_details: NotRequired[
+            "Literal['']|PaymentRecordService.ReportPaymentAttemptInformationalParamsShippingDetails"
+        ]
+        """
+        Shipping information for this payment.
+        """
+
+    class ReportPaymentAttemptInformationalParamsCustomerDetails(TypedDict):
+        customer: NotRequired[str]
+        """
+        The customer who made the payment.
+        """
+        email: NotRequired[str]
+        """
+        The customer's phone number.
+        """
+        name: NotRequired[str]
+        """
+        The customer's name.
+        """
+        phone: NotRequired[str]
+        """
+        The customer's phone number.
+        """
+
+    class ReportPaymentAttemptInformationalParamsShippingDetails(TypedDict):
+        address: NotRequired[
+            "PaymentRecordService.ReportPaymentAttemptInformationalParamsShippingDetailsAddress"
+        ]
+        """
+        The physical shipping address.
+        """
+        name: NotRequired[str]
+        """
+        The shipping recipient's name.
+        """
+        phone: NotRequired[str]
+        """
+        The shipping recipient's phone number.
+        """
+
+    class ReportPaymentAttemptInformationalParamsShippingDetailsAddress(
+        TypedDict,
+    ):
+        city: NotRequired[str]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired[str]
+        """
+        Address line 1, such as the street, PO Box, or company name.
+        """
+        line2: NotRequired[str]
+        """
+        Address line 2, such as the apartment, suite, unit, or building.
+        """
+        postal_code: NotRequired[str]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired[str]
+        """
+        State, county, province, or region.
+        """
+
     class ReportPaymentAttemptParams(TypedDict):
         description: NotRequired[str]
         """
@@ -157,11 +245,11 @@ class PaymentRecordService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -209,11 +297,11 @@ class PaymentRecordService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -385,11 +473,11 @@ class PaymentRecordService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -455,11 +543,11 @@ class PaymentRecordService(StripeService):
         """
         line1: NotRequired[str]
         """
-        Address line 1 (e.g., street, PO Box, or company name).
+        Address line 1, such as the street, PO Box, or company name.
         """
         line2: NotRequired[str]
         """
-        Address line 2 (e.g., apartment, suite, unit, or building).
+        Address line 2, such as the apartment, suite, unit, or building.
         """
         postal_code: NotRequired[str]
         """
@@ -692,6 +780,54 @@ class PaymentRecordService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_guaranteed".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def report_payment_attempt_informational(
+        self,
+        id: str,
+        params: Optional[
+            "PaymentRecordService.ReportPaymentAttemptInformationalParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> PaymentRecord:
+        """
+        Report informational updates on the specified Payment Record.
+        """
+        return cast(
+            PaymentRecord,
+            self._request(
+                "post",
+                "/v1/payment_records/{id}/report_payment_attempt_informational".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def report_payment_attempt_informational_async(
+        self,
+        id: str,
+        params: Optional[
+            "PaymentRecordService.ReportPaymentAttemptInformationalParams"
+        ] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> PaymentRecord:
+        """
+        Report informational updates on the specified Payment Record.
+        """
+        return cast(
+            PaymentRecord,
+            await self._request_async(
+                "post",
+                "/v1/payment_records/{id}/report_payment_attempt_informational".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

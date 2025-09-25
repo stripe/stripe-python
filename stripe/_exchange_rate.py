@@ -3,12 +3,15 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
+from stripe._util import deprecated
 from typing import ClassVar, Dict, List
 from typing_extensions import Literal, NotRequired, Unpack
 
 
 class ExchangeRate(ListableAPIResource["ExchangeRate"]):
     """
+    [Deprecated] The `ExchangeRate` APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
     `ExchangeRate` objects allow you to determine the rates that Stripe is currently
     using to convert from one currency to another. Since this number is variable
     throughout the day, there are various reasons why you might want to know the current
@@ -77,10 +80,15 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
     """
 
     @classmethod
+    @deprecated(
+        "This method is deprecated, please refer to the description for details.",
+    )
     def list(
         cls, **params: Unpack["ExchangeRate.ListParams"]
     ) -> ListObject["ExchangeRate"]:
         """
+        [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
         Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
         """
         result = cls._static_request(
@@ -97,10 +105,15 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
         return result
 
     @classmethod
+    @deprecated(
+        "This method is deprecated, please refer to the description for details.",
+    )
     async def list_async(
         cls, **params: Unpack["ExchangeRate.ListParams"]
     ) -> ListObject["ExchangeRate"]:
         """
+        [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
         Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
         """
         result = await cls._static_request_async(
@@ -117,10 +130,15 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
         return result
 
     @classmethod
+    @deprecated(
+        "This method is deprecated, please refer to the description for details.",
+    )
     def retrieve(
         cls, id: str, **params: Unpack["ExchangeRate.RetrieveParams"]
     ) -> "ExchangeRate":
         """
+        [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
         Retrieves the exchange rates from the given currency to every supported currency.
         """
         instance = cls(id, **params)
@@ -128,10 +146,15 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
         return instance
 
     @classmethod
+    @deprecated(
+        "This method is deprecated, please refer to the description for details.",
+    )
     async def retrieve_async(
         cls, id: str, **params: Unpack["ExchangeRate.RetrieveParams"]
     ) -> "ExchangeRate":
         """
+        [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
+
         Retrieves the exchange rates from the given currency to every supported currency.
         """
         instance = cls(id, **params)
