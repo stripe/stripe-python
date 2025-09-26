@@ -249,6 +249,10 @@ from stripe.events._v2_payments_off_session_payment_failed_event import (
     V2PaymentsOffSessionPaymentFailedEvent,
     V2PaymentsOffSessionPaymentFailedEventNotification,
 )
+from stripe.events._v2_payments_off_session_payment_requires_capture_event import (
+    V2PaymentsOffSessionPaymentRequiresCaptureEvent,
+    V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
+)
 from stripe.events._v2_payments_off_session_payment_succeeded_event import (
     V2PaymentsOffSessionPaymentSucceededEvent,
     V2PaymentsOffSessionPaymentSucceededEventNotification,
@@ -318,6 +322,7 @@ V2_EVENT_CLASS_LOOKUP = {
     V2PaymentsOffSessionPaymentCanceledEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentCanceledEvent,
     V2PaymentsOffSessionPaymentCreatedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentCreatedEvent,
     V2PaymentsOffSessionPaymentFailedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentFailedEvent,
+    V2PaymentsOffSessionPaymentRequiresCaptureEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentRequiresCaptureEvent,
     V2PaymentsOffSessionPaymentSucceededEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentSucceededEvent,
 }
 
@@ -384,6 +389,7 @@ V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     V2PaymentsOffSessionPaymentCanceledEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentCanceledEventNotification,
     V2PaymentsOffSessionPaymentCreatedEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentCreatedEventNotification,
     V2PaymentsOffSessionPaymentFailedEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentFailedEventNotification,
+    V2PaymentsOffSessionPaymentRequiresCaptureEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
     V2PaymentsOffSessionPaymentSucceededEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentSucceededEventNotification,
 }
 
@@ -450,5 +456,6 @@ ALL_EVENT_NOTIFICATIONS = Union[
     V2PaymentsOffSessionPaymentCanceledEventNotification,
     V2PaymentsOffSessionPaymentCreatedEventNotification,
     V2PaymentsOffSessionPaymentFailedEventNotification,
+    V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
     V2PaymentsOffSessionPaymentSucceededEventNotification,
 ]
