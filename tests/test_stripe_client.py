@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function
 import stripe
 import pytest
 
-from stripe.v2._event import Event
+from stripe.v2.core._event import Event
 from stripe._http_client import new_default_http_client
 from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEvent,
