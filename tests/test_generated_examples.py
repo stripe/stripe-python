@@ -45804,6 +45804,31 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_payments_off_session_payment_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/payments/off_session_payments/id_123/capture",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.off_session_payments.capture(
+            "id_123",
+            {"amount_to_capture": 1374310455, "metadata": {"key": "metadata"}},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/payments/off_session_payments/id_123/capture",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"amount_to_capture":1374310455,"metadata":{"key":"metadata"}}',
+            is_json=True,
+        )
+
     def test_v2_test_helpers_financial_address_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
