@@ -9599,14 +9599,14 @@ class TestGeneratedExamples(object):
         client.customers.payment_sources.update(
             "cus_123",
             "card_123",
-            {"account_holder_name": "Kamil"},
+            {"name": "Kamil"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/customers/cus_123/sources/card_123",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account_holder_name=Kamil",
+            post_data="name=Kamil",
         )
 
     def test_customers_sources_post(
@@ -9615,13 +9615,13 @@ class TestGeneratedExamples(object):
         stripe.Customer.modify_source(
             "cus_123",
             "card_123",
-            account_holder_name="Kamil",
+            name="Kamil",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/customers/cus_123/sources/card_123",
             query_string="",
-            post_data="account_holder_name=Kamil",
+            post_data="name=Kamil",
         )
 
     def test_customers_sources_post_service(
@@ -9639,14 +9639,14 @@ class TestGeneratedExamples(object):
         client.v1.customers.payment_sources.update(
             "cus_123",
             "card_123",
-            {"account_holder_name": "Kamil"},
+            {"name": "Kamil"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/customers/cus_123/sources/card_123",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account_holder_name=Kamil",
+            post_data="name=Kamil",
         )
 
     @pytest.mark.anyio
@@ -9656,13 +9656,13 @@ class TestGeneratedExamples(object):
         await stripe.Customer.modify_source_async(
             "cus_123",
             "card_123",
-            account_holder_name="Kamil",
+            name="Kamil",
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/customers/cus_123/sources/card_123",
             query_string="",
-            post_data="account_holder_name=Kamil",
+            post_data="name=Kamil",
         )
 
     @pytest.mark.anyio
@@ -9681,14 +9681,14 @@ class TestGeneratedExamples(object):
         await client.v1.customers.payment_sources.update_async(
             "cus_123",
             "card_123",
-            {"account_holder_name": "Kamil"},
+            {"name": "Kamil"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v1/customers/cus_123/sources/card_123",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="account_holder_name=Kamil",
+            post_data="name=Kamil",
         )
 
     def test_customers_sources_post_2_service_non_namespaced(
