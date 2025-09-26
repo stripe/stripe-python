@@ -1243,6 +1243,10 @@ from stripe.events._v2_payments_off_session_payment_failed_event import (
     V2PaymentsOffSessionPaymentFailedEvent as V2PaymentsOffSessionPaymentFailedEvent,
     V2PaymentsOffSessionPaymentFailedEventNotification as V2PaymentsOffSessionPaymentFailedEventNotification,
 )
+from stripe.events._v2_payments_off_session_payment_requires_capture_event import (
+    V2PaymentsOffSessionPaymentRequiresCaptureEvent as V2PaymentsOffSessionPaymentRequiresCaptureEvent,
+    V2PaymentsOffSessionPaymentRequiresCaptureEventNotification as V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
+)
 from stripe.events._v2_payments_off_session_payment_succeeded_event import (
     V2PaymentsOffSessionPaymentSucceededEvent as V2PaymentsOffSessionPaymentSucceededEvent,
     V2PaymentsOffSessionPaymentSucceededEventNotification as V2PaymentsOffSessionPaymentSucceededEventNotification,
