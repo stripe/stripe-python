@@ -14,7 +14,7 @@ from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEventNotification,
     V1BillingMeterErrorReportTriggeredEvent,
 )
-from stripe.v2._event import UnknownEventNotification
+from stripe.v2.core._event import UnknownEventNotification
 from stripe.events._event_classes import ALL_EVENT_NOTIFICATIONS
 from tests.test_webhook import DUMMY_WEBHOOK_SECRET, generate_header
 
