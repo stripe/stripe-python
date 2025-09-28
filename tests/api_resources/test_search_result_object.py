@@ -3,6 +3,8 @@ import json
 import pytest
 
 import stripe
+from stripe._util import convert_to_stripe_object
+from stripe._stripe_object import StripeObject
 
 
 class TestSearchResultObject(object):
@@ -82,7 +84,7 @@ class TestSearchResultObject(object):
 
     def test_iter(self):
         arr = [{"id": 1}, {"id": 2}, {"id": 3}]
-        expected = stripe.util.convert_to_stripe_object(arr, api_mode="V1")
+        expected = convert_to_stripe_object(arr, api_mode="V1")
         sro = stripe.SearchResultObject.construct_from({"data": arr}, None)
         assert list(sro) == expected
 
@@ -195,11 +197,9 @@ class TestSearchResultObject(object):
         empty = stripe.SearchResultObject.construct_from(
             {"object": "search_result", "data": []}, "mykey"
         )
-        obj = stripe.stripe_object.StripeObject.construct_from(
-            {"nested": empty}, "mykey"
-        )
+        obj = StripeObject.construct_from({"nested": empty}, "mykey")
         serialized = str(obj)
-        deserialized = stripe.stripe_object.StripeObject.construct_from(
+        deserialized = StripeObject.construct_from(
             json.loads(serialized), "mykey"
         )
         assert deserialized.nested == empty

@@ -3,6 +3,8 @@ import tempfile
 import pytest
 
 import stripe
+from stripe._multipart_data_generator import MultipartDataGenerator
+from stripe._util import convert_to_stripe_object
 
 
 TEST_RESOURCE_ID = "file_123"
@@ -31,9 +33,7 @@ class TestFile(object):
         assert isinstance(resource, stripe.File)
 
     def test_is_creatable(self, setup_upload_api_base, http_client_mock):
-        stripe.multipart_data_generator.MultipartDataGenerator._initialize_boundary = (
-            lambda self: 1234567890
-        )
+        MultipartDataGenerator._initialize_boundary = lambda self: 1234567890
         test_file = tempfile.TemporaryFile()
         resource = stripe.File.create(
             purpose="dispute_evidence",
@@ -79,13 +79,11 @@ class TestFile(object):
         )
 
     def test_deserializes_from_file(self):
-        obj = stripe.util.convert_to_stripe_object(
-            {"object": "file"}, api_mode="V1"
-        )
+        obj = convert_to_stripe_object({"object": "file"}, api_mode="V1")
         assert isinstance(obj, stripe.File)
 
     def test_deserializes_from_file_upload(self):
-        obj = stripe.util.convert_to_stripe_object(
+        obj = convert_to_stripe_object(
             {"object": "file_upload"}, api_mode="V1"
         )
         assert isinstance(obj, stripe.File)

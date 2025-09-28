@@ -3,6 +3,7 @@ import time
 import pytest
 
 import stripe
+from stripe._error import SignatureVerificationError
 
 
 DUMMY_WEBHOOK_PAYLOAD = """{
@@ -47,7 +48,7 @@ class TestWebhook(object):
 
     def test_raise_on_invalid_header(self):
         header = "bad_header"
-        with pytest.raises(stripe.error.SignatureVerificationError):
+        with pytest.raises(SignatureVerificationError):
             stripe.Webhook.construct_event(
                 DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
             )
@@ -73,7 +74,7 @@ class TestWebhookSignature(object):
     def test_raise_on_malformed_header(self):
         header = "i'm not even a real signature header"
         with pytest.raises(
-            stripe.error.SignatureVerificationError,
+            SignatureVerificationError,
             match="Unable to extract timestamp and signatures from header",
         ):
             stripe.WebhookSignature.verify_header(
@@ -83,7 +84,7 @@ class TestWebhookSignature(object):
     def test_raise_on_no_signatures_with_expected_scheme(self):
         header = generate_header(scheme="v0")
         with pytest.raises(
-            stripe.error.SignatureVerificationError,
+            SignatureVerificationError,
             match="No signatures found with expected scheme v1",
         ):
             stripe.WebhookSignature.verify_header(
@@ -93,7 +94,7 @@ class TestWebhookSignature(object):
     def test_raise_on_no_valid_signatures_for_payload(self):
         header = generate_header(signature="bad_signature")
         with pytest.raises(
-            stripe.error.SignatureVerificationError,
+            SignatureVerificationError,
             match="No signatures found matching the expected signature for payload",
         ):
             stripe.WebhookSignature.verify_header(
@@ -103,7 +104,7 @@ class TestWebhookSignature(object):
     def test_raise_on_timestamp_outside_tolerance(self):
         header = generate_header(timestamp=int(time.time()) - 15)
         with pytest.raises(
-            stripe.error.SignatureVerificationError,
+            SignatureVerificationError,
             match="Timestamp outside the tolerance zone",
         ):
             stripe.WebhookSignature.verify_header(
@@ -150,7 +151,7 @@ class TestStripeClientConstructEvent(object):
 
     def test_raise_on_invalid_header(self, stripe_mock_stripe_client):
         header = "bad_header"
-        with pytest.raises(stripe.error.SignatureVerificationError):
+        with pytest.raises(SignatureVerificationError):
             stripe_mock_stripe_client.construct_event(
                 DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
             )

@@ -860,7 +860,7 @@ class UrlFetchClient(HTTPClient):
 
         if is_streaming:
             # This doesn't really stream.
-            content = _util.io.BytesIO(str.encode(result.content))
+            content = BytesIO(str.encode(result.content))
         else:
             content = result.content
 
@@ -991,8 +991,8 @@ class PycurlClient(HTTPClient):
         post_data,
         is_streaming,
     ) -> Tuple[Union[str, BytesIO], int, Mapping[str, str]]:
-        b = _util.io.BytesIO()
-        rheaders = _util.io.BytesIO()
+        b = BytesIO()
+        rheaders = BytesIO()
 
         # Pycurl's design is a little weird: although we set per-request
         # options on this object, it's also capable of maintaining established
