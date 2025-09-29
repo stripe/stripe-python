@@ -8,8 +8,20 @@ from stripe.billing._meter import Meter
 from stripe.billing._meter_event_summary_service import (
     MeterEventSummaryService,
 )
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.param.billing._meter_create_params import MeterCreateParams
+    from stripe.param.billing._meter_deactivate_params import (
+        MeterDeactivateParams,
+    )
+    from stripe.param.billing._meter_list_params import MeterListParams
+    from stripe.param.billing._meter_reactivate_params import (
+        MeterReactivateParams,
+    )
+    from stripe.param.billing._meter_retrieve_params import MeterRetrieveParams
+    from stripe.param.billing._meter_update_params import MeterUpdateParams
 
 
 class MeterService(StripeService):
@@ -17,113 +29,9 @@ class MeterService(StripeService):
         super().__init__(requestor)
         self.event_summaries = MeterEventSummaryService(self._requestor)
 
-    class CreateParams(TypedDict):
-        customer_mapping: NotRequired[
-            "MeterService.CreateParamsCustomerMapping"
-        ]
-        """
-        Fields that specify how to map a meter event to a customer.
-        """
-        default_aggregation: "MeterService.CreateParamsDefaultAggregation"
-        """
-        The default settings to aggregate a meter's events with.
-        """
-        display_name: str
-        """
-        The meter's name. Not visible to the customer.
-        """
-        event_name: str
-        """
-        The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
-        """
-        event_time_window: NotRequired[Literal["day", "hour"]]
-        """
-        The time window which meter events have been pre-aggregated for, if any.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        value_settings: NotRequired["MeterService.CreateParamsValueSettings"]
-        """
-        Fields that specify how to calculate a meter event's value.
-        """
-
-    class CreateParamsCustomerMapping(TypedDict):
-        event_payload_key: str
-        """
-        The key in the meter event payload to use for mapping the event to a customer.
-        """
-        type: Literal["by_id"]
-        """
-        The method for mapping a meter event to a customer. Must be `by_id`.
-        """
-
-    class CreateParamsDefaultAggregation(TypedDict):
-        formula: Literal["count", "last", "sum"]
-        """
-        Specifies how events are aggregated. Allowed values are `count` to count the number of events, `sum` to sum each event's value and `last` to take the last event's value in the window.
-        """
-
-    class CreateParamsValueSettings(TypedDict):
-        event_payload_key: str
-        """
-        The key in the usage event payload to use as the value for this meter. For example, if the event payload contains usage on a `bytes_used` field, then set the event_payload_key to "bytes_used".
-        """
-
-    class DeactivateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListParams(TypedDict):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[Literal["active", "inactive"]]
-        """
-        Filter results to only include meters with the given status.
-        """
-
-    class ReactivateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class UpdateParams(TypedDict):
-        display_name: NotRequired[str]
-        """
-        The meter's name. Not visible to the customer.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: Optional["MeterService.ListParams"] = None,
+        params: Optional["MeterListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Meter]:
         """
@@ -142,7 +50,7 @@ class MeterService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["MeterService.ListParams"] = None,
+        params: Optional["MeterListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Meter]:
         """
@@ -161,7 +69,7 @@ class MeterService(StripeService):
 
     def create(
         self,
-        params: "MeterService.CreateParams",
+        params: "MeterCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -180,7 +88,7 @@ class MeterService(StripeService):
 
     async def create_async(
         self,
-        params: "MeterService.CreateParams",
+        params: "MeterCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -200,7 +108,7 @@ class MeterService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["MeterService.RetrieveParams"] = None,
+        params: Optional["MeterRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -220,7 +128,7 @@ class MeterService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["MeterService.RetrieveParams"] = None,
+        params: Optional["MeterRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -240,7 +148,7 @@ class MeterService(StripeService):
     def update(
         self,
         id: str,
-        params: Optional["MeterService.UpdateParams"] = None,
+        params: Optional["MeterUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -260,7 +168,7 @@ class MeterService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: Optional["MeterService.UpdateParams"] = None,
+        params: Optional["MeterUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -280,7 +188,7 @@ class MeterService(StripeService):
     def deactivate(
         self,
         id: str,
-        params: Optional["MeterService.DeactivateParams"] = None,
+        params: Optional["MeterDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -302,7 +210,7 @@ class MeterService(StripeService):
     async def deactivate_async(
         self,
         id: str,
-        params: Optional["MeterService.DeactivateParams"] = None,
+        params: Optional["MeterDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -324,7 +232,7 @@ class MeterService(StripeService):
     def reactivate(
         self,
         id: str,
-        params: Optional["MeterService.ReactivateParams"] = None,
+        params: Optional["MeterReactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """
@@ -346,7 +254,7 @@ class MeterService(StripeService):
     async def reactivate_async(
         self,
         id: str,
-        params: Optional["MeterService.ReactivateParams"] = None,
+        params: Optional["MeterReactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Meter:
         """

@@ -24,8 +24,19 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.param._customer_create_params import CustomerCreateParams
+    from stripe.param._customer_delete_discount_params import (
+        CustomerDeleteDiscountParams,
+    )
+    from stripe.param._customer_delete_params import CustomerDeleteParams
+    from stripe.param._customer_list_params import CustomerListParams
+    from stripe.param._customer_retrieve_params import CustomerRetrieveParams
+    from stripe.param._customer_search_params import CustomerSearchParams
+    from stripe.param._customer_update_params import CustomerUpdateParams
 
 
 class CustomerService(StripeService):
@@ -45,668 +56,10 @@ class CustomerService(StripeService):
         self.payment_sources = CustomerPaymentSourceService(self._requestor)
         self.tax_ids = CustomerTaxIdService(self._requestor)
 
-    class CreateParams(TypedDict):
-        address: NotRequired["Literal['']|CustomerService.CreateParamsAddress"]
-        """
-        The customer's address.
-        """
-        balance: NotRequired[int]
-        """
-        An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
-        """
-        business_name: NotRequired["Literal['']|str"]
-        """
-        The customer's business name. This may be up to *150 characters*.
-        """
-        cash_balance: NotRequired["CustomerService.CreateParamsCashBalance"]
-        """
-        Balance information and default balance settings for this customer.
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
-        """
-        email: NotRequired[str]
-        """
-        Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        individual_name: NotRequired["Literal['']|str"]
-        """
-        The customer's full name. This may be up to *150 characters*.
-        """
-        invoice_prefix: NotRequired[str]
-        """
-        The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
-        """
-        invoice_settings: NotRequired[
-            "CustomerService.CreateParamsInvoiceSettings"
-        ]
-        """
-        Default invoice settings for this customer.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: NotRequired[str]
-        """
-        The customer's full name or business name.
-        """
-        next_invoice_sequence: NotRequired[int]
-        """
-        The sequence to be used on the customer's next invoice. Defaults to 1.
-        """
-        payment_method: NotRequired[str]
-        phone: NotRequired[str]
-        """
-        The customer's phone number.
-        """
-        preferred_locales: NotRequired[List[str]]
-        """
-        Customer's preferred languages, ordered by preference.
-        """
-        shipping: NotRequired[
-            "Literal['']|CustomerService.CreateParamsShipping"
-        ]
-        """
-        The customer's shipping information. Appears on invoices emailed to this customer.
-        """
-        source: NotRequired[str]
-        tax: NotRequired["CustomerService.CreateParamsTax"]
-        """
-        Tax details about the customer.
-        """
-        tax_exempt: NotRequired[
-            "Literal['']|Literal['exempt', 'none', 'reverse']"
-        ]
-        """
-        The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
-        """
-        tax_id_data: NotRequired[
-            List["CustomerService.CreateParamsTaxIdDatum"]
-        ]
-        """
-        The customer's tax IDs.
-        """
-        test_clock: NotRequired[str]
-        """
-        ID of the test clock to attach to the customer.
-        """
-        validate: NotRequired[bool]
-
-    class CreateParamsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CreateParamsCashBalance(TypedDict):
-        settings: NotRequired[
-            "CustomerService.CreateParamsCashBalanceSettings"
-        ]
-        """
-        Settings controlling the behavior of the customer's cash balance,
-        such as reconciliation of funds received.
-        """
-
-    class CreateParamsCashBalanceSettings(TypedDict):
-        reconciliation_mode: NotRequired[
-            Literal["automatic", "manual", "merchant_default"]
-        ]
-        """
-        Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
-        """
-
-    class CreateParamsInvoiceSettings(TypedDict):
-        custom_fields: NotRequired[
-            "Literal['']|List[CustomerService.CreateParamsInvoiceSettingsCustomField]"
-        ]
-        """
-        The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
-        """
-        default_payment_method: NotRequired[str]
-        """
-        ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
-        """
-        footer: NotRequired[str]
-        """
-        Default footer to be displayed on invoices for this customer.
-        """
-        rendering_options: NotRequired[
-            "Literal['']|CustomerService.CreateParamsInvoiceSettingsRenderingOptions"
-        ]
-        """
-        Default options for invoice PDF rendering for this customer.
-        """
-
-    class CreateParamsInvoiceSettingsCustomField(TypedDict):
-        name: str
-        """
-        The name of the custom field. This may be up to 40 characters.
-        """
-        value: str
-        """
-        The value of the custom field. This may be up to 140 characters.
-        """
-
-    class CreateParamsInvoiceSettingsRenderingOptions(TypedDict):
-        amount_tax_display: NotRequired[
-            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
-        ]
-        """
-        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-        """
-        template: NotRequired[str]
-        """
-        ID of the invoice rendering template to use for future invoices.
-        """
-
-    class CreateParamsShipping(TypedDict):
-        address: "CustomerService.CreateParamsShippingAddress"
-        """
-        Customer shipping address.
-        """
-        name: str
-        """
-        Customer name.
-        """
-        phone: NotRequired[str]
-        """
-        Customer phone (including extension).
-        """
-
-    class CreateParamsShippingAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CreateParamsTax(TypedDict):
-        ip_address: NotRequired["Literal['']|str"]
-        """
-        A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
-        """
-        validate_location: NotRequired[Literal["deferred", "immediately"]]
-        """
-        A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
-        """
-
-    class CreateParamsTaxIdDatum(TypedDict):
-        type: Literal[
-            "ad_nrt",
-            "ae_trn",
-            "al_tin",
-            "am_tin",
-            "ao_tin",
-            "ar_cuit",
-            "au_abn",
-            "au_arn",
-            "aw_tin",
-            "az_tin",
-            "ba_tin",
-            "bb_tin",
-            "bd_bin",
-            "bf_ifu",
-            "bg_uic",
-            "bh_vat",
-            "bj_ifu",
-            "bo_tin",
-            "br_cnpj",
-            "br_cpf",
-            "bs_tin",
-            "by_tin",
-            "ca_bn",
-            "ca_gst_hst",
-            "ca_pst_bc",
-            "ca_pst_mb",
-            "ca_pst_sk",
-            "ca_qst",
-            "cd_nif",
-            "ch_uid",
-            "ch_vat",
-            "cl_tin",
-            "cm_niu",
-            "cn_tin",
-            "co_nit",
-            "cr_tin",
-            "cv_nif",
-            "de_stn",
-            "do_rcn",
-            "ec_ruc",
-            "eg_tin",
-            "es_cif",
-            "et_tin",
-            "eu_oss_vat",
-            "eu_vat",
-            "gb_vat",
-            "ge_vat",
-            "gn_nif",
-            "hk_br",
-            "hr_oib",
-            "hu_tin",
-            "id_npwp",
-            "il_vat",
-            "in_gst",
-            "is_vat",
-            "jp_cn",
-            "jp_rn",
-            "jp_trn",
-            "ke_pin",
-            "kg_tin",
-            "kh_tin",
-            "kr_brn",
-            "kz_bin",
-            "la_tin",
-            "li_uid",
-            "li_vat",
-            "ma_vat",
-            "md_vat",
-            "me_pib",
-            "mk_vat",
-            "mr_nif",
-            "mx_rfc",
-            "my_frp",
-            "my_itn",
-            "my_sst",
-            "ng_tin",
-            "no_vat",
-            "no_voec",
-            "np_pan",
-            "nz_gst",
-            "om_vat",
-            "pe_ruc",
-            "ph_tin",
-            "ro_tin",
-            "rs_pib",
-            "ru_inn",
-            "ru_kpp",
-            "sa_vat",
-            "sg_gst",
-            "sg_uen",
-            "si_tin",
-            "sn_ninea",
-            "sr_fin",
-            "sv_nit",
-            "th_vat",
-            "tj_tin",
-            "tr_tin",
-            "tw_vat",
-            "tz_vat",
-            "ua_vat",
-            "ug_tin",
-            "us_ein",
-            "uy_ruc",
-            "uz_tin",
-            "uz_vat",
-            "ve_rif",
-            "vn_tin",
-            "za_vat",
-            "zm_tin",
-            "zw_tin",
-        ]
-        """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
-        """
-        value: str
-        """
-        Value of the tax ID.
-        """
-
-    class DeleteDiscountParams(TypedDict):
-        pass
-
-    class DeleteParams(TypedDict):
-        pass
-
-    class ListParams(TypedDict):
-        created: NotRequired["CustomerService.ListParamsCreated|int"]
-        """
-        Only return customers that were created during the given date interval.
-        """
-        email: NotRequired[str]
-        """
-        A case-sensitive filter on the list based on the customer's `email` field. The value must be a string.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        test_clock: NotRequired[str]
-        """
-        Provides a list of customers that are associated with the specified test clock. The response will not include customers with test clocks if this parameter is not set.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class SearchParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        page: NotRequired[str]
-        """
-        A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
-        """
-        query: str
-        """
-        The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for customers](https://stripe.com/docs/search#query-fields-for-customers).
-        """
-
-    class UpdateParams(TypedDict):
-        address: NotRequired["Literal['']|CustomerService.UpdateParamsAddress"]
-        """
-        The customer's address.
-        """
-        balance: NotRequired[int]
-        """
-        An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
-        """
-        business_name: NotRequired["Literal['']|str"]
-        """
-        The customer's business name. This may be up to *150 characters*.
-        """
-        cash_balance: NotRequired["CustomerService.UpdateParamsCashBalance"]
-        """
-        Balance information and default balance settings for this customer.
-        """
-        default_source: NotRequired[str]
-        """
-        If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
-
-        Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
-
-        If you want to add a new payment source and make it the default, see the [source](https://stripe.com/docs/api/customers/update#update_customer-source) property.
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
-        """
-        email: NotRequired[str]
-        """
-        Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        individual_name: NotRequired["Literal['']|str"]
-        """
-        The customer's full name. This may be up to *150 characters*.
-        """
-        invoice_prefix: NotRequired[str]
-        """
-        The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
-        """
-        invoice_settings: NotRequired[
-            "CustomerService.UpdateParamsInvoiceSettings"
-        ]
-        """
-        Default invoice settings for this customer.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: NotRequired[str]
-        """
-        The customer's full name or business name.
-        """
-        next_invoice_sequence: NotRequired[int]
-        """
-        The sequence to be used on the customer's next invoice. Defaults to 1.
-        """
-        phone: NotRequired[str]
-        """
-        The customer's phone number.
-        """
-        preferred_locales: NotRequired[List[str]]
-        """
-        Customer's preferred languages, ordered by preference.
-        """
-        shipping: NotRequired[
-            "Literal['']|CustomerService.UpdateParamsShipping"
-        ]
-        """
-        The customer's shipping information. Appears on invoices emailed to this customer.
-        """
-        source: NotRequired[str]
-        tax: NotRequired["CustomerService.UpdateParamsTax"]
-        """
-        Tax details about the customer.
-        """
-        tax_exempt: NotRequired[
-            "Literal['']|Literal['exempt', 'none', 'reverse']"
-        ]
-        """
-        The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
-        """
-        validate: NotRequired[bool]
-
-    class UpdateParamsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class UpdateParamsCashBalance(TypedDict):
-        settings: NotRequired[
-            "CustomerService.UpdateParamsCashBalanceSettings"
-        ]
-        """
-        Settings controlling the behavior of the customer's cash balance,
-        such as reconciliation of funds received.
-        """
-
-    class UpdateParamsCashBalanceSettings(TypedDict):
-        reconciliation_mode: NotRequired[
-            Literal["automatic", "manual", "merchant_default"]
-        ]
-        """
-        Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
-        """
-
-    class UpdateParamsInvoiceSettings(TypedDict):
-        custom_fields: NotRequired[
-            "Literal['']|List[CustomerService.UpdateParamsInvoiceSettingsCustomField]"
-        ]
-        """
-        The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
-        """
-        default_payment_method: NotRequired[str]
-        """
-        ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
-        """
-        footer: NotRequired[str]
-        """
-        Default footer to be displayed on invoices for this customer.
-        """
-        rendering_options: NotRequired[
-            "Literal['']|CustomerService.UpdateParamsInvoiceSettingsRenderingOptions"
-        ]
-        """
-        Default options for invoice PDF rendering for this customer.
-        """
-
-    class UpdateParamsInvoiceSettingsCustomField(TypedDict):
-        name: str
-        """
-        The name of the custom field. This may be up to 40 characters.
-        """
-        value: str
-        """
-        The value of the custom field. This may be up to 140 characters.
-        """
-
-    class UpdateParamsInvoiceSettingsRenderingOptions(TypedDict):
-        amount_tax_display: NotRequired[
-            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
-        ]
-        """
-        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-        """
-        template: NotRequired[str]
-        """
-        ID of the invoice rendering template to use for future invoices.
-        """
-
-    class UpdateParamsShipping(TypedDict):
-        address: "CustomerService.UpdateParamsShippingAddress"
-        """
-        Customer shipping address.
-        """
-        name: str
-        """
-        Customer name.
-        """
-        phone: NotRequired[str]
-        """
-        Customer phone (including extension).
-        """
-
-    class UpdateParamsShippingAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class UpdateParamsTax(TypedDict):
-        ip_address: NotRequired["Literal['']|str"]
-        """
-        A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
-        """
-        validate_location: NotRequired[
-            Literal["auto", "deferred", "immediately"]
-        ]
-        """
-        A flag that indicates when Stripe should validate the customer tax location. Defaults to `auto`.
-        """
-
     def delete(
         self,
         customer: str,
-        params: Optional["CustomerService.DeleteParams"] = None,
+        params: Optional["CustomerDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -728,7 +81,7 @@ class CustomerService(StripeService):
     async def delete_async(
         self,
         customer: str,
-        params: Optional["CustomerService.DeleteParams"] = None,
+        params: Optional["CustomerDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -750,7 +103,7 @@ class CustomerService(StripeService):
     def retrieve(
         self,
         customer: str,
-        params: Optional["CustomerService.RetrieveParams"] = None,
+        params: Optional["CustomerRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -772,7 +125,7 @@ class CustomerService(StripeService):
     async def retrieve_async(
         self,
         customer: str,
-        params: Optional["CustomerService.RetrieveParams"] = None,
+        params: Optional["CustomerRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -794,7 +147,7 @@ class CustomerService(StripeService):
     def update(
         self,
         customer: str,
-        params: Optional["CustomerService.UpdateParams"] = None,
+        params: Optional["CustomerUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -818,7 +171,7 @@ class CustomerService(StripeService):
     async def update_async(
         self,
         customer: str,
-        params: Optional["CustomerService.UpdateParams"] = None,
+        params: Optional["CustomerUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -842,7 +195,7 @@ class CustomerService(StripeService):
     def delete_discount(
         self,
         customer: str,
-        params: Optional["CustomerService.DeleteDiscountParams"] = None,
+        params: Optional["CustomerDeleteDiscountParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Discount:
         """
@@ -864,7 +217,7 @@ class CustomerService(StripeService):
     async def delete_discount_async(
         self,
         customer: str,
-        params: Optional["CustomerService.DeleteDiscountParams"] = None,
+        params: Optional["CustomerDeleteDiscountParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Discount:
         """
@@ -885,7 +238,7 @@ class CustomerService(StripeService):
 
     def list(
         self,
-        params: Optional["CustomerService.ListParams"] = None,
+        params: Optional["CustomerListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Customer]:
         """
@@ -904,7 +257,7 @@ class CustomerService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["CustomerService.ListParams"] = None,
+        params: Optional["CustomerListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Customer]:
         """
@@ -923,7 +276,7 @@ class CustomerService(StripeService):
 
     def create(
         self,
-        params: Optional["CustomerService.CreateParams"] = None,
+        params: Optional["CustomerCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -942,7 +295,7 @@ class CustomerService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["CustomerService.CreateParams"] = None,
+        params: Optional["CustomerCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Customer:
         """
@@ -961,7 +314,7 @@ class CustomerService(StripeService):
 
     def search(
         self,
-        params: "CustomerService.SearchParams",
+        params: "CustomerSearchParams",
         options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Customer]:
         """
@@ -983,7 +336,7 @@ class CustomerService(StripeService):
 
     async def search_async(
         self,
-        params: "CustomerService.SearchParams",
+        params: "CustomerSearchParams",
         options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Customer]:
         """

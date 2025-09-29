@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from typing import ClassVar, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.param.tax._settings_modify_params import SettingsModifyParams
+    from stripe.param.tax._settings_retrieve_params import (
+        SettingsRetrieveParams,
+    )
 
 
 class Settings(
@@ -80,70 +85,6 @@ class Settings(
         pending: Optional[Pending]
         _inner_class_types = {"active": Active, "pending": Pending}
 
-    class ModifyParams(RequestOptions):
-        defaults: NotRequired["Settings.ModifyParamsDefaults"]
-        """
-        Default configuration to be used on Stripe Tax calculations.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        head_office: NotRequired["Settings.ModifyParamsHeadOffice"]
-        """
-        The place where your business is located.
-        """
-
-    class ModifyParamsDefaults(TypedDict):
-        tax_behavior: NotRequired[
-            Literal["exclusive", "inclusive", "inferred_by_currency"]
-        ]
-        """
-        Specifies the default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) to be used when the item's price has unspecified tax behavior. One of inclusive, exclusive, or inferred_by_currency. Once specified, it cannot be changed back to null.
-        """
-        tax_code: NotRequired[str]
-        """
-        A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-        """
-
-    class ModifyParamsHeadOffice(TypedDict):
-        address: "Settings.ModifyParamsHeadOfficeAddress"
-        """
-        The location of the business for tax purposes.
-        """
-
-    class ModifyParamsHeadOfficeAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     defaults: Defaults
     head_office: Optional[HeadOffice]
     """
@@ -164,7 +105,7 @@ class Settings(
     status_details: StatusDetails
 
     @classmethod
-    def modify(cls, **params: Unpack["Settings.ModifyParams"]) -> "Settings":
+    def modify(cls, **params: Unpack["SettingsModifyParams"]) -> "Settings":
         """
         Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
         """
@@ -179,7 +120,7 @@ class Settings(
 
     @classmethod
     async def modify_async(
-        cls, **params: Unpack["Settings.ModifyParams"]
+        cls, **params: Unpack["SettingsModifyParams"]
     ) -> "Settings":
         """
         Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
@@ -195,7 +136,7 @@ class Settings(
 
     @classmethod
     def retrieve(
-        cls, **params: Unpack["Settings.RetrieveParams"]
+        cls, **params: Unpack["SettingsRetrieveParams"]
     ) -> "Settings":
         """
         Retrieves Tax Settings for a merchant.
@@ -206,7 +147,7 @@ class Settings(
 
     @classmethod
     async def retrieve_async(
-        cls, **params: Unpack["Settings.RetrieveParams"]
+        cls, **params: Unpack["SettingsRetrieveParams"]
     ) -> "Settings":
         """
         Retrieves Tax Settings for a merchant.

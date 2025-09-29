@@ -6,26 +6,17 @@ from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.core._event import Event
 from typing import Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.param.v2.core._event_list_params import EventListParams
+    from stripe.param.v2.core._event_retrieve_params import EventRetrieveParams
 
 
 class EventService(StripeService):
-    class ListParams(TypedDict):
-        limit: NotRequired[int]
-        """
-        The page size.
-        """
-        object_id: str
-        """
-        Primary object ID used to retrieve related events.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def list(
         self,
-        params: "EventService.ListParams",
+        params: "EventListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Event]:
         """
@@ -44,7 +35,7 @@ class EventService(StripeService):
 
     async def list_async(
         self,
-        params: "EventService.ListParams",
+        params: "EventListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Event]:
         """
@@ -64,7 +55,7 @@ class EventService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["EventService.RetrieveParams"] = None,
+        params: Optional["EventRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Event:
         """
@@ -84,7 +75,7 @@ class EventService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["EventService.RetrieveParams"] = None,
+        params: Optional["EventRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Event:
         """

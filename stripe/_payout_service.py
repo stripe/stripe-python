@@ -5,158 +5,22 @@ from stripe._payout import Payout
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.param._payout_cancel_params import PayoutCancelParams
+    from stripe.param._payout_create_params import PayoutCreateParams
+    from stripe.param._payout_list_params import PayoutListParams
+    from stripe.param._payout_retrieve_params import PayoutRetrieveParams
+    from stripe.param._payout_reverse_params import PayoutReverseParams
+    from stripe.param._payout_update_params import PayoutUpdateParams
 
 
 class PayoutService(StripeService):
-    class CancelParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class CreateParams(TypedDict):
-        amount: int
-        """
-        A positive integer in cents representing how much to payout.
-        """
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        destination: NotRequired[str]
-        """
-        The ID of a bank account or a card to send the payout to. If you don't provide a destination, we use the default external account for the specified currency.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        method: NotRequired[Literal["instant", "standard"]]
-        """
-        The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
-        """
-        payout_method: NotRequired[str]
-        """
-        The ID of a v2 FinancialAccount to send funds to.
-        """
-        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
-        """
-        The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
-        """
-        statement_descriptor: NotRequired[str]
-        """
-        A string that displays on the recipient's bank or card statement (up to 22 characters). A `statement_descriptor` that's longer than 22 characters return an error. Most banks truncate this information and display it inconsistently. Some banks might not display it at all.
-        """
-
-    class ListParams(TypedDict):
-        arrival_date: NotRequired["PayoutService.ListParamsArrivalDate|int"]
-        """
-        Only return payouts that are expected to arrive during the given date interval.
-        """
-        created: NotRequired["PayoutService.ListParamsCreated|int"]
-        """
-        Only return payouts that were created during the given date interval.
-        """
-        destination: NotRequired[str]
-        """
-        The ID of an external account - only return payouts sent to this external account.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[str]
-        """
-        Only return payouts that have the given status: `pending`, `paid`, `failed`, or `canceled`.
-        """
-
-    class ListParamsArrivalDate(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ReverseParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-
-    class UpdateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-
     def list(
         self,
-        params: Optional["PayoutService.ListParams"] = None,
+        params: Optional["PayoutListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Payout]:
         """
@@ -175,7 +39,7 @@ class PayoutService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["PayoutService.ListParams"] = None,
+        params: Optional["PayoutListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Payout]:
         """
@@ -194,7 +58,7 @@ class PayoutService(StripeService):
 
     def create(
         self,
-        params: "PayoutService.CreateParams",
+        params: "PayoutCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -217,7 +81,7 @@ class PayoutService(StripeService):
 
     async def create_async(
         self,
-        params: "PayoutService.CreateParams",
+        params: "PayoutCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -241,7 +105,7 @@ class PayoutService(StripeService):
     def retrieve(
         self,
         payout: str,
-        params: Optional["PayoutService.RetrieveParams"] = None,
+        params: Optional["PayoutRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -261,7 +125,7 @@ class PayoutService(StripeService):
     async def retrieve_async(
         self,
         payout: str,
-        params: Optional["PayoutService.RetrieveParams"] = None,
+        params: Optional["PayoutRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -281,7 +145,7 @@ class PayoutService(StripeService):
     def update(
         self,
         payout: str,
-        params: Optional["PayoutService.UpdateParams"] = None,
+        params: Optional["PayoutUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -301,7 +165,7 @@ class PayoutService(StripeService):
     async def update_async(
         self,
         payout: str,
-        params: Optional["PayoutService.UpdateParams"] = None,
+        params: Optional["PayoutUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -321,7 +185,7 @@ class PayoutService(StripeService):
     def cancel(
         self,
         payout: str,
-        params: Optional["PayoutService.CancelParams"] = None,
+        params: Optional["PayoutCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -343,7 +207,7 @@ class PayoutService(StripeService):
     async def cancel_async(
         self,
         payout: str,
-        params: Optional["PayoutService.CancelParams"] = None,
+        params: Optional["PayoutCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -365,7 +229,7 @@ class PayoutService(StripeService):
     def reverse(
         self,
         payout: str,
-        params: Optional["PayoutService.ReverseParams"] = None,
+        params: Optional["PayoutReverseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """
@@ -389,7 +253,7 @@ class PayoutService(StripeService):
     async def reverse_async(
         self,
         payout: str,
-        params: Optional["PayoutService.ReverseParams"] = None,
+        params: Optional["PayoutReverseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Payout:
         """

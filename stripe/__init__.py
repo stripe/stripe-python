@@ -264,6 +264,7 @@ from stripe import (
     forwarding as forwarding,
     identity as identity,
     issuing as issuing,
+    param as param,
     radar as radar,
     reporting as reporting,
     sigma as sigma,

@@ -5,114 +5,23 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.forwarding._request import Request
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.param.forwarding._request_create_params import (
+        RequestCreateParams,
+    )
+    from stripe.param.forwarding._request_list_params import RequestListParams
+    from stripe.param.forwarding._request_retrieve_params import (
+        RequestRetrieveParams,
+    )
 
 
 class RequestService(StripeService):
-    class CreateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        payment_method: str
-        """
-        The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed.
-        """
-        replacements: List[
-            Literal[
-                "card_cvc",
-                "card_expiry",
-                "card_number",
-                "cardholder_name",
-                "request_signature",
-            ]
-        ]
-        """
-        The field kinds to be replaced in the forwarded request.
-        """
-        request: "RequestService.CreateParamsRequest"
-        """
-        The request body and headers to be sent to the destination endpoint.
-        """
-        url: str
-        """
-        The destination URL for the forwarded request. Must be supported by the config.
-        """
-
-    class CreateParamsRequest(TypedDict):
-        body: NotRequired[str]
-        """
-        The body payload to send to the destination endpoint.
-        """
-        headers: NotRequired[List["RequestService.CreateParamsRequestHeader"]]
-        """
-        The headers to include in the forwarded request. Can be omitted if no additional headers (excluding Stripe-generated ones such as the Content-Type header) should be included.
-        """
-
-    class CreateParamsRequestHeader(TypedDict):
-        name: str
-        """
-        The header name.
-        """
-        value: str
-        """
-        The header value.
-        """
-
-    class ListParams(TypedDict):
-        created: NotRequired["RequestService.ListParamsCreated"]
-        """
-        Similar to other List endpoints, filters results based on created timestamp. You can pass gt, gte, lt, and lte timestamp values.
-        """
-        ending_before: NotRequired[str]
-        """
-        A pagination cursor to fetch the previous page of the list. The value must be a ForwardingRequest ID.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A pagination cursor to fetch the next page of the list. The value must be a ForwardingRequest ID.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Return results where the `created` field is greater than this value.
-        """
-        gte: NotRequired[int]
-        """
-        Return results where the `created` field is greater than or equal to this value.
-        """
-        lt: NotRequired[int]
-        """
-        Return results where the `created` field is less than this value.
-        """
-        lte: NotRequired[int]
-        """
-        Return results where the `created` field is less than or equal to this value.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: Optional["RequestService.ListParams"] = None,
+        params: Optional["RequestListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Request]:
         """
@@ -131,7 +40,7 @@ class RequestService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["RequestService.ListParams"] = None,
+        params: Optional["RequestListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Request]:
         """
@@ -150,7 +59,7 @@ class RequestService(StripeService):
 
     def create(
         self,
-        params: "RequestService.CreateParams",
+        params: "RequestCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Request:
         """
@@ -169,7 +78,7 @@ class RequestService(StripeService):
 
     async def create_async(
         self,
-        params: "RequestService.CreateParams",
+        params: "RequestCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Request:
         """
@@ -189,7 +98,7 @@ class RequestService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["RequestService.RetrieveParams"] = None,
+        params: Optional["RequestRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Request:
         """
@@ -209,7 +118,7 @@ class RequestService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["RequestService.RetrieveParams"] = None,
+        params: Optional["RequestRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Request:
         """

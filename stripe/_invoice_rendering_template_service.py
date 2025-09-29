@@ -5,52 +5,28 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.param._invoice_rendering_template_archive_params import (
+        InvoiceRenderingTemplateArchiveParams,
+    )
+    from stripe.param._invoice_rendering_template_list_params import (
+        InvoiceRenderingTemplateListParams,
+    )
+    from stripe.param._invoice_rendering_template_retrieve_params import (
+        InvoiceRenderingTemplateRetrieveParams,
+    )
+    from stripe.param._invoice_rendering_template_unarchive_params import (
+        InvoiceRenderingTemplateUnarchiveParams,
+    )
 
 
 class InvoiceRenderingTemplateService(StripeService):
-    class ArchiveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListParams(TypedDict):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[Literal["active", "archived"]]
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        version: NotRequired[int]
-
-    class UnarchiveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: Optional["InvoiceRenderingTemplateService.ListParams"] = None,
+        params: Optional["InvoiceRenderingTemplateListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoiceRenderingTemplate]:
         """
@@ -69,7 +45,7 @@ class InvoiceRenderingTemplateService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["InvoiceRenderingTemplateService.ListParams"] = None,
+        params: Optional["InvoiceRenderingTemplateListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoiceRenderingTemplate]:
         """
@@ -89,9 +65,7 @@ class InvoiceRenderingTemplateService(StripeService):
     def retrieve(
         self,
         template: str,
-        params: Optional[
-            "InvoiceRenderingTemplateService.RetrieveParams"
-        ] = None,
+        params: Optional["InvoiceRenderingTemplateRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceRenderingTemplate:
         """
@@ -113,9 +87,7 @@ class InvoiceRenderingTemplateService(StripeService):
     async def retrieve_async(
         self,
         template: str,
-        params: Optional[
-            "InvoiceRenderingTemplateService.RetrieveParams"
-        ] = None,
+        params: Optional["InvoiceRenderingTemplateRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceRenderingTemplate:
         """
@@ -137,9 +109,7 @@ class InvoiceRenderingTemplateService(StripeService):
     def archive(
         self,
         template: str,
-        params: Optional[
-            "InvoiceRenderingTemplateService.ArchiveParams"
-        ] = None,
+        params: Optional["InvoiceRenderingTemplateArchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceRenderingTemplate:
         """
@@ -161,9 +131,7 @@ class InvoiceRenderingTemplateService(StripeService):
     async def archive_async(
         self,
         template: str,
-        params: Optional[
-            "InvoiceRenderingTemplateService.ArchiveParams"
-        ] = None,
+        params: Optional["InvoiceRenderingTemplateArchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceRenderingTemplate:
         """
@@ -185,9 +153,7 @@ class InvoiceRenderingTemplateService(StripeService):
     def unarchive(
         self,
         template: str,
-        params: Optional[
-            "InvoiceRenderingTemplateService.UnarchiveParams"
-        ] = None,
+        params: Optional["InvoiceRenderingTemplateUnarchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceRenderingTemplate:
         """
@@ -209,9 +175,7 @@ class InvoiceRenderingTemplateService(StripeService):
     async def unarchive_async(
         self,
         template: str,
-        params: Optional[
-            "InvoiceRenderingTemplateService.UnarchiveParams"
-        ] = None,
+        params: Optional["InvoiceRenderingTemplateUnarchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceRenderingTemplate:
         """

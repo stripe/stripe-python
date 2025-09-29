@@ -5,125 +5,30 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.radar._value_list import ValueList
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.param.radar._value_list_create_params import (
+        ValueListCreateParams,
+    )
+    from stripe.param.radar._value_list_delete_params import (
+        ValueListDeleteParams,
+    )
+    from stripe.param.radar._value_list_list_params import ValueListListParams
+    from stripe.param.radar._value_list_retrieve_params import (
+        ValueListRetrieveParams,
+    )
+    from stripe.param.radar._value_list_update_params import (
+        ValueListUpdateParams,
+    )
 
 
 class ValueListService(StripeService):
-    class CreateParams(TypedDict):
-        alias: str
-        """
-        The name of the value list for use in rules.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        item_type: NotRequired[
-            Literal[
-                "card_bin",
-                "card_fingerprint",
-                "case_sensitive_string",
-                "country",
-                "customer_id",
-                "email",
-                "ip_address",
-                "sepa_debit_fingerprint",
-                "string",
-                "us_bank_account_fingerprint",
-            ]
-        ]
-        """
-        Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`. Use `string` if the item type is unknown or mixed.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: str
-        """
-        The human-readable name of the value list.
-        """
-
-    class DeleteParams(TypedDict):
-        pass
-
-    class ListParams(TypedDict):
-        alias: NotRequired[str]
-        """
-        The alias used to reference the value list when writing rules.
-        """
-        contains: NotRequired[str]
-        """
-        A value contained within a value list - returns all value lists containing this value.
-        """
-        created: NotRequired["ValueListService.ListParamsCreated|int"]
-        """
-        Only return value lists that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class UpdateParams(TypedDict):
-        alias: NotRequired[str]
-        """
-        The name of the value list for use in rules.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: NotRequired[str]
-        """
-        The human-readable name of the value list.
-        """
-
     def delete(
         self,
         value_list: str,
-        params: Optional["ValueListService.DeleteParams"] = None,
+        params: Optional["ValueListDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -145,7 +50,7 @@ class ValueListService(StripeService):
     async def delete_async(
         self,
         value_list: str,
-        params: Optional["ValueListService.DeleteParams"] = None,
+        params: Optional["ValueListDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -167,7 +72,7 @@ class ValueListService(StripeService):
     def retrieve(
         self,
         value_list: str,
-        params: Optional["ValueListService.RetrieveParams"] = None,
+        params: Optional["ValueListRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -189,7 +94,7 @@ class ValueListService(StripeService):
     async def retrieve_async(
         self,
         value_list: str,
-        params: Optional["ValueListService.RetrieveParams"] = None,
+        params: Optional["ValueListRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -211,7 +116,7 @@ class ValueListService(StripeService):
     def update(
         self,
         value_list: str,
-        params: Optional["ValueListService.UpdateParams"] = None,
+        params: Optional["ValueListUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -233,7 +138,7 @@ class ValueListService(StripeService):
     async def update_async(
         self,
         value_list: str,
-        params: Optional["ValueListService.UpdateParams"] = None,
+        params: Optional["ValueListUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -254,7 +159,7 @@ class ValueListService(StripeService):
 
     def list(
         self,
-        params: Optional["ValueListService.ListParams"] = None,
+        params: Optional["ValueListListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ValueList]:
         """
@@ -273,7 +178,7 @@ class ValueListService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["ValueListService.ListParams"] = None,
+        params: Optional["ValueListListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ValueList]:
         """
@@ -292,7 +197,7 @@ class ValueListService(StripeService):
 
     def create(
         self,
-        params: "ValueListService.CreateParams",
+        params: "ValueListCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """
@@ -311,7 +216,7 @@ class ValueListService(StripeService):
 
     async def create_async(
         self,
-        params: "ValueListService.CreateParams",
+        params: "ValueListCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ValueList:
         """

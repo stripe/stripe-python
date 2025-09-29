@@ -8,175 +8,35 @@ from stripe._request_options import RequestOptions
 from stripe._source import Source
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, Union, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, Union, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.param._customer_payment_source_create_params import (
+        CustomerPaymentSourceCreateParams,
+    )
+    from stripe.param._customer_payment_source_delete_params import (
+        CustomerPaymentSourceDeleteParams,
+    )
+    from stripe.param._customer_payment_source_list_params import (
+        CustomerPaymentSourceListParams,
+    )
+    from stripe.param._customer_payment_source_retrieve_params import (
+        CustomerPaymentSourceRetrieveParams,
+    )
+    from stripe.param._customer_payment_source_update_params import (
+        CustomerPaymentSourceUpdateParams,
+    )
+    from stripe.param._customer_payment_source_verify_params import (
+        CustomerPaymentSourceVerifyParams,
+    )
 
 
 class CustomerPaymentSourceService(StripeService):
-    class CreateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        source: str
-        """
-        Please refer to full [documentation](https://stripe.com/docs/api) instead.
-        """
-        validate: NotRequired[bool]
-
-    class DeleteParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListParams(TypedDict):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        object: NotRequired[str]
-        """
-        Filter sources according to a particular object type.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class UpdateParams(TypedDict):
-        account_holder_name: NotRequired[str]
-        """
-        The name of the person or business that owns the bank account.
-        """
-        account_holder_type: NotRequired[Literal["company", "individual"]]
-        """
-        The type of entity that holds the account. This can be either `individual` or `company`.
-        """
-        address_city: NotRequired[str]
-        """
-        City/District/Suburb/Town/Village.
-        """
-        address_country: NotRequired[str]
-        """
-        Billing address country, if provided when creating card.
-        """
-        address_line1: NotRequired[str]
-        """
-        Address line 1 (Street address/PO Box/Company name).
-        """
-        address_line2: NotRequired[str]
-        """
-        Address line 2 (Apartment/Suite/Unit/Building).
-        """
-        address_state: NotRequired[str]
-        """
-        State/County/Province/Region.
-        """
-        address_zip: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        exp_month: NotRequired[str]
-        """
-        Two digit number representing the card's expiration month.
-        """
-        exp_year: NotRequired[str]
-        """
-        Four digit number representing the card's expiration year.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: NotRequired[str]
-        """
-        Cardholder name.
-        """
-        owner: NotRequired["CustomerPaymentSourceService.UpdateParamsOwner"]
-
-    class UpdateParamsOwner(TypedDict):
-        address: NotRequired[
-            "CustomerPaymentSourceService.UpdateParamsOwnerAddress"
-        ]
-        """
-        Owner's address.
-        """
-        email: NotRequired[str]
-        """
-        Owner's email address.
-        """
-        name: NotRequired[str]
-        """
-        Owner's full name.
-        """
-        phone: NotRequired[str]
-        """
-        Owner's phone number.
-        """
-
-    class UpdateParamsOwnerAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class VerifyParams(TypedDict):
-        amounts: NotRequired[List[int]]
-        """
-        Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
         customer: str,
-        params: Optional["CustomerPaymentSourceService.ListParams"] = None,
+        params: Optional["CustomerPaymentSourceListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Union[Account, BankAccount, Card, Source]]:
         """
@@ -198,7 +58,7 @@ class CustomerPaymentSourceService(StripeService):
     async def list_async(
         self,
         customer: str,
-        params: Optional["CustomerPaymentSourceService.ListParams"] = None,
+        params: Optional["CustomerPaymentSourceListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Union[Account, BankAccount, Card, Source]]:
         """
@@ -220,7 +80,7 @@ class CustomerPaymentSourceService(StripeService):
     def create(
         self,
         customer: str,
-        params: "CustomerPaymentSourceService.CreateParams",
+        params: "CustomerPaymentSourceCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
@@ -246,7 +106,7 @@ class CustomerPaymentSourceService(StripeService):
     async def create_async(
         self,
         customer: str,
-        params: "CustomerPaymentSourceService.CreateParams",
+        params: "CustomerPaymentSourceCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
@@ -273,7 +133,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: Optional["CustomerPaymentSourceService.RetrieveParams"] = None,
+        params: Optional["CustomerPaymentSourceRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
@@ -297,7 +157,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: Optional["CustomerPaymentSourceService.RetrieveParams"] = None,
+        params: Optional["CustomerPaymentSourceRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
@@ -321,7 +181,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: Optional["CustomerPaymentSourceService.UpdateParams"] = None,
+        params: Optional["CustomerPaymentSourceUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
@@ -345,7 +205,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: Optional["CustomerPaymentSourceService.UpdateParams"] = None,
+        params: Optional["CustomerPaymentSourceUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
@@ -369,7 +229,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: Optional["CustomerPaymentSourceService.DeleteParams"] = None,
+        params: Optional["CustomerPaymentSourceDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
@@ -393,7 +253,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: Optional["CustomerPaymentSourceService.DeleteParams"] = None,
+        params: Optional["CustomerPaymentSourceDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Union[Account, BankAccount, Card, Source]:
         """
@@ -417,7 +277,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: Optional["CustomerPaymentSourceService.VerifyParams"] = None,
+        params: Optional["CustomerPaymentSourceVerifyParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BankAccount:
         """
@@ -441,7 +301,7 @@ class CustomerPaymentSourceService(StripeService):
         self,
         customer: str,
         id: str,
-        params: Optional["CustomerPaymentSourceService.VerifyParams"] = None,
+        params: Optional["CustomerPaymentSourceVerifyParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BankAccount:
         """

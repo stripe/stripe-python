@@ -5,64 +5,25 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._credit_reversal import CreditReversal
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.param.treasury._credit_reversal_create_params import (
+        CreditReversalCreateParams,
+    )
+    from stripe.param.treasury._credit_reversal_list_params import (
+        CreditReversalListParams,
+    )
+    from stripe.param.treasury._credit_reversal_retrieve_params import (
+        CreditReversalRetrieveParams,
+    )
 
 
 class CreditReversalService(StripeService):
-    class CreateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        received_credit: str
-        """
-        The ReceivedCredit to reverse.
-        """
-
-    class ListParams(TypedDict):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        Returns objects associated with this FinancialAccount.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        received_credit: NotRequired[str]
-        """
-        Only return CreditReversals for the ReceivedCredit ID.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[Literal["canceled", "posted", "processing"]]
-        """
-        Only return CreditReversals for a given status.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: "CreditReversalService.ListParams",
+        params: "CreditReversalListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditReversal]:
         """
@@ -81,7 +42,7 @@ class CreditReversalService(StripeService):
 
     async def list_async(
         self,
-        params: "CreditReversalService.ListParams",
+        params: "CreditReversalListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditReversal]:
         """
@@ -100,7 +61,7 @@ class CreditReversalService(StripeService):
 
     def create(
         self,
-        params: "CreditReversalService.CreateParams",
+        params: "CreditReversalCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> CreditReversal:
         """
@@ -119,7 +80,7 @@ class CreditReversalService(StripeService):
 
     async def create_async(
         self,
-        params: "CreditReversalService.CreateParams",
+        params: "CreditReversalCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> CreditReversal:
         """
@@ -139,7 +100,7 @@ class CreditReversalService(StripeService):
     def retrieve(
         self,
         credit_reversal: str,
-        params: Optional["CreditReversalService.RetrieveParams"] = None,
+        params: Optional["CreditReversalRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditReversal:
         """
@@ -161,7 +122,7 @@ class CreditReversalService(StripeService):
     async def retrieve_async(
         self,
         credit_reversal: str,
-        params: Optional["CreditReversalService.RetrieveParams"] = None,
+        params: Optional["CreditReversalRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditReversal:
         """

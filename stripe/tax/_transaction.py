@@ -2,19 +2,24 @@
 # File generated from our OpenAPI spec
 from stripe._api_resource import APIResource
 from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.param.tax._transaction_create_from_calculation_params import (
+        TransactionCreateFromCalculationParams,
+    )
+    from stripe.param.tax._transaction_create_reversal_params import (
+        TransactionCreateReversalParams,
+    )
+    from stripe.param.tax._transaction_list_line_items_params import (
+        TransactionListLineItemsParams,
+    )
+    from stripe.param.tax._transaction_retrieve_params import (
+        TransactionRetrieveParams,
+    )
     from stripe.tax._transaction_line_item import TransactionLineItem
 
 
@@ -355,126 +360,6 @@ class Transaction(APIResource["Transaction"]):
         """
         _inner_class_types = {"tax_breakdown": TaxBreakdown}
 
-    class CreateFromCalculationParams(RequestOptions):
-        calculation: str
-        """
-        Tax Calculation ID to be used as input when creating the transaction.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        posted_at: NotRequired[int]
-        """
-        The Unix timestamp representing when the tax liability is assumed or reduced, which determines the liability posting period and handling in tax liability reports. The timestamp must fall within the `tax_date` and the current time, unless the `tax_date` is scheduled in advance. Defaults to the current time.
-        """
-        reference: str
-        """
-        A custom order or sale identifier, such as 'myOrder_123'. Must be unique across all transactions, including reversals.
-        """
-
-    class CreateReversalParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        flat_amount: NotRequired[int]
-        """
-        A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative. This value represents the total amount to refund from the transaction, including taxes.
-        """
-        line_items: NotRequired[
-            List["Transaction.CreateReversalParamsLineItem"]
-        ]
-        """
-        The line item amounts to reverse.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        mode: Literal["full", "partial"]
-        """
-        If `partial`, the provided line item or shipping cost amounts are reversed. If `full`, the original transaction is fully reversed.
-        """
-        original_transaction: str
-        """
-        The ID of the Transaction to partially or fully reverse.
-        """
-        reference: str
-        """
-        A custom identifier for this reversal, such as `myOrder_123-refund_1`, which must be unique across all transactions. The reference helps identify this reversal transaction in exported [tax reports](https://stripe.com/docs/tax/reports).
-        """
-        shipping_cost: NotRequired[
-            "Transaction.CreateReversalParamsShippingCost"
-        ]
-        """
-        The shipping cost to reverse.
-        """
-
-    class CreateReversalParamsLineItem(TypedDict):
-        amount: int
-        """
-        The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
-        """
-        amount_tax: int
-        """
-        The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-        """
-        original_line_item: str
-        """
-        The `id` of the line item to reverse in the original transaction.
-        """
-        quantity: NotRequired[int]
-        """
-        The quantity reversed. Appears in [tax exports](https://stripe.com/docs/tax/reports), but does not affect the amount of tax reversed.
-        """
-        reference: str
-        """
-        A custom identifier for this line item in the reversal transaction, such as 'L1-refund'.
-        """
-
-    class CreateReversalParamsShippingCost(TypedDict):
-        amount: int
-        """
-        The amount to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
-        """
-        amount_tax: int
-        """
-        The amount of tax to reverse, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) in negative.
-        """
-
-    class ListLineItemsParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -539,7 +424,7 @@ class Transaction(APIResource["Transaction"]):
 
     @classmethod
     def create_from_calculation(
-        cls, **params: Unpack["Transaction.CreateFromCalculationParams"]
+        cls, **params: Unpack["TransactionCreateFromCalculationParams"]
     ) -> "Transaction":
         """
         Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
@@ -555,7 +440,7 @@ class Transaction(APIResource["Transaction"]):
 
     @classmethod
     async def create_from_calculation_async(
-        cls, **params: Unpack["Transaction.CreateFromCalculationParams"]
+        cls, **params: Unpack["TransactionCreateFromCalculationParams"]
     ) -> "Transaction":
         """
         Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
@@ -571,7 +456,7 @@ class Transaction(APIResource["Transaction"]):
 
     @classmethod
     def create_reversal(
-        cls, **params: Unpack["Transaction.CreateReversalParams"]
+        cls, **params: Unpack["TransactionCreateReversalParams"]
     ) -> "Transaction":
         """
         Partially or fully reverses a previously created Transaction.
@@ -587,7 +472,7 @@ class Transaction(APIResource["Transaction"]):
 
     @classmethod
     async def create_reversal_async(
-        cls, **params: Unpack["Transaction.CreateReversalParams"]
+        cls, **params: Unpack["TransactionCreateReversalParams"]
     ) -> "Transaction":
         """
         Partially or fully reverses a previously created Transaction.
@@ -605,7 +490,7 @@ class Transaction(APIResource["Transaction"]):
     def _cls_list_line_items(
         cls,
         transaction: str,
-        **params: Unpack["Transaction.ListLineItemsParams"],
+        **params: Unpack["TransactionListLineItemsParams"],
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -624,7 +509,7 @@ class Transaction(APIResource["Transaction"]):
     @overload
     @staticmethod
     def list_line_items(
-        transaction: str, **params: Unpack["Transaction.ListLineItemsParams"]
+        transaction: str, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -633,7 +518,7 @@ class Transaction(APIResource["Transaction"]):
 
     @overload
     def list_line_items(
-        self, **params: Unpack["Transaction.ListLineItemsParams"]
+        self, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -642,7 +527,7 @@ class Transaction(APIResource["Transaction"]):
 
     @class_method_variant("_cls_list_line_items")
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Transaction.ListLineItemsParams"]
+        self, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -662,7 +547,7 @@ class Transaction(APIResource["Transaction"]):
     async def _cls_list_line_items_async(
         cls,
         transaction: str,
-        **params: Unpack["Transaction.ListLineItemsParams"],
+        **params: Unpack["TransactionListLineItemsParams"],
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -681,7 +566,7 @@ class Transaction(APIResource["Transaction"]):
     @overload
     @staticmethod
     async def list_line_items_async(
-        transaction: str, **params: Unpack["Transaction.ListLineItemsParams"]
+        transaction: str, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -690,7 +575,7 @@ class Transaction(APIResource["Transaction"]):
 
     @overload
     async def list_line_items_async(
-        self, **params: Unpack["Transaction.ListLineItemsParams"]
+        self, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -699,7 +584,7 @@ class Transaction(APIResource["Transaction"]):
 
     @class_method_variant("_cls_list_line_items_async")
     async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Transaction.ListLineItemsParams"]
+        self, **params: Unpack["TransactionListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -717,7 +602,7 @@ class Transaction(APIResource["Transaction"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
+        cls, id: str, **params: Unpack["TransactionRetrieveParams"]
     ) -> "Transaction":
         """
         Retrieves a Tax Transaction object.
@@ -728,7 +613,7 @@ class Transaction(APIResource["Transaction"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
+        cls, id: str, **params: Unpack["TransactionRetrieveParams"]
     ) -> "Transaction":
         """
         Retrieves a Tax Transaction object.

@@ -5,7 +5,6 @@ from stripe._customer import Customer
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._error import InvalidRequestError
 from stripe._expandable_field import ExpandableField
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
@@ -15,6 +14,9 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._card import Card
+    from stripe.param._bank_account_delete_params import (
+        BankAccountDeleteParams,
+    )
 
 
 class BankAccount(
@@ -296,9 +298,6 @@ class BankAccount(
         """
         _inner_class_types = {"errors": Error}
 
-    class DeleteParams(RequestOptions):
-        pass
-
     account: Optional[ExpandableField["Account"]]
     """
     The account this bank account belongs to. Only applicable on Accounts (not customers or recipients) This property is only available when returned as an [External Account](https://docs.stripe.com/api/external_account_bank_accounts/object) where [controller.is_controller](https://docs.stripe.com/api/accounts/object#account_object-controller-is_controller) is `true`.
@@ -384,7 +383,7 @@ class BankAccount(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["BankAccount.DeleteParams"]
+        cls, sid: str, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -402,7 +401,7 @@ class BankAccount(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["BankAccount.DeleteParams"]
+        sid: str, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -411,7 +410,7 @@ class BankAccount(
 
     @overload
     def delete(
-        self, **params: Unpack["BankAccount.DeleteParams"]
+        self, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -420,7 +419,7 @@ class BankAccount(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["BankAccount.DeleteParams"]
+        self, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -433,7 +432,7 @@ class BankAccount(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["BankAccount.DeleteParams"]
+        cls, sid: str, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -451,7 +450,7 @@ class BankAccount(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["BankAccount.DeleteParams"]
+        sid: str, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -460,7 +459,7 @@ class BankAccount(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["BankAccount.DeleteParams"]
+        self, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -469,7 +468,7 @@ class BankAccount(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["BankAccount.DeleteParams"]
+        self, **params: Unpack["BankAccountDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.

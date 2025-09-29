@@ -3,20 +3,17 @@
 from stripe._balance import Balance
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.param._balance_retrieve_params import BalanceRetrieveParams
 
 
 class BalanceService(StripeService):
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def retrieve(
         self,
-        params: Optional["BalanceService.RetrieveParams"] = None,
+        params: Optional["BalanceRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Balance:
         """
@@ -36,7 +33,7 @@ class BalanceService(StripeService):
 
     async def retrieve_async(
         self,
-        params: Optional["BalanceService.RetrieveParams"] = None,
+        params: Optional["BalanceRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Balance:
         """
