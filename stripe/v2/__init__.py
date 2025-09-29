@@ -13,8 +13,6 @@ from stripe.v2 import (
 from stripe.v2._billing_service import BillingService as BillingService
 from stripe.v2._core_service import CoreService as CoreService
 from stripe.v2._deleted_object import DeletedObject as DeletedObject
-from stripe.v2._event import Event as Event
-from stripe.v2._event_destination import EventDestination as EventDestination
 from stripe.v2._financial_address_credit_simulation import (
     FinancialAddressCreditSimulation as FinancialAddressCreditSimulation,
 )
