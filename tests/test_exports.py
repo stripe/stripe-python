@@ -22,51 +22,51 @@ def assert_output(code: str, expected: str) -> None:
 
 
 def test_can_import_request_options() -> None:
-    from stripe import RequestOptions  # type: ignore[reportUnusedImport]
+    from stripe import RequestOptions  # pyright: ignore[reportUnusedImport]
 
 
 def test_can_import_http_client() -> None:
     from stripe import (
-        HTTPClient,  # type: ignore[reportUnusedImport]
-        PycurlClient,  # type: ignore[reportUnusedImport]
-        RequestsClient,  # type: ignore[reportUnusedImport]
-        UrlFetchClient,  # type: ignore[reportUnusedImport]
-        new_default_http_client,  # type: ignore[reportUnusedImport]
+        HTTPClient,  # pyright: ignore[reportUnusedImport]
+        PycurlClient,  # pyright: ignore[reportUnusedImport]
+        RequestsClient,  # pyright: ignore[reportUnusedImport]
+        UrlFetchClient,  # pyright: ignore[reportUnusedImport]
+        new_default_http_client,  # pyright: ignore[reportUnusedImport]
     )
 
 
 def test_can_import_webhook_members() -> None:
     from stripe import (
-        Webhook,  # type: ignore[reportUnusedImport]
-        WebhookSignature,  # type: ignore[reportUnusedImport]
+        Webhook,  # pyright: ignore[reportUnusedImport]
+        WebhookSignature,  # pyright: ignore[reportUnusedImport]
     )
 
 
 def test_can_import_abstract() -> None:
     from stripe import (
-        APIResource,  # type: ignore[reportUnusedImport]
-        SingletonAPIResource,  # type: ignore[reportUnusedImport]
-        CreateableAPIResource,  # type: ignore[reportUnusedImport]
-        UpdateableAPIResource,  # type: ignore[reportUnusedImport]
-        DeletableAPIResource,  # type: ignore[reportUnusedImport]
-        ListableAPIResource,  # type: ignore[reportUnusedImport]
-        SearchableAPIResource,  # type: ignore[reportUnusedImport]
-        VerifyMixin,  # type: ignore[reportUnusedImport]
-        APIResourceTestHelpers,  # type: ignore[reportUnusedImport]
-        custom_method,  # type: ignore[reportUnusedImport]
-        nested_resource_class_methods,  # type: ignore[reportUnusedImport]
+        APIResource,  # pyright: ignore[reportUnusedImport]
+        SingletonAPIResource,  # pyright: ignore[reportUnusedImport]
+        CreateableAPIResource,  # pyright: ignore[reportUnusedImport]
+        UpdateableAPIResource,  # pyright: ignore[reportUnusedImport]
+        DeletableAPIResource,  # pyright: ignore[reportUnusedImport]
+        ListableAPIResource,  # pyright: ignore[reportUnusedImport]
+        SearchableAPIResource,  # pyright: ignore[reportUnusedImport]
+        VerifyMixin,  # pyright: ignore[reportUnusedImport]
+        APIResourceTestHelpers,  # pyright: ignore[reportUnusedImport]
+        custom_method,  # pyright: ignore[reportUnusedImport]
+        nested_resource_class_methods,  # pyright: ignore[reportUnusedImport]
     )
 
 
 def test_can_import_app_info() -> None:
-    from stripe import AppInfo  # type: ignore[reportUnusedImport]
+    from stripe import AppInfo  # pyright: ignore[reportUnusedImport]
 
 
 def test_can_import_stripe_response() -> None:
     from stripe import (
-        StripeResponse,  # type: ignore[reportUnusedImport]
-        StripeResponseBase,  # type: ignore[reportUnusedImport]
-        StripeStreamResponse,  # type: ignore[reportUnusedImport]
+        StripeResponse,  # pyright: ignore[reportUnusedImport]
+        StripeResponseBase,  # pyright: ignore[reportUnusedImport]
+        StripeStreamResponse,  # pyright: ignore[reportUnusedImport]
     )
 
 
@@ -77,22 +77,22 @@ def test_can_import_oauth_members() -> None:
 
 
 def test_can_import_util() -> None:
-    from stripe import convert_to_stripe_object  # type: ignore[reportUnusedImport]
+    from stripe import convert_to_stripe_object  # pyright: ignore[reportUnusedImport]
 
 
 def test_can_import_errors() -> None:
     # fmt: off
-    from stripe import StripeError  # type: ignore[reportUnusedImport]
-    from stripe import APIError  # type: ignore[reportUnusedImport]
-    from stripe import APIConnectionError  # type: ignore[reportUnusedImport]
-    from stripe import StripeErrorWithParamCode  # type: ignore[reportUnusedImport]
-    from stripe import CardError  # type: ignore[reportUnusedImport]
-    from stripe import IdempotencyError  # type: ignore[reportUnusedImport]
-    from stripe import InvalidRequestError  # type: ignore[reportUnusedImport]
-    from stripe import AuthenticationError  # type: ignore[reportUnusedImport]
-    from stripe import PermissionError  # type: ignore[reportUnusedImport]
-    from stripe import RateLimitError  # type: ignore[reportUnusedImport]
-    from stripe import SignatureVerificationError  # type: ignore[reportUnusedImport]
+    from stripe import StripeError  # pyright: ignore[reportUnusedImport]
+    from stripe import APIError  # pyright: ignore[reportUnusedImport]
+    from stripe import APIConnectionError  # pyright: ignore[reportUnusedImport]
+    from stripe import StripeErrorWithParamCode  # pyright: ignore[reportUnusedImport]
+    from stripe import CardError  # pyright: ignore[reportUnusedImport]
+    from stripe import IdempotencyError  # pyright: ignore[reportUnusedImport]
+    from stripe import InvalidRequestError  # pyright: ignore[reportUnusedImport]
+    from stripe import AuthenticationError  # pyright: ignore[reportUnusedImport]
+    from stripe import PermissionError  # pyright: ignore[reportUnusedImport]
+    from stripe import RateLimitError  # pyright: ignore[reportUnusedImport]
+    from stripe import SignatureVerificationError  # pyright: ignore[reportUnusedImport]
     # fmt: on
 
 
