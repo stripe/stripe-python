@@ -4404,7 +4404,7 @@ class Invoice(
     """
     The URL for the hosted invoice page, which allows customers to view and pay an invoice. If the invoice has not been finalized yet, this will be null.
     """
-    id: Optional[str]
+    id: str
     """
     Unique identifier for the object. For preview invoices created using the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint, this id will be prefixed with `upcoming_in`.
     """
