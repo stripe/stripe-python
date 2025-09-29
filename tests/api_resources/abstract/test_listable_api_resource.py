@@ -1,8 +1,9 @@
-import stripe
+from stripe._listable_api_resource import ListableAPIResource
+from stripe._charge import Charge
 
 
 class TestListableAPIResource(object):
-    class MyListable(stripe.api_resources.abstract.ListableAPIResource):
+    class MyListable(ListableAPIResource):
         OBJECT_NAME = "mylistable"
 
     def test_all(self, http_client_mock):
@@ -18,7 +19,7 @@ class TestListableAPIResource(object):
             "get", path="/v1/mylistables", query_string=""
         )
         assert len(res.data) == 2
-        assert all(isinstance(obj, stripe.Charge) for obj in res.data)
+        assert all(isinstance(obj, Charge) for obj in res.data)
         assert res.data[0].name == "jose"
         assert res.data[1].name == "curly"
 

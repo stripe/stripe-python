@@ -1,5 +1,10 @@
 # -*- coding: utf-8 -*-
-# File generated from our OpenAPI spec
+
+from stripe.v2.core._event import (
+    UnknownEventNotification as UnknownEventNotification,
+)
+
+# The beginning of the section generated from our OpenAPI spec
 from stripe.events._event_classes import (
     ALL_EVENT_NOTIFICATIONS as ALL_EVENT_NOTIFICATIONS,
 )
