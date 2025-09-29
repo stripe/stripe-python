@@ -9,6 +9,7 @@ import requests
 
 from tests.stripe_mock import StripeMock
 from tests.http_client_mock import HTTPClientMock
+from stripe._http_client import new_default_http_client
 
 
 pytest_plugins = ("anyio",)
@@ -70,7 +71,7 @@ def setup_stripe():
         "client_id": stripe.client_id,
         "default_http_client": stripe.default_http_client,
     }
-    http_client = stripe.http_client.new_default_http_client()
+    http_client = new_default_http_client()
     stripe.api_base = MOCK_API_BASE
     stripe.upload_api_base = MOCK_API_BASE
     stripe.api_key = MOCK_API_KEY

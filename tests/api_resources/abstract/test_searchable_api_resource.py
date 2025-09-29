@@ -1,8 +1,9 @@
-import stripe
+from stripe._searchable_api_resource import SearchableAPIResource
+from stripe._charge import Charge
 
 
 class TestSearchableAPIResource(object):
-    class MySearchable(stripe.api_resources.abstract.SearchableAPIResource):
+    class MySearchable(SearchableAPIResource):
         OBJECT_NAME = "mysearchable"
 
         @classmethod
@@ -27,7 +28,7 @@ class TestSearchableAPIResource(object):
             "get", path=path, query_string=query_string
         )
         assert len(res.data) == 2
-        assert all(isinstance(obj, stripe.Charge) for obj in res.data)
+        assert all(isinstance(obj, Charge) for obj in res.data)
         assert res.data[0].name == "jose"
         assert res.data[1].name == "curly"
 
@@ -70,5 +71,5 @@ class TestSearchableAPIResource(object):
         )
 
         assert len(res2.data) == 1
-        assert all(isinstance(obj, stripe.Charge) for obj in res2.data)
+        assert all(isinstance(obj, Charge) for obj in res2.data)
         assert res2.data[0].name == "test"
