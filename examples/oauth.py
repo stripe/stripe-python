@@ -21,7 +21,7 @@ def index():
 
 @app.route("/authorize")
 def authorize():
-    url = OAuth.authorize_url(scope="read_only")
+    url = client.oauth.authorize_url(scope="read_only")
     return redirect(url)
 
 
@@ -29,7 +29,9 @@ def authorize():
 def callback():
     code = request.args.get("code")
     try:
-        resp = OAuth.token(grant_type="authorization_code", code=code)
+        resp = client.oauth.token(
+            params={"grant_type": "authorization_code", "code": code}
+        )
     except OAuthError as e:
         return "Error: " + str(e)
 
