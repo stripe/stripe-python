@@ -3,8 +3,8 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._event import Event
 from stripe.v2._list_object import ListObject
+from stripe.v2.core._event import Event
 from typing import Optional, cast
 from typing_extensions import NotRequired, TypedDict
 
