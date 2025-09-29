@@ -1,8 +1,8 @@
-import stripe
+from stripe._deletable_api_resource import DeletableAPIResource
 
 
 class TestDeletableAPIResource(object):
-    class MyDeletable(stripe.api_resources.abstract.DeletableAPIResource):
+    class MyDeletable(DeletableAPIResource):
         OBJECT_NAME = "mydeletable"
 
     def test_delete_class(self, http_client_mock):

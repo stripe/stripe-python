@@ -1,8 +1,8 @@
-import stripe
+from stripe._singleton_api_resource import SingletonAPIResource
 
 
 class TestSingletonAPIResource(object):
-    class MySingleton(stripe.api_resources.abstract.SingletonAPIResource):
+    class MySingleton(SingletonAPIResource):
         OBJECT_NAME = "mysingleton"
 
     def test_retrieve(self, http_client_mock):

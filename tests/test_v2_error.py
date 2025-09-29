@@ -5,7 +5,7 @@ import json
 import pytest
 
 import stripe
-from stripe import error
+from stripe._error import InvalidRequestError, TemporarySessionExpiredError
 from tests.http_client_mock import HTTPClientMock
 
 
@@ -42,7 +42,7 @@ class TestV2Error(object):
 
         try:
             stripe_client.v2.core.events.retrieve("evt_123")
-        except error.TemporarySessionExpiredError as e:
+        except TemporarySessionExpiredError as e:
             assert e.code == "session_bad"
             assert e.error.code == "session_bad"
             assert e.error.message == "you messed up"
@@ -55,47 +55,47 @@ class TestV2Error(object):
             api_key="keyinfo_test_123",
         )
 
-    @pytest.mark.skip("python doesn't have any errors with invalid params yet")
-    def test_raises_v2_error_with_field(
-        self,
-        stripe_client: stripe.StripeClient,
-        http_client_mock: HTTPClientMock,
-    ):
-        method = "post"
-        path = "/v2/payment_methods/us_bank_accounts"
+    # @pytest.mark.skip("python doesn't have any errors with invalid params yet")
+    # def test_raises_v2_error_with_field(
+    #     self,
+    #     stripe_client: stripe.StripeClient,
+    #     http_client_mock: HTTPClientMock,
+    # ):
+    #     method = "post"
+    #     path = "/v2/payment_methods/us_bank_accounts"
 
-        error_response = {
-            "error": {
-                "type": "invalid_payment_method",
-                "code": "invalid_us_bank_account",
-                "message": "bank account is invalid",
-                "invalid_param": "routing_number",
-            }
-        }
-        http_client_mock.stub_request(
-            method,
-            path=path,
-            rbody=json.dumps(error_response),
-            rcode=400,
-            rheaders={},
-        )
+    #     error_response = {
+    #         "error": {
+    #             "type": "invalid_payment_method",
+    #             "code": "invalid_us_bank_account",
+    #             "message": "bank account is invalid",
+    #             "invalid_param": "routing_number",
+    #         }
+    #     }
+    #     http_client_mock.stub_request(
+    #         method,
+    #         path=path,
+    #         rbody=json.dumps(error_response),
+    #         rcode=400,
+    #         rheaders={},
+    #     )
 
-        try:
-            stripe_client.v2.payment_methods.us_bank_accounts.create(
-                params={"account_number": "123", "routing_number": "456"}
-            )
-        except error.InvalidPaymentMethodError as e:
-            assert e.invalid_param == "routing_number"
-            assert e.error.code == "invalid_us_bank_account"
-            assert e.error.message == "bank account is invalid"
-        else:
-            assert False, "Should have raised a InvalidUsBankAccountError"
+    #     try:
+    #         stripe_client.v2.payment_methods.us_bank_accounts.create(
+    #             params={"account_number": "123", "routing_number": "456"}
+    #         )
+    #     except error.InvalidPaymentMethodError as e:
+    #         assert e.invalid_param == "routing_number"
+    #         assert e.error.code == "invalid_us_bank_account"
+    #         assert e.error.message == "bank account is invalid"
+    #     else:
+    #         assert False, "Should have raised a InvalidUsBankAccountError"
 
-        http_client_mock.assert_requested(
-            method,
-            path=path,
-            api_key="keyinfo_test_123",
-        )
+    #     http_client_mock.assert_requested(
+    #         method,
+    #         path=path,
+    #         api_key="keyinfo_test_123",
+    #     )
 
     def test_falls_back_to_v1_error(
         self,
@@ -124,7 +124,7 @@ class TestV2Error(object):
             stripe_client.v2.billing.meter_events.create(
                 {"event_name": "asdf", "payload": {}}
             )
-        except error.InvalidRequestError as e:
+        except InvalidRequestError as e:
             assert e.param == "invalid_param"
             assert repr(e) == (
                 "InvalidRequestError(message='your request is invalid', "

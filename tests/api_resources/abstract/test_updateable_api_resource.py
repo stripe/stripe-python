@@ -1,11 +1,11 @@
 import pytest
 import json
 
-import stripe
+from stripe._updateable_api_resource import UpdateableAPIResource
 
 
 class TestUpdateableAPIResource(object):
-    class MyUpdateable(stripe.api_resources.abstract.UpdateableAPIResource):
+    class MyUpdateable(UpdateableAPIResource):
         OBJECT_NAME = "myupdateable"
 
     @pytest.fixture

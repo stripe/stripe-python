@@ -1,6 +1,5 @@
 import functools
 import hmac
-import io  # noqa: F401
 import logging
 import sys
 import os
