@@ -5,7 +5,7 @@ from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast
-from typing_extensions import Literal, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._discount import Discount
@@ -299,7 +299,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["InvoiceLineItemModifyParams"]
+        cls, invoice: str, line_item_id: str, **params
     ) -> "InvoiceLineItem":
         """
         Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
@@ -307,7 +307,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
         Updating an invoice's line item is only possible before the invoice is finalized.
         """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        url = "/v1/invoices/%s/lines/%s" % (
+            sanitize_id(invoice),
+            sanitize_id(line_item_id),
+        )
         return cast(
             "InvoiceLineItem",
             cls._static_request(
@@ -319,7 +322,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["InvoiceLineItemModifyParams"]
+        cls, invoice: str, line_item_id: str, **params
     ) -> "InvoiceLineItem":
         """
         Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
@@ -327,7 +330,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
         Updating an invoice's line item is only possible before the invoice is finalized.
         """
-        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        url = "/v1/invoices/%s/lines/%s" % (
+            sanitize_id(invoice),
+            sanitize_id(line_item_id),
+        )
         return cast(
             "InvoiceLineItem",
             await cls._static_request_async(
