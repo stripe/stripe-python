@@ -9,20 +9,19 @@ classes for API resources that initialize themselves dynamically from API
 responses which makes it compatible with a wide range of versions of the Stripe
 API.
 
-## Documentation
+## API Documentation
 
 See the [Python API docs](https://stripe.com/docs/api?lang=python).
 
 ## Installation
 
-You don't need this source code unless you want to modify the package. If you just
-want to use the package, just run:
+This package is available on PyPI:
 
 ```sh
 pip install --upgrade stripe
 ```
 
-Install from source with:
+Alternatively, install from source with:
 
 ```sh
 python -m pip install .
@@ -30,7 +29,21 @@ python -m pip install .
 
 ### Requirements
 
--   Python 3.6+ (PyPy supported)
+Per our [Language Version Support Policy](TKTK), we currently support **Python 3.7+**.
+
+We drop support for end-of-life Python versions once they've been out of support for a year. We'll only drop support for Python versions in scheduled major releases (March & September, as outlined in the [Stripe API Versioning and Support Policy](https://docs.stripe.com/sdks/versioning)).
+
+#### Upcoming Deprecations
+
+| Python Version | [End of Life Date](https://endoflife.date/python) | Release when stripe-python drops support | Last stripe-python version to support this Python verison | Notes                                                                          |
+| -------------- | ------------------------------------------------- | ---------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| 3.7            | June 2023                                         | March 2026                               | TBD                                                       | This is a longer-than-normal window while we transition into this new schedule |
+| 3.8            | October 2024                                      | March 2026                               | TBD                                                       |                                                                                |
+| 3.9            | October 2025                                      | March 2027                               | TBD                                                       |                                                                                |
+
+And so forth.
+
+#### Extended Support
 
 #### Python 2.7 deprecation
 
