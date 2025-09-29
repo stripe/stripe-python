@@ -1,6 +1,6 @@
 import os
 
-from stripe import StripeClient, OAuth
+from stripe import StripeClient
 from stripe.oauth_error import OAuthError
 
 from flask import Flask, request, redirect
@@ -46,7 +46,7 @@ disconnect the account.</p>
 def deauthorize():
     stripe_user_id = request.args.get("stripe_user_id")
     try:
-        OAuth.deauthorize(stripe_user_id=stripe_user_id)
+        client.oauth.deauthorize(params={"stripe_user_id": stripe_user_id})
     except OAuthError as e:
         return "Error: " + str(e)
 
