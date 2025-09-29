@@ -123,6 +123,10 @@ def new_http_client_async_fallback(*args: Any, **kwargs: Any) -> "HTTPClient":
 
 
 class HTTPClient(object):
+    """
+    Base HTTP client that custom clients can inherit from.
+    """
+
     name: ClassVar[str]
 
     class _Proxy(TypedDict):

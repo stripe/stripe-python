@@ -1,35 +1,39 @@
 import os
 
-import stripe
-
-
-stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
+from stripe import (
+    StripeClient,
+    RequestsClient,
+    HTTPClient,
+    UrllibClient,
+    verify_ssl_certs,
+    PycurlClient,
+)
 
 print("Attempting charge...")
 
-proxy = {
+proxy: HTTPClient._Proxy = {
     "http": "http://<user>:<pass>@<proxy>:<port>",
     "https": "http://<user>:<pass>@<proxy>:<port>",
 }
 
-clients = (
-    stripe.http_client.RequestsClient(
-        verify_ssl_certs=stripe.verify_ssl_certs, proxy=proxy
-    ),
-    stripe.http_client.PycurlClient(
-        verify_ssl_certs=stripe.verify_ssl_certs, proxy=proxy
-    ),
-    stripe.http_client.UrllibClient(
-        verify_ssl_certs=stripe.verify_ssl_certs, proxy=proxy
-    ),
+http_clients = (
+    RequestsClient(verify_ssl_certs=verify_ssl_certs, proxy=proxy),
+    PycurlClient(verify_ssl_certs=verify_ssl_certs, proxy=proxy),
+    UrllibClient(verify_ssl_certs=verify_ssl_certs, proxy=proxy),
 )
 
-for c in clients:
-    stripe.default_http_client = c
-    resp = stripe.Charge.create(
-        amount=200,
-        currency="usd",
-        card="tok_visa",
-        description="customer@gmail.com",
+for http_client in http_clients:
+    client_with_proxy = StripeClient(
+        api_key=os.environ["STRIPE_SECRET_KEY"],
+        http_client=http_client,
     )
-    print("Success: %s, %r" % (c.name, resp))
+
+    resp = client_with_proxy.v1.charges.create(
+        params={
+            "amount": 200,
+            "currency": "usd",
+            "description": "customer@example.com",
+        }
+    )
+
+    print("Success: %s, %r" % (http_client.name, resp))

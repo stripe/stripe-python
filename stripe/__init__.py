@@ -200,6 +200,7 @@ from stripe._http_client import (
     UrlFetchClient as UrlFetchClient,
     HTTPXClient as HTTPXClient,
     AIOHTTPClient as AIOHTTPClient,
+    UrllibClient as UrllibClient,
     new_default_http_client as new_default_http_client,
 )
 
