@@ -1,21 +1,21 @@
-import stripe
-from stripe import util
+import io
+from stripe._api_resource import APIResource
+from stripe._custom_method import custom_method
+from stripe._util import class_method_variant, sanitize_id
 
 
 class TestCustomMethod(object):
-    @stripe.api_resources.abstract.custom_method(
-        "do_stuff", http_verb="post", http_path="do_the_thing"
-    )
-    @stripe.api_resources.abstract.custom_method(
+    @custom_method("do_stuff", http_verb="post", http_path="do_the_thing")
+    @custom_method(
         "do_list_stuff", http_verb="get", http_path="do_the_list_thing"
     )
-    @stripe.api_resources.abstract.custom_method(
+    @custom_method(
         "do_stream_stuff",
         http_verb="post",
         http_path="do_the_stream_thing",
         is_streaming=True,
     )
-    class MyResource(stripe.api_resources.abstract.APIResource):
+    class MyResource(APIResource):
         OBJECT_NAME = "myresource"
 
         def do_stuff(self, idempotency_key=None, **params):
@@ -35,18 +35,16 @@ class TestCustomMethod(object):
         def _cls_do_stuff_new_codegen(cls, id, **params):
             return cls._static_request(
                 "post",
-                "/v1/myresources/{id}/do_the_thing".format(
-                    id=util.sanitize_id(id)
-                ),
+                "/v1/myresources/{id}/do_the_thing".format(id=sanitize_id(id)),
                 params=params,
             )
 
-        @util.class_method_variant("_cls_do_stuff_new_codegen")
+        @class_method_variant("_cls_do_stuff_new_codegen")
         def do_stuff_new_codegen(self, **params):
             return self._request(
                 "post",
                 "/v1/myresources/{id}/do_the_thing".format(
-                    id=util.sanitize_id(self.get("id"))
+                    id=sanitize_id(self.get("id"))
                 ),
                 params=params,
             )
@@ -113,7 +111,7 @@ class TestCustomMethod(object):
         http_client_mock.stub_request(
             "post",
             path="/v1/myresources/mid/do_the_stream_thing",
-            rbody=util.io.BytesIO(str.encode("response body")),
+            rbody=io.BytesIO(str.encode("response body")),
             rheaders={"request-id": "req_id"},
         )
 
@@ -155,7 +153,7 @@ class TestCustomMethod(object):
         http_client_mock.stub_request(
             "post",
             path="/v1/myresources/mid/do_the_stream_thing",
-            rbody=util.io.BytesIO(str.encode("response body")),
+            rbody=io.BytesIO(str.encode("response body")),
             rheaders={"request-id": "req_id"},
         )
 
@@ -196,7 +194,7 @@ class TestCustomMethod(object):
         http_client_mock.stub_request(
             "post",
             path="/v1/myresources/mid/do_the_stream_thing",
-            rbody=util.io.BytesIO(str.encode("response body")),
+            rbody=io.BytesIO(str.encode("response body")),
             rheaders={"request-id": "req_id"},
         )
 

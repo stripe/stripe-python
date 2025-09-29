@@ -14,7 +14,7 @@ extend-select =
 per-file-ignores =
     */__init__.py: IMP100, E402, F401
     # we test various import patterns
-    tests/test_exports.py: IMP100, IMP101, IMP102
+    tests/test_exports.py: IMP100, IMP101, IMP102, F401
     tests/*: IMP101, IMP102, BAN100, ASY100
     # backcompat with outdated import patterns
     stripe/api_resources/*: IMP100, E402, F401

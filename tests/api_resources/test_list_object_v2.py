@@ -7,6 +7,7 @@ import pytest
 import stripe
 from stripe.v2._list_object import ListObject
 from tests.http_client_mock import HTTPClientMock
+from stripe._util import convert_to_stripe_object
 
 
 class TestListObjectV2(object):
@@ -23,7 +24,7 @@ class TestListObjectV2(object):
 
     def test_iter(self):
         arr = ["a", "b", "c"]
-        expected = stripe.util.convert_to_stripe_object(arr, api_mode="V2")
+        expected = convert_to_stripe_object(arr, api_mode="V2")
         lo = ListObject.construct_from({"data": arr}, None)
         assert list(lo) == expected
 
