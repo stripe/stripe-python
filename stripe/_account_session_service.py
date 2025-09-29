@@ -35,12 +35,6 @@ class AccountSessionService(StripeService):
         """
         Configuration for the [account onboarding](https://docs.stripe.com/connect/supported-embedded-components/account-onboarding/) embedded component.
         """
-        balance_report: NotRequired[
-            "AccountSessionService.CreateParamsComponentsBalanceReport"
-        ]
-        """
-        Configuration for the [balance report](https://docs.stripe.com/connect/supported-embedded-components/financial-reports#balance-report) embedded component.
-        """
         balances: NotRequired[
             "AccountSessionService.CreateParamsComponentsBalances"
         ]
@@ -119,12 +113,6 @@ class AccountSessionService(StripeService):
         """
         Configuration for the [payout details](https://docs.stripe.com/connect/supported-embedded-components/payout-details/) embedded component.
         """
-        payout_reconciliation_report: NotRequired[
-            "AccountSessionService.CreateParamsComponentsPayoutReconciliationReport"
-        ]
-        """
-        Configuration for the [payout reconciliation report](https://docs.stripe.com/connect/supported-embedded-components/financial-reports#payout-reconciliation-report) embedded component.
-        """
         payouts: NotRequired[
             "AccountSessionService.CreateParamsComponentsPayouts"
         ]
@@ -193,21 +181,6 @@ class AccountSessionService(StripeService):
         """
         Whether external account collection is enabled. This feature can only be `false` for accounts where you're responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
         """
-
-    class CreateParamsComponentsBalanceReport(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsBalanceReportFeatures"
-        ]
-        """
-        An empty list, because this embedded component has no features.
-        """
-
-    class CreateParamsComponentsBalanceReportFeatures(TypedDict):
-        pass
 
     class CreateParamsComponentsBalances(TypedDict):
         enabled: bool
@@ -549,21 +522,6 @@ class AccountSessionService(StripeService):
         """
 
     class CreateParamsComponentsPayoutDetailsFeatures(TypedDict):
-        pass
-
-    class CreateParamsComponentsPayoutReconciliationReport(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSessionService.CreateParamsComponentsPayoutReconciliationReportFeatures"
-        ]
-        """
-        An empty list, because this embedded component has no features.
-        """
-
-    class CreateParamsComponentsPayoutReconciliationReportFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsPayouts(TypedDict):

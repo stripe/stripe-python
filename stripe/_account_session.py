@@ -57,17 +57,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
-        class BalanceReport(StripeObject):
-            class Features(StripeObject):
-                pass
-
-            enabled: bool
-            """
-            Whether the embedded component is enabled.
-            """
-            features: Features
-            _inner_class_types = {"features": Features}
-
         class Balances(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -356,17 +345,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
-        class PayoutReconciliationReport(StripeObject):
-            class Features(StripeObject):
-                pass
-
-            enabled: bool
-            """
-            Whether the embedded component is enabled.
-            """
-            features: Features
-            _inner_class_types = {"features": Features}
-
         class Payouts(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -432,7 +410,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
         account_management: AccountManagement
         account_onboarding: AccountOnboarding
-        balance_report: BalanceReport
         balances: Balances
         disputes_list: DisputesList
         documents: Documents
@@ -446,7 +423,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payment_disputes: PaymentDisputes
         payments: Payments
         payout_details: PayoutDetails
-        payout_reconciliation_report: PayoutReconciliationReport
         payouts: Payouts
         payouts_list: PayoutsList
         tax_registrations: TaxRegistrations
@@ -454,7 +430,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         _inner_class_types = {
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
-            "balance_report": BalanceReport,
             "balances": Balances,
             "disputes_list": DisputesList,
             "documents": Documents,
@@ -468,7 +443,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payment_disputes": PaymentDisputes,
             "payments": Payments,
             "payout_details": PayoutDetails,
-            "payout_reconciliation_report": PayoutReconciliationReport,
             "payouts": Payouts,
             "payouts_list": PayoutsList,
             "tax_registrations": TaxRegistrations,
@@ -501,12 +475,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         ]
         """
         Configuration for the [account onboarding](https://docs.stripe.com/connect/supported-embedded-components/account-onboarding/) embedded component.
-        """
-        balance_report: NotRequired[
-            "AccountSession.CreateParamsComponentsBalanceReport"
-        ]
-        """
-        Configuration for the [balance report](https://docs.stripe.com/connect/supported-embedded-components/financial-reports#balance-report) embedded component.
         """
         balances: NotRequired["AccountSession.CreateParamsComponentsBalances"]
         """
@@ -582,12 +550,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the [payout details](https://docs.stripe.com/connect/supported-embedded-components/payout-details/) embedded component.
         """
-        payout_reconciliation_report: NotRequired[
-            "AccountSession.CreateParamsComponentsPayoutReconciliationReport"
-        ]
-        """
-        Configuration for the [payout reconciliation report](https://docs.stripe.com/connect/supported-embedded-components/financial-reports#payout-reconciliation-report) embedded component.
-        """
         payouts: NotRequired["AccountSession.CreateParamsComponentsPayouts"]
         """
         Configuration for the [payouts](https://docs.stripe.com/connect/supported-embedded-components/payouts/) embedded component.
@@ -654,21 +616,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether external account collection is enabled. This feature can only be `false` for accounts where you're responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
         """
-
-    class CreateParamsComponentsBalanceReport(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSession.CreateParamsComponentsBalanceReportFeatures"
-        ]
-        """
-        An empty list, because this embedded component has no features.
-        """
-
-    class CreateParamsComponentsBalanceReportFeatures(TypedDict):
-        pass
 
     class CreateParamsComponentsBalances(TypedDict):
         enabled: bool
@@ -1010,21 +957,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
 
     class CreateParamsComponentsPayoutDetailsFeatures(TypedDict):
-        pass
-
-    class CreateParamsComponentsPayoutReconciliationReport(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSession.CreateParamsComponentsPayoutReconciliationReportFeatures"
-        ]
-        """
-        An empty list, because this embedded component has no features.
-        """
-
-    class CreateParamsComponentsPayoutReconciliationReportFeatures(TypedDict):
         pass
 
     class CreateParamsComponentsPayouts(TypedDict):
