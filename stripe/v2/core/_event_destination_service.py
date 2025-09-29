@@ -4,9 +4,9 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._deleted_object import DeletedObject
-from stripe.v2._event import Event
-from stripe.v2._event_destination import EventDestination
 from stripe.v2._list_object import ListObject
+from stripe.v2.core._event import Event
+from stripe.v2.core._event_destination import EventDestination
 from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict
 
