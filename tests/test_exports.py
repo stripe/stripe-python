@@ -53,7 +53,7 @@ def test_can_import_abstract() -> None:
         SearchableAPIResource,  # pyright: ignore[reportUnusedImport]
         VerifyMixin,  # pyright: ignore[reportUnusedImport]
         APIResourceTestHelpers,  # pyright: ignore[reportUnusedImport]
-        custom_method,  # pyright: ignore[reportUnusedImport]
+        custom_method,  # type: ignore
         nested_resource_class_methods,  # pyright: ignore[reportUnusedImport]
     )
 
