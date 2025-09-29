@@ -296,7 +296,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
 
     @classmethod
     def modify(
-        cls, invoice_id: str, line_item_id: str, **params
+        cls, invoice: str, line_item_id: str, **params
     ) -> "InvoiceLineItem":
         """
         Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
@@ -305,7 +305,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         Updating an invoice's line item is only possible before the invoice is finalized.
         """
         url = "/v1/invoices/%s/lines/%s" % (
-            sanitize_id(invoice_id),
+            sanitize_id(invoice),
             sanitize_id(line_item_id),
         )
         return cast(
@@ -319,7 +319,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
 
     @classmethod
     async def modify_async(
-        cls, invoice_id: str, line_item_id: str, **params
+        cls, invoice: str, line_item_id: str, **params
     ) -> "InvoiceLineItem":
         """
         Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
@@ -328,7 +328,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         Updating an invoice's line item is only possible before the invoice is finalized.
         """
         url = "/v1/invoices/%s/lines/%s" % (
-            sanitize_id(invoice_id),
+            sanitize_id(invoice),
             sanitize_id(line_item_id),
         )
         return cast(
