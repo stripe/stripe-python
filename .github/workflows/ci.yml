@@ -77,17 +77,20 @@ jobs:
       fail-fast: false
       matrix:
         python_version:
-          # - "3.6"
+          # The last ~5 versions, once we're on schedule
+          # https://docs.stripe.com/sdks/versioning?server=python#stripe-sdk-language-version-support-policy
           - "3.7"
           - "3.8"
           - "3.9"
           - "3.10"
           - "3.11"
           - "3.12"
+          - "3.13"
           - "pypy-3.7"
           - "pypy-3.8"
           - "pypy-3.9"
           - "pypy-3.10"
+          - "pypy-3.11"
     name: Test (${{ matrix.python_version }})
     steps:
       - uses: extractions/setup-just@v2
@@ -138,9 +141,9 @@ jobs:
           source .venv/bin/activate
           export VERSION=$(cat VERSION)
           gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION.tar.gz
-          gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION-py2.py3-none-any.whl
+          gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION-py3-none-any.whl
 
-          python -m twine upload --verbose dist/stripe-$VERSION.tar.gz  dist/stripe-$VERSION-py2.py3-none-any.whl dist/stripe-$VERSION.tar.gz.asc dist/stripe-$VERSION-py2.py3-none-any.whl.asc
+          python -m twine upload --verbose dist/stripe-$VERSION.tar.gz  dist/stripe-$VERSION-py3-none-any.whl dist/stripe-$VERSION.tar.gz.asc dist/stripe-$VERSION-py3-none-any.whl.asc
         env:
           GPG_SIGNING_KEYID: ${{ secrets.GPG_SIGNING_KEYID }}
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
