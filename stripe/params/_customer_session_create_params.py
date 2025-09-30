@@ -10,9 +10,13 @@ class CustomerSessionCreateParams(RequestOptions):
     """
     Configuration for each component. Exactly 1 component must be enabled.
     """
-    customer: str
+    customer: NotRequired[str]
     """
     The ID of an existing customer for which to create the Customer Session.
+    """
+    customer_account: NotRequired[str]
+    """
+    The ID of an existing Account for which to create the Customer Session.
     """
     expand: NotRequired[List[str]]
     """

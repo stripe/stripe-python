@@ -5,42 +5,21 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2.core._claimable_sandbox import ClaimableSandbox
 from typing import Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.core._claimable_sandbox_create_params import (
+        ClaimableSandboxCreateParams,
+    )
+    from stripe.params.v2.core._claimable_sandbox_retrieve_params import (
+        ClaimableSandboxRetrieveParams,
+    )
 
 
 class ClaimableSandboxService(StripeService):
-    class CreateParams(TypedDict):
-        enable_mcp_access: bool
-        """
-        If true, returns a key that can be used with [Stripe's MCP server](https://docs.stripe.com/mcp).
-        """
-        prefill: "ClaimableSandboxService.CreateParamsPrefill"
-        """
-        Values that are prefilled when a user claims the sandbox. When a user claims the sandbox, they will be able to update these values.
-        """
-
-    class CreateParamsPrefill(TypedDict):
-        country: str
-        """
-        Country in which the account holder resides, or in which the business is legally established.
-        Use two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        email: str
-        """
-        Email that this sandbox is meant to be claimed by. Stripe will
-        notify this email address before the sandbox expires.
-        """
-        name: NotRequired[str]
-        """
-        Name for the sandbox. If not provided, this will be generated.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def create(
         self,
-        params: "ClaimableSandboxService.CreateParams",
+        params: "ClaimableSandboxCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ClaimableSandbox:
         """
@@ -60,7 +39,7 @@ class ClaimableSandboxService(StripeService):
 
     async def create_async(
         self,
-        params: "ClaimableSandboxService.CreateParams",
+        params: "ClaimableSandboxCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ClaimableSandbox:
         """
@@ -81,7 +60,7 @@ class ClaimableSandboxService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["ClaimableSandboxService.RetrieveParams"] = None,
+        params: Optional["ClaimableSandboxRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ClaimableSandbox:
         """
@@ -103,7 +82,7 @@ class ClaimableSandboxService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["ClaimableSandboxService.RetrieveParams"] = None,
+        params: Optional["ClaimableSandboxRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ClaimableSandbox:
         """

@@ -36,6 +36,10 @@ class ReceivedDebitCreateParams(RequestOptions):
     """
     Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
     """
+    network_details: NotRequired["ReceivedDebitCreateParamsNetworkDetails"]
+    """
+    Details about the network used for the ReceivedDebit.
+    """
 
 
 class ReceivedDebitCreateParamsInitiatingPaymentMethodDetails(TypedDict):
@@ -65,4 +69,22 @@ class ReceivedDebitCreateParamsInitiatingPaymentMethodDetailsUsBankAccount(
     routing_number: NotRequired[str]
     """
     The bank account's routing number.
+    """
+
+
+class ReceivedDebitCreateParamsNetworkDetails(TypedDict):
+    ach: NotRequired["ReceivedDebitCreateParamsNetworkDetailsAch"]
+    """
+    Optional fields for `ach`.
+    """
+    type: Literal["ach"]
+    """
+    The type of flow that originated the ReceivedDebit.
+    """
+
+
+class ReceivedDebitCreateParamsNetworkDetailsAch(TypedDict):
+    addenda: NotRequired[str]
+    """
+    Addenda record data associated with this ReceivedDebit.
     """

@@ -6,8 +6,22 @@ from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._bill_setting import BillSetting
 from stripe.v2.billing.bill_settings._version_service import VersionService
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing._bill_setting_create_params import (
+        BillSettingCreateParams,
+    )
+    from stripe.params.v2.billing._bill_setting_list_params import (
+        BillSettingListParams,
+    )
+    from stripe.params.v2.billing._bill_setting_retrieve_params import (
+        BillSettingRetrieveParams,
+    )
+    from stripe.params.v2.billing._bill_setting_update_params import (
+        BillSettingUpdateParams,
+    )
 
 
 class BillSettingService(StripeService):
@@ -15,139 +29,9 @@ class BillSettingService(StripeService):
         super().__init__(requestor)
         self.versions = VersionService(self._requestor)
 
-    class CreateParams(TypedDict):
-        calculation: NotRequired["BillSettingService.CreateParamsCalculation"]
-        """
-        Settings related to calculating a bill.
-        """
-        display_name: NotRequired[str]
-        """
-        An optional customer-facing display name for the CollectionSetting object.
-        Maximum length of 250 characters.
-        """
-        invoice: NotRequired["BillSettingService.CreateParamsInvoice"]
-        """
-        Settings related to invoice behavior.
-        """
-        invoice_rendering_template: NotRequired[str]
-        """
-        The ID of the invoice rendering template to be used when generating invoices.
-        """
-        lookup_key: NotRequired[str]
-        """
-        A lookup key used to retrieve settings dynamically from a static string.
-        This may be up to 200 characters.
-        """
-
-    class CreateParamsCalculation(TypedDict):
-        tax: NotRequired["BillSettingService.CreateParamsCalculationTax"]
-        """
-        Settings for calculating tax.
-        """
-
-    class CreateParamsCalculationTax(TypedDict):
-        type: Literal["automatic", "manual"]
-        """
-        Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
-        """
-
-    class CreateParamsInvoice(TypedDict):
-        time_until_due: NotRequired[
-            "BillSettingService.CreateParamsInvoiceTimeUntilDue"
-        ]
-        """
-        The amount of time until the invoice will be overdue for payment.
-        """
-
-    class CreateParamsInvoiceTimeUntilDue(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        The interval unit for the time until due.
-        """
-        interval_count: int
-        """
-        The number of interval units. For example, if interval=day and interval_count=30,
-        the invoice will be due in 30 days.
-        """
-
-    class ListParams(TypedDict):
-        limit: NotRequired[int]
-        """
-        Optionally set the maximum number of results per page. Defaults to 20.
-        """
-        lookup_keys: NotRequired[List[str]]
-        """
-        Only return the settings with these lookup_keys, if any exist.
-        You can specify up to 10 lookup_keys.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
-    class UpdateParams(TypedDict):
-        calculation: NotRequired["BillSettingService.UpdateParamsCalculation"]
-        """
-        Settings related to calculating a bill.
-        """
-        display_name: NotRequired[str]
-        """
-        An optional customer-facing display name for the BillSetting object.
-        To remove the display name, set it to an empty string in the request.
-        Maximum length of 250 characters.
-        """
-        invoice: NotRequired["BillSettingService.UpdateParamsInvoice"]
-        """
-        Settings related to invoice behavior.
-        """
-        invoice_rendering_template: NotRequired[str]
-        """
-        The ID of the invoice rendering template to be used when generating invoices.
-        """
-        live_version: NotRequired[str]
-        """
-        Optionally change the live version of the BillSetting. Providing `live_version = "latest"` will set the
-        BillSetting' `live_version` to its latest version.
-        """
-        lookup_key: NotRequired[str]
-        """
-        A lookup key used to retrieve settings dynamically from a static string.
-        This may be up to 200 characters.
-        """
-
-    class UpdateParamsCalculation(TypedDict):
-        tax: NotRequired["BillSettingService.UpdateParamsCalculationTax"]
-        """
-        Settings for calculating tax.
-        """
-
-    class UpdateParamsCalculationTax(TypedDict):
-        type: Literal["automatic", "manual"]
-        """
-        Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
-        """
-
-    class UpdateParamsInvoice(TypedDict):
-        time_until_due: NotRequired[
-            "BillSettingService.UpdateParamsInvoiceTimeUntilDue"
-        ]
-        """
-        The amount of time until the invoice will be overdue for payment.
-        """
-
-    class UpdateParamsInvoiceTimeUntilDue(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        """
-        The interval unit for the time until due.
-        """
-        interval_count: int
-        """
-        The number of interval units. For example, if interval=day and interval_count=30,
-        the invoice will be due in 30 days.
-        """
-
     def list(
         self,
-        params: Optional["BillSettingService.ListParams"] = None,
+        params: Optional["BillSettingListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[BillSetting]:
         """
@@ -166,7 +50,7 @@ class BillSettingService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["BillSettingService.ListParams"] = None,
+        params: Optional["BillSettingListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[BillSetting]:
         """
@@ -185,7 +69,7 @@ class BillSettingService(StripeService):
 
     def create(
         self,
-        params: Optional["BillSettingService.CreateParams"] = None,
+        params: Optional["BillSettingCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BillSetting:
         """
@@ -204,7 +88,7 @@ class BillSettingService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["BillSettingService.CreateParams"] = None,
+        params: Optional["BillSettingCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BillSetting:
         """
@@ -224,7 +108,7 @@ class BillSettingService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["BillSettingService.RetrieveParams"] = None,
+        params: Optional["BillSettingRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BillSetting:
         """
@@ -244,7 +128,7 @@ class BillSettingService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["BillSettingService.RetrieveParams"] = None,
+        params: Optional["BillSettingRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BillSetting:
         """
@@ -264,7 +148,7 @@ class BillSettingService(StripeService):
     def update(
         self,
         id: str,
-        params: Optional["BillSettingService.UpdateParams"] = None,
+        params: Optional["BillSettingUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BillSetting:
         """
@@ -284,7 +168,7 @@ class BillSettingService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: Optional["BillSettingService.UpdateParams"] = None,
+        params: Optional["BillSettingUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BillSetting:
         """

@@ -27,6 +27,10 @@ class PriceUpdateParams(TypedDict):
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    migrate_to: NotRequired["Literal['']|PriceUpdateParamsMigrateTo"]
+    """
+    If specified, subscriptions using this price will be updated to use the new referenced price.
+    """
     nickname: NotRequired[str]
     """
     A brief description of the price, hidden from customers.
@@ -105,4 +109,19 @@ class PriceUpdateParamsCurrencyOptionsTier(TypedDict):
     up_to: Union[Literal["inf"], int]
     """
     Specifies the upper bound of this tier. The lower bound of a tier is the upper bound of the previous tier adding one. Use `inf` to define a fallback tier.
+    """
+
+
+class PriceUpdateParamsMigrateTo(TypedDict):
+    behavior: Literal["at_cycle_end"]
+    """
+    The behavior controlling the point in the subscription lifecycle after which to migrate the price. Currently must be `at_cycle_end`.
+    """
+    effective_after: NotRequired[int]
+    """
+    The time after which subscriptions should start using the new price.
+    """
+    price: str
+    """
+    The ID of the price object.
     """

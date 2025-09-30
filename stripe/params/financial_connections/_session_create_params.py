@@ -18,6 +18,14 @@ class SessionCreateParams(RequestOptions):
     """
     Filters to restrict the kinds of accounts to collect.
     """
+    limits: NotRequired["SessionCreateParamsLimits"]
+    """
+    Settings for configuring Session-specific limits.
+    """
+    manual_entry: NotRequired["SessionCreateParamsManualEntry"]
+    """
+    Customize manual entry behavior
+    """
     permissions: List[
         Literal["balances", "ownership", "payment_method", "transactions"]
     ]
@@ -27,7 +35,11 @@ class SessionCreateParams(RequestOptions):
     Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
     """
     prefetch: NotRequired[
-        List[Literal["balances", "ownership", "transactions"]]
+        List[
+            Literal[
+                "balances", "inferred_balances", "ownership", "transactions"
+            ]
+        ]
     ]
     """
     List of data features that you would like to retrieve upon account creation.
@@ -46,6 +58,10 @@ class SessionCreateParamsAccountHolder(TypedDict):
     customer: NotRequired[str]
     """
     The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
+    """
+    customer_account: NotRequired[str]
+    """
+    The ID of the Stripe customer Account whose accounts will be retrieved. Should only be present if `type` is `customer`.
     """
     type: Literal["account", "customer"]
     """
@@ -71,4 +87,22 @@ class SessionCreateParamsFilters(TypedDict):
     countries: NotRequired[List[str]]
     """
     List of countries from which to collect accounts.
+    """
+    institution: NotRequired[str]
+    """
+    Stripe ID of the institution with which the customer should be directed to log in.
+    """
+
+
+class SessionCreateParamsLimits(TypedDict):
+    accounts: int
+    """
+    The number of accounts that can be linked in this Session.
+    """
+
+
+class SessionCreateParamsManualEntry(TypedDict):
+    mode: NotRequired[Literal["automatic", "custom"]]
+    """
+    Whether manual entry will be handled by Stripe during the Session.
     """

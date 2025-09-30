@@ -3,24 +3,19 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.tax._association import Association
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.tax._association_find_params import (
+        AssociationFindParams,
+    )
 
 
 class AssociationService(StripeService):
-    class FindParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        payment_intent: str
-        """
-        Valid [PaymentIntent](https://stripe.com/docs/api/payment_intents/object) id
-        """
-
     def find(
         self,
-        params: "AssociationService.FindParams",
+        params: "AssociationFindParams",
         options: Optional[RequestOptions] = None,
     ) -> Association:
         """
@@ -39,7 +34,7 @@ class AssociationService(StripeService):
 
     async def find_async(
         self,
-        params: "AssociationService.FindParams",
+        params: "AssociationFindParams",
         options: Optional[RequestOptions] = None,
     ) -> Association:
         """

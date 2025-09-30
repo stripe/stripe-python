@@ -6,9 +6,13 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class CreditBalanceSummaryRetrieveParams(RequestOptions):
-    customer: str
+    customer: NotRequired[str]
     """
     The customer for which to fetch credit balance summary.
+    """
+    customer_account: NotRequired[str]
+    """
+    The account for which to fetch credit balance summary.
     """
     expand: NotRequired[List[str]]
     """
@@ -38,6 +42,14 @@ class CreditBalanceSummaryRetrieveParamsFilter(TypedDict):
 
 
 class CreditBalanceSummaryRetrieveParamsFilterApplicabilityScope(TypedDict):
+    billable_items: NotRequired[
+        List[
+            "CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopeBillableItem"
+        ]
+    ]
+    """
+    A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+    """
     price_type: NotRequired[Literal["metered"]]
     """
     The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
@@ -47,6 +59,15 @@ class CreditBalanceSummaryRetrieveParamsFilterApplicabilityScope(TypedDict):
     ]
     """
     A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+    """
+
+
+class CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopeBillableItem(
+    TypedDict,
+):
+    id: str
+    """
+    The billable item ID this credit grant should apply to.
     """
 
 

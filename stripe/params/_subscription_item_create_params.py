@@ -77,6 +77,10 @@ class SubscriptionItemCreateParams(RequestOptions):
     """
     A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
     """
+    trial: NotRequired["SubscriptionItemCreateParamsTrial"]
+    """
+    Options that configure the trial on the subscription item.
+    """
 
 
 class SubscriptionItemCreateParamsBillingThresholds(TypedDict):
@@ -95,9 +99,43 @@ class SubscriptionItemCreateParamsDiscount(TypedDict):
     """
     ID of an existing discount on the object (or one of its ancestors) to reuse.
     """
+    discount_end: NotRequired[
+        "SubscriptionItemCreateParamsDiscountDiscountEnd"
+    ]
+    """
+    Details to determine how long the discount should be applied for.
+    """
     promotion_code: NotRequired[str]
     """
     ID of the promotion code to create a new discount for.
+    """
+
+
+class SubscriptionItemCreateParamsDiscountDiscountEnd(TypedDict):
+    duration: NotRequired[
+        "SubscriptionItemCreateParamsDiscountDiscountEndDuration"
+    ]
+    """
+    Time span for the redeemed discount.
+    """
+    timestamp: NotRequired[int]
+    """
+    A precise Unix timestamp for the discount to end. Must be in the future.
+    """
+    type: Literal["duration", "timestamp"]
+    """
+    The type of calculation made to determine when the discount ends.
+    """
+
+
+class SubscriptionItemCreateParamsDiscountDiscountEndDuration(TypedDict):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: int
+    """
+    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
     """
 
 
@@ -136,4 +174,15 @@ class SubscriptionItemCreateParamsPriceDataRecurring(TypedDict):
     interval_count: NotRequired[int]
     """
     The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+    """
+
+
+class SubscriptionItemCreateParamsTrial(TypedDict):
+    converts_to: NotRequired[List[str]]
+    """
+    List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+    """
+    type: Literal["free", "paid"]
+    """
+    Determines the type of trial for this item.
     """

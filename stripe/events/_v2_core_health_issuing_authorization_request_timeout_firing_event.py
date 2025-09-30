@@ -5,7 +5,7 @@ from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2._amount import Amount
-from stripe.v2._event import Event, EventNotification
+from stripe.v2.core._event import Event, EventNotification
 from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, override
 

@@ -7,29 +7,24 @@ from stripe.v2.money_management._recipient_verification import (
     RecipientVerification,
 )
 from typing import Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.money_management._recipient_verification_acknowledge_params import (
+        RecipientVerificationAcknowledgeParams,
+    )
+    from stripe.params.v2.money_management._recipient_verification_create_params import (
+        RecipientVerificationCreateParams,
+    )
+    from stripe.params.v2.money_management._recipient_verification_retrieve_params import (
+        RecipientVerificationRetrieveParams,
+    )
 
 
 class RecipientVerificationService(StripeService):
-    class AcknowledgeParams(TypedDict):
-        pass
-
-    class CreateParams(TypedDict):
-        payout_method: str
-        """
-        ID of the payout method.
-        """
-        recipient: NotRequired[str]
-        """
-        ID of the recipient account. Required if the recipient distinct from the sender. Leave empty if the recipient and sender are the same entity (i.e. for me-to-me payouts).
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def create(
         self,
-        params: "RecipientVerificationService.CreateParams",
+        params: "RecipientVerificationCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> RecipientVerification:
         """
@@ -48,7 +43,7 @@ class RecipientVerificationService(StripeService):
 
     async def create_async(
         self,
-        params: "RecipientVerificationService.CreateParams",
+        params: "RecipientVerificationCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> RecipientVerification:
         """
@@ -68,7 +63,7 @@ class RecipientVerificationService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["RecipientVerificationService.RetrieveParams"] = None,
+        params: Optional["RecipientVerificationRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RecipientVerification:
         """
@@ -90,7 +85,7 @@ class RecipientVerificationService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["RecipientVerificationService.RetrieveParams"] = None,
+        params: Optional["RecipientVerificationRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RecipientVerification:
         """
@@ -112,9 +107,7 @@ class RecipientVerificationService(StripeService):
     def acknowledge(
         self,
         id: str,
-        params: Optional[
-            "RecipientVerificationService.AcknowledgeParams"
-        ] = None,
+        params: Optional["RecipientVerificationAcknowledgeParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RecipientVerification:
         """
@@ -136,9 +129,7 @@ class RecipientVerificationService(StripeService):
     async def acknowledge_async(
         self,
         id: str,
-        params: Optional[
-            "RecipientVerificationService.AcknowledgeParams"
-        ] = None,
+        params: Optional["RecipientVerificationAcknowledgeParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RecipientVerification:
         """

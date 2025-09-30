@@ -5,74 +5,25 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._financial_address import FinancialAddress
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.money_management._financial_address_create_params import (
+        FinancialAddressCreateParams,
+    )
+    from stripe.params.v2.money_management._financial_address_list_params import (
+        FinancialAddressListParams,
+    )
+    from stripe.params.v2.money_management._financial_address_retrieve_params import (
+        FinancialAddressRetrieveParams,
+    )
 
 
 class FinancialAddressService(StripeService):
-    class CreateParams(TypedDict):
-        financial_account: str
-        """
-        The ID of the FinancialAccount the new FinancialAddress should be associated with.
-        """
-        sepa_bank_account: NotRequired[
-            "FinancialAddressService.CreateParamsSepaBankAccount"
-        ]
-        """
-        Optional SEPA Bank account options, used to configure the type of SEPA Bank account to create, such as the originating country.
-        """
-        type: Literal[
-            "gb_bank_account", "sepa_bank_account", "us_bank_account"
-        ]
-        """
-        The type of FinancialAddress details to provision.
-        """
-
-    class CreateParamsSepaBankAccount(TypedDict):
-        country: str
-        """
-        The originating country of the SEPA Bank account.
-        """
-
-    class ListParams(TypedDict):
-        financial_account: NotRequired[str]
-        """
-        The ID of the FinancialAccount for which FinancialAddresses are to be returned.
-        """
-        include: NotRequired[
-            List[
-                Literal[
-                    "credentials.gb_bank_account.account_number",
-                    "credentials.sepa_bank_account.iban",
-                    "credentials.us_bank_account.account_number",
-                ]
-            ]
-        ]
-        """
-        Open Enum. A list of fields to reveal in the FinancialAddresses returned.
-        """
-        limit: NotRequired[int]
-        """
-        The page limit.
-        """
-
-    class RetrieveParams(TypedDict):
-        include: NotRequired[
-            List[
-                Literal[
-                    "credentials.gb_bank_account.account_number",
-                    "credentials.sepa_bank_account.iban",
-                    "credentials.us_bank_account.account_number",
-                ]
-            ]
-        ]
-        """
-        Open Enum. A list of fields to reveal in the FinancialAddresses returned.
-        """
-
     def list(
         self,
-        params: Optional["FinancialAddressService.ListParams"] = None,
+        params: Optional["FinancialAddressListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAddress]:
         """
@@ -91,7 +42,7 @@ class FinancialAddressService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["FinancialAddressService.ListParams"] = None,
+        params: Optional["FinancialAddressListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAddress]:
         """
@@ -110,7 +61,7 @@ class FinancialAddressService(StripeService):
 
     def create(
         self,
-        params: "FinancialAddressService.CreateParams",
+        params: "FinancialAddressCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> FinancialAddress:
         """
@@ -129,7 +80,7 @@ class FinancialAddressService(StripeService):
 
     async def create_async(
         self,
-        params: "FinancialAddressService.CreateParams",
+        params: "FinancialAddressCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> FinancialAddress:
         """
@@ -149,7 +100,7 @@ class FinancialAddressService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["FinancialAddressService.RetrieveParams"] = None,
+        params: Optional["FinancialAddressRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAddress:
         """
@@ -171,7 +122,7 @@ class FinancialAddressService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["FinancialAddressService.RetrieveParams"] = None,
+        params: Optional["FinancialAddressRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAddress:
         """

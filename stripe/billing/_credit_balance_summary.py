@@ -4,13 +4,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Dict, List, Optional
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._customer import Customer
@@ -177,74 +171,6 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
             "available_balance": AvailableBalance,
             "ledger_balance": LedgerBalance,
         }
-
-    class RetrieveParams(RequestOptions):
-        customer: NotRequired[str]
-        """
-        The customer for which to fetch credit balance summary.
-        """
-        customer_account: NotRequired[str]
-        """
-        The account for which to fetch credit balance summary.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        filter: "CreditBalanceSummary.RetrieveParamsFilter"
-        """
-        The filter criteria for the credit balance summary.
-        """
-
-    class RetrieveParamsFilter(TypedDict):
-        applicability_scope: NotRequired[
-            "CreditBalanceSummary.RetrieveParamsFilterApplicabilityScope"
-        ]
-        """
-        The billing credit applicability scope for which to fetch credit balance summary.
-        """
-        credit_grant: NotRequired[str]
-        """
-        The credit grant for which to fetch credit balance summary.
-        """
-        type: Literal["applicability_scope", "credit_grant"]
-        """
-        Specify the type of this filter.
-        """
-
-    class RetrieveParamsFilterApplicabilityScope(TypedDict):
-        billable_items: NotRequired[
-            List[
-                "CreditBalanceSummary.RetrieveParamsFilterApplicabilityScopeBillableItem"
-            ]
-        ]
-        """
-        A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
-        """
-        price_type: NotRequired[Literal["metered"]]
-        """
-        The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
-        """
-        prices: NotRequired[
-            List[
-                "CreditBalanceSummary.RetrieveParamsFilterApplicabilityScopePrice"
-            ]
-        ]
-        """
-        A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
-        """
-
-    class RetrieveParamsFilterApplicabilityScopeBillableItem(TypedDict):
-        id: str
-        """
-        The billable item ID this credit grant should apply to.
-        """
-
-    class RetrieveParamsFilterApplicabilityScopePrice(TypedDict):
-        id: str
-        """
-        The price ID this credit grant should apply to.
-        """
 
     balances: List[Balance]
     """

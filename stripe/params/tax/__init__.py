@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe.params.tax._association_find_params import (
+    AssociationFindParams as AssociationFindParams,
+)
 from stripe.params.tax._calculation_create_params import (
     CalculationCreateParams as CalculationCreateParams,
 )
@@ -11,6 +14,13 @@ from stripe.params.tax._calculation_list_line_items_params import (
 )
 from stripe.params.tax._calculation_retrieve_params import (
     CalculationRetrieveParams as CalculationRetrieveParams,
+)
+from stripe.params.tax._form_list_params import (
+    FormListParams as FormListParams,
+)
+from stripe.params.tax._form_pdf_params import FormPdfParams as FormPdfParams
+from stripe.params.tax._form_retrieve_params import (
+    FormRetrieveParams as FormRetrieveParams,
 )
 from stripe.params.tax._registration_create_params import (
     RegistrationCreateParams as RegistrationCreateParams,

@@ -3,285 +3,26 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._amount import AmountParam
 from stripe.v2.billing._service_action import ServiceAction
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing._service_action_create_params import (
+        ServiceActionCreateParams,
+    )
+    from stripe.params.v2.billing._service_action_retrieve_params import (
+        ServiceActionRetrieveParams,
+    )
+    from stripe.params.v2.billing._service_action_update_params import (
+        ServiceActionUpdateParams,
+    )
 
 
 class ServiceActionService(StripeService):
-    class CreateParams(TypedDict):
-        lookup_key: NotRequired[str]
-        """
-        An internal key you can use to search for this service action. Maximum length of 200 characters.
-        """
-        service_interval: Literal["day", "month", "week", "year"]
-        """
-        The interval for assessing service.
-        """
-        service_interval_count: int
-        """
-        The length of the interval for assessing service.
-        """
-        type: Literal["credit_grant", "credit_grant_per_tenant"]
-        """
-        The type of the service action.
-        """
-        credit_grant: NotRequired[
-            "ServiceActionService.CreateParamsCreditGrant"
-        ]
-        """
-        Details for the credit grant. Required if `type` is `credit_grant`.
-        """
-        credit_grant_per_tenant: NotRequired[
-            "ServiceActionService.CreateParamsCreditGrantPerTenant"
-        ]
-        """
-        Details for the credit grant per tenant. Required if `type` is `credit_grant_per_tenant`.
-        """
-
-    class CreateParamsCreditGrant(TypedDict):
-        amount: "ServiceActionService.CreateParamsCreditGrantAmount"
-        """
-        The amount of the credit grant.
-        """
-        applicability_config: (
-            "ServiceActionService.CreateParamsCreditGrantApplicabilityConfig"
-        )
-        """
-        Defines the scope where the credit grant is applicable.
-        """
-        category: NotRequired[Literal["paid", "promotional"]]
-        """
-        The category of the credit grant.
-        """
-        expiry_config: (
-            "ServiceActionService.CreateParamsCreditGrantExpiryConfig"
-        )
-        """
-        The expiry configuration for the credit grant.
-        """
-        name: str
-        """
-        A descriptive name shown in dashboard.
-        """
-        priority: NotRequired[int]
-        """
-        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
-        """
-
-    class CreateParamsCreditGrantAmount(TypedDict):
-        type: Literal["custom_pricing_unit", "monetary"]
-        """
-        The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-        """
-        custom_pricing_unit: NotRequired[
-            "ServiceActionService.CreateParamsCreditGrantAmountCustomPricingUnit"
-        ]
-        """
-        The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
-        """
-        monetary: NotRequired[AmountParam]
-        """
-        The monetary amount of the credit grant. Required if `type` is `monetary`.
-        """
-
-    class CreateParamsCreditGrantAmountCustomPricingUnit(TypedDict):
-        id: str
-        """
-        The id of the custom pricing unit.
-        """
-        value: str
-        """
-        The value of the credit grant, decimal value represented as a string.
-        """
-
-    class CreateParamsCreditGrantApplicabilityConfig(TypedDict):
-        scope: "ServiceActionService.CreateParamsCreditGrantApplicabilityConfigScope"
-        """
-        The applicability scope of the credit grant.
-        """
-
-    class CreateParamsCreditGrantApplicabilityConfigScope(TypedDict):
-        billable_items: NotRequired[List[str]]
-        """
-        The billable items to apply the credit grant to.
-        """
-        price_type: NotRequired[Literal["metered"]]
-        """
-        The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
-        """
-
-    class CreateParamsCreditGrantExpiryConfig(TypedDict):
-        type: Literal["end_of_service_period"]
-        """
-        The type of the expiry configuration. We currently support `end_of_service_period`.
-        """
-
-    class CreateParamsCreditGrantPerTenant(TypedDict):
-        amount: "ServiceActionService.CreateParamsCreditGrantPerTenantAmount"
-        """
-        The amount of the credit grant.
-        """
-        applicability_config: "ServiceActionService.CreateParamsCreditGrantPerTenantApplicabilityConfig"
-        """
-        Defines the scope where the credit grant is applicable.
-        """
-        category: NotRequired[Literal["paid", "promotional"]]
-        """
-        The category of the credit grant.
-        """
-        expiry_config: (
-            "ServiceActionService.CreateParamsCreditGrantPerTenantExpiryConfig"
-        )
-        """
-        The expiry configuration for the credit grant.
-        """
-        grant_condition: "ServiceActionService.CreateParamsCreditGrantPerTenantGrantCondition"
-        """
-        The grant condition for the credit grant.
-        """
-        name: str
-        """
-        Customer-facing name for the credit grant.
-        """
-        priority: NotRequired[int]
-        """
-        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
-        """
-
-    class CreateParamsCreditGrantPerTenantAmount(TypedDict):
-        type: Literal["custom_pricing_unit", "monetary"]
-        """
-        The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-        """
-        custom_pricing_unit: NotRequired[
-            "ServiceActionService.CreateParamsCreditGrantPerTenantAmountCustomPricingUnit"
-        ]
-        """
-        The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
-        """
-        monetary: NotRequired[AmountParam]
-        """
-        The monetary amount of the credit grant. Required if `type` is `monetary`.
-        """
-
-    class CreateParamsCreditGrantPerTenantAmountCustomPricingUnit(TypedDict):
-        id: str
-        """
-        The id of the custom pricing unit.
-        """
-        value: str
-        """
-        The value of the credit grant, decimal value represented as a string.
-        """
-
-    class CreateParamsCreditGrantPerTenantApplicabilityConfig(TypedDict):
-        scope: "ServiceActionService.CreateParamsCreditGrantPerTenantApplicabilityConfigScope"
-        """
-        The applicability scope of the credit grant.
-        """
-
-    class CreateParamsCreditGrantPerTenantApplicabilityConfigScope(TypedDict):
-        billable_items: NotRequired[List[str]]
-        """
-        The billable items to apply the credit grant to.
-        """
-        price_type: NotRequired[Literal["metered"]]
-        """
-        The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
-        """
-
-    class CreateParamsCreditGrantPerTenantExpiryConfig(TypedDict):
-        type: Literal["end_of_service_period"]
-        """
-        The type of the expiry configuration. We currently support `end_of_service_period`.
-        """
-
-    class CreateParamsCreditGrantPerTenantGrantCondition(TypedDict):
-        type: Literal["meter_event_first_per_period"]
-        """
-        The type of the grant condition. We currently support `meter_event_first_per_period`.
-        """
-        meter_event_first_per_period: NotRequired[
-            "ServiceActionService.CreateParamsCreditGrantPerTenantGrantConditionMeterEventFirstPerPeriod"
-        ]
-        """
-        The grant condition for the meter event first per period.
-        """
-
-    class CreateParamsCreditGrantPerTenantGrantConditionMeterEventFirstPerPeriod(
-        TypedDict,
-    ):
-        meter_segment_conditions: List[
-            "ServiceActionService.CreateParamsCreditGrantPerTenantGrantConditionMeterEventFirstPerPeriodMeterSegmentCondition"
-        ]
-        """
-        The meter segment conditions for the grant condition.
-        """
-
-    class CreateParamsCreditGrantPerTenantGrantConditionMeterEventFirstPerPeriodMeterSegmentCondition(
-        TypedDict,
-    ):
-        type: Literal["dimension"]
-        """
-        The type of the meter segment condition. We currently support `dimension`.
-        """
-        dimension: NotRequired[
-            "ServiceActionService.CreateParamsCreditGrantPerTenantGrantConditionMeterEventFirstPerPeriodMeterSegmentConditionDimension"
-        ]
-        """
-        Dimension-based meter segment condition.
-        """
-
-    class CreateParamsCreditGrantPerTenantGrantConditionMeterEventFirstPerPeriodMeterSegmentConditionDimension(
-        TypedDict,
-    ):
-        payload_key: str
-        """
-        The payload key for the dimension.
-        """
-        value: str
-        """
-        The value for the dimension.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
-    class UpdateParams(TypedDict):
-        lookup_key: NotRequired[str]
-        """
-        An internal key you can use to search for this service action. Maximum length of 200 characters.
-        """
-        credit_grant: NotRequired[
-            "ServiceActionService.UpdateParamsCreditGrant"
-        ]
-        """
-        Details for the credit grant. Can only be set if the service action's `type` is `credit_grant`.
-        """
-        credit_grant_per_tenant: NotRequired[
-            "ServiceActionService.UpdateParamsCreditGrantPerTenant"
-        ]
-        """
-        Details for the credit grant per tenant. Can only be set if the service action's `type` is `credit_grant_per_tenant`.
-        """
-
-    class UpdateParamsCreditGrant(TypedDict):
-        name: NotRequired[str]
-        """
-        A descriptive name shown in dashboard.
-        """
-
-    class UpdateParamsCreditGrantPerTenant(TypedDict):
-        name: NotRequired[str]
-        """
-        A descriptive name shown in dashboard.
-        """
-
     def create(
         self,
-        params: "ServiceActionService.CreateParams",
+        params: "ServiceActionCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
@@ -300,7 +41,7 @@ class ServiceActionService(StripeService):
 
     async def create_async(
         self,
-        params: "ServiceActionService.CreateParams",
+        params: "ServiceActionCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
@@ -320,7 +61,7 @@ class ServiceActionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["ServiceActionService.RetrieveParams"] = None,
+        params: Optional["ServiceActionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
@@ -340,7 +81,7 @@ class ServiceActionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["ServiceActionService.RetrieveParams"] = None,
+        params: Optional["ServiceActionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
@@ -360,7 +101,7 @@ class ServiceActionService(StripeService):
     def update(
         self,
         id: str,
-        params: Optional["ServiceActionService.UpdateParams"] = None,
+        params: Optional["ServiceActionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """
@@ -380,7 +121,7 @@ class ServiceActionService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: Optional["ServiceActionService.UpdateParams"] = None,
+        params: Optional["ServiceActionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ServiceAction:
         """

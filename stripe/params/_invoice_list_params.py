@@ -6,6 +6,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class InvoiceListParams(RequestOptions):
+    billing_cadence: NotRequired[str]
+    """
+    Only return invoices for the cadence specified by this billing cadence ID.
+    """
     collection_method: NotRequired[
         Literal["charge_automatically", "send_invoice"]
     ]
@@ -19,6 +23,10 @@ class InvoiceListParams(RequestOptions):
     customer: NotRequired[str]
     """
     Only return invoices for the customer specified by this customer ID.
+    """
+    customer_account: NotRequired[str]
+    """
+    Only return invoices for the account specified by this account ID.
     """
     due_date: NotRequired["InvoiceListParamsDueDate|int"]
     ending_before: NotRequired[str]

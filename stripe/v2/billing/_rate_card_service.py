@@ -7,8 +7,22 @@ from stripe.v2._list_object import ListObject
 from stripe.v2.billing._rate_card import RateCard
 from stripe.v2.billing.rate_cards._rate_service import RateService
 from stripe.v2.billing.rate_cards._version_service import VersionService
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing._rate_card_create_params import (
+        RateCardCreateParams,
+    )
+    from stripe.params.v2.billing._rate_card_list_params import (
+        RateCardListParams,
+    )
+    from stripe.params.v2.billing._rate_card_retrieve_params import (
+        RateCardRetrieveParams,
+    )
+    from stripe.params.v2.billing._rate_card_update_params import (
+        RateCardUpdateParams,
+    )
 
 
 class RateCardService(StripeService):
@@ -17,88 +31,9 @@ class RateCardService(StripeService):
         self.rates = RateService(self._requestor)
         self.versions = VersionService(self._requestor)
 
-    class CreateParams(TypedDict):
-        currency: str
-        """
-        The currency of this RateCard.
-        """
-        display_name: str
-        """
-        A customer-facing name for the RateCard.
-        This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
-        Maximum length of 250 characters.
-        """
-        lookup_key: NotRequired[str]
-        """
-        An internal key you can use to search for a particular RateCard. Maximum length of 200 characters.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-        """
-        service_interval: Literal["day", "month", "week", "year"]
-        """
-        The interval for assessing service. For example, a monthly RateCard with a rate of $1 for the first 10 "workloads"
-        and $2 thereafter means "$1 per workload up to 10 workloads during a month of service." This is similar to but
-        distinct from billing interval; the service interval deals with the rate at which the customer accumulates fees,
-        while the billing interval in Cadence deals with the rate the customer is billed.
-        """
-        service_interval_count: int
-        """
-        The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
-        order to specify quarterly service.
-        """
-        tax_behavior: Literal["exclusive", "inclusive"]
-        """
-        The Stripe Tax tax behavior - whether the rates are inclusive or exclusive of tax.
-        """
-
-    class ListParams(TypedDict):
-        active: NotRequired[bool]
-        """
-        Optionally filter to active/inactive RateCards.
-        """
-        limit: NotRequired[int]
-        """
-        Optionally set the maximum number of results per page. Defaults to 20.
-        """
-        lookup_keys: NotRequired[List[str]]
-        """
-        Filter by lookup keys.
-        You can specify up to 10 lookup keys.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
-    class UpdateParams(TypedDict):
-        active: NotRequired[bool]
-        """
-        Sets whether the RateCard is active. Inactive RateCards cannot be used in new activations or have new rates added.
-        """
-        display_name: NotRequired[str]
-        """
-        A customer-facing name for the RateCard.
-        This name is used in Stripe-hosted products like the Customer Portal and Checkout. It does not show up on Invoices.
-        Maximum length of 250 characters.
-        """
-        live_version: NotRequired[str]
-        """
-        Changes the version that new RateCard activations will use. Providing `live_version = "latest"` will set the
-        RateCard's `live_version` to its latest version.
-        """
-        lookup_key: NotRequired[str]
-        """
-        An internal key you can use to search for a particular RateCard. Maximum length of 200 characters.
-        """
-        metadata: NotRequired[Dict[str, Optional[str]]]
-        """
-        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-        """
-
     def list(
         self,
-        params: Optional["RateCardService.ListParams"] = None,
+        params: Optional["RateCardListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[RateCard]:
         """
@@ -117,7 +52,7 @@ class RateCardService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["RateCardService.ListParams"] = None,
+        params: Optional["RateCardListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[RateCard]:
         """
@@ -136,7 +71,7 @@ class RateCardService(StripeService):
 
     def create(
         self,
-        params: "RateCardService.CreateParams",
+        params: "RateCardCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> RateCard:
         """
@@ -155,7 +90,7 @@ class RateCardService(StripeService):
 
     async def create_async(
         self,
-        params: "RateCardService.CreateParams",
+        params: "RateCardCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> RateCard:
         """
@@ -175,7 +110,7 @@ class RateCardService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["RateCardService.RetrieveParams"] = None,
+        params: Optional["RateCardRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RateCard:
         """
@@ -195,7 +130,7 @@ class RateCardService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["RateCardService.RetrieveParams"] = None,
+        params: Optional["RateCardRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RateCard:
         """
@@ -215,7 +150,7 @@ class RateCardService(StripeService):
     def update(
         self,
         id: str,
-        params: Optional["RateCardService.UpdateParams"] = None,
+        params: Optional["RateCardUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RateCard:
         """
@@ -235,7 +170,7 @@ class RateCardService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: Optional["RateCardService.UpdateParams"] = None,
+        params: Optional["RateCardUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RateCard:
         """

@@ -4,8 +4,8 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing import ClassVar, Dict, Optional
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._invoice import Invoice
@@ -223,42 +223,6 @@ class CreditBalanceTransaction(
             "amount": Amount,
             "credits_applied": CreditsApplied,
         }
-
-    class ListParams(RequestOptions):
-        credit_grant: NotRequired[str]
-        """
-        The credit grant for which to fetch credit balance transactions.
-        """
-        customer: NotRequired[str]
-        """
-        The customer for which to fetch credit balance transactions.
-        """
-        customer_account: NotRequired[str]
-        """
-        The account for which to fetch credit balance transactions.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
 
     created: int
     """

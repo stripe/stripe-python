@@ -26,6 +26,12 @@ class ConfigurationCreateParams(RequestOptions):
     """
     Configurations for collecting transactions offline.
     """
+    reader_security: NotRequired[
+        "Literal['']|ConfigurationCreateParamsReaderSecurity"
+    ]
+    """
+    Configurations for reader security settings.
+    """
     reboot_window: NotRequired["ConfigurationCreateParamsRebootWindow"]
     """
     Reboot time settings for readers that support customized reboot time configuration.
@@ -66,6 +72,13 @@ class ConfigurationCreateParamsOffline(TypedDict):
     enabled: bool
     """
     Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+    """
+
+
+class ConfigurationCreateParamsReaderSecurity(TypedDict):
+    admin_menu_passcode: NotRequired["Literal['']|str"]
+    """
+    Passcode used to access a reader's admin menu.
     """
 
 

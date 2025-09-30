@@ -32,6 +32,10 @@ class VerificationSessionCreateParams(RequestOptions):
     """
     Customer ID
     """
+    related_customer_account: NotRequired[str]
+    """
+    Token referencing a Customer Account resource.
+    """
     related_person: NotRequired["VerificationSessionCreateParamsRelatedPerson"]
     """
     Tokens referencing a Person resource and it's associated account.

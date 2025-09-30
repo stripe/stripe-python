@@ -4,6 +4,7 @@ from stripe.params import (
     apps as apps,
     billing as billing,
     billing_portal as billing_portal,
+    capital as capital,
     checkout as checkout,
     climate as climate,
     entitlements as entitlements,
@@ -11,6 +12,7 @@ from stripe.params import (
     forwarding as forwarding,
     identity as identity,
     issuing as issuing,
+    privacy as privacy,
     radar as radar,
     reporting as reporting,
     sigma as sigma,
@@ -90,6 +92,18 @@ from stripe.params._account_modify_external_account_params import (
 )
 from stripe.params._account_modify_person_params import (
     AccountModifyPersonParams as AccountModifyPersonParams,
+)
+from stripe.params._account_notice_list_params import (
+    AccountNoticeListParams as AccountNoticeListParams,
+)
+from stripe.params._account_notice_modify_params import (
+    AccountNoticeModifyParams as AccountNoticeModifyParams,
+)
+from stripe.params._account_notice_retrieve_params import (
+    AccountNoticeRetrieveParams as AccountNoticeRetrieveParams,
+)
+from stripe.params._account_notice_update_params import (
+    AccountNoticeUpdateParams as AccountNoticeUpdateParams,
 )
 from stripe.params._account_person_create_params import (
     AccountPersonCreateParams as AccountPersonCreateParams,
@@ -476,6 +490,21 @@ from stripe.params._exchange_rate_list_params import (
 from stripe.params._exchange_rate_retrieve_params import (
     ExchangeRateRetrieveParams as ExchangeRateRetrieveParams,
 )
+from stripe.params._external_account_create_params import (
+    ExternalAccountCreateParams as ExternalAccountCreateParams,
+)
+from stripe.params._external_account_delete_params import (
+    ExternalAccountDeleteParams as ExternalAccountDeleteParams,
+)
+from stripe.params._external_account_list_params import (
+    ExternalAccountListParams as ExternalAccountListParams,
+)
+from stripe.params._external_account_retrieve_params import (
+    ExternalAccountRetrieveParams as ExternalAccountRetrieveParams,
+)
+from stripe.params._external_account_update_params import (
+    ExternalAccountUpdateParams as ExternalAccountUpdateParams,
+)
 from stripe.params._file_create_params import (
     FileCreateParams as FileCreateParams,
 )
@@ -497,6 +526,15 @@ from stripe.params._file_link_update_params import (
 from stripe.params._file_list_params import FileListParams as FileListParams
 from stripe.params._file_retrieve_params import (
     FileRetrieveParams as FileRetrieveParams,
+)
+from stripe.params._fx_quote_create_params import (
+    FxQuoteCreateParams as FxQuoteCreateParams,
+)
+from stripe.params._fx_quote_list_params import (
+    FxQuoteListParams as FxQuoteListParams,
+)
+from stripe.params._fx_quote_retrieve_params import (
+    FxQuoteRetrieveParams as FxQuoteRetrieveParams,
 )
 from stripe.params._invoice_add_lines_params import (
     InvoiceAddLinesParams as InvoiceAddLinesParams,
@@ -594,8 +632,63 @@ from stripe.params._invoice_update_params import (
 from stripe.params._invoice_void_invoice_params import (
     InvoiceVoidInvoiceParams as InvoiceVoidInvoiceParams,
 )
+from stripe.params._mandate_list_params import (
+    MandateListParams as MandateListParams,
+)
 from stripe.params._mandate_retrieve_params import (
     MandateRetrieveParams as MandateRetrieveParams,
+)
+from stripe.params._margin_create_params import (
+    MarginCreateParams as MarginCreateParams,
+)
+from stripe.params._margin_list_params import (
+    MarginListParams as MarginListParams,
+)
+from stripe.params._margin_modify_params import (
+    MarginModifyParams as MarginModifyParams,
+)
+from stripe.params._margin_retrieve_params import (
+    MarginRetrieveParams as MarginRetrieveParams,
+)
+from stripe.params._margin_update_params import (
+    MarginUpdateParams as MarginUpdateParams,
+)
+from stripe.params._order_cancel_params import (
+    OrderCancelParams as OrderCancelParams,
+)
+from stripe.params._order_create_params import (
+    OrderCreateParams as OrderCreateParams,
+)
+from stripe.params._order_line_item_list_params import (
+    OrderLineItemListParams as OrderLineItemListParams,
+)
+from stripe.params._order_list_line_items_params import (
+    OrderListLineItemsParams as OrderListLineItemsParams,
+)
+from stripe.params._order_list_params import OrderListParams as OrderListParams
+from stripe.params._order_modify_params import (
+    OrderModifyParams as OrderModifyParams,
+)
+from stripe.params._order_reopen_params import (
+    OrderReopenParams as OrderReopenParams,
+)
+from stripe.params._order_retrieve_params import (
+    OrderRetrieveParams as OrderRetrieveParams,
+)
+from stripe.params._order_submit_params import (
+    OrderSubmitParams as OrderSubmitParams,
+)
+from stripe.params._order_update_params import (
+    OrderUpdateParams as OrderUpdateParams,
+)
+from stripe.params._payment_attempt_record_list_params import (
+    PaymentAttemptRecordListParams as PaymentAttemptRecordListParams,
+)
+from stripe.params._payment_attempt_record_retrieve_params import (
+    PaymentAttemptRecordRetrieveParams as PaymentAttemptRecordRetrieveParams,
+)
+from stripe.params._payment_intent_amount_details_line_item_list_params import (
+    PaymentIntentAmountDetailsLineItemListParams as PaymentIntentAmountDetailsLineItemListParams,
 )
 from stripe.params._payment_intent_apply_customer_balance_params import (
     PaymentIntentApplyCustomerBalanceParams as PaymentIntentApplyCustomerBalanceParams,
@@ -612,8 +705,14 @@ from stripe.params._payment_intent_confirm_params import (
 from stripe.params._payment_intent_create_params import (
     PaymentIntentCreateParams as PaymentIntentCreateParams,
 )
+from stripe.params._payment_intent_decrement_authorization_params import (
+    PaymentIntentDecrementAuthorizationParams as PaymentIntentDecrementAuthorizationParams,
+)
 from stripe.params._payment_intent_increment_authorization_params import (
     PaymentIntentIncrementAuthorizationParams as PaymentIntentIncrementAuthorizationParams,
+)
+from stripe.params._payment_intent_list_amount_details_line_items_params import (
+    PaymentIntentListAmountDetailsLineItemsParams as PaymentIntentListAmountDetailsLineItemsParams,
 )
 from stripe.params._payment_intent_list_params import (
     PaymentIntentListParams as PaymentIntentListParams,
@@ -626,6 +725,9 @@ from stripe.params._payment_intent_retrieve_params import (
 )
 from stripe.params._payment_intent_search_params import (
     PaymentIntentSearchParams as PaymentIntentSearchParams,
+)
+from stripe.params._payment_intent_trigger_action_params import (
+    PaymentIntentTriggerActionParams as PaymentIntentTriggerActionParams,
 )
 from stripe.params._payment_intent_update_params import (
     PaymentIntentUpdateParams as PaymentIntentUpdateParams,
@@ -707,6 +809,27 @@ from stripe.params._payment_method_retrieve_params import (
 )
 from stripe.params._payment_method_update_params import (
     PaymentMethodUpdateParams as PaymentMethodUpdateParams,
+)
+from stripe.params._payment_record_report_payment_attempt_canceled_params import (
+    PaymentRecordReportPaymentAttemptCanceledParams as PaymentRecordReportPaymentAttemptCanceledParams,
+)
+from stripe.params._payment_record_report_payment_attempt_failed_params import (
+    PaymentRecordReportPaymentAttemptFailedParams as PaymentRecordReportPaymentAttemptFailedParams,
+)
+from stripe.params._payment_record_report_payment_attempt_guaranteed_params import (
+    PaymentRecordReportPaymentAttemptGuaranteedParams as PaymentRecordReportPaymentAttemptGuaranteedParams,
+)
+from stripe.params._payment_record_report_payment_attempt_informational_params import (
+    PaymentRecordReportPaymentAttemptInformationalParams as PaymentRecordReportPaymentAttemptInformationalParams,
+)
+from stripe.params._payment_record_report_payment_attempt_params import (
+    PaymentRecordReportPaymentAttemptParams as PaymentRecordReportPaymentAttemptParams,
+)
+from stripe.params._payment_record_report_payment_params import (
+    PaymentRecordReportPaymentParams as PaymentRecordReportPaymentParams,
+)
+from stripe.params._payment_record_retrieve_params import (
+    PaymentRecordRetrieveParams as PaymentRecordRetrieveParams,
 )
 from stripe.params._payout_cancel_params import (
     PayoutCancelParams as PayoutCancelParams,
@@ -839,17 +962,47 @@ from stripe.params._quote_finalize_quote_params import (
 from stripe.params._quote_line_item_list_params import (
     QuoteLineItemListParams as QuoteLineItemListParams,
 )
+from stripe.params._quote_line_list_params import (
+    QuoteLineListParams as QuoteLineListParams,
+)
 from stripe.params._quote_list_computed_upfront_line_items_params import (
     QuoteListComputedUpfrontLineItemsParams as QuoteListComputedUpfrontLineItemsParams,
 )
 from stripe.params._quote_list_line_items_params import (
     QuoteListLineItemsParams as QuoteListLineItemsParams,
 )
+from stripe.params._quote_list_lines_params import (
+    QuoteListLinesParams as QuoteListLinesParams,
+)
 from stripe.params._quote_list_params import QuoteListParams as QuoteListParams
+from stripe.params._quote_list_preview_invoice_lines_params import (
+    QuoteListPreviewInvoiceLinesParams as QuoteListPreviewInvoiceLinesParams,
+)
+from stripe.params._quote_list_preview_invoices_params import (
+    QuoteListPreviewInvoicesParams as QuoteListPreviewInvoicesParams,
+)
+from stripe.params._quote_list_preview_subscription_schedules_params import (
+    QuoteListPreviewSubscriptionSchedulesParams as QuoteListPreviewSubscriptionSchedulesParams,
+)
+from stripe.params._quote_mark_draft_params import (
+    QuoteMarkDraftParams as QuoteMarkDraftParams,
+)
+from stripe.params._quote_mark_stale_params import (
+    QuoteMarkStaleParams as QuoteMarkStaleParams,
+)
 from stripe.params._quote_modify_params import (
     QuoteModifyParams as QuoteModifyParams,
 )
 from stripe.params._quote_pdf_params import QuotePdfParams as QuotePdfParams
+from stripe.params._quote_preview_invoice_list_params import (
+    QuotePreviewInvoiceListParams as QuotePreviewInvoiceListParams,
+)
+from stripe.params._quote_preview_subscription_schedule_list_params import (
+    QuotePreviewSubscriptionScheduleListParams as QuotePreviewSubscriptionScheduleListParams,
+)
+from stripe.params._quote_reestimate_params import (
+    QuoteReestimateParams as QuoteReestimateParams,
+)
 from stripe.params._quote_retrieve_params import (
     QuoteRetrieveParams as QuoteRetrieveParams,
 )
@@ -952,6 +1105,9 @@ from stripe.params._source_update_params import (
 from stripe.params._source_verify_params import (
     SourceVerifyParams as SourceVerifyParams,
 )
+from stripe.params._subscription_attach_cadence_params import (
+    SubscriptionAttachCadenceParams as SubscriptionAttachCadenceParams,
+)
 from stripe.params._subscription_cancel_params import (
     SubscriptionCancelParams as SubscriptionCancelParams,
 )
@@ -993,6 +1149,9 @@ from stripe.params._subscription_resume_params import (
 )
 from stripe.params._subscription_retrieve_params import (
     SubscriptionRetrieveParams as SubscriptionRetrieveParams,
+)
+from stripe.params._subscription_schedule_amend_params import (
+    SubscriptionScheduleAmendParams as SubscriptionScheduleAmendParams,
 )
 from stripe.params._subscription_schedule_cancel_params import (
     SubscriptionScheduleCancelParams as SubscriptionScheduleCancelParams,

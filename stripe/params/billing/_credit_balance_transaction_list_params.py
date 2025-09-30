@@ -10,9 +10,13 @@ class CreditBalanceTransactionListParams(RequestOptions):
     """
     The credit grant for which to fetch credit balance transactions.
     """
-    customer: str
+    customer: NotRequired[str]
     """
     The customer for which to fetch credit balance transactions.
+    """
+    customer_account: NotRequired[str]
+    """
+    The account for which to fetch credit balance transactions.
     """
     ending_before: NotRequired[str]
     """

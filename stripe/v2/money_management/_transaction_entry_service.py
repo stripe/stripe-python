@@ -6,46 +6,21 @@ from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._transaction_entry import TransactionEntry
 from typing import Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.money_management._transaction_entry_list_params import (
+        TransactionEntryListParams,
+    )
+    from stripe.params.v2.money_management._transaction_entry_retrieve_params import (
+        TransactionEntryRetrieveParams,
+    )
 
 
 class TransactionEntryService(StripeService):
-    class ListParams(TypedDict):
-        created: NotRequired[str]
-        """
-        Filter for Transactions created at an exact time.
-        """
-        created_gt: NotRequired[str]
-        """
-        Filter for Transactions created after the specified timestamp.
-        """
-        created_gte: NotRequired[str]
-        """
-        Filter for Transactions created at or after the specified timestamp.
-        """
-        created_lt: NotRequired[str]
-        """
-        Filter for Transactions created before the specified timestamp.
-        """
-        created_lte: NotRequired[str]
-        """
-        Filter for Transactions created at or before the specified timestamp.
-        """
-        limit: NotRequired[int]
-        """
-        The page limit.
-        """
-        transaction: NotRequired[str]
-        """
-        Filter for TransactionEntries belonging to a Transaction.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def list(
         self,
-        params: Optional["TransactionEntryService.ListParams"] = None,
+        params: Optional["TransactionEntryListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TransactionEntry]:
         """
@@ -64,7 +39,7 @@ class TransactionEntryService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["TransactionEntryService.ListParams"] = None,
+        params: Optional["TransactionEntryListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TransactionEntry]:
         """
@@ -84,7 +59,7 @@ class TransactionEntryService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["TransactionEntryService.RetrieveParams"] = None,
+        params: Optional["TransactionEntryRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TransactionEntry:
         """
@@ -106,7 +81,7 @@ class TransactionEntryService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["TransactionEntryService.RetrieveParams"] = None,
+        params: Optional["TransactionEntryRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TransactionEntry:
         """

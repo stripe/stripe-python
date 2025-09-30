@@ -5,69 +5,28 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._financial_account import FinancialAccount
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.money_management._financial_account_close_params import (
+        FinancialAccountCloseParams,
+    )
+    from stripe.params.v2.money_management._financial_account_create_params import (
+        FinancialAccountCreateParams,
+    )
+    from stripe.params.v2.money_management._financial_account_list_params import (
+        FinancialAccountListParams,
+    )
+    from stripe.params.v2.money_management._financial_account_retrieve_params import (
+        FinancialAccountRetrieveParams,
+    )
 
 
 class FinancialAccountService(StripeService):
-    class CloseParams(TypedDict):
-        forwarding_settings: NotRequired[
-            "FinancialAccountService.CloseParamsForwardingSettings"
-        ]
-        """
-        The addresses to forward any incoming transactions to.
-        """
-
-    class CloseParamsForwardingSettings(TypedDict):
-        payment_method: NotRequired[str]
-        """
-        The address to send forwarded payments to.
-        """
-        payout_method: NotRequired[str]
-        """
-        The address to send forwarded payouts to.
-        """
-
-    class CreateParams(TypedDict):
-        display_name: NotRequired[str]
-        """
-        A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Metadata associated with the FinancialAccount.
-        """
-        storage: NotRequired["FinancialAccountService.CreateParamsStorage"]
-        """
-        Parameters specific to creating `storage` type FinancialAccounts.
-        """
-        type: Literal["storage"]
-        """
-        The type of FinancialAccount to create.
-        """
-
-    class CreateParamsStorage(TypedDict):
-        holds_currencies: List[str]
-        """
-        The currencies that this FinancialAccount can hold.
-        """
-
-    class ListParams(TypedDict):
-        limit: NotRequired[int]
-        """
-        The page limit.
-        """
-        status: NotRequired[Literal["closed", "open", "pending"]]
-        """
-        The status of the FinancialAccount to filter by. By default, closed FinancialAccounts are not returned.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def list(
         self,
-        params: Optional["FinancialAccountService.ListParams"] = None,
+        params: Optional["FinancialAccountListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAccount]:
         """
@@ -86,7 +45,7 @@ class FinancialAccountService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["FinancialAccountService.ListParams"] = None,
+        params: Optional["FinancialAccountListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAccount]:
         """
@@ -105,7 +64,7 @@ class FinancialAccountService(StripeService):
 
     def create(
         self,
-        params: "FinancialAccountService.CreateParams",
+        params: "FinancialAccountCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
@@ -124,7 +83,7 @@ class FinancialAccountService(StripeService):
 
     async def create_async(
         self,
-        params: "FinancialAccountService.CreateParams",
+        params: "FinancialAccountCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
@@ -144,7 +103,7 @@ class FinancialAccountService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["FinancialAccountService.RetrieveParams"] = None,
+        params: Optional["FinancialAccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
@@ -166,7 +125,7 @@ class FinancialAccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["FinancialAccountService.RetrieveParams"] = None,
+        params: Optional["FinancialAccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
@@ -188,7 +147,7 @@ class FinancialAccountService(StripeService):
     def close(
         self,
         id: str,
-        params: Optional["FinancialAccountService.CloseParams"] = None,
+        params: Optional["FinancialAccountCloseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
@@ -210,7 +169,7 @@ class FinancialAccountService(StripeService):
     async def close_async(
         self,
         id: str,
-        params: Optional["FinancialAccountService.CloseParams"] = None,
+        params: Optional["FinancialAccountCloseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """

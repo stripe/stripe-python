@@ -39,6 +39,9 @@ from stripe.params.terminal._location_retrieve_params import (
 from stripe.params.terminal._location_update_params import (
     LocationUpdateParams as LocationUpdateParams,
 )
+from stripe.params.terminal._onboarding_link_create_params import (
+    OnboardingLinkCreateParams as OnboardingLinkCreateParams,
+)
 from stripe.params.terminal._reader_cancel_action_params import (
     ReaderCancelActionParams as ReaderCancelActionParams,
 )
@@ -47,6 +50,9 @@ from stripe.params.terminal._reader_collect_inputs_params import (
 )
 from stripe.params.terminal._reader_collect_payment_method_params import (
     ReaderCollectPaymentMethodParams as ReaderCollectPaymentMethodParams,
+)
+from stripe.params.terminal._reader_collected_data_retrieve_params import (
+    ReaderCollectedDataRetrieveParams as ReaderCollectedDataRetrieveParams,
 )
 from stripe.params.terminal._reader_confirm_payment_intent_params import (
     ReaderConfirmPaymentIntentParams as ReaderConfirmPaymentIntentParams,

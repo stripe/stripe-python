@@ -18,9 +18,13 @@ class CreditGrantCreateParams(RequestOptions):
     """
     The category of this credit grant.
     """
-    customer: str
+    customer: NotRequired[str]
     """
     ID of the customer to receive the billing credits.
+    """
+    customer_account: NotRequired[str]
+    """
+    ID of the account to receive the billing credits.
     """
     effective_at: NotRequired[int]
     """
@@ -49,13 +53,30 @@ class CreditGrantCreateParams(RequestOptions):
 
 
 class CreditGrantCreateParamsAmount(TypedDict):
+    custom_pricing_unit: NotRequired[
+        "CreditGrantCreateParamsAmountCustomPricingUnit"
+    ]
+    """
+    The custom pricing unit amount.
+    """
     monetary: NotRequired["CreditGrantCreateParamsAmountMonetary"]
     """
     The monetary amount.
     """
-    type: Literal["monetary"]
+    type: Literal["custom_pricing_unit", "monetary"]
     """
     The type of this amount. We currently only support `monetary` billing credits.
+    """
+
+
+class CreditGrantCreateParamsAmountCustomPricingUnit(TypedDict):
+    id: str
+    """
+    The ID of the custom pricing unit.
+    """
+    value: str
+    """
+    A positive integer representing the amount of the credit grant.
     """
 
 
@@ -78,6 +99,12 @@ class CreditGrantCreateParamsApplicabilityConfig(TypedDict):
 
 
 class CreditGrantCreateParamsApplicabilityConfigScope(TypedDict):
+    billable_items: NotRequired[
+        List["CreditGrantCreateParamsApplicabilityConfigScopeBillableItem"]
+    ]
+    """
+    A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+    """
     price_type: NotRequired[Literal["metered"]]
     """
     The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
@@ -87,6 +114,13 @@ class CreditGrantCreateParamsApplicabilityConfigScope(TypedDict):
     ]
     """
     A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+    """
+
+
+class CreditGrantCreateParamsApplicabilityConfigScopeBillableItem(TypedDict):
+    id: str
+    """
+    The billable item ID this credit grant should apply to.
     """
 
 

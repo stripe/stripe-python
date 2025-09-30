@@ -95,9 +95,43 @@ class SubscriptionItemModifyParamsDiscount(TypedDict):
     """
     ID of an existing discount on the object (or one of its ancestors) to reuse.
     """
+    discount_end: NotRequired[
+        "SubscriptionItemModifyParamsDiscountDiscountEnd"
+    ]
+    """
+    Details to determine how long the discount should be applied for.
+    """
     promotion_code: NotRequired[str]
     """
     ID of the promotion code to create a new discount for.
+    """
+
+
+class SubscriptionItemModifyParamsDiscountDiscountEnd(TypedDict):
+    duration: NotRequired[
+        "SubscriptionItemModifyParamsDiscountDiscountEndDuration"
+    ]
+    """
+    Time span for the redeemed discount.
+    """
+    timestamp: NotRequired[int]
+    """
+    A precise Unix timestamp for the discount to end. Must be in the future.
+    """
+    type: Literal["duration", "timestamp"]
+    """
+    The type of calculation made to determine when the discount ends.
+    """
+
+
+class SubscriptionItemModifyParamsDiscountDiscountEndDuration(TypedDict):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: int
+    """
+    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
     """
 
 

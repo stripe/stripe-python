@@ -5,19 +5,19 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2.billing._license_fee_subscription import LicenseFeeSubscription
 from typing import Optional, cast
-from typing_extensions import TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing._license_fee_subscription_retrieve_params import (
+        LicenseFeeSubscriptionRetrieveParams,
+    )
 
 
 class LicenseFeeSubscriptionService(StripeService):
-    class RetrieveParams(TypedDict):
-        pass
-
     def retrieve(
         self,
         id: str,
-        params: Optional[
-            "LicenseFeeSubscriptionService.RetrieveParams"
-        ] = None,
+        params: Optional["LicenseFeeSubscriptionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> LicenseFeeSubscription:
         """
@@ -39,9 +39,7 @@ class LicenseFeeSubscriptionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional[
-            "LicenseFeeSubscriptionService.RetrieveParams"
-        ] = None,
+        params: Optional["LicenseFeeSubscriptionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> LicenseFeeSubscription:
         """

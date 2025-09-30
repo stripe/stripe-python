@@ -5,82 +5,20 @@ from stripe._margin import Margin
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._margin_create_params import MarginCreateParams
+    from stripe.params._margin_list_params import MarginListParams
+    from stripe.params._margin_retrieve_params import MarginRetrieveParams
+    from stripe.params._margin_update_params import MarginUpdateParams
 
 
 class MarginService(StripeService):
-    class CreateParams(TypedDict):
-        active: NotRequired[bool]
-        """
-        Whether the margin can be applied to invoices, invoice items, or invoice line items or not. Defaults to `true`.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: NotRequired[str]
-        """
-        Name of the margin, which is displayed to customers, such as on invoices.
-        """
-        percent_off: float
-        """
-        Percent that will be taken off the subtotal before tax (after all other discounts and promotions) of any invoice to which the margin is applied.
-        """
-
-    class ListParams(TypedDict):
-        active: NotRequired[bool]
-        """
-        Only return margins that are active or inactive. For example, pass `true` to only list active margins.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class UpdateParams(TypedDict):
-        active: NotRequired[bool]
-        """
-        Whether the margin can be applied to invoices, invoice items, or invoice line items or not.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: NotRequired[str]
-        """
-        Name of the margin, which is displayed to customers, such as on invoices.
-        """
-
     def list(
         self,
-        params: Optional["MarginService.ListParams"] = None,
+        params: Optional["MarginListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Margin]:
         """
@@ -99,7 +37,7 @@ class MarginService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["MarginService.ListParams"] = None,
+        params: Optional["MarginListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Margin]:
         """
@@ -118,7 +56,7 @@ class MarginService(StripeService):
 
     def create(
         self,
-        params: "MarginService.CreateParams",
+        params: "MarginCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Margin:
         """
@@ -137,7 +75,7 @@ class MarginService(StripeService):
 
     async def create_async(
         self,
-        params: "MarginService.CreateParams",
+        params: "MarginCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Margin:
         """
@@ -157,7 +95,7 @@ class MarginService(StripeService):
     def retrieve(
         self,
         margin: str,
-        params: Optional["MarginService.RetrieveParams"] = None,
+        params: Optional["MarginRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Margin:
         """
@@ -179,7 +117,7 @@ class MarginService(StripeService):
     async def retrieve_async(
         self,
         margin: str,
-        params: Optional["MarginService.RetrieveParams"] = None,
+        params: Optional["MarginRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Margin:
         """
@@ -201,7 +139,7 @@ class MarginService(StripeService):
     def update(
         self,
         margin: str,
-        params: Optional["MarginService.UpdateParams"] = None,
+        params: Optional["MarginUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Margin:
         """
@@ -223,7 +161,7 @@ class MarginService(StripeService):
     async def update_async(
         self,
         margin: str,
-        params: Optional["MarginService.UpdateParams"] = None,
+        params: Optional["MarginUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Margin:
         """

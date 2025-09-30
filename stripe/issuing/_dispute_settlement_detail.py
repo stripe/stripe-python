@@ -2,10 +2,17 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack
+from typing import ClassVar, Optional
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.issuing._dispute_settlement_detail_list_params import (
+        DisputeSettlementDetailListParams,
+    )
+    from stripe.params.issuing._dispute_settlement_detail_retrieve_params import (
+        DisputeSettlementDetailRetrieveParams,
+    )
 
 
 class DisputeSettlementDetail(ListableAPIResource["DisputeSettlementDetail"]):
@@ -21,34 +28,6 @@ class DisputeSettlementDetail(ListableAPIResource["DisputeSettlementDetail"]):
         processing_date: Optional[str]
         """
         The date the transaction was processed by the card network. This can be different from the date the seller recorded the transaction depending on when the acquirer submits the transaction to the network.
-        """
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        settlement: NotRequired[str]
-        """
-        Select the Issuing dispute settlement details for the given settlement.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
         """
 
     amount: int
@@ -102,7 +81,7 @@ class DisputeSettlementDetail(ListableAPIResource["DisputeSettlementDetail"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["DisputeSettlementDetail.ListParams"]
+        cls, **params: Unpack["DisputeSettlementDetailListParams"]
     ) -> ListObject["DisputeSettlementDetail"]:
         """
         Returns a list of Issuing DisputeSettlementDetail objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -122,7 +101,7 @@ class DisputeSettlementDetail(ListableAPIResource["DisputeSettlementDetail"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["DisputeSettlementDetail.ListParams"]
+        cls, **params: Unpack["DisputeSettlementDetailListParams"]
     ) -> ListObject["DisputeSettlementDetail"]:
         """
         Returns a list of Issuing DisputeSettlementDetail objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -142,9 +121,7 @@ class DisputeSettlementDetail(ListableAPIResource["DisputeSettlementDetail"]):
 
     @classmethod
     def retrieve(
-        cls,
-        id: str,
-        **params: Unpack["DisputeSettlementDetail.RetrieveParams"],
+        cls, id: str, **params: Unpack["DisputeSettlementDetailRetrieveParams"]
     ) -> "DisputeSettlementDetail":
         """
         Retrieves an Issuing DisputeSettlementDetail object.
@@ -155,9 +132,7 @@ class DisputeSettlementDetail(ListableAPIResource["DisputeSettlementDetail"]):
 
     @classmethod
     async def retrieve_async(
-        cls,
-        id: str,
-        **params: Unpack["DisputeSettlementDetail.RetrieveParams"],
+        cls, id: str, **params: Unpack["DisputeSettlementDetailRetrieveParams"]
     ) -> "DisputeSettlementDetail":
         """
         Retrieves an Issuing DisputeSettlementDetail object.

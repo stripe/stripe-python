@@ -84,6 +84,24 @@ from stripe.params.issuing._cardholder_retrieve_params import (
 from stripe.params.issuing._cardholder_update_params import (
     CardholderUpdateParams as CardholderUpdateParams,
 )
+from stripe.params.issuing._credit_underwriting_record_correct_params import (
+    CreditUnderwritingRecordCorrectParams as CreditUnderwritingRecordCorrectParams,
+)
+from stripe.params.issuing._credit_underwriting_record_create_from_application_params import (
+    CreditUnderwritingRecordCreateFromApplicationParams as CreditUnderwritingRecordCreateFromApplicationParams,
+)
+from stripe.params.issuing._credit_underwriting_record_create_from_proactive_review_params import (
+    CreditUnderwritingRecordCreateFromProactiveReviewParams as CreditUnderwritingRecordCreateFromProactiveReviewParams,
+)
+from stripe.params.issuing._credit_underwriting_record_list_params import (
+    CreditUnderwritingRecordListParams as CreditUnderwritingRecordListParams,
+)
+from stripe.params.issuing._credit_underwriting_record_report_decision_params import (
+    CreditUnderwritingRecordReportDecisionParams as CreditUnderwritingRecordReportDecisionParams,
+)
+from stripe.params.issuing._credit_underwriting_record_retrieve_params import (
+    CreditUnderwritingRecordRetrieveParams as CreditUnderwritingRecordRetrieveParams,
+)
 from stripe.params.issuing._dispute_create_params import (
     DisputeCreateParams as DisputeCreateParams,
 )
@@ -96,11 +114,23 @@ from stripe.params.issuing._dispute_modify_params import (
 from stripe.params.issuing._dispute_retrieve_params import (
     DisputeRetrieveParams as DisputeRetrieveParams,
 )
+from stripe.params.issuing._dispute_settlement_detail_list_params import (
+    DisputeSettlementDetailListParams as DisputeSettlementDetailListParams,
+)
+from stripe.params.issuing._dispute_settlement_detail_retrieve_params import (
+    DisputeSettlementDetailRetrieveParams as DisputeSettlementDetailRetrieveParams,
+)
 from stripe.params.issuing._dispute_submit_params import (
     DisputeSubmitParams as DisputeSubmitParams,
 )
 from stripe.params.issuing._dispute_update_params import (
     DisputeUpdateParams as DisputeUpdateParams,
+)
+from stripe.params.issuing._fraud_liability_debit_list_params import (
+    FraudLiabilityDebitListParams as FraudLiabilityDebitListParams,
+)
+from stripe.params.issuing._fraud_liability_debit_retrieve_params import (
+    FraudLiabilityDebitRetrieveParams as FraudLiabilityDebitRetrieveParams,
 )
 from stripe.params.issuing._personalization_design_activate_params import (
     PersonalizationDesignActivateParams as PersonalizationDesignActivateParams,

@@ -6,22 +6,21 @@ from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._received_debit import ReceivedDebit
 from typing import Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.money_management._received_debit_list_params import (
+        ReceivedDebitListParams,
+    )
+    from stripe.params.v2.money_management._received_debit_retrieve_params import (
+        ReceivedDebitRetrieveParams,
+    )
 
 
 class ReceivedDebitService(StripeService):
-    class ListParams(TypedDict):
-        limit: NotRequired[int]
-        """
-        The page limit.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def list(
         self,
-        params: Optional["ReceivedDebitService.ListParams"] = None,
+        params: Optional["ReceivedDebitListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ReceivedDebit]:
         """
@@ -40,7 +39,7 @@ class ReceivedDebitService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["ReceivedDebitService.ListParams"] = None,
+        params: Optional["ReceivedDebitListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ReceivedDebit]:
         """
@@ -60,7 +59,7 @@ class ReceivedDebitService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["ReceivedDebitService.RetrieveParams"] = None,
+        params: Optional["ReceivedDebitRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReceivedDebit:
         """
@@ -82,7 +81,7 @@ class ReceivedDebitService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["ReceivedDebitService.RetrieveParams"] = None,
+        params: Optional["ReceivedDebitRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReceivedDebit:
         """

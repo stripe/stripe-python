@@ -3,50 +3,19 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.terminal._onboarding_link import OnboardingLink
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.terminal._onboarding_link_create_params import (
+        OnboardingLinkCreateParams,
+    )
 
 
 class OnboardingLinkService(StripeService):
-    class CreateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        link_options: "OnboardingLinkService.CreateParamsLinkOptions"
-        """
-        Specific fields needed to generate the desired link type.
-        """
-        link_type: Literal["apple_terms_and_conditions"]
-        """
-        The type of link being generated.
-        """
-        on_behalf_of: NotRequired[str]
-        """
-        Stripe account ID to generate the link for.
-        """
-
-    class CreateParamsLinkOptions(TypedDict):
-        apple_terms_and_conditions: NotRequired[
-            "OnboardingLinkService.CreateParamsLinkOptionsAppleTermsAndConditions"
-        ]
-        """
-        The options associated with the Apple Terms and Conditions link type.
-        """
-
-    class CreateParamsLinkOptionsAppleTermsAndConditions(TypedDict):
-        allow_relinking: NotRequired[bool]
-        """
-        Whether the link should also support users relinking their Apple account.
-        """
-        merchant_display_name: str
-        """
-        The business name of the merchant accepting Apple's Terms and Conditions.
-        """
-
     def create(
         self,
-        params: "OnboardingLinkService.CreateParams",
+        params: "OnboardingLinkCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> OnboardingLink:
         """
@@ -65,7 +34,7 @@ class OnboardingLinkService(StripeService):
 
     async def create_async(
         self,
-        params: "OnboardingLinkService.CreateParams",
+        params: "OnboardingLinkCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> OnboardingLink:
         """

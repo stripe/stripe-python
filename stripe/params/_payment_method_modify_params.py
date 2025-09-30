@@ -26,6 +26,10 @@ class PaymentMethodModifyParams(RequestOptions):
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    payto: NotRequired["PaymentMethodModifyParamsPayto"]
+    """
+    If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+    """
     us_bank_account: NotRequired["PaymentMethodModifyParamsUsBankAccount"]
     """
     If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -105,6 +109,21 @@ class PaymentMethodModifyParamsCardNetworks(TypedDict):
     ]
     """
     The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
+    """
+
+
+class PaymentMethodModifyParamsPayto(TypedDict):
+    account_number: NotRequired[str]
+    """
+    The account number for the bank account.
+    """
+    bsb_number: NotRequired[str]
+    """
+    Bank-State-Branch number of the bank account.
+    """
+    pay_id: NotRequired[str]
+    """
+    The PayID alias for the bank account.
     """
 
 

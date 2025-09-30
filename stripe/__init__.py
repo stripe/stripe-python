@@ -255,6 +255,7 @@ from stripe import (
     forwarding as forwarding,
     identity as identity,
     issuing as issuing,
+    params as params,
     privacy as privacy,
     radar as radar,
     reporting as reporting,

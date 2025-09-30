@@ -5,47 +5,27 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2.core.vault._us_bank_account import UsBankAccount
 from typing import Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.core.vault._us_bank_account_archive_params import (
+        UsBankAccountArchiveParams,
+    )
+    from stripe.params.v2.core.vault._us_bank_account_create_params import (
+        UsBankAccountCreateParams,
+    )
+    from stripe.params.v2.core.vault._us_bank_account_retrieve_params import (
+        UsBankAccountRetrieveParams,
+    )
+    from stripe.params.v2.core.vault._us_bank_account_update_params import (
+        UsBankAccountUpdateParams,
+    )
 
 
 class UsBankAccountService(StripeService):
-    class ArchiveParams(TypedDict):
-        pass
-
-    class CreateParams(TypedDict):
-        account_number: str
-        """
-        The account number of the bank account.
-        """
-        bank_account_type: NotRequired[Literal["checking", "savings"]]
-        """
-        Closed Enum. The type of the bank account (checking or savings).
-        """
-        fedwire_routing_number: NotRequired[str]
-        """
-        The fedwire routing number of the bank account. Note that certain banks have the same ACH and wire routing number.
-        """
-        routing_number: NotRequired[str]
-        """
-        The ACH routing number of the bank account. Note that certain banks have the same ACH and wire routing number.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
-    class UpdateParams(TypedDict):
-        fedwire_routing_number: NotRequired[str]
-        """
-        The bank account's fedwire routing number can be provided for update it was were empty previously.
-        """
-        routing_number: NotRequired[str]
-        """
-        The bank account's ACH routing number can be provided for update if it was empty previously.
-        """
-
     def create(
         self,
-        params: "UsBankAccountService.CreateParams",
+        params: "UsBankAccountCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
@@ -64,7 +44,7 @@ class UsBankAccountService(StripeService):
 
     async def create_async(
         self,
-        params: "UsBankAccountService.CreateParams",
+        params: "UsBankAccountCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
@@ -84,7 +64,7 @@ class UsBankAccountService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["UsBankAccountService.RetrieveParams"] = None,
+        params: Optional["UsBankAccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
@@ -106,7 +86,7 @@ class UsBankAccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["UsBankAccountService.RetrieveParams"] = None,
+        params: Optional["UsBankAccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
@@ -128,7 +108,7 @@ class UsBankAccountService(StripeService):
     def update(
         self,
         id: str,
-        params: Optional["UsBankAccountService.UpdateParams"] = None,
+        params: Optional["UsBankAccountUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
@@ -150,7 +130,7 @@ class UsBankAccountService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: Optional["UsBankAccountService.UpdateParams"] = None,
+        params: Optional["UsBankAccountUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
@@ -172,7 +152,7 @@ class UsBankAccountService(StripeService):
     def archive(
         self,
         id: str,
-        params: Optional["UsBankAccountService.ArchiveParams"] = None,
+        params: Optional["UsBankAccountArchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """
@@ -196,7 +176,7 @@ class UsBankAccountService(StripeService):
     async def archive_async(
         self,
         id: str,
-        params: Optional["UsBankAccountService.ArchiveParams"] = None,
+        params: Optional["UsBankAccountArchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> UsBankAccount:
         """

@@ -37,6 +37,10 @@ class TaxIdListParamsOwner(TypedDict):
     """
     Customer the tax ID belongs to. Required when `type=customer`
     """
+    customer_account: NotRequired[str]
+    """
+    v2 Account the tax ID belongs to. Can be used in place of `customer` when `type=customer`
+    """
     type: Literal["account", "application", "customer", "self"]
     """
     Type of owner referenced.

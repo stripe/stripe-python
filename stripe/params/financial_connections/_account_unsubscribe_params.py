@@ -10,7 +10,7 @@ class AccountUnsubscribeParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    features: List[Literal["transactions"]]
+    features: List[Literal["balance", "inferred_balances", "transactions"]]
     """
     The list of account features from which you would like to unsubscribe.
     """

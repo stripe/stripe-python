@@ -5,83 +5,31 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._rate_card_subscription import RateCardSubscription
-from typing import Dict, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing._rate_card_subscription_cancel_params import (
+        RateCardSubscriptionCancelParams,
+    )
+    from stripe.params.v2.billing._rate_card_subscription_create_params import (
+        RateCardSubscriptionCreateParams,
+    )
+    from stripe.params.v2.billing._rate_card_subscription_list_params import (
+        RateCardSubscriptionListParams,
+    )
+    from stripe.params.v2.billing._rate_card_subscription_retrieve_params import (
+        RateCardSubscriptionRetrieveParams,
+    )
+    from stripe.params.v2.billing._rate_card_subscription_update_params import (
+        RateCardSubscriptionUpdateParams,
+    )
 
 
 class RateCardSubscriptionService(StripeService):
-    class CancelParams(TypedDict):
-        pass
-
-    class CreateParams(TypedDict):
-        billing_cadence: str
-        """
-        The ID of the Billing Cadence.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-        """
-        rate_card: str
-        """
-        The ID of the Rate Card.
-        """
-        rate_card_version: NotRequired[str]
-        """
-        The ID of the Rate Card Version. If not specified, defaults to the "live_version" of the Rate Card at the time of creation.
-        """
-
-    class ListParams(TypedDict):
-        billing_cadence: NotRequired[str]
-        """
-        Optionally filter by a BillingCadence. Mutually exclusive with `payers`, `rate_card`, and `rate_card_version`.
-        """
-        limit: NotRequired[int]
-        """
-        The page size limit, if not provided the default is 20.
-        """
-        payer: NotRequired["RateCardSubscriptionService.ListParamsPayer"]
-        """
-        Optionally filter by the payer associated with Billing Cadences which the Rate Card Subscriptions are subscribed to.
-        Mutually exclusive with `billing_cadence`, `rate_card`, and `rate_card_version`.
-        """
-        rate_card: NotRequired[str]
-        """
-        Optionally filter by a RateCard. Mutually exclusive with `billing_cadence`, `payers`, and `rate_card_version`.
-        """
-        rate_card_version: NotRequired[str]
-        """
-        Optionally filter by a RateCard version. Mutually exclusive with `billing_cadence`, `payers`, and `rate_card`.
-        """
-        servicing_status: NotRequired[
-            Literal["active", "canceled", "paused", "pending"]
-        ]
-        """
-        Optionally filter by servicing status.
-        """
-
-    class ListParamsPayer(TypedDict):
-        customer: NotRequired[str]
-        """
-        The ID of the Customer object. If provided, only the Rate Card Subscriptions that are subscribed on the Billing Cadences with the specified payer will be returned.
-        """
-        type: Literal["customer"]
-        """
-        A string identifying the type of the payer. Currently the only supported value is `customer`.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
-    class UpdateParams(TypedDict):
-        metadata: NotRequired[Dict[str, Optional[str]]]
-        """
-        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-        """
-
     def list(
         self,
-        params: Optional["RateCardSubscriptionService.ListParams"] = None,
+        params: Optional["RateCardSubscriptionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[RateCardSubscription]:
         """
@@ -100,7 +48,7 @@ class RateCardSubscriptionService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["RateCardSubscriptionService.ListParams"] = None,
+        params: Optional["RateCardSubscriptionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[RateCardSubscription]:
         """
@@ -119,7 +67,7 @@ class RateCardSubscriptionService(StripeService):
 
     def create(
         self,
-        params: "RateCardSubscriptionService.CreateParams",
+        params: "RateCardSubscriptionCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
@@ -138,7 +86,7 @@ class RateCardSubscriptionService(StripeService):
 
     async def create_async(
         self,
-        params: "RateCardSubscriptionService.CreateParams",
+        params: "RateCardSubscriptionCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
@@ -158,7 +106,7 @@ class RateCardSubscriptionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["RateCardSubscriptionService.RetrieveParams"] = None,
+        params: Optional["RateCardSubscriptionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
@@ -180,7 +128,7 @@ class RateCardSubscriptionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["RateCardSubscriptionService.RetrieveParams"] = None,
+        params: Optional["RateCardSubscriptionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
@@ -202,7 +150,7 @@ class RateCardSubscriptionService(StripeService):
     def update(
         self,
         id: str,
-        params: Optional["RateCardSubscriptionService.UpdateParams"] = None,
+        params: Optional["RateCardSubscriptionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
@@ -224,7 +172,7 @@ class RateCardSubscriptionService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: Optional["RateCardSubscriptionService.UpdateParams"] = None,
+        params: Optional["RateCardSubscriptionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
@@ -246,7 +194,7 @@ class RateCardSubscriptionService(StripeService):
     def cancel(
         self,
         id: str,
-        params: Optional["RateCardSubscriptionService.CancelParams"] = None,
+        params: Optional["RateCardSubscriptionCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """
@@ -268,7 +216,7 @@ class RateCardSubscriptionService(StripeService):
     async def cancel_async(
         self,
         id: str,
-        params: Optional["RateCardSubscriptionService.CancelParams"] = None,
+        params: Optional["RateCardSubscriptionCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RateCardSubscription:
         """

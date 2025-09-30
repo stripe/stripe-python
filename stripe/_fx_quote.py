@@ -3,10 +3,14 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing import ClassVar, Dict, Optional, cast
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._fx_quote_create_params import FxQuoteCreateParams
+    from stripe.params._fx_quote_list_params import FxQuoteListParams
+    from stripe.params._fx_quote_retrieve_params import FxQuoteRetrieveParams
 
 
 class FxQuote(
@@ -92,90 +96,6 @@ class FxQuote(
         """
         _inner_class_types = {"payment": Payment, "transfer": Transfer}
 
-    class CreateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        from_currencies: List[str]
-        """
-        A list of three letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be [supported currencies](https://stripe.com/docs/currencies).
-        """
-        lock_duration: Literal["day", "five_minutes", "hour", "none"]
-        """
-        The duration that you wish the quote to be locked for. The quote will be usable for the duration specified. The default is `none`. The maximum is 1 day.
-        """
-        to_currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        usage: NotRequired["FxQuote.CreateParamsUsage"]
-        """
-        The usage specific information for the quote.
-        """
-
-    class CreateParamsUsage(TypedDict):
-        payment: NotRequired["FxQuote.CreateParamsUsagePayment"]
-        """
-        The payment transaction details that are intended for the FX Quote.
-        """
-        transfer: NotRequired["FxQuote.CreateParamsUsageTransfer"]
-        """
-        The transfer transaction details that are intended for the FX Quote.
-        """
-        type: Literal["payment", "transfer"]
-        """
-        Which transaction the FX Quote will be used for
-
-        Can be “payment” | “transfer”
-        """
-
-    class CreateParamsUsagePayment(TypedDict):
-        destination: NotRequired[str]
-        """
-        The Stripe account ID that the funds will be transferred to.
-
-        This field should match the account ID that would be used in the PaymentIntent's transfer_data[destination] field.
-        """
-        on_behalf_of: NotRequired[str]
-        """
-        The Stripe account ID that these funds are intended for.
-
-        This field should match the account ID that would be used in the PaymentIntent's on_behalf_of field.
-        """
-
-    class CreateParamsUsageTransfer(TypedDict):
-        destination: str
-        """
-        The Stripe account ID that the funds will be transferred to.
-
-        This field should match the account ID that would be used in the Transfer's destination field.
-        """
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     created: int
     """
     Time at which the quote was created, measured in seconds since the Unix epoch.
@@ -215,7 +135,7 @@ class FxQuote(
     usage: Usage
 
     @classmethod
-    def create(cls, **params: Unpack["FxQuote.CreateParams"]) -> "FxQuote":
+    def create(cls, **params: Unpack["FxQuoteCreateParams"]) -> "FxQuote":
         """
         Creates an FX Quote object
         """
@@ -230,7 +150,7 @@ class FxQuote(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["FxQuote.CreateParams"]
+        cls, **params: Unpack["FxQuoteCreateParams"]
     ) -> "FxQuote":
         """
         Creates an FX Quote object
@@ -246,7 +166,7 @@ class FxQuote(
 
     @classmethod
     def list(
-        cls, **params: Unpack["FxQuote.ListParams"]
+        cls, **params: Unpack["FxQuoteListParams"]
     ) -> ListObject["FxQuote"]:
         """
         Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
@@ -266,7 +186,7 @@ class FxQuote(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["FxQuote.ListParams"]
+        cls, **params: Unpack["FxQuoteListParams"]
     ) -> ListObject["FxQuote"]:
         """
         Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
@@ -286,7 +206,7 @@ class FxQuote(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["FxQuote.RetrieveParams"]
+        cls, id: str, **params: Unpack["FxQuoteRetrieveParams"]
     ) -> "FxQuote":
         """
         Retrieve an FX Quote object
@@ -297,7 +217,7 @@ class FxQuote(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["FxQuote.RetrieveParams"]
+        cls, id: str, **params: Unpack["FxQuoteRetrieveParams"]
     ) -> "FxQuote":
         """
         Retrieve an FX Quote object

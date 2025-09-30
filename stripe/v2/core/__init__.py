@@ -20,6 +20,7 @@ from stripe.v2.core._claimable_sandbox import (
 )
 from stripe.v2.core._claimable_sandbox_service import (
     ClaimableSandboxService as ClaimableSandboxService,
+)
 from stripe.v2.core._event import Event as Event
 from stripe.v2.core._event_destination import (
     EventDestination as EventDestination,

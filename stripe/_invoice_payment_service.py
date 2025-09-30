@@ -18,56 +18,6 @@ if TYPE_CHECKING:
 
 
 class InvoicePaymentService(StripeService):
-    class ListParams(TypedDict):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        invoice: NotRequired[str]
-        """
-        The identifier of the invoice whose payments to return.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        payment: NotRequired["InvoicePaymentService.ListParamsPayment"]
-        """
-        The payment details of the invoice payments to return.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[Literal["canceled", "open", "paid"]]
-        """
-        The status of the invoice payments to return.
-        """
-
-    class ListParamsPayment(TypedDict):
-        payment_intent: NotRequired[str]
-        """
-        Only return invoice payments associated by this payment intent ID.
-        """
-        payment_record: NotRequired[str]
-        """
-        Only return invoice payments associated by this payment record ID.
-        """
-        type: Literal["payment_intent", "payment_record"]
-        """
-        Only return invoice payments associated by this payment type.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
         params: Optional["InvoicePaymentListParams"] = None,

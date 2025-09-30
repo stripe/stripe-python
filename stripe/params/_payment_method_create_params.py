@@ -98,9 +98,17 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
     """
+    gopay: NotRequired["PaymentMethodCreateParamsGopay"]
+    """
+    If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+    """
     grabpay: NotRequired["PaymentMethodCreateParamsGrabpay"]
     """
     If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
+    """
+    id_bank_transfer: NotRequired["PaymentMethodCreateParamsIdBankTransfer"]
+    """
+    If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
     """
     ideal: NotRequired["PaymentMethodCreateParamsIdeal"]
     """
@@ -182,6 +190,14 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    paypay: NotRequired["PaymentMethodCreateParamsPaypay"]
+    """
+    If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+    """
+    payto: NotRequired["PaymentMethodCreateParamsPayto"]
+    """
+    If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+    """
     pix: NotRequired["PaymentMethodCreateParamsPix"]
     """
     If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -190,9 +206,17 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
     """
+    qris: NotRequired["PaymentMethodCreateParamsQris"]
+    """
+    If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+    """
     radar_options: NotRequired["PaymentMethodCreateParamsRadarOptions"]
     """
     Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    """
+    rechnung: NotRequired["PaymentMethodCreateParamsRechnung"]
+    """
+    If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
     """
     revolut_pay: NotRequired["PaymentMethodCreateParamsRevolutPay"]
     """
@@ -210,9 +234,17 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    shopeepay: NotRequired["PaymentMethodCreateParamsShopeepay"]
+    """
+    If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+    """
     sofort: NotRequired["PaymentMethodCreateParamsSofort"]
     """
     If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
+    """
+    stripe_balance: NotRequired["PaymentMethodCreateParamsStripeBalance"]
+    """
+    This hash contains details about the Stripe balance payment method.
     """
     swish: NotRequired["PaymentMethodCreateParamsSwish"]
     """
@@ -243,7 +275,9 @@ class PaymentMethodCreateParams(RequestOptions):
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -261,13 +295,19 @@ class PaymentMethodCreateParams(RequestOptions):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
+            "payto",
             "pix",
             "promptpay",
+            "qris",
+            "rechnung",
             "revolut_pay",
             "samsung_pay",
             "satispay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -542,8 +582,19 @@ class PaymentMethodCreateParamsGiropay(TypedDict):
     pass
 
 
+class PaymentMethodCreateParamsGopay(TypedDict):
+    pass
+
+
 class PaymentMethodCreateParamsGrabpay(TypedDict):
     pass
+
+
+class PaymentMethodCreateParamsIdBankTransfer(TypedDict):
+    bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+    """
+    Bank where the account is held.
+    """
 
 
 class PaymentMethodCreateParamsIdeal(TypedDict):
@@ -714,6 +765,25 @@ class PaymentMethodCreateParamsPaypal(TypedDict):
     pass
 
 
+class PaymentMethodCreateParamsPaypay(TypedDict):
+    pass
+
+
+class PaymentMethodCreateParamsPayto(TypedDict):
+    account_number: NotRequired[str]
+    """
+    The account number for the bank account.
+    """
+    bsb_number: NotRequired[str]
+    """
+    Bank-State-Branch number of the bank account.
+    """
+    pay_id: NotRequired[str]
+    """
+    The PayID alias for the bank account.
+    """
+
+
 class PaymentMethodCreateParamsPix(TypedDict):
     pass
 
@@ -722,10 +792,36 @@ class PaymentMethodCreateParamsPromptpay(TypedDict):
     pass
 
 
+class PaymentMethodCreateParamsQris(TypedDict):
+    pass
+
+
 class PaymentMethodCreateParamsRadarOptions(TypedDict):
     session: NotRequired[str]
     """
     A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+    """
+
+
+class PaymentMethodCreateParamsRechnung(TypedDict):
+    dob: "PaymentMethodCreateParamsRechnungDob"
+    """
+    Customer's date of birth
+    """
+
+
+class PaymentMethodCreateParamsRechnungDob(TypedDict):
+    day: int
+    """
+    The day of birth, between 1 and 31.
+    """
+    month: int
+    """
+    The month of birth, between 1 and 12.
+    """
+    year: int
+    """
+    The four-digit year of birth.
     """
 
 
@@ -748,10 +844,25 @@ class PaymentMethodCreateParamsSepaDebit(TypedDict):
     """
 
 
+class PaymentMethodCreateParamsShopeepay(TypedDict):
+    pass
+
+
 class PaymentMethodCreateParamsSofort(TypedDict):
     country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
     """
     Two-letter ISO code representing the country the bank account is located in.
+    """
+
+
+class PaymentMethodCreateParamsStripeBalance(TypedDict):
+    account: NotRequired[str]
+    """
+    The connected account ID whose Stripe balance to use as the source of payment
+    """
+    source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+    """
+    The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
     """
 
 

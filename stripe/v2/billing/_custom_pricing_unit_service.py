@@ -5,67 +5,28 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._custom_pricing_unit import CustomPricingUnit
-from typing import Dict, List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing._custom_pricing_unit_create_params import (
+        CustomPricingUnitCreateParams,
+    )
+    from stripe.params.v2.billing._custom_pricing_unit_list_params import (
+        CustomPricingUnitListParams,
+    )
+    from stripe.params.v2.billing._custom_pricing_unit_retrieve_params import (
+        CustomPricingUnitRetrieveParams,
+    )
+    from stripe.params.v2.billing._custom_pricing_unit_update_params import (
+        CustomPricingUnitUpdateParams,
+    )
 
 
 class CustomPricingUnitService(StripeService):
-    class CreateParams(TypedDict):
-        display_name: str
-        """
-        Description that customers will see in the invoice line item.
-        Maximum length of 10 characters.
-        """
-        lookup_key: NotRequired[str]
-        """
-        An internal key you can use to search for a particular custom pricing unit item.
-        Must be unique among items.
-        Maximum length of 200 characters.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-        """
-
-    class ListParams(TypedDict):
-        active: NotRequired[bool]
-        """
-        Filter for active/inactive custom pricing units. Mutually exclusive with `lookup_keys`.
-        """
-        limit: NotRequired[int]
-        """
-        Optionally set the maximum number of results per page. Defaults to 20.
-        """
-        lookup_keys: NotRequired[List[str]]
-        """
-        Filter by lookup keys. Mutually exclusive with `active`.
-        You can specify up to 10 lookup keys.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
-    class UpdateParams(TypedDict):
-        active: NotRequired[bool]
-        """
-        Whether the Custom Pricing Unit is active.
-        """
-        display_name: NotRequired[str]
-        """
-        Description that customers will see in the invoice line item.
-        """
-        lookup_key: NotRequired[str]
-        """
-        An internal key you can use to search for a particular CustomPricingUnit item.
-        """
-        metadata: NotRequired[Dict[str, Optional[str]]]
-        """
-        Set of key-value pairs that you can attach to an object.
-        """
-
     def list(
         self,
-        params: Optional["CustomPricingUnitService.ListParams"] = None,
+        params: Optional["CustomPricingUnitListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CustomPricingUnit]:
         """
@@ -84,7 +45,7 @@ class CustomPricingUnitService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["CustomPricingUnitService.ListParams"] = None,
+        params: Optional["CustomPricingUnitListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CustomPricingUnit]:
         """
@@ -103,7 +64,7 @@ class CustomPricingUnitService(StripeService):
 
     def create(
         self,
-        params: "CustomPricingUnitService.CreateParams",
+        params: "CustomPricingUnitCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> CustomPricingUnit:
         """
@@ -122,7 +83,7 @@ class CustomPricingUnitService(StripeService):
 
     async def create_async(
         self,
-        params: "CustomPricingUnitService.CreateParams",
+        params: "CustomPricingUnitCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> CustomPricingUnit:
         """
@@ -142,7 +103,7 @@ class CustomPricingUnitService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["CustomPricingUnitService.RetrieveParams"] = None,
+        params: Optional["CustomPricingUnitRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CustomPricingUnit:
         """
@@ -164,7 +125,7 @@ class CustomPricingUnitService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["CustomPricingUnitService.RetrieveParams"] = None,
+        params: Optional["CustomPricingUnitRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CustomPricingUnit:
         """
@@ -186,7 +147,7 @@ class CustomPricingUnitService(StripeService):
     def update(
         self,
         id: str,
-        params: Optional["CustomPricingUnitService.UpdateParams"] = None,
+        params: Optional["CustomPricingUnitUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CustomPricingUnit:
         """
@@ -208,7 +169,7 @@ class CustomPricingUnitService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: Optional["CustomPricingUnitService.UpdateParams"] = None,
+        params: Optional["CustomPricingUnitUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CustomPricingUnit:
         """

@@ -5,34 +5,22 @@ from stripe._payment_attempt_record import PaymentAttemptRecord
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._payment_attempt_record_list_params import (
+        PaymentAttemptRecordListParams,
+    )
+    from stripe.params._payment_attempt_record_retrieve_params import (
+        PaymentAttemptRecordRetrieveParams,
+    )
 
 
 class PaymentAttemptRecordService(StripeService):
-    class ListParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        payment_record: str
-        """
-        The ID of the Payment Record.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: "PaymentAttemptRecordService.ListParams",
+        params: "PaymentAttemptRecordListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentAttemptRecord]:
         """
@@ -51,7 +39,7 @@ class PaymentAttemptRecordService(StripeService):
 
     async def list_async(
         self,
-        params: "PaymentAttemptRecordService.ListParams",
+        params: "PaymentAttemptRecordListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentAttemptRecord]:
         """
@@ -71,7 +59,7 @@ class PaymentAttemptRecordService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["PaymentAttemptRecordService.RetrieveParams"] = None,
+        params: Optional["PaymentAttemptRecordRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentAttemptRecord:
         """
@@ -91,7 +79,7 @@ class PaymentAttemptRecordService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["PaymentAttemptRecordService.RetrieveParams"] = None,
+        params: Optional["PaymentAttemptRecordRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentAttemptRecord:
         """

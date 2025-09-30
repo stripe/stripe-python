@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import Dict, List
+from typing import Any, Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -60,6 +60,10 @@ class CouponCreateParams(RequestOptions):
     """
     Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers.
     """
+    script: NotRequired["CouponCreateParamsScript"]
+    """
+    Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
+    """
 
 
 class CouponCreateParamsAppliesTo(TypedDict):
@@ -73,4 +77,15 @@ class CouponCreateParamsCurrencyOptions(TypedDict):
     amount_off: int
     """
     A positive integer representing the amount to subtract from an invoice total.
+    """
+
+
+class CouponCreateParamsScript(TypedDict):
+    configuration: Dict[str, Any]
+    """
+    The configuration values of the script. The keys and values are specific to the script implementation.
+    """
+    id: str
+    """
+    The script implementation ID for this coupon.
     """
