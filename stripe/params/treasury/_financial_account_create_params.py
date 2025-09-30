@@ -6,6 +6,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class FinancialAccountCreateParams(RequestOptions):
+    display_name: NotRequired["Literal['']|str"]
+    """
+    The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -103,6 +107,10 @@ class FinancialAccountCreateParamsFeaturesFinancialAddresses(TypedDict):
 
 
 class FinancialAccountCreateParamsFeaturesFinancialAddressesAba(TypedDict):
+    bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+    """
+    Requested bank partner
+    """
     requested: bool
     """
     Whether the FinancialAccount should have the Feature.

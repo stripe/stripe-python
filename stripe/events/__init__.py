@@ -264,5 +264,4 @@ from stripe.events._v2_payments_off_session_payment_succeeded_event import (
     V2PaymentsOffSessionPaymentSucceededEvent as V2PaymentsOffSessionPaymentSucceededEvent,
     V2PaymentsOffSessionPaymentSucceededEventNotification as V2PaymentsOffSessionPaymentSucceededEventNotification,
 )
-
 # The end of the section generated from our OpenAPI spec

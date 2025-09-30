@@ -10,6 +10,10 @@ class QuoteListParams(RequestOptions):
     """
     The ID of the customer whose quotes will be retrieved.
     """
+    customer_account: NotRequired[str]
+    """
+    The ID of the account whose quotes will be retrieved.
+    """
     ending_before: NotRequired[str]
     """
     A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -17,6 +21,10 @@ class QuoteListParams(RequestOptions):
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
+    """
+    from_subscription: NotRequired[str]
+    """
+    The subscription which the quote updates.
     """
     limit: NotRequired[int]
     """
@@ -26,7 +34,9 @@ class QuoteListParams(RequestOptions):
     """
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     """
-    status: NotRequired[Literal["accepted", "canceled", "draft", "open"]]
+    status: NotRequired[
+        Literal["accepted", "accepting", "canceled", "draft", "open", "stale"]
+    ]
     """
     The status of the quote.
     """

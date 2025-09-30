@@ -14,6 +14,10 @@ class PaymentIntentListParams(RequestOptions):
     """
     Only return PaymentIntents for the customer that this customer ID specifies.
     """
+    customer_account: NotRequired[str]
+    """
+    Only return PaymentIntents for the account that this ID specifies.
+    """
     ending_before: NotRequired[str]
     """
     A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.

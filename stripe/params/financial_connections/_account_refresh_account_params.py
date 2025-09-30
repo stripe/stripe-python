@@ -10,7 +10,9 @@ class AccountRefreshAccountParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    features: List[Literal["balance", "ownership", "transactions"]]
+    features: List[
+        Literal["balance", "inferred_balances", "ownership", "transactions"]
+    ]
     """
     The list of account features that you would like to refresh.
     """

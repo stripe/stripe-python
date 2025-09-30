@@ -114,9 +114,19 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     """
     Google Pay allows customers to make payments in your app or website using any credit or debit card saved to their Google Account, including those from Google Play, YouTube, Chrome, or an Android device. Use the Google Pay API to request any credit or debit card stored in your customer's Google account. Check this [page](https://stripe.com/docs/google-pay) for more details.
     """
+    gopay: NotRequired["PaymentMethodConfigurationCreateParamsGopay"]
+    """
+    GoPay is a [single use](https://stripe.com/docs/payments/payment-methods#usage) digital wallet payment method popular in Indonesia. When paying with GoPay, customers authenticate and approve payments using the Gojek app. Desktop checkout is performed by scanning a QR code. When checking out on mobile, customers are redirected to the Gojek app to confirm payment.
+    """
     grabpay: NotRequired["PaymentMethodConfigurationCreateParamsGrabpay"]
     """
     GrabPay is a payment method developed by [Grab](https://www.grab.com/sg/consumer/finance/pay/). GrabPay is a digital wallet - customers maintain a balance in their wallets that they pay out with. Check this [page](https://stripe.com/docs/payments/grabpay) for more details.
+    """
+    id_bank_transfer: NotRequired[
+        "PaymentMethodConfigurationCreateParamsIdBankTransfer"
+    ]
+    """
+    Stripe users in Indonesia can receive bank transfers from customers in Indonesia. Bank transfers are a popular B2C and B2B payment method in Indonesia.
     """
     ideal: NotRequired["PaymentMethodConfigurationCreateParamsIdeal"]
     """
@@ -196,6 +206,14 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     """
     PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://stripe.com/docs/payments/paypal) for more details.
     """
+    paypay: NotRequired["PaymentMethodConfigurationCreateParamsPaypay"]
+    """
+    Customers can pay with PayPay online or using the PayPay app.
+    """
+    payto: NotRequired["PaymentMethodConfigurationCreateParamsPayto"]
+    """
+    PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
+    """
     pix: NotRequired["PaymentMethodConfigurationCreateParamsPix"]
     """
     Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
@@ -203,6 +221,10 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     promptpay: NotRequired["PaymentMethodConfigurationCreateParamsPromptpay"]
     """
     PromptPay is a Thailand-based payment method that allows customers to make a payment using their preferred app from participating banks. Check this [page](https://stripe.com/docs/payments/promptpay) for more details.
+    """
+    qris: NotRequired["PaymentMethodConfigurationCreateParamsQris"]
+    """
+    QRIS is a [real-time](https://docs.stripe.com/payments/real-time) payment method popular in Indonesia. When paying with QRIS, customers authenticate and approve payments by scanning a QR code in their preferred digital wallet app.
     """
     revolut_pay: NotRequired[
         "PaymentMethodConfigurationCreateParamsRevolutPay"
@@ -223,6 +245,10 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     sepa_debit: NotRequired["PaymentMethodConfigurationCreateParamsSepaDebit"]
     """
     The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://stripe.com/docs/payments/sepa-debit) for more details.
+    """
+    shopeepay: NotRequired["PaymentMethodConfigurationCreateParamsShopeepay"]
+    """
+    ShopeePay is a [single use](https://stripe.com/docs/payments/payment-methods#usage) digital wallet payment method popular in Indonesia. When paying with GoPay, customers authenticate and approve payments using the Shopee app. Desktop checkout is performed by scanning a QR code. When checking out on mobile, customers are redirected to the Shopee app to confirm payment.
     """
     sofort: NotRequired["PaymentMethodConfigurationCreateParamsSofort"]
     """
@@ -648,6 +674,22 @@ class PaymentMethodConfigurationCreateParamsGooglePayDisplayPreference(
     """
 
 
+class PaymentMethodConfigurationCreateParamsGopay(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsGopayDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsGopayDisplayPreference(TypedDict):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
 class PaymentMethodConfigurationCreateParamsGrabpay(TypedDict):
     display_preference: NotRequired[
         "PaymentMethodConfigurationCreateParamsGrabpayDisplayPreference"
@@ -659,6 +701,24 @@ class PaymentMethodConfigurationCreateParamsGrabpay(TypedDict):
 
 class PaymentMethodConfigurationCreateParamsGrabpayDisplayPreference(
     TypedDict
+):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsIdBankTransfer(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsIdBankTransferDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsIdBankTransferDisplayPreference(
+    TypedDict,
 ):
     preference: NotRequired[Literal["none", "off", "on"]]
     """
@@ -952,6 +1012,38 @@ class PaymentMethodConfigurationCreateParamsPaypalDisplayPreference(TypedDict):
     """
 
 
+class PaymentMethodConfigurationCreateParamsPaypay(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsPaypayDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsPaypayDisplayPreference(TypedDict):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsPayto(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsPaytoDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsPaytoDisplayPreference(TypedDict):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
 class PaymentMethodConfigurationCreateParamsPix(TypedDict):
     display_preference: NotRequired[
         "PaymentMethodConfigurationCreateParamsPixDisplayPreference"
@@ -980,6 +1072,22 @@ class PaymentMethodConfigurationCreateParamsPromptpay(TypedDict):
 class PaymentMethodConfigurationCreateParamsPromptpayDisplayPreference(
     TypedDict,
 ):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsQris(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsQrisDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsQrisDisplayPreference(TypedDict):
     preference: NotRequired[Literal["none", "off", "on"]]
     """
     The account's preference for whether or not to display this payment method.
@@ -1050,6 +1158,24 @@ class PaymentMethodConfigurationCreateParamsSepaDebit(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsSepaDebitDisplayPreference(
+    TypedDict,
+):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsShopeepay(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsShopeepayDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsShopeepayDisplayPreference(
     TypedDict,
 ):
     preference: NotRequired[Literal["none", "off", "on"]]

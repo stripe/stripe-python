@@ -14,6 +14,10 @@ class InvoiceItemListParams(RequestOptions):
     """
     The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
     """
+    customer_account: NotRequired[str]
+    """
+    The identifier of the account whose invoice items to return. If none is provided, all invoice items will be returned.
+    """
     ending_before: NotRequired[str]
     """
     A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.

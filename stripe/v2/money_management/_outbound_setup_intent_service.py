@@ -8,173 +8,30 @@ from stripe.v2.money_management._outbound_setup_intent import (
     OutboundSetupIntent,
 )
 from typing import Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.money_management._outbound_setup_intent_cancel_params import (
+        OutboundSetupIntentCancelParams,
+    )
+    from stripe.params.v2.money_management._outbound_setup_intent_create_params import (
+        OutboundSetupIntentCreateParams,
+    )
+    from stripe.params.v2.money_management._outbound_setup_intent_list_params import (
+        OutboundSetupIntentListParams,
+    )
+    from stripe.params.v2.money_management._outbound_setup_intent_retrieve_params import (
+        OutboundSetupIntentRetrieveParams,
+    )
+    from stripe.params.v2.money_management._outbound_setup_intent_update_params import (
+        OutboundSetupIntentUpdateParams,
+    )
 
 
 class OutboundSetupIntentService(StripeService):
-    class CancelParams(TypedDict):
-        pass
-
-    class CreateParams(TypedDict):
-        payout_method: NotRequired[str]
-        """
-        If provided, the existing payout method resource to link to this setup intent.
-        Any payout_method_data provided is used to update information on this linked payout method resource.
-        """
-        payout_method_data: NotRequired[
-            "OutboundSetupIntentService.CreateParamsPayoutMethodData"
-        ]
-        """
-        If no payout_method provided, used to create the underlying credential that is set up for outbound money movement.
-        If a payout_method provided, used to update data on the credential linked to this setup intent.
-        """
-        usage_intent: NotRequired[Literal["payment", "transfer"]]
-        """
-        Specify which type of outbound money movement this credential should be set up for (payment | transfer).
-        If not provided, defaults to payment.
-        """
-
-    class CreateParamsPayoutMethodData(TypedDict):
-        type: Literal["bank_account", "card", "crypto_wallet"]
-        """
-        Closed Enum. The type of payout method to be created.
-        """
-        bank_account: NotRequired[
-            "OutboundSetupIntentService.CreateParamsPayoutMethodDataBankAccount"
-        ]
-        """
-        The type specific details of the bank account payout method.
-        """
-        card: NotRequired[
-            "OutboundSetupIntentService.CreateParamsPayoutMethodDataCard"
-        ]
-        """
-        The type specific details of the card payout method.
-        """
-
-    class CreateParamsPayoutMethodDataBankAccount(TypedDict):
-        account_number: str
-        """
-        The account number or IBAN of the bank account.
-        """
-        bank_account_type: NotRequired[Literal["checking", "savings"]]
-        """
-        Closed Enum. The type of the bank account (checking or savings).
-        """
-        branch_number: NotRequired[str]
-        """
-        The branch number of the bank account, if present.
-        """
-        country: str
-        """
-        The country code of the bank account.
-        """
-        routing_number: NotRequired[str]
-        """
-        The routing number of the bank account, if present.
-        """
-        swift_code: NotRequired[str]
-        """
-        The swift code of the bank account, if present.
-        """
-
-    class CreateParamsPayoutMethodDataCard(TypedDict):
-        exp_month: str
-        """
-        The expiration month of the card.
-        """
-        exp_year: str
-        """
-        The expiration year of the card.
-        """
-        number: str
-        """
-        The card number.
-        """
-
-    class ListParams(TypedDict):
-        limit: NotRequired[int]
-        """
-        The page size.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
-    class UpdateParams(TypedDict):
-        payout_method: NotRequired[str]
-        """
-        If provided, the existing payout method resource to link to this outbound setup intent.
-        """
-        payout_method_data: NotRequired[
-            "OutboundSetupIntentService.UpdateParamsPayoutMethodData"
-        ]
-        """
-        If no payout_method provided, used to create the underlying credential that is set up for outbound money movement.
-        If a payout_method provided, used to update data on the credential linked to this setup intent.
-        """
-
-    class UpdateParamsPayoutMethodData(TypedDict):
-        type: Literal["bank_account", "card", "crypto_wallet"]
-        """
-        Closed Enum. The type of payout method to be created/updated.
-        """
-        bank_account: NotRequired[
-            "OutboundSetupIntentService.UpdateParamsPayoutMethodDataBankAccount"
-        ]
-        """
-        The type specific details of the bank account payout method.
-        """
-        card: NotRequired[
-            "OutboundSetupIntentService.UpdateParamsPayoutMethodDataCard"
-        ]
-        """
-        The type specific details of the card payout method.
-        """
-
-    class UpdateParamsPayoutMethodDataBankAccount(TypedDict):
-        account_number: str
-        """
-        The account number or IBAN of the bank account.
-        """
-        bank_account_type: NotRequired[Literal["checking", "savings"]]
-        """
-        Closed Enum. The type of the bank account (checking or savings).
-        """
-        branch_number: NotRequired[str]
-        """
-        The branch number of the bank account, if present.
-        """
-        country: str
-        """
-        The country code of the bank account.
-        """
-        routing_number: NotRequired[str]
-        """
-        The routing number of the bank account, if present.
-        """
-        swift_code: NotRequired[str]
-        """
-        The swift code of the bank account, if present.
-        """
-
-    class UpdateParamsPayoutMethodDataCard(TypedDict):
-        exp_month: NotRequired[str]
-        """
-        The expiration month of the card.
-        """
-        exp_year: NotRequired[str]
-        """
-        The expiration year of the card.
-        """
-        number: NotRequired[str]
-        """
-        The card number. This can only be passed when creating a new credential on an outbound setup intent in the requires_payout_method state.
-        """
-
     def list(
         self,
-        params: Optional["OutboundSetupIntentService.ListParams"] = None,
+        params: Optional["OutboundSetupIntentListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[OutboundSetupIntent]:
         """
@@ -193,7 +50,7 @@ class OutboundSetupIntentService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["OutboundSetupIntentService.ListParams"] = None,
+        params: Optional["OutboundSetupIntentListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[OutboundSetupIntent]:
         """
@@ -212,7 +69,7 @@ class OutboundSetupIntentService(StripeService):
 
     def create(
         self,
-        params: Optional["OutboundSetupIntentService.CreateParams"] = None,
+        params: Optional["OutboundSetupIntentCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
@@ -231,7 +88,7 @@ class OutboundSetupIntentService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["OutboundSetupIntentService.CreateParams"] = None,
+        params: Optional["OutboundSetupIntentCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
@@ -251,7 +108,7 @@ class OutboundSetupIntentService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["OutboundSetupIntentService.RetrieveParams"] = None,
+        params: Optional["OutboundSetupIntentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
@@ -273,7 +130,7 @@ class OutboundSetupIntentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["OutboundSetupIntentService.RetrieveParams"] = None,
+        params: Optional["OutboundSetupIntentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
@@ -295,7 +152,7 @@ class OutboundSetupIntentService(StripeService):
     def update(
         self,
         id: str,
-        params: Optional["OutboundSetupIntentService.UpdateParams"] = None,
+        params: Optional["OutboundSetupIntentUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
@@ -317,7 +174,7 @@ class OutboundSetupIntentService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: Optional["OutboundSetupIntentService.UpdateParams"] = None,
+        params: Optional["OutboundSetupIntentUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
@@ -339,7 +196,7 @@ class OutboundSetupIntentService(StripeService):
     def cancel(
         self,
         id: str,
-        params: Optional["OutboundSetupIntentService.CancelParams"] = None,
+        params: Optional["OutboundSetupIntentCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """
@@ -361,7 +218,7 @@ class OutboundSetupIntentService(StripeService):
     async def cancel_async(
         self,
         id: str,
-        params: Optional["OutboundSetupIntentService.CancelParams"] = None,
+        params: Optional["OutboundSetupIntentCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundSetupIntent:
         """

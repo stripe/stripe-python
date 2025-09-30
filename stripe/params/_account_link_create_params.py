@@ -30,7 +30,12 @@ class AccountLinkCreateParams(RequestOptions):
     """
     The URL that the user will be redirected to upon leaving or completing the linked flow.
     """
-    type: Literal["account_onboarding", "account_update"]
+    type: Literal[
+        "account_onboarding",
+        "account_update",
+        "capital_financing_offer",
+        "capital_financing_reporting",
+    ]
     """
     The type of account link the user is requesting.
 

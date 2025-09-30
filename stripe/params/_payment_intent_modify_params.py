@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -9,6 +9,12 @@ class PaymentIntentModifyParams(RequestOptions):
     amount: NotRequired[int]
     """
     Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+    """
+    amount_details: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsAmountDetails"
+    ]
+    """
+    Provides industry-specific information about the amount.
     """
     application_fee_amount: NotRequired["Literal['']|int"]
     """
@@ -32,12 +38,20 @@ class PaymentIntentModifyParams(RequestOptions):
 
     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
     """
+    customer_account: NotRequired[str]
+    """
+    ID of the Account this PaymentIntent belongs to, if one exists.
+
+    Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+
+    If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+    """
     description: NotRequired[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -46,14 +60,29 @@ class PaymentIntentModifyParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
+    fx_quote: NotRequired[str]
+    """
+    The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
+    """
+    hooks: NotRequired["PaymentIntentModifyParamsHooks"]
+    """
+    Automations to be run during the PaymentIntent lifecycle
+    """
+    mandate_data: NotRequired["PaymentIntentModifyParamsMandateData"]
+    """
+    This hash contains details about the Mandate to create.
+    """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    payment_details: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentDetails"
+    ]
+    """
+    Provides industry-specific information about the charge.
+    """
     payment_method: NotRequired[str]
-    """
-    ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. To unset this field to null, pass in an empty string.
-    """
     payment_method_configuration: NotRequired[str]
     """
     The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent.
@@ -115,6 +144,962 @@ class PaymentIntentModifyParams(RequestOptions):
     transfer_group: NotRequired[str]
     """
     A string that identifies the resulting payment as part of a group. You can only provide `transfer_group` if it hasn't been set. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    """
+
+
+class PaymentIntentModifyParamsAmountDetails(TypedDict):
+    discount_amount: NotRequired["Literal['']|int"]
+    """
+    The total discount applied on the transaction.
+    """
+    line_items: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsAmountDetailsLineItem]"
+    ]
+    """
+    A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+    """
+    shipping: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsAmountDetailsShipping"
+    ]
+    """
+    Contains information about the shipping portion of the amount.
+    """
+    tax: NotRequired["Literal['']|PaymentIntentModifyParamsAmountDetailsTax"]
+    """
+    Contains information about the tax portion of the amount.
+    """
+
+
+class PaymentIntentModifyParamsAmountDetailsLineItem(TypedDict):
+    discount_amount: NotRequired[int]
+    """
+    The amount an item was discounted for. Positive integer.
+    """
+    payment_method_options: NotRequired[
+        "PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptions"
+    ]
+    """
+    Payment method-specific information for line items.
+    """
+    product_code: NotRequired[str]
+    """
+    Unique identifier of the product. At most 12 characters long.
+    """
+    product_name: str
+    """
+    Name of the product. At most 100 characters long.
+    """
+    quantity: int
+    """
+    Number of items of the product. Positive integer.
+    """
+    tax: NotRequired["PaymentIntentModifyParamsAmountDetailsLineItemTax"]
+    """
+    Contains information about the tax on the item.
+    """
+    unit_cost: int
+    """
+    Cost of the product. Non-negative integer.
+    """
+    unit_of_measure: NotRequired[str]
+    """
+    A unit of measure for the line item, such as gallons, feet, meters, etc.
+    """
+
+
+class PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptions(
+    TypedDict,
+):
+    card: NotRequired[
+        "PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCard"
+    ]
+    """
+    This sub-hash contains line item details that are specific to `card` payment method."
+    """
+    card_present: NotRequired[
+        "PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent"
+    ]
+    """
+    This sub-hash contains line item details that are specific to `card_present` payment method."
+    """
+    klarna: NotRequired[
+        "PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsKlarna"
+    ]
+    """
+    This sub-hash contains line item details that are specific to `klarna` payment method."
+    """
+    paypal: NotRequired[
+        "PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsPaypal"
+    ]
+    """
+    This sub-hash contains line item details that are specific to `paypal` payment method."
+    """
+
+
+class PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCard(
+    TypedDict,
+):
+    commodity_code: NotRequired[str]
+    """
+    Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+    """
+
+
+class PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent(
+    TypedDict,
+):
+    commodity_code: NotRequired[str]
+    """
+    Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+    """
+
+
+class PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsKlarna(
+    TypedDict,
+):
+    image_url: NotRequired[str]
+    """
+    URL to an image for the product. Max length, 4096 characters.
+    """
+    product_url: NotRequired[str]
+    """
+    URL to the product page. Max length, 4096 characters.
+    """
+    subscription_reference: NotRequired[str]
+    """
+    Reference for the subscription this line item is for.
+    """
+
+
+class PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsPaypal(
+    TypedDict,
+):
+    category: NotRequired[
+        Literal["digital_goods", "donation", "physical_goods"]
+    ]
+    """
+    Type of the line item.
+    """
+    description: NotRequired[str]
+    """
+    Description of the line item.
+    """
+    sold_by: NotRequired[str]
+    """
+    The Stripe account ID of the connected account that sells the item.
+    """
+
+
+class PaymentIntentModifyParamsAmountDetailsLineItemTax(TypedDict):
+    total_tax_amount: int
+    """
+    The total tax on an item. Non-negative integer.
+    """
+
+
+class PaymentIntentModifyParamsAmountDetailsShipping(TypedDict):
+    amount: NotRequired["Literal['']|int"]
+    """
+    Portion of the amount that is for shipping.
+    """
+    from_postal_code: NotRequired["Literal['']|str"]
+    """
+    The postal code that represents the shipping source.
+    """
+    to_postal_code: NotRequired["Literal['']|str"]
+    """
+    The postal code that represents the shipping destination.
+    """
+
+
+class PaymentIntentModifyParamsAmountDetailsTax(TypedDict):
+    total_tax_amount: int
+    """
+    Total portion of the amount that is for tax.
+    """
+
+
+class PaymentIntentModifyParamsHooks(TypedDict):
+    inputs: NotRequired["PaymentIntentModifyParamsHooksInputs"]
+    """
+    Arguments passed in automations
+    """
+
+
+class PaymentIntentModifyParamsHooksInputs(TypedDict):
+    tax: NotRequired["PaymentIntentModifyParamsHooksInputsTax"]
+    """
+    Tax arguments for automations
+    """
+
+
+class PaymentIntentModifyParamsHooksInputsTax(TypedDict):
+    calculation: Union[Literal[""], str]
+    """
+    The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+    """
+
+
+class PaymentIntentModifyParamsMandateData(TypedDict):
+    customer_acceptance: (
+        "PaymentIntentModifyParamsMandateDataCustomerAcceptance"
+    )
+    """
+    This hash contains details about the customer acceptance of the Mandate.
+    """
+
+
+class PaymentIntentModifyParamsMandateDataCustomerAcceptance(TypedDict):
+    online: "PaymentIntentModifyParamsMandateDataCustomerAcceptanceOnline"
+    """
+    If this is a Mandate accepted online, this hash contains details about the online acceptance.
+    """
+    type: Literal["online"]
+    """
+    The type of customer acceptance information included with the Mandate.
+    """
+
+
+class PaymentIntentModifyParamsMandateDataCustomerAcceptanceOnline(TypedDict):
+    ip_address: NotRequired[str]
+    """
+    The IP address from which the Mandate was accepted by the customer.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Mandate was accepted by the customer.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetails(TypedDict):
+    car_rental: NotRequired["PaymentIntentModifyParamsPaymentDetailsCarRental"]
+    """
+    Car rental details for this PaymentIntent.
+    """
+    customer_reference: NotRequired["Literal['']|str"]
+    """
+    Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+    """
+    event_details: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsEventDetails"
+    ]
+    """
+    Event details for this PaymentIntent
+    """
+    flight: NotRequired["PaymentIntentModifyParamsPaymentDetailsFlight"]
+    """
+    Flight reservation details for this PaymentIntent
+    """
+    lodging: NotRequired["PaymentIntentModifyParamsPaymentDetailsLodging"]
+    """
+    Lodging reservation details for this PaymentIntent
+    """
+    order_reference: NotRequired["Literal['']|str"]
+    """
+    A unique value assigned by the business to identify the transaction.
+    """
+    subscription: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsSubscription"
+    ]
+    """
+    Subscription details for this PaymentIntent
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRental(TypedDict):
+    affiliate: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalAffiliate"
+    ]
+    """
+    Affiliate details for this purchase.
+    """
+    booking_number: str
+    """
+    The booking number associated with the car rental.
+    """
+    car_class_code: NotRequired[str]
+    """
+    Class code of the car.
+    """
+    car_make: NotRequired[str]
+    """
+    Make of the car.
+    """
+    car_model: NotRequired[str]
+    """
+    Model of the car.
+    """
+    company: NotRequired[str]
+    """
+    The name of the rental car company.
+    """
+    customer_service_phone_number: NotRequired[str]
+    """
+    The customer service phone number of the car rental company.
+    """
+    days_rented: int
+    """
+    Number of days the car is being rented.
+    """
+    delivery: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalDelivery"
+    ]
+    """
+    Delivery details for this purchase.
+    """
+    distance: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalDistance"
+    ]
+    """
+    The details of the distance traveled during the rental period.
+    """
+    drivers: NotRequired[
+        List["PaymentIntentModifyParamsPaymentDetailsCarRentalDriver"]
+    ]
+    """
+    The details of the passengers in the travel reservation
+    """
+    extra_charges: NotRequired[
+        List[
+            Literal[
+                "extra_mileage",
+                "gas",
+                "late_return",
+                "one_way_service",
+                "parking_violation",
+            ]
+        ]
+    ]
+    """
+    List of additional charges being billed.
+    """
+    no_show: NotRequired[bool]
+    """
+    Indicates if the customer did not keep nor cancel their booking.
+    """
+    pickup_address: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalPickupAddress"
+    ]
+    """
+    Car pick-up address.
+    """
+    pickup_at: int
+    """
+    Car pick-up time. Measured in seconds since the Unix epoch.
+    """
+    pickup_location_name: NotRequired[str]
+    """
+    Name of the pickup location.
+    """
+    rate_amount: NotRequired[int]
+    """
+    Rental rate.
+    """
+    rate_interval: NotRequired[Literal["day", "month", "week"]]
+    """
+    The frequency at which the rate amount is applied. One of `day`, `week` or `month`
+    """
+    renter_name: NotRequired[str]
+    """
+    The name of the person or entity renting the car.
+    """
+    return_address: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalReturnAddress"
+    ]
+    """
+    Car return address.
+    """
+    return_at: int
+    """
+    Car return time. Measured in seconds since the Unix epoch.
+    """
+    return_location_name: NotRequired[str]
+    """
+    Name of the return location.
+    """
+    tax_exempt: NotRequired[bool]
+    """
+    Indicates whether the goods or services are tax-exempt or tax is not collected.
+    """
+    vehicle_identification_number: NotRequired[str]
+    """
+    The vehicle identification number.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalAffiliate(TypedDict):
+    name: str
+    """
+    The name of the affiliate that originated the purchase.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDelivery(TypedDict):
+    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    """
+    The delivery method for the payment
+    """
+    recipient: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalDeliveryRecipient"
+    ]
+    """
+    Details of the recipient.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDeliveryRecipient(
+    TypedDict,
+):
+    email: NotRequired[str]
+    """
+    The email of the recipient the ticket is delivered to.
+    """
+    name: NotRequired[str]
+    """
+    The name of the recipient the ticket is delivered to.
+    """
+    phone: NotRequired[str]
+    """
+    The phone number of the recipient the ticket is delivered to.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDistance(TypedDict):
+    amount: NotRequired[int]
+    """
+    Distance traveled.
+    """
+    unit: NotRequired[Literal["kilometers", "miles"]]
+    """
+    Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDriver(TypedDict):
+    driver_identification_number: NotRequired[str]
+    """
+    Driver's identification number.
+    """
+    driver_tax_number: NotRequired[str]
+    """
+    Driver's tax number.
+    """
+    name: str
+    """
+    Full name of the person or entity on the car reservation.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalPickupAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalReturnAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsEventDetails(TypedDict):
+    access_controlled_venue: NotRequired[bool]
+    """
+    Indicates if the tickets are digitally checked when entering the venue.
+    """
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsEventDetailsAddress"
+    ]
+    """
+    The event location's address.
+    """
+    affiliate: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsEventDetailsAffiliate"
+    ]
+    """
+    Affiliate details for this purchase.
+    """
+    company: NotRequired[str]
+    """
+    The name of the company
+    """
+    delivery: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsEventDetailsDelivery"
+    ]
+    """
+    Delivery details for this purchase.
+    """
+    ends_at: NotRequired[int]
+    """
+    Event end time. Measured in seconds since the Unix epoch.
+    """
+    genre: NotRequired[str]
+    """
+    Type of the event entertainment (concert, sports event etc)
+    """
+    name: str
+    """
+    The name of the event.
+    """
+    starts_at: NotRequired[int]
+    """
+    Event start time. Measured in seconds since the Unix epoch.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsEventDetailsAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsEventDetailsAffiliate(TypedDict):
+    name: str
+    """
+    The name of the affiliate that originated the purchase.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsEventDetailsDelivery(TypedDict):
+    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    """
+    The delivery method for the payment
+    """
+    recipient: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsEventDetailsDeliveryRecipient"
+    ]
+    """
+    Details of the recipient.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsEventDetailsDeliveryRecipient(
+    TypedDict,
+):
+    email: NotRequired[str]
+    """
+    The email of the recipient the ticket is delivered to.
+    """
+    name: NotRequired[str]
+    """
+    The name of the recipient the ticket is delivered to.
+    """
+    phone: NotRequired[str]
+    """
+    The phone number of the recipient the ticket is delivered to.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlight(TypedDict):
+    affiliate: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsFlightAffiliate"
+    ]
+    """
+    Affiliate details for this purchase.
+    """
+    agency_number: NotRequired[str]
+    """
+    The agency number (i.e. International Air Transport Association (IATA) agency number) of the travel agency that made the booking.
+    """
+    carrier: NotRequired[str]
+    """
+    The International Air Transport Association (IATA) carrier code of the carrier that issued the ticket.
+    """
+    delivery: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsFlightDelivery"
+    ]
+    """
+    Delivery details for this purchase.
+    """
+    passenger_name: NotRequired[str]
+    """
+    The name of the person or entity on the reservation.
+    """
+    passengers: NotRequired[
+        List["PaymentIntentModifyParamsPaymentDetailsFlightPassenger"]
+    ]
+    """
+    The details of the passengers in the travel reservation.
+    """
+    segments: List["PaymentIntentModifyParamsPaymentDetailsFlightSegment"]
+    """
+    The individual flight segments associated with the trip.
+    """
+    ticket_number: NotRequired[str]
+    """
+    The ticket number associated with the travel reservation.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightAffiliate(TypedDict):
+    name: str
+    """
+    The name of the affiliate that originated the purchase.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDelivery(TypedDict):
+    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    """
+    The delivery method for the payment
+    """
+    recipient: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsFlightDeliveryRecipient"
+    ]
+    """
+    Details of the recipient.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDeliveryRecipient(
+    TypedDict
+):
+    email: NotRequired[str]
+    """
+    The email of the recipient the ticket is delivered to.
+    """
+    name: NotRequired[str]
+    """
+    The name of the recipient the ticket is delivered to.
+    """
+    phone: NotRequired[str]
+    """
+    The phone number of the recipient the ticket is delivered to.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightPassenger(TypedDict):
+    name: str
+    """
+    Full name of the person or entity on the flight reservation.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightSegment(TypedDict):
+    amount: NotRequired[int]
+    """
+    The flight segment amount.
+    """
+    arrival_airport: NotRequired[str]
+    """
+    The International Air Transport Association (IATA) airport code for the arrival airport.
+    """
+    arrives_at: NotRequired[int]
+    """
+    The arrival time for the flight segment. Measured in seconds since the Unix epoch.
+    """
+    carrier: NotRequired[str]
+    """
+    The International Air Transport Association (IATA) carrier code of the carrier operating the flight segment.
+    """
+    departs_at: int
+    """
+    The departure time for the flight segment. Measured in seconds since the Unix epoch.
+    """
+    departure_airport: NotRequired[str]
+    """
+    The International Air Transport Association (IATA) airport code for the departure airport.
+    """
+    flight_number: NotRequired[str]
+    """
+    The flight number associated with the segment
+    """
+    service_class: NotRequired[
+        Literal["business", "economy", "first", "premium_economy"]
+    ]
+    """
+    The fare class for the segment.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodging(TypedDict):
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsLodgingAddress"
+    ]
+    """
+    The lodging location's address.
+    """
+    adults: NotRequired[int]
+    """
+    The number of adults on the booking
+    """
+    affiliate: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsLodgingAffiliate"
+    ]
+    """
+    Affiliate details for this purchase.
+    """
+    booking_number: NotRequired[str]
+    """
+    The booking number associated with the lodging reservation.
+    """
+    category: NotRequired[Literal["hotel", "vacation_rental"]]
+    """
+    The lodging category
+    """
+    checkin_at: int
+    """
+    Lodging check-in time. Measured in seconds since the Unix epoch.
+    """
+    checkout_at: int
+    """
+    Lodging check-out time. Measured in seconds since the Unix epoch.
+    """
+    customer_service_phone_number: NotRequired[str]
+    """
+    The customer service phone number of the lodging company.
+    """
+    daily_room_rate_amount: NotRequired[int]
+    """
+    The daily lodging room rate.
+    """
+    delivery: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsLodgingDelivery"
+    ]
+    """
+    Delivery details for this purchase.
+    """
+    extra_charges: NotRequired[
+        List[
+            Literal[
+                "gift_shop",
+                "laundry",
+                "mini_bar",
+                "other",
+                "restaurant",
+                "telephone",
+            ]
+        ]
+    ]
+    """
+    List of additional charges being billed.
+    """
+    fire_safety_act_compliance: NotRequired[bool]
+    """
+    Indicates whether the lodging location is compliant with the Fire Safety Act.
+    """
+    name: NotRequired[str]
+    """
+    The name of the lodging location.
+    """
+    no_show: NotRequired[bool]
+    """
+    Indicates if the customer did not keep their booking while failing to cancel the reservation.
+    """
+    number_of_rooms: NotRequired[int]
+    """
+    The number of rooms on the booking
+    """
+    passengers: NotRequired[
+        List["PaymentIntentModifyParamsPaymentDetailsLodgingPassenger"]
+    ]
+    """
+    The details of the passengers in the travel reservation
+    """
+    property_phone_number: NotRequired[str]
+    """
+    The phone number of the lodging location.
+    """
+    room_class: NotRequired[str]
+    """
+    The room class for this purchase.
+    """
+    room_nights: NotRequired[int]
+    """
+    The number of room nights
+    """
+    total_room_tax_amount: NotRequired[int]
+    """
+    The total tax amount associating with the room reservation.
+    """
+    total_tax_amount: NotRequired[int]
+    """
+    The total tax amount
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingAffiliate(TypedDict):
+    name: str
+    """
+    The name of the affiliate that originated the purchase.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDelivery(TypedDict):
+    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    """
+    The delivery method for the payment
+    """
+    recipient: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsLodgingDeliveryRecipient"
+    ]
+    """
+    Details of the recipient.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDeliveryRecipient(
+    TypedDict,
+):
+    email: NotRequired[str]
+    """
+    The email of the recipient the ticket is delivered to.
+    """
+    name: NotRequired[str]
+    """
+    The name of the recipient the ticket is delivered to.
+    """
+    phone: NotRequired[str]
+    """
+    The phone number of the recipient the ticket is delivered to.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingPassenger(TypedDict):
+    name: str
+    """
+    Full name of the person or entity on the lodging reservation.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsSubscription(TypedDict):
+    affiliate: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsSubscriptionAffiliate"
+    ]
+    """
+    Affiliate details for this purchase.
+    """
+    auto_renewal: NotRequired[bool]
+    """
+    Info whether the subscription will be auto renewed upon expiry.
+    """
+    billing_interval: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsSubscriptionBillingInterval"
+    ]
+    """
+    Subscription billing details for this purchase.
+    """
+    ends_at: NotRequired[int]
+    """
+    Subscription end time. Measured in seconds since the Unix epoch.
+    """
+    name: str
+    """
+    Name of the product on subscription. e.g. Apple Music Subscription
+    """
+    starts_at: NotRequired[int]
+    """
+    Subscription start time. Measured in seconds since the Unix epoch.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsSubscriptionAffiliate(TypedDict):
+    name: str
+    """
+    The name of the affiliate that originated the purchase.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsSubscriptionBillingInterval(
+    TypedDict,
+):
+    count: int
+    """
+    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
 
 
@@ -215,9 +1200,19 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
     """
+    gopay: NotRequired["PaymentIntentModifyParamsPaymentMethodDataGopay"]
+    """
+    If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+    """
     grabpay: NotRequired["PaymentIntentModifyParamsPaymentMethodDataGrabpay"]
     """
     If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
+    """
+    id_bank_transfer: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodDataIdBankTransfer"
+    ]
+    """
+    If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
     """
     ideal: NotRequired["PaymentIntentModifyParamsPaymentMethodDataIdeal"]
     """
@@ -309,6 +1304,14 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    paypay: NotRequired["PaymentIntentModifyParamsPaymentMethodDataPaypay"]
+    """
+    If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+    """
+    payto: NotRequired["PaymentIntentModifyParamsPaymentMethodDataPayto"]
+    """
+    If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+    """
     pix: NotRequired["PaymentIntentModifyParamsPaymentMethodDataPix"]
     """
     If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -319,11 +1322,19 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
     """
+    qris: NotRequired["PaymentIntentModifyParamsPaymentMethodDataQris"]
+    """
+    If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+    """
     radar_options: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodDataRadarOptions"
     ]
     """
     Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    """
+    rechnung: NotRequired["PaymentIntentModifyParamsPaymentMethodDataRechnung"]
+    """
+    If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
     """
     revolut_pay: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodDataRevolutPay"
@@ -347,9 +1358,21 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    shopeepay: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodDataShopeepay"
+    ]
+    """
+    If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+    """
     sofort: NotRequired["PaymentIntentModifyParamsPaymentMethodDataSofort"]
     """
     If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
+    """
+    stripe_balance: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodDataStripeBalance"
+    ]
+    """
+    This hash contains details about the Stripe balance payment method.
     """
     swish: NotRequired["PaymentIntentModifyParamsPaymentMethodDataSwish"]
     """
@@ -378,7 +1401,9 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
         "eps",
         "fpx",
         "giropay",
+        "gopay",
         "grabpay",
+        "id_bank_transfer",
         "ideal",
         "kakao_pay",
         "klarna",
@@ -396,13 +1421,19 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
         "payco",
         "paynow",
         "paypal",
+        "paypay",
+        "payto",
         "pix",
         "promptpay",
+        "qris",
+        "rechnung",
         "revolut_pay",
         "samsung_pay",
         "satispay",
         "sepa_debit",
+        "shopeepay",
         "sofort",
+        "stripe_balance",
         "swish",
         "twint",
         "us_bank_account",
@@ -648,8 +1679,19 @@ class PaymentIntentModifyParamsPaymentMethodDataGiropay(TypedDict):
     pass
 
 
+class PaymentIntentModifyParamsPaymentMethodDataGopay(TypedDict):
+    pass
+
+
 class PaymentIntentModifyParamsPaymentMethodDataGrabpay(TypedDict):
     pass
+
+
+class PaymentIntentModifyParamsPaymentMethodDataIdBankTransfer(TypedDict):
+    bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+    """
+    Bank where the account is held.
+    """
 
 
 class PaymentIntentModifyParamsPaymentMethodDataIdeal(TypedDict):
@@ -820,6 +1862,25 @@ class PaymentIntentModifyParamsPaymentMethodDataPaypal(TypedDict):
     pass
 
 
+class PaymentIntentModifyParamsPaymentMethodDataPaypay(TypedDict):
+    pass
+
+
+class PaymentIntentModifyParamsPaymentMethodDataPayto(TypedDict):
+    account_number: NotRequired[str]
+    """
+    The account number for the bank account.
+    """
+    bsb_number: NotRequired[str]
+    """
+    Bank-State-Branch number of the bank account.
+    """
+    pay_id: NotRequired[str]
+    """
+    The PayID alias for the bank account.
+    """
+
+
 class PaymentIntentModifyParamsPaymentMethodDataPix(TypedDict):
     pass
 
@@ -828,10 +1889,36 @@ class PaymentIntentModifyParamsPaymentMethodDataPromptpay(TypedDict):
     pass
 
 
+class PaymentIntentModifyParamsPaymentMethodDataQris(TypedDict):
+    pass
+
+
 class PaymentIntentModifyParamsPaymentMethodDataRadarOptions(TypedDict):
     session: NotRequired[str]
     """
     A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodDataRechnung(TypedDict):
+    dob: "PaymentIntentModifyParamsPaymentMethodDataRechnungDob"
+    """
+    Customer's date of birth
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodDataRechnungDob(TypedDict):
+    day: int
+    """
+    The day of birth, between 1 and 31.
+    """
+    month: int
+    """
+    The month of birth, between 1 and 12.
+    """
+    year: int
+    """
+    The four-digit year of birth.
     """
 
 
@@ -854,10 +1941,25 @@ class PaymentIntentModifyParamsPaymentMethodDataSepaDebit(TypedDict):
     """
 
 
+class PaymentIntentModifyParamsPaymentMethodDataShopeepay(TypedDict):
+    pass
+
+
 class PaymentIntentModifyParamsPaymentMethodDataSofort(TypedDict):
     country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
     """
     Two-letter ISO code representing the country the bank account is located in.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodDataStripeBalance(TypedDict):
+    account: NotRequired[str]
+    """
+    The connected account ID whose Stripe balance to use as the source of payment
+    """
+    source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+    """
+    The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
     """
 
 
@@ -1021,11 +2123,23 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
     """
+    gopay: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsGopay"
+    ]
+    """
+    If this is a `gopay` PaymentMethod, this sub-hash contains details about the Gopay payment method options.
+    """
     grabpay: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsGrabpay"
     ]
     """
     If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
+    """
+    id_bank_transfer: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsIdBankTransfer"
+    ]
+    """
+    If this is a `id_bank_transfer` PaymentMethod, this sub-hash contains details about the Indonesia Bank Transfer payment method options.
     """
     ideal: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsIdeal"
@@ -1135,6 +2249,18 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
     """
+    paypay: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsPaypay"
+    ]
+    """
+    If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+    """
+    payto: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsPayto"
+    ]
+    """
+    If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
+    """
     pix: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsPix"
     ]
@@ -1146,6 +2272,18 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
     ]
     """
     If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
+    """
+    qris: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsQris"
+    ]
+    """
+    If this is a `qris` PaymentMethod, this sub-hash contains details about the QRIS payment method options.
+    """
+    rechnung: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsRechnung"
+    ]
+    """
+    If this is a `rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
     """
     revolut_pay: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsRevolutPay"
@@ -1171,11 +2309,23 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
     """
+    shopeepay: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsShopeepay"
+    ]
+    """
+    If this is a `shopeepay` PaymentMethod, this sub-hash contains details about the ShopeePay payment method options.
+    """
     sofort: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsSofort"
     ]
     """
     If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
+    """
+    stripe_balance: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsStripeBalance"
+    ]
+    """
+    If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
     """
     swish: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsSwish"
@@ -1553,6 +2703,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCard(TypedDict):
     """
     Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
     """
+    request_decremental_authorization: NotRequired[
+        Literal["if_available", "never"]
+    ]
+    """
+    Request ability to [decrement the authorization](https://stripe.com/docs/payments/decremental-authorization) for this PaymentIntent.
+    """
     request_extended_authorization: NotRequired[
         Literal["if_available", "never"]
     ]
@@ -1572,6 +2728,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCard(TypedDict):
     request_overcapture: NotRequired[Literal["if_available", "never"]]
     """
     Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+    """
+    request_partial_authorization: NotRequired[
+        Literal["if_available", "never"]
+    ]
+    """
+    Request partial authorization on this PaymentIntent.
     """
     request_three_d_secure: NotRequired[
         Literal["any", "automatic", "challenge"]
@@ -1604,6 +2766,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCard(TypedDict):
     statement_descriptor_suffix_kanji: NotRequired["Literal['']|str"]
     """
     Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
+    """
+    statement_details: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsCardStatementDetails"
+    ]
+    """
+    Statement details for this payment intent. You can use this to override the merchant details shown on your customers' statements.
     """
     three_d_secure: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecure"
@@ -1686,6 +2854,50 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardMandateOptions(
     supported_types: NotRequired[List[Literal["india"]]]
     """
     Specifies the type of mandates supported. Possible values are `india`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsCardStatementDetails(
+    TypedDict,
+):
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsCardStatementDetailsAddress"
+    ]
+    """
+    Please pass in an address that is within your Stripe user account country
+    """
+    phone: NotRequired[str]
+    """
+    Phone number (e.g., a toll-free number that customers can call)
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsCardStatementDetailsAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
     """
 
 
@@ -1948,7 +3160,45 @@ class PaymentIntentModifyParamsPaymentMethodOptionsGiropay(TypedDict):
     """
 
 
+class PaymentIntentModifyParamsPaymentMethodOptionsGopay(TypedDict):
+    setup_future_usage: NotRequired[Literal["none", "off_session"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+    If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
 class PaymentIntentModifyParamsPaymentMethodOptionsGrabpay(TypedDict):
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+    If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsIdBankTransfer(TypedDict):
+    expires_after: NotRequired[int]
+    """
+    The UNIX timestamp until which the virtual bank account is valid. Permitted range is from 5 minutes from now until 31 days from now. If unset, it defaults to 3 days from now.
+    """
+    expires_at: NotRequired[int]
+    """
+    The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now until 30 days from now. If unset, it defaults to 1 days from now.
+    """
     setup_future_usage: NotRequired[Literal["none"]]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2413,6 +3663,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPaypal(TypedDict):
     """
     Controls when the funds will be captured from the customer's account.
     """
+    line_items: NotRequired[
+        List["PaymentIntentModifyParamsPaymentMethodOptionsPaypalLineItem"]
+    ]
+    """
+    The line items purchased by the customer.
+    """
     preferred_locale: NotRequired[
         Literal[
             "cs-CZ",
@@ -2445,6 +3701,10 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPaypal(TypedDict):
     """
     A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
     """
+    reference_id: NotRequired[str]
+    """
+    A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+    """
     risk_correlation_id: NotRequired[str]
     """
     The risk correlation ID for an on-session payment using a saved PayPal payment method.
@@ -2463,6 +3723,150 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPaypal(TypedDict):
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
     """
+    subsellers: NotRequired[List[str]]
+    """
+    The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsPaypalLineItem(TypedDict):
+    category: NotRequired[
+        Literal["digital_goods", "donation", "physical_goods"]
+    ]
+    """
+    Type of the line item.
+    """
+    description: NotRequired[str]
+    """
+    Description of the line item.
+    """
+    name: str
+    """
+    Descriptive name of the line item.
+    """
+    quantity: int
+    """
+    Quantity of the line item. Must be a positive number.
+    """
+    sku: NotRequired[str]
+    """
+    Client facing stock keeping unit, article number or similar.
+    """
+    sold_by: NotRequired[str]
+    """
+    The Stripe account ID of the connected account that sells the item.
+    """
+    tax: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsPaypalLineItemTax"
+    ]
+    """
+    The tax information for the line item.
+    """
+    unit_amount: int
+    """
+    Price for a single unit of the line item in minor units. Cannot be a negative number.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsPaypalLineItemTax(
+    TypedDict
+):
+    amount: int
+    """
+    The tax for a single unit of the line item in minor units. Cannot be a negative number.
+    """
+    behavior: Literal["exclusive", "inclusive"]
+    """
+    The tax behavior for the line item.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsPaypay(TypedDict):
+    capture_method: NotRequired["Literal['']|Literal['manual']"]
+    """
+    Controls when the funds are captured from the customer's account.
+
+    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsPayto(TypedDict):
+    mandate_options: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions"
+    ]
+    """
+    Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
+    """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session']"
+    ]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+    If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions(
+    TypedDict,
+):
+    amount: NotRequired[int]
+    """
+    Amount that will be collected. It is required when `amount_type` is `fixed`.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+    """
+    end_date: NotRequired[str]
+    """
+    Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+    """
+    payment_schedule: NotRequired[
+        Literal[
+            "adhoc",
+            "annual",
+            "daily",
+            "fortnightly",
+            "monthly",
+            "quarterly",
+            "semi_annual",
+            "weekly",
+        ]
+    ]
+    """
+    The periodicity at which payments will be collected.
+    """
+    payments_per_period: NotRequired[int]
+    """
+    The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+    """
+    purpose: NotRequired[
+        Literal[
+            "dependant_support",
+            "government",
+            "loan",
+            "mortgage",
+            "other",
+            "pension",
+            "personal",
+            "retail",
+            "salary",
+            "tax",
+            "utility",
+        ]
+    ]
+    """
+    The purpose for which payments are made. Defaults to retail.
+    """
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsPix(TypedDict):
@@ -2478,7 +3882,13 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPix(TypedDict):
     """
     The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
     """
-    setup_future_usage: NotRequired[Literal["none"]]
+    mandate_options: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsPixMandateOptions"
+    ]
+    """
+    Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+    """
+    setup_future_usage: NotRequired[Literal["none", "off_session"]]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2489,6 +3899,45 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPix(TypedDict):
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsPixMandateOptions(
+    TypedDict
+):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+    """
+    amount_includes_iof: NotRequired[Literal["always", "never"]]
+    """
+    Determines if the amount includes the IOF tax. Defaults to `never`.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    Type of amount. Defaults to `maximum`.
+    """
+    currency: NotRequired[str]
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+    """
+    end_date: NotRequired[str]
+    """
+    Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+    """
+    payment_schedule: NotRequired[
+        Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+    ]
+    """
+    Schedule at which the future payments will be charged. Defaults to `weekly`.
+    """
+    reference: NotRequired[str]
+    """
+    Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+    """
+    start_date: NotRequired[str]
+    """
+    Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
     """
 
 
@@ -2505,6 +3954,25 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPromptpay(TypedDict):
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
     """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsQris(TypedDict):
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+    If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsRechnung(TypedDict):
+    pass
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsRevolutPay(TypedDict):
@@ -2588,6 +4056,21 @@ class PaymentIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(
     """
 
 
+class PaymentIntentModifyParamsPaymentMethodOptionsShopeepay(TypedDict):
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+    If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
 class PaymentIntentModifyParamsPaymentMethodOptionsSofort(TypedDict):
     preferred_language: NotRequired[
         "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
@@ -2595,6 +4078,23 @@ class PaymentIntentModifyParamsPaymentMethodOptionsSofort(TypedDict):
     """
     Language shown to the payer on redirect.
     """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session']"
+    ]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+    If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsStripeBalance(TypedDict):
     setup_future_usage: NotRequired[
         "Literal['']|Literal['none', 'off_session']"
     ]
@@ -2705,6 +4205,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnect
     """
     Provide filters for the linked accounts that the customer can select for the payment method.
     """
+    manual_entry: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
+    ]
+    """
+    Customize manual entry behavior
+    """
     permissions: NotRequired[
         List[
             Literal["balances", "ownership", "payment_method", "transactions"]
@@ -2714,7 +4220,11 @@ class PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnect
     The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
     """
     prefetch: NotRequired[
-        List[Literal["balances", "ownership", "transactions"]]
+        List[
+            Literal[
+                "balances", "inferred_balances", "ownership", "transactions"
+            ]
+        ]
     ]
     """
     List of data features that you would like to retrieve upon account creation.
@@ -2731,6 +4241,19 @@ class PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnect
     account_subcategories: NotRequired[List[Literal["checking", "savings"]]]
     """
     The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
+    """
+    institution: NotRequired[str]
+    """
+    ID of the institution to use to filter for selectable accounts.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(
+    TypedDict,
+):
+    mode: Literal["automatic", "custom"]
+    """
+    Settings for configuring manual entry of account details.
     """
 
 

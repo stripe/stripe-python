@@ -192,9 +192,19 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
     """
+    gopay: NotRequired["SetupIntentConfirmParamsPaymentMethodDataGopay"]
+    """
+    If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+    """
     grabpay: NotRequired["SetupIntentConfirmParamsPaymentMethodDataGrabpay"]
     """
     If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
+    """
+    id_bank_transfer: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodDataIdBankTransfer"
+    ]
+    """
+    If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
     """
     ideal: NotRequired["SetupIntentConfirmParamsPaymentMethodDataIdeal"]
     """
@@ -282,6 +292,14 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    paypay: NotRequired["SetupIntentConfirmParamsPaymentMethodDataPaypay"]
+    """
+    If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+    """
+    payto: NotRequired["SetupIntentConfirmParamsPaymentMethodDataPayto"]
+    """
+    If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+    """
     pix: NotRequired["SetupIntentConfirmParamsPaymentMethodDataPix"]
     """
     If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -292,11 +310,19 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
     """
+    qris: NotRequired["SetupIntentConfirmParamsPaymentMethodDataQris"]
+    """
+    If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+    """
     radar_options: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataRadarOptions"
     ]
     """
     Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    """
+    rechnung: NotRequired["SetupIntentConfirmParamsPaymentMethodDataRechnung"]
+    """
+    If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
     """
     revolut_pay: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataRevolutPay"
@@ -320,9 +346,21 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    shopeepay: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodDataShopeepay"
+    ]
+    """
+    If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+    """
     sofort: NotRequired["SetupIntentConfirmParamsPaymentMethodDataSofort"]
     """
     If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
+    """
+    stripe_balance: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodDataStripeBalance"
+    ]
+    """
+    This hash contains details about the Stripe balance payment method.
     """
     swish: NotRequired["SetupIntentConfirmParamsPaymentMethodDataSwish"]
     """
@@ -351,7 +389,9 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
         "eps",
         "fpx",
         "giropay",
+        "gopay",
         "grabpay",
+        "id_bank_transfer",
         "ideal",
         "kakao_pay",
         "klarna",
@@ -369,13 +409,19 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
         "payco",
         "paynow",
         "paypal",
+        "paypay",
+        "payto",
         "pix",
         "promptpay",
+        "qris",
+        "rechnung",
         "revolut_pay",
         "samsung_pay",
         "satispay",
         "sepa_debit",
+        "shopeepay",
         "sofort",
+        "stripe_balance",
         "swish",
         "twint",
         "us_bank_account",
@@ -621,8 +667,19 @@ class SetupIntentConfirmParamsPaymentMethodDataGiropay(TypedDict):
     pass
 
 
+class SetupIntentConfirmParamsPaymentMethodDataGopay(TypedDict):
+    pass
+
+
 class SetupIntentConfirmParamsPaymentMethodDataGrabpay(TypedDict):
     pass
+
+
+class SetupIntentConfirmParamsPaymentMethodDataIdBankTransfer(TypedDict):
+    bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+    """
+    Bank where the account is held.
+    """
 
 
 class SetupIntentConfirmParamsPaymentMethodDataIdeal(TypedDict):
@@ -793,6 +850,25 @@ class SetupIntentConfirmParamsPaymentMethodDataPaypal(TypedDict):
     pass
 
 
+class SetupIntentConfirmParamsPaymentMethodDataPaypay(TypedDict):
+    pass
+
+
+class SetupIntentConfirmParamsPaymentMethodDataPayto(TypedDict):
+    account_number: NotRequired[str]
+    """
+    The account number for the bank account.
+    """
+    bsb_number: NotRequired[str]
+    """
+    Bank-State-Branch number of the bank account.
+    """
+    pay_id: NotRequired[str]
+    """
+    The PayID alias for the bank account.
+    """
+
+
 class SetupIntentConfirmParamsPaymentMethodDataPix(TypedDict):
     pass
 
@@ -801,10 +877,36 @@ class SetupIntentConfirmParamsPaymentMethodDataPromptpay(TypedDict):
     pass
 
 
+class SetupIntentConfirmParamsPaymentMethodDataQris(TypedDict):
+    pass
+
+
 class SetupIntentConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
     session: NotRequired[str]
     """
     A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodDataRechnung(TypedDict):
+    dob: "SetupIntentConfirmParamsPaymentMethodDataRechnungDob"
+    """
+    Customer's date of birth
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodDataRechnungDob(TypedDict):
+    day: int
+    """
+    The day of birth, between 1 and 31.
+    """
+    month: int
+    """
+    The month of birth, between 1 and 12.
+    """
+    year: int
+    """
+    The four-digit year of birth.
     """
 
 
@@ -827,10 +929,25 @@ class SetupIntentConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
     """
 
 
+class SetupIntentConfirmParamsPaymentMethodDataShopeepay(TypedDict):
+    pass
+
+
 class SetupIntentConfirmParamsPaymentMethodDataSofort(TypedDict):
     country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
     """
     Two-letter ISO code representing the country the bank account is located in.
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodDataStripeBalance(TypedDict):
+    account: NotRequired[str]
+    """
+    The connected account ID whose Stripe balance to use as the source of payment
+    """
+    source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+    """
+    The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
     """
 
 
@@ -913,6 +1030,14 @@ class SetupIntentConfirmParamsPaymentMethodOptions(TypedDict):
     paypal: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsPaypal"]
     """
     If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+    """
+    payto: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsPayto"]
+    """
+    If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
+    """
+    pix: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsPix"]
+    """
+    If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
     """
     sepa_debit: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodOptionsSepaDebit"
@@ -1315,6 +1440,124 @@ class SetupIntentConfirmParamsPaymentMethodOptionsPaypal(TypedDict):
     """
     The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
     """
+    currency: NotRequired[str]
+    subsellers: NotRequired[List[str]]
+    """
+    The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsPayto(TypedDict):
+    mandate_options: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions"
+    ]
+    """
+    Additional fields for Mandate creation.
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions(
+    TypedDict,
+):
+    amount: NotRequired[int]
+    """
+    Amount that will be collected. It is required when `amount_type` is `fixed`.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+    """
+    end_date: NotRequired[str]
+    """
+    Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+    """
+    payment_schedule: NotRequired[
+        Literal[
+            "adhoc",
+            "annual",
+            "daily",
+            "fortnightly",
+            "monthly",
+            "quarterly",
+            "semi_annual",
+            "weekly",
+        ]
+    ]
+    """
+    The periodicity at which payments will be collected.
+    """
+    payments_per_period: NotRequired[int]
+    """
+    The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+    """
+    purpose: NotRequired[
+        Literal[
+            "dependant_support",
+            "government",
+            "loan",
+            "mortgage",
+            "other",
+            "pension",
+            "personal",
+            "retail",
+            "salary",
+            "tax",
+            "utility",
+        ]
+    ]
+    """
+    The purpose for which payments are made. Defaults to retail.
+    """
+    start_date: NotRequired[str]
+    """
+    Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsPix(TypedDict):
+    mandate_options: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodOptionsPixMandateOptions"
+    ]
+    """
+    Additional fields for mandate creation.
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+    """
+    amount_includes_iof: NotRequired[Literal["always", "never"]]
+    """
+    Determines if the amount includes the IOF tax. Defaults to `never`.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    Type of amount. Defaults to `maximum`.
+    """
+    currency: NotRequired[str]
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+    """
+    end_date: NotRequired[str]
+    """
+    Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+    """
+    payment_schedule: NotRequired[
+        Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+    ]
+    """
+    Schedule at which the future payments will be charged. Defaults to `weekly`.
+    """
+    reference: NotRequired[str]
+    """
+    Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+    """
+    start_date: NotRequired[str]
+    """
+    Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+    """
 
 
 class SetupIntentConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
@@ -1371,6 +1614,12 @@ class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnecti
     """
     Provide filters for the linked accounts that the customer can select for the payment method.
     """
+    manual_entry: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
+    ]
+    """
+    Customize manual entry behavior
+    """
     permissions: NotRequired[
         List[
             Literal["balances", "ownership", "payment_method", "transactions"]
@@ -1380,7 +1629,11 @@ class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnecti
     The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
     """
     prefetch: NotRequired[
-        List[Literal["balances", "ownership", "transactions"]]
+        List[
+            Literal[
+                "balances", "inferred_balances", "ownership", "transactions"
+            ]
+        ]
     ]
     """
     List of data features that you would like to retrieve upon account creation.
@@ -1397,6 +1650,19 @@ class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnecti
     account_subcategories: NotRequired[List[Literal["checking", "savings"]]]
     """
     The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
+    """
+    institution: NotRequired[str]
+    """
+    ID of the institution to use to filter for selectable accounts.
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry(
+    TypedDict,
+):
+    mode: Literal["automatic", "custom"]
+    """
+    Settings for configuring manual entry of account details.
     """
 
 

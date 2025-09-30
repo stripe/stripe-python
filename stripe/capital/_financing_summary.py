@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack
+from typing import ClassVar, Optional
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.capital._financing_summary_retrieve_params import (
+        FinancingSummaryRetrieveParams,
+    )
 
 
 class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
@@ -73,12 +77,6 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
             "current_repayment_interval": CurrentRepaymentInterval,
         }
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     details: Optional[Details]
     """
     Additional information about the financing summary. Describes currency, advance amount,
@@ -100,7 +98,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
 
     @classmethod
     def retrieve(
-        cls, **params: Unpack["FinancingSummary.RetrieveParams"]
+        cls, **params: Unpack["FinancingSummaryRetrieveParams"]
     ) -> "FinancingSummary":
         """
         Retrieve the financing state for the account that was authenticated in the request.
@@ -111,7 +109,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
 
     @classmethod
     async def retrieve_async(
-        cls, **params: Unpack["FinancingSummary.RetrieveParams"]
+        cls, **params: Unpack["FinancingSummaryRetrieveParams"]
     ) -> "FinancingSummary":
         """
         Retrieve the financing state for the account that was authenticated in the request.

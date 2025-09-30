@@ -3,78 +3,25 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._amount import AmountParam
 from stripe.v2.money_management._outbound_payment_quote import (
     OutboundPaymentQuote,
 )
 from typing import Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.money_management._outbound_payment_quote_create_params import (
+        OutboundPaymentQuoteCreateParams,
+    )
+    from stripe.params.v2.money_management._outbound_payment_quote_retrieve_params import (
+        OutboundPaymentQuoteRetrieveParams,
+    )
 
 
 class OutboundPaymentQuoteService(StripeService):
-    _CreateParamsBase = TypedDict(
-        "CreateParams",
-        {"from": "OutboundPaymentQuoteService.CreateParamsFrom"},
-    )
-
-    class CreateParams(_CreateParamsBase):
-        amount: AmountParam
-        """
-        The "presentment amount" to be sent to the recipient.
-        """
-        delivery_options: NotRequired[
-            "OutboundPaymentQuoteService.CreateParamsDeliveryOptions"
-        ]
-        """
-        Method to be used to send the OutboundPayment.
-        """
-        to: "OutboundPaymentQuoteService.CreateParamsTo"
-        """
-        Request details about the recipient of an OutboundPaymentQuote.
-        """
-
-    class CreateParamsDeliveryOptions(TypedDict):
-        bank_account: NotRequired[Literal["automatic", "local", "wire"]]
-        """
-        Open Enum. Method for bank account.
-        """
-
-    class CreateParamsFrom(TypedDict):
-        currency: str
-        """
-        Describes the FinancialAccount's currency drawn from.
-        """
-        financial_account: str
-        """
-        The FinancialAccount that funds were pulled from.
-        """
-
-    class CreateParamsTo(TypedDict):
-        currency: NotRequired[str]
-        """
-        Describes the currency to send to the recipient.
-        If included, this currency must match a currency supported by the destination.
-        Can be omitted in the following cases:
-        - destination only supports one currency
-        - destination supports multiple currencies and one of the currencies matches the FA currency
-        - destination supports multiple currencies and one of the currencies matches the presentment currency
-        Note - when both FA currency and presentment currency are supported, we pick the FA currency to minimize FX.
-        """
-        payout_method: NotRequired[str]
-        """
-        The payout method which the OutboundPayment uses to send payout.
-        """
-        recipient: str
-        """
-        To which account the OutboundPayment is sent.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def create(
         self,
-        params: "OutboundPaymentQuoteService.CreateParams",
+        params: "OutboundPaymentQuoteCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> OutboundPaymentQuote:
         """
@@ -93,7 +40,7 @@ class OutboundPaymentQuoteService(StripeService):
 
     async def create_async(
         self,
-        params: "OutboundPaymentQuoteService.CreateParams",
+        params: "OutboundPaymentQuoteCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> OutboundPaymentQuote:
         """
@@ -113,7 +60,7 @@ class OutboundPaymentQuoteService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["OutboundPaymentQuoteService.RetrieveParams"] = None,
+        params: Optional["OutboundPaymentQuoteRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPaymentQuote:
         """
@@ -135,7 +82,7 @@ class OutboundPaymentQuoteService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["OutboundPaymentQuoteService.RetrieveParams"] = None,
+        params: Optional["OutboundPaymentQuoteRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPaymentQuote:
         """

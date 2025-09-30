@@ -8,8 +8,31 @@ from stripe.privacy._redaction_job import RedactionJob
 from stripe.privacy._redaction_job_validation_error_service import (
     RedactionJobValidationErrorService,
 )
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.privacy._redaction_job_cancel_params import (
+        RedactionJobCancelParams,
+    )
+    from stripe.params.privacy._redaction_job_create_params import (
+        RedactionJobCreateParams,
+    )
+    from stripe.params.privacy._redaction_job_list_params import (
+        RedactionJobListParams,
+    )
+    from stripe.params.privacy._redaction_job_retrieve_params import (
+        RedactionJobRetrieveParams,
+    )
+    from stripe.params.privacy._redaction_job_run_params import (
+        RedactionJobRunParams,
+    )
+    from stripe.params.privacy._redaction_job_update_params import (
+        RedactionJobUpdateParams,
+    )
+    from stripe.params.privacy._redaction_job_validate_params import (
+        RedactionJobValidateParams,
+    )
 
 
 class RedactionJobService(StripeService):
@@ -19,99 +42,9 @@ class RedactionJobService(StripeService):
             self._requestor,
         )
 
-    class CancelParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class CreateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        objects: "RedactionJobService.CreateParamsObjects"
-        """
-        The objects to redact. These root objects and their related ones will be validated for redaction.
-        """
-        validation_behavior: NotRequired[Literal["error", "fix"]]
-        """
-        Determines the validation behavior of the job. Default is `error`.
-        """
-
-    class CreateParamsObjects(TypedDict):
-        charges: NotRequired[List[str]]
-        checkout_sessions: NotRequired[List[str]]
-        customers: NotRequired[List[str]]
-        identity_verification_sessions: NotRequired[List[str]]
-        invoices: NotRequired[List[str]]
-        issuing_cardholders: NotRequired[List[str]]
-        issuing_cards: NotRequired[List[str]]
-        payment_intents: NotRequired[List[str]]
-        radar_value_list_items: NotRequired[List[str]]
-        setup_intents: NotRequired[List[str]]
-
-    class ListParams(TypedDict):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[
-            Literal[
-                "canceled",
-                "canceling",
-                "created",
-                "failed",
-                "ready",
-                "redacting",
-                "succeeded",
-                "validating",
-            ]
-        ]
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RunParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class UpdateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        validation_behavior: NotRequired[Literal["error", "fix"]]
-        """
-        Determines the validation behavior of the job. Default is `error`.
-        """
-
-    class ValidateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: Optional["RedactionJobService.ListParams"] = None,
+        params: Optional["RedactionJobListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[RedactionJob]:
         """
@@ -130,7 +63,7 @@ class RedactionJobService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["RedactionJobService.ListParams"] = None,
+        params: Optional["RedactionJobListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[RedactionJob]:
         """
@@ -149,7 +82,7 @@ class RedactionJobService(StripeService):
 
     def create(
         self,
-        params: "RedactionJobService.CreateParams",
+        params: "RedactionJobCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
@@ -168,7 +101,7 @@ class RedactionJobService(StripeService):
 
     async def create_async(
         self,
-        params: "RedactionJobService.CreateParams",
+        params: "RedactionJobCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
@@ -188,7 +121,7 @@ class RedactionJobService(StripeService):
     def retrieve(
         self,
         job: str,
-        params: Optional["RedactionJobService.RetrieveParams"] = None,
+        params: Optional["RedactionJobRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
@@ -210,7 +143,7 @@ class RedactionJobService(StripeService):
     async def retrieve_async(
         self,
         job: str,
-        params: Optional["RedactionJobService.RetrieveParams"] = None,
+        params: Optional["RedactionJobRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
@@ -232,7 +165,7 @@ class RedactionJobService(StripeService):
     def update(
         self,
         job: str,
-        params: Optional["RedactionJobService.UpdateParams"] = None,
+        params: Optional["RedactionJobUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
@@ -256,7 +189,7 @@ class RedactionJobService(StripeService):
     async def update_async(
         self,
         job: str,
-        params: Optional["RedactionJobService.UpdateParams"] = None,
+        params: Optional["RedactionJobUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
@@ -280,7 +213,7 @@ class RedactionJobService(StripeService):
     def cancel(
         self,
         job: str,
-        params: Optional["RedactionJobService.CancelParams"] = None,
+        params: Optional["RedactionJobCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
@@ -304,7 +237,7 @@ class RedactionJobService(StripeService):
     async def cancel_async(
         self,
         job: str,
-        params: Optional["RedactionJobService.CancelParams"] = None,
+        params: Optional["RedactionJobCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
@@ -328,7 +261,7 @@ class RedactionJobService(StripeService):
     def run(
         self,
         job: str,
-        params: Optional["RedactionJobService.RunParams"] = None,
+        params: Optional["RedactionJobRunParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
@@ -354,7 +287,7 @@ class RedactionJobService(StripeService):
     async def run_async(
         self,
         job: str,
-        params: Optional["RedactionJobService.RunParams"] = None,
+        params: Optional["RedactionJobRunParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
@@ -380,7 +313,7 @@ class RedactionJobService(StripeService):
     def validate(
         self,
         job: str,
-        params: Optional["RedactionJobService.ValidateParams"] = None,
+        params: Optional["RedactionJobValidateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """
@@ -406,7 +339,7 @@ class RedactionJobService(StripeService):
     async def validate_async(
         self,
         job: str,
-        params: Optional["RedactionJobService.ValidateParams"] = None,
+        params: Optional["RedactionJobValidateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> RedactionJob:
         """

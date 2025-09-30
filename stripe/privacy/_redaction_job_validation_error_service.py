@@ -7,35 +7,20 @@ from stripe._util import sanitize_id
 from stripe.privacy._redaction_job_validation_error import (
     RedactionJobValidationError,
 )
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.privacy._redaction_job_validation_error_list_params import (
+        RedactionJobValidationErrorListParams,
+    )
 
 
 class RedactionJobValidationErrorService(StripeService):
-    class ListParams(TypedDict):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
     def list(
         self,
         job: str,
-        params: Optional[
-            "RedactionJobValidationErrorService.ListParams"
-        ] = None,
+        params: Optional["RedactionJobValidationErrorListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[RedactionJobValidationError]:
         """
@@ -57,9 +42,7 @@ class RedactionJobValidationErrorService(StripeService):
     async def list_async(
         self,
         job: str,
-        params: Optional[
-            "RedactionJobValidationErrorService.ListParams"
-        ] = None,
+        params: Optional["RedactionJobValidationErrorListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[RedactionJobValidationError]:
         """

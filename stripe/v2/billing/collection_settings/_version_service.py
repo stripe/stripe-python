@@ -8,23 +8,22 @@ from stripe.v2.billing._collection_setting_version import (
     CollectionSettingVersion,
 )
 from typing import Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing.collection_settings._version_list_params import (
+        VersionListParams,
+    )
+    from stripe.params.v2.billing.collection_settings._version_retrieve_params import (
+        VersionRetrieveParams,
+    )
 
 
 class VersionService(StripeService):
-    class ListParams(TypedDict):
-        limit: NotRequired[int]
-        """
-        Optionally set the maximum number of results per page. Defaults to 20.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def list(
         self,
         collection_setting_id: str,
-        params: Optional["VersionService.ListParams"] = None,
+        params: Optional["VersionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CollectionSettingVersion]:
         """
@@ -46,7 +45,7 @@ class VersionService(StripeService):
     async def list_async(
         self,
         collection_setting_id: str,
-        params: Optional["VersionService.ListParams"] = None,
+        params: Optional["VersionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CollectionSettingVersion]:
         """
@@ -69,7 +68,7 @@ class VersionService(StripeService):
         self,
         collection_setting_id: str,
         id: str,
-        params: Optional["VersionService.RetrieveParams"] = None,
+        params: Optional["VersionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CollectionSettingVersion:
         """
@@ -93,7 +92,7 @@ class VersionService(StripeService):
         self,
         collection_setting_id: str,
         id: str,
-        params: Optional["VersionService.RetrieveParams"] = None,
+        params: Optional["VersionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CollectionSettingVersion:
         """

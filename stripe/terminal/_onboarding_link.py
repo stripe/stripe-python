@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing import ClassVar, Optional, cast
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.terminal._onboarding_link_create_params import (
+        OnboardingLinkCreateParams,
+    )
 
 
 class OnboardingLink(CreateableAPIResource["OnboardingLink"]):
@@ -35,42 +39,6 @@ class OnboardingLink(CreateableAPIResource["OnboardingLink"]):
             "apple_terms_and_conditions": AppleTermsAndConditions,
         }
 
-    class CreateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        link_options: "OnboardingLink.CreateParamsLinkOptions"
-        """
-        Specific fields needed to generate the desired link type.
-        """
-        link_type: Literal["apple_terms_and_conditions"]
-        """
-        The type of link being generated.
-        """
-        on_behalf_of: NotRequired[str]
-        """
-        Stripe account ID to generate the link for.
-        """
-
-    class CreateParamsLinkOptions(TypedDict):
-        apple_terms_and_conditions: NotRequired[
-            "OnboardingLink.CreateParamsLinkOptionsAppleTermsAndConditions"
-        ]
-        """
-        The options associated with the Apple Terms and Conditions link type.
-        """
-
-    class CreateParamsLinkOptionsAppleTermsAndConditions(TypedDict):
-        allow_relinking: NotRequired[bool]
-        """
-        Whether the link should also support users relinking their Apple account.
-        """
-        merchant_display_name: str
-        """
-        The business name of the merchant accepting Apple's Terms and Conditions.
-        """
-
     link_options: LinkOptions
     """
     Link type options associated with the current onboarding link object.
@@ -91,7 +59,7 @@ class OnboardingLink(CreateableAPIResource["OnboardingLink"]):
 
     @classmethod
     def create(
-        cls, **params: Unpack["OnboardingLink.CreateParams"]
+        cls, **params: Unpack["OnboardingLinkCreateParams"]
     ) -> "OnboardingLink":
         """
         Creates a new OnboardingLink object that contains a redirect_url used for onboarding onto Tap to Pay on iPhone.
@@ -107,7 +75,7 @@ class OnboardingLink(CreateableAPIResource["OnboardingLink"]):
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["OnboardingLink.CreateParams"]
+        cls, **params: Unpack["OnboardingLinkCreateParams"]
     ) -> "OnboardingLink":
         """
         Creates a new OnboardingLink object that contains a redirect_url used for onboarding onto Tap to Pay on iPhone.

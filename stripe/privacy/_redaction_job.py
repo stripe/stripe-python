@@ -4,20 +4,37 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.privacy._redaction_job_cancel_params import (
+        RedactionJobCancelParams,
+    )
+    from stripe.params.privacy._redaction_job_create_params import (
+        RedactionJobCreateParams,
+    )
+    from stripe.params.privacy._redaction_job_list_params import (
+        RedactionJobListParams,
+    )
+    from stripe.params.privacy._redaction_job_list_validation_errors_params import (
+        RedactionJobListValidationErrorsParams,
+    )
+    from stripe.params.privacy._redaction_job_modify_params import (
+        RedactionJobModifyParams,
+    )
+    from stripe.params.privacy._redaction_job_retrieve_params import (
+        RedactionJobRetrieveParams,
+    )
+    from stripe.params.privacy._redaction_job_run_params import (
+        RedactionJobRunParams,
+    )
+    from stripe.params.privacy._redaction_job_validate_params import (
+        RedactionJobValidateParams,
+    )
     from stripe.privacy._redaction_job_validation_error import (
         RedactionJobValidationError,
     )
@@ -78,114 +95,6 @@ class RedactionJob(
         SetupIntent object identifiers starting with `seti_`
         """
 
-    class CancelParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class CreateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        objects: "RedactionJob.CreateParamsObjects"
-        """
-        The objects to redact. These root objects and their related ones will be validated for redaction.
-        """
-        validation_behavior: NotRequired[Literal["error", "fix"]]
-        """
-        Determines the validation behavior of the job. Default is `error`.
-        """
-
-    class CreateParamsObjects(TypedDict):
-        charges: NotRequired[List[str]]
-        checkout_sessions: NotRequired[List[str]]
-        customers: NotRequired[List[str]]
-        identity_verification_sessions: NotRequired[List[str]]
-        invoices: NotRequired[List[str]]
-        issuing_cardholders: NotRequired[List[str]]
-        issuing_cards: NotRequired[List[str]]
-        payment_intents: NotRequired[List[str]]
-        radar_value_list_items: NotRequired[List[str]]
-        setup_intents: NotRequired[List[str]]
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[
-            Literal[
-                "canceled",
-                "canceling",
-                "created",
-                "failed",
-                "ready",
-                "redacting",
-                "succeeded",
-                "validating",
-            ]
-        ]
-
-    class ListValidationErrorsParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ModifyParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        validation_behavior: NotRequired[Literal["error", "fix"]]
-        """
-        Determines the validation behavior of the job. Default is `error`.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RunParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ValidateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -226,7 +135,7 @@ class RedactionJob(
 
     @classmethod
     def _cls_cancel(
-        cls, job: str, **params: Unpack["RedactionJob.CancelParams"]
+        cls, job: str, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -247,7 +156,7 @@ class RedactionJob(
     @overload
     @staticmethod
     def cancel(
-        job: str, **params: Unpack["RedactionJob.CancelParams"]
+        job: str, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -258,7 +167,7 @@ class RedactionJob(
 
     @overload
     def cancel(
-        self, **params: Unpack["RedactionJob.CancelParams"]
+        self, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -269,7 +178,7 @@ class RedactionJob(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["RedactionJob.CancelParams"]
+        self, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -289,7 +198,7 @@ class RedactionJob(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, job: str, **params: Unpack["RedactionJob.CancelParams"]
+        cls, job: str, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -310,7 +219,7 @@ class RedactionJob(
     @overload
     @staticmethod
     async def cancel_async(
-        job: str, **params: Unpack["RedactionJob.CancelParams"]
+        job: str, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -321,7 +230,7 @@ class RedactionJob(
 
     @overload
     async def cancel_async(
-        self, **params: Unpack["RedactionJob.CancelParams"]
+        self, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -332,7 +241,7 @@ class RedactionJob(
 
     @class_method_variant("_cls_cancel_async")
     async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["RedactionJob.CancelParams"]
+        self, **params: Unpack["RedactionJobCancelParams"]
     ) -> "RedactionJob":
         """
         You can cancel a redaction job when it's in one of these statuses: ready, failed.
@@ -352,7 +261,7 @@ class RedactionJob(
 
     @classmethod
     def create(
-        cls, **params: Unpack["RedactionJob.CreateParams"]
+        cls, **params: Unpack["RedactionJobCreateParams"]
     ) -> "RedactionJob":
         """
         Creates a redaction job. When a job is created, it will start to validate.
@@ -368,7 +277,7 @@ class RedactionJob(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["RedactionJob.CreateParams"]
+        cls, **params: Unpack["RedactionJobCreateParams"]
     ) -> "RedactionJob":
         """
         Creates a redaction job. When a job is created, it will start to validate.
@@ -384,7 +293,7 @@ class RedactionJob(
 
     @classmethod
     def list(
-        cls, **params: Unpack["RedactionJob.ListParams"]
+        cls, **params: Unpack["RedactionJobListParams"]
     ) -> ListObject["RedactionJob"]:
         """
         Returns a list of redaction jobs.
@@ -404,7 +313,7 @@ class RedactionJob(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["RedactionJob.ListParams"]
+        cls, **params: Unpack["RedactionJobListParams"]
     ) -> ListObject["RedactionJob"]:
         """
         Returns a list of redaction jobs.
@@ -424,7 +333,7 @@ class RedactionJob(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["RedactionJob.ModifyParams"]
+        cls, id: str, **params: Unpack["RedactionJobModifyParams"]
     ) -> "RedactionJob":
         """
         Updates the properties of a redaction job without running or canceling the job.
@@ -443,7 +352,7 @@ class RedactionJob(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["RedactionJob.ModifyParams"]
+        cls, id: str, **params: Unpack["RedactionJobModifyParams"]
     ) -> "RedactionJob":
         """
         Updates the properties of a redaction job without running or canceling the job.
@@ -462,7 +371,7 @@ class RedactionJob(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["RedactionJob.RetrieveParams"]
+        cls, id: str, **params: Unpack["RedactionJobRetrieveParams"]
     ) -> "RedactionJob":
         """
         Retrieves the details of a previously created redaction job.
@@ -473,7 +382,7 @@ class RedactionJob(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["RedactionJob.RetrieveParams"]
+        cls, id: str, **params: Unpack["RedactionJobRetrieveParams"]
     ) -> "RedactionJob":
         """
         Retrieves the details of a previously created redaction job.
@@ -484,7 +393,7 @@ class RedactionJob(
 
     @classmethod
     def _cls_run(
-        cls, job: str, **params: Unpack["RedactionJob.RunParams"]
+        cls, job: str, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -507,7 +416,7 @@ class RedactionJob(
     @overload
     @staticmethod
     def run(
-        job: str, **params: Unpack["RedactionJob.RunParams"]
+        job: str, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -519,9 +428,7 @@ class RedactionJob(
         ...
 
     @overload
-    def run(
-        self, **params: Unpack["RedactionJob.RunParams"]
-    ) -> "RedactionJob":
+    def run(self, **params: Unpack["RedactionJobRunParams"]) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
 
@@ -533,7 +440,7 @@ class RedactionJob(
 
     @class_method_variant("_cls_run")
     def run(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["RedactionJob.RunParams"]
+        self, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -555,7 +462,7 @@ class RedactionJob(
 
     @classmethod
     async def _cls_run_async(
-        cls, job: str, **params: Unpack["RedactionJob.RunParams"]
+        cls, job: str, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -578,7 +485,7 @@ class RedactionJob(
     @overload
     @staticmethod
     async def run_async(
-        job: str, **params: Unpack["RedactionJob.RunParams"]
+        job: str, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -591,7 +498,7 @@ class RedactionJob(
 
     @overload
     async def run_async(
-        self, **params: Unpack["RedactionJob.RunParams"]
+        self, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -604,7 +511,7 @@ class RedactionJob(
 
     @class_method_variant("_cls_run_async")
     async def run_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["RedactionJob.RunParams"]
+        self, **params: Unpack["RedactionJobRunParams"]
     ) -> "RedactionJob":
         """
         Run a redaction job in a ready status.
@@ -626,7 +533,7 @@ class RedactionJob(
 
     @classmethod
     def _cls_validate(
-        cls, job: str, **params: Unpack["RedactionJob.ValidateParams"]
+        cls, job: str, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -649,7 +556,7 @@ class RedactionJob(
     @overload
     @staticmethod
     def validate(
-        job: str, **params: Unpack["RedactionJob.ValidateParams"]
+        job: str, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -662,7 +569,7 @@ class RedactionJob(
 
     @overload
     def validate(
-        self, **params: Unpack["RedactionJob.ValidateParams"]
+        self, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -675,7 +582,7 @@ class RedactionJob(
 
     @class_method_variant("_cls_validate")
     def validate(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["RedactionJob.ValidateParams"]
+        self, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -697,7 +604,7 @@ class RedactionJob(
 
     @classmethod
     async def _cls_validate_async(
-        cls, job: str, **params: Unpack["RedactionJob.ValidateParams"]
+        cls, job: str, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -720,7 +627,7 @@ class RedactionJob(
     @overload
     @staticmethod
     async def validate_async(
-        job: str, **params: Unpack["RedactionJob.ValidateParams"]
+        job: str, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -733,7 +640,7 @@ class RedactionJob(
 
     @overload
     async def validate_async(
-        self, **params: Unpack["RedactionJob.ValidateParams"]
+        self, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -746,7 +653,7 @@ class RedactionJob(
 
     @class_method_variant("_cls_validate_async")
     async def validate_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["RedactionJob.ValidateParams"]
+        self, **params: Unpack["RedactionJobValidateParams"]
     ) -> "RedactionJob":
         """
         Validate a redaction job when it is in a failed status.
@@ -770,7 +677,7 @@ class RedactionJob(
     def list_validation_errors(
         cls,
         job: str,
-        **params: Unpack["RedactionJob.ListValidationErrorsParams"],
+        **params: Unpack["RedactionJobListValidationErrorsParams"],
     ) -> ListObject["RedactionJobValidationError"]:
         """
         Returns a list of validation errors for the specified redaction job.
@@ -790,7 +697,7 @@ class RedactionJob(
     async def list_validation_errors_async(
         cls,
         job: str,
-        **params: Unpack["RedactionJob.ListValidationErrorsParams"],
+        **params: Unpack["RedactionJobListValidationErrorsParams"],
     ) -> ListObject["RedactionJobValidationError"]:
         """
         Returns a list of validation errors for the specified redaction job.

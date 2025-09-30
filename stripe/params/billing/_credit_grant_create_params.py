@@ -18,9 +18,13 @@ class CreditGrantCreateParams(RequestOptions):
     """
     The category of this credit grant.
     """
-    customer: str
+    customer: NotRequired[str]
     """
     ID of the customer to receive the billing credits.
+    """
+    customer_account: NotRequired[str]
+    """
+    ID of the account to receive the billing credits.
     """
     effective_at: NotRequired[int]
     """

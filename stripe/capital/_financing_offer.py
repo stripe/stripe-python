@@ -2,11 +2,21 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing import ClassVar, Dict, Optional, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.capital._financing_offer_list_params import (
+        FinancingOfferListParams,
+    )
+    from stripe.params.capital._financing_offer_mark_delivered_params import (
+        FinancingOfferMarkDeliveredParams,
+    )
+    from stripe.params.capital._financing_offer_retrieve_params import (
+        FinancingOfferRetrieveParams,
+    )
 
 
 class FinancingOffer(ListableAPIResource["FinancingOffer"]):
@@ -71,79 +81,6 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         withhold_rate: float
         """
         Per-transaction rate at which Stripe will withhold funds to repay the financing.
-        """
-
-    class ListParams(RequestOptions):
-        connected_account: NotRequired[str]
-        """
-        limit list to offers belonging to given connected account
-        """
-        created: NotRequired["FinancingOffer.ListParamsCreated|int"]
-        """
-        Only return offers that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[
-            Literal[
-                "accepted",
-                "canceled",
-                "completed",
-                "delivered",
-                "expired",
-                "fully_repaid",
-                "paid_out",
-                "rejected",
-                "revoked",
-                "undelivered",
-            ]
-        ]
-        """
-        limit list to offers with given status
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class MarkDeliveredParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
         """
 
     accepted_terms: Optional[AcceptedTerms]
@@ -229,7 +166,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["FinancingOffer.ListParams"]
+        cls, **params: Unpack["FinancingOfferListParams"]
     ) -> ListObject["FinancingOffer"]:
         """
         Retrieves the financing offers available for Connected accounts that belong to your platform.
@@ -249,7 +186,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["FinancingOffer.ListParams"]
+        cls, **params: Unpack["FinancingOfferListParams"]
     ) -> ListObject["FinancingOffer"]:
         """
         Retrieves the financing offers available for Connected accounts that belong to your platform.
@@ -271,7 +208,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     def _cls_mark_delivered(
         cls,
         financing_offer: str,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"],
+        **params: Unpack["FinancingOfferMarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -292,7 +229,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     @staticmethod
     def mark_delivered(
         financing_offer: str,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"],
+        **params: Unpack["FinancingOfferMarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -302,7 +239,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @overload
     def mark_delivered(
-        self, **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        self, **params: Unpack["FinancingOfferMarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -312,7 +249,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @class_method_variant("_cls_mark_delivered")
     def mark_delivered(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        self, **params: Unpack["FinancingOfferMarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -333,7 +270,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     async def _cls_mark_delivered_async(
         cls,
         financing_offer: str,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"],
+        **params: Unpack["FinancingOfferMarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -354,7 +291,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     @staticmethod
     async def mark_delivered_async(
         financing_offer: str,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"],
+        **params: Unpack["FinancingOfferMarkDeliveredParams"],
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -364,7 +301,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @overload
     async def mark_delivered_async(
-        self, **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        self, **params: Unpack["FinancingOfferMarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -374,7 +311,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @class_method_variant("_cls_mark_delivered_async")
     async def mark_delivered_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        self, **params: Unpack["FinancingOfferMarkDeliveredParams"]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -393,7 +330,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["FinancingOffer.RetrieveParams"]
+        cls, id: str, **params: Unpack["FinancingOfferRetrieveParams"]
     ) -> "FinancingOffer":
         """
         Get the details of the financing offer
@@ -404,7 +341,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["FinancingOffer.RetrieveParams"]
+        cls, id: str, **params: Unpack["FinancingOfferRetrieveParams"]
     ) -> "FinancingOffer":
         """
         Get the details of the financing offer

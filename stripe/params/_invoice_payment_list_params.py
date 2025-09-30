@@ -41,7 +41,11 @@ class InvoicePaymentListParamsPayment(TypedDict):
     """
     Only return invoice payments associated by this payment intent ID.
     """
-    type: Literal["payment_intent"]
+    payment_record: NotRequired[str]
+    """
+    Only return invoice payments associated by this payment record ID.
+    """
+    type: Literal["payment_intent", "payment_record"]
     """
     Only return invoice payments associated by this payment type.
     """

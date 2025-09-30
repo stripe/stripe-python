@@ -26,6 +26,10 @@ class PromotionCodeListParams(RequestOptions):
     """
     Only return promotion codes that are restricted to this customer.
     """
+    customer_account: NotRequired[str]
+    """
+    Only return promotion codes that are restricted to this account.
+    """
     ending_before: NotRequired[str]
     """
     A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.

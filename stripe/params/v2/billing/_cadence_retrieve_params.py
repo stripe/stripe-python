@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from typing import List
+from typing_extensions import Literal, NotRequired, TypedDict
+
+
+class CadenceRetrieveParams(TypedDict):
+    include: NotRequired[List[Literal["settings_data"]]]
+    """
+    Additional resource to include in the response.
+    """

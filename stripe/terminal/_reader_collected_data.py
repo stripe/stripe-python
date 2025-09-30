@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._api_resource import APIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack
+from typing import ClassVar, Optional
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.terminal._reader_collected_data_retrieve_params import (
+        ReaderCollectedDataRetrieveParams,
+    )
 
 
 class ReaderCollectedData(APIResource["ReaderCollectedData"]):
@@ -20,12 +24,6 @@ class ReaderCollectedData(APIResource["ReaderCollectedData"]):
         data: Optional[str]
         """
         The raw magstripe data collected by the reader.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
         """
 
     created: int
@@ -55,7 +53,7 @@ class ReaderCollectedData(APIResource["ReaderCollectedData"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["ReaderCollectedData.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReaderCollectedDataRetrieveParams"]
     ) -> "ReaderCollectedData":
         """
         Retrieve data collected using Reader hardware.
@@ -66,7 +64,7 @@ class ReaderCollectedData(APIResource["ReaderCollectedData"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ReaderCollectedData.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReaderCollectedDataRetrieveParams"]
     ) -> "ReaderCollectedData":
         """
         Retrieve data collected using Reader hardware.

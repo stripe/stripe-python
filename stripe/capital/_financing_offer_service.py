@@ -5,87 +5,25 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.capital._financing_offer import FinancingOffer
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.capital._financing_offer_list_params import (
+        FinancingOfferListParams,
+    )
+    from stripe.params.capital._financing_offer_mark_delivered_params import (
+        FinancingOfferMarkDeliveredParams,
+    )
+    from stripe.params.capital._financing_offer_retrieve_params import (
+        FinancingOfferRetrieveParams,
+    )
 
 
 class FinancingOfferService(StripeService):
-    class ListParams(TypedDict):
-        connected_account: NotRequired[str]
-        """
-        limit list to offers belonging to given connected account
-        """
-        created: NotRequired["FinancingOfferService.ListParamsCreated|int"]
-        """
-        Only return offers that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[
-            Literal[
-                "accepted",
-                "canceled",
-                "completed",
-                "delivered",
-                "expired",
-                "fully_repaid",
-                "paid_out",
-                "rejected",
-                "revoked",
-                "undelivered",
-            ]
-        ]
-        """
-        limit list to offers with given status
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class MarkDeliveredParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: Optional["FinancingOfferService.ListParams"] = None,
+        params: Optional["FinancingOfferListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancingOffer]:
         """
@@ -104,7 +42,7 @@ class FinancingOfferService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["FinancingOfferService.ListParams"] = None,
+        params: Optional["FinancingOfferListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancingOffer]:
         """
@@ -124,7 +62,7 @@ class FinancingOfferService(StripeService):
     def retrieve(
         self,
         financing_offer: str,
-        params: Optional["FinancingOfferService.RetrieveParams"] = None,
+        params: Optional["FinancingOfferRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancingOffer:
         """
@@ -146,7 +84,7 @@ class FinancingOfferService(StripeService):
     async def retrieve_async(
         self,
         financing_offer: str,
-        params: Optional["FinancingOfferService.RetrieveParams"] = None,
+        params: Optional["FinancingOfferRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancingOffer:
         """
@@ -168,7 +106,7 @@ class FinancingOfferService(StripeService):
     def mark_delivered(
         self,
         financing_offer: str,
-        params: Optional["FinancingOfferService.MarkDeliveredParams"] = None,
+        params: Optional["FinancingOfferMarkDeliveredParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancingOffer:
         """
@@ -191,7 +129,7 @@ class FinancingOfferService(StripeService):
     async def mark_delivered_async(
         self,
         financing_offer: str,
-        params: Optional["FinancingOfferService.MarkDeliveredParams"] = None,
+        params: Optional["FinancingOfferMarkDeliveredParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancingOffer:
         """

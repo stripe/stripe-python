@@ -2,10 +2,17 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack
+from typing import ClassVar, Optional
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.capital._financing_transaction_list_params import (
+        FinancingTransactionListParams,
+    )
+    from stripe.params.capital._financing_transaction_retrieve_params import (
+        FinancingTransactionRetrieveParams,
+    )
 
 
 class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
@@ -74,46 +81,6 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
         """
         _inner_class_types = {"transaction": Transaction}
 
-    class ListParams(RequestOptions):
-        charge: NotRequired[str]
-        """
-        For transactions of type `paydown` and reason `automatic_withholding` only, only returns transactions that were created as a result of this charge.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financing_offer: NotRequired[str]
-        """
-        Returns transactions that were created that apply to this financing offer ID.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        reversed_transaction: NotRequired[str]
-        """
-        Only returns transactions that are responsible for reversing this financing transaction ID.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        treasury_transaction: NotRequired[str]
-        """
-        For transactions of type `paydown` and reason `automatic_withholding` only, only returns transactions that were created as a result of this Treasury Transaction.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     account: str
     """
     The ID of the merchant associated with this financing transaction.
@@ -159,7 +126,7 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["FinancingTransaction.ListParams"]
+        cls, **params: Unpack["FinancingTransactionListParams"]
     ) -> ListObject["FinancingTransaction"]:
         """
         Returns a list of financing transactions. The transactions are returned in sorted order,
@@ -180,7 +147,7 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["FinancingTransaction.ListParams"]
+        cls, **params: Unpack["FinancingTransactionListParams"]
     ) -> ListObject["FinancingTransaction"]:
         """
         Returns a list of financing transactions. The transactions are returned in sorted order,
@@ -201,7 +168,7 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["FinancingTransaction.RetrieveParams"]
+        cls, id: str, **params: Unpack["FinancingTransactionRetrieveParams"]
     ) -> "FinancingTransaction":
         """
         Retrieves a financing transaction for a financing offer.
@@ -212,7 +179,7 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["FinancingTransaction.RetrieveParams"]
+        cls, id: str, **params: Unpack["FinancingTransactionRetrieveParams"]
     ) -> "FinancingTransaction":
         """
         Retrieves a financing transaction for a financing offer.

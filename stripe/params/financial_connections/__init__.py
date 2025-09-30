@@ -3,6 +3,12 @@
 from stripe.params.financial_connections._account_disconnect_params import (
     AccountDisconnectParams as AccountDisconnectParams,
 )
+from stripe.params.financial_connections._account_inferred_balance_list_params import (
+    AccountInferredBalanceListParams as AccountInferredBalanceListParams,
+)
+from stripe.params.financial_connections._account_list_inferred_balances_params import (
+    AccountListInferredBalancesParams as AccountListInferredBalancesParams,
+)
 from stripe.params.financial_connections._account_list_owners_params import (
     AccountListOwnersParams as AccountListOwnersParams,
 )
@@ -26,6 +32,12 @@ from stripe.params.financial_connections._account_subscribe_params import (
 )
 from stripe.params.financial_connections._account_unsubscribe_params import (
     AccountUnsubscribeParams as AccountUnsubscribeParams,
+)
+from stripe.params.financial_connections._institution_list_params import (
+    InstitutionListParams as InstitutionListParams,
+)
+from stripe.params.financial_connections._institution_retrieve_params import (
+    InstitutionRetrieveParams as InstitutionRetrieveParams,
 )
 from stripe.params.financial_connections._session_create_params import (
     SessionCreateParams as SessionCreateParams,
