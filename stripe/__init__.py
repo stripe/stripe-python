@@ -123,6 +123,7 @@ def add_beta_version(
     beta_name: str,
     beta_version: str,
 ):
+    global api_version
     # Validate beta_version format
     if not beta_version.startswith("v") or not beta_version[1:].isdigit():
         raise ValueError(
@@ -131,24 +132,22 @@ def add_beta_version(
 
     # Check if beta_name already exists
     beta_entry = f"; {beta_name}="
-    if beta_entry in stripe.api_version:
-        start_index = stripe.api_version.index(beta_entry) + len(beta_entry)
-        end_index = stripe.api_version.find(";", start_index)
-        end_index = end_index if end_index != -1 else len(stripe.api_version)
-        existing_version = int(
-            stripe.api_version[(start_index + 1) : end_index]
-        )
+    if beta_entry in api_version:
+        start_index = api_version.index(beta_entry) + len(beta_entry)
+        end_index = api_version.find(";", start_index)
+        end_index = end_index if end_index != -1 else len(api_version)
+        existing_version = int(api_version[(start_index + 1) : end_index])
         new_version = int(beta_version[1:])
         if new_version <= existing_version:
             return  # Keep the higher version, no update needed
         # Remove the existing beta entry
-        stripe.api_version = (
-            stripe.api_version[: stripe.api_version.index(beta_entry)]
-            + stripe.api_version[end_index:]
+        api_version = (
+            api_version[: api_version.index(beta_entry)]
+            + api_version[end_index:]
         )
 
     # Add the new beta version
-    stripe.api_version = f"{stripe.api_version}; {beta_name}={beta_version}"
+    api_version = f"{api_version}; {beta_name}={beta_version}"
 
 
 # Infrastructure types
