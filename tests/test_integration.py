@@ -399,12 +399,13 @@ class TestIntegration(object):
             expected_message = "A ReadTimeout was raised"
         elif isinstance(hc, stripe.AIOHTTPClient):
             hc._timeout = aiohttp.ClientTimeout(sock_read=0.01)
+            # aiohttp timeout error message is different in different versions.
+            # aiohttp(3.8.6) supported by Python 3.7, the error is called ServerTimeoutError.
+            # aiohttp(>3.10.0) supported by Python 3.8+, the error is called SocketTimeoutError.
+            # Ref PR: https://github.com/aio-libs/aiohttp/issues/7801
             if sys.version_info >= (3, 8):
                 expected_message = "A SocketTimeoutError was raised"
             else:
-                # In aiohttp(3.8.6) supported by Python 3.7, the error is called ServerTimeoutError.
-                # https://github.com/aio-libs/aiohttp/issues/7801 changed it to SocketTimeoutError
-                # and released in aiohttp 3.10.0.
                 expected_message = "A ServerTimeoutError was raised"
         else:
             raise ValueError(f"Unknown http client: {hc.name}")
