@@ -5,8 +5,16 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._invoice_payment_list_params import (
+        InvoicePaymentListParams,
+    )
+    from stripe.params._invoice_payment_retrieve_params import (
+        InvoicePaymentRetrieveParams,
+    )
 
 
 class InvoicePaymentService(StripeService):
@@ -62,7 +70,7 @@ class InvoicePaymentService(StripeService):
 
     def list(
         self,
-        params: Optional["InvoicePaymentService.ListParams"] = None,
+        params: Optional["InvoicePaymentListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoicePayment]:
         """
@@ -81,7 +89,7 @@ class InvoicePaymentService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["InvoicePaymentService.ListParams"] = None,
+        params: Optional["InvoicePaymentListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoicePayment]:
         """
@@ -101,7 +109,7 @@ class InvoicePaymentService(StripeService):
     def retrieve(
         self,
         invoice_payment: str,
-        params: Optional["InvoicePaymentService.RetrieveParams"] = None,
+        params: Optional["InvoicePaymentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoicePayment:
         """
@@ -123,7 +131,7 @@ class InvoicePaymentService(StripeService):
     async def retrieve_async(
         self,
         invoice_payment: str,
-        params: Optional["InvoicePaymentService.RetrieveParams"] = None,
+        params: Optional["InvoicePaymentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoicePayment:
         """

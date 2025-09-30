@@ -5,102 +5,23 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.climate._order import Order
-from typing import Dict, List, Optional, Union, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.climate._order_cancel_params import OrderCancelParams
+    from stripe.params.climate._order_create_params import OrderCreateParams
+    from stripe.params.climate._order_list_params import OrderListParams
+    from stripe.params.climate._order_retrieve_params import (
+        OrderRetrieveParams,
+    )
+    from stripe.params.climate._order_update_params import OrderUpdateParams
 
 
 class OrderService(StripeService):
-    class CancelParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class CreateParams(TypedDict):
-        amount: NotRequired[int]
-        """
-        Requested amount of carbon removal units. Either this or `metric_tons` must be specified.
-        """
-        beneficiary: NotRequired["OrderService.CreateParamsBeneficiary"]
-        """
-        Publicly sharable reference for the end beneficiary of carbon removal. Assumed to be the Stripe account if not set.
-        """
-        currency: NotRequired[str]
-        """
-        Request currency for the order as a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a supported [settlement currency for your account](https://stripe.com/docs/currencies). If omitted, the account's default currency will be used.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        metric_tons: NotRequired[str]
-        """
-        Requested number of tons for the order. Either this or `amount` must be specified.
-        """
-        product: str
-        """
-        Unique identifier of the Climate product.
-        """
-
-    class CreateParamsBeneficiary(TypedDict):
-        public_name: str
-        """
-        Publicly displayable name for the end beneficiary of carbon removal.
-        """
-
-    class ListParams(TypedDict):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class UpdateParams(TypedDict):
-        beneficiary: NotRequired[
-            "Literal['']|OrderService.UpdateParamsBeneficiary"
-        ]
-        """
-        Publicly sharable reference for the end beneficiary of carbon removal. Assumed to be the Stripe account if not set.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-
-    class UpdateParamsBeneficiary(TypedDict):
-        public_name: Union[Literal[""], str]
-        """
-        Publicly displayable name for the end beneficiary of carbon removal.
-        """
-
     def list(
         self,
-        params: Optional["OrderService.ListParams"] = None,
+        params: Optional["OrderListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Order]:
         """
@@ -120,7 +41,7 @@ class OrderService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["OrderService.ListParams"] = None,
+        params: Optional["OrderListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Order]:
         """
@@ -140,7 +61,7 @@ class OrderService(StripeService):
 
     def create(
         self,
-        params: "OrderService.CreateParams",
+        params: "OrderCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """
@@ -160,7 +81,7 @@ class OrderService(StripeService):
 
     async def create_async(
         self,
-        params: "OrderService.CreateParams",
+        params: "OrderCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """
@@ -181,7 +102,7 @@ class OrderService(StripeService):
     def retrieve(
         self,
         order: str,
-        params: Optional["OrderService.RetrieveParams"] = None,
+        params: Optional["OrderRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """
@@ -201,7 +122,7 @@ class OrderService(StripeService):
     async def retrieve_async(
         self,
         order: str,
-        params: Optional["OrderService.RetrieveParams"] = None,
+        params: Optional["OrderRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """
@@ -221,7 +142,7 @@ class OrderService(StripeService):
     def update(
         self,
         order: str,
-        params: Optional["OrderService.UpdateParams"] = None,
+        params: Optional["OrderUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """
@@ -241,7 +162,7 @@ class OrderService(StripeService):
     async def update_async(
         self,
         order: str,
-        params: Optional["OrderService.UpdateParams"] = None,
+        params: Optional["OrderUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """
@@ -261,7 +182,7 @@ class OrderService(StripeService):
     def cancel(
         self,
         order: str,
-        params: Optional["OrderService.CancelParams"] = None,
+        params: Optional["OrderCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """
@@ -286,7 +207,7 @@ class OrderService(StripeService):
     async def cancel_async(
         self,
         order: str,
-        params: Optional["OrderService.CancelParams"] = None,
+        params: Optional["OrderCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Order:
         """

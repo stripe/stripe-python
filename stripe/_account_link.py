@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
-from stripe._request_options import RequestOptions
-from typing import ClassVar, List, cast
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing import ClassVar, cast
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._account_link_create_params import (
+        AccountLinkCreateParams,
+    )
 
 
 class AccountLink(CreateableAPIResource["AccountLink"]):
@@ -84,7 +88,7 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
 
     @classmethod
     def create(
-        cls, **params: Unpack["AccountLink.CreateParams"]
+        cls, **params: Unpack["AccountLinkCreateParams"]
     ) -> "AccountLink":
         """
         Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.
@@ -100,7 +104,7 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["AccountLink.CreateParams"]
+        cls, **params: Unpack["AccountLinkCreateParams"]
     ) -> "AccountLink":
         """
         Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.

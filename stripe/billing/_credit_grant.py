@@ -4,21 +4,32 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._customer import Customer
+    from stripe.params.billing._credit_grant_create_params import (
+        CreditGrantCreateParams,
+    )
+    from stripe.params.billing._credit_grant_expire_params import (
+        CreditGrantExpireParams,
+    )
+    from stripe.params.billing._credit_grant_list_params import (
+        CreditGrantListParams,
+    )
+    from stripe.params.billing._credit_grant_modify_params import (
+        CreditGrantModifyParams,
+    )
+    from stripe.params.billing._credit_grant_retrieve_params import (
+        CreditGrantRetrieveParams,
+    )
+    from stripe.params.billing._credit_grant_void_grant_params import (
+        CreditGrantVoidGrantParams,
+    )
     from stripe.test_helpers._test_clock import TestClock
 
 
@@ -292,7 +303,7 @@ class CreditGrant(
 
     @classmethod
     def create(
-        cls, **params: Unpack["CreditGrant.CreateParams"]
+        cls, **params: Unpack["CreditGrantCreateParams"]
     ) -> "CreditGrant":
         """
         Creates a credit grant.
@@ -308,7 +319,7 @@ class CreditGrant(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["CreditGrant.CreateParams"]
+        cls, **params: Unpack["CreditGrantCreateParams"]
     ) -> "CreditGrant":
         """
         Creates a credit grant.
@@ -324,7 +335,7 @@ class CreditGrant(
 
     @classmethod
     def _cls_expire(
-        cls, id: str, **params: Unpack["CreditGrant.ExpireParams"]
+        cls, id: str, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -343,7 +354,7 @@ class CreditGrant(
     @overload
     @staticmethod
     def expire(
-        id: str, **params: Unpack["CreditGrant.ExpireParams"]
+        id: str, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -352,7 +363,7 @@ class CreditGrant(
 
     @overload
     def expire(
-        self, **params: Unpack["CreditGrant.ExpireParams"]
+        self, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -361,7 +372,7 @@ class CreditGrant(
 
     @class_method_variant("_cls_expire")
     def expire(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["CreditGrant.ExpireParams"]
+        self, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -379,7 +390,7 @@ class CreditGrant(
 
     @classmethod
     async def _cls_expire_async(
-        cls, id: str, **params: Unpack["CreditGrant.ExpireParams"]
+        cls, id: str, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -398,7 +409,7 @@ class CreditGrant(
     @overload
     @staticmethod
     async def expire_async(
-        id: str, **params: Unpack["CreditGrant.ExpireParams"]
+        id: str, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -407,7 +418,7 @@ class CreditGrant(
 
     @overload
     async def expire_async(
-        self, **params: Unpack["CreditGrant.ExpireParams"]
+        self, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -416,7 +427,7 @@ class CreditGrant(
 
     @class_method_variant("_cls_expire_async")
     async def expire_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["CreditGrant.ExpireParams"]
+        self, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -434,7 +445,7 @@ class CreditGrant(
 
     @classmethod
     def list(
-        cls, **params: Unpack["CreditGrant.ListParams"]
+        cls, **params: Unpack["CreditGrantListParams"]
     ) -> ListObject["CreditGrant"]:
         """
         Retrieve a list of credit grants.
@@ -454,7 +465,7 @@ class CreditGrant(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["CreditGrant.ListParams"]
+        cls, **params: Unpack["CreditGrantListParams"]
     ) -> ListObject["CreditGrant"]:
         """
         Retrieve a list of credit grants.
@@ -474,7 +485,7 @@ class CreditGrant(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["CreditGrant.ModifyParams"]
+        cls, id: str, **params: Unpack["CreditGrantModifyParams"]
     ) -> "CreditGrant":
         """
         Updates a credit grant.
@@ -491,7 +502,7 @@ class CreditGrant(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["CreditGrant.ModifyParams"]
+        cls, id: str, **params: Unpack["CreditGrantModifyParams"]
     ) -> "CreditGrant":
         """
         Updates a credit grant.
@@ -508,7 +519,7 @@ class CreditGrant(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["CreditGrant.RetrieveParams"]
+        cls, id: str, **params: Unpack["CreditGrantRetrieveParams"]
     ) -> "CreditGrant":
         """
         Retrieves a credit grant.
@@ -519,7 +530,7 @@ class CreditGrant(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["CreditGrant.RetrieveParams"]
+        cls, id: str, **params: Unpack["CreditGrantRetrieveParams"]
     ) -> "CreditGrant":
         """
         Retrieves a credit grant.
@@ -530,7 +541,7 @@ class CreditGrant(
 
     @classmethod
     def _cls_void_grant(
-        cls, id: str, **params: Unpack["CreditGrant.VoidGrantParams"]
+        cls, id: str, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -549,7 +560,7 @@ class CreditGrant(
     @overload
     @staticmethod
     def void_grant(
-        id: str, **params: Unpack["CreditGrant.VoidGrantParams"]
+        id: str, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -558,7 +569,7 @@ class CreditGrant(
 
     @overload
     def void_grant(
-        self, **params: Unpack["CreditGrant.VoidGrantParams"]
+        self, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -567,7 +578,7 @@ class CreditGrant(
 
     @class_method_variant("_cls_void_grant")
     def void_grant(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["CreditGrant.VoidGrantParams"]
+        self, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -585,7 +596,7 @@ class CreditGrant(
 
     @classmethod
     async def _cls_void_grant_async(
-        cls, id: str, **params: Unpack["CreditGrant.VoidGrantParams"]
+        cls, id: str, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -604,7 +615,7 @@ class CreditGrant(
     @overload
     @staticmethod
     async def void_grant_async(
-        id: str, **params: Unpack["CreditGrant.VoidGrantParams"]
+        id: str, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -613,7 +624,7 @@ class CreditGrant(
 
     @overload
     async def void_grant_async(
-        self, **params: Unpack["CreditGrant.VoidGrantParams"]
+        self, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -622,7 +633,7 @@ class CreditGrant(
 
     @class_method_variant("_cls_void_grant_async")
     async def void_grant_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["CreditGrant.VoidGrantParams"]
+        self, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.

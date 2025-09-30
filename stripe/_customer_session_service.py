@@ -3,8 +3,13 @@
 from stripe._customer_session import CustomerSession
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._customer_session_create_params import (
+        CustomerSessionCreateParams,
+    )
 
 
 class CustomerSessionService(StripeService):
@@ -110,7 +115,7 @@ class CustomerSessionService(StripeService):
 
     def create(
         self,
-        params: "CustomerSessionService.CreateParams",
+        params: "CustomerSessionCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> CustomerSession:
         """
@@ -129,7 +134,7 @@ class CustomerSessionService(StripeService):
 
     async def create_async(
         self,
-        params: "CustomerSessionService.CreateParams",
+        params: "CustomerSessionCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> CustomerSession:
         """

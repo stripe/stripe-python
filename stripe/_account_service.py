@@ -11,8 +11,19 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._account_create_params import AccountCreateParams
+    from stripe.params._account_delete_params import AccountDeleteParams
+    from stripe.params._account_list_params import AccountListParams
+    from stripe.params._account_reject_params import AccountRejectParams
+    from stripe.params._account_retrieve_current_params import (
+        AccountRetrieveCurrentParams,
+    )
+    from stripe.params._account_retrieve_params import AccountRetrieveParams
+    from stripe.params._account_update_params import AccountUpdateParams
 
 
 class AccountService(StripeService):
@@ -4360,7 +4371,7 @@ class AccountService(StripeService):
     def delete(
         self,
         account: str,
-        params: Optional["AccountService.DeleteParams"] = None,
+        params: Optional["AccountDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -4386,7 +4397,7 @@ class AccountService(StripeService):
     async def delete_async(
         self,
         account: str,
-        params: Optional["AccountService.DeleteParams"] = None,
+        params: Optional["AccountDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -4412,7 +4423,7 @@ class AccountService(StripeService):
     def retrieve(
         self,
         account: str,
-        params: Optional["AccountService.RetrieveParams"] = None,
+        params: Optional["AccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -4432,7 +4443,7 @@ class AccountService(StripeService):
     async def retrieve_async(
         self,
         account: str,
-        params: Optional["AccountService.RetrieveParams"] = None,
+        params: Optional["AccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -4452,7 +4463,7 @@ class AccountService(StripeService):
     def update(
         self,
         account: str,
-        params: Optional["AccountService.UpdateParams"] = None,
+        params: Optional["AccountUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -4484,7 +4495,7 @@ class AccountService(StripeService):
     async def update_async(
         self,
         account: str,
-        params: Optional["AccountService.UpdateParams"] = None,
+        params: Optional["AccountUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -4515,7 +4526,7 @@ class AccountService(StripeService):
 
     def retrieve_current(
         self,
-        params: Optional["AccountService.RetrieveCurrentParams"] = None,
+        params: Optional["AccountRetrieveCurrentParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -4534,7 +4545,7 @@ class AccountService(StripeService):
 
     async def retrieve_current_async(
         self,
-        params: Optional["AccountService.RetrieveCurrentParams"] = None,
+        params: Optional["AccountRetrieveCurrentParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -4553,7 +4564,7 @@ class AccountService(StripeService):
 
     def list(
         self,
-        params: Optional["AccountService.ListParams"] = None,
+        params: Optional["AccountListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Account]:
         """
@@ -4572,7 +4583,7 @@ class AccountService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["AccountService.ListParams"] = None,
+        params: Optional["AccountListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Account]:
         """
@@ -4591,7 +4602,7 @@ class AccountService(StripeService):
 
     def create(
         self,
-        params: Optional["AccountService.CreateParams"] = None,
+        params: Optional["AccountCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -4615,7 +4626,7 @@ class AccountService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["AccountService.CreateParams"] = None,
+        params: Optional["AccountCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -4640,7 +4651,7 @@ class AccountService(StripeService):
     def reject(
         self,
         account: str,
-        params: "AccountService.RejectParams",
+        params: "AccountRejectParams",
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """
@@ -4664,7 +4675,7 @@ class AccountService(StripeService):
     async def reject_async(
         self,
         account: str,
-        params: "AccountService.RejectParams",
+        params: "AccountRejectParams",
         options: Optional[RequestOptions] = None,
     ) -> Account:
         """

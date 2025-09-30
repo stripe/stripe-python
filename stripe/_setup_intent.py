@@ -4,18 +4,11 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import Any, ClassVar, Dict, List, Optional, Union, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -28,6 +21,25 @@ if TYPE_CHECKING:
     from stripe._payment_method import PaymentMethod
     from stripe._setup_attempt import SetupAttempt
     from stripe._source import Source
+    from stripe.params._setup_intent_cancel_params import (
+        SetupIntentCancelParams,
+    )
+    from stripe.params._setup_intent_confirm_params import (
+        SetupIntentConfirmParams,
+    )
+    from stripe.params._setup_intent_create_params import (
+        SetupIntentCreateParams,
+    )
+    from stripe.params._setup_intent_list_params import SetupIntentListParams
+    from stripe.params._setup_intent_modify_params import (
+        SetupIntentModifyParams,
+    )
+    from stripe.params._setup_intent_retrieve_params import (
+        SetupIntentRetrieveParams,
+    )
+    from stripe.params._setup_intent_verify_microdeposits_params import (
+        SetupIntentVerifyMicrodepositsParams,
+    )
 
 
 class SetupIntent(
@@ -5934,7 +5946,7 @@ class SetupIntent(
 
     @classmethod
     def _cls_cancel(
-        cls, intent: str, **params: Unpack["SetupIntent.CancelParams"]
+        cls, intent: str, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -5955,7 +5967,7 @@ class SetupIntent(
     @overload
     @staticmethod
     def cancel(
-        intent: str, **params: Unpack["SetupIntent.CancelParams"]
+        intent: str, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -5966,7 +5978,7 @@ class SetupIntent(
 
     @overload
     def cancel(
-        self, **params: Unpack["SetupIntent.CancelParams"]
+        self, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -5977,7 +5989,7 @@ class SetupIntent(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SetupIntent.CancelParams"]
+        self, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -5997,7 +6009,7 @@ class SetupIntent(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, intent: str, **params: Unpack["SetupIntent.CancelParams"]
+        cls, intent: str, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -6018,7 +6030,7 @@ class SetupIntent(
     @overload
     @staticmethod
     async def cancel_async(
-        intent: str, **params: Unpack["SetupIntent.CancelParams"]
+        intent: str, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -6029,7 +6041,7 @@ class SetupIntent(
 
     @overload
     async def cancel_async(
-        self, **params: Unpack["SetupIntent.CancelParams"]
+        self, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -6040,7 +6052,7 @@ class SetupIntent(
 
     @class_method_variant("_cls_cancel_async")
     async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SetupIntent.CancelParams"]
+        self, **params: Unpack["SetupIntentCancelParams"]
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -6060,7 +6072,7 @@ class SetupIntent(
 
     @classmethod
     def _cls_confirm(
-        cls, intent: str, **params: Unpack["SetupIntent.ConfirmParams"]
+        cls, intent: str, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -6092,7 +6104,7 @@ class SetupIntent(
     @overload
     @staticmethod
     def confirm(
-        intent: str, **params: Unpack["SetupIntent.ConfirmParams"]
+        intent: str, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -6114,7 +6126,7 @@ class SetupIntent(
 
     @overload
     def confirm(
-        self, **params: Unpack["SetupIntent.ConfirmParams"]
+        self, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -6136,7 +6148,7 @@ class SetupIntent(
 
     @class_method_variant("_cls_confirm")
     def confirm(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SetupIntent.ConfirmParams"]
+        self, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -6167,7 +6179,7 @@ class SetupIntent(
 
     @classmethod
     async def _cls_confirm_async(
-        cls, intent: str, **params: Unpack["SetupIntent.ConfirmParams"]
+        cls, intent: str, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -6199,7 +6211,7 @@ class SetupIntent(
     @overload
     @staticmethod
     async def confirm_async(
-        intent: str, **params: Unpack["SetupIntent.ConfirmParams"]
+        intent: str, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -6221,7 +6233,7 @@ class SetupIntent(
 
     @overload
     async def confirm_async(
-        self, **params: Unpack["SetupIntent.ConfirmParams"]
+        self, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -6243,7 +6255,7 @@ class SetupIntent(
 
     @class_method_variant("_cls_confirm_async")
     async def confirm_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SetupIntent.ConfirmParams"]
+        self, **params: Unpack["SetupIntentConfirmParams"]
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -6274,7 +6286,7 @@ class SetupIntent(
 
     @classmethod
     def create(
-        cls, **params: Unpack["SetupIntent.CreateParams"]
+        cls, **params: Unpack["SetupIntentCreateParams"]
     ) -> "SetupIntent":
         """
         Creates a SetupIntent object.
@@ -6293,7 +6305,7 @@ class SetupIntent(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["SetupIntent.CreateParams"]
+        cls, **params: Unpack["SetupIntentCreateParams"]
     ) -> "SetupIntent":
         """
         Creates a SetupIntent object.
@@ -6312,7 +6324,7 @@ class SetupIntent(
 
     @classmethod
     def list(
-        cls, **params: Unpack["SetupIntent.ListParams"]
+        cls, **params: Unpack["SetupIntentListParams"]
     ) -> ListObject["SetupIntent"]:
         """
         Returns a list of SetupIntents.
@@ -6332,7 +6344,7 @@ class SetupIntent(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["SetupIntent.ListParams"]
+        cls, **params: Unpack["SetupIntentListParams"]
     ) -> ListObject["SetupIntent"]:
         """
         Returns a list of SetupIntents.
@@ -6352,7 +6364,7 @@ class SetupIntent(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SetupIntent.ModifyParams"]
+        cls, id: str, **params: Unpack["SetupIntentModifyParams"]
     ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
@@ -6369,7 +6381,7 @@ class SetupIntent(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SetupIntent.ModifyParams"]
+        cls, id: str, **params: Unpack["SetupIntentModifyParams"]
     ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
@@ -6386,7 +6398,7 @@ class SetupIntent(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["SetupIntent.RetrieveParams"]
+        cls, id: str, **params: Unpack["SetupIntentRetrieveParams"]
     ) -> "SetupIntent":
         """
         Retrieves the details of a SetupIntent that has previously been created.
@@ -6401,7 +6413,7 @@ class SetupIntent(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["SetupIntent.RetrieveParams"]
+        cls, id: str, **params: Unpack["SetupIntentRetrieveParams"]
     ) -> "SetupIntent":
         """
         Retrieves the details of a SetupIntent that has previously been created.
@@ -6418,7 +6430,7 @@ class SetupIntent(
     def _cls_verify_microdeposits(
         cls,
         intent: str,
-        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"],
+        **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -6437,7 +6449,7 @@ class SetupIntent(
     @overload
     @staticmethod
     def verify_microdeposits(
-        intent: str, **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+        intent: str, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -6446,7 +6458,7 @@ class SetupIntent(
 
     @overload
     def verify_microdeposits(
-        self, **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+        self, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -6455,7 +6467,7 @@ class SetupIntent(
 
     @class_method_variant("_cls_verify_microdeposits")
     def verify_microdeposits(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+        self, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -6475,7 +6487,7 @@ class SetupIntent(
     async def _cls_verify_microdeposits_async(
         cls,
         intent: str,
-        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"],
+        **params: Unpack["SetupIntentVerifyMicrodepositsParams"],
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -6494,7 +6506,7 @@ class SetupIntent(
     @overload
     @staticmethod
     async def verify_microdeposits_async(
-        intent: str, **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+        intent: str, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -6503,7 +6515,7 @@ class SetupIntent(
 
     @overload
     async def verify_microdeposits_async(
-        self, **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+        self, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -6512,7 +6524,7 @@ class SetupIntent(
 
     @class_method_variant("_cls_verify_microdeposits_async")
     async def verify_microdeposits_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+        self, **params: Unpack["SetupIntentVerifyMicrodepositsParams"]
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.

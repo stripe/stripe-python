@@ -3,8 +3,13 @@
 from stripe._confirmation_token import ConfirmationToken
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.test_helpers._confirmation_token_create_params import (
+        ConfirmationTokenCreateParams,
+    )
 
 
 class ConfirmationTokenService(StripeService):
@@ -1032,7 +1037,7 @@ class ConfirmationTokenService(StripeService):
 
     def create(
         self,
-        params: Optional["ConfirmationTokenService.CreateParams"] = None,
+        params: Optional["ConfirmationTokenCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ConfirmationToken:
         """
@@ -1051,7 +1056,7 @@ class ConfirmationTokenService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["ConfirmationTokenService.CreateParams"] = None,
+        params: Optional["ConfirmationTokenCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ConfirmationToken:
         """

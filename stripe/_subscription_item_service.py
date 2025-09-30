@@ -5,8 +5,25 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._subscription_item import SubscriptionItem
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._subscription_item_create_params import (
+        SubscriptionItemCreateParams,
+    )
+    from stripe.params._subscription_item_delete_params import (
+        SubscriptionItemDeleteParams,
+    )
+    from stripe.params._subscription_item_list_params import (
+        SubscriptionItemListParams,
+    )
+    from stripe.params._subscription_item_retrieve_params import (
+        SubscriptionItemRetrieveParams,
+    )
+    from stripe.params._subscription_item_update_params import (
+        SubscriptionItemUpdateParams,
+    )
 
 
 class SubscriptionItemService(StripeService):
@@ -401,7 +418,7 @@ class SubscriptionItemService(StripeService):
     def delete(
         self,
         item: str,
-        params: Optional["SubscriptionItemService.DeleteParams"] = None,
+        params: Optional["SubscriptionItemDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
@@ -421,7 +438,7 @@ class SubscriptionItemService(StripeService):
     async def delete_async(
         self,
         item: str,
-        params: Optional["SubscriptionItemService.DeleteParams"] = None,
+        params: Optional["SubscriptionItemDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
@@ -441,7 +458,7 @@ class SubscriptionItemService(StripeService):
     def retrieve(
         self,
         item: str,
-        params: Optional["SubscriptionItemService.RetrieveParams"] = None,
+        params: Optional["SubscriptionItemRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
@@ -461,7 +478,7 @@ class SubscriptionItemService(StripeService):
     async def retrieve_async(
         self,
         item: str,
-        params: Optional["SubscriptionItemService.RetrieveParams"] = None,
+        params: Optional["SubscriptionItemRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
@@ -481,7 +498,7 @@ class SubscriptionItemService(StripeService):
     def update(
         self,
         item: str,
-        params: Optional["SubscriptionItemService.UpdateParams"] = None,
+        params: Optional["SubscriptionItemUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
@@ -501,7 +518,7 @@ class SubscriptionItemService(StripeService):
     async def update_async(
         self,
         item: str,
-        params: Optional["SubscriptionItemService.UpdateParams"] = None,
+        params: Optional["SubscriptionItemUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
@@ -520,7 +537,7 @@ class SubscriptionItemService(StripeService):
 
     def list(
         self,
-        params: "SubscriptionItemService.ListParams",
+        params: "SubscriptionItemListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[SubscriptionItem]:
         """
@@ -539,7 +556,7 @@ class SubscriptionItemService(StripeService):
 
     async def list_async(
         self,
-        params: "SubscriptionItemService.ListParams",
+        params: "SubscriptionItemListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[SubscriptionItem]:
         """
@@ -558,7 +575,7 @@ class SubscriptionItemService(StripeService):
 
     def create(
         self,
-        params: "SubscriptionItemService.CreateParams",
+        params: "SubscriptionItemCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """
@@ -577,7 +594,7 @@ class SubscriptionItemService(StripeService):
 
     async def create_async(
         self,
-        params: "SubscriptionItemService.CreateParams",
+        params: "SubscriptionItemCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> SubscriptionItem:
         """

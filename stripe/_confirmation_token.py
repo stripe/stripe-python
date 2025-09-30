@@ -2,23 +2,21 @@
 # File generated from our OpenAPI spec
 from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
-from typing import ClassVar, Dict, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    Type,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, List, Optional, cast
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._customer import Customer
     from stripe._setup_attempt import SetupAttempt
+    from stripe.params._confirmation_token_create_params import (
+        ConfirmationTokenCreateParams,
+    )
+    from stripe.params._confirmation_token_retrieve_params import (
+        ConfirmationTokenRetrieveParams,
+    )
 
 
 class ConfirmationToken(APIResource["ConfirmationToken"]):
@@ -2796,7 +2794,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["ConfirmationToken.RetrieveParams"]
+        cls, id: str, **params: Unpack["ConfirmationTokenRetrieveParams"]
     ) -> "ConfirmationToken":
         """
         Retrieves an existing ConfirmationToken object
@@ -2807,7 +2805,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ConfirmationToken.RetrieveParams"]
+        cls, id: str, **params: Unpack["ConfirmationTokenRetrieveParams"]
     ) -> "ConfirmationToken":
         """
         Retrieves an existing ConfirmationToken object
@@ -2821,7 +2819,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
         @classmethod
         def create(
-            cls, **params: Unpack["ConfirmationToken.CreateParams"]
+            cls, **params: Unpack["ConfirmationTokenCreateParams"]
         ) -> "ConfirmationToken":
             """
             Creates a test mode Confirmation Token server side for your integration tests.
@@ -2837,7 +2835,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
         @classmethod
         async def create_async(
-            cls, **params: Unpack["ConfirmationToken.CreateParams"]
+            cls, **params: Unpack["ConfirmationTokenCreateParams"]
         ) -> "ConfirmationToken":
             """
             Creates a test mode Confirmation Token server side for your integration tests.

@@ -3,10 +3,19 @@ from collections import namedtuple
 
 import pytest
 
-import stripe
-from stripe import util
+from stripe._util import (
+    dashboard_link,
+    convert_to_dict,
+    convert_to_stripe_object,
+    logfmt,
+    log_info,
+    log_debug,
+    sanitize_id,
+)
+from stripe import Balance
 from stripe._api_mode import ApiMode
 from stripe._util import get_api_mode
+from stripe._stripe_object import StripeObject
 
 LogTestCase = namedtuple("LogTestCase", "env flag should_output")
 FmtTestCase = namedtuple("FmtTestCase", "props expected")
@@ -17,7 +26,7 @@ class TestUtil(object):
 
     def test_test_apikey(self, mocker):
         mocker.patch("stripe.api_key", "sk_test_KOWobxXidxNlIx")
-        link = util.dashboard_link(self.DUMMY_REQ_ID)
+        link = dashboard_link(self.DUMMY_REQ_ID)
         assert (
             link
             == "https://dashboard.stripe.com/test/logs/" + self.DUMMY_REQ_ID
@@ -25,7 +34,7 @@ class TestUtil(object):
 
     def test_live_apikey(self, mocker):
         mocker.patch("stripe.api_key", "sk_live_axwITqZSgTUXSN")
-        link = util.dashboard_link(self.DUMMY_REQ_ID)
+        link = dashboard_link(self.DUMMY_REQ_ID)
         assert (
             link
             == "https://dashboard.stripe.com/live/logs/" + self.DUMMY_REQ_ID
@@ -33,7 +42,7 @@ class TestUtil(object):
 
     def test_no_apikey(self, mocker):
         mocker.patch("stripe.api_key", None)
-        link = util.dashboard_link(self.DUMMY_REQ_ID)
+        link = dashboard_link(self.DUMMY_REQ_ID)
         assert (
             link
             == "https://dashboard.stripe.com/test/logs/" + self.DUMMY_REQ_ID
@@ -41,7 +50,7 @@ class TestUtil(object):
 
     def test_old_apikey(self, mocker):
         mocker.patch("stripe.api_key", "axwITqZSgTUXSN")
-        link = util.dashboard_link(self.DUMMY_REQ_ID)
+        link = dashboard_link(self.DUMMY_REQ_ID)
         assert (
             link
             == "https://dashboard.stripe.com/test/logs/" + self.DUMMY_REQ_ID
@@ -82,8 +91,8 @@ class TestUtil(object):
         ]
         self.log_test_loop(
             test_cases,
-            logging_func=util.log_debug,
-            logger_name="stripe.util.logger.debug",
+            logging_func=log_debug,
+            logger_name="stripe._util.logger.debug",
             mocker=mocker,
         )
 
@@ -102,8 +111,8 @@ class TestUtil(object):
         ]
         self.log_test_loop(
             test_cases,
-            logging_func=util.log_info,
-            logger_name="stripe.util.logger.info",
+            logging_func=log_info,
+            logger_name="stripe._util.logger.info",
             mocker=mocker,
         )
 
@@ -123,7 +132,7 @@ class TestUtil(object):
             ),
         ]
         for case in cases:
-            result = util.logfmt(case.props)
+            result = logfmt(case.props)
             assert result == case.expected
 
     def test_convert_to_stripe_object_and_back(self):
@@ -139,12 +148,12 @@ class TestUtil(object):
             "livemode": False,
         }
 
-        obj = util.convert_to_stripe_object(resp, api_mode="V1")
-        assert isinstance(obj, stripe.Balance)
+        obj = convert_to_stripe_object(resp, api_mode="V1")
+        assert isinstance(obj, Balance)
         assert isinstance(obj.available, list)
-        assert isinstance(obj.available[0], stripe.stripe_object.StripeObject)
+        assert isinstance(obj.available[0], StripeObject)
 
-        d = util.convert_to_dict(obj)
+        d = convert_to_dict(obj)
         assert isinstance(d, dict)
         assert isinstance(d["available"], list)
         assert isinstance(d["available"][0], dict)
@@ -152,7 +161,7 @@ class TestUtil(object):
         assert d == resp
 
     def test_sanitize_id(self):
-        sanitized_id = util.sanitize_id("cu  %x 123")
+        sanitized_id = sanitize_id("cu  %x 123")
         if isinstance(sanitized_id, bytes):
             sanitized_id = sanitized_id.decode("utf-8", "strict")
         assert sanitized_id == "cu++%25x+123"

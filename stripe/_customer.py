@@ -6,7 +6,6 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
-from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
@@ -24,14 +23,7 @@ from typing import (
     cast,
     overload,
 )
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    Type,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -48,6 +40,78 @@ if TYPE_CHECKING:
     from stripe._source import Source
     from stripe._subscription import Subscription
     from stripe._tax_id import TaxId
+    from stripe.params._customer_create_balance_transaction_params import (
+        CustomerCreateBalanceTransactionParams,
+    )
+    from stripe.params._customer_create_funding_instructions_params import (
+        CustomerCreateFundingInstructionsParams,
+    )
+    from stripe.params._customer_create_params import CustomerCreateParams
+    from stripe.params._customer_create_source_params import (
+        CustomerCreateSourceParams,
+    )
+    from stripe.params._customer_create_tax_id_params import (
+        CustomerCreateTaxIdParams,
+    )
+    from stripe.params._customer_delete_discount_params import (
+        CustomerDeleteDiscountParams,
+    )
+    from stripe.params._customer_delete_params import CustomerDeleteParams
+    from stripe.params._customer_delete_source_params import (
+        CustomerDeleteSourceParams,
+    )
+    from stripe.params._customer_delete_tax_id_params import (
+        CustomerDeleteTaxIdParams,
+    )
+    from stripe.params._customer_fund_cash_balance_params import (
+        CustomerFundCashBalanceParams,
+    )
+    from stripe.params._customer_list_balance_transactions_params import (
+        CustomerListBalanceTransactionsParams,
+    )
+    from stripe.params._customer_list_cash_balance_transactions_params import (
+        CustomerListCashBalanceTransactionsParams,
+    )
+    from stripe.params._customer_list_params import CustomerListParams
+    from stripe.params._customer_list_payment_methods_params import (
+        CustomerListPaymentMethodsParams,
+    )
+    from stripe.params._customer_list_sources_params import (
+        CustomerListSourcesParams,
+    )
+    from stripe.params._customer_list_tax_ids_params import (
+        CustomerListTaxIdsParams,
+    )
+    from stripe.params._customer_modify_balance_transaction_params import (
+        CustomerModifyBalanceTransactionParams,
+    )
+    from stripe.params._customer_modify_cash_balance_params import (
+        CustomerModifyCashBalanceParams,
+    )
+    from stripe.params._customer_modify_params import CustomerModifyParams
+    from stripe.params._customer_modify_source_params import (
+        CustomerModifySourceParams,
+    )
+    from stripe.params._customer_retrieve_balance_transaction_params import (
+        CustomerRetrieveBalanceTransactionParams,
+    )
+    from stripe.params._customer_retrieve_cash_balance_params import (
+        CustomerRetrieveCashBalanceParams,
+    )
+    from stripe.params._customer_retrieve_cash_balance_transaction_params import (
+        CustomerRetrieveCashBalanceTransactionParams,
+    )
+    from stripe.params._customer_retrieve_params import CustomerRetrieveParams
+    from stripe.params._customer_retrieve_payment_method_params import (
+        CustomerRetrievePaymentMethodParams,
+    )
+    from stripe.params._customer_retrieve_source_params import (
+        CustomerRetrieveSourceParams,
+    )
+    from stripe.params._customer_retrieve_tax_id_params import (
+        CustomerRetrieveTaxIdParams,
+    )
+    from stripe.params._customer_search_params import CustomerSearchParams
     from stripe.test_helpers._test_clock import TestClock
 
 
@@ -1564,7 +1628,7 @@ class Customer(
     """
 
     @classmethod
-    def create(cls, **params: Unpack["Customer.CreateParams"]) -> "Customer":
+    def create(cls, **params: Unpack["CustomerCreateParams"]) -> "Customer":
         """
         Creates a new customer object.
         """
@@ -1579,7 +1643,7 @@ class Customer(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Customer.CreateParams"]
+        cls, **params: Unpack["CustomerCreateParams"]
     ) -> "Customer":
         """
         Creates a new customer object.
@@ -1597,7 +1661,7 @@ class Customer(
     def _cls_create_funding_instructions(
         cls,
         customer: str,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"],
+        **params: Unpack["CustomerCreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1619,7 +1683,7 @@ class Customer(
     @staticmethod
     def create_funding_instructions(
         customer: str,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"],
+        **params: Unpack["CustomerCreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1630,7 +1694,7 @@ class Customer(
 
     @overload
     def create_funding_instructions(
-        self, **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        self, **params: Unpack["CustomerCreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1641,7 +1705,7 @@ class Customer(
 
     @class_method_variant("_cls_create_funding_instructions")
     def create_funding_instructions(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        self, **params: Unpack["CustomerCreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1663,7 +1727,7 @@ class Customer(
     async def _cls_create_funding_instructions_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"],
+        **params: Unpack["CustomerCreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1685,7 +1749,7 @@ class Customer(
     @staticmethod
     async def create_funding_instructions_async(
         customer: str,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"],
+        **params: Unpack["CustomerCreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1696,7 +1760,7 @@ class Customer(
 
     @overload
     async def create_funding_instructions_async(
-        self, **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        self, **params: Unpack["CustomerCreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1707,7 +1771,7 @@ class Customer(
 
     @class_method_variant("_cls_create_funding_instructions_async")
     async def create_funding_instructions_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        self, **params: Unpack["CustomerCreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1727,7 +1791,7 @@ class Customer(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["Customer.DeleteParams"]
+        cls, sid: str, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1745,7 +1809,7 @@ class Customer(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["Customer.DeleteParams"]
+        sid: str, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1753,7 +1817,7 @@ class Customer(
         ...
 
     @overload
-    def delete(self, **params: Unpack["Customer.DeleteParams"]) -> "Customer":
+    def delete(self, **params: Unpack["CustomerDeleteParams"]) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
         """
@@ -1761,7 +1825,7 @@ class Customer(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.DeleteParams"]
+        self, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1774,7 +1838,7 @@ class Customer(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["Customer.DeleteParams"]
+        cls, sid: str, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1792,7 +1856,7 @@ class Customer(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["Customer.DeleteParams"]
+        sid: str, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1801,7 +1865,7 @@ class Customer(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["Customer.DeleteParams"]
+        self, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1810,7 +1874,7 @@ class Customer(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.DeleteParams"]
+        self, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1823,7 +1887,7 @@ class Customer(
 
     @classmethod
     def _cls_delete_discount(
-        cls, customer: str, **params: Unpack["Customer.DeleteDiscountParams"]
+        cls, customer: str, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1842,7 +1906,7 @@ class Customer(
     @overload
     @staticmethod
     def delete_discount(
-        customer: str, **params: Unpack["Customer.DeleteDiscountParams"]
+        customer: str, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1851,7 +1915,7 @@ class Customer(
 
     @overload
     def delete_discount(
-        self, **params: Unpack["Customer.DeleteDiscountParams"]
+        self, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1860,7 +1924,7 @@ class Customer(
 
     @class_method_variant("_cls_delete_discount")
     def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.DeleteDiscountParams"]
+        self, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1878,7 +1942,7 @@ class Customer(
 
     @classmethod
     async def _cls_delete_discount_async(
-        cls, customer: str, **params: Unpack["Customer.DeleteDiscountParams"]
+        cls, customer: str, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1897,7 +1961,7 @@ class Customer(
     @overload
     @staticmethod
     async def delete_discount_async(
-        customer: str, **params: Unpack["Customer.DeleteDiscountParams"]
+        customer: str, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1906,7 +1970,7 @@ class Customer(
 
     @overload
     async def delete_discount_async(
-        self, **params: Unpack["Customer.DeleteDiscountParams"]
+        self, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1915,7 +1979,7 @@ class Customer(
 
     @class_method_variant("_cls_delete_discount_async")
     async def delete_discount_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.DeleteDiscountParams"]
+        self, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1933,7 +1997,7 @@ class Customer(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Customer.ListParams"]
+        cls, **params: Unpack["CustomerListParams"]
     ) -> ListObject["Customer"]:
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
@@ -1953,7 +2017,7 @@ class Customer(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Customer.ListParams"]
+        cls, **params: Unpack["CustomerListParams"]
     ) -> ListObject["Customer"]:
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
@@ -1975,7 +2039,7 @@ class Customer(
     def _cls_list_payment_methods(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListPaymentMethodsParams"],
+        **params: Unpack["CustomerListPaymentMethodsParams"],
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -1994,7 +2058,7 @@ class Customer(
     @overload
     @staticmethod
     def list_payment_methods(
-        customer: str, **params: Unpack["Customer.ListPaymentMethodsParams"]
+        customer: str, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2003,7 +2067,7 @@ class Customer(
 
     @overload
     def list_payment_methods(
-        self, **params: Unpack["Customer.ListPaymentMethodsParams"]
+        self, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2012,7 +2076,7 @@ class Customer(
 
     @class_method_variant("_cls_list_payment_methods")
     def list_payment_methods(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.ListPaymentMethodsParams"]
+        self, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2032,7 +2096,7 @@ class Customer(
     async def _cls_list_payment_methods_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListPaymentMethodsParams"],
+        **params: Unpack["CustomerListPaymentMethodsParams"],
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2051,7 +2115,7 @@ class Customer(
     @overload
     @staticmethod
     async def list_payment_methods_async(
-        customer: str, **params: Unpack["Customer.ListPaymentMethodsParams"]
+        customer: str, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2060,7 +2124,7 @@ class Customer(
 
     @overload
     async def list_payment_methods_async(
-        self, **params: Unpack["Customer.ListPaymentMethodsParams"]
+        self, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2069,7 +2133,7 @@ class Customer(
 
     @class_method_variant("_cls_list_payment_methods_async")
     async def list_payment_methods_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.ListPaymentMethodsParams"]
+        self, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2087,7 +2151,7 @@ class Customer(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["Customer.ModifyParams"]
+        cls, id: str, **params: Unpack["CustomerModifyParams"]
     ) -> "Customer":
         """
         Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
@@ -2106,7 +2170,7 @@ class Customer(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Customer.ModifyParams"]
+        cls, id: str, **params: Unpack["CustomerModifyParams"]
     ) -> "Customer":
         """
         Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
@@ -2125,7 +2189,7 @@ class Customer(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Customer.RetrieveParams"]
+        cls, id: str, **params: Unpack["CustomerRetrieveParams"]
     ) -> "Customer":
         """
         Retrieves a Customer object.
@@ -2136,7 +2200,7 @@ class Customer(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Customer.RetrieveParams"]
+        cls, id: str, **params: Unpack["CustomerRetrieveParams"]
     ) -> "Customer":
         """
         Retrieves a Customer object.
@@ -2150,7 +2214,7 @@ class Customer(
         cls,
         customer: str,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2172,7 +2236,7 @@ class Customer(
     def retrieve_payment_method(
         customer: str,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2183,7 +2247,7 @@ class Customer(
     def retrieve_payment_method(
         self,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2194,7 +2258,7 @@ class Customer(
     def retrieve_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2216,7 +2280,7 @@ class Customer(
         cls,
         customer: str,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2238,7 +2302,7 @@ class Customer(
     async def retrieve_payment_method_async(
         customer: str,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2249,7 +2313,7 @@ class Customer(
     async def retrieve_payment_method_async(
         self,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2260,7 +2324,7 @@ class Customer(
     async def retrieve_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2279,7 +2343,7 @@ class Customer(
 
     @classmethod
     def search(
-        cls, *args, **kwargs: Unpack["Customer.SearchParams"]
+        cls, *args, **kwargs: Unpack["CustomerSearchParams"]
     ) -> SearchResultObject["Customer"]:
         """
         Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -2291,7 +2355,7 @@ class Customer(
 
     @classmethod
     async def search_async(
-        cls, *args, **kwargs: Unpack["Customer.SearchParams"]
+        cls, *args, **kwargs: Unpack["CustomerSearchParams"]
     ) -> SearchResultObject["Customer"]:
         """
         Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -2305,13 +2369,13 @@ class Customer(
 
     @classmethod
     def search_auto_paging_iter(
-        cls, *args, **kwargs: Unpack["Customer.SearchParams"]
+        cls, *args, **kwargs: Unpack["CustomerSearchParams"]
     ) -> Iterator["Customer"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
     async def search_auto_paging_iter_async(
-        cls, *args, **kwargs: Unpack["Customer.SearchParams"]
+        cls, *args, **kwargs: Unpack["CustomerSearchParams"]
     ) -> AsyncIterator["Customer"]:
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
@@ -2319,7 +2383,7 @@ class Customer(
     def list_balance_transactions(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListBalanceTransactionsParams"],
+        **params: Unpack["CustomerListBalanceTransactionsParams"],
     ) -> ListObject["CustomerBalanceTransaction"]:
         """
         Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
@@ -2339,7 +2403,7 @@ class Customer(
     async def list_balance_transactions_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListBalanceTransactionsParams"],
+        **params: Unpack["CustomerListBalanceTransactionsParams"],
     ) -> ListObject["CustomerBalanceTransaction"]:
         """
         Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
@@ -2359,7 +2423,7 @@ class Customer(
     def create_balance_transaction(
         cls,
         customer: str,
-        **params: Unpack["Customer.CreateBalanceTransactionParams"],
+        **params: Unpack["CustomerCreateBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
@@ -2379,7 +2443,7 @@ class Customer(
     async def create_balance_transaction_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.CreateBalanceTransactionParams"],
+        **params: Unpack["CustomerCreateBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
@@ -2400,7 +2464,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.RetrieveBalanceTransactionParams"],
+        **params: Unpack["CustomerRetrieveBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
@@ -2422,7 +2486,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.RetrieveBalanceTransactionParams"],
+        **params: Unpack["CustomerRetrieveBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
@@ -2444,7 +2508,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.ModifyBalanceTransactionParams"],
+        **params: Unpack["CustomerModifyBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
@@ -2466,7 +2530,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.ModifyBalanceTransactionParams"],
+        **params: Unpack["CustomerModifyBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
@@ -2487,7 +2551,7 @@ class Customer(
     def list_cash_balance_transactions(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
+        **params: Unpack["CustomerListCashBalanceTransactionsParams"],
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
         Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
@@ -2507,7 +2571,7 @@ class Customer(
     async def list_cash_balance_transactions_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
+        **params: Unpack["CustomerListCashBalanceTransactionsParams"],
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
         Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
@@ -2528,7 +2592,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"],
+        **params: Unpack["CustomerRetrieveCashBalanceTransactionParams"],
     ) -> "CustomerCashBalanceTransaction":
         """
         Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
@@ -2550,7 +2614,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"],
+        **params: Unpack["CustomerRetrieveCashBalanceTransactionParams"],
     ) -> "CustomerCashBalanceTransaction":
         """
         Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
@@ -2569,7 +2633,7 @@ class Customer(
 
     @classmethod
     def list_sources(
-        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
+        cls, customer: str, **params: Unpack["CustomerListSourcesParams"]
     ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         """
         List sources for a specified customer.
@@ -2587,7 +2651,7 @@ class Customer(
 
     @classmethod
     async def list_sources_async(
-        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
+        cls, customer: str, **params: Unpack["CustomerListSourcesParams"]
     ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         """
         List sources for a specified customer.
@@ -2605,7 +2669,7 @@ class Customer(
 
     @classmethod
     def create_source(
-        cls, customer: str, **params: Unpack["Customer.CreateSourceParams"]
+        cls, customer: str, **params: Unpack["CustomerCreateSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         When you create a new credit card, you must specify a customer or recipient on which to create it.
@@ -2627,7 +2691,7 @@ class Customer(
 
     @classmethod
     async def create_source_async(
-        cls, customer: str, **params: Unpack["Customer.CreateSourceParams"]
+        cls, customer: str, **params: Unpack["CustomerCreateSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         When you create a new credit card, you must specify a customer or recipient on which to create it.
@@ -2652,7 +2716,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.RetrieveSourceParams"],
+        **params: Unpack["CustomerRetrieveSourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Retrieve a specified source for a given customer.
@@ -2673,7 +2737,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.RetrieveSourceParams"],
+        **params: Unpack["CustomerRetrieveSourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Retrieve a specified source for a given customer.
@@ -2694,7 +2758,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.ModifySourceParams"],
+        **params: Unpack["CustomerModifySourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Update a specified source for a given customer.
@@ -2715,7 +2779,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.ModifySourceParams"],
+        **params: Unpack["CustomerModifySourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Update a specified source for a given customer.
@@ -2736,7 +2800,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.DeleteSourceParams"],
+        **params: Unpack["CustomerDeleteSourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Delete a specified source for a given customer.
@@ -2757,7 +2821,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.DeleteSourceParams"],
+        **params: Unpack["CustomerDeleteSourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Delete a specified source for a given customer.
@@ -2775,7 +2839,7 @@ class Customer(
 
     @classmethod
     def create_tax_id(
-        cls, customer: str, **params: Unpack["Customer.CreateTaxIdParams"]
+        cls, customer: str, **params: Unpack["CustomerCreateTaxIdParams"]
     ) -> "TaxId":
         """
         Creates a new tax_id object for a customer.
@@ -2793,7 +2857,7 @@ class Customer(
 
     @classmethod
     async def create_tax_id_async(
-        cls, customer: str, **params: Unpack["Customer.CreateTaxIdParams"]
+        cls, customer: str, **params: Unpack["CustomerCreateTaxIdParams"]
     ) -> "TaxId":
         """
         Creates a new tax_id object for a customer.
@@ -2814,7 +2878,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.RetrieveTaxIdParams"],
+        **params: Unpack["CustomerRetrieveTaxIdParams"],
     ) -> "TaxId":
         """
         Retrieves the tax_id object with the given identifier.
@@ -2835,7 +2899,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.RetrieveTaxIdParams"],
+        **params: Unpack["CustomerRetrieveTaxIdParams"],
     ) -> "TaxId":
         """
         Retrieves the tax_id object with the given identifier.
@@ -2856,7 +2920,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.DeleteTaxIdParams"],
+        **params: Unpack["CustomerDeleteTaxIdParams"],
     ) -> "TaxId":
         """
         Deletes an existing tax_id object.
@@ -2877,7 +2941,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.DeleteTaxIdParams"],
+        **params: Unpack["CustomerDeleteTaxIdParams"],
     ) -> "TaxId":
         """
         Deletes an existing tax_id object.
@@ -2895,7 +2959,7 @@ class Customer(
 
     @classmethod
     def list_tax_ids(
-        cls, customer: str, **params: Unpack["Customer.ListTaxIdsParams"]
+        cls, customer: str, **params: Unpack["CustomerListTaxIdsParams"]
     ) -> ListObject["TaxId"]:
         """
         Returns a list of tax IDs for a customer.
@@ -2913,7 +2977,7 @@ class Customer(
 
     @classmethod
     async def list_tax_ids_async(
-        cls, customer: str, **params: Unpack["Customer.ListTaxIdsParams"]
+        cls, customer: str, **params: Unpack["CustomerListTaxIdsParams"]
     ) -> ListObject["TaxId"]:
         """
         Returns a list of tax IDs for a customer.
@@ -2933,7 +2997,7 @@ class Customer(
     def retrieve_cash_balance(
         cls,
         customer: str,
-        **params: Unpack["Customer.RetrieveCashBalanceParams"],
+        **params: Unpack["CustomerRetrieveCashBalanceParams"],
     ) -> "CashBalance":
         """
         Retrieves a customer's cash balance.
@@ -2953,7 +3017,7 @@ class Customer(
     async def retrieve_cash_balance_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.RetrieveCashBalanceParams"],
+        **params: Unpack["CustomerRetrieveCashBalanceParams"],
     ) -> "CashBalance":
         """
         Retrieves a customer's cash balance.
@@ -2971,9 +3035,7 @@ class Customer(
 
     @classmethod
     def modify_cash_balance(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.ModifyCashBalanceParams"],
+        cls, customer: str, **params: Unpack["CustomerModifyCashBalanceParams"]
     ) -> "CashBalance":
         """
         Changes the settings on a customer's cash balance.
@@ -2991,9 +3053,7 @@ class Customer(
 
     @classmethod
     async def modify_cash_balance_async(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.ModifyCashBalanceParams"],
+        cls, customer: str, **params: Unpack["CustomerModifyCashBalanceParams"]
     ) -> "CashBalance":
         """
         Changes the settings on a customer's cash balance.
@@ -3016,7 +3076,7 @@ class Customer(
         def _cls_fund_cash_balance(
             cls,
             customer: str,
-            **params: Unpack["Customer.FundCashBalanceParams"],
+            **params: Unpack["CustomerFundCashBalanceParams"],
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3035,7 +3095,7 @@ class Customer(
         @overload
         @staticmethod
         def fund_cash_balance(
-            customer: str, **params: Unpack["Customer.FundCashBalanceParams"]
+            customer: str, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3044,7 +3104,7 @@ class Customer(
 
         @overload
         def fund_cash_balance(
-            self, **params: Unpack["Customer.FundCashBalanceParams"]
+            self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3053,7 +3113,7 @@ class Customer(
 
         @class_method_variant("_cls_fund_cash_balance")
         def fund_cash_balance(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["Customer.FundCashBalanceParams"]
+            self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3073,7 +3133,7 @@ class Customer(
         async def _cls_fund_cash_balance_async(
             cls,
             customer: str,
-            **params: Unpack["Customer.FundCashBalanceParams"],
+            **params: Unpack["CustomerFundCashBalanceParams"],
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3092,7 +3152,7 @@ class Customer(
         @overload
         @staticmethod
         async def fund_cash_balance_async(
-            customer: str, **params: Unpack["Customer.FundCashBalanceParams"]
+            customer: str, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3101,7 +3161,7 @@ class Customer(
 
         @overload
         async def fund_cash_balance_async(
-            self, **params: Unpack["Customer.FundCashBalanceParams"]
+            self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3110,7 +3170,7 @@ class Customer(
 
         @class_method_variant("_cls_fund_cash_balance_async")
         async def fund_cash_balance_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["Customer.FundCashBalanceParams"]
+            self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer

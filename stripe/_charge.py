@@ -5,7 +5,6 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
-from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
@@ -22,13 +21,7 @@ from typing import (
     cast,
     overload,
 )
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -45,6 +38,18 @@ if TYPE_CHECKING:
     from stripe._review import Review
     from stripe._source import Source
     from stripe._transfer import Transfer
+    from stripe.params._charge_capture_params import ChargeCaptureParams
+    from stripe.params._charge_create_params import ChargeCreateParams
+    from stripe.params._charge_list_params import ChargeListParams
+    from stripe.params._charge_list_refunds_params import (
+        ChargeListRefundsParams,
+    )
+    from stripe.params._charge_modify_params import ChargeModifyParams
+    from stripe.params._charge_retrieve_params import ChargeRetrieveParams
+    from stripe.params._charge_retrieve_refund_params import (
+        ChargeRetrieveRefundParams,
+    )
+    from stripe.params._charge_search_params import ChargeSearchParams
 
 
 @nested_resource_class_methods("refund")
@@ -4287,7 +4292,7 @@ class Charge(
 
     @classmethod
     def _cls_capture(
-        cls, charge: str, **params: Unpack["Charge.CaptureParams"]
+        cls, charge: str, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -4310,7 +4315,7 @@ class Charge(
     @overload
     @staticmethod
     def capture(
-        charge: str, **params: Unpack["Charge.CaptureParams"]
+        charge: str, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -4322,7 +4327,7 @@ class Charge(
         ...
 
     @overload
-    def capture(self, **params: Unpack["Charge.CaptureParams"]) -> "Charge":
+    def capture(self, **params: Unpack["ChargeCaptureParams"]) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
 
@@ -4334,7 +4339,7 @@ class Charge(
 
     @class_method_variant("_cls_capture")
     def capture(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Charge.CaptureParams"]
+        self, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -4356,7 +4361,7 @@ class Charge(
 
     @classmethod
     async def _cls_capture_async(
-        cls, charge: str, **params: Unpack["Charge.CaptureParams"]
+        cls, charge: str, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -4379,7 +4384,7 @@ class Charge(
     @overload
     @staticmethod
     async def capture_async(
-        charge: str, **params: Unpack["Charge.CaptureParams"]
+        charge: str, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -4392,7 +4397,7 @@ class Charge(
 
     @overload
     async def capture_async(
-        self, **params: Unpack["Charge.CaptureParams"]
+        self, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -4405,7 +4410,7 @@ class Charge(
 
     @class_method_variant("_cls_capture_async")
     async def capture_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Charge.CaptureParams"]
+        self, **params: Unpack["ChargeCaptureParams"]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -4426,7 +4431,7 @@ class Charge(
         )
 
     @classmethod
-    def create(cls, **params: Unpack["Charge.CreateParams"]) -> "Charge":
+    def create(cls, **params: Unpack["ChargeCreateParams"]) -> "Charge":
         """
         This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
         to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
@@ -4443,7 +4448,7 @@ class Charge(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Charge.CreateParams"]
+        cls, **params: Unpack["ChargeCreateParams"]
     ) -> "Charge":
         """
         This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
@@ -4461,7 +4466,7 @@ class Charge(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Charge.ListParams"]
+        cls, **params: Unpack["ChargeListParams"]
     ) -> ListObject["Charge"]:
         """
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
@@ -4481,7 +4486,7 @@ class Charge(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Charge.ListParams"]
+        cls, **params: Unpack["ChargeListParams"]
     ) -> ListObject["Charge"]:
         """
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
@@ -4501,7 +4506,7 @@ class Charge(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["Charge.ModifyParams"]
+        cls, id: str, **params: Unpack["ChargeModifyParams"]
     ) -> "Charge":
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -4518,7 +4523,7 @@ class Charge(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Charge.ModifyParams"]
+        cls, id: str, **params: Unpack["ChargeModifyParams"]
     ) -> "Charge":
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -4535,7 +4540,7 @@ class Charge(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Charge.RetrieveParams"]
+        cls, id: str, **params: Unpack["ChargeRetrieveParams"]
     ) -> "Charge":
         """
         Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
@@ -4546,7 +4551,7 @@ class Charge(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Charge.RetrieveParams"]
+        cls, id: str, **params: Unpack["ChargeRetrieveParams"]
     ) -> "Charge":
         """
         Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
@@ -4557,7 +4562,7 @@ class Charge(
 
     @classmethod
     def search(
-        cls, *args, **kwargs: Unpack["Charge.SearchParams"]
+        cls, *args, **kwargs: Unpack["ChargeSearchParams"]
     ) -> SearchResultObject["Charge"]:
         """
         Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -4569,7 +4574,7 @@ class Charge(
 
     @classmethod
     async def search_async(
-        cls, *args, **kwargs: Unpack["Charge.SearchParams"]
+        cls, *args, **kwargs: Unpack["ChargeSearchParams"]
     ) -> SearchResultObject["Charge"]:
         """
         Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -4583,13 +4588,13 @@ class Charge(
 
     @classmethod
     def search_auto_paging_iter(
-        cls, *args, **kwargs: Unpack["Charge.SearchParams"]
+        cls, *args, **kwargs: Unpack["ChargeSearchParams"]
     ) -> Iterator["Charge"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
     async def search_auto_paging_iter_async(
-        cls, *args, **kwargs: Unpack["Charge.SearchParams"]
+        cls, *args, **kwargs: Unpack["ChargeSearchParams"]
     ) -> AsyncIterator["Charge"]:
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
@@ -4616,7 +4621,7 @@ class Charge(
         cls,
         charge: str,
         refund: str,
-        **params: Unpack["Charge.RetrieveRefundParams"],
+        **params: Unpack["ChargeRetrieveRefundParams"],
     ) -> "Refund":
         """
         Retrieves the details of an existing refund.
@@ -4637,7 +4642,7 @@ class Charge(
         cls,
         charge: str,
         refund: str,
-        **params: Unpack["Charge.RetrieveRefundParams"],
+        **params: Unpack["ChargeRetrieveRefundParams"],
     ) -> "Refund":
         """
         Retrieves the details of an existing refund.
@@ -4655,7 +4660,7 @@ class Charge(
 
     @classmethod
     def list_refunds(
-        cls, charge: str, **params: Unpack["Charge.ListRefundsParams"]
+        cls, charge: str, **params: Unpack["ChargeListRefundsParams"]
     ) -> ListObject["Refund"]:
         """
         You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
@@ -4673,7 +4678,7 @@ class Charge(
 
     @classmethod
     async def list_refunds_async(
-        cls, charge: str, **params: Unpack["Charge.ListRefundsParams"]
+        cls, charge: str, **params: Unpack["ChargeListRefundsParams"]
     ) -> ListObject["Refund"]:
         """
         You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.

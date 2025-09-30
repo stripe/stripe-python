@@ -170,7 +170,7 @@ class CouponService(StripeService):
     def delete(
         self,
         coupon: str,
-        params: Optional["CouponService.DeleteParams"] = None,
+        params: Optional["CouponDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
@@ -190,7 +190,7 @@ class CouponService(StripeService):
     async def delete_async(
         self,
         coupon: str,
-        params: Optional["CouponService.DeleteParams"] = None,
+        params: Optional["CouponDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
@@ -210,7 +210,7 @@ class CouponService(StripeService):
     def retrieve(
         self,
         coupon: str,
-        params: Optional["CouponService.RetrieveParams"] = None,
+        params: Optional["CouponRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
@@ -230,7 +230,7 @@ class CouponService(StripeService):
     async def retrieve_async(
         self,
         coupon: str,
-        params: Optional["CouponService.RetrieveParams"] = None,
+        params: Optional["CouponRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
@@ -250,7 +250,7 @@ class CouponService(StripeService):
     def update(
         self,
         coupon: str,
-        params: Optional["CouponService.UpdateParams"] = None,
+        params: Optional["CouponUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
@@ -270,7 +270,7 @@ class CouponService(StripeService):
     async def update_async(
         self,
         coupon: str,
-        params: Optional["CouponService.UpdateParams"] = None,
+        params: Optional["CouponUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
@@ -289,7 +289,7 @@ class CouponService(StripeService):
 
     def list(
         self,
-        params: Optional["CouponService.ListParams"] = None,
+        params: Optional["CouponListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Coupon]:
         """
@@ -308,7 +308,7 @@ class CouponService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["CouponService.ListParams"] = None,
+        params: Optional["CouponListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Coupon]:
         """
@@ -327,7 +327,7 @@ class CouponService(StripeService):
 
     def create(
         self,
-        params: Optional["CouponService.CreateParams"] = None,
+        params: Optional["CouponCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """
@@ -348,7 +348,7 @@ class CouponService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["CouponService.CreateParams"] = None,
+        params: Optional["CouponCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Coupon:
         """

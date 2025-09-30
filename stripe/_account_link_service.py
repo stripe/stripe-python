@@ -3,8 +3,13 @@
 from stripe._account_link import AccountLink
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._account_link_create_params import (
+        AccountLinkCreateParams,
+    )
 
 
 class AccountLinkService(StripeService):
@@ -59,7 +64,7 @@ class AccountLinkService(StripeService):
 
     def create(
         self,
-        params: "AccountLinkService.CreateParams",
+        params: "AccountLinkCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> AccountLink:
         """
@@ -78,7 +83,7 @@ class AccountLinkService(StripeService):
 
     async def create_async(
         self,
-        params: "AccountLinkService.CreateParams",
+        params: "AccountLinkCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> AccountLink:
         """

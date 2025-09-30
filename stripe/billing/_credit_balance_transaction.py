@@ -3,14 +3,19 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing import ClassVar, Optional
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._invoice import Invoice
     from stripe.billing._credit_grant import CreditGrant
+    from stripe.params.billing._credit_balance_transaction_list_params import (
+        CreditBalanceTransactionListParams,
+    )
+    from stripe.params.billing._credit_balance_transaction_retrieve_params import (
+        CreditBalanceTransactionRetrieveParams,
+    )
     from stripe.test_helpers._test_clock import TestClock
 
 
@@ -198,7 +203,7 @@ class CreditBalanceTransaction(
 
     @classmethod
     def list(
-        cls, **params: Unpack["CreditBalanceTransaction.ListParams"]
+        cls, **params: Unpack["CreditBalanceTransactionListParams"]
     ) -> ListObject["CreditBalanceTransaction"]:
         """
         Retrieve a list of credit balance transactions.
@@ -218,7 +223,7 @@ class CreditBalanceTransaction(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["CreditBalanceTransaction.ListParams"]
+        cls, **params: Unpack["CreditBalanceTransactionListParams"]
     ) -> ListObject["CreditBalanceTransaction"]:
         """
         Retrieve a list of credit balance transactions.
@@ -240,7 +245,7 @@ class CreditBalanceTransaction(
     def retrieve(
         cls,
         id: str,
-        **params: Unpack["CreditBalanceTransaction.RetrieveParams"],
+        **params: Unpack["CreditBalanceTransactionRetrieveParams"],
     ) -> "CreditBalanceTransaction":
         """
         Retrieves a credit balance transaction.
@@ -253,7 +258,7 @@ class CreditBalanceTransaction(
     async def retrieve_async(
         cls,
         id: str,
-        **params: Unpack["CreditBalanceTransaction.RetrieveParams"],
+        **params: Unpack["CreditBalanceTransactionRetrieveParams"],
     ) -> "CreditBalanceTransaction":
         """
         Retrieves a credit balance transaction.

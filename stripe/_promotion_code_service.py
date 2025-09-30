@@ -5,8 +5,22 @@ from stripe._promotion_code import PromotionCode
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._promotion_code_create_params import (
+        PromotionCodeCreateParams,
+    )
+    from stripe.params._promotion_code_list_params import (
+        PromotionCodeListParams,
+    )
+    from stripe.params._promotion_code_retrieve_params import (
+        PromotionCodeRetrieveParams,
+    )
+    from stripe.params._promotion_code_update_params import (
+        PromotionCodeUpdateParams,
+    )
 
 
 class PromotionCodeService(StripeService):
@@ -200,7 +214,7 @@ class PromotionCodeService(StripeService):
 
     def list(
         self,
-        params: Optional["PromotionCodeService.ListParams"] = None,
+        params: Optional["PromotionCodeListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PromotionCode]:
         """
@@ -219,7 +233,7 @@ class PromotionCodeService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["PromotionCodeService.ListParams"] = None,
+        params: Optional["PromotionCodeListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PromotionCode]:
         """
@@ -238,7 +252,7 @@ class PromotionCodeService(StripeService):
 
     def create(
         self,
-        params: "PromotionCodeService.CreateParams",
+        params: "PromotionCodeCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -257,7 +271,7 @@ class PromotionCodeService(StripeService):
 
     async def create_async(
         self,
-        params: "PromotionCodeService.CreateParams",
+        params: "PromotionCodeCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -277,7 +291,7 @@ class PromotionCodeService(StripeService):
     def retrieve(
         self,
         promotion_code: str,
-        params: Optional["PromotionCodeService.RetrieveParams"] = None,
+        params: Optional["PromotionCodeRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -299,7 +313,7 @@ class PromotionCodeService(StripeService):
     async def retrieve_async(
         self,
         promotion_code: str,
-        params: Optional["PromotionCodeService.RetrieveParams"] = None,
+        params: Optional["PromotionCodeRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -321,7 +335,7 @@ class PromotionCodeService(StripeService):
     def update(
         self,
         promotion_code: str,
-        params: Optional["PromotionCodeService.UpdateParams"] = None,
+        params: Optional["PromotionCodeUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -343,7 +357,7 @@ class PromotionCodeService(StripeService):
     async def update_async(
         self,
         promotion_code: str,
-        params: Optional["PromotionCodeService.UpdateParams"] = None,
+        params: Optional["PromotionCodeUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """

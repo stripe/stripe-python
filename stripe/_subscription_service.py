@@ -7,8 +7,35 @@ from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._subscription import Subscription
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._subscription_cancel_params import (
+        SubscriptionCancelParams,
+    )
+    from stripe.params._subscription_create_params import (
+        SubscriptionCreateParams,
+    )
+    from stripe.params._subscription_delete_discount_params import (
+        SubscriptionDeleteDiscountParams,
+    )
+    from stripe.params._subscription_list_params import SubscriptionListParams
+    from stripe.params._subscription_migrate_params import (
+        SubscriptionMigrateParams,
+    )
+    from stripe.params._subscription_resume_params import (
+        SubscriptionResumeParams,
+    )
+    from stripe.params._subscription_retrieve_params import (
+        SubscriptionRetrieveParams,
+    )
+    from stripe.params._subscription_search_params import (
+        SubscriptionSearchParams,
+    )
+    from stripe.params._subscription_update_params import (
+        SubscriptionUpdateParams,
+    )
 
 
 class SubscriptionService(StripeService):
@@ -2327,7 +2354,7 @@ class SubscriptionService(StripeService):
     def cancel(
         self,
         subscription_exposed_id: str,
-        params: Optional["SubscriptionService.CancelParams"] = None,
+        params: Optional["SubscriptionCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -2355,7 +2382,7 @@ class SubscriptionService(StripeService):
     async def cancel_async(
         self,
         subscription_exposed_id: str,
-        params: Optional["SubscriptionService.CancelParams"] = None,
+        params: Optional["SubscriptionCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -2383,7 +2410,7 @@ class SubscriptionService(StripeService):
     def retrieve(
         self,
         subscription_exposed_id: str,
-        params: Optional["SubscriptionService.RetrieveParams"] = None,
+        params: Optional["SubscriptionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -2407,7 +2434,7 @@ class SubscriptionService(StripeService):
     async def retrieve_async(
         self,
         subscription_exposed_id: str,
-        params: Optional["SubscriptionService.RetrieveParams"] = None,
+        params: Optional["SubscriptionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -2431,7 +2458,7 @@ class SubscriptionService(StripeService):
     def update(
         self,
         subscription_exposed_id: str,
-        params: Optional["SubscriptionService.UpdateParams"] = None,
+        params: Optional["SubscriptionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -2475,7 +2502,7 @@ class SubscriptionService(StripeService):
     async def update_async(
         self,
         subscription_exposed_id: str,
-        params: Optional["SubscriptionService.UpdateParams"] = None,
+        params: Optional["SubscriptionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -2519,7 +2546,7 @@ class SubscriptionService(StripeService):
     def delete_discount(
         self,
         subscription_exposed_id: str,
-        params: Optional["SubscriptionService.DeleteDiscountParams"] = None,
+        params: Optional["SubscriptionDeleteDiscountParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Discount:
         """
@@ -2543,7 +2570,7 @@ class SubscriptionService(StripeService):
     async def delete_discount_async(
         self,
         subscription_exposed_id: str,
-        params: Optional["SubscriptionService.DeleteDiscountParams"] = None,
+        params: Optional["SubscriptionDeleteDiscountParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Discount:
         """
@@ -2566,7 +2593,7 @@ class SubscriptionService(StripeService):
 
     def list(
         self,
-        params: Optional["SubscriptionService.ListParams"] = None,
+        params: Optional["SubscriptionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Subscription]:
         """
@@ -2585,7 +2612,7 @@ class SubscriptionService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["SubscriptionService.ListParams"] = None,
+        params: Optional["SubscriptionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Subscription]:
         """
@@ -2654,7 +2681,7 @@ class SubscriptionService(StripeService):
 
     def search(
         self,
-        params: "SubscriptionService.SearchParams",
+        params: "SubscriptionSearchParams",
         options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Subscription]:
         """
@@ -2676,7 +2703,7 @@ class SubscriptionService(StripeService):
 
     async def search_async(
         self,
-        params: "SubscriptionService.SearchParams",
+        params: "SubscriptionSearchParams",
         options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Subscription]:
         """
@@ -2743,7 +2770,7 @@ class SubscriptionService(StripeService):
     def migrate(
         self,
         subscription: str,
-        params: "SubscriptionService.MigrateParams",
+        params: "SubscriptionMigrateParams",
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -2765,7 +2792,7 @@ class SubscriptionService(StripeService):
     async def migrate_async(
         self,
         subscription: str,
-        params: "SubscriptionService.MigrateParams",
+        params: "SubscriptionMigrateParams",
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -2787,7 +2814,7 @@ class SubscriptionService(StripeService):
     def resume(
         self,
         subscription: str,
-        params: Optional["SubscriptionService.ResumeParams"] = None,
+        params: Optional["SubscriptionResumeParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """
@@ -2809,7 +2836,7 @@ class SubscriptionService(StripeService):
     async def resume_async(
         self,
         subscription: str,
-        params: Optional["SubscriptionService.ResumeParams"] = None,
+        params: Optional["SubscriptionResumeParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Subscription:
         """

@@ -8,13 +8,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account as AccountResource
@@ -394,7 +388,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def _cls_disconnect(
-        cls, account: str, **params: Unpack["Account.DisconnectParams"]
+        cls, account: str, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -413,7 +407,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     def disconnect(
-        account: str, **params: Unpack["Account.DisconnectParams"]
+        account: str, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -422,7 +416,7 @@ class Account(ListableAPIResource["Account"]):
 
     @overload
     def disconnect(
-        self, **params: Unpack["Account.DisconnectParams"]
+        self, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -431,7 +425,7 @@ class Account(ListableAPIResource["Account"]):
 
     @class_method_variant("_cls_disconnect")
     def disconnect(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.DisconnectParams"]
+        self, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -449,7 +443,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def _cls_disconnect_async(
-        cls, account: str, **params: Unpack["Account.DisconnectParams"]
+        cls, account: str, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -468,7 +462,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     async def disconnect_async(
-        account: str, **params: Unpack["Account.DisconnectParams"]
+        account: str, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -477,7 +471,7 @@ class Account(ListableAPIResource["Account"]):
 
     @overload
     async def disconnect_async(
-        self, **params: Unpack["Account.DisconnectParams"]
+        self, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -486,7 +480,7 @@ class Account(ListableAPIResource["Account"]):
 
     @class_method_variant("_cls_disconnect_async")
     async def disconnect_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.DisconnectParams"]
+        self, **params: Unpack["AccountDisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -504,7 +498,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["Account.ListParams"]
+        cls, **params: Unpack["AccountListParams"]
     ) -> ListObject["Account"]:
         """
         Returns a list of Financial Connections Account objects.
@@ -524,7 +518,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Account.ListParams"]
+        cls, **params: Unpack["AccountListParams"]
     ) -> ListObject["Account"]:
         """
         Returns a list of Financial Connections Account objects.
@@ -544,7 +538,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def _cls_list_owners(
-        cls, account: str, **params: Unpack["Account.ListOwnersParams"]
+        cls, account: str, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -563,7 +557,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     def list_owners(
-        account: str, **params: Unpack["Account.ListOwnersParams"]
+        account: str, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -572,7 +566,7 @@ class Account(ListableAPIResource["Account"]):
 
     @overload
     def list_owners(
-        self, **params: Unpack["Account.ListOwnersParams"]
+        self, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -581,7 +575,7 @@ class Account(ListableAPIResource["Account"]):
 
     @class_method_variant("_cls_list_owners")
     def list_owners(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.ListOwnersParams"]
+        self, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -599,7 +593,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def _cls_list_owners_async(
-        cls, account: str, **params: Unpack["Account.ListOwnersParams"]
+        cls, account: str, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -618,7 +612,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     async def list_owners_async(
-        account: str, **params: Unpack["Account.ListOwnersParams"]
+        account: str, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -627,7 +621,7 @@ class Account(ListableAPIResource["Account"]):
 
     @overload
     async def list_owners_async(
-        self, **params: Unpack["Account.ListOwnersParams"]
+        self, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -636,7 +630,7 @@ class Account(ListableAPIResource["Account"]):
 
     @class_method_variant("_cls_list_owners_async")
     async def list_owners_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.ListOwnersParams"]
+        self, **params: Unpack["AccountListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -654,7 +648,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def _cls_refresh_account(
-        cls, account: str, **params: Unpack["Account.RefreshAccountParams"]
+        cls, account: str, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -673,7 +667,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     def refresh_account(
-        account: str, **params: Unpack["Account.RefreshAccountParams"]
+        account: str, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -682,7 +676,7 @@ class Account(ListableAPIResource["Account"]):
 
     @overload
     def refresh_account(
-        self, **params: Unpack["Account.RefreshAccountParams"]
+        self, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -691,7 +685,7 @@ class Account(ListableAPIResource["Account"]):
 
     @class_method_variant("_cls_refresh_account")
     def refresh_account(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.RefreshAccountParams"]
+        self, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -709,7 +703,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def _cls_refresh_account_async(
-        cls, account: str, **params: Unpack["Account.RefreshAccountParams"]
+        cls, account: str, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -728,7 +722,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     async def refresh_account_async(
-        account: str, **params: Unpack["Account.RefreshAccountParams"]
+        account: str, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -737,7 +731,7 @@ class Account(ListableAPIResource["Account"]):
 
     @overload
     async def refresh_account_async(
-        self, **params: Unpack["Account.RefreshAccountParams"]
+        self, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -746,7 +740,7 @@ class Account(ListableAPIResource["Account"]):
 
     @class_method_variant("_cls_refresh_account_async")
     async def refresh_account_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.RefreshAccountParams"]
+        self, **params: Unpack["AccountRefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -764,7 +758,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Account.RetrieveParams"]
+        cls, id: str, **params: Unpack["AccountRetrieveParams"]
     ) -> "Account":
         """
         Retrieves the details of an Financial Connections Account.
@@ -775,7 +769,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Account.RetrieveParams"]
+        cls, id: str, **params: Unpack["AccountRetrieveParams"]
     ) -> "Account":
         """
         Retrieves the details of an Financial Connections Account.
@@ -786,7 +780,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def _cls_subscribe(
-        cls, account: str, **params: Unpack["Account.SubscribeParams"]
+        cls, account: str, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
@@ -805,7 +799,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     def subscribe(
-        account: str, **params: Unpack["Account.SubscribeParams"]
+        account: str, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
@@ -814,7 +808,7 @@ class Account(ListableAPIResource["Account"]):
 
     @overload
     def subscribe(
-        self, **params: Unpack["Account.SubscribeParams"]
+        self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
@@ -823,7 +817,7 @@ class Account(ListableAPIResource["Account"]):
 
     @class_method_variant("_cls_subscribe")
     def subscribe(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.SubscribeParams"]
+        self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
@@ -841,7 +835,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def _cls_subscribe_async(
-        cls, account: str, **params: Unpack["Account.SubscribeParams"]
+        cls, account: str, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
@@ -860,7 +854,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     async def subscribe_async(
-        account: str, **params: Unpack["Account.SubscribeParams"]
+        account: str, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
@@ -869,7 +863,7 @@ class Account(ListableAPIResource["Account"]):
 
     @overload
     async def subscribe_async(
-        self, **params: Unpack["Account.SubscribeParams"]
+        self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
@@ -878,7 +872,7 @@ class Account(ListableAPIResource["Account"]):
 
     @class_method_variant("_cls_subscribe_async")
     async def subscribe_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.SubscribeParams"]
+        self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
@@ -896,7 +890,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def _cls_unsubscribe(
-        cls, account: str, **params: Unpack["Account.UnsubscribeParams"]
+        cls, account: str, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
@@ -915,7 +909,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     def unsubscribe(
-        account: str, **params: Unpack["Account.UnsubscribeParams"]
+        account: str, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
@@ -924,7 +918,7 @@ class Account(ListableAPIResource["Account"]):
 
     @overload
     def unsubscribe(
-        self, **params: Unpack["Account.UnsubscribeParams"]
+        self, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
@@ -933,7 +927,7 @@ class Account(ListableAPIResource["Account"]):
 
     @class_method_variant("_cls_unsubscribe")
     def unsubscribe(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.UnsubscribeParams"]
+        self, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
@@ -951,7 +945,7 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     async def _cls_unsubscribe_async(
-        cls, account: str, **params: Unpack["Account.UnsubscribeParams"]
+        cls, account: str, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
@@ -970,7 +964,7 @@ class Account(ListableAPIResource["Account"]):
     @overload
     @staticmethod
     async def unsubscribe_async(
-        account: str, **params: Unpack["Account.UnsubscribeParams"]
+        account: str, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
@@ -979,7 +973,7 @@ class Account(ListableAPIResource["Account"]):
 
     @overload
     async def unsubscribe_async(
-        self, **params: Unpack["Account.UnsubscribeParams"]
+        self, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
@@ -988,7 +982,7 @@ class Account(ListableAPIResource["Account"]):
 
     @class_method_variant("_cls_unsubscribe_async")
     async def unsubscribe_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.UnsubscribeParams"]
+        self, **params: Unpack["AccountUnsubscribeParams"]
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.

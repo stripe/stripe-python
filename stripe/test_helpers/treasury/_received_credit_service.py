@@ -3,8 +3,13 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.treasury._received_credit import ReceivedCredit
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.test_helpers.treasury._received_credit_create_params import (
+        ReceivedCreditCreateParams,
+    )
 
 
 class ReceivedCreditService(StripeService):
@@ -90,7 +95,7 @@ class ReceivedCreditService(StripeService):
 
     def create(
         self,
-        params: "ReceivedCreditService.CreateParams",
+        params: "ReceivedCreditCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ReceivedCredit:
         """
@@ -109,7 +114,7 @@ class ReceivedCreditService(StripeService):
 
     async def create_async(
         self,
-        params: "ReceivedCreditService.CreateParams",
+        params: "ReceivedCreditCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ReceivedCredit:
         """

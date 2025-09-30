@@ -3,10 +3,18 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.forwarding._request_create_params import (
+        RequestCreateParams,
+    )
+    from stripe.params.forwarding._request_list_params import RequestListParams
+    from stripe.params.forwarding._request_retrieve_params import (
+        RequestRetrieveParams,
+    )
 
 
 class Request(
@@ -93,106 +101,6 @@ class Request(
         """
         _inner_class_types = {"headers": Header}
 
-    class CreateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        payment_method: str
-        """
-        The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed.
-        """
-        replacements: List[
-            Literal[
-                "card_cvc",
-                "card_expiry",
-                "card_number",
-                "cardholder_name",
-                "request_signature",
-            ]
-        ]
-        """
-        The field kinds to be replaced in the forwarded request.
-        """
-        request: "Request.CreateParamsRequest"
-        """
-        The request body and headers to be sent to the destination endpoint.
-        """
-        url: str
-        """
-        The destination URL for the forwarded request. Must be supported by the config.
-        """
-
-    class CreateParamsRequest(TypedDict):
-        body: NotRequired[str]
-        """
-        The body payload to send to the destination endpoint.
-        """
-        headers: NotRequired[List["Request.CreateParamsRequestHeader"]]
-        """
-        The headers to include in the forwarded request. Can be omitted if no additional headers (excluding Stripe-generated ones such as the Content-Type header) should be included.
-        """
-
-    class CreateParamsRequestHeader(TypedDict):
-        name: str
-        """
-        The header name.
-        """
-        value: str
-        """
-        The header value.
-        """
-
-    class ListParams(RequestOptions):
-        created: NotRequired["Request.ListParamsCreated"]
-        """
-        Similar to other List endpoints, filters results based on created timestamp. You can pass gt, gte, lt, and lte timestamp values.
-        """
-        ending_before: NotRequired[str]
-        """
-        A pagination cursor to fetch the previous page of the list. The value must be a ForwardingRequest ID.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A pagination cursor to fetch the next page of the list. The value must be a ForwardingRequest ID.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Return results where the `created` field is greater than this value.
-        """
-        gte: NotRequired[int]
-        """
-        Return results where the `created` field is greater than or equal to this value.
-        """
-        lt: NotRequired[int]
-        """
-        Return results where the `created` field is less than this value.
-        """
-        lte: NotRequired[int]
-        """
-        Return results where the `created` field is less than or equal to this value.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -247,7 +155,7 @@ class Request(
     """
 
     @classmethod
-    def create(cls, **params: Unpack["Request.CreateParams"]) -> "Request":
+    def create(cls, **params: Unpack["RequestCreateParams"]) -> "Request":
         """
         Creates a ForwardingRequest object.
         """
@@ -262,7 +170,7 @@ class Request(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Request.CreateParams"]
+        cls, **params: Unpack["RequestCreateParams"]
     ) -> "Request":
         """
         Creates a ForwardingRequest object.
@@ -278,7 +186,7 @@ class Request(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Request.ListParams"]
+        cls, **params: Unpack["RequestListParams"]
     ) -> ListObject["Request"]:
         """
         Lists all ForwardingRequest objects.
@@ -298,7 +206,7 @@ class Request(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Request.ListParams"]
+        cls, **params: Unpack["RequestListParams"]
     ) -> ListObject["Request"]:
         """
         Lists all ForwardingRequest objects.
@@ -318,7 +226,7 @@ class Request(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Request.RetrieveParams"]
+        cls, id: str, **params: Unpack["RequestRetrieveParams"]
     ) -> "Request":
         """
         Retrieves a ForwardingRequest object.
@@ -329,7 +237,7 @@ class Request(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Request.RetrieveParams"]
+        cls, id: str, **params: Unpack["RequestRetrieveParams"]
     ) -> "Request":
         """
         Retrieves a ForwardingRequest object.

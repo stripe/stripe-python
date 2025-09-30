@@ -4,11 +4,27 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import Literal, NotRequired, Unpack
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._webhook_endpoint_create_params import (
+        WebhookEndpointCreateParams,
+    )
+    from stripe.params._webhook_endpoint_delete_params import (
+        WebhookEndpointDeleteParams,
+    )
+    from stripe.params._webhook_endpoint_list_params import (
+        WebhookEndpointListParams,
+    )
+    from stripe.params._webhook_endpoint_modify_params import (
+        WebhookEndpointModifyParams,
+    )
+    from stripe.params._webhook_endpoint_retrieve_params import (
+        WebhookEndpointRetrieveParams,
+    )
 
 
 class WebhookEndpoint(
@@ -872,7 +888,7 @@ class WebhookEndpoint(
 
     @classmethod
     def create(
-        cls, **params: Unpack["WebhookEndpoint.CreateParams"]
+        cls, **params: Unpack["WebhookEndpointCreateParams"]
     ) -> "WebhookEndpoint":
         """
         A webhook endpoint must have a url and a list of enabled_events. You may optionally specify the Boolean connect parameter. If set to true, then a Connect webhook endpoint that notifies the specified url about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified url only about events from your account is created. You can also create webhook endpoints in the [webhooks settings](https://dashboard.stripe.com/account/webhooks) section of the Dashboard.
@@ -888,7 +904,7 @@ class WebhookEndpoint(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["WebhookEndpoint.CreateParams"]
+        cls, **params: Unpack["WebhookEndpointCreateParams"]
     ) -> "WebhookEndpoint":
         """
         A webhook endpoint must have a url and a list of enabled_events. You may optionally specify the Boolean connect parameter. If set to true, then a Connect webhook endpoint that notifies the specified url about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified url only about events from your account is created. You can also create webhook endpoints in the [webhooks settings](https://dashboard.stripe.com/account/webhooks) section of the Dashboard.
@@ -904,7 +920,7 @@ class WebhookEndpoint(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["WebhookEndpoint.DeleteParams"]
+        cls, sid: str, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -922,7 +938,7 @@ class WebhookEndpoint(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["WebhookEndpoint.DeleteParams"]
+        sid: str, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -931,7 +947,7 @@ class WebhookEndpoint(
 
     @overload
     def delete(
-        self, **params: Unpack["WebhookEndpoint.DeleteParams"]
+        self, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -940,7 +956,7 @@ class WebhookEndpoint(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["WebhookEndpoint.DeleteParams"]
+        self, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -953,7 +969,7 @@ class WebhookEndpoint(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["WebhookEndpoint.DeleteParams"]
+        cls, sid: str, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -971,7 +987,7 @@ class WebhookEndpoint(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["WebhookEndpoint.DeleteParams"]
+        sid: str, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -980,7 +996,7 @@ class WebhookEndpoint(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["WebhookEndpoint.DeleteParams"]
+        self, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -989,7 +1005,7 @@ class WebhookEndpoint(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["WebhookEndpoint.DeleteParams"]
+        self, **params: Unpack["WebhookEndpointDeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
@@ -1002,7 +1018,7 @@ class WebhookEndpoint(
 
     @classmethod
     def list(
-        cls, **params: Unpack["WebhookEndpoint.ListParams"]
+        cls, **params: Unpack["WebhookEndpointListParams"]
     ) -> ListObject["WebhookEndpoint"]:
         """
         Returns a list of your webhook endpoints.
@@ -1022,7 +1038,7 @@ class WebhookEndpoint(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["WebhookEndpoint.ListParams"]
+        cls, **params: Unpack["WebhookEndpointListParams"]
     ) -> ListObject["WebhookEndpoint"]:
         """
         Returns a list of your webhook endpoints.
@@ -1042,7 +1058,7 @@ class WebhookEndpoint(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["WebhookEndpoint.ModifyParams"]
+        cls, id: str, **params: Unpack["WebhookEndpointModifyParams"]
     ) -> "WebhookEndpoint":
         """
         Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.
@@ -1059,7 +1075,7 @@ class WebhookEndpoint(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["WebhookEndpoint.ModifyParams"]
+        cls, id: str, **params: Unpack["WebhookEndpointModifyParams"]
     ) -> "WebhookEndpoint":
         """
         Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.
@@ -1076,7 +1092,7 @@ class WebhookEndpoint(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["WebhookEndpoint.RetrieveParams"]
+        cls, id: str, **params: Unpack["WebhookEndpointRetrieveParams"]
     ) -> "WebhookEndpoint":
         """
         Retrieves the webhook endpoint with the given ID.
@@ -1087,7 +1103,7 @@ class WebhookEndpoint(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["WebhookEndpoint.RetrieveParams"]
+        cls, id: str, **params: Unpack["WebhookEndpointRetrieveParams"]
     ) -> "WebhookEndpoint":
         """
         Retrieves the webhook endpoint with the given ID.

@@ -3,20 +3,12 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    Type,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
@@ -26,6 +18,24 @@ if TYPE_CHECKING:
     from stripe.issuing._dispute import Dispute
     from stripe.issuing._settlement import Settlement
     from stripe.issuing._token import Token
+    from stripe.params.issuing._transaction_create_force_capture_params import (
+        TransactionCreateForceCaptureParams,
+    )
+    from stripe.params.issuing._transaction_create_unlinked_refund_params import (
+        TransactionCreateUnlinkedRefundParams,
+    )
+    from stripe.params.issuing._transaction_list_params import (
+        TransactionListParams,
+    )
+    from stripe.params.issuing._transaction_modify_params import (
+        TransactionModifyParams,
+    )
+    from stripe.params.issuing._transaction_refund_params import (
+        TransactionRefundParams,
+    )
+    from stripe.params.issuing._transaction_retrieve_params import (
+        TransactionRetrieveParams,
+    )
 
 
 class Transaction(
@@ -1745,7 +1755,7 @@ class Transaction(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Transaction.ListParams"]
+        cls, **params: Unpack["TransactionListParams"]
     ) -> ListObject["Transaction"]:
         """
         Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -1765,7 +1775,7 @@ class Transaction(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Transaction.ListParams"]
+        cls, **params: Unpack["TransactionListParams"]
     ) -> ListObject["Transaction"]:
         """
         Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -1785,7 +1795,7 @@ class Transaction(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["Transaction.ModifyParams"]
+        cls, id: str, **params: Unpack["TransactionModifyParams"]
     ) -> "Transaction":
         """
         Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1802,7 +1812,7 @@ class Transaction(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Transaction.ModifyParams"]
+        cls, id: str, **params: Unpack["TransactionModifyParams"]
     ) -> "Transaction":
         """
         Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1819,7 +1829,7 @@ class Transaction(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
+        cls, id: str, **params: Unpack["TransactionRetrieveParams"]
     ) -> "Transaction":
         """
         Retrieves an Issuing Transaction object.
@@ -1830,7 +1840,7 @@ class Transaction(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
+        cls, id: str, **params: Unpack["TransactionRetrieveParams"]
     ) -> "Transaction":
         """
         Retrieves an Issuing Transaction object.
@@ -1844,7 +1854,7 @@ class Transaction(
 
         @classmethod
         def create_force_capture(
-            cls, **params: Unpack["Transaction.CreateForceCaptureParams"]
+            cls, **params: Unpack["TransactionCreateForceCaptureParams"]
         ) -> "Transaction":
             """
             Allows the user to capture an arbitrary amount, also known as a forced capture.
@@ -1860,7 +1870,7 @@ class Transaction(
 
         @classmethod
         async def create_force_capture_async(
-            cls, **params: Unpack["Transaction.CreateForceCaptureParams"]
+            cls, **params: Unpack["TransactionCreateForceCaptureParams"]
         ) -> "Transaction":
             """
             Allows the user to capture an arbitrary amount, also known as a forced capture.
@@ -1876,7 +1886,7 @@ class Transaction(
 
         @classmethod
         def create_unlinked_refund(
-            cls, **params: Unpack["Transaction.CreateUnlinkedRefundParams"]
+            cls, **params: Unpack["TransactionCreateUnlinkedRefundParams"]
         ) -> "Transaction":
             """
             Allows the user to refund an arbitrary amount, also known as a unlinked refund.
@@ -1892,7 +1902,7 @@ class Transaction(
 
         @classmethod
         async def create_unlinked_refund_async(
-            cls, **params: Unpack["Transaction.CreateUnlinkedRefundParams"]
+            cls, **params: Unpack["TransactionCreateUnlinkedRefundParams"]
         ) -> "Transaction":
             """
             Allows the user to refund an arbitrary amount, also known as a unlinked refund.
@@ -1908,7 +1918,7 @@ class Transaction(
 
         @classmethod
         def _cls_refund(
-            cls, transaction: str, **params: Unpack["Transaction.RefundParams"]
+            cls, transaction: str, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -1927,7 +1937,7 @@ class Transaction(
         @overload
         @staticmethod
         def refund(
-            transaction: str, **params: Unpack["Transaction.RefundParams"]
+            transaction: str, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -1936,7 +1946,7 @@ class Transaction(
 
         @overload
         def refund(
-            self, **params: Unpack["Transaction.RefundParams"]
+            self, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -1945,7 +1955,7 @@ class Transaction(
 
         @class_method_variant("_cls_refund")
         def refund(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["Transaction.RefundParams"]
+            self, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -1963,7 +1973,7 @@ class Transaction(
 
         @classmethod
         async def _cls_refund_async(
-            cls, transaction: str, **params: Unpack["Transaction.RefundParams"]
+            cls, transaction: str, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -1982,7 +1992,7 @@ class Transaction(
         @overload
         @staticmethod
         async def refund_async(
-            transaction: str, **params: Unpack["Transaction.RefundParams"]
+            transaction: str, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -1991,7 +2001,7 @@ class Transaction(
 
         @overload
         async def refund_async(
-            self, **params: Unpack["Transaction.RefundParams"]
+            self, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -2000,7 +2010,7 @@ class Transaction(
 
         @class_method_variant("_cls_refund_async")
         async def refund_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["Transaction.RefundParams"]
+            self, **params: Unpack["TransactionRefundParams"]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.

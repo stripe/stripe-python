@@ -3,8 +3,13 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.billing_portal._session import Session
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.billing_portal._session_create_params import (
+        SessionCreateParams,
+    )
 
 
 class SessionService(StripeService):

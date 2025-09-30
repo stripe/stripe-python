@@ -5,22 +5,19 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
     from stripe._application import Application
     from stripe._customer import Customer
+    from stripe.params._tax_id_create_params import TaxIdCreateParams
+    from stripe.params._tax_id_delete_params import TaxIdDeleteParams
+    from stripe.params._tax_id_list_params import TaxIdListParams
+    from stripe.params._tax_id_retrieve_params import TaxIdRetrieveParams
 
 
 class TaxId(
@@ -431,7 +428,7 @@ class TaxId(
     """
 
     @classmethod
-    def create(cls, **params: Unpack["TaxId.CreateParams"]) -> "TaxId":
+    def create(cls, **params: Unpack["TaxIdCreateParams"]) -> "TaxId":
         """
         Creates a new account or customer tax_id object.
         """
@@ -446,7 +443,7 @@ class TaxId(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["TaxId.CreateParams"]
+        cls, **params: Unpack["TaxIdCreateParams"]
     ) -> "TaxId":
         """
         Creates a new account or customer tax_id object.
@@ -462,7 +459,7 @@ class TaxId(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["TaxId.DeleteParams"]
+        cls, sid: str, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -479,14 +476,14 @@ class TaxId(
 
     @overload
     @staticmethod
-    def delete(sid: str, **params: Unpack["TaxId.DeleteParams"]) -> "TaxId":
+    def delete(sid: str, **params: Unpack["TaxIdDeleteParams"]) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
         """
         ...
 
     @overload
-    def delete(self, **params: Unpack["TaxId.DeleteParams"]) -> "TaxId":
+    def delete(self, **params: Unpack["TaxIdDeleteParams"]) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
         """
@@ -494,7 +491,7 @@ class TaxId(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["TaxId.DeleteParams"]
+        self, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -507,7 +504,7 @@ class TaxId(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["TaxId.DeleteParams"]
+        cls, sid: str, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -525,7 +522,7 @@ class TaxId(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["TaxId.DeleteParams"]
+        sid: str, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -534,7 +531,7 @@ class TaxId(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["TaxId.DeleteParams"]
+        self, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -543,7 +540,7 @@ class TaxId(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["TaxId.DeleteParams"]
+        self, **params: Unpack["TaxIdDeleteParams"]
     ) -> "TaxId":
         """
         Deletes an existing account or customer tax_id object.
@@ -555,7 +552,7 @@ class TaxId(
         )
 
     @classmethod
-    def list(cls, **params: Unpack["TaxId.ListParams"]) -> ListObject["TaxId"]:
+    def list(cls, **params: Unpack["TaxIdListParams"]) -> ListObject["TaxId"]:
         """
         Returns a list of tax IDs.
         """
@@ -574,7 +571,7 @@ class TaxId(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["TaxId.ListParams"]
+        cls, **params: Unpack["TaxIdListParams"]
     ) -> ListObject["TaxId"]:
         """
         Returns a list of tax IDs.
@@ -594,7 +591,7 @@ class TaxId(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["TaxId.RetrieveParams"]
+        cls, id: str, **params: Unpack["TaxIdRetrieveParams"]
     ) -> "TaxId":
         """
         Retrieves an account or customer tax_id object.
@@ -605,7 +602,7 @@ class TaxId(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["TaxId.RetrieveParams"]
+        cls, id: str, **params: Unpack["TaxIdRetrieveParams"]
     ) -> "TaxId":
         """
         Retrieves an account or customer tax_id object.

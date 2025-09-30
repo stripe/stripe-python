@@ -3,20 +3,34 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.treasury._financial_account_close_params import (
+        FinancialAccountCloseParams,
+    )
+    from stripe.params.treasury._financial_account_create_params import (
+        FinancialAccountCreateParams,
+    )
+    from stripe.params.treasury._financial_account_list_params import (
+        FinancialAccountListParams,
+    )
+    from stripe.params.treasury._financial_account_modify_params import (
+        FinancialAccountModifyParams,
+    )
+    from stripe.params.treasury._financial_account_retrieve_features_params import (
+        FinancialAccountRetrieveFeaturesParams,
+    )
+    from stripe.params.treasury._financial_account_retrieve_params import (
+        FinancialAccountRetrieveParams,
+    )
+    from stripe.params.treasury._financial_account_update_features_params import (
+        FinancialAccountUpdateFeaturesParams,
+    )
     from stripe.treasury._financial_account_features import (
         FinancialAccountFeatures,
     )
@@ -860,7 +874,7 @@ class FinancialAccount(
     def _cls_close(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.CloseParams"],
+        **params: Unpack["FinancialAccountCloseParams"],
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -879,8 +893,7 @@ class FinancialAccount(
     @overload
     @staticmethod
     def close(
-        financial_account: str,
-        **params: Unpack["FinancialAccount.CloseParams"],
+        financial_account: str, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -889,7 +902,7 @@ class FinancialAccount(
 
     @overload
     def close(
-        self, **params: Unpack["FinancialAccount.CloseParams"]
+        self, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -898,7 +911,7 @@ class FinancialAccount(
 
     @class_method_variant("_cls_close")
     def close(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancialAccount.CloseParams"]
+        self, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -918,7 +931,7 @@ class FinancialAccount(
     async def _cls_close_async(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.CloseParams"],
+        **params: Unpack["FinancialAccountCloseParams"],
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -937,8 +950,7 @@ class FinancialAccount(
     @overload
     @staticmethod
     async def close_async(
-        financial_account: str,
-        **params: Unpack["FinancialAccount.CloseParams"],
+        financial_account: str, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -947,7 +959,7 @@ class FinancialAccount(
 
     @overload
     async def close_async(
-        self, **params: Unpack["FinancialAccount.CloseParams"]
+        self, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -956,7 +968,7 @@ class FinancialAccount(
 
     @class_method_variant("_cls_close_async")
     async def close_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancialAccount.CloseParams"]
+        self, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -974,7 +986,7 @@ class FinancialAccount(
 
     @classmethod
     def create(
-        cls, **params: Unpack["FinancialAccount.CreateParams"]
+        cls, **params: Unpack["FinancialAccountCreateParams"]
     ) -> "FinancialAccount":
         """
         Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
@@ -990,7 +1002,7 @@ class FinancialAccount(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["FinancialAccount.CreateParams"]
+        cls, **params: Unpack["FinancialAccountCreateParams"]
     ) -> "FinancialAccount":
         """
         Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
@@ -1006,7 +1018,7 @@ class FinancialAccount(
 
     @classmethod
     def list(
-        cls, **params: Unpack["FinancialAccount.ListParams"]
+        cls, **params: Unpack["FinancialAccountListParams"]
     ) -> ListObject["FinancialAccount"]:
         """
         Returns a list of FinancialAccounts.
@@ -1026,7 +1038,7 @@ class FinancialAccount(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["FinancialAccount.ListParams"]
+        cls, **params: Unpack["FinancialAccountListParams"]
     ) -> ListObject["FinancialAccount"]:
         """
         Returns a list of FinancialAccounts.
@@ -1046,7 +1058,7 @@ class FinancialAccount(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["FinancialAccount.ModifyParams"]
+        cls, id: str, **params: Unpack["FinancialAccountModifyParams"]
     ) -> "FinancialAccount":
         """
         Updates the details of a FinancialAccount.
@@ -1063,7 +1075,7 @@ class FinancialAccount(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["FinancialAccount.ModifyParams"]
+        cls, id: str, **params: Unpack["FinancialAccountModifyParams"]
     ) -> "FinancialAccount":
         """
         Updates the details of a FinancialAccount.
@@ -1080,7 +1092,7 @@ class FinancialAccount(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["FinancialAccount.RetrieveParams"]
+        cls, id: str, **params: Unpack["FinancialAccountRetrieveParams"]
     ) -> "FinancialAccount":
         """
         Retrieves the details of a FinancialAccount.
@@ -1091,7 +1103,7 @@ class FinancialAccount(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["FinancialAccount.RetrieveParams"]
+        cls, id: str, **params: Unpack["FinancialAccountRetrieveParams"]
     ) -> "FinancialAccount":
         """
         Retrieves the details of a FinancialAccount.
@@ -1104,7 +1116,7 @@ class FinancialAccount(
     def _cls_retrieve_features(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"],
+        **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1124,7 +1136,7 @@ class FinancialAccount(
     @staticmethod
     def retrieve_features(
         financial_account: str,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"],
+        **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1133,7 +1145,7 @@ class FinancialAccount(
 
     @overload
     def retrieve_features(
-        self, **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        self, **params: Unpack["FinancialAccountRetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1142,7 +1154,7 @@ class FinancialAccount(
 
     @class_method_variant("_cls_retrieve_features")
     def retrieve_features(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        self, **params: Unpack["FinancialAccountRetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1162,7 +1174,7 @@ class FinancialAccount(
     async def _cls_retrieve_features_async(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"],
+        **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1182,7 +1194,7 @@ class FinancialAccount(
     @staticmethod
     async def retrieve_features_async(
         financial_account: str,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"],
+        **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1191,7 +1203,7 @@ class FinancialAccount(
 
     @overload
     async def retrieve_features_async(
-        self, **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        self, **params: Unpack["FinancialAccountRetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1200,7 +1212,7 @@ class FinancialAccount(
 
     @class_method_variant("_cls_retrieve_features_async")
     async def retrieve_features_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        self, **params: Unpack["FinancialAccountRetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1220,7 +1232,7 @@ class FinancialAccount(
     def _cls_update_features(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"],
+        **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1240,7 +1252,7 @@ class FinancialAccount(
     @staticmethod
     def update_features(
         financial_account: str,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"],
+        **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1249,7 +1261,7 @@ class FinancialAccount(
 
     @overload
     def update_features(
-        self, **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        self, **params: Unpack["FinancialAccountUpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1258,7 +1270,7 @@ class FinancialAccount(
 
     @class_method_variant("_cls_update_features")
     def update_features(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        self, **params: Unpack["FinancialAccountUpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1278,7 +1290,7 @@ class FinancialAccount(
     async def _cls_update_features_async(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"],
+        **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1298,7 +1310,7 @@ class FinancialAccount(
     @staticmethod
     async def update_features_async(
         financial_account: str,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"],
+        **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1307,7 +1319,7 @@ class FinancialAccount(
 
     @overload
     async def update_features_async(
-        self, **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        self, **params: Unpack["FinancialAccountUpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1316,7 +1328,7 @@ class FinancialAccount(
 
     @class_method_variant("_cls_update_features_async")
     async def update_features_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        self, **params: Unpack["FinancialAccountUpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.

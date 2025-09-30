@@ -5,8 +5,29 @@ from stripe._request_options import RequestOptions
 from stripe._setup_intent import SetupIntent
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._setup_intent_cancel_params import (
+        SetupIntentCancelParams,
+    )
+    from stripe.params._setup_intent_confirm_params import (
+        SetupIntentConfirmParams,
+    )
+    from stripe.params._setup_intent_create_params import (
+        SetupIntentCreateParams,
+    )
+    from stripe.params._setup_intent_list_params import SetupIntentListParams
+    from stripe.params._setup_intent_retrieve_params import (
+        SetupIntentRetrieveParams,
+    )
+    from stripe.params._setup_intent_update_params import (
+        SetupIntentUpdateParams,
+    )
+    from stripe.params._setup_intent_verify_microdeposits_params import (
+        SetupIntentVerifyMicrodepositsParams,
+    )
 
 
 class SetupIntentService(StripeService):
@@ -5143,7 +5164,7 @@ class SetupIntentService(StripeService):
 
     def list(
         self,
-        params: Optional["SetupIntentService.ListParams"] = None,
+        params: Optional["SetupIntentListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[SetupIntent]:
         """
@@ -5162,7 +5183,7 @@ class SetupIntentService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["SetupIntentService.ListParams"] = None,
+        params: Optional["SetupIntentListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[SetupIntent]:
         """
@@ -5181,7 +5202,7 @@ class SetupIntentService(StripeService):
 
     def create(
         self,
-        params: Optional["SetupIntentService.CreateParams"] = None,
+        params: Optional["SetupIntentCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
@@ -5203,7 +5224,7 @@ class SetupIntentService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["SetupIntentService.CreateParams"] = None,
+        params: Optional["SetupIntentCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
@@ -5226,7 +5247,7 @@ class SetupIntentService(StripeService):
     def retrieve(
         self,
         intent: str,
-        params: Optional["SetupIntentService.RetrieveParams"] = None,
+        params: Optional["SetupIntentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
@@ -5252,7 +5273,7 @@ class SetupIntentService(StripeService):
     async def retrieve_async(
         self,
         intent: str,
-        params: Optional["SetupIntentService.RetrieveParams"] = None,
+        params: Optional["SetupIntentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
@@ -5278,7 +5299,7 @@ class SetupIntentService(StripeService):
     def update(
         self,
         intent: str,
-        params: Optional["SetupIntentService.UpdateParams"] = None,
+        params: Optional["SetupIntentUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
@@ -5300,7 +5321,7 @@ class SetupIntentService(StripeService):
     async def update_async(
         self,
         intent: str,
-        params: Optional["SetupIntentService.UpdateParams"] = None,
+        params: Optional["SetupIntentUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
@@ -5322,7 +5343,7 @@ class SetupIntentService(StripeService):
     def cancel(
         self,
         intent: str,
-        params: Optional["SetupIntentService.CancelParams"] = None,
+        params: Optional["SetupIntentCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
@@ -5346,7 +5367,7 @@ class SetupIntentService(StripeService):
     async def cancel_async(
         self,
         intent: str,
-        params: Optional["SetupIntentService.CancelParams"] = None,
+        params: Optional["SetupIntentCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
@@ -5370,7 +5391,7 @@ class SetupIntentService(StripeService):
     def confirm(
         self,
         intent: str,
-        params: Optional["SetupIntentService.ConfirmParams"] = None,
+        params: Optional["SetupIntentConfirmParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
@@ -5405,7 +5426,7 @@ class SetupIntentService(StripeService):
     async def confirm_async(
         self,
         intent: str,
-        params: Optional["SetupIntentService.ConfirmParams"] = None,
+        params: Optional["SetupIntentConfirmParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
@@ -5440,9 +5461,7 @@ class SetupIntentService(StripeService):
     def verify_microdeposits(
         self,
         intent: str,
-        params: Optional[
-            "SetupIntentService.VerifyMicrodepositsParams"
-        ] = None,
+        params: Optional["SetupIntentVerifyMicrodepositsParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """
@@ -5464,9 +5483,7 @@ class SetupIntentService(StripeService):
     async def verify_microdeposits_async(
         self,
         intent: str,
-        params: Optional[
-            "SetupIntentService.VerifyMicrodepositsParams"
-        ] = None,
+        params: Optional["SetupIntentVerifyMicrodepositsParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> SetupIntent:
         """

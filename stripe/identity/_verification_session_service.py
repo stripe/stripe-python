@@ -5,8 +5,28 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.identity._verification_session import VerificationSession
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.identity._verification_session_cancel_params import (
+        VerificationSessionCancelParams,
+    )
+    from stripe.params.identity._verification_session_create_params import (
+        VerificationSessionCreateParams,
+    )
+    from stripe.params.identity._verification_session_list_params import (
+        VerificationSessionListParams,
+    )
+    from stripe.params.identity._verification_session_redact_params import (
+        VerificationSessionRedactParams,
+    )
+    from stripe.params.identity._verification_session_retrieve_params import (
+        VerificationSessionRetrieveParams,
+    )
+    from stripe.params.identity._verification_session_update_params import (
+        VerificationSessionUpdateParams,
+    )
 
 
 class VerificationSessionService(StripeService):
@@ -244,7 +264,7 @@ class VerificationSessionService(StripeService):
 
     def list(
         self,
-        params: Optional["VerificationSessionService.ListParams"] = None,
+        params: Optional["VerificationSessionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[VerificationSession]:
         """
@@ -263,7 +283,7 @@ class VerificationSessionService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["VerificationSessionService.ListParams"] = None,
+        params: Optional["VerificationSessionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[VerificationSession]:
         """
@@ -282,7 +302,7 @@ class VerificationSessionService(StripeService):
 
     def create(
         self,
-        params: Optional["VerificationSessionService.CreateParams"] = None,
+        params: Optional["VerificationSessionCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -307,7 +327,7 @@ class VerificationSessionService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["VerificationSessionService.CreateParams"] = None,
+        params: Optional["VerificationSessionCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -333,7 +353,7 @@ class VerificationSessionService(StripeService):
     def retrieve(
         self,
         session: str,
-        params: Optional["VerificationSessionService.RetrieveParams"] = None,
+        params: Optional["VerificationSessionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -358,7 +378,7 @@ class VerificationSessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
-        params: Optional["VerificationSessionService.RetrieveParams"] = None,
+        params: Optional["VerificationSessionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -383,7 +403,7 @@ class VerificationSessionService(StripeService):
     def update(
         self,
         session: str,
-        params: Optional["VerificationSessionService.UpdateParams"] = None,
+        params: Optional["VerificationSessionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -408,7 +428,7 @@ class VerificationSessionService(StripeService):
     async def update_async(
         self,
         session: str,
-        params: Optional["VerificationSessionService.UpdateParams"] = None,
+        params: Optional["VerificationSessionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -433,7 +453,7 @@ class VerificationSessionService(StripeService):
     def cancel(
         self,
         session: str,
-        params: Optional["VerificationSessionService.CancelParams"] = None,
+        params: Optional["VerificationSessionCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -457,7 +477,7 @@ class VerificationSessionService(StripeService):
     async def cancel_async(
         self,
         session: str,
-        params: Optional["VerificationSessionService.CancelParams"] = None,
+        params: Optional["VerificationSessionCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -481,7 +501,7 @@ class VerificationSessionService(StripeService):
     def redact(
         self,
         session: str,
-        params: Optional["VerificationSessionService.RedactParams"] = None,
+        params: Optional["VerificationSessionRedactParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """
@@ -521,7 +541,7 @@ class VerificationSessionService(StripeService):
     async def redact_async(
         self,
         session: str,
-        params: Optional["VerificationSessionService.RedactParams"] = None,
+        params: Optional["VerificationSessionRedactParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> VerificationSession:
         """

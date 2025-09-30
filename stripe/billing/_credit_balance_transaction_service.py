@@ -5,8 +5,16 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing._credit_balance_transaction import CreditBalanceTransaction
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.billing._credit_balance_transaction_list_params import (
+        CreditBalanceTransactionListParams,
+    )
+    from stripe.params.billing._credit_balance_transaction_retrieve_params import (
+        CreditBalanceTransactionRetrieveParams,
+    )
 
 
 class CreditBalanceTransactionService(StripeService):
@@ -87,9 +95,7 @@ class CreditBalanceTransactionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional[
-            "CreditBalanceTransactionService.RetrieveParams"
-        ] = None,
+        params: Optional["CreditBalanceTransactionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditBalanceTransaction:
         """
@@ -111,9 +117,7 @@ class CreditBalanceTransactionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional[
-            "CreditBalanceTransactionService.RetrieveParams"
-        ] = None,
+        params: Optional["CreditBalanceTransactionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditBalanceTransaction:
         """

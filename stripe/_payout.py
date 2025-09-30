@@ -4,24 +4,23 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, List, Optional, Union, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Dict, Optional, Union, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._application_fee import ApplicationFee
     from stripe._balance_transaction import BalanceTransaction
     from stripe._bank_account import BankAccount
     from stripe._card import Card
+    from stripe.params._payout_cancel_params import PayoutCancelParams
+    from stripe.params._payout_create_params import PayoutCreateParams
+    from stripe.params._payout_list_params import PayoutListParams
+    from stripe.params._payout_modify_params import PayoutModifyParams
+    from stripe.params._payout_retrieve_params import PayoutRetrieveParams
+    from stripe.params._payout_reverse_params import PayoutReverseParams
 
 
 class Payout(
@@ -50,150 +49,6 @@ class Payout(
         value: Optional[str]
         """
         The trace ID value if `trace_id.status` is `supported`, otherwise `nil`.
-        """
-
-    class CancelParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class CreateParams(RequestOptions):
-        amount: int
-        """
-        A positive integer in cents representing how much to payout.
-        """
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        destination: NotRequired[str]
-        """
-        The ID of a bank account or a card to send the payout to. If you don't provide a destination, we use the default external account for the specified currency.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        method: NotRequired[Literal["instant", "standard"]]
-        """
-        The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
-        """
-        payout_method: NotRequired[str]
-        """
-        The ID of a v2 FinancialAccount to send funds to.
-        """
-        source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
-        """
-        The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
-        """
-        statement_descriptor: NotRequired[str]
-        """
-        A string that displays on the recipient's bank or card statement (up to 22 characters). A `statement_descriptor` that's longer than 22 characters return an error. Most banks truncate this information and display it inconsistently. Some banks might not display it at all.
-        """
-
-    class ListParams(RequestOptions):
-        arrival_date: NotRequired["Payout.ListParamsArrivalDate|int"]
-        """
-        Only return payouts that are expected to arrive during the given date interval.
-        """
-        created: NotRequired["Payout.ListParamsCreated|int"]
-        """
-        Only return payouts that were created during the given date interval.
-        """
-        destination: NotRequired[str]
-        """
-        The ID of an external account - only return payouts sent to this external account.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[str]
-        """
-        Only return payouts that have the given status: `pending`, `paid`, `failed`, or `canceled`.
-        """
-
-    class ListParamsArrivalDate(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ModifyParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ReverseParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         """
 
     amount: int
@@ -311,7 +166,7 @@ class Payout(
 
     @classmethod
     def _cls_cancel(
-        cls, payout: str, **params: Unpack["Payout.CancelParams"]
+        cls, payout: str, **params: Unpack["PayoutCancelParams"]
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -330,7 +185,7 @@ class Payout(
     @overload
     @staticmethod
     def cancel(
-        payout: str, **params: Unpack["Payout.CancelParams"]
+        payout: str, **params: Unpack["PayoutCancelParams"]
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -338,7 +193,7 @@ class Payout(
         ...
 
     @overload
-    def cancel(self, **params: Unpack["Payout.CancelParams"]) -> "Payout":
+    def cancel(self, **params: Unpack["PayoutCancelParams"]) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
         """
@@ -346,7 +201,7 @@ class Payout(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Payout.CancelParams"]
+        self, **params: Unpack["PayoutCancelParams"]
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -364,7 +219,7 @@ class Payout(
 
     @classmethod
     async def _cls_cancel_async(
-        cls, payout: str, **params: Unpack["Payout.CancelParams"]
+        cls, payout: str, **params: Unpack["PayoutCancelParams"]
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -383,7 +238,7 @@ class Payout(
     @overload
     @staticmethod
     async def cancel_async(
-        payout: str, **params: Unpack["Payout.CancelParams"]
+        payout: str, **params: Unpack["PayoutCancelParams"]
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -392,7 +247,7 @@ class Payout(
 
     @overload
     async def cancel_async(
-        self, **params: Unpack["Payout.CancelParams"]
+        self, **params: Unpack["PayoutCancelParams"]
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -401,7 +256,7 @@ class Payout(
 
     @class_method_variant("_cls_cancel_async")
     async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Payout.CancelParams"]
+        self, **params: Unpack["PayoutCancelParams"]
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -418,7 +273,7 @@ class Payout(
         )
 
     @classmethod
-    def create(cls, **params: Unpack["Payout.CreateParams"]) -> "Payout":
+    def create(cls, **params: Unpack["PayoutCreateParams"]) -> "Payout":
         """
         To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://docs.stripe.com/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
 
@@ -437,7 +292,7 @@ class Payout(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Payout.CreateParams"]
+        cls, **params: Unpack["PayoutCreateParams"]
     ) -> "Payout":
         """
         To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://docs.stripe.com/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
@@ -457,7 +312,7 @@ class Payout(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Payout.ListParams"]
+        cls, **params: Unpack["PayoutListParams"]
     ) -> ListObject["Payout"]:
         """
         Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
@@ -477,7 +332,7 @@ class Payout(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Payout.ListParams"]
+        cls, **params: Unpack["PayoutListParams"]
     ) -> ListObject["Payout"]:
         """
         Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
@@ -497,7 +352,7 @@ class Payout(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["Payout.ModifyParams"]
+        cls, id: str, **params: Unpack["PayoutModifyParams"]
     ) -> "Payout":
         """
         Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
@@ -514,7 +369,7 @@ class Payout(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Payout.ModifyParams"]
+        cls, id: str, **params: Unpack["PayoutModifyParams"]
     ) -> "Payout":
         """
         Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
@@ -531,7 +386,7 @@ class Payout(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Payout.RetrieveParams"]
+        cls, id: str, **params: Unpack["PayoutRetrieveParams"]
     ) -> "Payout":
         """
         Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.
@@ -542,7 +397,7 @@ class Payout(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Payout.RetrieveParams"]
+        cls, id: str, **params: Unpack["PayoutRetrieveParams"]
     ) -> "Payout":
         """
         Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.
@@ -553,7 +408,7 @@ class Payout(
 
     @classmethod
     def _cls_reverse(
-        cls, payout: str, **params: Unpack["Payout.ReverseParams"]
+        cls, payout: str, **params: Unpack["PayoutReverseParams"]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
@@ -574,7 +429,7 @@ class Payout(
     @overload
     @staticmethod
     def reverse(
-        payout: str, **params: Unpack["Payout.ReverseParams"]
+        payout: str, **params: Unpack["PayoutReverseParams"]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
@@ -584,7 +439,7 @@ class Payout(
         ...
 
     @overload
-    def reverse(self, **params: Unpack["Payout.ReverseParams"]) -> "Payout":
+    def reverse(self, **params: Unpack["PayoutReverseParams"]) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
 
@@ -594,7 +449,7 @@ class Payout(
 
     @class_method_variant("_cls_reverse")
     def reverse(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Payout.ReverseParams"]
+        self, **params: Unpack["PayoutReverseParams"]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
@@ -614,7 +469,7 @@ class Payout(
 
     @classmethod
     async def _cls_reverse_async(
-        cls, payout: str, **params: Unpack["Payout.ReverseParams"]
+        cls, payout: str, **params: Unpack["PayoutReverseParams"]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
@@ -635,7 +490,7 @@ class Payout(
     @overload
     @staticmethod
     async def reverse_async(
-        payout: str, **params: Unpack["Payout.ReverseParams"]
+        payout: str, **params: Unpack["PayoutReverseParams"]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
@@ -646,7 +501,7 @@ class Payout(
 
     @overload
     async def reverse_async(
-        self, **params: Unpack["Payout.ReverseParams"]
+        self, **params: Unpack["PayoutReverseParams"]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
@@ -657,7 +512,7 @@ class Payout(
 
     @class_method_variant("_cls_reverse_async")
     async def reverse_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Payout.ReverseParams"]
+        self, **params: Unpack["PayoutReverseParams"]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.

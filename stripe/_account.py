@@ -8,18 +8,11 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._oauth import OAuth
 from stripe._person import Person
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
@@ -28,6 +21,53 @@ if TYPE_CHECKING:
     from stripe._file import File
     from stripe._login_link import LoginLink
     from stripe._tax_id import TaxId
+    from stripe.params._account_create_external_account_params import (
+        AccountCreateExternalAccountParams,
+    )
+    from stripe.params._account_create_login_link_params import (
+        AccountCreateLoginLinkParams,
+    )
+    from stripe.params._account_create_params import AccountCreateParams
+    from stripe.params._account_create_person_params import (
+        AccountCreatePersonParams,
+    )
+    from stripe.params._account_delete_external_account_params import (
+        AccountDeleteExternalAccountParams,
+    )
+    from stripe.params._account_delete_params import AccountDeleteParams
+    from stripe.params._account_delete_person_params import (
+        AccountDeletePersonParams,
+    )
+    from stripe.params._account_list_capabilities_params import (
+        AccountListCapabilitiesParams,
+    )
+    from stripe.params._account_list_external_accounts_params import (
+        AccountListExternalAccountsParams,
+    )
+    from stripe.params._account_list_params import AccountListParams
+    from stripe.params._account_list_persons_params import (
+        AccountListPersonsParams,
+    )
+    from stripe.params._account_modify_capability_params import (
+        AccountModifyCapabilityParams,
+    )
+    from stripe.params._account_modify_external_account_params import (
+        AccountModifyExternalAccountParams,
+    )
+    from stripe.params._account_modify_person_params import (
+        AccountModifyPersonParams,
+    )
+    from stripe.params._account_persons_params import AccountPersonsParams
+    from stripe.params._account_reject_params import AccountRejectParams
+    from stripe.params._account_retrieve_capability_params import (
+        AccountRetrieveCapabilityParams,
+    )
+    from stripe.params._account_retrieve_external_account_params import (
+        AccountRetrieveExternalAccountParams,
+    )
+    from stripe.params._account_retrieve_person_params import (
+        AccountRetrievePersonParams,
+    )
 
 
 @nested_resource_class_methods("capability")
@@ -5012,7 +5052,7 @@ class Account(
     """
 
     @classmethod
-    def create(cls, **params: Unpack["Account.CreateParams"]) -> "Account":
+    def create(cls, **params: Unpack["AccountCreateParams"]) -> "Account":
         """
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
         To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
@@ -5032,7 +5072,7 @@ class Account(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Account.CreateParams"]
+        cls, **params: Unpack["AccountCreateParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
@@ -5053,7 +5093,7 @@ class Account(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["Account.DeleteParams"]
+        cls, sid: str, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -5076,9 +5116,7 @@ class Account(
 
     @overload
     @staticmethod
-    def delete(
-        sid: str, **params: Unpack["Account.DeleteParams"]
-    ) -> "Account":
+    def delete(sid: str, **params: Unpack["AccountDeleteParams"]) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
@@ -5091,7 +5129,7 @@ class Account(
         ...
 
     @overload
-    def delete(self, **params: Unpack["Account.DeleteParams"]) -> "Account":
+    def delete(self, **params: Unpack["AccountDeleteParams"]) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
@@ -5105,7 +5143,7 @@ class Account(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.DeleteParams"]
+        self, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -5124,7 +5162,7 @@ class Account(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["Account.DeleteParams"]
+        cls, sid: str, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -5148,7 +5186,7 @@ class Account(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["Account.DeleteParams"]
+        sid: str, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -5163,7 +5201,7 @@ class Account(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["Account.DeleteParams"]
+        self, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -5178,7 +5216,7 @@ class Account(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.DeleteParams"]
+        self, **params: Unpack["AccountDeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -5197,7 +5235,7 @@ class Account(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Account.ListParams"]
+        cls, **params: Unpack["AccountListParams"]
     ) -> ListObject["Account"]:
         """
         Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
@@ -5217,7 +5255,7 @@ class Account(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Account.ListParams"]
+        cls, **params: Unpack["AccountListParams"]
     ) -> ListObject["Account"]:
         """
         Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
@@ -5237,7 +5275,7 @@ class Account(
 
     @classmethod
     def _cls_persons(
-        cls, account: str, **params: Unpack["Account.PersonsParams"]
+        cls, account: str, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -5256,7 +5294,7 @@ class Account(
     @overload
     @staticmethod
     def persons(
-        account: str, **params: Unpack["Account.PersonsParams"]
+        account: str, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -5265,7 +5303,7 @@ class Account(
 
     @overload
     def persons(
-        self, **params: Unpack["Account.PersonsParams"]
+        self, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -5274,7 +5312,7 @@ class Account(
 
     @class_method_variant("_cls_persons")
     def persons(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.PersonsParams"]
+        self, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -5292,7 +5330,7 @@ class Account(
 
     @classmethod
     async def _cls_persons_async(
-        cls, account: str, **params: Unpack["Account.PersonsParams"]
+        cls, account: str, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -5311,7 +5349,7 @@ class Account(
     @overload
     @staticmethod
     async def persons_async(
-        account: str, **params: Unpack["Account.PersonsParams"]
+        account: str, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -5320,7 +5358,7 @@ class Account(
 
     @overload
     async def persons_async(
-        self, **params: Unpack["Account.PersonsParams"]
+        self, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -5329,7 +5367,7 @@ class Account(
 
     @class_method_variant("_cls_persons_async")
     async def persons_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.PersonsParams"]
+        self, **params: Unpack["AccountPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -5347,7 +5385,7 @@ class Account(
 
     @classmethod
     def _cls_reject(
-        cls, account: str, **params: Unpack["Account.RejectParams"]
+        cls, account: str, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -5368,7 +5406,7 @@ class Account(
     @overload
     @staticmethod
     def reject(
-        account: str, **params: Unpack["Account.RejectParams"]
+        account: str, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -5378,7 +5416,7 @@ class Account(
         ...
 
     @overload
-    def reject(self, **params: Unpack["Account.RejectParams"]) -> "Account":
+    def reject(self, **params: Unpack["AccountRejectParams"]) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
@@ -5388,7 +5426,7 @@ class Account(
 
     @class_method_variant("_cls_reject")
     def reject(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.RejectParams"]
+        self, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -5408,7 +5446,7 @@ class Account(
 
     @classmethod
     async def _cls_reject_async(
-        cls, account: str, **params: Unpack["Account.RejectParams"]
+        cls, account: str, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -5429,7 +5467,7 @@ class Account(
     @overload
     @staticmethod
     async def reject_async(
-        account: str, **params: Unpack["Account.RejectParams"]
+        account: str, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -5440,7 +5478,7 @@ class Account(
 
     @overload
     async def reject_async(
-        self, **params: Unpack["Account.RejectParams"]
+        self, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -5451,7 +5489,7 @@ class Account(
 
     @class_method_variant("_cls_reject_async")
     async def reject_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Account.RejectParams"]
+        self, **params: Unpack["AccountRejectParams"]
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -5521,7 +5559,7 @@ class Account(
 
     @classmethod
     def list_capabilities(
-        cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
+        cls, account: str, **params: Unpack["AccountListCapabilitiesParams"]
     ) -> ListObject["Capability"]:
         """
         Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
@@ -5539,7 +5577,7 @@ class Account(
 
     @classmethod
     async def list_capabilities_async(
-        cls, account: str, **params: Unpack["Account.ListCapabilitiesParams"]
+        cls, account: str, **params: Unpack["AccountListCapabilitiesParams"]
     ) -> ListObject["Capability"]:
         """
         Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
@@ -5560,7 +5598,7 @@ class Account(
         cls,
         account: str,
         capability: str,
-        **params: Unpack["Account.RetrieveCapabilityParams"],
+        **params: Unpack["AccountRetrieveCapabilityParams"],
     ) -> "Capability":
         """
         Retrieves information about the specified Account Capability.
@@ -5582,7 +5620,7 @@ class Account(
         cls,
         account: str,
         capability: str,
-        **params: Unpack["Account.RetrieveCapabilityParams"],
+        **params: Unpack["AccountRetrieveCapabilityParams"],
     ) -> "Capability":
         """
         Retrieves information about the specified Account Capability.
@@ -5604,7 +5642,7 @@ class Account(
         cls,
         account: str,
         capability: str,
-        **params: Unpack["Account.ModifyCapabilityParams"],
+        **params: Unpack["AccountModifyCapabilityParams"],
     ) -> "Capability":
         """
         Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
@@ -5626,7 +5664,7 @@ class Account(
         cls,
         account: str,
         capability: str,
-        **params: Unpack["Account.ModifyCapabilityParams"],
+        **params: Unpack["AccountModifyCapabilityParams"],
     ) -> "Capability":
         """
         Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
@@ -5648,7 +5686,7 @@ class Account(
         cls,
         account: str,
         id: str,
-        **params: Unpack["Account.DeleteExternalAccountParams"],
+        **params: Unpack["AccountDeleteExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -5669,7 +5707,7 @@ class Account(
         cls,
         account: str,
         id: str,
-        **params: Unpack["Account.DeleteExternalAccountParams"],
+        **params: Unpack["AccountDeleteExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -5690,7 +5728,7 @@ class Account(
         cls,
         account: str,
         id: str,
-        **params: Unpack["Account.RetrieveExternalAccountParams"],
+        **params: Unpack["AccountRetrieveExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Retrieve a specified external account for a given account.
@@ -5711,7 +5749,7 @@ class Account(
         cls,
         account: str,
         id: str,
-        **params: Unpack["Account.RetrieveExternalAccountParams"],
+        **params: Unpack["AccountRetrieveExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Retrieve a specified external account for a given account.
@@ -5732,7 +5770,7 @@ class Account(
         cls,
         account: str,
         id: str,
-        **params: Unpack["Account.ModifyExternalAccountParams"],
+        **params: Unpack["AccountModifyExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Updates the metadata, account holder name, account holder type of a bank account belonging to
@@ -5760,7 +5798,7 @@ class Account(
         cls,
         account: str,
         id: str,
-        **params: Unpack["Account.ModifyExternalAccountParams"],
+        **params: Unpack["AccountModifyExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Updates the metadata, account holder name, account holder type of a bank account belonging to
@@ -5787,7 +5825,7 @@ class Account(
     def list_external_accounts(
         cls,
         account: str,
-        **params: Unpack["Account.ListExternalAccountsParams"],
+        **params: Unpack["AccountListExternalAccountsParams"],
     ) -> ListObject[Union["BankAccount", "Card"]]:
         """
         List external accounts for an account.
@@ -5807,7 +5845,7 @@ class Account(
     async def list_external_accounts_async(
         cls,
         account: str,
-        **params: Unpack["Account.ListExternalAccountsParams"],
+        **params: Unpack["AccountListExternalAccountsParams"],
     ) -> ListObject[Union["BankAccount", "Card"]]:
         """
         List external accounts for an account.
@@ -5827,7 +5865,7 @@ class Account(
     def create_external_account(
         cls,
         account: str,
-        **params: Unpack["Account.CreateExternalAccountParams"],
+        **params: Unpack["AccountCreateExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Create an external account for a given account.
@@ -5847,7 +5885,7 @@ class Account(
     async def create_external_account_async(
         cls,
         account: str,
-        **params: Unpack["Account.CreateExternalAccountParams"],
+        **params: Unpack["AccountCreateExternalAccountParams"],
     ) -> Union["BankAccount", "Card"]:
         """
         Create an external account for a given account.
@@ -5865,7 +5903,7 @@ class Account(
 
     @classmethod
     def create_login_link(
-        cls, account: str, **params: Unpack["Account.CreateLoginLinkParams"]
+        cls, account: str, **params: Unpack["AccountCreateLoginLinkParams"]
     ) -> "LoginLink":
         """
         Creates a login link for a connected account to access the Express Dashboard.
@@ -5885,7 +5923,7 @@ class Account(
 
     @classmethod
     async def create_login_link_async(
-        cls, account: str, **params: Unpack["Account.CreateLoginLinkParams"]
+        cls, account: str, **params: Unpack["AccountCreateLoginLinkParams"]
     ) -> "LoginLink":
         """
         Creates a login link for a connected account to access the Express Dashboard.
@@ -5908,7 +5946,7 @@ class Account(
         cls,
         account: str,
         person: str,
-        **params: Unpack["Account.DeletePersonParams"],
+        **params: Unpack["AccountDeletePersonParams"],
     ) -> "Person":
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
@@ -5929,7 +5967,7 @@ class Account(
         cls,
         account: str,
         person: str,
-        **params: Unpack["Account.DeletePersonParams"],
+        **params: Unpack["AccountDeletePersonParams"],
     ) -> "Person":
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
@@ -5950,7 +5988,7 @@ class Account(
         cls,
         account: str,
         person: str,
-        **params: Unpack["Account.RetrievePersonParams"],
+        **params: Unpack["AccountRetrievePersonParams"],
     ) -> "Person":
         """
         Retrieves an existing person.
@@ -5971,7 +6009,7 @@ class Account(
         cls,
         account: str,
         person: str,
-        **params: Unpack["Account.RetrievePersonParams"],
+        **params: Unpack["AccountRetrievePersonParams"],
     ) -> "Person":
         """
         Retrieves an existing person.
@@ -5992,7 +6030,7 @@ class Account(
         cls,
         account: str,
         person: str,
-        **params: Unpack["Account.ModifyPersonParams"],
+        **params: Unpack["AccountModifyPersonParams"],
     ) -> "Person":
         """
         Updates an existing person.
@@ -6013,7 +6051,7 @@ class Account(
         cls,
         account: str,
         person: str,
-        **params: Unpack["Account.ModifyPersonParams"],
+        **params: Unpack["AccountModifyPersonParams"],
     ) -> "Person":
         """
         Updates an existing person.
@@ -6031,7 +6069,7 @@ class Account(
 
     @classmethod
     def list_persons(
-        cls, account: str, **params: Unpack["Account.ListPersonsParams"]
+        cls, account: str, **params: Unpack["AccountListPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -6049,7 +6087,7 @@ class Account(
 
     @classmethod
     async def list_persons_async(
-        cls, account: str, **params: Unpack["Account.ListPersonsParams"]
+        cls, account: str, **params: Unpack["AccountListPersonsParams"]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -6067,7 +6105,7 @@ class Account(
 
     @classmethod
     def create_person(
-        cls, account: str, **params: Unpack["Account.CreatePersonParams"]
+        cls, account: str, **params: Unpack["AccountCreatePersonParams"]
     ) -> "Person":
         """
         Creates a new person.
@@ -6085,7 +6123,7 @@ class Account(
 
     @classmethod
     async def create_person_async(
-        cls, account: str, **params: Unpack["Account.CreatePersonParams"]
+        cls, account: str, **params: Unpack["AccountCreatePersonParams"]
     ) -> "Person":
         """
         Creates a new person.

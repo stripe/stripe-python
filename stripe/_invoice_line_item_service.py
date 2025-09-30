@@ -5,8 +5,16 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._invoice_line_item_list_params import (
+        InvoiceLineItemListParams,
+    )
+    from stripe.params._invoice_line_item_update_params import (
+        InvoiceLineItemUpdateParams,
+    )
 
 
 class InvoiceLineItemService(StripeService):
@@ -306,7 +314,7 @@ class InvoiceLineItemService(StripeService):
     def list(
         self,
         invoice: str,
-        params: Optional["InvoiceLineItemService.ListParams"] = None,
+        params: Optional["InvoiceLineItemListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoiceLineItem]:
         """
@@ -328,7 +336,7 @@ class InvoiceLineItemService(StripeService):
     async def list_async(
         self,
         invoice: str,
-        params: Optional["InvoiceLineItemService.ListParams"] = None,
+        params: Optional["InvoiceLineItemListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[InvoiceLineItem]:
         """
@@ -351,7 +359,7 @@ class InvoiceLineItemService(StripeService):
         self,
         invoice: str,
         line_item_id: str,
-        params: Optional["InvoiceLineItemService.UpdateParams"] = None,
+        params: Optional["InvoiceLineItemUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceLineItem:
         """
@@ -378,7 +386,7 @@ class InvoiceLineItemService(StripeService):
         self,
         invoice: str,
         line_item_id: str,
-        params: Optional["InvoiceLineItemService.UpdateParams"] = None,
+        params: Optional["InvoiceLineItemUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> InvoiceLineItem:
         """

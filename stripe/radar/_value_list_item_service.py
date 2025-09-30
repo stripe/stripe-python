@@ -5,86 +5,29 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.radar._value_list_item import ValueListItem
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.radar._value_list_item_create_params import (
+        ValueListItemCreateParams,
+    )
+    from stripe.params.radar._value_list_item_delete_params import (
+        ValueListItemDeleteParams,
+    )
+    from stripe.params.radar._value_list_item_list_params import (
+        ValueListItemListParams,
+    )
+    from stripe.params.radar._value_list_item_retrieve_params import (
+        ValueListItemRetrieveParams,
+    )
 
 
 class ValueListItemService(StripeService):
-    class CreateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        value: str
-        """
-        The value of the item (whose type must match the type of the parent value list).
-        """
-        value_list: str
-        """
-        The identifier of the value list which the created item will be added to.
-        """
-
-    class DeleteParams(TypedDict):
-        pass
-
-    class ListParams(TypedDict):
-        created: NotRequired["ValueListItemService.ListParamsCreated|int"]
-        """
-        Only return items that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        value: NotRequired[str]
-        """
-        Return items belonging to the parent list whose value matches the specified value (using an "is like" match).
-        """
-        value_list: str
-        """
-        Identifier for the parent value list this item belongs to.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def delete(
         self,
         item: str,
-        params: Optional["ValueListItemService.DeleteParams"] = None,
+        params: Optional["ValueListItemDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueListItem:
         """
@@ -106,7 +49,7 @@ class ValueListItemService(StripeService):
     async def delete_async(
         self,
         item: str,
-        params: Optional["ValueListItemService.DeleteParams"] = None,
+        params: Optional["ValueListItemDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueListItem:
         """
@@ -128,7 +71,7 @@ class ValueListItemService(StripeService):
     def retrieve(
         self,
         item: str,
-        params: Optional["ValueListItemService.RetrieveParams"] = None,
+        params: Optional["ValueListItemRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueListItem:
         """
@@ -150,7 +93,7 @@ class ValueListItemService(StripeService):
     async def retrieve_async(
         self,
         item: str,
-        params: Optional["ValueListItemService.RetrieveParams"] = None,
+        params: Optional["ValueListItemRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ValueListItem:
         """
@@ -171,7 +114,7 @@ class ValueListItemService(StripeService):
 
     def list(
         self,
-        params: "ValueListItemService.ListParams",
+        params: "ValueListItemListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ValueListItem]:
         """
@@ -190,7 +133,7 @@ class ValueListItemService(StripeService):
 
     async def list_async(
         self,
-        params: "ValueListItemService.ListParams",
+        params: "ValueListItemListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ValueListItem]:
         """
@@ -209,7 +152,7 @@ class ValueListItemService(StripeService):
 
     def create(
         self,
-        params: "ValueListItemService.CreateParams",
+        params: "ValueListItemCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ValueListItem:
         """
@@ -228,7 +171,7 @@ class ValueListItemService(StripeService):
 
     async def create_async(
         self,
-        params: "ValueListItemService.CreateParams",
+        params: "ValueListItemCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ValueListItem:
         """

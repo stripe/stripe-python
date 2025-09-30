@@ -5,8 +5,16 @@ from stripe._payment_method import PaymentMethod
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._customer_payment_method_list_params import (
+        CustomerPaymentMethodListParams,
+    )
+    from stripe.params._customer_payment_method_retrieve_params import (
+        CustomerPaymentMethodRetrieveParams,
+    )
 
 
 class CustomerPaymentMethodService(StripeService):
@@ -107,7 +115,7 @@ class CustomerPaymentMethodService(StripeService):
     def list(
         self,
         customer: str,
-        params: Optional["CustomerPaymentMethodService.ListParams"] = None,
+        params: Optional["CustomerPaymentMethodListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethod]:
         """
@@ -129,7 +137,7 @@ class CustomerPaymentMethodService(StripeService):
     async def list_async(
         self,
         customer: str,
-        params: Optional["CustomerPaymentMethodService.ListParams"] = None,
+        params: Optional["CustomerPaymentMethodListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethod]:
         """
@@ -152,7 +160,7 @@ class CustomerPaymentMethodService(StripeService):
         self,
         customer: str,
         payment_method: str,
-        params: Optional["CustomerPaymentMethodService.RetrieveParams"] = None,
+        params: Optional["CustomerPaymentMethodRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
@@ -176,7 +184,7 @@ class CustomerPaymentMethodService(StripeService):
         self,
         customer: str,
         payment_method: str,
-        params: Optional["CustomerPaymentMethodService.RetrieveParams"] = None,
+        params: Optional["CustomerPaymentMethodRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """

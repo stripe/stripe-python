@@ -3,19 +3,18 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
-from typing import ClassVar, List, Optional
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._payment_intent import PaymentIntent
+    from stripe.params.radar._early_fraud_warning_list_params import (
+        EarlyFraudWarningListParams,
+    )
+    from stripe.params.radar._early_fraud_warning_retrieve_params import (
+        EarlyFraudWarningRetrieveParams,
+    )
 
 
 class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
@@ -29,61 +28,6 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
     OBJECT_NAME: ClassVar[Literal["radar.early_fraud_warning"]] = (
         "radar.early_fraud_warning"
     )
-
-    class ListParams(RequestOptions):
-        charge: NotRequired[str]
-        """
-        Only return early fraud warnings for the charge specified by this charge ID.
-        """
-        created: NotRequired["EarlyFraudWarning.ListParamsCreated|int"]
-        """
-        Only return early fraud warnings that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        payment_intent: NotRequired[str]
-        """
-        Only return early fraud warnings for charges that were created by the PaymentIntent specified by this PaymentIntent ID.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     actionable: bool
     """
     An EFW is actionable if it has not received a dispute and has not been fully refunded. You may wish to proactively refund a charge that receives an EFW, in order to avoid receiving a dispute later.
@@ -119,7 +63,7 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["EarlyFraudWarning.ListParams"]
+        cls, **params: Unpack["EarlyFraudWarningListParams"]
     ) -> ListObject["EarlyFraudWarning"]:
         """
         Returns a list of early fraud warnings.
@@ -139,7 +83,7 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["EarlyFraudWarning.ListParams"]
+        cls, **params: Unpack["EarlyFraudWarningListParams"]
     ) -> ListObject["EarlyFraudWarning"]:
         """
         Returns a list of early fraud warnings.
@@ -159,7 +103,7 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["EarlyFraudWarning.RetrieveParams"]
+        cls, id: str, **params: Unpack["EarlyFraudWarningRetrieveParams"]
     ) -> "EarlyFraudWarning":
         """
         Retrieves the details of an early fraud warning that has previously been created.
@@ -172,7 +116,7 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["EarlyFraudWarning.RetrieveParams"]
+        cls, id: str, **params: Unpack["EarlyFraudWarningRetrieveParams"]
     ) -> "EarlyFraudWarning":
         """
         Retrieves the details of an early fraud warning that has previously been created.

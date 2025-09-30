@@ -4,7 +4,6 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
@@ -17,19 +16,17 @@ from typing import (
     Iterator,
     List,
     Optional,
-    Union,
     cast,
 )
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._product import Product
+    from stripe.params._price_create_params import PriceCreateParams
+    from stripe.params._price_list_params import PriceListParams
+    from stripe.params._price_modify_params import PriceModifyParams
+    from stripe.params._price_retrieve_params import PriceRetrieveParams
+    from stripe.params._price_search_params import PriceSearchParams
 
 
 class Price(
@@ -765,7 +762,7 @@ class Price(
     """
 
     @classmethod
-    def create(cls, **params: Unpack["Price.CreateParams"]) -> "Price":
+    def create(cls, **params: Unpack["PriceCreateParams"]) -> "Price":
         """
         Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
         """
@@ -780,7 +777,7 @@ class Price(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Price.CreateParams"]
+        cls, **params: Unpack["PriceCreateParams"]
     ) -> "Price":
         """
         Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
@@ -795,7 +792,7 @@ class Price(
         )
 
     @classmethod
-    def list(cls, **params: Unpack["Price.ListParams"]) -> ListObject["Price"]:
+    def list(cls, **params: Unpack["PriceListParams"]) -> ListObject["Price"]:
         """
         Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
         """
@@ -814,7 +811,7 @@ class Price(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Price.ListParams"]
+        cls, **params: Unpack["PriceListParams"]
     ) -> ListObject["Price"]:
         """
         Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
@@ -833,9 +830,7 @@ class Price(
         return result
 
     @classmethod
-    def modify(
-        cls, id: str, **params: Unpack["Price.ModifyParams"]
-    ) -> "Price":
+    def modify(cls, id: str, **params: Unpack["PriceModifyParams"]) -> "Price":
         """
         Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
         """
@@ -851,7 +846,7 @@ class Price(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Price.ModifyParams"]
+        cls, id: str, **params: Unpack["PriceModifyParams"]
     ) -> "Price":
         """
         Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
@@ -868,7 +863,7 @@ class Price(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Price.RetrieveParams"]
+        cls, id: str, **params: Unpack["PriceRetrieveParams"]
     ) -> "Price":
         """
         Retrieves the price with the given ID.
@@ -879,7 +874,7 @@ class Price(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Price.RetrieveParams"]
+        cls, id: str, **params: Unpack["PriceRetrieveParams"]
     ) -> "Price":
         """
         Retrieves the price with the given ID.
@@ -890,7 +885,7 @@ class Price(
 
     @classmethod
     def search(
-        cls, *args, **kwargs: Unpack["Price.SearchParams"]
+        cls, *args, **kwargs: Unpack["PriceSearchParams"]
     ) -> SearchResultObject["Price"]:
         """
         Search for prices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -902,7 +897,7 @@ class Price(
 
     @classmethod
     async def search_async(
-        cls, *args, **kwargs: Unpack["Price.SearchParams"]
+        cls, *args, **kwargs: Unpack["PriceSearchParams"]
     ) -> SearchResultObject["Price"]:
         """
         Search for prices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -916,13 +911,13 @@ class Price(
 
     @classmethod
     def search_auto_paging_iter(
-        cls, *args, **kwargs: Unpack["Price.SearchParams"]
+        cls, *args, **kwargs: Unpack["PriceSearchParams"]
     ) -> Iterator["Price"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
     async def search_auto_paging_iter_async(
-        cls, *args, **kwargs: Unpack["Price.SearchParams"]
+        cls, *args, **kwargs: Unpack["PriceSearchParams"]
     ) -> AsyncIterator["Price"]:
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
