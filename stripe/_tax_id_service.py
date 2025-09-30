@@ -5,8 +5,14 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._tax_id import TaxId
 from stripe._util import sanitize_id
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._tax_id_create_params import TaxIdCreateParams
+    from stripe.params._tax_id_delete_params import TaxIdDeleteParams
+    from stripe.params._tax_id_list_params import TaxIdListParams
+    from stripe.params._tax_id_retrieve_params import TaxIdRetrieveParams
 
 
 class TaxIdService(StripeService):
@@ -209,7 +215,7 @@ class TaxIdService(StripeService):
     def delete(
         self,
         id: str,
-        params: Optional["TaxIdService.DeleteParams"] = None,
+        params: Optional["TaxIdDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TaxId:
         """
@@ -229,7 +235,7 @@ class TaxIdService(StripeService):
     async def delete_async(
         self,
         id: str,
-        params: Optional["TaxIdService.DeleteParams"] = None,
+        params: Optional["TaxIdDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TaxId:
         """
@@ -249,7 +255,7 @@ class TaxIdService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["TaxIdService.RetrieveParams"] = None,
+        params: Optional["TaxIdRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TaxId:
         """
@@ -269,7 +275,7 @@ class TaxIdService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["TaxIdService.RetrieveParams"] = None,
+        params: Optional["TaxIdRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TaxId:
         """
@@ -288,7 +294,7 @@ class TaxIdService(StripeService):
 
     def list(
         self,
-        params: Optional["TaxIdService.ListParams"] = None,
+        params: Optional["TaxIdListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TaxId]:
         """
@@ -307,7 +313,7 @@ class TaxIdService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["TaxIdService.ListParams"] = None,
+        params: Optional["TaxIdListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TaxId]:
         """
@@ -326,7 +332,7 @@ class TaxIdService(StripeService):
 
     def create(
         self,
-        params: "TaxIdService.CreateParams",
+        params: "TaxIdCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> TaxId:
         """
@@ -345,7 +351,7 @@ class TaxIdService(StripeService):
 
     async def create_async(
         self,
-        params: "TaxIdService.CreateParams",
+        params: "TaxIdCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> TaxId:
         """

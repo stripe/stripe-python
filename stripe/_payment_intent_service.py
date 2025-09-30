@@ -14341,7 +14341,7 @@ class PaymentIntentService(StripeService):
 
     def list(
         self,
-        params: Optional["PaymentIntentService.ListParams"] = None,
+        params: Optional["PaymentIntentListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentIntent]:
         """
@@ -14360,7 +14360,7 @@ class PaymentIntentService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["PaymentIntentService.ListParams"] = None,
+        params: Optional["PaymentIntentListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentIntent]:
         """
@@ -14379,7 +14379,7 @@ class PaymentIntentService(StripeService):
 
     def create(
         self,
-        params: "PaymentIntentService.CreateParams",
+        params: "PaymentIntentCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14407,7 +14407,7 @@ class PaymentIntentService(StripeService):
 
     async def create_async(
         self,
-        params: "PaymentIntentService.CreateParams",
+        params: "PaymentIntentCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14436,7 +14436,7 @@ class PaymentIntentService(StripeService):
     def retrieve(
         self,
         intent: str,
-        params: Optional["PaymentIntentService.RetrieveParams"] = None,
+        params: Optional["PaymentIntentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14462,7 +14462,7 @@ class PaymentIntentService(StripeService):
     async def retrieve_async(
         self,
         intent: str,
-        params: Optional["PaymentIntentService.RetrieveParams"] = None,
+        params: Optional["PaymentIntentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14488,7 +14488,7 @@ class PaymentIntentService(StripeService):
     def update(
         self,
         intent: str,
-        params: Optional["PaymentIntentService.UpdateParams"] = None,
+        params: Optional["PaymentIntentUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14516,7 +14516,7 @@ class PaymentIntentService(StripeService):
     async def update_async(
         self,
         intent: str,
-        params: Optional["PaymentIntentService.UpdateParams"] = None,
+        params: Optional["PaymentIntentUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14543,7 +14543,7 @@ class PaymentIntentService(StripeService):
 
     def search(
         self,
-        params: "PaymentIntentService.SearchParams",
+        params: "PaymentIntentSearchParams",
         options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[PaymentIntent]:
         """
@@ -14565,7 +14565,7 @@ class PaymentIntentService(StripeService):
 
     async def search_async(
         self,
-        params: "PaymentIntentService.SearchParams",
+        params: "PaymentIntentSearchParams",
         options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[PaymentIntent]:
         """
@@ -14588,9 +14588,7 @@ class PaymentIntentService(StripeService):
     def apply_customer_balance(
         self,
         intent: str,
-        params: Optional[
-            "PaymentIntentService.ApplyCustomerBalanceParams"
-        ] = None,
+        params: Optional["PaymentIntentApplyCustomerBalanceParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14612,9 +14610,7 @@ class PaymentIntentService(StripeService):
     async def apply_customer_balance_async(
         self,
         intent: str,
-        params: Optional[
-            "PaymentIntentService.ApplyCustomerBalanceParams"
-        ] = None,
+        params: Optional["PaymentIntentApplyCustomerBalanceParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14636,7 +14632,7 @@ class PaymentIntentService(StripeService):
     def cancel(
         self,
         intent: str,
-        params: Optional["PaymentIntentService.CancelParams"] = None,
+        params: Optional["PaymentIntentCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14662,7 +14658,7 @@ class PaymentIntentService(StripeService):
     async def cancel_async(
         self,
         intent: str,
-        params: Optional["PaymentIntentService.CancelParams"] = None,
+        params: Optional["PaymentIntentCancelParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14688,7 +14684,7 @@ class PaymentIntentService(StripeService):
     def capture(
         self,
         intent: str,
-        params: Optional["PaymentIntentService.CaptureParams"] = None,
+        params: Optional["PaymentIntentCaptureParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14714,7 +14710,7 @@ class PaymentIntentService(StripeService):
     async def capture_async(
         self,
         intent: str,
-        params: Optional["PaymentIntentService.CaptureParams"] = None,
+        params: Optional["PaymentIntentCaptureParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14740,7 +14736,7 @@ class PaymentIntentService(StripeService):
     def confirm(
         self,
         intent: str,
-        params: Optional["PaymentIntentService.ConfirmParams"] = None,
+        params: Optional["PaymentIntentConfirmParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14791,7 +14787,7 @@ class PaymentIntentService(StripeService):
     async def confirm_async(
         self,
         intent: str,
-        params: Optional["PaymentIntentService.ConfirmParams"] = None,
+        params: Optional["PaymentIntentConfirmParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14916,7 +14912,7 @@ class PaymentIntentService(StripeService):
     def increment_authorization(
         self,
         intent: str,
-        params: "PaymentIntentService.IncrementAuthorizationParams",
+        params: "PaymentIntentIncrementAuthorizationParams",
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -14961,7 +14957,7 @@ class PaymentIntentService(StripeService):
     async def increment_authorization_async(
         self,
         intent: str,
-        params: "PaymentIntentService.IncrementAuthorizationParams",
+        params: "PaymentIntentIncrementAuthorizationParams",
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -15006,9 +15002,7 @@ class PaymentIntentService(StripeService):
     def verify_microdeposits(
         self,
         intent: str,
-        params: Optional[
-            "PaymentIntentService.VerifyMicrodepositsParams"
-        ] = None,
+        params: Optional["PaymentIntentVerifyMicrodepositsParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """
@@ -15030,9 +15024,7 @@ class PaymentIntentService(StripeService):
     async def verify_microdeposits_async(
         self,
         intent: str,
-        params: Optional[
-            "PaymentIntentService.VerifyMicrodepositsParams"
-        ] = None,
+        params: Optional["PaymentIntentVerifyMicrodepositsParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentIntent:
         """

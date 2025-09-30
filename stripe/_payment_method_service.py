@@ -5,8 +5,28 @@ from stripe._payment_method import PaymentMethod
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._payment_method_attach_params import (
+        PaymentMethodAttachParams,
+    )
+    from stripe.params._payment_method_create_params import (
+        PaymentMethodCreateParams,
+    )
+    from stripe.params._payment_method_detach_params import (
+        PaymentMethodDetachParams,
+    )
+    from stripe.params._payment_method_list_params import (
+        PaymentMethodListParams,
+    )
+    from stripe.params._payment_method_retrieve_params import (
+        PaymentMethodRetrieveParams,
+    )
+    from stripe.params._payment_method_update_params import (
+        PaymentMethodUpdateParams,
+    )
 
 
 class PaymentMethodService(StripeService):
@@ -1115,7 +1135,7 @@ class PaymentMethodService(StripeService):
 
     def list(
         self,
-        params: Optional["PaymentMethodService.ListParams"] = None,
+        params: Optional["PaymentMethodListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethod]:
         """
@@ -1134,7 +1154,7 @@ class PaymentMethodService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["PaymentMethodService.ListParams"] = None,
+        params: Optional["PaymentMethodListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PaymentMethod]:
         """
@@ -1153,7 +1173,7 @@ class PaymentMethodService(StripeService):
 
     def create(
         self,
-        params: Optional["PaymentMethodService.CreateParams"] = None,
+        params: Optional["PaymentMethodCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
@@ -1174,7 +1194,7 @@ class PaymentMethodService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["PaymentMethodService.CreateParams"] = None,
+        params: Optional["PaymentMethodCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
@@ -1196,7 +1216,7 @@ class PaymentMethodService(StripeService):
     def retrieve(
         self,
         payment_method: str,
-        params: Optional["PaymentMethodService.RetrieveParams"] = None,
+        params: Optional["PaymentMethodRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
@@ -1218,7 +1238,7 @@ class PaymentMethodService(StripeService):
     async def retrieve_async(
         self,
         payment_method: str,
-        params: Optional["PaymentMethodService.RetrieveParams"] = None,
+        params: Optional["PaymentMethodRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
@@ -1240,7 +1260,7 @@ class PaymentMethodService(StripeService):
     def update(
         self,
         payment_method: str,
-        params: Optional["PaymentMethodService.UpdateParams"] = None,
+        params: Optional["PaymentMethodUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
@@ -1262,7 +1282,7 @@ class PaymentMethodService(StripeService):
     async def update_async(
         self,
         payment_method: str,
-        params: Optional["PaymentMethodService.UpdateParams"] = None,
+        params: Optional["PaymentMethodUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
@@ -1352,7 +1372,7 @@ class PaymentMethodService(StripeService):
     def detach(
         self,
         payment_method: str,
-        params: Optional["PaymentMethodService.DetachParams"] = None,
+        params: Optional["PaymentMethodDetachParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """
@@ -1374,7 +1394,7 @@ class PaymentMethodService(StripeService):
     async def detach_async(
         self,
         payment_method: str,
-        params: Optional["PaymentMethodService.DetachParams"] = None,
+        params: Optional["PaymentMethodDetachParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PaymentMethod:
         """

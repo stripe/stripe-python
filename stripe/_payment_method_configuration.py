@@ -3,12 +3,25 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing import ClassVar, Optional, cast
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._payment_method_configuration_create_params import (
+        PaymentMethodConfigurationCreateParams,
+    )
+    from stripe.params._payment_method_configuration_list_params import (
+        PaymentMethodConfigurationListParams,
+    )
+    from stripe.params._payment_method_configuration_modify_params import (
+        PaymentMethodConfigurationModifyParams,
+    )
+    from stripe.params._payment_method_configuration_retrieve_params import (
+        PaymentMethodConfigurationRetrieveParams,
+    )
 
 
 class PaymentMethodConfiguration(
@@ -3671,7 +3684,7 @@ class PaymentMethodConfiguration(
 
     @classmethod
     def create(
-        cls, **params: Unpack["PaymentMethodConfiguration.CreateParams"]
+        cls, **params: Unpack["PaymentMethodConfigurationCreateParams"]
     ) -> "PaymentMethodConfiguration":
         """
         Creates a payment method configuration
@@ -3687,7 +3700,7 @@ class PaymentMethodConfiguration(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["PaymentMethodConfiguration.CreateParams"]
+        cls, **params: Unpack["PaymentMethodConfigurationCreateParams"]
     ) -> "PaymentMethodConfiguration":
         """
         Creates a payment method configuration
@@ -3703,7 +3716,7 @@ class PaymentMethodConfiguration(
 
     @classmethod
     def list(
-        cls, **params: Unpack["PaymentMethodConfiguration.ListParams"]
+        cls, **params: Unpack["PaymentMethodConfigurationListParams"]
     ) -> ListObject["PaymentMethodConfiguration"]:
         """
         List payment method configurations
@@ -3723,7 +3736,7 @@ class PaymentMethodConfiguration(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["PaymentMethodConfiguration.ListParams"]
+        cls, **params: Unpack["PaymentMethodConfigurationListParams"]
     ) -> ListObject["PaymentMethodConfiguration"]:
         """
         List payment method configurations
@@ -3745,7 +3758,7 @@ class PaymentMethodConfiguration(
     def modify(
         cls,
         id: str,
-        **params: Unpack["PaymentMethodConfiguration.ModifyParams"],
+        **params: Unpack["PaymentMethodConfigurationModifyParams"],
     ) -> "PaymentMethodConfiguration":
         """
         Update payment method configuration
@@ -3764,7 +3777,7 @@ class PaymentMethodConfiguration(
     async def modify_async(
         cls,
         id: str,
-        **params: Unpack["PaymentMethodConfiguration.ModifyParams"],
+        **params: Unpack["PaymentMethodConfigurationModifyParams"],
     ) -> "PaymentMethodConfiguration":
         """
         Update payment method configuration
@@ -3783,7 +3796,7 @@ class PaymentMethodConfiguration(
     def retrieve(
         cls,
         id: str,
-        **params: Unpack["PaymentMethodConfiguration.RetrieveParams"],
+        **params: Unpack["PaymentMethodConfigurationRetrieveParams"],
     ) -> "PaymentMethodConfiguration":
         """
         Retrieve payment method configuration
@@ -3796,7 +3809,7 @@ class PaymentMethodConfiguration(
     async def retrieve_async(
         cls,
         id: str,
-        **params: Unpack["PaymentMethodConfiguration.RetrieveParams"],
+        **params: Unpack["PaymentMethodConfigurationRetrieveParams"],
     ) -> "PaymentMethodConfiguration":
         """
         Retrieve payment method configuration

@@ -6,8 +6,16 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, Union, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._charge_capture_params import ChargeCaptureParams
+    from stripe.params._charge_create_params import ChargeCreateParams
+    from stripe.params._charge_list_params import ChargeListParams
+    from stripe.params._charge_retrieve_params import ChargeRetrieveParams
+    from stripe.params._charge_search_params import ChargeSearchParams
+    from stripe.params._charge_update_params import ChargeUpdateParams
 
 
 class ChargeService(StripeService):
@@ -1777,7 +1785,7 @@ class ChargeService(StripeService):
 
     def list(
         self,
-        params: Optional["ChargeService.ListParams"] = None,
+        params: Optional["ChargeListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Charge]:
         """
@@ -1796,7 +1804,7 @@ class ChargeService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["ChargeService.ListParams"] = None,
+        params: Optional["ChargeListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Charge]:
         """
@@ -1815,7 +1823,7 @@ class ChargeService(StripeService):
 
     def create(
         self,
-        params: Optional["ChargeService.CreateParams"] = None,
+        params: Optional["ChargeCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
@@ -1836,7 +1844,7 @@ class ChargeService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["ChargeService.CreateParams"] = None,
+        params: Optional["ChargeCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
@@ -1858,7 +1866,7 @@ class ChargeService(StripeService):
     def retrieve(
         self,
         charge: str,
-        params: Optional["ChargeService.RetrieveParams"] = None,
+        params: Optional["ChargeRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
@@ -1878,7 +1886,7 @@ class ChargeService(StripeService):
     async def retrieve_async(
         self,
         charge: str,
-        params: Optional["ChargeService.RetrieveParams"] = None,
+        params: Optional["ChargeRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
@@ -1898,7 +1906,7 @@ class ChargeService(StripeService):
     def update(
         self,
         charge: str,
-        params: Optional["ChargeService.UpdateParams"] = None,
+        params: Optional["ChargeUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
@@ -1918,7 +1926,7 @@ class ChargeService(StripeService):
     async def update_async(
         self,
         charge: str,
-        params: Optional["ChargeService.UpdateParams"] = None,
+        params: Optional["ChargeUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
@@ -1937,7 +1945,7 @@ class ChargeService(StripeService):
 
     def search(
         self,
-        params: "ChargeService.SearchParams",
+        params: "ChargeSearchParams",
         options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Charge]:
         """
@@ -1959,7 +1967,7 @@ class ChargeService(StripeService):
 
     async def search_async(
         self,
-        params: "ChargeService.SearchParams",
+        params: "ChargeSearchParams",
         options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Charge]:
         """
@@ -1982,7 +1990,7 @@ class ChargeService(StripeService):
     def capture(
         self,
         charge: str,
-        params: Optional["ChargeService.CaptureParams"] = None,
+        params: Optional["ChargeCaptureParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Charge:
         """
@@ -2008,7 +2016,7 @@ class ChargeService(StripeService):
     async def capture_async(
         self,
         charge: str,
-        params: Optional["ChargeService.CaptureParams"] = None,
+        params: Optional["ChargeCaptureParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Charge:
         """

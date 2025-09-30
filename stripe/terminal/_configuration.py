@@ -5,21 +5,29 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._file import File
+    from stripe.params.terminal._configuration_create_params import (
+        ConfigurationCreateParams,
+    )
+    from stripe.params.terminal._configuration_delete_params import (
+        ConfigurationDeleteParams,
+    )
+    from stripe.params.terminal._configuration_list_params import (
+        ConfigurationListParams,
+    )
+    from stripe.params.terminal._configuration_modify_params import (
+        ConfigurationModifyParams,
+    )
+    from stripe.params.terminal._configuration_retrieve_params import (
+        ConfigurationRetrieveParams,
+    )
 
 
 class Configuration(
@@ -1662,7 +1670,7 @@ class Configuration(
 
     @classmethod
     def create(
-        cls, **params: Unpack["Configuration.CreateParams"]
+        cls, **params: Unpack["ConfigurationCreateParams"]
     ) -> "Configuration":
         """
         Creates a new Configuration object.
@@ -1678,7 +1686,7 @@ class Configuration(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Configuration.CreateParams"]
+        cls, **params: Unpack["ConfigurationCreateParams"]
     ) -> "Configuration":
         """
         Creates a new Configuration object.
@@ -1694,7 +1702,7 @@ class Configuration(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["Configuration.DeleteParams"]
+        cls, sid: str, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -1712,7 +1720,7 @@ class Configuration(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["Configuration.DeleteParams"]
+        sid: str, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -1721,7 +1729,7 @@ class Configuration(
 
     @overload
     def delete(
-        self, **params: Unpack["Configuration.DeleteParams"]
+        self, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -1730,7 +1738,7 @@ class Configuration(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Configuration.DeleteParams"]
+        self, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -1743,7 +1751,7 @@ class Configuration(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["Configuration.DeleteParams"]
+        cls, sid: str, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -1761,7 +1769,7 @@ class Configuration(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["Configuration.DeleteParams"]
+        sid: str, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -1770,7 +1778,7 @@ class Configuration(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["Configuration.DeleteParams"]
+        self, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -1779,7 +1787,7 @@ class Configuration(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Configuration.DeleteParams"]
+        self, **params: Unpack["ConfigurationDeleteParams"]
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -1792,7 +1800,7 @@ class Configuration(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Configuration.ListParams"]
+        cls, **params: Unpack["ConfigurationListParams"]
     ) -> ListObject["Configuration"]:
         """
         Returns a list of Configuration objects.
@@ -1812,7 +1820,7 @@ class Configuration(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Configuration.ListParams"]
+        cls, **params: Unpack["ConfigurationListParams"]
     ) -> ListObject["Configuration"]:
         """
         Returns a list of Configuration objects.
@@ -1832,7 +1840,7 @@ class Configuration(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["Configuration.ModifyParams"]
+        cls, id: str, **params: Unpack["ConfigurationModifyParams"]
     ) -> "Configuration":
         """
         Updates a new Configuration object.
@@ -1849,7 +1857,7 @@ class Configuration(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Configuration.ModifyParams"]
+        cls, id: str, **params: Unpack["ConfigurationModifyParams"]
     ) -> "Configuration":
         """
         Updates a new Configuration object.
@@ -1866,7 +1874,7 @@ class Configuration(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Configuration.RetrieveParams"]
+        cls, id: str, **params: Unpack["ConfigurationRetrieveParams"]
     ) -> "Configuration":
         """
         Retrieves a Configuration object.
@@ -1877,7 +1885,7 @@ class Configuration(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Configuration.RetrieveParams"]
+        cls, id: str, **params: Unpack["ConfigurationRetrieveParams"]
     ) -> "Configuration":
         """
         Retrieves a Configuration object.

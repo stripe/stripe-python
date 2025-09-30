@@ -7,8 +7,42 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._invoice_add_lines_params import InvoiceAddLinesParams
+    from stripe.params._invoice_attach_payment_params import (
+        InvoiceAttachPaymentParams,
+    )
+    from stripe.params._invoice_create_params import InvoiceCreateParams
+    from stripe.params._invoice_create_preview_params import (
+        InvoiceCreatePreviewParams,
+    )
+    from stripe.params._invoice_delete_params import InvoiceDeleteParams
+    from stripe.params._invoice_finalize_invoice_params import (
+        InvoiceFinalizeInvoiceParams,
+    )
+    from stripe.params._invoice_list_params import InvoiceListParams
+    from stripe.params._invoice_mark_uncollectible_params import (
+        InvoiceMarkUncollectibleParams,
+    )
+    from stripe.params._invoice_pay_params import InvoicePayParams
+    from stripe.params._invoice_remove_lines_params import (
+        InvoiceRemoveLinesParams,
+    )
+    from stripe.params._invoice_retrieve_params import InvoiceRetrieveParams
+    from stripe.params._invoice_search_params import InvoiceSearchParams
+    from stripe.params._invoice_send_invoice_params import (
+        InvoiceSendInvoiceParams,
+    )
+    from stripe.params._invoice_update_lines_params import (
+        InvoiceUpdateLinesParams,
+    )
+    from stripe.params._invoice_update_params import InvoiceUpdateParams
+    from stripe.params._invoice_void_invoice_params import (
+        InvoiceVoidInvoiceParams,
+    )
 
 
 class InvoiceService(StripeService):
@@ -4429,7 +4463,7 @@ class InvoiceService(StripeService):
     def delete(
         self,
         invoice: str,
-        params: Optional["InvoiceService.DeleteParams"] = None,
+        params: Optional["InvoiceDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4449,7 +4483,7 @@ class InvoiceService(StripeService):
     async def delete_async(
         self,
         invoice: str,
-        params: Optional["InvoiceService.DeleteParams"] = None,
+        params: Optional["InvoiceDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4469,7 +4503,7 @@ class InvoiceService(StripeService):
     def retrieve(
         self,
         invoice: str,
-        params: Optional["InvoiceService.RetrieveParams"] = None,
+        params: Optional["InvoiceRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4489,7 +4523,7 @@ class InvoiceService(StripeService):
     async def retrieve_async(
         self,
         invoice: str,
-        params: Optional["InvoiceService.RetrieveParams"] = None,
+        params: Optional["InvoiceRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4509,7 +4543,7 @@ class InvoiceService(StripeService):
     def update(
         self,
         invoice: str,
-        params: Optional["InvoiceService.UpdateParams"] = None,
+        params: Optional["InvoiceUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4534,7 +4568,7 @@ class InvoiceService(StripeService):
     async def update_async(
         self,
         invoice: str,
-        params: Optional["InvoiceService.UpdateParams"] = None,
+        params: Optional["InvoiceUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4558,7 +4592,7 @@ class InvoiceService(StripeService):
 
     def list(
         self,
-        params: Optional["InvoiceService.ListParams"] = None,
+        params: Optional["InvoiceListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Invoice]:
         """
@@ -4577,7 +4611,7 @@ class InvoiceService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["InvoiceService.ListParams"] = None,
+        params: Optional["InvoiceListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Invoice]:
         """
@@ -4596,7 +4630,7 @@ class InvoiceService(StripeService):
 
     def create(
         self,
-        params: Optional["InvoiceService.CreateParams"] = None,
+        params: Optional["InvoiceCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4615,7 +4649,7 @@ class InvoiceService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["InvoiceService.CreateParams"] = None,
+        params: Optional["InvoiceCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4634,7 +4668,7 @@ class InvoiceService(StripeService):
 
     def search(
         self,
-        params: "InvoiceService.SearchParams",
+        params: "InvoiceSearchParams",
         options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Invoice]:
         """
@@ -4656,7 +4690,7 @@ class InvoiceService(StripeService):
 
     async def search_async(
         self,
-        params: "InvoiceService.SearchParams",
+        params: "InvoiceSearchParams",
         options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Invoice]:
         """
@@ -4679,7 +4713,7 @@ class InvoiceService(StripeService):
     def add_lines(
         self,
         invoice: str,
-        params: "InvoiceService.AddLinesParams",
+        params: "InvoiceAddLinesParams",
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4701,7 +4735,7 @@ class InvoiceService(StripeService):
     async def add_lines_async(
         self,
         invoice: str,
-        params: "InvoiceService.AddLinesParams",
+        params: "InvoiceAddLinesParams",
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4723,7 +4757,7 @@ class InvoiceService(StripeService):
     def attach_payment(
         self,
         invoice: str,
-        params: Optional["InvoiceService.AttachPaymentParams"] = None,
+        params: Optional["InvoiceAttachPaymentParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4754,7 +4788,7 @@ class InvoiceService(StripeService):
     async def attach_payment_async(
         self,
         invoice: str,
-        params: Optional["InvoiceService.AttachPaymentParams"] = None,
+        params: Optional["InvoiceAttachPaymentParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4785,7 +4819,7 @@ class InvoiceService(StripeService):
     def finalize_invoice(
         self,
         invoice: str,
-        params: Optional["InvoiceService.FinalizeInvoiceParams"] = None,
+        params: Optional["InvoiceFinalizeInvoiceParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4807,7 +4841,7 @@ class InvoiceService(StripeService):
     async def finalize_invoice_async(
         self,
         invoice: str,
-        params: Optional["InvoiceService.FinalizeInvoiceParams"] = None,
+        params: Optional["InvoiceFinalizeInvoiceParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4829,7 +4863,7 @@ class InvoiceService(StripeService):
     def mark_uncollectible(
         self,
         invoice: str,
-        params: Optional["InvoiceService.MarkUncollectibleParams"] = None,
+        params: Optional["InvoiceMarkUncollectibleParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4851,7 +4885,7 @@ class InvoiceService(StripeService):
     async def mark_uncollectible_async(
         self,
         invoice: str,
-        params: Optional["InvoiceService.MarkUncollectibleParams"] = None,
+        params: Optional["InvoiceMarkUncollectibleParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4873,7 +4907,7 @@ class InvoiceService(StripeService):
     def pay(
         self,
         invoice: str,
-        params: Optional["InvoiceService.PayParams"] = None,
+        params: Optional["InvoicePayParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4895,7 +4929,7 @@ class InvoiceService(StripeService):
     async def pay_async(
         self,
         invoice: str,
-        params: Optional["InvoiceService.PayParams"] = None,
+        params: Optional["InvoicePayParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4917,7 +4951,7 @@ class InvoiceService(StripeService):
     def remove_lines(
         self,
         invoice: str,
-        params: "InvoiceService.RemoveLinesParams",
+        params: "InvoiceRemoveLinesParams",
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4939,7 +4973,7 @@ class InvoiceService(StripeService):
     async def remove_lines_async(
         self,
         invoice: str,
-        params: "InvoiceService.RemoveLinesParams",
+        params: "InvoiceRemoveLinesParams",
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4961,7 +4995,7 @@ class InvoiceService(StripeService):
     def send_invoice(
         self,
         invoice: str,
-        params: Optional["InvoiceService.SendInvoiceParams"] = None,
+        params: Optional["InvoiceSendInvoiceParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -4985,7 +5019,7 @@ class InvoiceService(StripeService):
     async def send_invoice_async(
         self,
         invoice: str,
-        params: Optional["InvoiceService.SendInvoiceParams"] = None,
+        params: Optional["InvoiceSendInvoiceParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -5009,7 +5043,7 @@ class InvoiceService(StripeService):
     def update_lines(
         self,
         invoice: str,
-        params: "InvoiceService.UpdateLinesParams",
+        params: "InvoiceUpdateLinesParams",
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -5031,7 +5065,7 @@ class InvoiceService(StripeService):
     async def update_lines_async(
         self,
         invoice: str,
-        params: "InvoiceService.UpdateLinesParams",
+        params: "InvoiceUpdateLinesParams",
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -5053,7 +5087,7 @@ class InvoiceService(StripeService):
     def void_invoice(
         self,
         invoice: str,
-        params: Optional["InvoiceService.VoidInvoiceParams"] = None,
+        params: Optional["InvoiceVoidInvoiceParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -5077,7 +5111,7 @@ class InvoiceService(StripeService):
     async def void_invoice_async(
         self,
         invoice: str,
-        params: Optional["InvoiceService.VoidInvoiceParams"] = None,
+        params: Optional["InvoiceVoidInvoiceParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -5100,7 +5134,7 @@ class InvoiceService(StripeService):
 
     def create_preview(
         self,
-        params: Optional["InvoiceService.CreatePreviewParams"] = None,
+        params: Optional["InvoiceCreatePreviewParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """
@@ -5127,7 +5161,7 @@ class InvoiceService(StripeService):
 
     async def create_preview_async(
         self,
-        params: Optional["InvoiceService.CreatePreviewParams"] = None,
+        params: Optional["InvoiceCreatePreviewParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Invoice:
         """

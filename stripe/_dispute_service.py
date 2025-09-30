@@ -5,8 +5,14 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._dispute_close_params import DisputeCloseParams
+    from stripe.params._dispute_list_params import DisputeListParams
+    from stripe.params._dispute_retrieve_params import DisputeRetrieveParams
+    from stripe.params._dispute_update_params import DisputeUpdateParams
 
 
 class DisputeService(StripeService):
@@ -389,7 +395,7 @@ class DisputeService(StripeService):
 
     def list(
         self,
-        params: Optional["DisputeService.ListParams"] = None,
+        params: Optional["DisputeListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Dispute]:
         """
@@ -408,7 +414,7 @@ class DisputeService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["DisputeService.ListParams"] = None,
+        params: Optional["DisputeListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Dispute]:
         """
@@ -428,7 +434,7 @@ class DisputeService(StripeService):
     def retrieve(
         self,
         dispute: str,
-        params: Optional["DisputeService.RetrieveParams"] = None,
+        params: Optional["DisputeRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
@@ -448,7 +454,7 @@ class DisputeService(StripeService):
     async def retrieve_async(
         self,
         dispute: str,
-        params: Optional["DisputeService.RetrieveParams"] = None,
+        params: Optional["DisputeRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
@@ -468,7 +474,7 @@ class DisputeService(StripeService):
     def update(
         self,
         dispute: str,
-        params: Optional["DisputeService.UpdateParams"] = None,
+        params: Optional["DisputeUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
@@ -490,7 +496,7 @@ class DisputeService(StripeService):
     async def update_async(
         self,
         dispute: str,
-        params: Optional["DisputeService.UpdateParams"] = None,
+        params: Optional["DisputeUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
@@ -512,7 +518,7 @@ class DisputeService(StripeService):
     def close(
         self,
         dispute: str,
-        params: Optional["DisputeService.CloseParams"] = None,
+        params: Optional["DisputeCloseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """
@@ -536,7 +542,7 @@ class DisputeService(StripeService):
     async def close_async(
         self,
         dispute: str,
-        params: Optional["DisputeService.CloseParams"] = None,
+        params: Optional["DisputeCloseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Dispute:
         """

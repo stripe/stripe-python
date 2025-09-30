@@ -4,8 +4,13 @@ from stripe._credit_note_line_item import CreditNoteLineItem
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._credit_note_preview_lines_list_params import (
+        CreditNotePreviewLinesListParams,
+    )
 
 
 class CreditNotePreviewLinesService(StripeService):
@@ -184,7 +189,7 @@ class CreditNotePreviewLinesService(StripeService):
 
     def list(
         self,
-        params: "CreditNotePreviewLinesService.ListParams",
+        params: "CreditNotePreviewLinesListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditNoteLineItem]:
         """
@@ -203,7 +208,7 @@ class CreditNotePreviewLinesService(StripeService):
 
     async def list_async(
         self,
-        params: "CreditNotePreviewLinesService.ListParams",
+        params: "CreditNotePreviewLinesListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditNoteLineItem]:
         """

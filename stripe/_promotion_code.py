@@ -4,22 +4,27 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Dict, Optional, cast
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._coupon import Coupon
     from stripe._customer import Customer
+    from stripe.params._promotion_code_create_params import (
+        PromotionCodeCreateParams,
+    )
+    from stripe.params._promotion_code_list_params import (
+        PromotionCodeListParams,
+    )
+    from stripe.params._promotion_code_modify_params import (
+        PromotionCodeModifyParams,
+    )
+    from stripe.params._promotion_code_retrieve_params import (
+        PromotionCodeRetrieveParams,
+    )
 
 
 class PromotionCode(
@@ -304,7 +309,7 @@ class PromotionCode(
 
     @classmethod
     def create(
-        cls, **params: Unpack["PromotionCode.CreateParams"]
+        cls, **params: Unpack["PromotionCodeCreateParams"]
     ) -> "PromotionCode":
         """
         A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
@@ -320,7 +325,7 @@ class PromotionCode(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["PromotionCode.CreateParams"]
+        cls, **params: Unpack["PromotionCodeCreateParams"]
     ) -> "PromotionCode":
         """
         A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
@@ -336,7 +341,7 @@ class PromotionCode(
 
     @classmethod
     def list(
-        cls, **params: Unpack["PromotionCode.ListParams"]
+        cls, **params: Unpack["PromotionCodeListParams"]
     ) -> ListObject["PromotionCode"]:
         """
         Returns a list of your promotion codes.
@@ -356,7 +361,7 @@ class PromotionCode(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["PromotionCode.ListParams"]
+        cls, **params: Unpack["PromotionCodeListParams"]
     ) -> ListObject["PromotionCode"]:
         """
         Returns a list of your promotion codes.
@@ -376,7 +381,7 @@ class PromotionCode(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PromotionCode.ModifyParams"]
+        cls, id: str, **params: Unpack["PromotionCodeModifyParams"]
     ) -> "PromotionCode":
         """
         Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
@@ -393,7 +398,7 @@ class PromotionCode(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PromotionCode.ModifyParams"]
+        cls, id: str, **params: Unpack["PromotionCodeModifyParams"]
     ) -> "PromotionCode":
         """
         Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
@@ -410,7 +415,7 @@ class PromotionCode(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["PromotionCode.RetrieveParams"]
+        cls, id: str, **params: Unpack["PromotionCodeRetrieveParams"]
     ) -> "PromotionCode":
         """
         Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://docs.stripe.com/docs/api/promotion_codes/list) with the desired code.
@@ -421,7 +426,7 @@ class PromotionCode(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["PromotionCode.RetrieveParams"]
+        cls, id: str, **params: Unpack["PromotionCodeRetrieveParams"]
     ) -> "PromotionCode":
         """
         Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://docs.stripe.com/docs/api/promotion_codes/list) with the desired code.

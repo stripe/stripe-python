@@ -4,43 +4,23 @@ from stripe._ephemeral_key import EphemeralKey
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._ephemeral_key_create_params import (
+        EphemeralKeyCreateParams,
+    )
+    from stripe.params._ephemeral_key_delete_params import (
+        EphemeralKeyDeleteParams,
+    )
 
 
 class EphemeralKeyService(StripeService):
-    class CreateParams(TypedDict):
-        customer: NotRequired[str]
-        """
-        The ID of the Customer you'd like to modify using the resulting ephemeral key.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        issuing_card: NotRequired[str]
-        """
-        The ID of the Issuing Card you'd like to access using the resulting ephemeral key.
-        """
-        nonce: NotRequired[str]
-        """
-        A single-use token, created by Stripe.js, used for creating ephemeral keys for Issuing Cards without exchanging sensitive information.
-        """
-        verification_session: NotRequired[str]
-        """
-        The ID of the Identity VerificationSession you'd like to access using the resulting ephemeral key
-        """
-
-    class DeleteParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def delete(
         self,
         key: str,
-        params: Optional["EphemeralKeyService.DeleteParams"] = None,
+        params: Optional["EphemeralKeyDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> EphemeralKey:
         """
@@ -60,7 +40,7 @@ class EphemeralKeyService(StripeService):
     async def delete_async(
         self,
         key: str,
-        params: Optional["EphemeralKeyService.DeleteParams"] = None,
+        params: Optional["EphemeralKeyDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> EphemeralKey:
         """
@@ -79,7 +59,7 @@ class EphemeralKeyService(StripeService):
 
     def create(
         self,
-        params: Optional["EphemeralKeyService.CreateParams"] = None,
+        params: Optional["EphemeralKeyCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> EphemeralKey:
         """
@@ -98,7 +78,7 @@ class EphemeralKeyService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["EphemeralKeyService.CreateParams"] = None,
+        params: Optional["EphemeralKeyCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> EphemeralKey:
         """

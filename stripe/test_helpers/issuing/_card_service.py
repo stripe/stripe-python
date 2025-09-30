@@ -4,45 +4,32 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._card import Card
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.test_helpers.issuing._card_deliver_card_params import (
+        CardDeliverCardParams,
+    )
+    from stripe.params.test_helpers.issuing._card_fail_card_params import (
+        CardFailCardParams,
+    )
+    from stripe.params.test_helpers.issuing._card_return_card_params import (
+        CardReturnCardParams,
+    )
+    from stripe.params.test_helpers.issuing._card_ship_card_params import (
+        CardShipCardParams,
+    )
+    from stripe.params.test_helpers.issuing._card_submit_card_params import (
+        CardSubmitCardParams,
+    )
 
 
 class CardService(StripeService):
-    class DeliverCardParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class FailCardParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ReturnCardParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ShipCardParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class SubmitCardParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def deliver_card(
         self,
         card: str,
-        params: Optional["CardService.DeliverCardParams"] = None,
+        params: Optional["CardDeliverCardParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """
@@ -64,7 +51,7 @@ class CardService(StripeService):
     async def deliver_card_async(
         self,
         card: str,
-        params: Optional["CardService.DeliverCardParams"] = None,
+        params: Optional["CardDeliverCardParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """
@@ -86,7 +73,7 @@ class CardService(StripeService):
     def fail_card(
         self,
         card: str,
-        params: Optional["CardService.FailCardParams"] = None,
+        params: Optional["CardFailCardParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """
@@ -108,7 +95,7 @@ class CardService(StripeService):
     async def fail_card_async(
         self,
         card: str,
-        params: Optional["CardService.FailCardParams"] = None,
+        params: Optional["CardFailCardParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """
@@ -130,7 +117,7 @@ class CardService(StripeService):
     def return_card(
         self,
         card: str,
-        params: Optional["CardService.ReturnCardParams"] = None,
+        params: Optional["CardReturnCardParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """
@@ -152,7 +139,7 @@ class CardService(StripeService):
     async def return_card_async(
         self,
         card: str,
-        params: Optional["CardService.ReturnCardParams"] = None,
+        params: Optional["CardReturnCardParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """
@@ -174,7 +161,7 @@ class CardService(StripeService):
     def ship_card(
         self,
         card: str,
-        params: Optional["CardService.ShipCardParams"] = None,
+        params: Optional["CardShipCardParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """
@@ -196,7 +183,7 @@ class CardService(StripeService):
     async def ship_card_async(
         self,
         card: str,
-        params: Optional["CardService.ShipCardParams"] = None,
+        params: Optional["CardShipCardParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """
@@ -218,7 +205,7 @@ class CardService(StripeService):
     def submit_card(
         self,
         card: str,
-        params: Optional["CardService.SubmitCardParams"] = None,
+        params: Optional["CardSubmitCardParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """
@@ -240,7 +227,7 @@ class CardService(StripeService):
     async def submit_card_async(
         self,
         card: str,
-        params: Optional["CardService.SubmitCardParams"] = None,
+        params: Optional["CardSubmitCardParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Card:
         """

@@ -3,22 +3,21 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account as AccountResource
     from stripe._customer import Customer
     from stripe.financial_connections._account import (
         Account as FinancialConnectionsAccountResource,
+    )
+    from stripe.params.financial_connections._session_create_params import (
+        SessionCreateParams,
+    )
+    from stripe.params.financial_connections._session_retrieve_params import (
+        SessionRetrieveParams,
     )
 
 
@@ -250,7 +249,7 @@ class Session(CreateableAPIResource["Session"]):
     status_details: Optional[StatusDetails]
 
     @classmethod
-    def create(cls, **params: Unpack["Session.CreateParams"]) -> "Session":
+    def create(cls, **params: Unpack["SessionCreateParams"]) -> "Session":
         """
         To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
         """
@@ -265,7 +264,7 @@ class Session(CreateableAPIResource["Session"]):
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Session.CreateParams"]
+        cls, **params: Unpack["SessionCreateParams"]
     ) -> "Session":
         """
         To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
@@ -281,7 +280,7 @@ class Session(CreateableAPIResource["Session"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Session.RetrieveParams"]
+        cls, id: str, **params: Unpack["SessionRetrieveParams"]
     ) -> "Session":
         """
         Retrieves the details of a Financial Connections Session
@@ -292,7 +291,7 @@ class Session(CreateableAPIResource["Session"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Session.RetrieveParams"]
+        cls, id: str, **params: Unpack["SessionRetrieveParams"]
     ) -> "Session":
         """
         Retrieves the details of a Financial Connections Session

@@ -3,8 +3,13 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.treasury._received_debit import ReceivedDebit
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.test_helpers.treasury._received_debit_create_params import (
+        ReceivedDebitCreateParams,
+    )
 
 
 class ReceivedDebitService(StripeService):
@@ -90,7 +95,7 @@ class ReceivedDebitService(StripeService):
 
     def create(
         self,
-        params: "ReceivedDebitService.CreateParams",
+        params: "ReceivedDebitCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ReceivedDebit:
         """
@@ -109,7 +114,7 @@ class ReceivedDebitService(StripeService):
 
     async def create_async(
         self,
-        params: "ReceivedDebitService.CreateParams",
+        params: "ReceivedDebitCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ReceivedDebit:
         """

@@ -2,10 +2,15 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Dict, List
-from typing_extensions import Literal, NotRequired, Unpack
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._country_spec_list_params import CountrySpecListParams
+    from stripe.params._country_spec_retrieve_params import (
+        CountrySpecRetrieveParams,
+    )
 
 
 class CountrySpec(ListableAPIResource["CountrySpec"]):
@@ -45,30 +50,6 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
         individual: Individual
         _inner_class_types = {"company": Company, "individual": Individual}
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     default_currency: str
     """
     The default currency for this country. This applies to both payment methods and bank accounts.
@@ -101,7 +82,7 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["CountrySpec.ListParams"]
+        cls, **params: Unpack["CountrySpecListParams"]
     ) -> ListObject["CountrySpec"]:
         """
         Lists all Country Spec objects available in the API.
@@ -121,7 +102,7 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["CountrySpec.ListParams"]
+        cls, **params: Unpack["CountrySpecListParams"]
     ) -> ListObject["CountrySpec"]:
         """
         Lists all Country Spec objects available in the API.
@@ -141,7 +122,7 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["CountrySpec.RetrieveParams"]
+        cls, id: str, **params: Unpack["CountrySpecRetrieveParams"]
     ) -> "CountrySpec":
         """
         Returns a Country Spec for a given Country code.
@@ -152,7 +133,7 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["CountrySpec.RetrieveParams"]
+        cls, id: str, **params: Unpack["CountrySpecRetrieveParams"]
     ) -> "CountrySpec":
         """
         Returns a Country Spec for a given Country code.

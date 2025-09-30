@@ -4,21 +4,26 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._file import File
+    from stripe.params.issuing._cardholder_create_params import (
+        CardholderCreateParams,
+    )
+    from stripe.params.issuing._cardholder_list_params import (
+        CardholderListParams,
+    )
+    from stripe.params.issuing._cardholder_modify_params import (
+        CardholderModifyParams,
+    )
+    from stripe.params.issuing._cardholder_retrieve_params import (
+        CardholderRetrieveParams,
+    )
 
 
 class Cardholder(
@@ -3489,7 +3494,7 @@ class Cardholder(
 
     @classmethod
     def create(
-        cls, **params: Unpack["Cardholder.CreateParams"]
+        cls, **params: Unpack["CardholderCreateParams"]
     ) -> "Cardholder":
         """
         Creates a new Issuing Cardholder object that can be issued cards.
@@ -3505,7 +3510,7 @@ class Cardholder(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Cardholder.CreateParams"]
+        cls, **params: Unpack["CardholderCreateParams"]
     ) -> "Cardholder":
         """
         Creates a new Issuing Cardholder object that can be issued cards.
@@ -3521,7 +3526,7 @@ class Cardholder(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Cardholder.ListParams"]
+        cls, **params: Unpack["CardholderListParams"]
     ) -> ListObject["Cardholder"]:
         """
         Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -3541,7 +3546,7 @@ class Cardholder(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Cardholder.ListParams"]
+        cls, **params: Unpack["CardholderListParams"]
     ) -> ListObject["Cardholder"]:
         """
         Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -3561,7 +3566,7 @@ class Cardholder(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["Cardholder.ModifyParams"]
+        cls, id: str, **params: Unpack["CardholderModifyParams"]
     ) -> "Cardholder":
         """
         Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -3578,7 +3583,7 @@ class Cardholder(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Cardholder.ModifyParams"]
+        cls, id: str, **params: Unpack["CardholderModifyParams"]
     ) -> "Cardholder":
         """
         Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -3595,7 +3600,7 @@ class Cardholder(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Cardholder.RetrieveParams"]
+        cls, id: str, **params: Unpack["CardholderRetrieveParams"]
     ) -> "Cardholder":
         """
         Retrieves an Issuing Cardholder object.
@@ -3606,7 +3611,7 @@ class Cardholder(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Cardholder.RetrieveParams"]
+        cls, id: str, **params: Unpack["CardholderRetrieveParams"]
     ) -> "Cardholder":
         """
         Retrieves an Issuing Cardholder object.

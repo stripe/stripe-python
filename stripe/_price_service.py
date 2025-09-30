@@ -6,8 +6,15 @@ from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, Union, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._price_create_params import PriceCreateParams
+    from stripe.params._price_list_params import PriceListParams
+    from stripe.params._price_retrieve_params import PriceRetrieveParams
+    from stripe.params._price_search_params import PriceSearchParams
+    from stripe.params._price_update_params import PriceUpdateParams
 
 
 class PriceService(StripeService):
@@ -499,7 +506,7 @@ class PriceService(StripeService):
 
     def list(
         self,
-        params: Optional["PriceService.ListParams"] = None,
+        params: Optional["PriceListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Price]:
         """
@@ -518,7 +525,7 @@ class PriceService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["PriceService.ListParams"] = None,
+        params: Optional["PriceListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Price]:
         """
@@ -537,7 +544,7 @@ class PriceService(StripeService):
 
     def create(
         self,
-        params: "PriceService.CreateParams",
+        params: "PriceCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Price:
         """
@@ -556,7 +563,7 @@ class PriceService(StripeService):
 
     async def create_async(
         self,
-        params: "PriceService.CreateParams",
+        params: "PriceCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Price:
         """
@@ -576,7 +583,7 @@ class PriceService(StripeService):
     def retrieve(
         self,
         price: str,
-        params: Optional["PriceService.RetrieveParams"] = None,
+        params: Optional["PriceRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Price:
         """
@@ -596,7 +603,7 @@ class PriceService(StripeService):
     async def retrieve_async(
         self,
         price: str,
-        params: Optional["PriceService.RetrieveParams"] = None,
+        params: Optional["PriceRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Price:
         """
@@ -616,7 +623,7 @@ class PriceService(StripeService):
     def update(
         self,
         price: str,
-        params: Optional["PriceService.UpdateParams"] = None,
+        params: Optional["PriceUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Price:
         """
@@ -636,7 +643,7 @@ class PriceService(StripeService):
     async def update_async(
         self,
         price: str,
-        params: Optional["PriceService.UpdateParams"] = None,
+        params: Optional["PriceUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Price:
         """
@@ -655,7 +662,7 @@ class PriceService(StripeService):
 
     def search(
         self,
-        params: "PriceService.SearchParams",
+        params: "PriceSearchParams",
         options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Price]:
         """
@@ -677,7 +684,7 @@ class PriceService(StripeService):
 
     async def search_async(
         self,
-        params: "PriceService.SearchParams",
+        params: "PriceSearchParams",
         options: Optional[RequestOptions] = None,
     ) -> SearchResultObject[Price]:
         """

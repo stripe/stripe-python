@@ -6,8 +6,23 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.checkout._session import Session
 from stripe.checkout._session_line_item_service import SessionLineItemService
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.checkout._session_create_params import (
+        SessionCreateParams,
+    )
+    from stripe.params.checkout._session_expire_params import (
+        SessionExpireParams,
+    )
+    from stripe.params.checkout._session_list_params import SessionListParams
+    from stripe.params.checkout._session_retrieve_params import (
+        SessionRetrieveParams,
+    )
+    from stripe.params.checkout._session_update_params import (
+        SessionUpdateParams,
+    )
 
 
 class SessionService(StripeService):
@@ -3706,7 +3721,7 @@ class SessionService(StripeService):
 
     def list(
         self,
-        params: Optional["SessionService.ListParams"] = None,
+        params: Optional["SessionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Session]:
         """
@@ -3725,7 +3740,7 @@ class SessionService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["SessionService.ListParams"] = None,
+        params: Optional["SessionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Session]:
         """
@@ -3744,7 +3759,7 @@ class SessionService(StripeService):
 
     def create(
         self,
-        params: Optional["SessionService.CreateParams"] = None,
+        params: Optional["SessionCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -3763,7 +3778,7 @@ class SessionService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["SessionService.CreateParams"] = None,
+        params: Optional["SessionCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -3783,7 +3798,7 @@ class SessionService(StripeService):
     def retrieve(
         self,
         session: str,
-        params: Optional["SessionService.RetrieveParams"] = None,
+        params: Optional["SessionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -3805,7 +3820,7 @@ class SessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
-        params: Optional["SessionService.RetrieveParams"] = None,
+        params: Optional["SessionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -3827,7 +3842,7 @@ class SessionService(StripeService):
     def update(
         self,
         session: str,
-        params: Optional["SessionService.UpdateParams"] = None,
+        params: Optional["SessionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -3851,7 +3866,7 @@ class SessionService(StripeService):
     async def update_async(
         self,
         session: str,
-        params: Optional["SessionService.UpdateParams"] = None,
+        params: Optional["SessionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -3875,7 +3890,7 @@ class SessionService(StripeService):
     def expire(
         self,
         session: str,
-        params: Optional["SessionService.ExpireParams"] = None,
+        params: Optional["SessionExpireParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -3899,7 +3914,7 @@ class SessionService(StripeService):
     async def expire_async(
         self,
         session: str,
-        params: Optional["SessionService.ExpireParams"] = None,
+        params: Optional["SessionExpireParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """

@@ -3,21 +3,19 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
 from typing import ClassVar, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.issuing._card import Card
+    from stripe.params.issuing._token_list_params import TokenListParams
+    from stripe.params.issuing._token_modify_params import TokenModifyParams
+    from stripe.params.issuing._token_retrieve_params import (
+        TokenRetrieveParams,
+    )
 
 
 class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
@@ -192,72 +190,6 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             "wallet_provider": WalletProvider,
         }
 
-    class ListParams(RequestOptions):
-        card: str
-        """
-        The Issuing card identifier to list tokens for.
-        """
-        created: NotRequired["Token.ListParamsCreated|int"]
-        """
-        Only return Issuing tokens that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[
-            Literal["active", "deleted", "requested", "suspended"]
-        ]
-        """
-        Select Issuing tokens with the given status.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ModifyParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        status: Literal["active", "deleted", "suspended"]
-        """
-        Specifies which status the token should be updated to.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     card: ExpandableField["Card"]
     """
     Card associated with this token.
@@ -307,7 +239,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     """
 
     @classmethod
-    def list(cls, **params: Unpack["Token.ListParams"]) -> ListObject["Token"]:
+    def list(cls, **params: Unpack["TokenListParams"]) -> ListObject["Token"]:
         """
         Lists all Issuing Token objects for a given card.
         """
@@ -326,7 +258,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Token.ListParams"]
+        cls, **params: Unpack["TokenListParams"]
     ) -> ListObject["Token"]:
         """
         Lists all Issuing Token objects for a given card.
@@ -345,9 +277,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
         return result
 
     @classmethod
-    def modify(
-        cls, id: str, **params: Unpack["Token.ModifyParams"]
-    ) -> "Token":
+    def modify(cls, id: str, **params: Unpack["TokenModifyParams"]) -> "Token":
         """
         Attempts to update the specified Issuing Token object to the status specified.
         """
@@ -363,7 +293,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Token.ModifyParams"]
+        cls, id: str, **params: Unpack["TokenModifyParams"]
     ) -> "Token":
         """
         Attempts to update the specified Issuing Token object to the status specified.
@@ -380,7 +310,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Token.RetrieveParams"]
+        cls, id: str, **params: Unpack["TokenRetrieveParams"]
     ) -> "Token":
         """
         Retrieves an Issuing Token object.
@@ -391,7 +321,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Token.RetrieveParams"]
+        cls, id: str, **params: Unpack["TokenRetrieveParams"]
     ) -> "Token":
         """
         Retrieves an Issuing Token object.

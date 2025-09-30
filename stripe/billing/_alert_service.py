@@ -5,8 +5,22 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing._alert import Alert
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.billing._alert_activate_params import (
+        AlertActivateParams,
+    )
+    from stripe.params.billing._alert_archive_params import AlertArchiveParams
+    from stripe.params.billing._alert_create_params import AlertCreateParams
+    from stripe.params.billing._alert_deactivate_params import (
+        AlertDeactivateParams,
+    )
+    from stripe.params.billing._alert_list_params import AlertListParams
+    from stripe.params.billing._alert_retrieve_params import (
+        AlertRetrieveParams,
+    )
 
 
 class AlertService(StripeService):
@@ -242,7 +256,7 @@ class AlertService(StripeService):
 
     def list(
         self,
-        params: Optional["AlertService.ListParams"] = None,
+        params: Optional["AlertListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Alert]:
         """
@@ -261,7 +275,7 @@ class AlertService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["AlertService.ListParams"] = None,
+        params: Optional["AlertListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Alert]:
         """
@@ -280,7 +294,7 @@ class AlertService(StripeService):
 
     def create(
         self,
-        params: "AlertService.CreateParams",
+        params: "AlertCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -299,7 +313,7 @@ class AlertService(StripeService):
 
     async def create_async(
         self,
-        params: "AlertService.CreateParams",
+        params: "AlertCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -319,7 +333,7 @@ class AlertService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["AlertService.RetrieveParams"] = None,
+        params: Optional["AlertRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -339,7 +353,7 @@ class AlertService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["AlertService.RetrieveParams"] = None,
+        params: Optional["AlertRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -359,7 +373,7 @@ class AlertService(StripeService):
     def activate(
         self,
         id: str,
-        params: Optional["AlertService.ActivateParams"] = None,
+        params: Optional["AlertActivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -379,7 +393,7 @@ class AlertService(StripeService):
     async def activate_async(
         self,
         id: str,
-        params: Optional["AlertService.ActivateParams"] = None,
+        params: Optional["AlertActivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -399,7 +413,7 @@ class AlertService(StripeService):
     def archive(
         self,
         id: str,
-        params: Optional["AlertService.ArchiveParams"] = None,
+        params: Optional["AlertArchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -419,7 +433,7 @@ class AlertService(StripeService):
     async def archive_async(
         self,
         id: str,
-        params: Optional["AlertService.ArchiveParams"] = None,
+        params: Optional["AlertArchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -439,7 +453,7 @@ class AlertService(StripeService):
     def deactivate(
         self,
         id: str,
-        params: Optional["AlertService.DeactivateParams"] = None,
+        params: Optional["AlertDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -461,7 +475,7 @@ class AlertService(StripeService):
     async def deactivate_async(
         self,
         id: str,
-        params: Optional["AlertService.DeactivateParams"] = None,
+        params: Optional["AlertDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """

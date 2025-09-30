@@ -5,7 +5,6 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
@@ -22,13 +21,7 @@ from typing import (
     cast,
     overload,
 )
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -46,6 +39,31 @@ if TYPE_CHECKING:
     from stripe._subscription_schedule import SubscriptionSchedule
     from stripe._tax_id import TaxId
     from stripe._tax_rate import TaxRate
+    from stripe.params._subscription_cancel_params import (
+        SubscriptionCancelParams,
+    )
+    from stripe.params._subscription_create_params import (
+        SubscriptionCreateParams,
+    )
+    from stripe.params._subscription_delete_discount_params import (
+        SubscriptionDeleteDiscountParams,
+    )
+    from stripe.params._subscription_list_params import SubscriptionListParams
+    from stripe.params._subscription_migrate_params import (
+        SubscriptionMigrateParams,
+    )
+    from stripe.params._subscription_modify_params import (
+        SubscriptionModifyParams,
+    )
+    from stripe.params._subscription_resume_params import (
+        SubscriptionResumeParams,
+    )
+    from stripe.params._subscription_retrieve_params import (
+        SubscriptionRetrieveParams,
+    )
+    from stripe.params._subscription_search_params import (
+        SubscriptionSearchParams,
+    )
     from stripe.test_helpers._test_clock import TestClock
 
 
@@ -3290,7 +3308,7 @@ class Subscription(
     def _cls_cancel(
         cls,
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.CancelParams"],
+        **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -3316,7 +3334,7 @@ class Subscription(
     @staticmethod
     def cancel(
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.CancelParams"],
+        **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -3329,7 +3347,7 @@ class Subscription(
 
     @overload
     def cancel(
-        self, **params: Unpack["Subscription.CancelParams"]
+        self, **params: Unpack["SubscriptionCancelParams"]
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -3342,7 +3360,7 @@ class Subscription(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Subscription.CancelParams"]
+        self, **params: Unpack["SubscriptionCancelParams"]
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -3366,7 +3384,7 @@ class Subscription(
     async def _cls_cancel_async(
         cls,
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.CancelParams"],
+        **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -3392,7 +3410,7 @@ class Subscription(
     @staticmethod
     async def cancel_async(
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.CancelParams"],
+        **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -3405,7 +3423,7 @@ class Subscription(
 
     @overload
     async def cancel_async(
-        self, **params: Unpack["Subscription.CancelParams"]
+        self, **params: Unpack["SubscriptionCancelParams"]
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -3418,7 +3436,7 @@ class Subscription(
 
     @class_method_variant("_cls_cancel_async")
     async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Subscription.CancelParams"]
+        self, **params: Unpack["SubscriptionCancelParams"]
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -3440,7 +3458,7 @@ class Subscription(
 
     @classmethod
     def create(
-        cls, **params: Unpack["Subscription.CreateParams"]
+        cls, **params: Unpack["SubscriptionCreateParams"]
     ) -> "Subscription":
         """
         Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
@@ -3462,7 +3480,7 @@ class Subscription(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Subscription.CreateParams"]
+        cls, **params: Unpack["SubscriptionCreateParams"]
     ) -> "Subscription":
         """
         Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
@@ -3486,7 +3504,7 @@ class Subscription(
     def _cls_delete_discount(
         cls,
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.DeleteDiscountParams"],
+        **params: Unpack["SubscriptionDeleteDiscountParams"],
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -3508,7 +3526,7 @@ class Subscription(
     @staticmethod
     def delete_discount(
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.DeleteDiscountParams"],
+        **params: Unpack["SubscriptionDeleteDiscountParams"],
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -3517,7 +3535,7 @@ class Subscription(
 
     @overload
     def delete_discount(
-        self, **params: Unpack["Subscription.DeleteDiscountParams"]
+        self, **params: Unpack["SubscriptionDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -3526,7 +3544,7 @@ class Subscription(
 
     @class_method_variant("_cls_delete_discount")
     def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Subscription.DeleteDiscountParams"]
+        self, **params: Unpack["SubscriptionDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -3546,7 +3564,7 @@ class Subscription(
     async def _cls_delete_discount_async(
         cls,
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.DeleteDiscountParams"],
+        **params: Unpack["SubscriptionDeleteDiscountParams"],
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -3568,7 +3586,7 @@ class Subscription(
     @staticmethod
     async def delete_discount_async(
         subscription_exposed_id: str,
-        **params: Unpack["Subscription.DeleteDiscountParams"],
+        **params: Unpack["SubscriptionDeleteDiscountParams"],
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -3577,7 +3595,7 @@ class Subscription(
 
     @overload
     async def delete_discount_async(
-        self, **params: Unpack["Subscription.DeleteDiscountParams"]
+        self, **params: Unpack["SubscriptionDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -3586,7 +3604,7 @@ class Subscription(
 
     @class_method_variant("_cls_delete_discount_async")
     async def delete_discount_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Subscription.DeleteDiscountParams"]
+        self, **params: Unpack["SubscriptionDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -3604,7 +3622,7 @@ class Subscription(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Subscription.ListParams"]
+        cls, **params: Unpack["SubscriptionListParams"]
     ) -> ListObject["Subscription"]:
         """
         By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
@@ -3624,7 +3642,7 @@ class Subscription(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Subscription.ListParams"]
+        cls, **params: Unpack["SubscriptionListParams"]
     ) -> ListObject["Subscription"]:
         """
         By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
@@ -3644,7 +3662,7 @@ class Subscription(
 
     @classmethod
     def _cls_migrate(
-        cls, subscription: str, **params: Unpack["Subscription.MigrateParams"]
+        cls, subscription: str, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -3663,7 +3681,7 @@ class Subscription(
     @overload
     @staticmethod
     def migrate(
-        subscription: str, **params: Unpack["Subscription.MigrateParams"]
+        subscription: str, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -3672,7 +3690,7 @@ class Subscription(
 
     @overload
     def migrate(
-        self, **params: Unpack["Subscription.MigrateParams"]
+        self, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -3681,7 +3699,7 @@ class Subscription(
 
     @class_method_variant("_cls_migrate")
     def migrate(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Subscription.MigrateParams"]
+        self, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -3699,7 +3717,7 @@ class Subscription(
 
     @classmethod
     async def _cls_migrate_async(
-        cls, subscription: str, **params: Unpack["Subscription.MigrateParams"]
+        cls, subscription: str, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -3718,7 +3736,7 @@ class Subscription(
     @overload
     @staticmethod
     async def migrate_async(
-        subscription: str, **params: Unpack["Subscription.MigrateParams"]
+        subscription: str, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -3727,7 +3745,7 @@ class Subscription(
 
     @overload
     async def migrate_async(
-        self, **params: Unpack["Subscription.MigrateParams"]
+        self, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -3736,7 +3754,7 @@ class Subscription(
 
     @class_method_variant("_cls_migrate_async")
     async def migrate_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Subscription.MigrateParams"]
+        self, **params: Unpack["SubscriptionMigrateParams"]
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -3754,7 +3772,7 @@ class Subscription(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["Subscription.ModifyParams"]
+        cls, id: str, **params: Unpack["SubscriptionModifyParams"]
     ) -> "Subscription":
         """
         Updates an existing subscription to match the specified parameters.
@@ -3791,7 +3809,7 @@ class Subscription(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Subscription.ModifyParams"]
+        cls, id: str, **params: Unpack["SubscriptionModifyParams"]
     ) -> "Subscription":
         """
         Updates an existing subscription to match the specified parameters.
@@ -3828,7 +3846,7 @@ class Subscription(
 
     @classmethod
     def _cls_resume(
-        cls, subscription: str, **params: Unpack["Subscription.ResumeParams"]
+        cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -3847,7 +3865,7 @@ class Subscription(
     @overload
     @staticmethod
     def resume(
-        subscription: str, **params: Unpack["Subscription.ResumeParams"]
+        subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -3856,7 +3874,7 @@ class Subscription(
 
     @overload
     def resume(
-        self, **params: Unpack["Subscription.ResumeParams"]
+        self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -3865,7 +3883,7 @@ class Subscription(
 
     @class_method_variant("_cls_resume")
     def resume(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Subscription.ResumeParams"]
+        self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -3883,7 +3901,7 @@ class Subscription(
 
     @classmethod
     async def _cls_resume_async(
-        cls, subscription: str, **params: Unpack["Subscription.ResumeParams"]
+        cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -3902,7 +3920,7 @@ class Subscription(
     @overload
     @staticmethod
     async def resume_async(
-        subscription: str, **params: Unpack["Subscription.ResumeParams"]
+        subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -3911,7 +3929,7 @@ class Subscription(
 
     @overload
     async def resume_async(
-        self, **params: Unpack["Subscription.ResumeParams"]
+        self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -3920,7 +3938,7 @@ class Subscription(
 
     @class_method_variant("_cls_resume_async")
     async def resume_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Subscription.ResumeParams"]
+        self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -3938,7 +3956,7 @@ class Subscription(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Subscription.RetrieveParams"]
+        cls, id: str, **params: Unpack["SubscriptionRetrieveParams"]
     ) -> "Subscription":
         """
         Retrieves the subscription with the given ID.
@@ -3949,7 +3967,7 @@ class Subscription(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Subscription.RetrieveParams"]
+        cls, id: str, **params: Unpack["SubscriptionRetrieveParams"]
     ) -> "Subscription":
         """
         Retrieves the subscription with the given ID.
@@ -3960,7 +3978,7 @@ class Subscription(
 
     @classmethod
     def search(
-        cls, *args, **kwargs: Unpack["Subscription.SearchParams"]
+        cls, *args, **kwargs: Unpack["SubscriptionSearchParams"]
     ) -> SearchResultObject["Subscription"]:
         """
         Search for subscriptions you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -3974,7 +3992,7 @@ class Subscription(
 
     @classmethod
     async def search_async(
-        cls, *args, **kwargs: Unpack["Subscription.SearchParams"]
+        cls, *args, **kwargs: Unpack["SubscriptionSearchParams"]
     ) -> SearchResultObject["Subscription"]:
         """
         Search for subscriptions you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -3988,13 +4006,13 @@ class Subscription(
 
     @classmethod
     def search_auto_paging_iter(
-        cls, *args, **kwargs: Unpack["Subscription.SearchParams"]
+        cls, *args, **kwargs: Unpack["SubscriptionSearchParams"]
     ) -> Iterator["Subscription"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
     async def search_auto_paging_iter_async(
-        cls, *args, **kwargs: Unpack["Subscription.SearchParams"]
+        cls, *args, **kwargs: Unpack["SubscriptionSearchParams"]
     ) -> AsyncIterator["Subscription"]:
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 

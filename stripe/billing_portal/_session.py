@@ -2,19 +2,15 @@
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.billing_portal._configuration import Configuration
+    from stripe.params.billing_portal._session_create_params import (
+        SessionCreateParams,
+    )
 
 
 class Session(CreateableAPIResource["Session"]):
@@ -501,7 +497,7 @@ class Session(CreateableAPIResource["Session"]):
     """
 
     @classmethod
-    def create(cls, **params: Unpack["Session.CreateParams"]) -> "Session":
+    def create(cls, **params: Unpack["SessionCreateParams"]) -> "Session":
         """
         Creates a session of the customer portal.
         """
@@ -516,7 +512,7 @@ class Session(CreateableAPIResource["Session"]):
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Session.CreateParams"]
+        cls, **params: Unpack["SessionCreateParams"]
     ) -> "Session":
         """
         Creates a session of the customer portal.

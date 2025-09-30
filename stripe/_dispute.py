@@ -3,24 +3,21 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
     from stripe._charge import Charge
     from stripe._file import File
     from stripe._payment_intent import PaymentIntent
+    from stripe.params._dispute_close_params import DisputeCloseParams
+    from stripe.params._dispute_list_params import DisputeListParams
+    from stripe.params._dispute_modify_params import DisputeModifyParams
+    from stripe.params._dispute_retrieve_params import DisputeRetrieveParams
 
 
 class Dispute(
@@ -898,7 +895,7 @@ class Dispute(
 
     @classmethod
     def _cls_close(
-        cls, dispute: str, **params: Unpack["Dispute.CloseParams"]
+        cls, dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -919,7 +916,7 @@ class Dispute(
     @overload
     @staticmethod
     def close(
-        dispute: str, **params: Unpack["Dispute.CloseParams"]
+        dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -929,7 +926,7 @@ class Dispute(
         ...
 
     @overload
-    def close(self, **params: Unpack["Dispute.CloseParams"]) -> "Dispute":
+    def close(self, **params: Unpack["DisputeCloseParams"]) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
 
@@ -939,7 +936,7 @@ class Dispute(
 
     @class_method_variant("_cls_close")
     def close(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Dispute.CloseParams"]
+        self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -959,7 +956,7 @@ class Dispute(
 
     @classmethod
     async def _cls_close_async(
-        cls, dispute: str, **params: Unpack["Dispute.CloseParams"]
+        cls, dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -980,7 +977,7 @@ class Dispute(
     @overload
     @staticmethod
     async def close_async(
-        dispute: str, **params: Unpack["Dispute.CloseParams"]
+        dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -991,7 +988,7 @@ class Dispute(
 
     @overload
     async def close_async(
-        self, **params: Unpack["Dispute.CloseParams"]
+        self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -1002,7 +999,7 @@ class Dispute(
 
     @class_method_variant("_cls_close_async")
     async def close_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Dispute.CloseParams"]
+        self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -1022,7 +1019,7 @@ class Dispute(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Dispute.ListParams"]
+        cls, **params: Unpack["DisputeListParams"]
     ) -> ListObject["Dispute"]:
         """
         Returns a list of your disputes.
@@ -1042,7 +1039,7 @@ class Dispute(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Dispute.ListParams"]
+        cls, **params: Unpack["DisputeListParams"]
     ) -> ListObject["Dispute"]:
         """
         Returns a list of your disputes.
@@ -1062,7 +1059,7 @@ class Dispute(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["Dispute.ModifyParams"]
+        cls, id: str, **params: Unpack["DisputeModifyParams"]
     ) -> "Dispute":
         """
         When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
@@ -1081,7 +1078,7 @@ class Dispute(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Dispute.ModifyParams"]
+        cls, id: str, **params: Unpack["DisputeModifyParams"]
     ) -> "Dispute":
         """
         When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
@@ -1100,7 +1097,7 @@ class Dispute(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
+        cls, id: str, **params: Unpack["DisputeRetrieveParams"]
     ) -> "Dispute":
         """
         Retrieves the dispute with the given ID.
@@ -1111,7 +1108,7 @@ class Dispute(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
+        cls, id: str, **params: Unpack["DisputeRetrieveParams"]
     ) -> "Dispute":
         """
         Retrieves the dispute with the given ID.

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
@@ -49,17 +48,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether external account collection is enabled. This feature can only be `false` for accounts where you're responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
                 """
-
-            enabled: bool
-            """
-            Whether the embedded component is enabled.
-            """
-            features: Features
-            _inner_class_types = {"features": Features}
-
-        class BalanceReport(StripeObject):
-            class Features(StripeObject):
-                pass
 
             enabled: bool
             """
@@ -389,17 +377,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
-        class PayoutReconciliationReport(StripeObject):
-            class Features(StripeObject):
-                pass
-
-            enabled: bool
-            """
-            Whether the embedded component is enabled.
-            """
-            features: Features
-            _inner_class_types = {"features": Features}
-
         class Payouts(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -465,7 +442,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
         account_management: AccountManagement
         account_onboarding: AccountOnboarding
-        balance_report: BalanceReport
         balances: Balances
         capital_financing: Optional[CapitalFinancing]
         capital_financing_application: Optional[CapitalFinancingApplication]
@@ -482,7 +458,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payment_disputes: PaymentDisputes
         payments: Payments
         payout_details: PayoutDetails
-        payout_reconciliation_report: PayoutReconciliationReport
         payouts: Payouts
         payouts_list: PayoutsList
         tax_registrations: TaxRegistrations
@@ -490,7 +465,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         _inner_class_types = {
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
-            "balance_report": BalanceReport,
             "balances": Balances,
             "capital_financing": CapitalFinancing,
             "capital_financing_application": CapitalFinancingApplication,
@@ -507,7 +481,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payment_disputes": PaymentDisputes,
             "payments": Payments,
             "payout_details": PayoutDetails,
-            "payout_reconciliation_report": PayoutReconciliationReport,
             "payouts": Payouts,
             "payouts_list": PayoutsList,
             "tax_registrations": TaxRegistrations,
@@ -1431,7 +1404,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
     @classmethod
     def create(
-        cls, **params: Unpack["AccountSession.CreateParams"]
+        cls, **params: Unpack["AccountSessionCreateParams"]
     ) -> "AccountSession":
         """
         Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
@@ -1447,7 +1420,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["AccountSession.CreateParams"]
+        cls, **params: Unpack["AccountSessionCreateParams"]
     ) -> "AccountSession":
         """
         Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.

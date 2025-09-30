@@ -8,8 +8,25 @@ from stripe.treasury._financial_account import FinancialAccount
 from stripe.treasury._financial_account_features_service import (
     FinancialAccountFeaturesService,
 )
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.treasury._financial_account_close_params import (
+        FinancialAccountCloseParams,
+    )
+    from stripe.params.treasury._financial_account_create_params import (
+        FinancialAccountCreateParams,
+    )
+    from stripe.params.treasury._financial_account_list_params import (
+        FinancialAccountListParams,
+    )
+    from stripe.params.treasury._financial_account_retrieve_params import (
+        FinancialAccountRetrieveParams,
+    )
+    from stripe.params.treasury._financial_account_update_params import (
+        FinancialAccountUpdateParams,
+    )
 
 
 class FinancialAccountService(StripeService):
@@ -487,7 +504,7 @@ class FinancialAccountService(StripeService):
 
     def list(
         self,
-        params: Optional["FinancialAccountService.ListParams"] = None,
+        params: Optional["FinancialAccountListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAccount]:
         """
@@ -506,7 +523,7 @@ class FinancialAccountService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["FinancialAccountService.ListParams"] = None,
+        params: Optional["FinancialAccountListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[FinancialAccount]:
         """
@@ -525,7 +542,7 @@ class FinancialAccountService(StripeService):
 
     def create(
         self,
-        params: "FinancialAccountService.CreateParams",
+        params: "FinancialAccountCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
@@ -544,7 +561,7 @@ class FinancialAccountService(StripeService):
 
     async def create_async(
         self,
-        params: "FinancialAccountService.CreateParams",
+        params: "FinancialAccountCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
@@ -564,7 +581,7 @@ class FinancialAccountService(StripeService):
     def retrieve(
         self,
         financial_account: str,
-        params: Optional["FinancialAccountService.RetrieveParams"] = None,
+        params: Optional["FinancialAccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
@@ -586,7 +603,7 @@ class FinancialAccountService(StripeService):
     async def retrieve_async(
         self,
         financial_account: str,
-        params: Optional["FinancialAccountService.RetrieveParams"] = None,
+        params: Optional["FinancialAccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
@@ -608,7 +625,7 @@ class FinancialAccountService(StripeService):
     def update(
         self,
         financial_account: str,
-        params: Optional["FinancialAccountService.UpdateParams"] = None,
+        params: Optional["FinancialAccountUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
@@ -630,7 +647,7 @@ class FinancialAccountService(StripeService):
     async def update_async(
         self,
         financial_account: str,
-        params: Optional["FinancialAccountService.UpdateParams"] = None,
+        params: Optional["FinancialAccountUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
@@ -652,7 +669,7 @@ class FinancialAccountService(StripeService):
     def close(
         self,
         financial_account: str,
-        params: Optional["FinancialAccountService.CloseParams"] = None,
+        params: Optional["FinancialAccountCloseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """
@@ -674,7 +691,7 @@ class FinancialAccountService(StripeService):
     async def close_async(
         self,
         financial_account: str,
-        params: Optional["FinancialAccountService.CloseParams"] = None,
+        params: Optional["FinancialAccountCloseParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancialAccount:
         """

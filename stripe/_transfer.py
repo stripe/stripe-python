@@ -5,23 +5,32 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
-from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Dict, Optional, cast
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
     from stripe._balance_transaction import BalanceTransaction
     from stripe._charge import Charge
     from stripe._reversal import Reversal
+    from stripe.params._transfer_create_params import TransferCreateParams
+    from stripe.params._transfer_create_reversal_params import (
+        TransferCreateReversalParams,
+    )
+    from stripe.params._transfer_list_params import TransferListParams
+    from stripe.params._transfer_list_reversals_params import (
+        TransferListReversalsParams,
+    )
+    from stripe.params._transfer_modify_params import TransferModifyParams
+    from stripe.params._transfer_modify_reversal_params import (
+        TransferModifyReversalParams,
+    )
+    from stripe.params._transfer_retrieve_params import TransferRetrieveParams
+    from stripe.params._transfer_retrieve_reversal_params import (
+        TransferRetrieveReversalParams,
+    )
 
 
 @nested_resource_class_methods("reversal")
@@ -285,7 +294,7 @@ class Transfer(
     """
 
     @classmethod
-    def create(cls, **params: Unpack["Transfer.CreateParams"]) -> "Transfer":
+    def create(cls, **params: Unpack["TransferCreateParams"]) -> "Transfer":
         """
         To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
         """
@@ -300,7 +309,7 @@ class Transfer(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Transfer.CreateParams"]
+        cls, **params: Unpack["TransferCreateParams"]
     ) -> "Transfer":
         """
         To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://docs.stripe.com/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
@@ -316,7 +325,7 @@ class Transfer(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Transfer.ListParams"]
+        cls, **params: Unpack["TransferListParams"]
     ) -> ListObject["Transfer"]:
         """
         Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
@@ -336,7 +345,7 @@ class Transfer(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Transfer.ListParams"]
+        cls, **params: Unpack["TransferListParams"]
     ) -> ListObject["Transfer"]:
         """
         Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
@@ -356,7 +365,7 @@ class Transfer(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["Transfer.ModifyParams"]
+        cls, id: str, **params: Unpack["TransferModifyParams"]
     ) -> "Transfer":
         """
         Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -375,7 +384,7 @@ class Transfer(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Transfer.ModifyParams"]
+        cls, id: str, **params: Unpack["TransferModifyParams"]
     ) -> "Transfer":
         """
         Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -394,7 +403,7 @@ class Transfer(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Transfer.RetrieveParams"]
+        cls, id: str, **params: Unpack["TransferRetrieveParams"]
     ) -> "Transfer":
         """
         Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.
@@ -405,7 +414,7 @@ class Transfer(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Transfer.RetrieveParams"]
+        cls, id: str, **params: Unpack["TransferRetrieveParams"]
     ) -> "Transfer":
         """
         Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.
@@ -416,7 +425,7 @@ class Transfer(
 
     @classmethod
     def list_reversals(
-        cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
+        cls, id: str, **params: Unpack["TransferListReversalsParams"]
     ) -> ListObject["Reversal"]:
         """
         You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
@@ -432,7 +441,7 @@ class Transfer(
 
     @classmethod
     async def list_reversals_async(
-        cls, id: str, **params: Unpack["Transfer.ListReversalsParams"]
+        cls, id: str, **params: Unpack["TransferListReversalsParams"]
     ) -> ListObject["Reversal"]:
         """
         You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.
@@ -448,7 +457,7 @@ class Transfer(
 
     @classmethod
     def create_reversal(
-        cls, id: str, **params: Unpack["Transfer.CreateReversalParams"]
+        cls, id: str, **params: Unpack["TransferCreateReversalParams"]
     ) -> "Reversal":
         """
         When you create a new reversal, you must specify a transfer to create it on.
@@ -468,7 +477,7 @@ class Transfer(
 
     @classmethod
     async def create_reversal_async(
-        cls, id: str, **params: Unpack["Transfer.CreateReversalParams"]
+        cls, id: str, **params: Unpack["TransferCreateReversalParams"]
     ) -> "Reversal":
         """
         When you create a new reversal, you must specify a transfer to create it on.
@@ -491,7 +500,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
-        **params: Unpack["Transfer.RetrieveReversalParams"],
+        **params: Unpack["TransferRetrieveReversalParams"],
     ) -> "Reversal":
         """
         By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
@@ -512,7 +521,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
-        **params: Unpack["Transfer.RetrieveReversalParams"],
+        **params: Unpack["TransferRetrieveReversalParams"],
     ) -> "Reversal":
         """
         By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
@@ -533,7 +542,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
-        **params: Unpack["Transfer.ModifyReversalParams"],
+        **params: Unpack["TransferModifyReversalParams"],
     ) -> "Reversal":
         """
         Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -556,7 +565,7 @@ class Transfer(
         cls,
         transfer: str,
         id: str,
-        **params: Unpack["Transfer.ModifyReversalParams"],
+        **params: Unpack["TransferModifyReversalParams"],
     ) -> "Reversal":
         """
         Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.

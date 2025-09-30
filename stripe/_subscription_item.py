@@ -5,24 +5,32 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._plan import Plan
     from stripe._price import Price
     from stripe._tax_rate import TaxRate
+    from stripe.params._subscription_item_create_params import (
+        SubscriptionItemCreateParams,
+    )
+    from stripe.params._subscription_item_delete_params import (
+        SubscriptionItemDeleteParams,
+    )
+    from stripe.params._subscription_item_list_params import (
+        SubscriptionItemListParams,
+    )
+    from stripe.params._subscription_item_modify_params import (
+        SubscriptionItemModifyParams,
+    )
+    from stripe.params._subscription_item_retrieve_params import (
+        SubscriptionItemRetrieveParams,
+    )
 
 
 class SubscriptionItem(
@@ -517,7 +525,7 @@ class SubscriptionItem(
 
     @classmethod
     def create(
-        cls, **params: Unpack["SubscriptionItem.CreateParams"]
+        cls, **params: Unpack["SubscriptionItemCreateParams"]
     ) -> "SubscriptionItem":
         """
         Adds a new item to an existing subscription. No existing items will be changed or replaced.
@@ -533,7 +541,7 @@ class SubscriptionItem(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["SubscriptionItem.CreateParams"]
+        cls, **params: Unpack["SubscriptionItemCreateParams"]
     ) -> "SubscriptionItem":
         """
         Adds a new item to an existing subscription. No existing items will be changed or replaced.
@@ -549,7 +557,7 @@ class SubscriptionItem(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]
+        cls, sid: str, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -567,7 +575,7 @@ class SubscriptionItem(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]
+        sid: str, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -576,7 +584,7 @@ class SubscriptionItem(
 
     @overload
     def delete(
-        self, **params: Unpack["SubscriptionItem.DeleteParams"]
+        self, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -585,7 +593,7 @@ class SubscriptionItem(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SubscriptionItem.DeleteParams"]
+        self, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -598,7 +606,7 @@ class SubscriptionItem(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]
+        cls, sid: str, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -616,7 +624,7 @@ class SubscriptionItem(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]
+        sid: str, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -625,7 +633,7 @@ class SubscriptionItem(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["SubscriptionItem.DeleteParams"]
+        self, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -634,7 +642,7 @@ class SubscriptionItem(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SubscriptionItem.DeleteParams"]
+        self, **params: Unpack["SubscriptionItemDeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
@@ -647,7 +655,7 @@ class SubscriptionItem(
 
     @classmethod
     def list(
-        cls, **params: Unpack["SubscriptionItem.ListParams"]
+        cls, **params: Unpack["SubscriptionItemListParams"]
     ) -> ListObject["SubscriptionItem"]:
         """
         Returns a list of your subscription items for a given subscription.
@@ -667,7 +675,7 @@ class SubscriptionItem(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["SubscriptionItem.ListParams"]
+        cls, **params: Unpack["SubscriptionItemListParams"]
     ) -> ListObject["SubscriptionItem"]:
         """
         Returns a list of your subscription items for a given subscription.
@@ -687,7 +695,7 @@ class SubscriptionItem(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["SubscriptionItem.ModifyParams"]
+        cls, id: str, **params: Unpack["SubscriptionItemModifyParams"]
     ) -> "SubscriptionItem":
         """
         Updates the plan or quantity of an item on a current subscription.
@@ -704,7 +712,7 @@ class SubscriptionItem(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["SubscriptionItem.ModifyParams"]
+        cls, id: str, **params: Unpack["SubscriptionItemModifyParams"]
     ) -> "SubscriptionItem":
         """
         Updates the plan or quantity of an item on a current subscription.
@@ -721,7 +729,7 @@ class SubscriptionItem(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["SubscriptionItem.RetrieveParams"]
+        cls, id: str, **params: Unpack["SubscriptionItemRetrieveParams"]
     ) -> "SubscriptionItem":
         """
         Retrieves the subscription item with the given ID.
@@ -732,7 +740,7 @@ class SubscriptionItem(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["SubscriptionItem.RetrieveParams"]
+        cls, id: str, **params: Unpack["SubscriptionItemRetrieveParams"]
     ) -> "SubscriptionItem":
         """
         Retrieves the subscription item with the given ID.

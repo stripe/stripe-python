@@ -4,22 +4,38 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    Type,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Dict, Optional, cast, overload
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._mandate import Mandate
+    from stripe.params.treasury._outbound_transfer_cancel_params import (
+        OutboundTransferCancelParams,
+    )
+    from stripe.params.treasury._outbound_transfer_create_params import (
+        OutboundTransferCreateParams,
+    )
+    from stripe.params.treasury._outbound_transfer_fail_params import (
+        OutboundTransferFailParams,
+    )
+    from stripe.params.treasury._outbound_transfer_list_params import (
+        OutboundTransferListParams,
+    )
+    from stripe.params.treasury._outbound_transfer_post_params import (
+        OutboundTransferPostParams,
+    )
+    from stripe.params.treasury._outbound_transfer_retrieve_params import (
+        OutboundTransferRetrieveParams,
+    )
+    from stripe.params.treasury._outbound_transfer_return_outbound_transfer_params import (
+        OutboundTransferReturnOutboundTransferParams,
+    )
+    from stripe.params.treasury._outbound_transfer_update_params import (
+        OutboundTransferUpdateParams,
+    )
     from stripe.treasury._transaction import Transaction
 
 
@@ -524,7 +540,7 @@ class OutboundTransfer(
     def _cls_cancel(
         cls,
         outbound_transfer: str,
-        **params: Unpack["OutboundTransfer.CancelParams"],
+        **params: Unpack["OutboundTransferCancelParams"],
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -544,7 +560,7 @@ class OutboundTransfer(
     @staticmethod
     def cancel(
         outbound_transfer: str,
-        **params: Unpack["OutboundTransfer.CancelParams"],
+        **params: Unpack["OutboundTransferCancelParams"],
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -553,7 +569,7 @@ class OutboundTransfer(
 
     @overload
     def cancel(
-        self, **params: Unpack["OutboundTransfer.CancelParams"]
+        self, **params: Unpack["OutboundTransferCancelParams"]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -562,7 +578,7 @@ class OutboundTransfer(
 
     @class_method_variant("_cls_cancel")
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["OutboundTransfer.CancelParams"]
+        self, **params: Unpack["OutboundTransferCancelParams"]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -582,7 +598,7 @@ class OutboundTransfer(
     async def _cls_cancel_async(
         cls,
         outbound_transfer: str,
-        **params: Unpack["OutboundTransfer.CancelParams"],
+        **params: Unpack["OutboundTransferCancelParams"],
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -602,7 +618,7 @@ class OutboundTransfer(
     @staticmethod
     async def cancel_async(
         outbound_transfer: str,
-        **params: Unpack["OutboundTransfer.CancelParams"],
+        **params: Unpack["OutboundTransferCancelParams"],
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -611,7 +627,7 @@ class OutboundTransfer(
 
     @overload
     async def cancel_async(
-        self, **params: Unpack["OutboundTransfer.CancelParams"]
+        self, **params: Unpack["OutboundTransferCancelParams"]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -620,7 +636,7 @@ class OutboundTransfer(
 
     @class_method_variant("_cls_cancel_async")
     async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["OutboundTransfer.CancelParams"]
+        self, **params: Unpack["OutboundTransferCancelParams"]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -638,7 +654,7 @@ class OutboundTransfer(
 
     @classmethod
     def create(
-        cls, **params: Unpack["OutboundTransfer.CreateParams"]
+        cls, **params: Unpack["OutboundTransferCreateParams"]
     ) -> "OutboundTransfer":
         """
         Creates an OutboundTransfer.
@@ -654,7 +670,7 @@ class OutboundTransfer(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["OutboundTransfer.CreateParams"]
+        cls, **params: Unpack["OutboundTransferCreateParams"]
     ) -> "OutboundTransfer":
         """
         Creates an OutboundTransfer.
@@ -670,7 +686,7 @@ class OutboundTransfer(
 
     @classmethod
     def list(
-        cls, **params: Unpack["OutboundTransfer.ListParams"]
+        cls, **params: Unpack["OutboundTransferListParams"]
     ) -> ListObject["OutboundTransfer"]:
         """
         Returns a list of OutboundTransfers sent from the specified FinancialAccount.
@@ -690,7 +706,7 @@ class OutboundTransfer(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["OutboundTransfer.ListParams"]
+        cls, **params: Unpack["OutboundTransferListParams"]
     ) -> ListObject["OutboundTransfer"]:
         """
         Returns a list of OutboundTransfers sent from the specified FinancialAccount.
@@ -710,7 +726,7 @@ class OutboundTransfer(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["OutboundTransfer.RetrieveParams"]
+        cls, id: str, **params: Unpack["OutboundTransferRetrieveParams"]
     ) -> "OutboundTransfer":
         """
         Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.
@@ -721,7 +737,7 @@ class OutboundTransfer(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["OutboundTransfer.RetrieveParams"]
+        cls, id: str, **params: Unpack["OutboundTransferRetrieveParams"]
     ) -> "OutboundTransfer":
         """
         Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.
@@ -737,7 +753,7 @@ class OutboundTransfer(
         def _cls_fail(
             cls,
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.FailParams"],
+            **params: Unpack["OutboundTransferFailParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -757,7 +773,7 @@ class OutboundTransfer(
         @staticmethod
         def fail(
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.FailParams"],
+            **params: Unpack["OutboundTransferFailParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -766,7 +782,7 @@ class OutboundTransfer(
 
         @overload
         def fail(
-            self, **params: Unpack["OutboundTransfer.FailParams"]
+            self, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -775,7 +791,7 @@ class OutboundTransfer(
 
         @class_method_variant("_cls_fail")
         def fail(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["OutboundTransfer.FailParams"]
+            self, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -795,7 +811,7 @@ class OutboundTransfer(
         async def _cls_fail_async(
             cls,
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.FailParams"],
+            **params: Unpack["OutboundTransferFailParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -815,7 +831,7 @@ class OutboundTransfer(
         @staticmethod
         async def fail_async(
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.FailParams"],
+            **params: Unpack["OutboundTransferFailParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -824,7 +840,7 @@ class OutboundTransfer(
 
         @overload
         async def fail_async(
-            self, **params: Unpack["OutboundTransfer.FailParams"]
+            self, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -833,7 +849,7 @@ class OutboundTransfer(
 
         @class_method_variant("_cls_fail_async")
         async def fail_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["OutboundTransfer.FailParams"]
+            self, **params: Unpack["OutboundTransferFailParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -853,7 +869,7 @@ class OutboundTransfer(
         def _cls_post(
             cls,
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.PostParams"],
+            **params: Unpack["OutboundTransferPostParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -873,7 +889,7 @@ class OutboundTransfer(
         @staticmethod
         def post(
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.PostParams"],
+            **params: Unpack["OutboundTransferPostParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -882,7 +898,7 @@ class OutboundTransfer(
 
         @overload
         def post(
-            self, **params: Unpack["OutboundTransfer.PostParams"]
+            self, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -891,7 +907,7 @@ class OutboundTransfer(
 
         @class_method_variant("_cls_post")
         def post(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["OutboundTransfer.PostParams"]
+            self, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -911,7 +927,7 @@ class OutboundTransfer(
         async def _cls_post_async(
             cls,
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.PostParams"],
+            **params: Unpack["OutboundTransferPostParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -931,7 +947,7 @@ class OutboundTransfer(
         @staticmethod
         async def post_async(
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.PostParams"],
+            **params: Unpack["OutboundTransferPostParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -940,7 +956,7 @@ class OutboundTransfer(
 
         @overload
         async def post_async(
-            self, **params: Unpack["OutboundTransfer.PostParams"]
+            self, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -949,7 +965,7 @@ class OutboundTransfer(
 
         @class_method_variant("_cls_post_async")
         async def post_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["OutboundTransfer.PostParams"]
+            self, **params: Unpack["OutboundTransferPostParams"]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -969,7 +985,7 @@ class OutboundTransfer(
         def _cls_return_outbound_transfer(
             cls,
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"],
+            **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -989,7 +1005,7 @@ class OutboundTransfer(
         @staticmethod
         def return_outbound_transfer(
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"],
+            **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -999,7 +1015,7 @@ class OutboundTransfer(
         @overload
         def return_outbound_transfer(
             self,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"],
+            **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -1009,7 +1025,7 @@ class OutboundTransfer(
         @class_method_variant("_cls_return_outbound_transfer")
         def return_outbound_transfer(  # pyright: ignore[reportGeneralTypeIssues]
             self,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"],
+            **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -1029,7 +1045,7 @@ class OutboundTransfer(
         async def _cls_return_outbound_transfer_async(
             cls,
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"],
+            **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -1049,7 +1065,7 @@ class OutboundTransfer(
         @staticmethod
         async def return_outbound_transfer_async(
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"],
+            **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -1059,7 +1075,7 @@ class OutboundTransfer(
         @overload
         async def return_outbound_transfer_async(
             self,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"],
+            **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -1069,7 +1085,7 @@ class OutboundTransfer(
         @class_method_variant("_cls_return_outbound_transfer_async")
         async def return_outbound_transfer_async(  # pyright: ignore[reportGeneralTypeIssues]
             self,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"],
+            **params: Unpack["OutboundTransferReturnOutboundTransferParams"],
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -1089,7 +1105,7 @@ class OutboundTransfer(
         def _cls_update(
             cls,
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.UpdateParams"],
+            **params: Unpack["OutboundTransferUpdateParams"],
         ) -> "OutboundTransfer":
             """
             Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
@@ -1109,7 +1125,7 @@ class OutboundTransfer(
         @staticmethod
         def update(
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.UpdateParams"],
+            **params: Unpack["OutboundTransferUpdateParams"],
         ) -> "OutboundTransfer":
             """
             Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
@@ -1118,7 +1134,7 @@ class OutboundTransfer(
 
         @overload
         def update(
-            self, **params: Unpack["OutboundTransfer.UpdateParams"]
+            self, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
             Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
@@ -1127,7 +1143,7 @@ class OutboundTransfer(
 
         @class_method_variant("_cls_update")
         def update(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["OutboundTransfer.UpdateParams"]
+            self, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
             Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
@@ -1147,7 +1163,7 @@ class OutboundTransfer(
         async def _cls_update_async(
             cls,
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.UpdateParams"],
+            **params: Unpack["OutboundTransferUpdateParams"],
         ) -> "OutboundTransfer":
             """
             Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
@@ -1167,7 +1183,7 @@ class OutboundTransfer(
         @staticmethod
         async def update_async(
             outbound_transfer: str,
-            **params: Unpack["OutboundTransfer.UpdateParams"],
+            **params: Unpack["OutboundTransferUpdateParams"],
         ) -> "OutboundTransfer":
             """
             Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
@@ -1176,7 +1192,7 @@ class OutboundTransfer(
 
         @overload
         async def update_async(
-            self, **params: Unpack["OutboundTransfer.UpdateParams"]
+            self, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
             Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.
@@ -1185,7 +1201,7 @@ class OutboundTransfer(
 
         @class_method_variant("_cls_update_async")
         async def update_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["OutboundTransfer.UpdateParams"]
+            self, **params: Unpack["OutboundTransferUpdateParams"]
         ) -> "OutboundTransfer":
             """
             Updates a test mode created OutboundTransfer with tracking details. The OutboundTransfer must not be cancelable, and cannot be in the canceled or failed states.

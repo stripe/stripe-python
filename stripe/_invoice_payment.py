@@ -3,16 +3,9 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
@@ -158,7 +151,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["InvoicePayment.ListParams"]
+        cls, **params: Unpack["InvoicePaymentListParams"]
     ) -> ListObject["InvoicePayment"]:
         """
         When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
@@ -178,7 +171,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["InvoicePayment.ListParams"]
+        cls, **params: Unpack["InvoicePaymentListParams"]
     ) -> ListObject["InvoicePayment"]:
         """
         When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
@@ -198,7 +191,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["InvoicePayment.RetrieveParams"]
+        cls, id: str, **params: Unpack["InvoicePaymentRetrieveParams"]
     ) -> "InvoicePayment":
         """
         Retrieves the invoice payment with the given ID.
@@ -209,7 +202,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["InvoicePayment.RetrieveParams"]
+        cls, id: str, **params: Unpack["InvoicePaymentRetrieveParams"]
     ) -> "InvoicePayment":
         """
         Retrieves the invoice payment with the given ID.

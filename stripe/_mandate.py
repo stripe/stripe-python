@@ -6,10 +6,11 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._payment_method import PaymentMethod
+    from stripe.params._mandate_retrieve_params import MandateRetrieveParams
 
 
 class Mandate(ListableAPIResource["Mandate"]):
@@ -417,7 +418,7 @@ class Mandate(ListableAPIResource["Mandate"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Mandate.RetrieveParams"]
+        cls, id: str, **params: Unpack["MandateRetrieveParams"]
     ) -> "Mandate":
         """
         Retrieves a Mandate object.
@@ -428,7 +429,7 @@ class Mandate(ListableAPIResource["Mandate"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Mandate.RetrieveParams"]
+        cls, id: str, **params: Unpack["MandateRetrieveParams"]
     ) -> "Mandate":
         """
         Retrieves a Mandate object.

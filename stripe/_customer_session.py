@@ -2,19 +2,15 @@
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._customer import Customer
+    from stripe.params._customer_session_create_params import (
+        CustomerSessionCreateParams,
+    )
 
 
 class CustomerSession(CreateableAPIResource["CustomerSession"]):
@@ -246,7 +242,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
 
     @classmethod
     def create(
-        cls, **params: Unpack["CustomerSession.CreateParams"]
+        cls, **params: Unpack["CustomerSessionCreateParams"]
     ) -> "CustomerSession":
         """
         Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
@@ -262,7 +258,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["CustomerSession.CreateParams"]
+        cls, **params: Unpack["CustomerSessionCreateParams"]
     ) -> "CustomerSession":
         """
         Creates a Customer Session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.

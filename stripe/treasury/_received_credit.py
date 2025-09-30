@@ -3,21 +3,22 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
-from typing import ClassVar, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    Type,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional, cast
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._payout import Payout
+    from stripe.params.treasury._received_credit_create_params import (
+        ReceivedCreditCreateParams,
+    )
+    from stripe.params.treasury._received_credit_list_params import (
+        ReceivedCreditListParams,
+    )
+    from stripe.params.treasury._received_credit_retrieve_params import (
+        ReceivedCreditRetrieveParams,
+    )
     from stripe.treasury._credit_reversal import CreditReversal
     from stripe.treasury._outbound_payment import OutboundPayment
     from stripe.treasury._outbound_transfer import OutboundTransfer
@@ -428,7 +429,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["ReceivedCredit.ListParams"]
+        cls, **params: Unpack["ReceivedCreditListParams"]
     ) -> ListObject["ReceivedCredit"]:
         """
         Returns a list of ReceivedCredits.
@@ -448,7 +449,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["ReceivedCredit.ListParams"]
+        cls, **params: Unpack["ReceivedCreditListParams"]
     ) -> ListObject["ReceivedCredit"]:
         """
         Returns a list of ReceivedCredits.
@@ -468,7 +469,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["ReceivedCredit.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReceivedCreditRetrieveParams"]
     ) -> "ReceivedCredit":
         """
         Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
@@ -479,7 +480,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ReceivedCredit.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReceivedCreditRetrieveParams"]
     ) -> "ReceivedCredit":
         """
         Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
@@ -493,7 +494,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
         @classmethod
         def create(
-            cls, **params: Unpack["ReceivedCredit.CreateParams"]
+            cls, **params: Unpack["ReceivedCreditCreateParams"]
         ) -> "ReceivedCredit":
             """
             Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
@@ -509,7 +510,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
         @classmethod
         async def create_async(
-            cls, **params: Unpack["ReceivedCredit.CreateParams"]
+            cls, **params: Unpack["ReceivedCreditCreateParams"]
         ) -> "ReceivedCredit":
             """
             Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.

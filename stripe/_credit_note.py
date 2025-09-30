@@ -5,18 +5,11 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._credit_note_line_item import CreditNoteLineItem
@@ -29,6 +22,24 @@ if TYPE_CHECKING:
     from stripe._tax_rate import TaxRate
     from stripe.billing._credit_balance_transaction import (
         CreditBalanceTransaction,
+    )
+    from stripe.params._credit_note_create_params import CreditNoteCreateParams
+    from stripe.params._credit_note_list_lines_params import (
+        CreditNoteListLinesParams,
+    )
+    from stripe.params._credit_note_list_params import CreditNoteListParams
+    from stripe.params._credit_note_modify_params import CreditNoteModifyParams
+    from stripe.params._credit_note_preview_lines_params import (
+        CreditNotePreviewLinesParams,
+    )
+    from stripe.params._credit_note_preview_params import (
+        CreditNotePreviewParams,
+    )
+    from stripe.params._credit_note_retrieve_params import (
+        CreditNoteRetrieveParams,
+    )
+    from stripe.params._credit_note_void_credit_note_params import (
+        CreditNoteVoidCreditNoteParams,
     )
 
 
@@ -931,7 +942,7 @@ class CreditNote(
 
     @classmethod
     def create(
-        cls, **params: Unpack["CreditNote.CreateParams"]
+        cls, **params: Unpack["CreditNoteCreateParams"]
     ) -> "CreditNote":
         """
         Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
@@ -959,7 +970,7 @@ class CreditNote(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["CreditNote.CreateParams"]
+        cls, **params: Unpack["CreditNoteCreateParams"]
     ) -> "CreditNote":
         """
         Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
@@ -987,7 +998,7 @@ class CreditNote(
 
     @classmethod
     def list(
-        cls, **params: Unpack["CreditNote.ListParams"]
+        cls, **params: Unpack["CreditNoteListParams"]
     ) -> ListObject["CreditNote"]:
         """
         Returns a list of credit notes.
@@ -1007,7 +1018,7 @@ class CreditNote(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["CreditNote.ListParams"]
+        cls, **params: Unpack["CreditNoteListParams"]
     ) -> ListObject["CreditNote"]:
         """
         Returns a list of credit notes.
@@ -1027,7 +1038,7 @@ class CreditNote(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["CreditNote.ModifyParams"]
+        cls, id: str, **params: Unpack["CreditNoteModifyParams"]
     ) -> "CreditNote":
         """
         Updates an existing credit note.
@@ -1044,7 +1055,7 @@ class CreditNote(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["CreditNote.ModifyParams"]
+        cls, id: str, **params: Unpack["CreditNoteModifyParams"]
     ) -> "CreditNote":
         """
         Updates an existing credit note.
@@ -1061,7 +1072,7 @@ class CreditNote(
 
     @classmethod
     def preview(
-        cls, **params: Unpack["CreditNote.PreviewParams"]
+        cls, **params: Unpack["CreditNotePreviewParams"]
     ) -> "CreditNote":
         """
         Get a preview of a credit note without creating it.
@@ -1077,7 +1088,7 @@ class CreditNote(
 
     @classmethod
     async def preview_async(
-        cls, **params: Unpack["CreditNote.PreviewParams"]
+        cls, **params: Unpack["CreditNotePreviewParams"]
     ) -> "CreditNote":
         """
         Get a preview of a credit note without creating it.
@@ -1093,7 +1104,7 @@ class CreditNote(
 
     @classmethod
     def preview_lines(
-        cls, **params: Unpack["CreditNote.PreviewLinesParams"]
+        cls, **params: Unpack["CreditNotePreviewLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
         """
         When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.
@@ -1109,7 +1120,7 @@ class CreditNote(
 
     @classmethod
     async def preview_lines_async(
-        cls, **params: Unpack["CreditNote.PreviewLinesParams"]
+        cls, **params: Unpack["CreditNotePreviewLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
         """
         When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.
@@ -1125,7 +1136,7 @@ class CreditNote(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["CreditNote.RetrieveParams"]
+        cls, id: str, **params: Unpack["CreditNoteRetrieveParams"]
     ) -> "CreditNote":
         """
         Retrieves the credit note object with the given identifier.
@@ -1136,7 +1147,7 @@ class CreditNote(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["CreditNote.RetrieveParams"]
+        cls, id: str, **params: Unpack["CreditNoteRetrieveParams"]
     ) -> "CreditNote":
         """
         Retrieves the credit note object with the given identifier.
@@ -1147,7 +1158,7 @@ class CreditNote(
 
     @classmethod
     def _cls_void_credit_note(
-        cls, id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        cls, id: str, **params: Unpack["CreditNoteVoidCreditNoteParams"]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -1164,7 +1175,7 @@ class CreditNote(
     @overload
     @staticmethod
     def void_credit_note(
-        id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        id: str, **params: Unpack["CreditNoteVoidCreditNoteParams"]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -1173,7 +1184,7 @@ class CreditNote(
 
     @overload
     def void_credit_note(
-        self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        self, **params: Unpack["CreditNoteVoidCreditNoteParams"]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -1182,7 +1193,7 @@ class CreditNote(
 
     @class_method_variant("_cls_void_credit_note")
     def void_credit_note(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        self, **params: Unpack["CreditNoteVoidCreditNoteParams"]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -1200,7 +1211,7 @@ class CreditNote(
 
     @classmethod
     async def _cls_void_credit_note_async(
-        cls, id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        cls, id: str, **params: Unpack["CreditNoteVoidCreditNoteParams"]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -1217,7 +1228,7 @@ class CreditNote(
     @overload
     @staticmethod
     async def void_credit_note_async(
-        id: str, **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        id: str, **params: Unpack["CreditNoteVoidCreditNoteParams"]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -1226,7 +1237,7 @@ class CreditNote(
 
     @overload
     async def void_credit_note_async(
-        self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        self, **params: Unpack["CreditNoteVoidCreditNoteParams"]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -1235,7 +1246,7 @@ class CreditNote(
 
     @class_method_variant("_cls_void_credit_note_async")
     async def void_credit_note_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        self, **params: Unpack["CreditNoteVoidCreditNoteParams"]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -1253,7 +1264,7 @@ class CreditNote(
 
     @classmethod
     def list_lines(
-        cls, credit_note: str, **params: Unpack["CreditNote.ListLinesParams"]
+        cls, credit_note: str, **params: Unpack["CreditNoteListLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
         """
         When retrieving a credit note, you'll get a lines property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -1271,7 +1282,7 @@ class CreditNote(
 
     @classmethod
     async def list_lines_async(
-        cls, credit_note: str, **params: Unpack["CreditNote.ListLinesParams"]
+        cls, credit_note: str, **params: Unpack["CreditNoteListLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
         """
         When retrieving a credit note, you'll get a lines property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

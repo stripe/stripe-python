@@ -905,7 +905,7 @@ class AccountSessionService(StripeService):
 
     def create(
         self,
-        params: "AccountSessionService.CreateParams",
+        params: "AccountSessionCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> AccountSession:
         """
@@ -924,7 +924,7 @@ class AccountSessionService(StripeService):
 
     async def create_async(
         self,
-        params: "AccountSessionService.CreateParams",
+        params: "AccountSessionCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> AccountSession:
         """

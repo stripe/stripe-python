@@ -5,8 +5,28 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing._credit_grant import CreditGrant
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.billing._credit_grant_create_params import (
+        CreditGrantCreateParams,
+    )
+    from stripe.params.billing._credit_grant_expire_params import (
+        CreditGrantExpireParams,
+    )
+    from stripe.params.billing._credit_grant_list_params import (
+        CreditGrantListParams,
+    )
+    from stripe.params.billing._credit_grant_retrieve_params import (
+        CreditGrantRetrieveParams,
+    )
+    from stripe.params.billing._credit_grant_update_params import (
+        CreditGrantUpdateParams,
+    )
+    from stripe.params.billing._credit_grant_void_grant_params import (
+        CreditGrantVoidGrantParams,
+    )
 
 
 class CreditGrantService(StripeService):
@@ -194,7 +214,7 @@ class CreditGrantService(StripeService):
 
     def list(
         self,
-        params: Optional["CreditGrantService.ListParams"] = None,
+        params: Optional["CreditGrantListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditGrant]:
         """
@@ -213,7 +233,7 @@ class CreditGrantService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["CreditGrantService.ListParams"] = None,
+        params: Optional["CreditGrantListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditGrant]:
         """
@@ -232,7 +252,7 @@ class CreditGrantService(StripeService):
 
     def create(
         self,
-        params: "CreditGrantService.CreateParams",
+        params: "CreditGrantCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> CreditGrant:
         """
@@ -251,7 +271,7 @@ class CreditGrantService(StripeService):
 
     async def create_async(
         self,
-        params: "CreditGrantService.CreateParams",
+        params: "CreditGrantCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> CreditGrant:
         """
@@ -271,7 +291,7 @@ class CreditGrantService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["CreditGrantService.RetrieveParams"] = None,
+        params: Optional["CreditGrantRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditGrant:
         """
@@ -291,7 +311,7 @@ class CreditGrantService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["CreditGrantService.RetrieveParams"] = None,
+        params: Optional["CreditGrantRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditGrant:
         """
@@ -311,7 +331,7 @@ class CreditGrantService(StripeService):
     def update(
         self,
         id: str,
-        params: Optional["CreditGrantService.UpdateParams"] = None,
+        params: Optional["CreditGrantUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditGrant:
         """
@@ -331,7 +351,7 @@ class CreditGrantService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: Optional["CreditGrantService.UpdateParams"] = None,
+        params: Optional["CreditGrantUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditGrant:
         """
@@ -351,7 +371,7 @@ class CreditGrantService(StripeService):
     def expire(
         self,
         id: str,
-        params: Optional["CreditGrantService.ExpireParams"] = None,
+        params: Optional["CreditGrantExpireParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditGrant:
         """
@@ -373,7 +393,7 @@ class CreditGrantService(StripeService):
     async def expire_async(
         self,
         id: str,
-        params: Optional["CreditGrantService.ExpireParams"] = None,
+        params: Optional["CreditGrantExpireParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditGrant:
         """
@@ -395,7 +415,7 @@ class CreditGrantService(StripeService):
     def void_grant(
         self,
         id: str,
-        params: Optional["CreditGrantService.VoidGrantParams"] = None,
+        params: Optional["CreditGrantVoidGrantParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditGrant:
         """
@@ -417,7 +437,7 @@ class CreditGrantService(StripeService):
     async def void_grant_async(
         self,
         id: str,
-        params: Optional["CreditGrantService.VoidGrantParams"] = None,
+        params: Optional["CreditGrantVoidGrantParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditGrant:
         """

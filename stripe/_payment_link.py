@@ -4,18 +4,11 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -23,6 +16,19 @@ if TYPE_CHECKING:
     from stripe._line_item import LineItem
     from stripe._shipping_rate import ShippingRate
     from stripe._tax_id import TaxId
+    from stripe.params._payment_link_create_params import (
+        PaymentLinkCreateParams,
+    )
+    from stripe.params._payment_link_list_line_items_params import (
+        PaymentLinkListLineItemsParams,
+    )
+    from stripe.params._payment_link_list_params import PaymentLinkListParams
+    from stripe.params._payment_link_modify_params import (
+        PaymentLinkModifyParams,
+    )
+    from stripe.params._payment_link_retrieve_params import (
+        PaymentLinkRetrieveParams,
+    )
 
 
 class PaymentLink(
@@ -2740,7 +2746,7 @@ class PaymentLink(
 
     @classmethod
     def create(
-        cls, **params: Unpack["PaymentLink.CreateParams"]
+        cls, **params: Unpack["PaymentLinkCreateParams"]
     ) -> "PaymentLink":
         """
         Creates a payment link.
@@ -2756,7 +2762,7 @@ class PaymentLink(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["PaymentLink.CreateParams"]
+        cls, **params: Unpack["PaymentLinkCreateParams"]
     ) -> "PaymentLink":
         """
         Creates a payment link.
@@ -2772,7 +2778,7 @@ class PaymentLink(
 
     @classmethod
     def list(
-        cls, **params: Unpack["PaymentLink.ListParams"]
+        cls, **params: Unpack["PaymentLinkListParams"]
     ) -> ListObject["PaymentLink"]:
         """
         Returns a list of your payment links.
@@ -2792,7 +2798,7 @@ class PaymentLink(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["PaymentLink.ListParams"]
+        cls, **params: Unpack["PaymentLinkListParams"]
     ) -> ListObject["PaymentLink"]:
         """
         Returns a list of your payment links.
@@ -2814,7 +2820,7 @@ class PaymentLink(
     def _cls_list_line_items(
         cls,
         payment_link: str,
-        **params: Unpack["PaymentLink.ListLineItemsParams"],
+        **params: Unpack["PaymentLinkListLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2833,7 +2839,7 @@ class PaymentLink(
     @overload
     @staticmethod
     def list_line_items(
-        payment_link: str, **params: Unpack["PaymentLink.ListLineItemsParams"]
+        payment_link: str, **params: Unpack["PaymentLinkListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2842,7 +2848,7 @@ class PaymentLink(
 
     @overload
     def list_line_items(
-        self, **params: Unpack["PaymentLink.ListLineItemsParams"]
+        self, **params: Unpack["PaymentLinkListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2851,7 +2857,7 @@ class PaymentLink(
 
     @class_method_variant("_cls_list_line_items")
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PaymentLink.ListLineItemsParams"]
+        self, **params: Unpack["PaymentLinkListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2871,7 +2877,7 @@ class PaymentLink(
     async def _cls_list_line_items_async(
         cls,
         payment_link: str,
-        **params: Unpack["PaymentLink.ListLineItemsParams"],
+        **params: Unpack["PaymentLinkListLineItemsParams"],
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2890,7 +2896,7 @@ class PaymentLink(
     @overload
     @staticmethod
     async def list_line_items_async(
-        payment_link: str, **params: Unpack["PaymentLink.ListLineItemsParams"]
+        payment_link: str, **params: Unpack["PaymentLinkListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2899,7 +2905,7 @@ class PaymentLink(
 
     @overload
     async def list_line_items_async(
-        self, **params: Unpack["PaymentLink.ListLineItemsParams"]
+        self, **params: Unpack["PaymentLinkListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2908,7 +2914,7 @@ class PaymentLink(
 
     @class_method_variant("_cls_list_line_items_async")
     async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PaymentLink.ListLineItemsParams"]
+        self, **params: Unpack["PaymentLinkListLineItemsParams"]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2926,7 +2932,7 @@ class PaymentLink(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentLink.ModifyParams"]
+        cls, id: str, **params: Unpack["PaymentLinkModifyParams"]
     ) -> "PaymentLink":
         """
         Updates a payment link.
@@ -2943,7 +2949,7 @@ class PaymentLink(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentLink.ModifyParams"]
+        cls, id: str, **params: Unpack["PaymentLinkModifyParams"]
     ) -> "PaymentLink":
         """
         Updates a payment link.
@@ -2960,7 +2966,7 @@ class PaymentLink(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["PaymentLink.RetrieveParams"]
+        cls, id: str, **params: Unpack["PaymentLinkRetrieveParams"]
     ) -> "PaymentLink":
         """
         Retrieve a payment link.
@@ -2971,7 +2977,7 @@ class PaymentLink(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["PaymentLink.RetrieveParams"]
+        cls, id: str, **params: Unpack["PaymentLinkRetrieveParams"]
     ) -> "PaymentLink":
         """
         Retrieve a payment link.

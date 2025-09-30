@@ -5,39 +5,26 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._account_capability_list_params import (
+        AccountCapabilityListParams,
+    )
+    from stripe.params._account_capability_retrieve_params import (
+        AccountCapabilityRetrieveParams,
+    )
+    from stripe.params._account_capability_update_params import (
+        AccountCapabilityUpdateParams,
+    )
 
 
 class AccountCapabilityService(StripeService):
-    class ListParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class UpdateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        requested: NotRequired[bool]
-        """
-        To request a new capability for an account, pass true. There can be a delay before the requested capability becomes active. If the capability has any activation requirements, the response includes them in the `requirements` arrays.
-
-        If a capability isn't permanent, you can remove it from the account by passing false. Some capabilities are permanent after they've been requested. Attempting to remove a permanent capability returns an error.
-        """
-
     def list(
         self,
         account: str,
-        params: Optional["AccountCapabilityService.ListParams"] = None,
+        params: Optional["AccountCapabilityListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Capability]:
         """
@@ -59,7 +46,7 @@ class AccountCapabilityService(StripeService):
     async def list_async(
         self,
         account: str,
-        params: Optional["AccountCapabilityService.ListParams"] = None,
+        params: Optional["AccountCapabilityListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Capability]:
         """
@@ -82,7 +69,7 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
-        params: Optional["AccountCapabilityService.RetrieveParams"] = None,
+        params: Optional["AccountCapabilityRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Capability:
         """
@@ -106,7 +93,7 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
-        params: Optional["AccountCapabilityService.RetrieveParams"] = None,
+        params: Optional["AccountCapabilityRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Capability:
         """
@@ -130,7 +117,7 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
-        params: Optional["AccountCapabilityService.UpdateParams"] = None,
+        params: Optional["AccountCapabilityUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Capability:
         """
@@ -154,7 +141,7 @@ class AccountCapabilityService(StripeService):
         self,
         account: str,
         capability: str,
-        params: Optional["AccountCapabilityService.UpdateParams"] = None,
+        params: Optional["AccountCapabilityUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Capability:
         """

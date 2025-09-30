@@ -4,8 +4,16 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.financial_connections._session import Session
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.financial_connections._session_create_params import (
+        SessionCreateParams,
+    )
+    from stripe.params.financial_connections._session_retrieve_params import (
+        SessionRetrieveParams,
+    )
 
 
 class SessionService(StripeService):
@@ -119,7 +127,7 @@ class SessionService(StripeService):
     def retrieve(
         self,
         session: str,
-        params: Optional["SessionService.RetrieveParams"] = None,
+        params: Optional["SessionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -141,7 +149,7 @@ class SessionService(StripeService):
     async def retrieve_async(
         self,
         session: str,
-        params: Optional["SessionService.RetrieveParams"] = None,
+        params: Optional["SessionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -162,7 +170,7 @@ class SessionService(StripeService):
 
     def create(
         self,
-        params: "SessionService.CreateParams",
+        params: "SessionCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """
@@ -181,7 +189,7 @@ class SessionService(StripeService):
 
     async def create_async(
         self,
-        params: "SessionService.CreateParams",
+        params: "SessionCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Session:
         """

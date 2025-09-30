@@ -5,18 +5,11 @@ from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._customer import Customer
@@ -24,6 +17,19 @@ if TYPE_CHECKING:
     from stripe._invoice import Invoice
     from stripe._margin import Margin
     from stripe._tax_rate import TaxRate
+    from stripe.params._invoice_item_create_params import (
+        InvoiceItemCreateParams,
+    )
+    from stripe.params._invoice_item_delete_params import (
+        InvoiceItemDeleteParams,
+    )
+    from stripe.params._invoice_item_list_params import InvoiceItemListParams
+    from stripe.params._invoice_item_modify_params import (
+        InvoiceItemModifyParams,
+    )
+    from stripe.params._invoice_item_retrieve_params import (
+        InvoiceItemRetrieveParams,
+    )
     from stripe.test_helpers._test_clock import TestClock
 
 
@@ -688,7 +694,7 @@ class InvoiceItem(
 
     @classmethod
     def create(
-        cls, **params: Unpack["InvoiceItem.CreateParams"]
+        cls, **params: Unpack["InvoiceItemCreateParams"]
     ) -> "InvoiceItem":
         """
         Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
@@ -704,7 +710,7 @@ class InvoiceItem(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["InvoiceItem.CreateParams"]
+        cls, **params: Unpack["InvoiceItemCreateParams"]
     ) -> "InvoiceItem":
         """
         Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
@@ -720,7 +726,7 @@ class InvoiceItem(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["InvoiceItem.DeleteParams"]
+        cls, sid: str, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -738,7 +744,7 @@ class InvoiceItem(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["InvoiceItem.DeleteParams"]
+        sid: str, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -747,7 +753,7 @@ class InvoiceItem(
 
     @overload
     def delete(
-        self, **params: Unpack["InvoiceItem.DeleteParams"]
+        self, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -756,7 +762,7 @@ class InvoiceItem(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["InvoiceItem.DeleteParams"]
+        self, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -769,7 +775,7 @@ class InvoiceItem(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["InvoiceItem.DeleteParams"]
+        cls, sid: str, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -787,7 +793,7 @@ class InvoiceItem(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["InvoiceItem.DeleteParams"]
+        sid: str, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -796,7 +802,7 @@ class InvoiceItem(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["InvoiceItem.DeleteParams"]
+        self, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -805,7 +811,7 @@ class InvoiceItem(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["InvoiceItem.DeleteParams"]
+        self, **params: Unpack["InvoiceItemDeleteParams"]
     ) -> "InvoiceItem":
         """
         Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
@@ -818,7 +824,7 @@ class InvoiceItem(
 
     @classmethod
     def list(
-        cls, **params: Unpack["InvoiceItem.ListParams"]
+        cls, **params: Unpack["InvoiceItemListParams"]
     ) -> ListObject["InvoiceItem"]:
         """
         Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.
@@ -838,7 +844,7 @@ class InvoiceItem(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["InvoiceItem.ListParams"]
+        cls, **params: Unpack["InvoiceItemListParams"]
     ) -> ListObject["InvoiceItem"]:
         """
         Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.
@@ -858,7 +864,7 @@ class InvoiceItem(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["InvoiceItem.ModifyParams"]
+        cls, id: str, **params: Unpack["InvoiceItemModifyParams"]
     ) -> "InvoiceItem":
         """
         Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
@@ -875,7 +881,7 @@ class InvoiceItem(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["InvoiceItem.ModifyParams"]
+        cls, id: str, **params: Unpack["InvoiceItemModifyParams"]
     ) -> "InvoiceItem":
         """
         Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
@@ -892,7 +898,7 @@ class InvoiceItem(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["InvoiceItem.RetrieveParams"]
+        cls, id: str, **params: Unpack["InvoiceItemRetrieveParams"]
     ) -> "InvoiceItem":
         """
         Retrieves the invoice item with the given ID.
@@ -903,7 +909,7 @@ class InvoiceItem(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["InvoiceItem.RetrieveParams"]
+        cls, id: str, **params: Unpack["InvoiceItemRetrieveParams"]
     ) -> "InvoiceItem":
         """
         Retrieves the invoice item with the given ID.

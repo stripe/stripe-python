@@ -1,11 +1,12 @@
-import stripe
+from stripe._nested_resource_class_methods import nested_resource_class_methods
+from stripe._api_resource import APIResource
 
 
 class TestNestedResourceClassMethods(object):
-    @stripe.api_resources.abstract.nested_resource_class_methods(
+    @nested_resource_class_methods(
         "nested", operations=["create", "retrieve", "update", "delete", "list"]
     )
-    class MainResource(stripe.api_resources.abstract.APIResource):
+    class MainResource(APIResource):
         OBJECT_NAME = "mainresource"
 
     def test_create_nested(self, http_client_mock):

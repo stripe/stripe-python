@@ -3,7 +3,7 @@ from stripe import StripeContext
 from stripe import _api_requestor
 from stripe._request_options import RequestOptions, merge_options
 from stripe._requestor_options import RequestorOptions
-from stripe.v2._event import EventNotification
+from stripe.v2.core._event import EventNotification
 from unittest.mock import Mock
 import pytest
 

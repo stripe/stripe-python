@@ -2,45 +2,19 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from typing import Dict, List, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing._meter_event_stream_create_params import (
+        MeterEventStreamCreateParams,
+    )
 
 
 class MeterEventStreamService(StripeService):
-    class CreateParams(TypedDict):
-        events: List["MeterEventStreamService.CreateParamsEvent"]
-        """
-        List of meter events to include in the request. Supports up to 100 events per request.
-        """
-
-    class CreateParamsEvent(TypedDict):
-        event_name: str
-        """
-        The name of the meter event. Corresponds with the `event_name` field on a meter.
-        """
-        identifier: NotRequired[str]
-        """
-        A unique identifier for the event. If not provided, one will be generated.
-        We recommend using a globally unique identifier for this. We'll enforce
-        uniqueness within a rolling 24 hour period.
-        """
-        payload: Dict[str, str]
-        """
-        The payload of the event. This must contain the fields corresponding to a meter's
-        `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and
-        `value_settings.event_payload_key` (default is `value`). Read more about
-        the
-        [payload](https://docs.stripe.com/billing/subscriptions/usage-based/recording-usage#payload-key-overrides).
-        """
-        timestamp: NotRequired[str]
-        """
-        The time of the event. Must be within the past 35 calendar days or up to
-        5 minutes in the future. Defaults to current timestamp if not specified.
-        """
-
     def create(
         self,
-        params: "MeterEventStreamService.CreateParams",
+        params: "MeterEventStreamCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> None:
         """
@@ -56,7 +30,7 @@ class MeterEventStreamService(StripeService):
 
     async def create_async(
         self,
-        params: "MeterEventStreamService.CreateParams",
+        params: "MeterEventStreamCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> None:
         """

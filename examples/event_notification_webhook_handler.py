@@ -13,6 +13,14 @@ In this example, we:
 
 import os
 from stripe import StripeClient
+from stripe import Event
+from stripe.v2.core import Event as V2Event, EventNotification
+from stripe.events import (
+    V2CoreEventDestinationPingEventNotification,
+    V1BillingMeterErrorReportTriggeredEvent,
+    UnknownEventNotification,
+    ALL_EVENT_NOTIFICATIONS,
+)
 
 from flask import Flask, request, jsonify
 

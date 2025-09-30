@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
-from stripe._request_options import RequestOptions
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Dict, List, Optional
@@ -15,6 +14,9 @@ from typing_extensions import (
 
 if TYPE_CHECKING:
     from stripe._customer import Customer
+    from stripe.params.billing._credit_balance_summary_retrieve_params import (
+        CreditBalanceSummaryRetrieveParams,
+    )
 
 
 class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
@@ -267,7 +269,7 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
 
     @classmethod
     def retrieve(
-        cls, **params: Unpack["CreditBalanceSummary.RetrieveParams"]
+        cls, **params: Unpack["CreditBalanceSummaryRetrieveParams"]
     ) -> "CreditBalanceSummary":
         """
         Retrieves the credit balance summary for a customer.
@@ -278,7 +280,7 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
 
     @classmethod
     async def retrieve_async(
-        cls, **params: Unpack["CreditBalanceSummary.RetrieveParams"]
+        cls, **params: Unpack["CreditBalanceSummaryRetrieveParams"]
     ) -> "CreditBalanceSummary":
         """
         Retrieves the credit balance summary for a customer.

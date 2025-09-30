@@ -5,8 +5,22 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._cardholder import Cardholder
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.issuing._cardholder_create_params import (
+        CardholderCreateParams,
+    )
+    from stripe.params.issuing._cardholder_list_params import (
+        CardholderListParams,
+    )
+    from stripe.params.issuing._cardholder_retrieve_params import (
+        CardholderRetrieveParams,
+    )
+    from stripe.params.issuing._cardholder_update_params import (
+        CardholderUpdateParams,
+    )
 
 
 class CardholderService(StripeService):
@@ -2311,7 +2325,7 @@ class CardholderService(StripeService):
 
     def list(
         self,
-        params: Optional["CardholderService.ListParams"] = None,
+        params: Optional["CardholderListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Cardholder]:
         """
@@ -2330,7 +2344,7 @@ class CardholderService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["CardholderService.ListParams"] = None,
+        params: Optional["CardholderListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Cardholder]:
         """
@@ -2349,7 +2363,7 @@ class CardholderService(StripeService):
 
     def create(
         self,
-        params: "CardholderService.CreateParams",
+        params: "CardholderCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
@@ -2368,7 +2382,7 @@ class CardholderService(StripeService):
 
     async def create_async(
         self,
-        params: "CardholderService.CreateParams",
+        params: "CardholderCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
@@ -2388,7 +2402,7 @@ class CardholderService(StripeService):
     def retrieve(
         self,
         cardholder: str,
-        params: Optional["CardholderService.RetrieveParams"] = None,
+        params: Optional["CardholderRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
@@ -2410,7 +2424,7 @@ class CardholderService(StripeService):
     async def retrieve_async(
         self,
         cardholder: str,
-        params: Optional["CardholderService.RetrieveParams"] = None,
+        params: Optional["CardholderRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
@@ -2432,7 +2446,7 @@ class CardholderService(StripeService):
     def update(
         self,
         cardholder: str,
-        params: Optional["CardholderService.UpdateParams"] = None,
+        params: Optional["CardholderUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """
@@ -2454,7 +2468,7 @@ class CardholderService(StripeService):
     async def update_async(
         self,
         cardholder: str,
-        params: Optional["CardholderService.UpdateParams"] = None,
+        params: Optional["CardholderUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Cardholder:
         """

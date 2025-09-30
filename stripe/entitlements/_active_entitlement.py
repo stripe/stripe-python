@@ -3,12 +3,17 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
-from typing import ClassVar, List
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing import ClassVar
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.entitlements._feature import Feature
+    from stripe.params.entitlements._active_entitlement_list_params import (
+        ActiveEntitlementListParams,
+    )
+    from stripe.params.entitlements._active_entitlement_retrieve_params import (
+        ActiveEntitlementRetrieveParams,
+    )
 
 
 class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
@@ -19,35 +24,6 @@ class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
     OBJECT_NAME: ClassVar[Literal["entitlements.active_entitlement"]] = (
         "entitlements.active_entitlement"
     )
-
-    class ListParams(RequestOptions):
-        customer: str
-        """
-        The ID of the customer.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     feature: ExpandableField["Feature"]
     """
     The [Feature](https://stripe.com/docs/api/entitlements/feature) that the customer is entitled to.
@@ -71,7 +47,7 @@ class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["ActiveEntitlement.ListParams"]
+        cls, **params: Unpack["ActiveEntitlementListParams"]
     ) -> ListObject["ActiveEntitlement"]:
         """
         Retrieve a list of active entitlements for a customer
@@ -91,7 +67,7 @@ class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["ActiveEntitlement.ListParams"]
+        cls, **params: Unpack["ActiveEntitlementListParams"]
     ) -> ListObject["ActiveEntitlement"]:
         """
         Retrieve a list of active entitlements for a customer
@@ -111,7 +87,7 @@ class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["ActiveEntitlement.RetrieveParams"]
+        cls, id: str, **params: Unpack["ActiveEntitlementRetrieveParams"]
     ) -> "ActiveEntitlement":
         """
         Retrieve an active entitlement
@@ -122,7 +98,7 @@ class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ActiveEntitlement.RetrieveParams"]
+        cls, id: str, **params: Unpack["ActiveEntitlementRetrieveParams"]
     ) -> "ActiveEntitlement":
         """
         Retrieve an active entitlement

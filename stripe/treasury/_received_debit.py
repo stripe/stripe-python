@@ -3,20 +3,21 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
-from typing import ClassVar, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    Type,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional, cast
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.treasury._received_debit_create_params import (
+        ReceivedDebitCreateParams,
+    )
+    from stripe.params.treasury._received_debit_list_params import (
+        ReceivedDebitListParams,
+    )
+    from stripe.params.treasury._received_debit_retrieve_params import (
+        ReceivedDebitRetrieveParams,
+    )
     from stripe.treasury._transaction import Transaction
 
 
@@ -365,7 +366,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["ReceivedDebit.ListParams"]
+        cls, **params: Unpack["ReceivedDebitListParams"]
     ) -> ListObject["ReceivedDebit"]:
         """
         Returns a list of ReceivedDebits.
@@ -385,7 +386,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["ReceivedDebit.ListParams"]
+        cls, **params: Unpack["ReceivedDebitListParams"]
     ) -> ListObject["ReceivedDebit"]:
         """
         Returns a list of ReceivedDebits.
@@ -405,7 +406,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["ReceivedDebit.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReceivedDebitRetrieveParams"]
     ) -> "ReceivedDebit":
         """
         Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list
@@ -416,7 +417,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ReceivedDebit.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReceivedDebitRetrieveParams"]
     ) -> "ReceivedDebit":
         """
         Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list
@@ -430,7 +431,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
         @classmethod
         def create(
-            cls, **params: Unpack["ReceivedDebit.CreateParams"]
+            cls, **params: Unpack["ReceivedDebitCreateParams"]
         ) -> "ReceivedDebit":
             """
             Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
@@ -446,7 +447,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
         @classmethod
         async def create_async(
-            cls, **params: Unpack["ReceivedDebit.CreateParams"]
+            cls, **params: Unpack["ReceivedDebitCreateParams"]
         ) -> "ReceivedDebit":
             """
             Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
