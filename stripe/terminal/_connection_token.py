@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
-from stripe._request_options import RequestOptions
-from typing import ClassVar, List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack
+from typing import ClassVar, Optional, cast
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.terminal._connection_token_create_params import (
+        ConnectionTokenCreateParams,
+    )
 
 
 class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
@@ -16,17 +20,6 @@ class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
     OBJECT_NAME: ClassVar[Literal["terminal.connection_token"]] = (
         "terminal.connection_token"
     )
-
-    class CreateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        location: NotRequired[str]
-        """
-        The id of the location that this connection token is scoped to. If specified the connection token will only be usable with readers assigned to that location, otherwise the connection token will be usable with all readers. Note that location scoping only applies to internet-connected readers. For more details, see [the docs on scoping connection tokens](https://docs.stripe.com/terminal/fleet/locations-and-zones?dashboard-or-api=api#connection-tokens).
-        """
-
     location: Optional[str]
     """
     The id of the location that this connection token is scoped to. Note that location scoping only applies to internet-connected readers. For more details, see [the docs on scoping connection tokens](https://docs.stripe.com/terminal/fleet/locations-and-zones?dashboard-or-api=api#connection-tokens).
@@ -42,7 +35,7 @@ class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
 
     @classmethod
     def create(
-        cls, **params: Unpack["ConnectionToken.CreateParams"]
+        cls, **params: Unpack["ConnectionTokenCreateParams"]
     ) -> "ConnectionToken":
         """
         To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.
@@ -58,7 +51,7 @@ class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["ConnectionToken.CreateParams"]
+        cls, **params: Unpack["ConnectionTokenCreateParams"]
     ) -> "ConnectionToken":
         """
         To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.

@@ -3,20 +3,19 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.capital._financing_summary import FinancingSummary
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.capital._financing_summary_retrieve_params import (
+        FinancingSummaryRetrieveParams,
+    )
 
 
 class FinancingSummaryService(StripeService):
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def retrieve(
         self,
-        params: Optional["FinancingSummaryService.RetrieveParams"] = None,
+        params: Optional["FinancingSummaryRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancingSummary:
         """
@@ -35,7 +34,7 @@ class FinancingSummaryService(StripeService):
 
     async def retrieve_async(
         self,
-        params: Optional["FinancingSummaryService.RetrieveParams"] = None,
+        params: Optional["FinancingSummaryRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> FinancingSummary:
         """

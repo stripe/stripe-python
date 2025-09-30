@@ -3,10 +3,17 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing import ClassVar, Optional, cast
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.apps._secret_create_params import SecretCreateParams
+    from stripe.params.apps._secret_delete_where_params import (
+        SecretDeleteWhereParams,
+    )
+    from stripe.params.apps._secret_find_params import SecretFindParams
+    from stripe.params.apps._secret_list_params import SecretListParams
 
 
 class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
@@ -32,118 +39,6 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         user: Optional[str]
         """
         The user ID, if type is set to "user"
-        """
-
-    class CreateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        expires_at: NotRequired[int]
-        """
-        The Unix timestamp for the expiry time of the secret, after which the secret deletes.
-        """
-        name: str
-        """
-        A name for the secret that's unique within the scope.
-        """
-        payload: str
-        """
-        The plaintext secret value to be stored.
-        """
-        scope: "Secret.CreateParamsScope"
-        """
-        Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
-        """
-
-    class CreateParamsScope(TypedDict):
-        type: Literal["account", "user"]
-        """
-        The secret scope type.
-        """
-        user: NotRequired[str]
-        """
-        The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.
-        """
-
-    class DeleteWhereParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        name: str
-        """
-        A name for the secret that's unique within the scope.
-        """
-        scope: "Secret.DeleteWhereParamsScope"
-        """
-        Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
-        """
-
-    class DeleteWhereParamsScope(TypedDict):
-        type: Literal["account", "user"]
-        """
-        The secret scope type.
-        """
-        user: NotRequired[str]
-        """
-        The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.
-        """
-
-    class FindParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        name: str
-        """
-        A name for the secret that's unique within the scope.
-        """
-        scope: "Secret.FindParamsScope"
-        """
-        Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
-        """
-
-    class FindParamsScope(TypedDict):
-        type: Literal["account", "user"]
-        """
-        The secret scope type.
-        """
-        user: NotRequired[str]
-        """
-        The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.
-        """
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        scope: "Secret.ListParamsScope"
-        """
-        Specifies the scoping of the secret. Requests originating from UI extensions can only access account-scoped secrets or secrets scoped to their own user.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListParamsScope(TypedDict):
-        type: Literal["account", "user"]
-        """
-        The secret scope type.
-        """
-        user: NotRequired[str]
-        """
-        The user ID. This field is required if `type` is set to `user`, and should not be provided if `type` is set to `account`.
         """
 
     created: int
@@ -181,7 +76,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     scope: Scope
 
     @classmethod
-    def create(cls, **params: Unpack["Secret.CreateParams"]) -> "Secret":
+    def create(cls, **params: Unpack["SecretCreateParams"]) -> "Secret":
         """
         Create or replace a secret in the secret store.
         """
@@ -196,7 +91,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Secret.CreateParams"]
+        cls, **params: Unpack["SecretCreateParams"]
     ) -> "Secret":
         """
         Create or replace a secret in the secret store.
@@ -212,7 +107,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
 
     @classmethod
     def delete_where(
-        cls, **params: Unpack["Secret.DeleteWhereParams"]
+        cls, **params: Unpack["SecretDeleteWhereParams"]
     ) -> "Secret":
         """
         Deletes a secret from the secret store by name and scope.
@@ -228,7 +123,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
 
     @classmethod
     async def delete_where_async(
-        cls, **params: Unpack["Secret.DeleteWhereParams"]
+        cls, **params: Unpack["SecretDeleteWhereParams"]
     ) -> "Secret":
         """
         Deletes a secret from the secret store by name and scope.
@@ -243,7 +138,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         )
 
     @classmethod
-    def find(cls, **params: Unpack["Secret.FindParams"]) -> "Secret":
+    def find(cls, **params: Unpack["SecretFindParams"]) -> "Secret":
         """
         Finds a secret in the secret store by name and scope.
         """
@@ -258,7 +153,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
 
     @classmethod
     async def find_async(
-        cls, **params: Unpack["Secret.FindParams"]
+        cls, **params: Unpack["SecretFindParams"]
     ) -> "Secret":
         """
         Finds a secret in the secret store by name and scope.
@@ -274,7 +169,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["Secret.ListParams"]
+        cls, **params: Unpack["SecretListParams"]
     ) -> ListObject["Secret"]:
         """
         List all secrets stored on the given scope.
@@ -294,7 +189,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Secret.ListParams"]
+        cls, **params: Unpack["SecretListParams"]
     ) -> ListObject["Secret"]:
         """
         List all secrets stored on the given scope.

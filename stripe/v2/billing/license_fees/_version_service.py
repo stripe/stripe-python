@@ -6,23 +6,22 @@ from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._license_fee_version import LicenseFeeVersion
 from typing import Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing.license_fees._version_list_params import (
+        VersionListParams,
+    )
+    from stripe.params.v2.billing.license_fees._version_retrieve_params import (
+        VersionRetrieveParams,
+    )
 
 
 class VersionService(StripeService):
-    class ListParams(TypedDict):
-        limit: NotRequired[int]
-        """
-        Optionally set the maximum number of results per page. Defaults to 20.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def list(
         self,
         license_fee_id: str,
-        params: Optional["VersionService.ListParams"] = None,
+        params: Optional["VersionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[LicenseFeeVersion]:
         """
@@ -44,7 +43,7 @@ class VersionService(StripeService):
     async def list_async(
         self,
         license_fee_id: str,
-        params: Optional["VersionService.ListParams"] = None,
+        params: Optional["VersionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[LicenseFeeVersion]:
         """
@@ -67,7 +66,7 @@ class VersionService(StripeService):
         self,
         license_fee_id: str,
         id: str,
-        params: Optional["VersionService.RetrieveParams"] = None,
+        params: Optional["VersionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> LicenseFeeVersion:
         """
@@ -91,7 +90,7 @@ class VersionService(StripeService):
         self,
         license_fee_id: str,
         id: str,
-        params: Optional["VersionService.RetrieveParams"] = None,
+        params: Optional["VersionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> LicenseFeeVersion:
         """

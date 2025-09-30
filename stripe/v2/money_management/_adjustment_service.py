@@ -6,51 +6,21 @@ from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._adjustment import Adjustment
 from typing import Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.money_management._adjustment_list_params import (
+        AdjustmentListParams,
+    )
+    from stripe.params.v2.money_management._adjustment_retrieve_params import (
+        AdjustmentRetrieveParams,
+    )
 
 
 class AdjustmentService(StripeService):
-    class ListParams(TypedDict):
-        adjusted_flow: NotRequired[str]
-        """
-        Filter for Adjustments linked to a Flow.
-        """
-        created: NotRequired[str]
-        """
-        Filter for objects created at the specified timestamp.
-        Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-        """
-        created_gt: NotRequired[str]
-        """
-        Filter for objects created after the specified timestamp.
-        Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-        """
-        created_gte: NotRequired[str]
-        """
-        Filter for objects created on or after the specified timestamp.
-        Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-        """
-        created_lt: NotRequired[str]
-        """
-        Filter for objects created before the specified timestamp.
-        Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-        """
-        created_lte: NotRequired[str]
-        """
-        Filter for objects created on or before the specified timestamp.
-        Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
-        """
-        limit: NotRequired[int]
-        """
-        The page limit.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def list(
         self,
-        params: Optional["AdjustmentService.ListParams"] = None,
+        params: Optional["AdjustmentListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Adjustment]:
         """
@@ -69,7 +39,7 @@ class AdjustmentService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["AdjustmentService.ListParams"] = None,
+        params: Optional["AdjustmentListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Adjustment]:
         """
@@ -89,7 +59,7 @@ class AdjustmentService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["AdjustmentService.RetrieveParams"] = None,
+        params: Optional["AdjustmentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Adjustment:
         """
@@ -111,7 +81,7 @@ class AdjustmentService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["AdjustmentService.RetrieveParams"] = None,
+        params: Optional["AdjustmentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Adjustment:
         """

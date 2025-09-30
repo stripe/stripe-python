@@ -6,23 +6,22 @@ from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._bill_setting_version import BillSettingVersion
 from typing import Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing.bill_settings._version_list_params import (
+        VersionListParams,
+    )
+    from stripe.params.v2.billing.bill_settings._version_retrieve_params import (
+        VersionRetrieveParams,
+    )
 
 
 class VersionService(StripeService):
-    class ListParams(TypedDict):
-        limit: NotRequired[int]
-        """
-        Optionally set the maximum number of results per page. Defaults to 20.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def list(
         self,
         bill_setting_id: str,
-        params: Optional["VersionService.ListParams"] = None,
+        params: Optional["VersionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[BillSettingVersion]:
         """
@@ -44,7 +43,7 @@ class VersionService(StripeService):
     async def list_async(
         self,
         bill_setting_id: str,
-        params: Optional["VersionService.ListParams"] = None,
+        params: Optional["VersionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[BillSettingVersion]:
         """
@@ -67,7 +66,7 @@ class VersionService(StripeService):
         self,
         bill_setting_id: str,
         id: str,
-        params: Optional["VersionService.RetrieveParams"] = None,
+        params: Optional["VersionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BillSettingVersion:
         """
@@ -91,7 +90,7 @@ class VersionService(StripeService):
         self,
         bill_setting_id: str,
         id: str,
-        params: Optional["VersionService.RetrieveParams"] = None,
+        params: Optional["VersionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> BillSettingVersion:
         """

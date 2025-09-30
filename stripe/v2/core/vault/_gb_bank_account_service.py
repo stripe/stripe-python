@@ -5,69 +5,30 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2.core.vault._gb_bank_account import GbBankAccount
 from typing import Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.core.vault._gb_bank_account_acknowledge_confirmation_of_payee_params import (
+        GbBankAccountAcknowledgeConfirmationOfPayeeParams,
+    )
+    from stripe.params.v2.core.vault._gb_bank_account_archive_params import (
+        GbBankAccountArchiveParams,
+    )
+    from stripe.params.v2.core.vault._gb_bank_account_create_params import (
+        GbBankAccountCreateParams,
+    )
+    from stripe.params.v2.core.vault._gb_bank_account_initiate_confirmation_of_payee_params import (
+        GbBankAccountInitiateConfirmationOfPayeeParams,
+    )
+    from stripe.params.v2.core.vault._gb_bank_account_retrieve_params import (
+        GbBankAccountRetrieveParams,
+    )
 
 
 class GbBankAccountService(StripeService):
-    class AcknowledgeConfirmationOfPayeeParams(TypedDict):
-        pass
-
-    class ArchiveParams(TypedDict):
-        pass
-
-    class CreateParams(TypedDict):
-        account_number: str
-        """
-        The Account Number of the bank account.
-        """
-        bank_account_type: NotRequired[Literal["checking", "savings"]]
-        """
-        Closed Enum. The type of the bank account (checking or savings).
-        """
-        confirmation_of_payee: NotRequired[
-            "GbBankAccountService.CreateParamsConfirmationOfPayee"
-        ]
-        """
-        Whether or not to automatically perform Confirmation of Payee to verify the users information
-        against what was provided by the bank. Doing so is required for all bank accounts not owned
-        by you before making domestic UK OutboundPayments.
-        """
-        sort_code: str
-        """
-        The Sort Code of the bank account.
-        """
-
-    class CreateParamsConfirmationOfPayee(TypedDict):
-        business_type: NotRequired[Literal["business", "personal"]]
-        """
-        The business type to be checked against. Legal entity information will be used if unspecified.
-        Closed enum.
-        """
-        initiate: bool
-        """
-        User specifies whether Confirmation of Payee is automatically initiated when creating the bank account.
-        """
-        name: NotRequired[str]
-        """
-        The name to be checked against. Legal entity information will be used if unspecified.
-        """
-
-    class InitiateConfirmationOfPayeeParams(TypedDict):
-        business_type: NotRequired[Literal["business", "personal"]]
-        """
-        The business type to be checked against. Legal entity information will be used if unspecified.
-        """
-        name: NotRequired[str]
-        """
-        The name of the user to be checked against. Legal entity information will be used if unspecified.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def create(
         self,
-        params: "GbBankAccountService.CreateParams",
+        params: "GbBankAccountCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
@@ -86,7 +47,7 @@ class GbBankAccountService(StripeService):
 
     async def create_async(
         self,
-        params: "GbBankAccountService.CreateParams",
+        params: "GbBankAccountCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
@@ -106,7 +67,7 @@ class GbBankAccountService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["GbBankAccountService.RetrieveParams"] = None,
+        params: Optional["GbBankAccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
@@ -128,7 +89,7 @@ class GbBankAccountService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["GbBankAccountService.RetrieveParams"] = None,
+        params: Optional["GbBankAccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
@@ -151,7 +112,7 @@ class GbBankAccountService(StripeService):
         self,
         id: str,
         params: Optional[
-            "GbBankAccountService.AcknowledgeConfirmationOfPayeeParams"
+            "GbBankAccountAcknowledgeConfirmationOfPayeeParams"
         ] = None,
         options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
@@ -178,7 +139,7 @@ class GbBankAccountService(StripeService):
         self,
         id: str,
         params: Optional[
-            "GbBankAccountService.AcknowledgeConfirmationOfPayeeParams"
+            "GbBankAccountAcknowledgeConfirmationOfPayeeParams"
         ] = None,
         options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
@@ -204,7 +165,7 @@ class GbBankAccountService(StripeService):
     def archive(
         self,
         id: str,
-        params: Optional["GbBankAccountService.ArchiveParams"] = None,
+        params: Optional["GbBankAccountArchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
@@ -227,7 +188,7 @@ class GbBankAccountService(StripeService):
     async def archive_async(
         self,
         id: str,
-        params: Optional["GbBankAccountService.ArchiveParams"] = None,
+        params: Optional["GbBankAccountArchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
         """
@@ -251,7 +212,7 @@ class GbBankAccountService(StripeService):
         self,
         id: str,
         params: Optional[
-            "GbBankAccountService.InitiateConfirmationOfPayeeParams"
+            "GbBankAccountInitiateConfirmationOfPayeeParams"
         ] = None,
         options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:
@@ -278,7 +239,7 @@ class GbBankAccountService(StripeService):
         self,
         id: str,
         params: Optional[
-            "GbBankAccountService.InitiateConfirmationOfPayeeParams"
+            "GbBankAccountInitiateConfirmationOfPayeeParams"
         ] = None,
         options: Optional[RequestOptions] = None,
     ) -> GbBankAccount:

@@ -3,18 +3,17 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
-from typing import ClassVar, List, Optional
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
+    from stripe.params.issuing._fraud_liability_debit_list_params import (
+        FraudLiabilityDebitListParams,
+    )
+    from stripe.params.issuing._fraud_liability_debit_retrieve_params import (
+        FraudLiabilityDebitRetrieveParams,
+    )
 
 
 class FraudLiabilityDebit(ListableAPIResource["FraudLiabilityDebit"]):
@@ -25,53 +24,6 @@ class FraudLiabilityDebit(ListableAPIResource["FraudLiabilityDebit"]):
     OBJECT_NAME: ClassVar[Literal["issuing.fraud_liability_debit"]] = (
         "issuing.fraud_liability_debit"
     )
-
-    class ListParams(RequestOptions):
-        created: NotRequired["FraudLiabilityDebit.ListParamsCreated|int"]
-        """
-        Only return Issuing Fraud Liability Debits that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     amount: int
     """
     Debited amount. This is equal to the disputed amount and is given in the card's currency and in the smallest currency unit.
@@ -107,7 +59,7 @@ class FraudLiabilityDebit(ListableAPIResource["FraudLiabilityDebit"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["FraudLiabilityDebit.ListParams"]
+        cls, **params: Unpack["FraudLiabilityDebitListParams"]
     ) -> ListObject["FraudLiabilityDebit"]:
         """
         Returns a list of Issuing FraudLiabilityDebit objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -127,7 +79,7 @@ class FraudLiabilityDebit(ListableAPIResource["FraudLiabilityDebit"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["FraudLiabilityDebit.ListParams"]
+        cls, **params: Unpack["FraudLiabilityDebitListParams"]
     ) -> ListObject["FraudLiabilityDebit"]:
         """
         Returns a list of Issuing FraudLiabilityDebit objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -147,7 +99,7 @@ class FraudLiabilityDebit(ListableAPIResource["FraudLiabilityDebit"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["FraudLiabilityDebit.RetrieveParams"]
+        cls, id: str, **params: Unpack["FraudLiabilityDebitRetrieveParams"]
     ) -> "FraudLiabilityDebit":
         """
         Retrieves an Issuing FraudLiabilityDebit object.
@@ -158,7 +110,7 @@ class FraudLiabilityDebit(ListableAPIResource["FraudLiabilityDebit"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["FraudLiabilityDebit.RetrieveParams"]
+        cls, id: str, **params: Unpack["FraudLiabilityDebitRetrieveParams"]
     ) -> "FraudLiabilityDebit":
         """
         Retrieves an Issuing FraudLiabilityDebit object.

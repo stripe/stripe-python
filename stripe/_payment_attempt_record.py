@@ -3,14 +3,19 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Dict, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._mandate import Mandate
     from stripe._payment_method import PaymentMethod
+    from stripe.params._payment_attempt_record_list_params import (
+        PaymentAttemptRecordListParams,
+    )
+    from stripe.params._payment_attempt_record_retrieve_params import (
+        PaymentAttemptRecordRetrieveParams,
+    )
 
 
 class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
@@ -1998,26 +2003,6 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         _inner_class_types = {"address": Address}
 
-    class ListParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        payment_record: str
-        """
-        The ID of the Payment Record.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     amount: Amount
     """
     A representation of an amount of money, consisting of an amount and a currency.
@@ -2105,7 +2090,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["PaymentAttemptRecord.ListParams"]
+        cls, **params: Unpack["PaymentAttemptRecordListParams"]
     ) -> ListObject["PaymentAttemptRecord"]:
         """
         List all the Payment Attempt Records attached to the specified Payment Record.
@@ -2125,7 +2110,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["PaymentAttemptRecord.ListParams"]
+        cls, **params: Unpack["PaymentAttemptRecordListParams"]
     ) -> ListObject["PaymentAttemptRecord"]:
         """
         List all the Payment Attempt Records attached to the specified Payment Record.
@@ -2145,7 +2130,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["PaymentAttemptRecord.RetrieveParams"]
+        cls, id: str, **params: Unpack["PaymentAttemptRecordRetrieveParams"]
     ) -> "PaymentAttemptRecord":
         """
         Retrieves a Payment Attempt Record with the given ID
@@ -2156,7 +2141,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["PaymentAttemptRecord.RetrieveParams"]
+        cls, id: str, **params: Unpack["PaymentAttemptRecordRetrieveParams"]
     ) -> "PaymentAttemptRecord":
         """
         Retrieves a Payment Attempt Record with the given ID

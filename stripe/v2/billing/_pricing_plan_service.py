@@ -7,8 +7,22 @@ from stripe.v2._list_object import ListObject
 from stripe.v2.billing._pricing_plan import PricingPlan
 from stripe.v2.billing.pricing_plans._component_service import ComponentService
 from stripe.v2.billing.pricing_plans._version_service import VersionService
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing._pricing_plan_create_params import (
+        PricingPlanCreateParams,
+    )
+    from stripe.params.v2.billing._pricing_plan_list_params import (
+        PricingPlanListParams,
+    )
+    from stripe.params.v2.billing._pricing_plan_retrieve_params import (
+        PricingPlanRetrieveParams,
+    )
+    from stripe.params.v2.billing._pricing_plan_update_params import (
+        PricingPlanUpdateParams,
+    )
 
 
 class PricingPlanService(StripeService):
@@ -17,79 +31,9 @@ class PricingPlanService(StripeService):
         self.components = ComponentService(self._requestor)
         self.versions = VersionService(self._requestor)
 
-    class CreateParams(TypedDict):
-        currency: str
-        """
-        The currency of the PricingPlan.
-        """
-        description: NotRequired[str]
-        """
-        Description of pricing plan subscription.
-        """
-        display_name: str
-        """
-        Display name of the PricingPlan. Maximum 250 characters.
-        """
-        lookup_key: NotRequired[str]
-        """
-        An internal key you can use to search for a particular PricingPlan. Maximum length of 200 characters.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-        """
-        tax_behavior: Literal["exclusive", "inclusive"]
-        """
-        The Stripe Tax tax behavior - whether the PricingPlan is inclusive or exclusive of tax.
-        """
-
-    class ListParams(TypedDict):
-        active: NotRequired[bool]
-        """
-        Filter for active/inactive PricingPlans. Mutually exclusive with `lookup_keys`.
-        """
-        limit: NotRequired[int]
-        """
-        Optionally set the maximum number of results per page. Defaults to 20.
-        """
-        lookup_keys: NotRequired[List[str]]
-        """
-        Filter by lookup keys. Mutually exclusive with `active`.
-        You can specify up to 10 lookup keys.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
-    class UpdateParams(TypedDict):
-        active: NotRequired[bool]
-        """
-        Whether the PricingPlan is active.
-        """
-        description: NotRequired[str]
-        """
-        Description of pricing plan subscription.
-        """
-        display_name: NotRequired[str]
-        """
-        Display name of the PricingPlan. Maximum 250 characters.
-        """
-        live_version: NotRequired[str]
-        """
-        The ID of the live version of the PricingPlan.
-        """
-        lookup_key: NotRequired[str]
-        """
-        An internal key you can use to search for a particular PricingPlan. Maximum length of 200 characters.
-        """
-        metadata: NotRequired[Dict[str, Optional[str]]]
-        """
-        Set of key-value pairs that you can attach to an object.
-        """
-
     def list(
         self,
-        params: Optional["PricingPlanService.ListParams"] = None,
+        params: Optional["PricingPlanListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PricingPlan]:
         """
@@ -108,7 +52,7 @@ class PricingPlanService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["PricingPlanService.ListParams"] = None,
+        params: Optional["PricingPlanListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PricingPlan]:
         """
@@ -127,7 +71,7 @@ class PricingPlanService(StripeService):
 
     def create(
         self,
-        params: "PricingPlanService.CreateParams",
+        params: "PricingPlanCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> PricingPlan:
         """
@@ -146,7 +90,7 @@ class PricingPlanService(StripeService):
 
     async def create_async(
         self,
-        params: "PricingPlanService.CreateParams",
+        params: "PricingPlanCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> PricingPlan:
         """
@@ -166,7 +110,7 @@ class PricingPlanService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["PricingPlanService.RetrieveParams"] = None,
+        params: Optional["PricingPlanRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PricingPlan:
         """
@@ -186,7 +130,7 @@ class PricingPlanService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["PricingPlanService.RetrieveParams"] = None,
+        params: Optional["PricingPlanRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PricingPlan:
         """
@@ -206,7 +150,7 @@ class PricingPlanService(StripeService):
     def update(
         self,
         id: str,
-        params: Optional["PricingPlanService.UpdateParams"] = None,
+        params: Optional["PricingPlanUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PricingPlan:
         """
@@ -226,7 +170,7 @@ class PricingPlanService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: Optional["PricingPlanService.UpdateParams"] = None,
+        params: Optional["PricingPlanUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PricingPlan:
         """

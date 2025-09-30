@@ -5,244 +5,28 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing._alert import Alert
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.billing._alert_activate_params import (
+        AlertActivateParams,
+    )
+    from stripe.params.billing._alert_archive_params import AlertArchiveParams
+    from stripe.params.billing._alert_create_params import AlertCreateParams
+    from stripe.params.billing._alert_deactivate_params import (
+        AlertDeactivateParams,
+    )
+    from stripe.params.billing._alert_list_params import AlertListParams
+    from stripe.params.billing._alert_retrieve_params import (
+        AlertRetrieveParams,
+    )
 
 
 class AlertService(StripeService):
-    class ActivateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ArchiveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class CreateParams(TypedDict):
-        alert_type: Literal["credit_balance_threshold", "usage_threshold"]
-        """
-        The type of alert to create.
-        """
-        credit_balance_threshold: NotRequired[
-            "AlertService.CreateParamsCreditBalanceThreshold"
-        ]
-        """
-        The configuration of the credit balance threshold.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        title: str
-        """
-        The title of the alert.
-        """
-        usage_threshold: NotRequired["AlertService.CreateParamsUsageThreshold"]
-        """
-        The configuration of the usage threshold.
-        """
-
-    class CreateParamsCreditBalanceThreshold(TypedDict):
-        filters: NotRequired[
-            List["AlertService.CreateParamsCreditBalanceThresholdFilter"]
-        ]
-        """
-        The filters allows limiting the scope of this credit balance alert. You must specify a customer filter at this time.
-        """
-        lte: "AlertService.CreateParamsCreditBalanceThresholdLte"
-        """
-        Defines at which value the alert will fire.
-        """
-
-    class CreateParamsCreditBalanceThresholdFilter(TypedDict):
-        credit_grants: NotRequired[
-            "AlertService.CreateParamsCreditBalanceThresholdFilterCreditGrants"
-        ]
-        """
-        The credit grants for which to configure the credit balance alert.
-        """
-        customer: NotRequired[str]
-        """
-        Limit the scope to this credit balance alert only to this customer.
-        """
-        type: Literal["customer", "tenant"]
-        """
-        What type of filter is being applied to this credit balance alert.
-        """
-
-    class CreateParamsCreditBalanceThresholdFilterCreditGrants(TypedDict):
-        applicability_config: "AlertService.CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfig"
-        """
-        The applicability configuration for this credit grants filter.
-        """
-
-    class CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfig(
-        TypedDict,
-    ):
-        scope: "AlertService.CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScope"
-        """
-        Specify the scope of this applicability config.
-        """
-
-    class CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScope(
-        TypedDict,
-    ):
-        billable_items: NotRequired[
-            List[
-                "AlertService.CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScopeBillableItem"
-            ]
-        ]
-        """
-        A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
-        """
-        price_type: NotRequired[Literal["metered"]]
-        """
-        The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
-        """
-        prices: NotRequired[
-            List[
-                "AlertService.CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScopePrice"
-            ]
-        ]
-        """
-        A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
-        """
-
-    class CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScopeBillableItem(
-        TypedDict,
-    ):
-        id: str
-        """
-        The billable item ID this credit grant should apply to.
-        """
-
-    class CreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScopePrice(
-        TypedDict,
-    ):
-        id: str
-        """
-        The price ID this credit grant should apply to.
-        """
-
-    class CreateParamsCreditBalanceThresholdLte(TypedDict):
-        balance_type: Literal["custom_pricing_unit", "monetary"]
-        """
-        Specify the type of this balance. We currently only support `monetary` billing credits.
-        """
-        custom_pricing_unit: NotRequired[
-            "AlertService.CreateParamsCreditBalanceThresholdLteCustomPricingUnit"
-        ]
-        """
-        The custom pricing unit amount.
-        """
-        monetary: NotRequired[
-            "AlertService.CreateParamsCreditBalanceThresholdLteMonetary"
-        ]
-        """
-        The monetary amount.
-        """
-
-    class CreateParamsCreditBalanceThresholdLteCustomPricingUnit(TypedDict):
-        id: str
-        """
-        The ID of the custom pricing unit.
-        """
-        value: str
-        """
-        A positive decimal string representing the amount of the custom pricing unit threshold.
-        """
-
-    class CreateParamsCreditBalanceThresholdLteMonetary(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
-        """
-        value: int
-        """
-        An integer representing the amount of the threshold.
-        """
-
-    class CreateParamsUsageThreshold(TypedDict):
-        filters: NotRequired[
-            List["AlertService.CreateParamsUsageThresholdFilter"]
-        ]
-        """
-        The filters allows limiting the scope of this usage alert. You can only specify up to one filter at this time.
-        """
-        gte: int
-        """
-        Defines at which value the alert will fire.
-        """
-        meter: str
-        """
-        The [Billing Meter](https://docs.stripe.com/api/billing/meter) ID whose usage is monitored.
-        """
-        recurrence: Literal["one_time"]
-        """
-        Defines how the alert will behave.
-        """
-
-    class CreateParamsUsageThresholdFilter(TypedDict):
-        customer: NotRequired[str]
-        """
-        Limit the scope to this usage alert only to this customer.
-        """
-        type: Literal["customer"]
-        """
-        What type of filter is being applied to this usage alert.
-        """
-
-    class DeactivateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListParams(TypedDict):
-        alert_type: NotRequired[
-            Literal["credit_balance_threshold", "usage_threshold"]
-        ]
-        """
-        Filter results to only include this type of alert.
-        """
-        customer: NotRequired[str]
-        """
-        Filter results to only include alerts for the given customer.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        meter: NotRequired[str]
-        """
-        Filter results to only include alerts with the given meter.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: Optional["AlertService.ListParams"] = None,
+        params: Optional["AlertListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Alert]:
         """
@@ -261,7 +45,7 @@ class AlertService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["AlertService.ListParams"] = None,
+        params: Optional["AlertListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[Alert]:
         """
@@ -280,7 +64,7 @@ class AlertService(StripeService):
 
     def create(
         self,
-        params: "AlertService.CreateParams",
+        params: "AlertCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -299,7 +83,7 @@ class AlertService(StripeService):
 
     async def create_async(
         self,
-        params: "AlertService.CreateParams",
+        params: "AlertCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -319,7 +103,7 @@ class AlertService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["AlertService.RetrieveParams"] = None,
+        params: Optional["AlertRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -339,7 +123,7 @@ class AlertService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["AlertService.RetrieveParams"] = None,
+        params: Optional["AlertRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -359,7 +143,7 @@ class AlertService(StripeService):
     def activate(
         self,
         id: str,
-        params: Optional["AlertService.ActivateParams"] = None,
+        params: Optional["AlertActivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -379,7 +163,7 @@ class AlertService(StripeService):
     async def activate_async(
         self,
         id: str,
-        params: Optional["AlertService.ActivateParams"] = None,
+        params: Optional["AlertActivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -399,7 +183,7 @@ class AlertService(StripeService):
     def archive(
         self,
         id: str,
-        params: Optional["AlertService.ArchiveParams"] = None,
+        params: Optional["AlertArchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -419,7 +203,7 @@ class AlertService(StripeService):
     async def archive_async(
         self,
         id: str,
-        params: Optional["AlertService.ArchiveParams"] = None,
+        params: Optional["AlertArchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -439,7 +223,7 @@ class AlertService(StripeService):
     def deactivate(
         self,
         id: str,
-        params: Optional["AlertService.DeactivateParams"] = None,
+        params: Optional["AlertDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """
@@ -461,7 +245,7 @@ class AlertService(StripeService):
     async def deactivate_async(
         self,
         id: str,
-        params: Optional["AlertService.DeactivateParams"] = None,
+        params: Optional["AlertDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> Alert:
         """

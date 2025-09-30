@@ -4,11 +4,27 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import Literal, NotRequired, Unpack
+from typing import ClassVar, Optional, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.test_helpers._test_clock_advance_params import (
+        TestClockAdvanceParams,
+    )
+    from stripe.params.test_helpers._test_clock_create_params import (
+        TestClockCreateParams,
+    )
+    from stripe.params.test_helpers._test_clock_delete_params import (
+        TestClockDeleteParams,
+    )
+    from stripe.params.test_helpers._test_clock_list_params import (
+        TestClockListParams,
+    )
+    from stripe.params.test_helpers._test_clock_retrieve_params import (
+        TestClockRetrieveParams,
+    )
 
 
 class TestClock(
@@ -35,57 +51,6 @@ class TestClock(
 
         advancing: Optional[Advancing]
         _inner_class_types = {"advancing": Advancing}
-
-    class AdvanceParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        frozen_time: int
-        """
-        The time to advance the test clock. Must be after the test clock's current frozen time. Cannot be more than two intervals in the future from the shortest subscription in this test clock. If there are no subscriptions in this test clock, it cannot be more than two years in the future.
-        """
-
-    class CreateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        frozen_time: int
-        """
-        The initial frozen time for this test clock.
-        """
-        name: NotRequired[str]
-        """
-        The name for this test clock.
-        """
-
-    class DeleteParams(RequestOptions):
-        pass
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
 
     created: int
     """
@@ -127,7 +92,7 @@ class TestClock(
 
     @classmethod
     def _cls_advance(
-        cls, test_clock: str, **params: Unpack["TestClock.AdvanceParams"]
+        cls, test_clock: str, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -146,7 +111,7 @@ class TestClock(
     @overload
     @staticmethod
     def advance(
-        test_clock: str, **params: Unpack["TestClock.AdvanceParams"]
+        test_clock: str, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -155,7 +120,7 @@ class TestClock(
 
     @overload
     def advance(
-        self, **params: Unpack["TestClock.AdvanceParams"]
+        self, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -164,7 +129,7 @@ class TestClock(
 
     @class_method_variant("_cls_advance")
     def advance(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["TestClock.AdvanceParams"]
+        self, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -182,7 +147,7 @@ class TestClock(
 
     @classmethod
     async def _cls_advance_async(
-        cls, test_clock: str, **params: Unpack["TestClock.AdvanceParams"]
+        cls, test_clock: str, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -201,7 +166,7 @@ class TestClock(
     @overload
     @staticmethod
     async def advance_async(
-        test_clock: str, **params: Unpack["TestClock.AdvanceParams"]
+        test_clock: str, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -210,7 +175,7 @@ class TestClock(
 
     @overload
     async def advance_async(
-        self, **params: Unpack["TestClock.AdvanceParams"]
+        self, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -219,7 +184,7 @@ class TestClock(
 
     @class_method_variant("_cls_advance_async")
     async def advance_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["TestClock.AdvanceParams"]
+        self, **params: Unpack["TestClockAdvanceParams"]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -236,7 +201,7 @@ class TestClock(
         )
 
     @classmethod
-    def create(cls, **params: Unpack["TestClock.CreateParams"]) -> "TestClock":
+    def create(cls, **params: Unpack["TestClockCreateParams"]) -> "TestClock":
         """
         Creates a new test clock that can be attached to new customers and quotes.
         """
@@ -251,7 +216,7 @@ class TestClock(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["TestClock.CreateParams"]
+        cls, **params: Unpack["TestClockCreateParams"]
     ) -> "TestClock":
         """
         Creates a new test clock that can be attached to new customers and quotes.
@@ -267,7 +232,7 @@ class TestClock(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["TestClock.DeleteParams"]
+        cls, sid: str, **params: Unpack["TestClockDeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -285,7 +250,7 @@ class TestClock(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["TestClock.DeleteParams"]
+        sid: str, **params: Unpack["TestClockDeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -293,9 +258,7 @@ class TestClock(
         ...
 
     @overload
-    def delete(
-        self, **params: Unpack["TestClock.DeleteParams"]
-    ) -> "TestClock":
+    def delete(self, **params: Unpack["TestClockDeleteParams"]) -> "TestClock":
         """
         Deletes a test clock.
         """
@@ -303,7 +266,7 @@ class TestClock(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["TestClock.DeleteParams"]
+        self, **params: Unpack["TestClockDeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -316,7 +279,7 @@ class TestClock(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["TestClock.DeleteParams"]
+        cls, sid: str, **params: Unpack["TestClockDeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -334,7 +297,7 @@ class TestClock(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["TestClock.DeleteParams"]
+        sid: str, **params: Unpack["TestClockDeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -343,7 +306,7 @@ class TestClock(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["TestClock.DeleteParams"]
+        self, **params: Unpack["TestClockDeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -352,7 +315,7 @@ class TestClock(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["TestClock.DeleteParams"]
+        self, **params: Unpack["TestClockDeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -365,7 +328,7 @@ class TestClock(
 
     @classmethod
     def list(
-        cls, **params: Unpack["TestClock.ListParams"]
+        cls, **params: Unpack["TestClockListParams"]
     ) -> ListObject["TestClock"]:
         """
         Returns a list of your test clocks.
@@ -385,7 +348,7 @@ class TestClock(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["TestClock.ListParams"]
+        cls, **params: Unpack["TestClockListParams"]
     ) -> ListObject["TestClock"]:
         """
         Returns a list of your test clocks.
@@ -405,7 +368,7 @@ class TestClock(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["TestClock.RetrieveParams"]
+        cls, id: str, **params: Unpack["TestClockRetrieveParams"]
     ) -> "TestClock":
         """
         Retrieves a test clock.
@@ -416,7 +379,7 @@ class TestClock(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["TestClock.RetrieveParams"]
+        cls, id: str, **params: Unpack["TestClockRetrieveParams"]
     ) -> "TestClock":
         """
         Retrieves a test clock.

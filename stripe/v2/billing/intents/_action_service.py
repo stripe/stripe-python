@@ -6,23 +6,22 @@ from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._intent_action import IntentAction
 from typing import Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing.intents._action_list_params import (
+        ActionListParams,
+    )
+    from stripe.params.v2.billing.intents._action_retrieve_params import (
+        ActionRetrieveParams,
+    )
 
 
 class ActionService(StripeService):
-    class ListParams(TypedDict):
-        limit: NotRequired[int]
-        """
-        Optionally set the maximum number of results per page. Defaults to 10.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
     def list(
         self,
         intent_id: str,
-        params: Optional["ActionService.ListParams"] = None,
+        params: Optional["ActionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[IntentAction]:
         """
@@ -44,7 +43,7 @@ class ActionService(StripeService):
     async def list_async(
         self,
         intent_id: str,
-        params: Optional["ActionService.ListParams"] = None,
+        params: Optional["ActionListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[IntentAction]:
         """
@@ -67,7 +66,7 @@ class ActionService(StripeService):
         self,
         intent_id: str,
         id: str,
-        params: Optional["ActionService.RetrieveParams"] = None,
+        params: Optional["ActionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> IntentAction:
         """
@@ -91,7 +90,7 @@ class ActionService(StripeService):
         self,
         intent_id: str,
         id: str,
-        params: Optional["ActionService.RetrieveParams"] = None,
+        params: Optional["ActionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> IntentAction:
         """

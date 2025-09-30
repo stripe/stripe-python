@@ -1,10 +1,13 @@
 from __future__ import absolute_import, division, print_function
 from typing import List
 
-import stripe
 from urllib.parse import urlsplit, urlencode, parse_qsl
 import json
 from unittest.mock import Mock
+from stripe._http_client import (
+    new_default_http_client,
+    new_http_client_async_fallback,
+)
 
 
 def parse_and_sort(query_string, strict_parsing=False):
@@ -217,8 +220,8 @@ class StripeRequestCall(object):
 class HTTPClientMock(object):
     def __init__(self, mocker):
         self.mock_client = mocker.Mock(
-            wraps=stripe.http_client.new_default_http_client(
-                async_fallback_client=stripe.http_client.new_http_client_async_fallback()
+            wraps=new_default_http_client(
+                async_fallback_client=new_http_client_async_fallback()
             )
         )
 

@@ -1,3 +1,4 @@
+import io
 import base64
 import json
 import sys
@@ -17,7 +18,7 @@ from contextlib import contextmanager
 import urllib3
 
 import stripe
-from stripe import APIConnectionError, _http_client, _util
+from stripe import APIConnectionError, _http_client
 from stripe._encode import _api_encode
 from stripe._http_client import (
     AIOHTTPClient,
@@ -636,7 +637,7 @@ class TestRequestsClient(ClientTestBase):
             result.status_code = code
             result.headers = {}
             result.raw = urllib3.response.HTTPResponse(
-                body=_util.io.BytesIO(str.encode(body)),
+                body=io.BytesIO(str.encode(body)),
                 preload_content=False,
                 status=code,
             )
@@ -723,7 +724,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
             result.status_code = code
             result.headers = headers or {}
             result.raw = urllib3.response.HTTPResponse(
-                body=_util.io.BytesIO(str.encode(result.content)),
+                body=io.BytesIO(str.encode(result.content)),
                 preload_content=False,
                 status=code,
             )
@@ -1081,7 +1082,7 @@ class TestPycurlClient(ClientTestBase):
 
     @pytest.fixture
     def bio_mock(self, mocker):
-        bio_patcher = mocker.patch("stripe.util.io.BytesIO")
+        bio_patcher = mocker.patch("stripe._http_client.BytesIO")
         bio_mock = Mock()
         bio_patcher.return_value = bio_mock
         return bio_mock

@@ -2,19 +2,18 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.issuing._authorization import Authorization
+    from stripe.params.treasury._transaction_list_params import (
+        TransactionListParams,
+    )
+    from stripe.params.treasury._transaction_retrieve_params import (
+        TransactionRetrieveParams,
+    )
     from stripe.treasury._credit_reversal import CreditReversal
     from stripe.treasury._debit_reversal import DebitReversal
     from stripe.treasury._inbound_transfer import InboundTransfer
@@ -120,96 +119,6 @@ class Transaction(ListableAPIResource["Transaction"]):
         Timestamp describing when the Transaction changed status to `void`.
         """
 
-    class ListParams(RequestOptions):
-        created: NotRequired["Transaction.ListParamsCreated|int"]
-        """
-        Only return Transactions that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        Returns objects associated with this FinancialAccount.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        order_by: NotRequired[Literal["created", "posted_at"]]
-        """
-        The results are in reverse chronological order by `created` or `posted_at`. The default is `created`.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[Literal["open", "posted", "void"]]
-        """
-        Only return Transactions that have the given status: `open`, `posted`, or `void`.
-        """
-        status_transitions: NotRequired[
-            "Transaction.ListParamsStatusTransitions"
-        ]
-        """
-        A filter for the `status_transitions.posted_at` timestamp. When using this filter, `status=posted` and `order_by=posted_at` must also be specified.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ListParamsStatusTransitions(TypedDict):
-        posted_at: NotRequired[
-            "Transaction.ListParamsStatusTransitionsPostedAt|int"
-        ]
-        """
-        Returns Transactions with `posted_at` within the specified range.
-        """
-
-    class ListParamsStatusTransitionsPostedAt(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     amount: int
     """
     Amount (in cents) transferred.
@@ -280,7 +189,7 @@ class Transaction(ListableAPIResource["Transaction"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["Transaction.ListParams"]
+        cls, **params: Unpack["TransactionListParams"]
     ) -> ListObject["Transaction"]:
         """
         Retrieves a list of Transaction objects.
@@ -300,7 +209,7 @@ class Transaction(ListableAPIResource["Transaction"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Transaction.ListParams"]
+        cls, **params: Unpack["TransactionListParams"]
     ) -> ListObject["Transaction"]:
         """
         Retrieves a list of Transaction objects.
@@ -320,7 +229,7 @@ class Transaction(ListableAPIResource["Transaction"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
+        cls, id: str, **params: Unpack["TransactionRetrieveParams"]
     ) -> "Transaction":
         """
         Retrieves the details of an existing Transaction.
@@ -331,7 +240,7 @@ class Transaction(ListableAPIResource["Transaction"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
+        cls, id: str, **params: Unpack["TransactionRetrieveParams"]
     ) -> "Transaction":
         """
         Retrieves the details of an existing Transaction.

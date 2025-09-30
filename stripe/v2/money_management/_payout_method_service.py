@@ -5,47 +5,28 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2._list_object import ListObject
 from stripe.v2.money_management._payout_method import PayoutMethod
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.money_management._payout_method_archive_params import (
+        PayoutMethodArchiveParams,
+    )
+    from stripe.params.v2.money_management._payout_method_list_params import (
+        PayoutMethodListParams,
+    )
+    from stripe.params.v2.money_management._payout_method_retrieve_params import (
+        PayoutMethodRetrieveParams,
+    )
+    from stripe.params.v2.money_management._payout_method_unarchive_params import (
+        PayoutMethodUnarchiveParams,
+    )
 
 
 class PayoutMethodService(StripeService):
-    class ArchiveParams(TypedDict):
-        pass
-
-    class ListParams(TypedDict):
-        limit: NotRequired[int]
-        """
-        The page size.
-        """
-        usage_status: NotRequired["PayoutMethodService.ListParamsUsageStatus"]
-        """
-        Usage status filter.
-        """
-
-    class ListParamsUsageStatus(TypedDict):
-        payments: NotRequired[
-            List[Literal["eligible", "invalid", "requires_action"]]
-        ]
-        """
-        List of payments status to filter by.
-        """
-        transfers: NotRequired[
-            List[Literal["eligible", "invalid", "requires_action"]]
-        ]
-        """
-        List of transfers status to filter by.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
-    class UnarchiveParams(TypedDict):
-        pass
-
     def list(
         self,
-        params: Optional["PayoutMethodService.ListParams"] = None,
+        params: Optional["PayoutMethodListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PayoutMethod]:
         """
@@ -64,7 +45,7 @@ class PayoutMethodService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["PayoutMethodService.ListParams"] = None,
+        params: Optional["PayoutMethodListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PayoutMethod]:
         """
@@ -84,7 +65,7 @@ class PayoutMethodService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["PayoutMethodService.RetrieveParams"] = None,
+        params: Optional["PayoutMethodRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PayoutMethod:
         """
@@ -106,7 +87,7 @@ class PayoutMethodService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["PayoutMethodService.RetrieveParams"] = None,
+        params: Optional["PayoutMethodRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PayoutMethod:
         """
@@ -128,7 +109,7 @@ class PayoutMethodService(StripeService):
     def archive(
         self,
         id: str,
-        params: Optional["PayoutMethodService.ArchiveParams"] = None,
+        params: Optional["PayoutMethodArchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PayoutMethod:
         """
@@ -151,7 +132,7 @@ class PayoutMethodService(StripeService):
     async def archive_async(
         self,
         id: str,
-        params: Optional["PayoutMethodService.ArchiveParams"] = None,
+        params: Optional["PayoutMethodArchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PayoutMethod:
         """
@@ -174,7 +155,7 @@ class PayoutMethodService(StripeService):
     def unarchive(
         self,
         id: str,
-        params: Optional["PayoutMethodService.UnarchiveParams"] = None,
+        params: Optional["PayoutMethodUnarchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PayoutMethod:
         """
@@ -196,7 +177,7 @@ class PayoutMethodService(StripeService):
     async def unarchive_async(
         self,
         id: str,
-        params: Optional["PayoutMethodService.UnarchiveParams"] = None,
+        params: Optional["PayoutMethodUnarchiveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PayoutMethod:
         """

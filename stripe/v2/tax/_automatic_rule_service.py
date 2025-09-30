@@ -5,41 +5,30 @@ from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2.tax._automatic_rule import AutomaticRule
 from typing import Optional, cast
-from typing_extensions import TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.tax._automatic_rule_create_params import (
+        AutomaticRuleCreateParams,
+    )
+    from stripe.params.v2.tax._automatic_rule_deactivate_params import (
+        AutomaticRuleDeactivateParams,
+    )
+    from stripe.params.v2.tax._automatic_rule_find_params import (
+        AutomaticRuleFindParams,
+    )
+    from stripe.params.v2.tax._automatic_rule_retrieve_params import (
+        AutomaticRuleRetrieveParams,
+    )
+    from stripe.params.v2.tax._automatic_rule_update_params import (
+        AutomaticRuleUpdateParams,
+    )
 
 
 class AutomaticRuleService(StripeService):
-    class CreateParams(TypedDict):
-        billable_item: str
-        """
-        The BillableItem ID to set automatic Tax configuration for.
-        """
-        tax_code: str
-        """
-        The TaxCode object to be used for automatic tax calculations.
-        """
-
-    class DeactivateParams(TypedDict):
-        pass
-
-    class FindParams(TypedDict):
-        billable_item: str
-        """
-        The BillableItem ID to search by.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
-    class UpdateParams(TypedDict):
-        tax_code: str
-        """
-        The TaxCode object to be used for automatic tax calculations.
-        """
-
     def create(
         self,
-        params: "AutomaticRuleService.CreateParams",
+        params: "AutomaticRuleCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
@@ -58,7 +47,7 @@ class AutomaticRuleService(StripeService):
 
     async def create_async(
         self,
-        params: "AutomaticRuleService.CreateParams",
+        params: "AutomaticRuleCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
@@ -77,7 +66,7 @@ class AutomaticRuleService(StripeService):
 
     def find(
         self,
-        params: "AutomaticRuleService.FindParams",
+        params: "AutomaticRuleFindParams",
         options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
@@ -96,7 +85,7 @@ class AutomaticRuleService(StripeService):
 
     async def find_async(
         self,
-        params: "AutomaticRuleService.FindParams",
+        params: "AutomaticRuleFindParams",
         options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
@@ -116,7 +105,7 @@ class AutomaticRuleService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["AutomaticRuleService.RetrieveParams"] = None,
+        params: Optional["AutomaticRuleRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
@@ -136,7 +125,7 @@ class AutomaticRuleService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["AutomaticRuleService.RetrieveParams"] = None,
+        params: Optional["AutomaticRuleRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
@@ -156,7 +145,7 @@ class AutomaticRuleService(StripeService):
     def update(
         self,
         id: str,
-        params: "AutomaticRuleService.UpdateParams",
+        params: "AutomaticRuleUpdateParams",
         options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
@@ -176,7 +165,7 @@ class AutomaticRuleService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "AutomaticRuleService.UpdateParams",
+        params: "AutomaticRuleUpdateParams",
         options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
@@ -196,7 +185,7 @@ class AutomaticRuleService(StripeService):
     def deactivate(
         self,
         id: str,
-        params: Optional["AutomaticRuleService.DeactivateParams"] = None,
+        params: Optional["AutomaticRuleDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """
@@ -218,7 +207,7 @@ class AutomaticRuleService(StripeService):
     async def deactivate_async(
         self,
         id: str,
-        params: Optional["AutomaticRuleService.DeactivateParams"] = None,
+        params: Optional["AutomaticRuleDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> AutomaticRule:
         """

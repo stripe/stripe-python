@@ -5,22 +5,19 @@ from stripe._stripe_service import StripeService
 from stripe.v2.money_management._payout_methods_bank_account_spec import (
     PayoutMethodsBankAccountSpec,
 )
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.money_management._payout_methods_bank_account_spec_retrieve_params import (
+        PayoutMethodsBankAccountSpecRetrieveParams,
+    )
 
 
 class PayoutMethodsBankAccountSpecService(StripeService):
-    class RetrieveParams(TypedDict):
-        countries: NotRequired[List[str]]
-        """
-        The countries to fetch the bank account spec for.
-        """
-
     def retrieve(
         self,
-        params: Optional[
-            "PayoutMethodsBankAccountSpecService.RetrieveParams"
-        ] = None,
+        params: Optional["PayoutMethodsBankAccountSpecRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PayoutMethodsBankAccountSpec:
         """
@@ -41,9 +38,7 @@ class PayoutMethodsBankAccountSpecService(StripeService):
 
     async def retrieve_async(
         self,
-        params: Optional[
-            "PayoutMethodsBankAccountSpecService.RetrieveParams"
-        ] = None,
+        params: Optional["PayoutMethodsBankAccountSpecRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PayoutMethodsBankAccountSpec:
         """

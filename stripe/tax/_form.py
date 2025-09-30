@@ -3,20 +3,16 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import Any, ClassVar, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
+    from stripe.params.tax._form_list_params import FormListParams
+    from stripe.params.tax._form_pdf_params import FormPdfParams
+    from stripe.params.tax._form_retrieve_params import FormRetrieveParams
 
 
 class Form(ListableAPIResource["Form"]):
@@ -136,69 +132,6 @@ class Form(ListableAPIResource["Form"]):
         Year represented by the information reported on the tax form.
         """
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        payee: "Form.ListParamsPayee"
-        """
-        The payee whose volume is represented on the tax form.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        type: NotRequired[
-            Literal[
-                "au_serr",
-                "ca_mrdp",
-                "eu_dac7",
-                "gb_mrdp",
-                "nz_mrdp",
-                "us_1099_k",
-                "us_1099_misc",
-                "us_1099_nec",
-            ]
-        ]
-        """
-        An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future tax form types. If your integration expects only one type of tax form in the response, make sure to provide a type value in the request.
-        """
-
-    class ListParamsPayee(TypedDict):
-        account: NotRequired[str]
-        """
-        The ID of the Stripe account whose forms will be retrieved.
-        """
-        external_reference: NotRequired[str]
-        """
-        The external reference to the payee whose forms will be retrieved.
-        """
-        type: NotRequired[Literal["account", "external_reference"]]
-        """
-        Specifies the payee type. Either `account` or `external_reference`.
-        """
-
-    class PdfParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     au_serr: Optional[AuSerr]
     ca_mrdp: Optional[CaMrdp]
     corrected_by: Optional[ExpandableField["Form"]]
@@ -247,7 +180,7 @@ class Form(ListableAPIResource["Form"]):
     us_1099_nec: Optional[Us1099Nec]
 
     @classmethod
-    def list(cls, **params: Unpack["Form.ListParams"]) -> ListObject["Form"]:
+    def list(cls, **params: Unpack["FormListParams"]) -> ListObject["Form"]:
         """
         Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
         """
@@ -266,7 +199,7 @@ class Form(ListableAPIResource["Form"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Form.ListParams"]
+        cls, **params: Unpack["FormListParams"]
     ) -> ListObject["Form"]:
         """
         Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
@@ -285,7 +218,7 @@ class Form(ListableAPIResource["Form"]):
         return result
 
     @classmethod
-    def _cls_pdf(cls, id: str, **params: Unpack["Form.PdfParams"]) -> Any:
+    def _cls_pdf(cls, id: str, **params: Unpack["FormPdfParams"]) -> Any:
         """
         Download the PDF for a tax form.
         """
@@ -301,14 +234,14 @@ class Form(ListableAPIResource["Form"]):
 
     @overload
     @staticmethod
-    def pdf(id: str, **params: Unpack["Form.PdfParams"]) -> Any:
+    def pdf(id: str, **params: Unpack["FormPdfParams"]) -> Any:
         """
         Download the PDF for a tax form.
         """
         ...
 
     @overload
-    def pdf(self, **params: Unpack["Form.PdfParams"]) -> Any:
+    def pdf(self, **params: Unpack["FormPdfParams"]) -> Any:
         """
         Download the PDF for a tax form.
         """
@@ -316,7 +249,7 @@ class Form(ListableAPIResource["Form"]):
 
     @class_method_variant("_cls_pdf")
     def pdf(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Form.PdfParams"]
+        self, **params: Unpack["FormPdfParams"]
     ) -> Any:
         """
         Download the PDF for a tax form.
@@ -335,7 +268,7 @@ class Form(ListableAPIResource["Form"]):
 
     @classmethod
     async def _cls_pdf_async(
-        cls, id: str, **params: Unpack["Form.PdfParams"]
+        cls, id: str, **params: Unpack["FormPdfParams"]
     ) -> Any:
         """
         Download the PDF for a tax form.
@@ -352,14 +285,14 @@ class Form(ListableAPIResource["Form"]):
 
     @overload
     @staticmethod
-    async def pdf_async(id: str, **params: Unpack["Form.PdfParams"]) -> Any:
+    async def pdf_async(id: str, **params: Unpack["FormPdfParams"]) -> Any:
         """
         Download the PDF for a tax form.
         """
         ...
 
     @overload
-    async def pdf_async(self, **params: Unpack["Form.PdfParams"]) -> Any:
+    async def pdf_async(self, **params: Unpack["FormPdfParams"]) -> Any:
         """
         Download the PDF for a tax form.
         """
@@ -367,7 +300,7 @@ class Form(ListableAPIResource["Form"]):
 
     @class_method_variant("_cls_pdf_async")
     async def pdf_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Form.PdfParams"]
+        self, **params: Unpack["FormPdfParams"]
     ) -> Any:
         """
         Download the PDF for a tax form.
@@ -386,7 +319,7 @@ class Form(ListableAPIResource["Form"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Form.RetrieveParams"]
+        cls, id: str, **params: Unpack["FormRetrieveParams"]
     ) -> "Form":
         """
         Retrieves the details of a tax form that has previously been created. Supply the unique tax form ID that was returned from your previous request, and Stripe will return the corresponding tax form information.
@@ -397,7 +330,7 @@ class Form(ListableAPIResource["Form"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Form.RetrieveParams"]
+        cls, id: str, **params: Unpack["FormRetrieveParams"]
     ) -> "Form":
         """
         Retrieves the details of a tax form that has previously been created. Supply the unique tax form ID that was returned from your previous request, and Stripe will return the corresponding tax form information.

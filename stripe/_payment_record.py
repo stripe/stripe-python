@@ -2,21 +2,35 @@
 # File generated from our OpenAPI spec
 from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._mandate import Mandate
     from stripe._payment_method import PaymentMethod
+    from stripe.params._payment_record_report_payment_attempt_canceled_params import (
+        PaymentRecordReportPaymentAttemptCanceledParams,
+    )
+    from stripe.params._payment_record_report_payment_attempt_failed_params import (
+        PaymentRecordReportPaymentAttemptFailedParams,
+    )
+    from stripe.params._payment_record_report_payment_attempt_guaranteed_params import (
+        PaymentRecordReportPaymentAttemptGuaranteedParams,
+    )
+    from stripe.params._payment_record_report_payment_attempt_informational_params import (
+        PaymentRecordReportPaymentAttemptInformationalParams,
+    )
+    from stripe.params._payment_record_report_payment_attempt_params import (
+        PaymentRecordReportPaymentAttemptParams,
+    )
+    from stripe.params._payment_record_report_payment_params import (
+        PaymentRecordReportPaymentParams,
+    )
+    from stripe.params._payment_record_retrieve_params import (
+        PaymentRecordRetrieveParams,
+    )
 
 
 class PaymentRecord(APIResource["PaymentRecord"]):
@@ -2002,555 +2016,6 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         """
         _inner_class_types = {"address": Address}
 
-    class ReportPaymentAttemptCanceledParams(RequestOptions):
-        canceled_at: int
-        """
-        When the reported payment was canceled. Measured in seconds since the Unix epoch.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-
-    class ReportPaymentAttemptFailedParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        failed_at: int
-        """
-        When the reported payment failed. Measured in seconds since the Unix epoch.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-
-    class ReportPaymentAttemptGuaranteedParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        guaranteed_at: int
-        """
-        When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-
-    class ReportPaymentAttemptInformationalParams(RequestOptions):
-        customer_details: NotRequired[
-            "PaymentRecord.ReportPaymentAttemptInformationalParamsCustomerDetails"
-        ]
-        """
-        Customer information for this payment.
-        """
-        description: NotRequired["Literal['']|str"]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        shipping_details: NotRequired[
-            "Literal['']|PaymentRecord.ReportPaymentAttemptInformationalParamsShippingDetails"
-        ]
-        """
-        Shipping information for this payment.
-        """
-
-    class ReportPaymentAttemptInformationalParamsCustomerDetails(TypedDict):
-        customer: NotRequired[str]
-        """
-        The customer who made the payment.
-        """
-        email: NotRequired[str]
-        """
-        The customer's phone number.
-        """
-        name: NotRequired[str]
-        """
-        The customer's name.
-        """
-        phone: NotRequired[str]
-        """
-        The customer's phone number.
-        """
-
-    class ReportPaymentAttemptInformationalParamsShippingDetails(TypedDict):
-        address: NotRequired[
-            "PaymentRecord.ReportPaymentAttemptInformationalParamsShippingDetailsAddress"
-        ]
-        """
-        The physical shipping address.
-        """
-        name: NotRequired[str]
-        """
-        The shipping recipient's name.
-        """
-        phone: NotRequired[str]
-        """
-        The shipping recipient's phone number.
-        """
-
-    class ReportPaymentAttemptInformationalParamsShippingDetailsAddress(
-        TypedDict,
-    ):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class ReportPaymentAttemptParams(RequestOptions):
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        failed: NotRequired["PaymentRecord.ReportPaymentAttemptParamsFailed"]
-        """
-        Information about the payment attempt failure.
-        """
-        guaranteed: NotRequired[
-            "PaymentRecord.ReportPaymentAttemptParamsGuaranteed"
-        ]
-        """
-        Information about the payment attempt guarantee.
-        """
-        initiated_at: int
-        """
-        When the reported payment was initiated. Measured in seconds since the Unix epoch.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        outcome: NotRequired[Literal["failed", "guaranteed"]]
-        """
-        The outcome of the reported payment.
-        """
-        payment_method_details: NotRequired[
-            "PaymentRecord.ReportPaymentAttemptParamsPaymentMethodDetails"
-        ]
-        """
-        Information about the Payment Method debited for this payment.
-        """
-        shipping_details: NotRequired[
-            "PaymentRecord.ReportPaymentAttemptParamsShippingDetails"
-        ]
-        """
-        Shipping information for this payment.
-        """
-
-    class ReportPaymentAttemptParamsFailed(TypedDict):
-        failed_at: int
-        """
-        When the reported payment failed. Measured in seconds since the Unix epoch.
-        """
-
-    class ReportPaymentAttemptParamsGuaranteed(TypedDict):
-        guaranteed_at: int
-        """
-        When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
-        """
-
-    class ReportPaymentAttemptParamsPaymentMethodDetails(TypedDict):
-        billing_details: NotRequired[
-            "PaymentRecord.ReportPaymentAttemptParamsPaymentMethodDetailsBillingDetails"
-        ]
-        """
-        The billing details associated with the method of payment.
-        """
-        custom: NotRequired[
-            "PaymentRecord.ReportPaymentAttemptParamsPaymentMethodDetailsCustom"
-        ]
-        """
-        Information about the custom (user-defined) payment method used to make this payment.
-        """
-        payment_method: NotRequired[str]
-        """
-        ID of the Stripe Payment Method used to make this payment.
-        """
-        type: NotRequired[Literal["custom"]]
-        """
-        The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
-        """
-
-    class ReportPaymentAttemptParamsPaymentMethodDetailsBillingDetails(
-        TypedDict,
-    ):
-        address: NotRequired[
-            "PaymentRecord.ReportPaymentAttemptParamsPaymentMethodDetailsBillingDetailsAddress"
-        ]
-        """
-        The billing address associated with the method of payment.
-        """
-        email: NotRequired[str]
-        """
-        The billing email associated with the method of payment.
-        """
-        name: NotRequired[str]
-        """
-        The billing name associated with the method of payment.
-        """
-        phone: NotRequired[str]
-        """
-        The billing phone number associated with the method of payment.
-        """
-
-    class ReportPaymentAttemptParamsPaymentMethodDetailsBillingDetailsAddress(
-        TypedDict,
-    ):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class ReportPaymentAttemptParamsPaymentMethodDetailsCustom(TypedDict):
-        display_name: NotRequired[str]
-        """
-        Display name for the custom (user-defined) payment method type used to make this payment.
-        """
-        type: NotRequired[str]
-        """
-        The custom payment method type associated with this payment.
-        """
-
-    class ReportPaymentAttemptParamsShippingDetails(TypedDict):
-        address: NotRequired[
-            "PaymentRecord.ReportPaymentAttemptParamsShippingDetailsAddress"
-        ]
-        """
-        The physical shipping address.
-        """
-        name: NotRequired[str]
-        """
-        The shipping recipient's name.
-        """
-        phone: NotRequired[str]
-        """
-        The shipping recipient's phone number.
-        """
-
-    class ReportPaymentAttemptParamsShippingDetailsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class ReportPaymentParams(RequestOptions):
-        amount_requested: "PaymentRecord.ReportPaymentParamsAmountRequested"
-        """
-        The amount you initially requested for this payment.
-        """
-        customer_details: NotRequired[
-            "PaymentRecord.ReportPaymentParamsCustomerDetails"
-        ]
-        """
-        Customer information for this payment.
-        """
-        customer_presence: NotRequired[Literal["off_session", "on_session"]]
-        """
-        Indicates whether the customer was present in your checkout flow during this payment.
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        failed: NotRequired["PaymentRecord.ReportPaymentParamsFailed"]
-        """
-        Information about the payment attempt failure.
-        """
-        guaranteed: NotRequired["PaymentRecord.ReportPaymentParamsGuaranteed"]
-        """
-        Information about the payment attempt guarantee.
-        """
-        initiated_at: int
-        """
-        When the reported payment was initiated. Measured in seconds since the Unix epoch.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        outcome: NotRequired[Literal["failed", "guaranteed"]]
-        """
-        The outcome of the reported payment.
-        """
-        payment_method_details: (
-            "PaymentRecord.ReportPaymentParamsPaymentMethodDetails"
-        )
-        """
-        Information about the Payment Method debited for this payment.
-        """
-        processor_details: NotRequired[
-            "PaymentRecord.ReportPaymentParamsProcessorDetails"
-        ]
-        """
-        Processor information for this payment.
-        """
-        shipping_details: NotRequired[
-            "PaymentRecord.ReportPaymentParamsShippingDetails"
-        ]
-        """
-        Shipping information for this payment.
-        """
-
-    class ReportPaymentParamsAmountRequested(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        value: int
-        """
-        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
-        """
-
-    class ReportPaymentParamsCustomerDetails(TypedDict):
-        customer: NotRequired[str]
-        """
-        The customer who made the payment.
-        """
-        email: NotRequired[str]
-        """
-        The customer's phone number.
-        """
-        name: NotRequired[str]
-        """
-        The customer's name.
-        """
-        phone: NotRequired[str]
-        """
-        The customer's phone number.
-        """
-
-    class ReportPaymentParamsFailed(TypedDict):
-        failed_at: int
-        """
-        When the reported payment failed. Measured in seconds since the Unix epoch.
-        """
-
-    class ReportPaymentParamsGuaranteed(TypedDict):
-        guaranteed_at: int
-        """
-        When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
-        """
-
-    class ReportPaymentParamsPaymentMethodDetails(TypedDict):
-        billing_details: NotRequired[
-            "PaymentRecord.ReportPaymentParamsPaymentMethodDetailsBillingDetails"
-        ]
-        """
-        The billing details associated with the method of payment.
-        """
-        custom: NotRequired[
-            "PaymentRecord.ReportPaymentParamsPaymentMethodDetailsCustom"
-        ]
-        """
-        Information about the custom (user-defined) payment method used to make this payment.
-        """
-        payment_method: NotRequired[str]
-        """
-        ID of the Stripe Payment Method used to make this payment.
-        """
-        type: NotRequired[Literal["custom"]]
-        """
-        The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
-        """
-
-    class ReportPaymentParamsPaymentMethodDetailsBillingDetails(TypedDict):
-        address: NotRequired[
-            "PaymentRecord.ReportPaymentParamsPaymentMethodDetailsBillingDetailsAddress"
-        ]
-        """
-        The billing address associated with the method of payment.
-        """
-        email: NotRequired[str]
-        """
-        The billing email associated with the method of payment.
-        """
-        name: NotRequired[str]
-        """
-        The billing name associated with the method of payment.
-        """
-        phone: NotRequired[str]
-        """
-        The billing phone number associated with the method of payment.
-        """
-
-    class ReportPaymentParamsPaymentMethodDetailsBillingDetailsAddress(
-        TypedDict,
-    ):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class ReportPaymentParamsPaymentMethodDetailsCustom(TypedDict):
-        display_name: NotRequired[str]
-        """
-        Display name for the custom (user-defined) payment method type used to make this payment.
-        """
-        type: NotRequired[str]
-        """
-        The custom payment method type associated with this payment.
-        """
-
-    class ReportPaymentParamsProcessorDetails(TypedDict):
-        custom: NotRequired[
-            "PaymentRecord.ReportPaymentParamsProcessorDetailsCustom"
-        ]
-        """
-        Information about the custom processor used to make this payment.
-        """
-        type: Literal["custom"]
-        """
-        The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
-        """
-
-    class ReportPaymentParamsProcessorDetailsCustom(TypedDict):
-        payment_reference: str
-        """
-        An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
-        """
-
-    class ReportPaymentParamsShippingDetails(TypedDict):
-        address: NotRequired[
-            "PaymentRecord.ReportPaymentParamsShippingDetailsAddress"
-        ]
-        """
-        The physical shipping address.
-        """
-        name: NotRequired[str]
-        """
-        The shipping recipient's name.
-        """
-        phone: NotRequired[str]
-        """
-        The shipping recipient's phone number.
-        """
-
-    class ReportPaymentParamsShippingDetailsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     amount: Amount
     """
     A representation of an amount of money, consisting of an amount and a currency.
@@ -2634,7 +2099,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     @classmethod
     def report_payment(
-        cls, **params: Unpack["PaymentRecord.ReportPaymentParams"]
+        cls, **params: Unpack["PaymentRecordReportPaymentParams"]
     ) -> "PaymentRecord":
         """
         Report a new Payment Record. You may report a Payment Record as it is
@@ -2652,7 +2117,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     @classmethod
     async def report_payment_async(
-        cls, **params: Unpack["PaymentRecord.ReportPaymentParams"]
+        cls, **params: Unpack["PaymentRecordReportPaymentParams"]
     ) -> "PaymentRecord":
         """
         Report a new Payment Record. You may report a Payment Record as it is
@@ -2672,7 +2137,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     def _cls_report_payment_attempt(
         cls,
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptParams"],
     ) -> "PaymentRecord":
         """
         Report a new payment attempt on the specified Payment Record. A new payment
@@ -2692,7 +2157,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @overload
     @staticmethod
     def report_payment_attempt(
-        id: str, **params: Unpack["PaymentRecord.ReportPaymentAttemptParams"]
+        id: str, **params: Unpack["PaymentRecordReportPaymentAttemptParams"]
     ) -> "PaymentRecord":
         """
         Report a new payment attempt on the specified Payment Record. A new payment
@@ -2702,7 +2167,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     @overload
     def report_payment_attempt(
-        self, **params: Unpack["PaymentRecord.ReportPaymentAttemptParams"]
+        self, **params: Unpack["PaymentRecordReportPaymentAttemptParams"]
     ) -> "PaymentRecord":
         """
         Report a new payment attempt on the specified Payment Record. A new payment
@@ -2712,7 +2177,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     @class_method_variant("_cls_report_payment_attempt")
     def report_payment_attempt(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PaymentRecord.ReportPaymentAttemptParams"]
+        self, **params: Unpack["PaymentRecordReportPaymentAttemptParams"]
     ) -> "PaymentRecord":
         """
         Report a new payment attempt on the specified Payment Record. A new payment
@@ -2733,7 +2198,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     async def _cls_report_payment_attempt_async(
         cls,
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptParams"],
     ) -> "PaymentRecord":
         """
         Report a new payment attempt on the specified Payment Record. A new payment
@@ -2753,7 +2218,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @overload
     @staticmethod
     async def report_payment_attempt_async(
-        id: str, **params: Unpack["PaymentRecord.ReportPaymentAttemptParams"]
+        id: str, **params: Unpack["PaymentRecordReportPaymentAttemptParams"]
     ) -> "PaymentRecord":
         """
         Report a new payment attempt on the specified Payment Record. A new payment
@@ -2763,7 +2228,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     @overload
     async def report_payment_attempt_async(
-        self, **params: Unpack["PaymentRecord.ReportPaymentAttemptParams"]
+        self, **params: Unpack["PaymentRecordReportPaymentAttemptParams"]
     ) -> "PaymentRecord":
         """
         Report a new payment attempt on the specified Payment Record. A new payment
@@ -2773,7 +2238,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     @class_method_variant("_cls_report_payment_attempt_async")
     async def report_payment_attempt_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PaymentRecord.ReportPaymentAttemptParams"]
+        self, **params: Unpack["PaymentRecordReportPaymentAttemptParams"]
     ) -> "PaymentRecord":
         """
         Report a new payment attempt on the specified Payment Record. A new payment
@@ -2794,7 +2259,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     def _cls_report_payment_attempt_canceled(
         cls,
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptCanceledParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptCanceledParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2815,7 +2280,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @staticmethod
     def report_payment_attempt_canceled(
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptCanceledParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptCanceledParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2826,7 +2291,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @overload
     def report_payment_attempt_canceled(
         self,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptCanceledParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptCanceledParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2837,7 +2302,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @class_method_variant("_cls_report_payment_attempt_canceled")
     def report_payment_attempt_canceled(  # pyright: ignore[reportGeneralTypeIssues]
         self,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptCanceledParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptCanceledParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2858,7 +2323,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     async def _cls_report_payment_attempt_canceled_async(
         cls,
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptCanceledParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptCanceledParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2879,7 +2344,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @staticmethod
     async def report_payment_attempt_canceled_async(
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptCanceledParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptCanceledParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2890,7 +2355,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @overload
     async def report_payment_attempt_canceled_async(
         self,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptCanceledParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptCanceledParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2901,7 +2366,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @class_method_variant("_cls_report_payment_attempt_canceled_async")
     async def report_payment_attempt_canceled_async(  # pyright: ignore[reportGeneralTypeIssues]
         self,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptCanceledParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptCanceledParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2922,7 +2387,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     def _cls_report_payment_attempt_failed(
         cls,
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptFailedParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptFailedParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2943,7 +2408,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @staticmethod
     def report_payment_attempt_failed(
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptFailedParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptFailedParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2953,8 +2418,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     @overload
     def report_payment_attempt_failed(
-        self,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptFailedParams"],
+        self, **params: Unpack["PaymentRecordReportPaymentAttemptFailedParams"]
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2964,8 +2428,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     @class_method_variant("_cls_report_payment_attempt_failed")
     def report_payment_attempt_failed(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptFailedParams"],
+        self, **params: Unpack["PaymentRecordReportPaymentAttemptFailedParams"]
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -2986,7 +2449,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     async def _cls_report_payment_attempt_failed_async(
         cls,
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptFailedParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptFailedParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3007,7 +2470,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @staticmethod
     async def report_payment_attempt_failed_async(
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptFailedParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptFailedParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3017,8 +2480,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     @overload
     async def report_payment_attempt_failed_async(
-        self,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptFailedParams"],
+        self, **params: Unpack["PaymentRecordReportPaymentAttemptFailedParams"]
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3028,8 +2490,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     @class_method_variant("_cls_report_payment_attempt_failed_async")
     async def report_payment_attempt_failed_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptFailedParams"],
+        self, **params: Unpack["PaymentRecordReportPaymentAttemptFailedParams"]
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3050,7 +2511,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     def _cls_report_payment_attempt_guaranteed(
         cls,
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptGuaranteedParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptGuaranteedParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3071,7 +2532,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @staticmethod
     def report_payment_attempt_guaranteed(
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptGuaranteedParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptGuaranteedParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3082,7 +2543,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @overload
     def report_payment_attempt_guaranteed(
         self,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptGuaranteedParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptGuaranteedParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3093,7 +2554,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @class_method_variant("_cls_report_payment_attempt_guaranteed")
     def report_payment_attempt_guaranteed(  # pyright: ignore[reportGeneralTypeIssues]
         self,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptGuaranteedParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptGuaranteedParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3114,7 +2575,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     async def _cls_report_payment_attempt_guaranteed_async(
         cls,
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptGuaranteedParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptGuaranteedParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3135,7 +2596,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @staticmethod
     async def report_payment_attempt_guaranteed_async(
         id: str,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptGuaranteedParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptGuaranteedParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3146,7 +2607,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @overload
     async def report_payment_attempt_guaranteed_async(
         self,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptGuaranteedParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptGuaranteedParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3157,7 +2618,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     @class_method_variant("_cls_report_payment_attempt_guaranteed_async")
     async def report_payment_attempt_guaranteed_async(  # pyright: ignore[reportGeneralTypeIssues]
         self,
-        **params: Unpack["PaymentRecord.ReportPaymentAttemptGuaranteedParams"],
+        **params: Unpack["PaymentRecordReportPaymentAttemptGuaranteedParams"],
     ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
@@ -3179,7 +2640,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         cls,
         id: str,
         **params: Unpack[
-            "PaymentRecord.ReportPaymentAttemptInformationalParams"
+            "PaymentRecordReportPaymentAttemptInformationalParams"
         ],
     ) -> "PaymentRecord":
         """
@@ -3201,7 +2662,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     def report_payment_attempt_informational(
         id: str,
         **params: Unpack[
-            "PaymentRecord.ReportPaymentAttemptInformationalParams"
+            "PaymentRecordReportPaymentAttemptInformationalParams"
         ],
     ) -> "PaymentRecord":
         """
@@ -3213,7 +2674,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     def report_payment_attempt_informational(
         self,
         **params: Unpack[
-            "PaymentRecord.ReportPaymentAttemptInformationalParams"
+            "PaymentRecordReportPaymentAttemptInformationalParams"
         ],
     ) -> "PaymentRecord":
         """
@@ -3225,7 +2686,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     def report_payment_attempt_informational(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         **params: Unpack[
-            "PaymentRecord.ReportPaymentAttemptInformationalParams"
+            "PaymentRecordReportPaymentAttemptInformationalParams"
         ],
     ) -> "PaymentRecord":
         """
@@ -3247,7 +2708,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         cls,
         id: str,
         **params: Unpack[
-            "PaymentRecord.ReportPaymentAttemptInformationalParams"
+            "PaymentRecordReportPaymentAttemptInformationalParams"
         ],
     ) -> "PaymentRecord":
         """
@@ -3269,7 +2730,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     async def report_payment_attempt_informational_async(
         id: str,
         **params: Unpack[
-            "PaymentRecord.ReportPaymentAttemptInformationalParams"
+            "PaymentRecordReportPaymentAttemptInformationalParams"
         ],
     ) -> "PaymentRecord":
         """
@@ -3281,7 +2742,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     async def report_payment_attempt_informational_async(
         self,
         **params: Unpack[
-            "PaymentRecord.ReportPaymentAttemptInformationalParams"
+            "PaymentRecordReportPaymentAttemptInformationalParams"
         ],
     ) -> "PaymentRecord":
         """
@@ -3293,7 +2754,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     async def report_payment_attempt_informational_async(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         **params: Unpack[
-            "PaymentRecord.ReportPaymentAttemptInformationalParams"
+            "PaymentRecordReportPaymentAttemptInformationalParams"
         ],
     ) -> "PaymentRecord":
         """
@@ -3312,7 +2773,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["PaymentRecord.RetrieveParams"]
+        cls, id: str, **params: Unpack["PaymentRecordRetrieveParams"]
     ) -> "PaymentRecord":
         """
         Retrieves a Payment Record with the given ID
@@ -3323,7 +2784,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["PaymentRecord.RetrieveParams"]
+        cls, id: str, **params: Unpack["PaymentRecordRetrieveParams"]
     ) -> "PaymentRecord":
         """
         Retrieves a Payment Record with the given ID

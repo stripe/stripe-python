@@ -2,10 +2,15 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._util import deprecated
-from typing import ClassVar, Dict, List
-from typing_extensions import Literal, NotRequired, Unpack
+from typing import ClassVar, Dict
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._exchange_rate_list_params import ExchangeRateListParams
+    from stripe.params._exchange_rate_retrieve_params import (
+        ExchangeRateRetrieveParams,
+    )
 
 
 class ExchangeRate(ListableAPIResource["ExchangeRate"]):
@@ -41,31 +46,6 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["exchange_rate"]] = "exchange_rate"
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with the exchange rate for currency X your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and total number of supported payout currencies, and the default is the max.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is the currency that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with the exchange rate for currency X, your subsequent call can include `starting_after=X` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     id: str
     """
     Unique identifier for the object. Represented as the three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) in lowercase.
@@ -84,7 +64,7 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
         "This method is deprecated, please refer to the description for details.",
     )
     def list(
-        cls, **params: Unpack["ExchangeRate.ListParams"]
+        cls, **params: Unpack["ExchangeRateListParams"]
     ) -> ListObject["ExchangeRate"]:
         """
         [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
@@ -109,7 +89,7 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
         "This method is deprecated, please refer to the description for details.",
     )
     async def list_async(
-        cls, **params: Unpack["ExchangeRate.ListParams"]
+        cls, **params: Unpack["ExchangeRateListParams"]
     ) -> ListObject["ExchangeRate"]:
         """
         [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
@@ -134,7 +114,7 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
         "This method is deprecated, please refer to the description for details.",
     )
     def retrieve(
-        cls, id: str, **params: Unpack["ExchangeRate.RetrieveParams"]
+        cls, id: str, **params: Unpack["ExchangeRateRetrieveParams"]
     ) -> "ExchangeRate":
         """
         [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
@@ -150,7 +130,7 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
         "This method is deprecated, please refer to the description for details.",
     )
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ExchangeRate.RetrieveParams"]
+        cls, id: str, **params: Unpack["ExchangeRateRetrieveParams"]
     ) -> "ExchangeRate":
         """
         [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.

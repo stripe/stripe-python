@@ -4,21 +4,20 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.terminal._reader_collected_data import ReaderCollectedData
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.terminal._reader_collected_data_retrieve_params import (
+        ReaderCollectedDataRetrieveParams,
+    )
 
 
 class ReaderCollectedDataService(StripeService):
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def retrieve(
         self,
         reader_collected_data: str,
-        params: Optional["ReaderCollectedDataService.RetrieveParams"] = None,
+        params: Optional["ReaderCollectedDataRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReaderCollectedData:
         """
@@ -40,7 +39,7 @@ class ReaderCollectedDataService(StripeService):
     async def retrieve_async(
         self,
         reader_collected_data: str,
-        params: Optional["ReaderCollectedDataService.RetrieveParams"] = None,
+        params: Optional["ReaderCollectedDataRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReaderCollectedData:
         """

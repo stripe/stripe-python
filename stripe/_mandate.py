@@ -3,13 +3,14 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._payment_method import PaymentMethod
+    from stripe.params._mandate_list_params import MandateListParams
+    from stripe.params._mandate_retrieve_params import MandateRetrieveParams
 
 
 class Mandate(ListableAPIResource["Mandate"]):
@@ -309,39 +310,6 @@ class Mandate(ListableAPIResource["Mandate"]):
         The currency of the payment on a single use mandate.
         """
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        on_behalf_of: NotRequired[str]
-        """
-        The Stripe account ID that the mandates are intended for. Learn more about the [use case for connected accounts payments](https://stripe.com/docs/payments/connected-accounts).
-        """
-        payment_method: str
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: Literal["active", "inactive", "pending"]
-        """
-        The status of the mandates to retrieve. Status indicates whether or not you can use it to initiate a payment, and can have a value of `active`, `pending`, or `inactive`.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     customer_acceptance: CustomerAcceptance
     id: str
     """
@@ -377,7 +345,7 @@ class Mandate(ListableAPIResource["Mandate"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["Mandate.ListParams"]
+        cls, **params: Unpack["MandateListParams"]
     ) -> ListObject["Mandate"]:
         """
         Retrieves a list of Mandates for a given PaymentMethod.
@@ -397,7 +365,7 @@ class Mandate(ListableAPIResource["Mandate"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Mandate.ListParams"]
+        cls, **params: Unpack["MandateListParams"]
     ) -> ListObject["Mandate"]:
         """
         Retrieves a list of Mandates for a given PaymentMethod.
@@ -417,7 +385,7 @@ class Mandate(ListableAPIResource["Mandate"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Mandate.RetrieveParams"]
+        cls, id: str, **params: Unpack["MandateRetrieveParams"]
     ) -> "Mandate":
         """
         Retrieves a Mandate object.
@@ -428,7 +396,7 @@ class Mandate(ListableAPIResource["Mandate"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Mandate.RetrieveParams"]
+        cls, id: str, **params: Unpack["MandateRetrieveParams"]
     ) -> "Mandate":
         """
         Retrieves a Mandate object.

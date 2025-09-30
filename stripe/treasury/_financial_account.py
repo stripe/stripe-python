@@ -3,20 +3,34 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.treasury._financial_account_close_params import (
+        FinancialAccountCloseParams,
+    )
+    from stripe.params.treasury._financial_account_create_params import (
+        FinancialAccountCreateParams,
+    )
+    from stripe.params.treasury._financial_account_list_params import (
+        FinancialAccountListParams,
+    )
+    from stripe.params.treasury._financial_account_modify_params import (
+        FinancialAccountModifyParams,
+    )
+    from stripe.params.treasury._financial_account_retrieve_features_params import (
+        FinancialAccountRetrieveFeaturesParams,
+    )
+    from stripe.params.treasury._financial_account_retrieve_params import (
+        FinancialAccountRetrieveParams,
+    )
+    from stripe.params.treasury._financial_account_update_features_params import (
+        FinancialAccountUpdateFeaturesParams,
+    )
     from stripe.treasury._financial_account_features import (
         FinancialAccountFeatures,
     )
@@ -111,630 +125,6 @@ class FinancialAccount(
         Details related to the closure of this FinancialAccount
         """
         _inner_class_types = {"closed": Closed}
-
-    class CloseParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        forwarding_settings: NotRequired[
-            "FinancialAccount.CloseParamsForwardingSettings"
-        ]
-        """
-        A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
-        """
-
-    class CloseParamsForwardingSettings(TypedDict):
-        financial_account: NotRequired[str]
-        """
-        The financial_account id
-        """
-        payment_method: NotRequired[str]
-        """
-        The payment_method or bank account id. This needs to be a verified bank account.
-        """
-        type: Literal["financial_account", "payment_method"]
-        """
-        The type of the bank account provided. This can be either "financial_account" or "payment_method"
-        """
-
-    class CreateParams(RequestOptions):
-        display_name: NotRequired["Literal['']|str"]
-        """
-        The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        features: NotRequired["FinancialAccount.CreateParamsFeatures"]
-        """
-        Encodes whether a FinancialAccount has access to a particular feature. Stripe or the platform can control features via the requested field.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        nickname: NotRequired["Literal['']|str"]
-        """
-        The nickname for the FinancialAccount.
-        """
-        platform_restrictions: NotRequired[
-            "FinancialAccount.CreateParamsPlatformRestrictions"
-        ]
-        """
-        The set of functionalities that the platform can restrict on the FinancialAccount.
-        """
-        supported_currencies: List[str]
-        """
-        The currencies the FinancialAccount can hold a balance in.
-        """
-
-    class CreateParamsFeatures(TypedDict):
-        card_issuing: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesCardIssuing"
-        ]
-        """
-        Encodes the FinancialAccount's ability to be used with the Issuing product, including attaching cards to and drawing funds from the FinancialAccount.
-        """
-        deposit_insurance: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesDepositInsurance"
-        ]
-        """
-        Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
-        """
-        financial_addresses: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesFinancialAddresses"
-        ]
-        """
-        Contains Features that add FinancialAddresses to the FinancialAccount.
-        """
-        inbound_transfers: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesInboundTransfers"
-        ]
-        """
-        Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.
-        """
-        intra_stripe_flows: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesIntraStripeFlows"
-        ]
-        """
-        Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).
-        """
-        outbound_payments: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesOutboundPayments"
-        ]
-        """
-        Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.
-        """
-        outbound_transfers: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesOutboundTransfers"
-        ]
-        """
-        Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
-        """
-
-    class CreateParamsFeaturesCardIssuing(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsFeaturesDepositInsurance(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsFeaturesFinancialAddresses(TypedDict):
-        aba: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesFinancialAddressesAba"
-        ]
-        """
-        Adds an ABA FinancialAddress to the FinancialAccount.
-        """
-
-    class CreateParamsFeaturesFinancialAddressesAba(TypedDict):
-        bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
-        """
-        Requested bank partner
-        """
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsFeaturesInboundTransfers(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesInboundTransfersAch"
-        ]
-        """
-        Enables ACH Debits via the InboundTransfers API.
-        """
-
-    class CreateParamsFeaturesInboundTransfersAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsFeaturesIntraStripeFlows(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsFeaturesOutboundPayments(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesOutboundPaymentsAch"
-        ]
-        """
-        Enables ACH transfers via the OutboundPayments API.
-        """
-        us_domestic_wire: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesOutboundPaymentsUsDomesticWire"
-        ]
-        """
-        Enables US domestic wire transfers via the OutboundPayments API.
-        """
-
-    class CreateParamsFeaturesOutboundPaymentsAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsFeaturesOutboundPaymentsUsDomesticWire(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsFeaturesOutboundTransfers(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesOutboundTransfersAch"
-        ]
-        """
-        Enables ACH transfers via the OutboundTransfers API.
-        """
-        us_domestic_wire: NotRequired[
-            "FinancialAccount.CreateParamsFeaturesOutboundTransfersUsDomesticWire"
-        ]
-        """
-        Enables US domestic wire transfers via the OutboundTransfers API.
-        """
-
-    class CreateParamsFeaturesOutboundTransfersAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsFeaturesOutboundTransfersUsDomesticWire(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class CreateParamsPlatformRestrictions(TypedDict):
-        inbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
-        """
-        Restricts all inbound money movement.
-        """
-        outbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
-        """
-        Restricts all outbound money movement.
-        """
-
-    class ListParams(RequestOptions):
-        created: NotRequired["FinancialAccount.ListParamsCreated|int"]
-        """
-        Only return FinancialAccounts that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        An object ID cursor for use in pagination.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit ranging from 1 to 100 (defaults to 10).
-        """
-        starting_after: NotRequired[str]
-        """
-        An object ID cursor for use in pagination.
-        """
-        status: NotRequired[Literal["closed", "open"]]
-        """
-        Only return FinancialAccounts that have the given status: `open` or `closed`
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ModifyParams(RequestOptions):
-        display_name: NotRequired["Literal['']|str"]
-        """
-        The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        features: NotRequired["FinancialAccount.ModifyParamsFeatures"]
-        """
-        Encodes whether a FinancialAccount has access to a particular feature, with a status enum and associated `status_details`. Stripe or the platform may control features via the requested field.
-        """
-        forwarding_settings: NotRequired[
-            "FinancialAccount.ModifyParamsForwardingSettings"
-        ]
-        """
-        A different bank account where funds can be deposited/debited in order to get the closing FA's balance to $0
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        nickname: NotRequired["Literal['']|str"]
-        """
-        The nickname for the FinancialAccount.
-        """
-        platform_restrictions: NotRequired[
-            "FinancialAccount.ModifyParamsPlatformRestrictions"
-        ]
-        """
-        The set of functionalities that the platform can restrict on the FinancialAccount.
-        """
-
-    class ModifyParamsFeatures(TypedDict):
-        card_issuing: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesCardIssuing"
-        ]
-        """
-        Encodes the FinancialAccount's ability to be used with the Issuing product, including attaching cards to and drawing funds from the FinancialAccount.
-        """
-        deposit_insurance: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesDepositInsurance"
-        ]
-        """
-        Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
-        """
-        financial_addresses: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesFinancialAddresses"
-        ]
-        """
-        Contains Features that add FinancialAddresses to the FinancialAccount.
-        """
-        inbound_transfers: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesInboundTransfers"
-        ]
-        """
-        Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.
-        """
-        intra_stripe_flows: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesIntraStripeFlows"
-        ]
-        """
-        Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).
-        """
-        outbound_payments: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesOutboundPayments"
-        ]
-        """
-        Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.
-        """
-        outbound_transfers: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesOutboundTransfers"
-        ]
-        """
-        Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
-        """
-
-    class ModifyParamsFeaturesCardIssuing(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsFeaturesDepositInsurance(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsFeaturesFinancialAddresses(TypedDict):
-        aba: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesFinancialAddressesAba"
-        ]
-        """
-        Adds an ABA FinancialAddress to the FinancialAccount.
-        """
-
-    class ModifyParamsFeaturesFinancialAddressesAba(TypedDict):
-        bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
-        """
-        Requested bank partner
-        """
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsFeaturesInboundTransfers(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesInboundTransfersAch"
-        ]
-        """
-        Enables ACH Debits via the InboundTransfers API.
-        """
-
-    class ModifyParamsFeaturesInboundTransfersAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsFeaturesIntraStripeFlows(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsFeaturesOutboundPayments(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesOutboundPaymentsAch"
-        ]
-        """
-        Enables ACH transfers via the OutboundPayments API.
-        """
-        us_domestic_wire: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesOutboundPaymentsUsDomesticWire"
-        ]
-        """
-        Enables US domestic wire transfers via the OutboundPayments API.
-        """
-
-    class ModifyParamsFeaturesOutboundPaymentsAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsFeaturesOutboundPaymentsUsDomesticWire(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsFeaturesOutboundTransfers(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesOutboundTransfersAch"
-        ]
-        """
-        Enables ACH transfers via the OutboundTransfers API.
-        """
-        us_domestic_wire: NotRequired[
-            "FinancialAccount.ModifyParamsFeaturesOutboundTransfersUsDomesticWire"
-        ]
-        """
-        Enables US domestic wire transfers via the OutboundTransfers API.
-        """
-
-    class ModifyParamsFeaturesOutboundTransfersAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsFeaturesOutboundTransfersUsDomesticWire(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class ModifyParamsForwardingSettings(TypedDict):
-        financial_account: NotRequired[str]
-        """
-        The financial_account id
-        """
-        payment_method: NotRequired[str]
-        """
-        The payment_method or bank account id. This needs to be a verified bank account.
-        """
-        type: Literal["financial_account", "payment_method"]
-        """
-        The type of the bank account provided. This can be either "financial_account" or "payment_method"
-        """
-
-    class ModifyParamsPlatformRestrictions(TypedDict):
-        inbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
-        """
-        Restricts all inbound money movement.
-        """
-        outbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
-        """
-        Restricts all outbound money movement.
-        """
-
-    class RetrieveFeaturesParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class UpdateFeaturesParams(RequestOptions):
-        card_issuing: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsCardIssuing"
-        ]
-        """
-        Encodes the FinancialAccount's ability to be used with the Issuing product, including attaching cards to and drawing funds from the FinancialAccount.
-        """
-        deposit_insurance: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsDepositInsurance"
-        ]
-        """
-        Represents whether this FinancialAccount is eligible for deposit insurance. Various factors determine the insurance amount.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_addresses: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsFinancialAddresses"
-        ]
-        """
-        Contains Features that add FinancialAddresses to the FinancialAccount.
-        """
-        inbound_transfers: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsInboundTransfers"
-        ]
-        """
-        Contains settings related to adding funds to a FinancialAccount from another Account with the same owner.
-        """
-        intra_stripe_flows: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsIntraStripeFlows"
-        ]
-        """
-        Represents the ability for the FinancialAccount to send money to, or receive money from other FinancialAccounts (for example, via OutboundPayment).
-        """
-        outbound_payments: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsOutboundPayments"
-        ]
-        """
-        Includes Features related to initiating money movement out of the FinancialAccount to someone else's bucket of money.
-        """
-        outbound_transfers: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsOutboundTransfers"
-        ]
-        """
-        Contains a Feature and settings related to moving money out of the FinancialAccount into another Account with the same owner.
-        """
-
-    class UpdateFeaturesParamsCardIssuing(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class UpdateFeaturesParamsDepositInsurance(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class UpdateFeaturesParamsFinancialAddresses(TypedDict):
-        aba: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsFinancialAddressesAba"
-        ]
-        """
-        Adds an ABA FinancialAddress to the FinancialAccount.
-        """
-
-    class UpdateFeaturesParamsFinancialAddressesAba(TypedDict):
-        bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
-        """
-        Requested bank partner
-        """
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class UpdateFeaturesParamsInboundTransfers(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsInboundTransfersAch"
-        ]
-        """
-        Enables ACH Debits via the InboundTransfers API.
-        """
-
-    class UpdateFeaturesParamsInboundTransfersAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class UpdateFeaturesParamsIntraStripeFlows(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class UpdateFeaturesParamsOutboundPayments(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsOutboundPaymentsAch"
-        ]
-        """
-        Enables ACH transfers via the OutboundPayments API.
-        """
-        us_domestic_wire: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsOutboundPaymentsUsDomesticWire"
-        ]
-        """
-        Enables US domestic wire transfers via the OutboundPayments API.
-        """
-
-    class UpdateFeaturesParamsOutboundPaymentsAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class UpdateFeaturesParamsOutboundPaymentsUsDomesticWire(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class UpdateFeaturesParamsOutboundTransfers(TypedDict):
-        ach: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsOutboundTransfersAch"
-        ]
-        """
-        Enables ACH transfers via the OutboundTransfers API.
-        """
-        us_domestic_wire: NotRequired[
-            "FinancialAccount.UpdateFeaturesParamsOutboundTransfersUsDomesticWire"
-        ]
-        """
-        Enables US domestic wire transfers via the OutboundTransfers API.
-        """
-
-    class UpdateFeaturesParamsOutboundTransfersAch(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
-
-    class UpdateFeaturesParamsOutboundTransfersUsDomesticWire(TypedDict):
-        requested: bool
-        """
-        Whether the FinancialAccount should have the Feature.
-        """
 
     active_features: Optional[
         List[
@@ -860,7 +250,7 @@ class FinancialAccount(
     def _cls_close(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.CloseParams"],
+        **params: Unpack["FinancialAccountCloseParams"],
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -879,8 +269,7 @@ class FinancialAccount(
     @overload
     @staticmethod
     def close(
-        financial_account: str,
-        **params: Unpack["FinancialAccount.CloseParams"],
+        financial_account: str, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -889,7 +278,7 @@ class FinancialAccount(
 
     @overload
     def close(
-        self, **params: Unpack["FinancialAccount.CloseParams"]
+        self, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -898,7 +287,7 @@ class FinancialAccount(
 
     @class_method_variant("_cls_close")
     def close(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancialAccount.CloseParams"]
+        self, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -918,7 +307,7 @@ class FinancialAccount(
     async def _cls_close_async(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.CloseParams"],
+        **params: Unpack["FinancialAccountCloseParams"],
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -937,8 +326,7 @@ class FinancialAccount(
     @overload
     @staticmethod
     async def close_async(
-        financial_account: str,
-        **params: Unpack["FinancialAccount.CloseParams"],
+        financial_account: str, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -947,7 +335,7 @@ class FinancialAccount(
 
     @overload
     async def close_async(
-        self, **params: Unpack["FinancialAccount.CloseParams"]
+        self, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -956,7 +344,7 @@ class FinancialAccount(
 
     @class_method_variant("_cls_close_async")
     async def close_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancialAccount.CloseParams"]
+        self, **params: Unpack["FinancialAccountCloseParams"]
     ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
@@ -974,7 +362,7 @@ class FinancialAccount(
 
     @classmethod
     def create(
-        cls, **params: Unpack["FinancialAccount.CreateParams"]
+        cls, **params: Unpack["FinancialAccountCreateParams"]
     ) -> "FinancialAccount":
         """
         Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
@@ -990,7 +378,7 @@ class FinancialAccount(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["FinancialAccount.CreateParams"]
+        cls, **params: Unpack["FinancialAccountCreateParams"]
     ) -> "FinancialAccount":
         """
         Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
@@ -1006,7 +394,7 @@ class FinancialAccount(
 
     @classmethod
     def list(
-        cls, **params: Unpack["FinancialAccount.ListParams"]
+        cls, **params: Unpack["FinancialAccountListParams"]
     ) -> ListObject["FinancialAccount"]:
         """
         Returns a list of FinancialAccounts.
@@ -1026,7 +414,7 @@ class FinancialAccount(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["FinancialAccount.ListParams"]
+        cls, **params: Unpack["FinancialAccountListParams"]
     ) -> ListObject["FinancialAccount"]:
         """
         Returns a list of FinancialAccounts.
@@ -1046,7 +434,7 @@ class FinancialAccount(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["FinancialAccount.ModifyParams"]
+        cls, id: str, **params: Unpack["FinancialAccountModifyParams"]
     ) -> "FinancialAccount":
         """
         Updates the details of a FinancialAccount.
@@ -1063,7 +451,7 @@ class FinancialAccount(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["FinancialAccount.ModifyParams"]
+        cls, id: str, **params: Unpack["FinancialAccountModifyParams"]
     ) -> "FinancialAccount":
         """
         Updates the details of a FinancialAccount.
@@ -1080,7 +468,7 @@ class FinancialAccount(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["FinancialAccount.RetrieveParams"]
+        cls, id: str, **params: Unpack["FinancialAccountRetrieveParams"]
     ) -> "FinancialAccount":
         """
         Retrieves the details of a FinancialAccount.
@@ -1091,7 +479,7 @@ class FinancialAccount(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["FinancialAccount.RetrieveParams"]
+        cls, id: str, **params: Unpack["FinancialAccountRetrieveParams"]
     ) -> "FinancialAccount":
         """
         Retrieves the details of a FinancialAccount.
@@ -1104,7 +492,7 @@ class FinancialAccount(
     def _cls_retrieve_features(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"],
+        **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1124,7 +512,7 @@ class FinancialAccount(
     @staticmethod
     def retrieve_features(
         financial_account: str,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"],
+        **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1133,7 +521,7 @@ class FinancialAccount(
 
     @overload
     def retrieve_features(
-        self, **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        self, **params: Unpack["FinancialAccountRetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1142,7 +530,7 @@ class FinancialAccount(
 
     @class_method_variant("_cls_retrieve_features")
     def retrieve_features(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        self, **params: Unpack["FinancialAccountRetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1162,7 +550,7 @@ class FinancialAccount(
     async def _cls_retrieve_features_async(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"],
+        **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1182,7 +570,7 @@ class FinancialAccount(
     @staticmethod
     async def retrieve_features_async(
         financial_account: str,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"],
+        **params: Unpack["FinancialAccountRetrieveFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1191,7 +579,7 @@ class FinancialAccount(
 
     @overload
     async def retrieve_features_async(
-        self, **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        self, **params: Unpack["FinancialAccountRetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1200,7 +588,7 @@ class FinancialAccount(
 
     @class_method_variant("_cls_retrieve_features_async")
     async def retrieve_features_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        self, **params: Unpack["FinancialAccountRetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -1220,7 +608,7 @@ class FinancialAccount(
     def _cls_update_features(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"],
+        **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1240,7 +628,7 @@ class FinancialAccount(
     @staticmethod
     def update_features(
         financial_account: str,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"],
+        **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1249,7 +637,7 @@ class FinancialAccount(
 
     @overload
     def update_features(
-        self, **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        self, **params: Unpack["FinancialAccountUpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1258,7 +646,7 @@ class FinancialAccount(
 
     @class_method_variant("_cls_update_features")
     def update_features(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        self, **params: Unpack["FinancialAccountUpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1278,7 +666,7 @@ class FinancialAccount(
     async def _cls_update_features_async(
         cls,
         financial_account: str,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"],
+        **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1298,7 +686,7 @@ class FinancialAccount(
     @staticmethod
     async def update_features_async(
         financial_account: str,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"],
+        **params: Unpack["FinancialAccountUpdateFeaturesParams"],
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1307,7 +695,7 @@ class FinancialAccount(
 
     @overload
     async def update_features_async(
-        self, **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        self, **params: Unpack["FinancialAccountUpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -1316,7 +704,7 @@ class FinancialAccount(
 
     @class_method_variant("_cls_update_features_async")
     async def update_features_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        self, **params: Unpack["FinancialAccountUpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.

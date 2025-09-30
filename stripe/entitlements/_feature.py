@@ -3,11 +3,24 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, Dict, List, cast
-from typing_extensions import Literal, NotRequired, Unpack
+from typing import ClassVar, Dict, cast
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.entitlements._feature_create_params import (
+        FeatureCreateParams,
+    )
+    from stripe.params.entitlements._feature_list_params import (
+        FeatureListParams,
+    )
+    from stripe.params.entitlements._feature_modify_params import (
+        FeatureModifyParams,
+    )
+    from stripe.params.entitlements._feature_retrieve_params import (
+        FeatureRetrieveParams,
+    )
 
 
 class Feature(
@@ -23,75 +36,6 @@ class Feature(
     OBJECT_NAME: ClassVar[Literal["entitlements.feature"]] = (
         "entitlements.feature"
     )
-
-    class CreateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        lookup_key: str
-        """
-        A unique key you provide as your own system identifier. This may be up to 80 characters.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-        """
-        name: str
-        """
-        The feature's name, for your own purpose, not meant to be displayable to the customer.
-        """
-
-    class ListParams(RequestOptions):
-        archived: NotRequired[bool]
-        """
-        If set, filter results to only include features with the given archive status.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        lookup_key: NotRequired[str]
-        """
-        If set, filter results to only include features with the given lookup_key.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ModifyParams(RequestOptions):
-        active: NotRequired[bool]
-        """
-        Inactive features cannot be attached to new products and will not be returned from the features list endpoint.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-        """
-        name: NotRequired[str]
-        """
-        The feature's name, for your own purpose, not meant to be displayable to the customer.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     active: bool
     """
     Inactive features cannot be attached to new products and will not be returned from the features list endpoint.
@@ -122,7 +66,7 @@ class Feature(
     """
 
     @classmethod
-    def create(cls, **params: Unpack["Feature.CreateParams"]) -> "Feature":
+    def create(cls, **params: Unpack["FeatureCreateParams"]) -> "Feature":
         """
         Creates a feature
         """
@@ -137,7 +81,7 @@ class Feature(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Feature.CreateParams"]
+        cls, **params: Unpack["FeatureCreateParams"]
     ) -> "Feature":
         """
         Creates a feature
@@ -153,7 +97,7 @@ class Feature(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Feature.ListParams"]
+        cls, **params: Unpack["FeatureListParams"]
     ) -> ListObject["Feature"]:
         """
         Retrieve a list of features
@@ -173,7 +117,7 @@ class Feature(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Feature.ListParams"]
+        cls, **params: Unpack["FeatureListParams"]
     ) -> ListObject["Feature"]:
         """
         Retrieve a list of features
@@ -193,7 +137,7 @@ class Feature(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["Feature.ModifyParams"]
+        cls, id: str, **params: Unpack["FeatureModifyParams"]
     ) -> "Feature":
         """
         Update a feature's metadata or permanently deactivate it.
@@ -210,7 +154,7 @@ class Feature(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Feature.ModifyParams"]
+        cls, id: str, **params: Unpack["FeatureModifyParams"]
     ) -> "Feature":
         """
         Update a feature's metadata or permanently deactivate it.
@@ -227,7 +171,7 @@ class Feature(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Feature.RetrieveParams"]
+        cls, id: str, **params: Unpack["FeatureRetrieveParams"]
     ) -> "Feature":
         """
         Retrieves a feature
@@ -238,7 +182,7 @@ class Feature(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Feature.RetrieveParams"]
+        cls, id: str, **params: Unpack["FeatureRetrieveParams"]
     ) -> "Feature":
         """
         Retrieves a feature

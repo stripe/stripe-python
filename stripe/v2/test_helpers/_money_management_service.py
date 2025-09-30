@@ -6,29 +6,18 @@ from stripe.v2.money_management._recipient_verification import (
     RecipientVerification,
 )
 from typing import Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.test_helpers._money_management_recipient_verifications_params import (
+        MoneyManagementRecipientVerificationsParams,
+    )
 
 
 class MoneyManagementService(StripeService):
-    class RecipientVerificationsParams(TypedDict):
-        match_result: Literal[
-            "close_match", "match", "no_match", "unavailable"
-        ]
-        """
-        Expected match level of the RecipientVerification to be created: `match`, `close_match`, `no_match`, `unavailable`.
-        """
-        payout_method: str
-        """
-        ID of the payout method.
-        """
-        recipient: NotRequired[str]
-        """
-        ID of the recipient account. Required if the recipient distinct from the sender. Leave empty if the recipient and sender are the same entity (i.e. for me-to-me payouts).
-        """
-
     def recipient_verifications(
         self,
-        params: "MoneyManagementService.RecipientVerificationsParams",
+        params: "MoneyManagementRecipientVerificationsParams",
         options: Optional[RequestOptions] = None,
     ) -> RecipientVerification:
         """
@@ -47,7 +36,7 @@ class MoneyManagementService(StripeService):
 
     async def recipient_verifications_async(
         self,
-        params: "MoneyManagementService.RecipientVerificationsParams",
+        params: "MoneyManagementRecipientVerificationsParams",
         options: Optional[RequestOptions] = None,
     ) -> RecipientVerification:
         """

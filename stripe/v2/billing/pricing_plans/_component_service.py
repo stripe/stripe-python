@@ -6,101 +6,32 @@ from stripe._util import sanitize_id
 from stripe.v2._deleted_object import DeletedObject
 from stripe.v2._list_object import ListObject
 from stripe.v2.billing._pricing_plan_component import PricingPlanComponent
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.v2.billing.pricing_plans._component_create_params import (
+        ComponentCreateParams,
+    )
+    from stripe.params.v2.billing.pricing_plans._component_delete_params import (
+        ComponentDeleteParams,
+    )
+    from stripe.params.v2.billing.pricing_plans._component_list_params import (
+        ComponentListParams,
+    )
+    from stripe.params.v2.billing.pricing_plans._component_retrieve_params import (
+        ComponentRetrieveParams,
+    )
+    from stripe.params.v2.billing.pricing_plans._component_update_params import (
+        ComponentUpdateParams,
+    )
 
 
 class ComponentService(StripeService):
-    class CreateParams(TypedDict):
-        lookup_key: NotRequired[str]
-        """
-        An identifier that can be used to find this component.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-        """
-        type: Literal["license_fee", "rate_card", "service_action"]
-        """
-        The type of the PricingPlanComponent.
-        """
-        license_fee: NotRequired["ComponentService.CreateParamsLicenseFee"]
-        """
-        Details if this component is a License Fee.
-        """
-        rate_card: NotRequired["ComponentService.CreateParamsRateCard"]
-        """
-        Details if this component is a Rate Card.
-        """
-        service_action: NotRequired[
-            "ComponentService.CreateParamsServiceAction"
-        ]
-        """
-        Details if this component is a Service Action.
-        """
-
-    class CreateParamsLicenseFee(TypedDict):
-        id: str
-        """
-        The ID of the License Fee.
-        """
-        version: NotRequired[str]
-        """
-        The version of the LicenseFee. Defaults to 'latest', if not specified.
-        """
-
-    class CreateParamsRateCard(TypedDict):
-        id: str
-        """
-        The ID of the Rate Card.
-        """
-        version: NotRequired[str]
-        """
-        The version of the RateCard. Defaults to 'latest', if not specified.
-        """
-
-    class CreateParamsServiceAction(TypedDict):
-        id: str
-        """
-        The ID of the service action.
-        """
-
-    class DeleteParams(TypedDict):
-        pass
-
-    class ListParams(TypedDict):
-        limit: NotRequired[int]
-        """
-        Optionally set the maximum number of results per page. Defaults to 20.
-        """
-        lookup_keys: NotRequired[List[str]]
-        """
-        Filter by lookup keys. Mutually exclusive with `pricing_plan_version`.
-        You can specify up to 10 lookup keys.
-        """
-        pricing_plan_version: NotRequired[str]
-        """
-        The ID of the Pricing Plan Version to list components for. Will use the latest version if not provided.
-        Mutually exclusive with `lookup_keys`.
-        """
-
-    class RetrieveParams(TypedDict):
-        pass
-
-    class UpdateParams(TypedDict):
-        lookup_key: NotRequired[str]
-        """
-        An identifier that can be used to find this component. Maximum length of 200 characters.
-        """
-        metadata: NotRequired[Dict[str, Optional[str]]]
-        """
-        Set of key-value pairs that you can attach to an object.
-        """
-
     def list(
         self,
         pricing_plan_id: str,
-        params: Optional["ComponentService.ListParams"] = None,
+        params: Optional["ComponentListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PricingPlanComponent]:
         """
@@ -122,7 +53,7 @@ class ComponentService(StripeService):
     async def list_async(
         self,
         pricing_plan_id: str,
-        params: Optional["ComponentService.ListParams"] = None,
+        params: Optional["ComponentListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PricingPlanComponent]:
         """
@@ -144,7 +75,7 @@ class ComponentService(StripeService):
     def create(
         self,
         pricing_plan_id: str,
-        params: "ComponentService.CreateParams",
+        params: "ComponentCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> PricingPlanComponent:
         """
@@ -166,7 +97,7 @@ class ComponentService(StripeService):
     async def create_async(
         self,
         pricing_plan_id: str,
-        params: "ComponentService.CreateParams",
+        params: "ComponentCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> PricingPlanComponent:
         """
@@ -189,7 +120,7 @@ class ComponentService(StripeService):
         self,
         pricing_plan_id: str,
         id: str,
-        params: Optional["ComponentService.DeleteParams"] = None,
+        params: Optional["ComponentDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> DeletedObject:
         """
@@ -213,7 +144,7 @@ class ComponentService(StripeService):
         self,
         pricing_plan_id: str,
         id: str,
-        params: Optional["ComponentService.DeleteParams"] = None,
+        params: Optional["ComponentDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> DeletedObject:
         """
@@ -237,7 +168,7 @@ class ComponentService(StripeService):
         self,
         pricing_plan_id: str,
         id: str,
-        params: Optional["ComponentService.RetrieveParams"] = None,
+        params: Optional["ComponentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PricingPlanComponent:
         """
@@ -261,7 +192,7 @@ class ComponentService(StripeService):
         self,
         pricing_plan_id: str,
         id: str,
-        params: Optional["ComponentService.RetrieveParams"] = None,
+        params: Optional["ComponentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PricingPlanComponent:
         """
@@ -285,7 +216,7 @@ class ComponentService(StripeService):
         self,
         pricing_plan_id: str,
         id: str,
-        params: Optional["ComponentService.UpdateParams"] = None,
+        params: Optional["ComponentUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PricingPlanComponent:
         """
@@ -309,7 +240,7 @@ class ComponentService(StripeService):
         self,
         pricing_plan_id: str,
         id: str,
-        params: Optional["ComponentService.UpdateParams"] = None,
+        params: Optional["ComponentUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PricingPlanComponent:
         """

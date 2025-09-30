@@ -5,26 +5,22 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.reporting._report_type import ReportType
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.reporting._report_type_list_params import (
+        ReportTypeListParams,
+    )
+    from stripe.params.reporting._report_type_retrieve_params import (
+        ReportTypeRetrieveParams,
+    )
 
 
 class ReportTypeService(StripeService):
-    class ListParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: Optional["ReportTypeService.ListParams"] = None,
+        params: Optional["ReportTypeListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ReportType]:
         """
@@ -43,7 +39,7 @@ class ReportTypeService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["ReportTypeService.ListParams"] = None,
+        params: Optional["ReportTypeListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ReportType]:
         """
@@ -63,7 +59,7 @@ class ReportTypeService(StripeService):
     def retrieve(
         self,
         report_type: str,
-        params: Optional["ReportTypeService.RetrieveParams"] = None,
+        params: Optional["ReportTypeRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReportType:
         """
@@ -85,7 +81,7 @@ class ReportTypeService(StripeService):
     async def retrieve_async(
         self,
         report_type: str,
-        params: Optional["ReportTypeService.RetrieveParams"] = None,
+        params: Optional["ReportTypeRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ReportType:
         """
