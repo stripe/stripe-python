@@ -5,46 +5,22 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing._credit_balance_transaction import CreditBalanceTransaction
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.billing._credit_balance_transaction_list_params import (
+        CreditBalanceTransactionListParams,
+    )
+    from stripe.params.billing._credit_balance_transaction_retrieve_params import (
+        CreditBalanceTransactionRetrieveParams,
+    )
 
 
 class CreditBalanceTransactionService(StripeService):
-    class ListParams(TypedDict):
-        credit_grant: NotRequired[str]
-        """
-        The credit grant for which to fetch credit balance transactions.
-        """
-        customer: str
-        """
-        The customer for which to fetch credit balance transactions.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: "CreditBalanceTransactionService.ListParams",
+        params: "CreditBalanceTransactionListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditBalanceTransaction]:
         """
@@ -63,7 +39,7 @@ class CreditBalanceTransactionService(StripeService):
 
     async def list_async(
         self,
-        params: "CreditBalanceTransactionService.ListParams",
+        params: "CreditBalanceTransactionListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[CreditBalanceTransaction]:
         """
@@ -83,9 +59,7 @@ class CreditBalanceTransactionService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional[
-            "CreditBalanceTransactionService.RetrieveParams"
-        ] = None,
+        params: Optional["CreditBalanceTransactionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditBalanceTransaction:
         """
@@ -107,9 +81,7 @@ class CreditBalanceTransactionService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional[
-            "CreditBalanceTransactionService.RetrieveParams"
-        ] = None,
+        params: Optional["CreditBalanceTransactionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> CreditBalanceTransaction:
         """

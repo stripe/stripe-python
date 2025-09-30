@@ -4,106 +4,29 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._outbound_payment import OutboundPayment
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.test_helpers.treasury._outbound_payment_fail_params import (
+        OutboundPaymentFailParams,
+    )
+    from stripe.params.test_helpers.treasury._outbound_payment_post_params import (
+        OutboundPaymentPostParams,
+    )
+    from stripe.params.test_helpers.treasury._outbound_payment_return_outbound_payment_params import (
+        OutboundPaymentReturnOutboundPaymentParams,
+    )
+    from stripe.params.test_helpers.treasury._outbound_payment_update_params import (
+        OutboundPaymentUpdateParams,
+    )
 
 
 class OutboundPaymentService(StripeService):
-    class FailParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class PostParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ReturnOutboundPaymentParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        returned_details: NotRequired[
-            "OutboundPaymentService.ReturnOutboundPaymentParamsReturnedDetails"
-        ]
-        """
-        Optional hash to set the return code.
-        """
-
-    class ReturnOutboundPaymentParamsReturnedDetails(TypedDict):
-        code: NotRequired[
-            Literal[
-                "account_closed",
-                "account_frozen",
-                "bank_account_restricted",
-                "bank_ownership_changed",
-                "declined",
-                "incorrect_account_holder_name",
-                "invalid_account_number",
-                "invalid_currency",
-                "no_account",
-                "other",
-            ]
-        ]
-        """
-        The return code to be set on the OutboundPayment object.
-        """
-
-    class UpdateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        tracking_details: "OutboundPaymentService.UpdateParamsTrackingDetails"
-        """
-        Details about network-specific tracking information.
-        """
-
-    class UpdateParamsTrackingDetails(TypedDict):
-        ach: NotRequired[
-            "OutboundPaymentService.UpdateParamsTrackingDetailsAch"
-        ]
-        """
-        ACH network tracking details.
-        """
-        type: Literal["ach", "us_domestic_wire"]
-        """
-        The US bank account network used to send funds.
-        """
-        us_domestic_wire: NotRequired[
-            "OutboundPaymentService.UpdateParamsTrackingDetailsUsDomesticWire"
-        ]
-        """
-        US domestic wire network tracking details.
-        """
-
-    class UpdateParamsTrackingDetailsAch(TypedDict):
-        trace_id: str
-        """
-        ACH trace ID for funds sent over the `ach` network.
-        """
-
-    class UpdateParamsTrackingDetailsUsDomesticWire(TypedDict):
-        chips: NotRequired[str]
-        """
-        CHIPS System Sequence Number (SSN) for funds sent over the `us_domestic_wire` network.
-        """
-        imad: NotRequired[str]
-        """
-        IMAD for funds sent over the `us_domestic_wire` network.
-        """
-        omad: NotRequired[str]
-        """
-        OMAD for funds sent over the `us_domestic_wire` network.
-        """
-
     def update(
         self,
         id: str,
-        params: "OutboundPaymentService.UpdateParams",
+        params: "OutboundPaymentUpdateParams",
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
@@ -125,7 +48,7 @@ class OutboundPaymentService(StripeService):
     async def update_async(
         self,
         id: str,
-        params: "OutboundPaymentService.UpdateParams",
+        params: "OutboundPaymentUpdateParams",
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
@@ -147,7 +70,7 @@ class OutboundPaymentService(StripeService):
     def fail(
         self,
         id: str,
-        params: Optional["OutboundPaymentService.FailParams"] = None,
+        params: Optional["OutboundPaymentFailParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
@@ -169,7 +92,7 @@ class OutboundPaymentService(StripeService):
     async def fail_async(
         self,
         id: str,
-        params: Optional["OutboundPaymentService.FailParams"] = None,
+        params: Optional["OutboundPaymentFailParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
@@ -191,7 +114,7 @@ class OutboundPaymentService(StripeService):
     def post(
         self,
         id: str,
-        params: Optional["OutboundPaymentService.PostParams"] = None,
+        params: Optional["OutboundPaymentPostParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
@@ -213,7 +136,7 @@ class OutboundPaymentService(StripeService):
     async def post_async(
         self,
         id: str,
-        params: Optional["OutboundPaymentService.PostParams"] = None,
+        params: Optional["OutboundPaymentPostParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
@@ -235,9 +158,7 @@ class OutboundPaymentService(StripeService):
     def return_outbound_payment(
         self,
         id: str,
-        params: Optional[
-            "OutboundPaymentService.ReturnOutboundPaymentParams"
-        ] = None,
+        params: Optional["OutboundPaymentReturnOutboundPaymentParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """
@@ -259,9 +180,7 @@ class OutboundPaymentService(StripeService):
     async def return_outbound_payment_async(
         self,
         id: str,
-        params: Optional[
-            "OutboundPaymentService.ReturnOutboundPaymentParams"
-        ] = None,
+        params: Optional["OutboundPaymentReturnOutboundPaymentParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> OutboundPayment:
         """

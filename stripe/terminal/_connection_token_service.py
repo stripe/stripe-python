@@ -3,24 +3,19 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.terminal._connection_token import ConnectionToken
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.terminal._connection_token_create_params import (
+        ConnectionTokenCreateParams,
+    )
 
 
 class ConnectionTokenService(StripeService):
-    class CreateParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        location: NotRequired[str]
-        """
-        The id of the location that this connection token is scoped to. If specified the connection token will only be usable with readers assigned to that location, otherwise the connection token will be usable with all readers. Note that location scoping only applies to internet-connected readers. For more details, see [the docs on scoping connection tokens](https://docs.stripe.com/terminal/fleet/locations-and-zones?dashboard-or-api=api#connection-tokens).
-        """
-
     def create(
         self,
-        params: Optional["ConnectionTokenService.CreateParams"] = None,
+        params: Optional["ConnectionTokenCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ConnectionToken:
         """
@@ -39,7 +34,7 @@ class ConnectionTokenService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["ConnectionTokenService.CreateParams"] = None,
+        params: Optional["ConnectionTokenCreateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ConnectionToken:
         """

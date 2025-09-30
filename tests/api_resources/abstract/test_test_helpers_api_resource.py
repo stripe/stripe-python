@@ -1,14 +1,13 @@
-import stripe
 from stripe._test_helpers import APIResourceTestHelpers
+from stripe._custom_method import custom_method
+from stripe._api_resource import APIResource
 
 
 class TestTestHelperAPIResource(object):
-    class MyTestHelpersResource(stripe.api_resources.abstract.APIResource):
+    class MyTestHelpersResource(APIResource):
         OBJECT_NAME = "myresource"
 
-        @stripe.api_resources.abstract.custom_method(
-            "do_stuff", http_verb="post", http_path="do_the_thing"
-        )
+        @custom_method("do_stuff", http_verb="post", http_path="do_the_thing")
         class TestHelpers(APIResourceTestHelpers):
             def __init__(self, resource):
                 self.resource = resource

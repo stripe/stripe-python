@@ -3,21 +3,22 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
-from typing import ClassVar, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    Type,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Optional, cast
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._payout import Payout
+    from stripe.params.treasury._received_credit_create_params import (
+        ReceivedCreditCreateParams,
+    )
+    from stripe.params.treasury._received_credit_list_params import (
+        ReceivedCreditListParams,
+    )
+    from stripe.params.treasury._received_credit_retrieve_params import (
+        ReceivedCreditRetrieveParams,
+    )
     from stripe.treasury._credit_reversal import CreditReversal
     from stripe.treasury._outbound_payment import OutboundPayment
     from stripe.treasury._outbound_transfer import OutboundTransfer
@@ -211,112 +212,6 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         Set if a ReceivedCredit cannot be reversed.
         """
 
-    class CreateParams(RequestOptions):
-        amount: int
-        """
-        Amount (in cents) to be transferred.
-        """
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        The FinancialAccount to send funds to.
-        """
-        initiating_payment_method_details: NotRequired[
-            "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetails"
-        ]
-        """
-        Initiating payment method details for the object.
-        """
-        network: Literal["ach", "us_domestic_wire"]
-        """
-        Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
-        """
-
-    class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
-        type: Literal["us_bank_account"]
-        """
-        The source type.
-        """
-        us_bank_account: NotRequired[
-            "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetailsUsBankAccount"
-        ]
-        """
-        Optional fields for `us_bank_account`.
-        """
-
-    class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(TypedDict):
-        account_holder_name: NotRequired[str]
-        """
-        The bank account holder's name.
-        """
-        account_number: NotRequired[str]
-        """
-        The bank account number.
-        """
-        routing_number: NotRequired[str]
-        """
-        The bank account's routing number.
-        """
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        The FinancialAccount that received the funds.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        linked_flows: NotRequired["ReceivedCredit.ListParamsLinkedFlows"]
-        """
-        Only return ReceivedCredits described by the flow.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        status: NotRequired[Literal["failed", "succeeded"]]
-        """
-        Only return ReceivedCredits that have the given status: `succeeded` or `failed`.
-        """
-
-    class ListParamsLinkedFlows(TypedDict):
-        source_flow_type: Literal[
-            "credit_reversal",
-            "other",
-            "outbound_payment",
-            "outbound_transfer",
-            "payout",
-        ]
-        """
-        The source flow type.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     amount: int
     """
     Amount (in cents) transferred.
@@ -385,7 +280,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["ReceivedCredit.ListParams"]
+        cls, **params: Unpack["ReceivedCreditListParams"]
     ) -> ListObject["ReceivedCredit"]:
         """
         Returns a list of ReceivedCredits.
@@ -405,7 +300,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["ReceivedCredit.ListParams"]
+        cls, **params: Unpack["ReceivedCreditListParams"]
     ) -> ListObject["ReceivedCredit"]:
         """
         Returns a list of ReceivedCredits.
@@ -425,7 +320,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["ReceivedCredit.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReceivedCreditRetrieveParams"]
     ) -> "ReceivedCredit":
         """
         Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
@@ -436,7 +331,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ReceivedCredit.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReceivedCreditRetrieveParams"]
     ) -> "ReceivedCredit":
         """
         Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
@@ -450,7 +345,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
         @classmethod
         def create(
-            cls, **params: Unpack["ReceivedCredit.CreateParams"]
+            cls, **params: Unpack["ReceivedCreditCreateParams"]
         ) -> "ReceivedCredit":
             """
             Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
@@ -466,7 +361,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
         @classmethod
         async def create_async(
-            cls, **params: Unpack["ReceivedCredit.CreateParams"]
+            cls, **params: Unpack["ReceivedCreditCreateParams"]
         ) -> "ReceivedCredit":
             """
             Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.

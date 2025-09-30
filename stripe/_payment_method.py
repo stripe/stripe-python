@@ -4,23 +4,34 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._customer import Customer
     from stripe._setup_attempt import SetupAttempt
+    from stripe.params._payment_method_attach_params import (
+        PaymentMethodAttachParams,
+    )
+    from stripe.params._payment_method_create_params import (
+        PaymentMethodCreateParams,
+    )
+    from stripe.params._payment_method_detach_params import (
+        PaymentMethodDetachParams,
+    )
+    from stripe.params._payment_method_list_params import (
+        PaymentMethodListParams,
+    )
+    from stripe.params._payment_method_modify_params import (
+        PaymentMethodModifyParams,
+    )
+    from stripe.params._payment_method_retrieve_params import (
+        PaymentMethodRetrieveParams,
+    )
 
 
 class PaymentMethod(
@@ -1345,963 +1356,6 @@ class PaymentMethod(
     class Zip(StripeObject):
         pass
 
-    class AttachParams(RequestOptions):
-        customer: str
-        """
-        The ID of the customer to which to attach the PaymentMethod.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class CreateParams(RequestOptions):
-        acss_debit: NotRequired["PaymentMethod.CreateParamsAcssDebit"]
-        """
-        If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
-        """
-        affirm: NotRequired["PaymentMethod.CreateParamsAffirm"]
-        """
-        If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
-        """
-        afterpay_clearpay: NotRequired[
-            "PaymentMethod.CreateParamsAfterpayClearpay"
-        ]
-        """
-        If this is an `AfterpayClearpay` PaymentMethod, this hash contains details about the AfterpayClearpay payment method.
-        """
-        alipay: NotRequired["PaymentMethod.CreateParamsAlipay"]
-        """
-        If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
-        """
-        allow_redisplay: NotRequired[
-            Literal["always", "limited", "unspecified"]
-        ]
-        """
-        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
-        """
-        alma: NotRequired["PaymentMethod.CreateParamsAlma"]
-        """
-        If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
-        """
-        amazon_pay: NotRequired["PaymentMethod.CreateParamsAmazonPay"]
-        """
-        If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
-        """
-        au_becs_debit: NotRequired["PaymentMethod.CreateParamsAuBecsDebit"]
-        """
-        If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
-        """
-        bacs_debit: NotRequired["PaymentMethod.CreateParamsBacsDebit"]
-        """
-        If this is a `bacs_debit` PaymentMethod, this hash contains details about the Bacs Direct Debit bank account.
-        """
-        bancontact: NotRequired["PaymentMethod.CreateParamsBancontact"]
-        """
-        If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
-        """
-        billie: NotRequired["PaymentMethod.CreateParamsBillie"]
-        """
-        If this is a `billie` PaymentMethod, this hash contains details about the Billie payment method.
-        """
-        billing_details: NotRequired[
-            "PaymentMethod.CreateParamsBillingDetails"
-        ]
-        """
-        Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
-        """
-        blik: NotRequired["PaymentMethod.CreateParamsBlik"]
-        """
-        If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
-        """
-        boleto: NotRequired["PaymentMethod.CreateParamsBoleto"]
-        """
-        If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
-        """
-        card: NotRequired["PaymentMethod.CreateParamsCard"]
-        """
-        If this is a `card` PaymentMethod, this hash contains the user's card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format `card: {token: "tok_visa"}`. When providing a card number, you must meet the requirements for [PCI compliance](https://stripe.com/docs/security#validating-pci-compliance). We strongly recommend using Stripe.js instead of interacting with this API directly.
-        """
-        cashapp: NotRequired["PaymentMethod.CreateParamsCashapp"]
-        """
-        If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
-        """
-        crypto: NotRequired["PaymentMethod.CreateParamsCrypto"]
-        """
-        If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
-        """
-        customer: NotRequired[str]
-        """
-        The `Customer` to whom the original PaymentMethod is attached.
-        """
-        customer_balance: NotRequired[
-            "PaymentMethod.CreateParamsCustomerBalance"
-        ]
-        """
-        If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
-        """
-        eps: NotRequired["PaymentMethod.CreateParamsEps"]
-        """
-        If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        fpx: NotRequired["PaymentMethod.CreateParamsFpx"]
-        """
-        If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
-        """
-        giropay: NotRequired["PaymentMethod.CreateParamsGiropay"]
-        """
-        If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
-        """
-        grabpay: NotRequired["PaymentMethod.CreateParamsGrabpay"]
-        """
-        If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
-        """
-        ideal: NotRequired["PaymentMethod.CreateParamsIdeal"]
-        """
-        If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
-        """
-        interac_present: NotRequired[
-            "PaymentMethod.CreateParamsInteracPresent"
-        ]
-        """
-        If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
-        """
-        kakao_pay: NotRequired["PaymentMethod.CreateParamsKakaoPay"]
-        """
-        If this is a `kakao_pay` PaymentMethod, this hash contains details about the Kakao Pay payment method.
-        """
-        klarna: NotRequired["PaymentMethod.CreateParamsKlarna"]
-        """
-        If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
-        """
-        konbini: NotRequired["PaymentMethod.CreateParamsKonbini"]
-        """
-        If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
-        """
-        kr_card: NotRequired["PaymentMethod.CreateParamsKrCard"]
-        """
-        If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
-        """
-        link: NotRequired["PaymentMethod.CreateParamsLink"]
-        """
-        If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
-        """
-        mb_way: NotRequired["PaymentMethod.CreateParamsMbWay"]
-        """
-        If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        mobilepay: NotRequired["PaymentMethod.CreateParamsMobilepay"]
-        """
-        If this is a `mobilepay` PaymentMethod, this hash contains details about the MobilePay payment method.
-        """
-        multibanco: NotRequired["PaymentMethod.CreateParamsMultibanco"]
-        """
-        If this is a `multibanco` PaymentMethod, this hash contains details about the Multibanco payment method.
-        """
-        naver_pay: NotRequired["PaymentMethod.CreateParamsNaverPay"]
-        """
-        If this is a `naver_pay` PaymentMethod, this hash contains details about the Naver Pay payment method.
-        """
-        nz_bank_account: NotRequired["PaymentMethod.CreateParamsNzBankAccount"]
-        """
-        If this is an nz_bank_account PaymentMethod, this hash contains details about the nz_bank_account payment method.
-        """
-        oxxo: NotRequired["PaymentMethod.CreateParamsOxxo"]
-        """
-        If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
-        """
-        p24: NotRequired["PaymentMethod.CreateParamsP24"]
-        """
-        If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
-        """
-        pay_by_bank: NotRequired["PaymentMethod.CreateParamsPayByBank"]
-        """
-        If this is a `pay_by_bank` PaymentMethod, this hash contains details about the PayByBank payment method.
-        """
-        payco: NotRequired["PaymentMethod.CreateParamsPayco"]
-        """
-        If this is a `payco` PaymentMethod, this hash contains details about the PAYCO payment method.
-        """
-        payment_method: NotRequired[str]
-        """
-        The PaymentMethod to share.
-        """
-        paynow: NotRequired["PaymentMethod.CreateParamsPaynow"]
-        """
-        If this is a `paynow` PaymentMethod, this hash contains details about the PayNow payment method.
-        """
-        paypal: NotRequired["PaymentMethod.CreateParamsPaypal"]
-        """
-        If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
-        """
-        pix: NotRequired["PaymentMethod.CreateParamsPix"]
-        """
-        If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
-        """
-        promptpay: NotRequired["PaymentMethod.CreateParamsPromptpay"]
-        """
-        If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
-        """
-        radar_options: NotRequired["PaymentMethod.CreateParamsRadarOptions"]
-        """
-        Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
-        """
-        revolut_pay: NotRequired["PaymentMethod.CreateParamsRevolutPay"]
-        """
-        If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
-        """
-        samsung_pay: NotRequired["PaymentMethod.CreateParamsSamsungPay"]
-        """
-        If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
-        """
-        satispay: NotRequired["PaymentMethod.CreateParamsSatispay"]
-        """
-        If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
-        """
-        sepa_debit: NotRequired["PaymentMethod.CreateParamsSepaDebit"]
-        """
-        If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
-        """
-        sofort: NotRequired["PaymentMethod.CreateParamsSofort"]
-        """
-        If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
-        """
-        swish: NotRequired["PaymentMethod.CreateParamsSwish"]
-        """
-        If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
-        """
-        twint: NotRequired["PaymentMethod.CreateParamsTwint"]
-        """
-        If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
-        """
-        type: NotRequired[
-            Literal[
-                "acss_debit",
-                "affirm",
-                "afterpay_clearpay",
-                "alipay",
-                "alma",
-                "amazon_pay",
-                "au_becs_debit",
-                "bacs_debit",
-                "bancontact",
-                "billie",
-                "blik",
-                "boleto",
-                "card",
-                "cashapp",
-                "crypto",
-                "customer_balance",
-                "eps",
-                "fpx",
-                "giropay",
-                "grabpay",
-                "ideal",
-                "kakao_pay",
-                "klarna",
-                "konbini",
-                "kr_card",
-                "link",
-                "mb_way",
-                "mobilepay",
-                "multibanco",
-                "naver_pay",
-                "nz_bank_account",
-                "oxxo",
-                "p24",
-                "pay_by_bank",
-                "payco",
-                "paynow",
-                "paypal",
-                "pix",
-                "promptpay",
-                "revolut_pay",
-                "samsung_pay",
-                "satispay",
-                "sepa_debit",
-                "sofort",
-                "swish",
-                "twint",
-                "us_bank_account",
-                "wechat_pay",
-                "zip",
-            ]
-        ]
-        """
-        The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
-        """
-        us_bank_account: NotRequired["PaymentMethod.CreateParamsUsBankAccount"]
-        """
-        If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
-        """
-        wechat_pay: NotRequired["PaymentMethod.CreateParamsWechatPay"]
-        """
-        If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
-        """
-        zip: NotRequired["PaymentMethod.CreateParamsZip"]
-        """
-        If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
-        """
-
-    class CreateParamsAcssDebit(TypedDict):
-        account_number: str
-        """
-        Customer's bank account number.
-        """
-        institution_number: str
-        """
-        Institution number of the customer's bank.
-        """
-        transit_number: str
-        """
-        Transit number of the customer's bank.
-        """
-
-    class CreateParamsAffirm(TypedDict):
-        pass
-
-    class CreateParamsAfterpayClearpay(TypedDict):
-        pass
-
-    class CreateParamsAlipay(TypedDict):
-        pass
-
-    class CreateParamsAlma(TypedDict):
-        pass
-
-    class CreateParamsAmazonPay(TypedDict):
-        pass
-
-    class CreateParamsAuBecsDebit(TypedDict):
-        account_number: str
-        """
-        The account number for the bank account.
-        """
-        bsb_number: str
-        """
-        Bank-State-Branch number of the bank account.
-        """
-
-    class CreateParamsBacsDebit(TypedDict):
-        account_number: NotRequired[str]
-        """
-        Account number of the bank account that the funds will be debited from.
-        """
-        sort_code: NotRequired[str]
-        """
-        Sort code of the bank account. (e.g., `10-20-30`)
-        """
-
-    class CreateParamsBancontact(TypedDict):
-        pass
-
-    class CreateParamsBillie(TypedDict):
-        pass
-
-    class CreateParamsBillingDetails(TypedDict):
-        address: NotRequired[
-            "Literal['']|PaymentMethod.CreateParamsBillingDetailsAddress"
-        ]
-        """
-        Billing address.
-        """
-        email: NotRequired["Literal['']|str"]
-        """
-        Email address.
-        """
-        name: NotRequired["Literal['']|str"]
-        """
-        Full name.
-        """
-        phone: NotRequired["Literal['']|str"]
-        """
-        Billing phone number (including extension).
-        """
-        tax_id: NotRequired[str]
-        """
-        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
-        """
-
-    class CreateParamsBillingDetailsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CreateParamsBlik(TypedDict):
-        pass
-
-    class CreateParamsBoleto(TypedDict):
-        tax_id: str
-        """
-        The tax ID of the customer (CPF for individual consumers or CNPJ for businesses consumers)
-        """
-
-    class CreateParamsCard(TypedDict):
-        cvc: NotRequired[str]
-        """
-        The card's CVC. It is highly recommended to always include this value.
-        """
-        exp_month: NotRequired[int]
-        """
-        Two-digit number representing the card's expiration month.
-        """
-        exp_year: NotRequired[int]
-        """
-        Four-digit number representing the card's expiration year.
-        """
-        networks: NotRequired["PaymentMethod.CreateParamsCardNetworks"]
-        """
-        Contains information about card networks used to process the payment.
-        """
-        number: NotRequired[str]
-        """
-        The card number, as a string without any separators.
-        """
-        token: NotRequired[str]
-        """
-        For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format card: {token: "tok_visa"}.
-        """
-
-    class CreateParamsCardNetworks(TypedDict):
-        preferred: NotRequired[
-            Literal["cartes_bancaires", "mastercard", "visa"]
-        ]
-        """
-        The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
-        """
-
-    class CreateParamsCashapp(TypedDict):
-        pass
-
-    class CreateParamsCrypto(TypedDict):
-        pass
-
-    class CreateParamsCustomerBalance(TypedDict):
-        pass
-
-    class CreateParamsEps(TypedDict):
-        bank: NotRequired[
-            Literal[
-                "arzte_und_apotheker_bank",
-                "austrian_anadi_bank_ag",
-                "bank_austria",
-                "bankhaus_carl_spangler",
-                "bankhaus_schelhammer_und_schattera_ag",
-                "bawag_psk_ag",
-                "bks_bank_ag",
-                "brull_kallmus_bank_ag",
-                "btv_vier_lander_bank",
-                "capital_bank_grawe_gruppe_ag",
-                "deutsche_bank_ag",
-                "dolomitenbank",
-                "easybank_ag",
-                "erste_bank_und_sparkassen",
-                "hypo_alpeadriabank_international_ag",
-                "hypo_bank_burgenland_aktiengesellschaft",
-                "hypo_noe_lb_fur_niederosterreich_u_wien",
-                "hypo_oberosterreich_salzburg_steiermark",
-                "hypo_tirol_bank_ag",
-                "hypo_vorarlberg_bank_ag",
-                "marchfelder_bank",
-                "oberbank_ag",
-                "raiffeisen_bankengruppe_osterreich",
-                "schoellerbank_ag",
-                "sparda_bank_wien",
-                "volksbank_gruppe",
-                "volkskreditbank_ag",
-                "vr_bank_braunau",
-            ]
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsFpx(TypedDict):
-        account_holder_type: NotRequired[Literal["company", "individual"]]
-        """
-        Account holder type for FPX transaction
-        """
-        bank: Literal[
-            "affin_bank",
-            "agrobank",
-            "alliance_bank",
-            "ambank",
-            "bank_islam",
-            "bank_muamalat",
-            "bank_of_china",
-            "bank_rakyat",
-            "bsn",
-            "cimb",
-            "deutsche_bank",
-            "hong_leong_bank",
-            "hsbc",
-            "kfh",
-            "maybank2e",
-            "maybank2u",
-            "ocbc",
-            "pb_enterprise",
-            "public_bank",
-            "rhb",
-            "standard_chartered",
-            "uob",
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsGiropay(TypedDict):
-        pass
-
-    class CreateParamsGrabpay(TypedDict):
-        pass
-
-    class CreateParamsIdeal(TypedDict):
-        bank: NotRequired[
-            Literal[
-                "abn_amro",
-                "asn_bank",
-                "bunq",
-                "buut",
-                "handelsbanken",
-                "ing",
-                "knab",
-                "moneyou",
-                "n26",
-                "nn",
-                "rabobank",
-                "regiobank",
-                "revolut",
-                "sns_bank",
-                "triodos_bank",
-                "van_lanschot",
-                "yoursafe",
-            ]
-        ]
-        """
-        The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
-        """
-
-    class CreateParamsInteracPresent(TypedDict):
-        pass
-
-    class CreateParamsKakaoPay(TypedDict):
-        pass
-
-    class CreateParamsKlarna(TypedDict):
-        dob: NotRequired["PaymentMethod.CreateParamsKlarnaDob"]
-        """
-        Customer's date of birth
-        """
-
-    class CreateParamsKlarnaDob(TypedDict):
-        day: int
-        """
-        The day of birth, between 1 and 31.
-        """
-        month: int
-        """
-        The month of birth, between 1 and 12.
-        """
-        year: int
-        """
-        The four-digit year of birth.
-        """
-
-    class CreateParamsKonbini(TypedDict):
-        pass
-
-    class CreateParamsKrCard(TypedDict):
-        pass
-
-    class CreateParamsLink(TypedDict):
-        pass
-
-    class CreateParamsMbWay(TypedDict):
-        pass
-
-    class CreateParamsMobilepay(TypedDict):
-        pass
-
-    class CreateParamsMultibanco(TypedDict):
-        pass
-
-    class CreateParamsNaverPay(TypedDict):
-        funding: NotRequired[Literal["card", "points"]]
-        """
-        Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
-        """
-
-    class CreateParamsNzBankAccount(TypedDict):
-        account_holder_name: NotRequired[str]
-        """
-        The name on the bank account. Only required if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
-        """
-        account_number: str
-        """
-        The account number for the bank account.
-        """
-        bank_code: str
-        """
-        The numeric code for the bank account's bank.
-        """
-        branch_code: str
-        """
-        The numeric code for the bank account's bank branch.
-        """
-        reference: NotRequired[str]
-        suffix: str
-        """
-        The suffix of the bank account number.
-        """
-
-    class CreateParamsOxxo(TypedDict):
-        pass
-
-    class CreateParamsP24(TypedDict):
-        bank: NotRequired[
-            Literal[
-                "alior_bank",
-                "bank_millennium",
-                "bank_nowy_bfg_sa",
-                "bank_pekao_sa",
-                "banki_spbdzielcze",
-                "blik",
-                "bnp_paribas",
-                "boz",
-                "citi_handlowy",
-                "credit_agricole",
-                "envelobank",
-                "etransfer_pocztowy24",
-                "getin_bank",
-                "ideabank",
-                "ing",
-                "inteligo",
-                "mbank_mtransfer",
-                "nest_przelew",
-                "noble_pay",
-                "pbac_z_ipko",
-                "plus_bank",
-                "santander_przelew24",
-                "tmobile_usbugi_bankowe",
-                "toyota_bank",
-                "velobank",
-                "volkswagen_bank",
-            ]
-        ]
-        """
-        The customer's bank.
-        """
-
-    class CreateParamsPayByBank(TypedDict):
-        pass
-
-    class CreateParamsPayco(TypedDict):
-        pass
-
-    class CreateParamsPaynow(TypedDict):
-        pass
-
-    class CreateParamsPaypal(TypedDict):
-        pass
-
-    class CreateParamsPix(TypedDict):
-        pass
-
-    class CreateParamsPromptpay(TypedDict):
-        pass
-
-    class CreateParamsRadarOptions(TypedDict):
-        session: NotRequired[str]
-        """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
-        """
-
-    class CreateParamsRevolutPay(TypedDict):
-        pass
-
-    class CreateParamsSamsungPay(TypedDict):
-        pass
-
-    class CreateParamsSatispay(TypedDict):
-        pass
-
-    class CreateParamsSepaDebit(TypedDict):
-        iban: str
-        """
-        IBAN of the bank account.
-        """
-
-    class CreateParamsSofort(TypedDict):
-        country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
-        """
-        Two-letter ISO code representing the country the bank account is located in.
-        """
-
-    class CreateParamsSwish(TypedDict):
-        pass
-
-    class CreateParamsTwint(TypedDict):
-        pass
-
-    class CreateParamsUsBankAccount(TypedDict):
-        account_holder_type: NotRequired[Literal["company", "individual"]]
-        """
-        Account holder type: individual or company.
-        """
-        account_number: NotRequired[str]
-        """
-        Account number of the bank account.
-        """
-        account_type: NotRequired[Literal["checking", "savings"]]
-        """
-        Account type: checkings or savings. Defaults to checking if omitted.
-        """
-        financial_connections_account: NotRequired[str]
-        """
-        The ID of a Financial Connections Account to use as a payment method.
-        """
-        routing_number: NotRequired[str]
-        """
-        Routing number of the bank account.
-        """
-
-    class CreateParamsWechatPay(TypedDict):
-        pass
-
-    class CreateParamsZip(TypedDict):
-        pass
-
-    class DetachParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListParams(RequestOptions):
-        customer: NotRequired[str]
-        """
-        The ID of the customer whose PaymentMethods will be retrieved.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        type: NotRequired[
-            Literal[
-                "acss_debit",
-                "affirm",
-                "afterpay_clearpay",
-                "alipay",
-                "alma",
-                "amazon_pay",
-                "au_becs_debit",
-                "bacs_debit",
-                "bancontact",
-                "billie",
-                "blik",
-                "boleto",
-                "card",
-                "cashapp",
-                "crypto",
-                "customer_balance",
-                "eps",
-                "fpx",
-                "giropay",
-                "grabpay",
-                "ideal",
-                "kakao_pay",
-                "klarna",
-                "konbini",
-                "kr_card",
-                "link",
-                "mb_way",
-                "mobilepay",
-                "multibanco",
-                "naver_pay",
-                "nz_bank_account",
-                "oxxo",
-                "p24",
-                "pay_by_bank",
-                "payco",
-                "paynow",
-                "paypal",
-                "pix",
-                "promptpay",
-                "revolut_pay",
-                "samsung_pay",
-                "satispay",
-                "sepa_debit",
-                "sofort",
-                "swish",
-                "twint",
-                "us_bank_account",
-                "wechat_pay",
-                "zip",
-            ]
-        ]
-        """
-        An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
-        """
-
-    class ModifyParams(RequestOptions):
-        allow_redisplay: NotRequired[
-            Literal["always", "limited", "unspecified"]
-        ]
-        """
-        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
-        """
-        billing_details: NotRequired[
-            "PaymentMethod.ModifyParamsBillingDetails"
-        ]
-        """
-        Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
-        """
-        card: NotRequired["PaymentMethod.ModifyParamsCard"]
-        """
-        If this is a `card` PaymentMethod, this hash contains the user's card details.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        us_bank_account: NotRequired["PaymentMethod.ModifyParamsUsBankAccount"]
-        """
-        If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
-        """
-
-    class ModifyParamsBillingDetails(TypedDict):
-        address: NotRequired[
-            "Literal['']|PaymentMethod.ModifyParamsBillingDetailsAddress"
-        ]
-        """
-        Billing address.
-        """
-        email: NotRequired["Literal['']|str"]
-        """
-        Email address.
-        """
-        name: NotRequired["Literal['']|str"]
-        """
-        Full name.
-        """
-        phone: NotRequired["Literal['']|str"]
-        """
-        Billing phone number (including extension).
-        """
-        tax_id: NotRequired[str]
-        """
-        Taxpayer identification number. Used only for transactions between LATAM buyers and non-LATAM sellers.
-        """
-
-    class ModifyParamsBillingDetailsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class ModifyParamsCard(TypedDict):
-        exp_month: NotRequired[int]
-        """
-        Two-digit number representing the card's expiration month.
-        """
-        exp_year: NotRequired[int]
-        """
-        Four-digit number representing the card's expiration year.
-        """
-        networks: NotRequired["PaymentMethod.ModifyParamsCardNetworks"]
-        """
-        Contains information about card networks used to process the payment.
-        """
-
-    class ModifyParamsCardNetworks(TypedDict):
-        preferred: NotRequired[
-            "Literal['']|Literal['cartes_bancaires', 'mastercard', 'visa']"
-        ]
-        """
-        The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
-        """
-
-    class ModifyParamsUsBankAccount(TypedDict):
-        account_holder_type: NotRequired[Literal["company", "individual"]]
-        """
-        Bank account holder type.
-        """
-        account_type: NotRequired[Literal["checking", "savings"]]
-        """
-        Bank account type.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     acss_debit: Optional[AcssDebit]
     affirm: Optional[Affirm]
     afterpay_clearpay: Optional[AfterpayClearpay]
@@ -2445,9 +1499,7 @@ class PaymentMethod(
 
     @classmethod
     def _cls_attach(
-        cls,
-        payment_method: str,
-        **params: Unpack["PaymentMethod.AttachParams"],
+        cls, payment_method: str, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -2478,7 +1530,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     def attach(
-        payment_method: str, **params: Unpack["PaymentMethod.AttachParams"]
+        payment_method: str, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -2499,7 +1551,7 @@ class PaymentMethod(
 
     @overload
     def attach(
-        self, **params: Unpack["PaymentMethod.AttachParams"]
+        self, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -2520,7 +1572,7 @@ class PaymentMethod(
 
     @class_method_variant("_cls_attach")
     def attach(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PaymentMethod.AttachParams"]
+        self, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -2550,9 +1602,7 @@ class PaymentMethod(
 
     @classmethod
     async def _cls_attach_async(
-        cls,
-        payment_method: str,
-        **params: Unpack["PaymentMethod.AttachParams"],
+        cls, payment_method: str, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -2583,7 +1633,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     async def attach_async(
-        payment_method: str, **params: Unpack["PaymentMethod.AttachParams"]
+        payment_method: str, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -2604,7 +1654,7 @@ class PaymentMethod(
 
     @overload
     async def attach_async(
-        self, **params: Unpack["PaymentMethod.AttachParams"]
+        self, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -2625,7 +1675,7 @@ class PaymentMethod(
 
     @class_method_variant("_cls_attach_async")
     async def attach_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PaymentMethod.AttachParams"]
+        self, **params: Unpack["PaymentMethodAttachParams"]
     ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
@@ -2655,7 +1705,7 @@ class PaymentMethod(
 
     @classmethod
     def create(
-        cls, **params: Unpack["PaymentMethod.CreateParams"]
+        cls, **params: Unpack["PaymentMethodCreateParams"]
     ) -> "PaymentMethod":
         """
         Creates a PaymentMethod object. Read the [Stripe.js reference](https://docs.stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
@@ -2673,7 +1723,7 @@ class PaymentMethod(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["PaymentMethod.CreateParams"]
+        cls, **params: Unpack["PaymentMethodCreateParams"]
     ) -> "PaymentMethod":
         """
         Creates a PaymentMethod object. Read the [Stripe.js reference](https://docs.stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
@@ -2691,9 +1741,7 @@ class PaymentMethod(
 
     @classmethod
     def _cls_detach(
-        cls,
-        payment_method: str,
-        **params: Unpack["PaymentMethod.DetachParams"],
+        cls, payment_method: str, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -2712,7 +1760,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     def detach(
-        payment_method: str, **params: Unpack["PaymentMethod.DetachParams"]
+        payment_method: str, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -2721,7 +1769,7 @@ class PaymentMethod(
 
     @overload
     def detach(
-        self, **params: Unpack["PaymentMethod.DetachParams"]
+        self, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -2730,7 +1778,7 @@ class PaymentMethod(
 
     @class_method_variant("_cls_detach")
     def detach(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PaymentMethod.DetachParams"]
+        self, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -2748,9 +1796,7 @@ class PaymentMethod(
 
     @classmethod
     async def _cls_detach_async(
-        cls,
-        payment_method: str,
-        **params: Unpack["PaymentMethod.DetachParams"],
+        cls, payment_method: str, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -2769,7 +1815,7 @@ class PaymentMethod(
     @overload
     @staticmethod
     async def detach_async(
-        payment_method: str, **params: Unpack["PaymentMethod.DetachParams"]
+        payment_method: str, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -2778,7 +1824,7 @@ class PaymentMethod(
 
     @overload
     async def detach_async(
-        self, **params: Unpack["PaymentMethod.DetachParams"]
+        self, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -2787,7 +1833,7 @@ class PaymentMethod(
 
     @class_method_variant("_cls_detach_async")
     async def detach_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PaymentMethod.DetachParams"]
+        self, **params: Unpack["PaymentMethodDetachParams"]
     ) -> "PaymentMethod":
         """
         Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
@@ -2805,7 +1851,7 @@ class PaymentMethod(
 
     @classmethod
     def list(
-        cls, **params: Unpack["PaymentMethod.ListParams"]
+        cls, **params: Unpack["PaymentMethodListParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
@@ -2825,7 +1871,7 @@ class PaymentMethod(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["PaymentMethod.ListParams"]
+        cls, **params: Unpack["PaymentMethodListParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
@@ -2845,7 +1891,7 @@ class PaymentMethod(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentMethod.ModifyParams"]
+        cls, id: str, **params: Unpack["PaymentMethodModifyParams"]
     ) -> "PaymentMethod":
         """
         Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
@@ -2862,7 +1908,7 @@ class PaymentMethod(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentMethod.ModifyParams"]
+        cls, id: str, **params: Unpack["PaymentMethodModifyParams"]
     ) -> "PaymentMethod":
         """
         Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
@@ -2879,7 +1925,7 @@ class PaymentMethod(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["PaymentMethod.RetrieveParams"]
+        cls, id: str, **params: Unpack["PaymentMethodRetrieveParams"]
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer)
@@ -2890,7 +1936,7 @@ class PaymentMethod(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["PaymentMethod.RetrieveParams"]
+        cls, id: str, **params: Unpack["PaymentMethodRetrieveParams"]
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer)

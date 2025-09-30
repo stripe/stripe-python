@@ -3,6 +3,8 @@ import json
 import pytest
 
 import stripe
+from stripe._util import convert_to_stripe_object
+from stripe._stripe_object import StripeObject
 
 
 class TestListObject(object):
@@ -95,15 +97,13 @@ class TestListObject(object):
 
     def test_iter(self):
         arr = [{"id": 1}, {"id": 2}, {"id": 3}]
-        expected = stripe.util.convert_to_stripe_object(arr, api_mode="V1")
+        expected = convert_to_stripe_object(arr, api_mode="V1")
         lo = stripe.ListObject.construct_from({"data": arr}, None)
         assert list(lo) == expected
 
     def test_iter_reversed(self):
         arr = [{"id": 1}, {"id": 2}, {"id": 3}]
-        expected = stripe.util.convert_to_stripe_object(
-            list(reversed(arr)), api_mode="V1"
-        )
+        expected = convert_to_stripe_object(list(reversed(arr)), api_mode="V1")
         lo = stripe.ListObject.construct_from({"data": arr}, None)
         assert list(reversed(lo)) == expected
 
@@ -242,11 +242,9 @@ class TestListObject(object):
         empty = stripe.ListObject.construct_from(
             {"object": "list", "data": []}, "mykey"
         )
-        obj = stripe.stripe_object.StripeObject.construct_from(
-            {"nested": empty}, "mykey"
-        )
+        obj = StripeObject.construct_from({"nested": empty}, "mykey")
         serialized = str(obj)
-        deserialized = stripe.stripe_object.StripeObject.construct_from(
+        deserialized = StripeObject.construct_from(
             json.loads(serialized), "mykey"
         )
         assert deserialized.nested == empty

@@ -14,6 +14,7 @@ from collections import defaultdict
 from typing import List, Dict, Tuple, Optional
 
 from stripe._stripe_client import StripeClient
+from stripe._http_client import new_default_http_client
 
 if platform.python_implementation() == "PyPy":
     pytest.skip("skip integration tests with PyPy", allow_module_level=True)
@@ -191,7 +192,7 @@ class TestIntegration(object):
 
         client = stripe.StripeClient(
             "sk_test_123",
-            http_client=stripe.http_client.new_default_http_client(
+            http_client=new_default_http_client(
                 proxy="http://localhost:%s" % self.mock_server_port
             ),
             base_addresses={"api": "http://localhost:12111"},

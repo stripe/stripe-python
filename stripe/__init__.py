@@ -15,10 +15,7 @@ import warnings
 from stripe._api_version import _ApiVersion
 from stripe._api_requestor import _APIRequestor
 
-# We must import the app_info module early to populate it into
-# `sys.modules`; otherwise doing `import stripe.app_info` will end up
-# importing that module, and not the global `AppInfo` name from below.
-import stripe.app_info
+
 from stripe._app_info import AppInfo as AppInfo
 from stripe._version import VERSION as VERSION
 
@@ -203,51 +200,12 @@ from stripe._http_client import (
     UrlFetchClient as UrlFetchClient,
     HTTPXClient as HTTPXClient,
     AIOHTTPClient as AIOHTTPClient,
+    UrllibClient as UrllibClient,
     new_default_http_client as new_default_http_client,
 )
 
 # Util
 from stripe._util import convert_to_stripe_object as convert_to_stripe_object
-
-# Backwards compatibility re-exports
-if not TYPE_CHECKING:
-    from stripe import _stripe_response as stripe_response
-    from stripe import _stripe_object as stripe_object
-    from stripe import _error_object as error_object
-    from stripe import _error as error
-    from stripe import _http_client as http_client
-    from stripe import _util as util
-    from stripe import _oauth as oauth
-    from stripe import _webhook as webhook
-    from stripe import _multipart_data_generator as multipart_data_generator
-    from stripe import _request_metrics as request_metrics
-    from stripe._file import File as FileUpload
-
-    # Python 3.7+ supports module level __getattr__ that allows us to lazy load deprecated modules
-    # this matters because if we pre-load all modules from api_resources while suppressing warning
-    # users will never see those warnings
-    if _sys.version_info[:2] >= (3, 7):
-
-        def __getattr__(name):
-            if name == "abstract":
-                import stripe.api_resources.abstract as _abstract
-
-                return _abstract
-            if name == "api_resources":
-                import stripe.api_resources as _api_resources
-
-                return _api_resources
-            raise AttributeError(
-                f"module {__name__!r} has no attribute {name!r}"
-            )
-
-    else:
-        with warnings.catch_warnings():
-            warnings.filterwarnings("ignore", category=DeprecationWarning)
-
-            import stripe.api_resources.abstract as abstract
-            import stripe.api_resources as api_resources
-
 
 # API resources
 
@@ -264,6 +222,7 @@ from stripe import (
     forwarding as forwarding,
     identity as identity,
     issuing as issuing,
+    params as params,
     radar as radar,
     reporting as reporting,
     sigma as sigma,
