@@ -17,7 +17,9 @@ def webhooks():
     received_sig = request.headers.get("Stripe-Signature", None)
 
     try:
-        event = Webhook.construct_event(payload, received_sig, webhook_secret)
+        event = Webhook.construct_event(
+            payload, received_sig, webhook_secret, api_key="sk_test_..."
+        )
     except ValueError:
         print("Error while decoding event!")
         return "Bad payload", 400
