@@ -31,17 +31,9 @@ python -m pip install .
 
 Per our [Language Version Support Policy](TKTK), we currently support **Python 3.7+**.
 
-We drop support for end-of-life Python versions once they've been out of support for a year. We'll only drop support for Python versions in scheduled major releases (March & September, as outlined in the [Stripe API Versioning and Support Policy](https://docs.stripe.com/sdks/versioning)).
+We drop support for end-of-life Python versions once they've been out of support for a year. We'll only drop support for the oldest supported Python version each year in our [March API release](https://docs.stripe.com/sdks/versioning).
 
-#### Upcoming Deprecations
-
-| Python Version | [End of Life Date](https://endoflife.date/python) | Release when stripe-python drops support | Last stripe-python version to support this Python verison | Notes                                                                          |
-| -------------- | ------------------------------------------------- | ---------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| 3.7            | June 2023                                         | March 2026                               | TBD                                                       | This is a longer-than-normal window while we transition into this new schedule |
-| 3.8            | October 2024                                      | March 2026                               | TBD                                                       |                                                                                |
-| 3.9            | October 2025                                      | March 2027                               | TBD                                                       |                                                                                |
-
-And so forth.
+Read more and see the full schedule in the docs: TKTK
 
 #### Extended Support
 
