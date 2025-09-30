@@ -78,17 +78,20 @@ jobs:
       fail-fast: false
       matrix:
         python_version:
-          # - "3.6"
+          # The last ~5 versions, once we're on schedule
+          # https://docs.stripe.com/sdks/versioning?server=python#stripe-sdk-language-version-support-policy
           - "3.7"
           - "3.8"
           - "3.9"
           - "3.10"
           - "3.11"
           - "3.12"
+          - "3.13"
           - "pypy-3.7"
           - "pypy-3.8"
           - "pypy-3.9"
           - "pypy-3.10"
+          - "pypy-3.11"
     name: Test (${{ matrix.python_version }})
     steps:
       - uses: extractions/setup-just@v2

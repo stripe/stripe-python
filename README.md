@@ -9,20 +9,19 @@ classes for API resources that initialize themselves dynamically from API
 responses which makes it compatible with a wide range of versions of the Stripe
 API.
 
-## Documentation
+## API Documentation
 
 See the [Python API docs](https://stripe.com/docs/api?lang=python).
 
 ## Installation
 
-You don't need this source code unless you want to modify the package. If you just
-want to use the package, just run:
+This package is available on PyPI:
 
 ```sh
 pip install --upgrade stripe
 ```
 
-Install from source with:
+Alternatively, install from source with:
 
 ```sh
 python -m pip install .
@@ -30,7 +29,11 @@ python -m pip install .
 
 ### Requirements
 
--   Python 3.6+ (PyPy supported)
+Per our [Language Version Support Policy](https://docs.stripe.com/sdks/versioning?server=python#stripe-sdk-language-version-support-policy), we currently support **Python 3.7+**.
+
+Support for Python 3.7 and 3.8 is deprecated and will be removed in an upcoming major version. Read more and see the full schedule in the docs: https://docs.stripe.com/sdks/versioning?server=python#stripe-sdk-language-version-support-policy
+
+#### Extended Support
 
 #### Python 2.7 deprecation
 
