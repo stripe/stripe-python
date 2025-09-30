@@ -29,11 +29,9 @@ python -m pip install .
 
 ### Requirements
 
-Per our [Language Version Support Policy](TKTK), we currently support **Python 3.7+**.
+Per our [Language Version Support Policy](https://docs.stripe.com/sdks/versioning?server=python#stripe-sdk-language-version-support-policy), we currently support **Python 3.7+**.
 
-We drop support for end-of-life Python versions once they've been out of support for a year. We'll only drop support for the oldest supported Python version each year in our [March API release](https://docs.stripe.com/sdks/versioning).
-
-Read more and see the full schedule in the docs: TKTK
+Support for Python 3.7 and 3.8 is deprecated and will be removed in an upcoming major version Read more and see the full schedule in the docs: https://docs.stripe.com/sdks/versioning?server=python#stripe-sdk-language-version-support-policy
 
 #### Extended Support
 
