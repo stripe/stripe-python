@@ -8,13 +8,13 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.test_helpers.issuing._personalization_design_activate_params import (
+    from stripe.params.test_helpers.issuing._personalization_design_activate_params import (
         PersonalizationDesignActivateParams,
     )
-    from stripe.param.test_helpers.issuing._personalization_design_deactivate_params import (
+    from stripe.params.test_helpers.issuing._personalization_design_deactivate_params import (
         PersonalizationDesignDeactivateParams,
     )
-    from stripe.param.test_helpers.issuing._personalization_design_reject_params import (
+    from stripe.params.test_helpers.issuing._personalization_design_reject_params import (
         PersonalizationDesignRejectParams,
     )
 

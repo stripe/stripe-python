@@ -17,22 +17,22 @@ if TYPE_CHECKING:
     from stripe.issuing._cardholder import Cardholder
     from stripe.issuing._dispute import Dispute
     from stripe.issuing._token import Token
-    from stripe.param.issuing._transaction_create_force_capture_params import (
+    from stripe.params.issuing._transaction_create_force_capture_params import (
         TransactionCreateForceCaptureParams,
     )
-    from stripe.param.issuing._transaction_create_unlinked_refund_params import (
+    from stripe.params.issuing._transaction_create_unlinked_refund_params import (
         TransactionCreateUnlinkedRefundParams,
     )
-    from stripe.param.issuing._transaction_list_params import (
+    from stripe.params.issuing._transaction_list_params import (
         TransactionListParams,
     )
-    from stripe.param.issuing._transaction_modify_params import (
+    from stripe.params.issuing._transaction_modify_params import (
         TransactionModifyParams,
     )
-    from stripe.param.issuing._transaction_refund_params import (
+    from stripe.params.issuing._transaction_refund_params import (
         TransactionRefundParams,
     )
-    from stripe.param.issuing._transaction_retrieve_params import (
+    from stripe.params.issuing._transaction_retrieve_params import (
         TransactionRetrieveParams,
     )
 

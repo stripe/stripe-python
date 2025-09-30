@@ -10,37 +10,37 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param._payment_intent_apply_customer_balance_params import (
+    from stripe.params._payment_intent_apply_customer_balance_params import (
         PaymentIntentApplyCustomerBalanceParams,
     )
-    from stripe.param._payment_intent_cancel_params import (
+    from stripe.params._payment_intent_cancel_params import (
         PaymentIntentCancelParams,
     )
-    from stripe.param._payment_intent_capture_params import (
+    from stripe.params._payment_intent_capture_params import (
         PaymentIntentCaptureParams,
     )
-    from stripe.param._payment_intent_confirm_params import (
+    from stripe.params._payment_intent_confirm_params import (
         PaymentIntentConfirmParams,
     )
-    from stripe.param._payment_intent_create_params import (
+    from stripe.params._payment_intent_create_params import (
         PaymentIntentCreateParams,
     )
-    from stripe.param._payment_intent_increment_authorization_params import (
+    from stripe.params._payment_intent_increment_authorization_params import (
         PaymentIntentIncrementAuthorizationParams,
     )
-    from stripe.param._payment_intent_list_params import (
+    from stripe.params._payment_intent_list_params import (
         PaymentIntentListParams,
     )
-    from stripe.param._payment_intent_retrieve_params import (
+    from stripe.params._payment_intent_retrieve_params import (
         PaymentIntentRetrieveParams,
     )
-    from stripe.param._payment_intent_search_params import (
+    from stripe.params._payment_intent_search_params import (
         PaymentIntentSearchParams,
     )
-    from stripe.param._payment_intent_update_params import (
+    from stripe.params._payment_intent_update_params import (
         PaymentIntentUpdateParams,
     )
-    from stripe.param._payment_intent_verify_microdeposits_params import (
+    from stripe.params._payment_intent_verify_microdeposits_params import (
         PaymentIntentVerifyMicrodepositsParams,
     )
 

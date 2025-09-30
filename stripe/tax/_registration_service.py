@@ -9,16 +9,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.tax._registration_create_params import (
+    from stripe.params.tax._registration_create_params import (
         RegistrationCreateParams,
     )
-    from stripe.param.tax._registration_list_params import (
+    from stripe.params.tax._registration_list_params import (
         RegistrationListParams,
     )
-    from stripe.param.tax._registration_retrieve_params import (
+    from stripe.params.tax._registration_retrieve_params import (
         RegistrationRetrieveParams,
     )
-    from stripe.param.tax._registration_update_params import (
+    from stripe.params.tax._registration_update_params import (
         RegistrationUpdateParams,
     )
 

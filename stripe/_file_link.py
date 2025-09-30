@@ -11,10 +11,10 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._file import File
-    from stripe.param._file_link_create_params import FileLinkCreateParams
-    from stripe.param._file_link_list_params import FileLinkListParams
-    from stripe.param._file_link_modify_params import FileLinkModifyParams
-    from stripe.param._file_link_retrieve_params import FileLinkRetrieveParams
+    from stripe.params._file_link_create_params import FileLinkCreateParams
+    from stripe.params._file_link_list_params import FileLinkListParams
+    from stripe.params._file_link_modify_params import FileLinkModifyParams
+    from stripe.params._file_link_retrieve_params import FileLinkRetrieveParams
 
 
 class FileLink(

@@ -10,16 +10,16 @@ from typing import ClassVar, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param._payment_method_configuration_create_params import (
+    from stripe.params._payment_method_configuration_create_params import (
         PaymentMethodConfigurationCreateParams,
     )
-    from stripe.param._payment_method_configuration_list_params import (
+    from stripe.params._payment_method_configuration_list_params import (
         PaymentMethodConfigurationListParams,
     )
-    from stripe.param._payment_method_configuration_modify_params import (
+    from stripe.params._payment_method_configuration_modify_params import (
         PaymentMethodConfigurationModifyParams,
     )
-    from stripe.param._payment_method_configuration_retrieve_params import (
+    from stripe.params._payment_method_configuration_retrieve_params import (
         PaymentMethodConfigurationRetrieveParams,
     )
 

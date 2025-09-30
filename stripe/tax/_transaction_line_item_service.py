@@ -9,7 +9,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.tax._transaction_line_item_list_params import (
+    from stripe.params.tax._transaction_line_item_list_params import (
         TransactionLineItemListParams,
     )
 

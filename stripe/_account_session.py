@@ -6,7 +6,7 @@ from typing import ClassVar, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param._account_session_create_params import (
+    from stripe.params._account_session_create_params import (
         AccountSessionCreateParams,
     )
 

@@ -7,8 +7,8 @@ from typing import Any, ClassVar, Dict, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param._event_list_params import EventListParams
-    from stripe.param._event_retrieve_params import EventRetrieveParams
+    from stripe.params._event_list_params import EventListParams
+    from stripe.params._event_retrieve_params import EventRetrieveParams
 
 
 class Event(ListableAPIResource["Event"]):

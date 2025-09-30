@@ -9,16 +9,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.issuing._cardholder_create_params import (
+    from stripe.params.issuing._cardholder_create_params import (
         CardholderCreateParams,
     )
-    from stripe.param.issuing._cardholder_list_params import (
+    from stripe.params.issuing._cardholder_list_params import (
         CardholderListParams,
     )
-    from stripe.param.issuing._cardholder_retrieve_params import (
+    from stripe.params.issuing._cardholder_retrieve_params import (
         CardholderRetrieveParams,
     )
-    from stripe.param.issuing._cardholder_update_params import (
+    from stripe.params.issuing._cardholder_update_params import (
         CardholderUpdateParams,
     )
 

@@ -10,19 +10,19 @@ from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param._webhook_endpoint_create_params import (
+    from stripe.params._webhook_endpoint_create_params import (
         WebhookEndpointCreateParams,
     )
-    from stripe.param._webhook_endpoint_delete_params import (
+    from stripe.params._webhook_endpoint_delete_params import (
         WebhookEndpointDeleteParams,
     )
-    from stripe.param._webhook_endpoint_list_params import (
+    from stripe.params._webhook_endpoint_list_params import (
         WebhookEndpointListParams,
     )
-    from stripe.param._webhook_endpoint_modify_params import (
+    from stripe.params._webhook_endpoint_modify_params import (
         WebhookEndpointModifyParams,
     )
-    from stripe.param._webhook_endpoint_retrieve_params import (
+    from stripe.params._webhook_endpoint_retrieve_params import (
         WebhookEndpointRetrieveParams,
     )
 

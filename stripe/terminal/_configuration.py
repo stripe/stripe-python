@@ -13,19 +13,19 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._file import File
-    from stripe.param.terminal._configuration_create_params import (
+    from stripe.params.terminal._configuration_create_params import (
         ConfigurationCreateParams,
     )
-    from stripe.param.terminal._configuration_delete_params import (
+    from stripe.params.terminal._configuration_delete_params import (
         ConfigurationDeleteParams,
     )
-    from stripe.param.terminal._configuration_list_params import (
+    from stripe.params.terminal._configuration_list_params import (
         ConfigurationListParams,
     )
-    from stripe.param.terminal._configuration_modify_params import (
+    from stripe.params.terminal._configuration_modify_params import (
         ConfigurationModifyParams,
     )
-    from stripe.param.terminal._configuration_retrieve_params import (
+    from stripe.params.terminal._configuration_retrieve_params import (
         ConfigurationRetrieveParams,
     )
 

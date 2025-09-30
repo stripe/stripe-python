@@ -12,13 +12,13 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._source_transaction import SourceTransaction
-    from stripe.param._source_create_params import SourceCreateParams
-    from stripe.param._source_list_source_transactions_params import (
+    from stripe.params._source_create_params import SourceCreateParams
+    from stripe.params._source_list_source_transactions_params import (
         SourceListSourceTransactionsParams,
     )
-    from stripe.param._source_modify_params import SourceModifyParams
-    from stripe.param._source_retrieve_params import SourceRetrieveParams
-    from stripe.param._source_verify_params import SourceVerifyParams
+    from stripe.params._source_modify_params import SourceModifyParams
+    from stripe.params._source_retrieve_params import SourceRetrieveParams
+    from stripe.params._source_verify_params import SourceVerifyParams
 
 
 class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):

@@ -12,11 +12,11 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
     from stripe._source import Source
-    from stripe.param._topup_cancel_params import TopupCancelParams
-    from stripe.param._topup_create_params import TopupCreateParams
-    from stripe.param._topup_list_params import TopupListParams
-    from stripe.param._topup_modify_params import TopupModifyParams
-    from stripe.param._topup_retrieve_params import TopupRetrieveParams
+    from stripe.params._topup_cancel_params import TopupCancelParams
+    from stripe.params._topup_create_params import TopupCreateParams
+    from stripe.params._topup_list_params import TopupListParams
+    from stripe.params._topup_modify_params import TopupModifyParams
+    from stripe.params._topup_retrieve_params import TopupRetrieveParams
 
 
 class Topup(

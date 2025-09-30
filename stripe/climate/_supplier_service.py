@@ -9,8 +9,8 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.climate._supplier_list_params import SupplierListParams
-    from stripe.param.climate._supplier_retrieve_params import (
+    from stripe.params.climate._supplier_list_params import SupplierListParams
+    from stripe.params.climate._supplier_retrieve_params import (
         SupplierRetrieveParams,
     )
 

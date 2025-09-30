@@ -10,13 +10,13 @@ from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._payout import Payout
-    from stripe.param.treasury._received_credit_create_params import (
+    from stripe.params.treasury._received_credit_create_params import (
         ReceivedCreditCreateParams,
     )
-    from stripe.param.treasury._received_credit_list_params import (
+    from stripe.params.treasury._received_credit_list_params import (
         ReceivedCreditListParams,
     )
-    from stripe.param.treasury._received_credit_retrieve_params import (
+    from stripe.params.treasury._received_credit_retrieve_params import (
         ReceivedCreditRetrieveParams,
     )
     from stripe.treasury._credit_reversal import CreditReversal

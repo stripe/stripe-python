@@ -13,16 +13,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param._credit_note_create_params import CreditNoteCreateParams
-    from stripe.param._credit_note_list_params import CreditNoteListParams
-    from stripe.param._credit_note_preview_params import (
+    from stripe.params._credit_note_create_params import CreditNoteCreateParams
+    from stripe.params._credit_note_list_params import CreditNoteListParams
+    from stripe.params._credit_note_preview_params import (
         CreditNotePreviewParams,
     )
-    from stripe.param._credit_note_retrieve_params import (
+    from stripe.params._credit_note_retrieve_params import (
         CreditNoteRetrieveParams,
     )
-    from stripe.param._credit_note_update_params import CreditNoteUpdateParams
-    from stripe.param._credit_note_void_credit_note_params import (
+    from stripe.params._credit_note_update_params import CreditNoteUpdateParams
+    from stripe.params._credit_note_void_credit_note_params import (
         CreditNoteVoidCreditNoteParams,
     )
 

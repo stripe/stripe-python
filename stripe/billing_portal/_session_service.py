@@ -7,7 +7,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.billing_portal._session_create_params import (
+    from stripe.params.billing_portal._session_create_params import (
         SessionCreateParams,
     )
 

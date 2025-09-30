@@ -9,22 +9,22 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param._subscription_schedule_cancel_params import (
+    from stripe.params._subscription_schedule_cancel_params import (
         SubscriptionScheduleCancelParams,
     )
-    from stripe.param._subscription_schedule_create_params import (
+    from stripe.params._subscription_schedule_create_params import (
         SubscriptionScheduleCreateParams,
     )
-    from stripe.param._subscription_schedule_list_params import (
+    from stripe.params._subscription_schedule_list_params import (
         SubscriptionScheduleListParams,
     )
-    from stripe.param._subscription_schedule_release_params import (
+    from stripe.params._subscription_schedule_release_params import (
         SubscriptionScheduleReleaseParams,
     )
-    from stripe.param._subscription_schedule_retrieve_params import (
+    from stripe.params._subscription_schedule_retrieve_params import (
         SubscriptionScheduleRetrieveParams,
     )
-    from stripe.param._subscription_schedule_update_params import (
+    from stripe.params._subscription_schedule_update_params import (
         SubscriptionScheduleUpdateParams,
     )
 

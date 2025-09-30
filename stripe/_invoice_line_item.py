@@ -13,9 +13,6 @@ if TYPE_CHECKING:
     from stripe.billing._credit_balance_transaction import (
         CreditBalanceTransaction,
     )
-    from stripe.param._invoice_line_item_modify_params import (
-        InvoiceLineItemModifyParams,
-    )
 
 
 class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):

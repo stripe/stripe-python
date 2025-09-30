@@ -9,11 +9,13 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.climate._order_cancel_params import OrderCancelParams
-    from stripe.param.climate._order_create_params import OrderCreateParams
-    from stripe.param.climate._order_list_params import OrderListParams
-    from stripe.param.climate._order_retrieve_params import OrderRetrieveParams
-    from stripe.param.climate._order_update_params import OrderUpdateParams
+    from stripe.params.climate._order_cancel_params import OrderCancelParams
+    from stripe.params.climate._order_create_params import OrderCreateParams
+    from stripe.params.climate._order_list_params import OrderListParams
+    from stripe.params.climate._order_retrieve_params import (
+        OrderRetrieveParams,
+    )
+    from stripe.params.climate._order_update_params import OrderUpdateParams
 
 
 class OrderService(StripeService):

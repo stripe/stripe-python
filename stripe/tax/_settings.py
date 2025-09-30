@@ -7,8 +7,8 @@ from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.tax._settings_modify_params import SettingsModifyParams
-    from stripe.param.tax._settings_retrieve_params import (
+    from stripe.params.tax._settings_modify_params import SettingsModifyParams
+    from stripe.params.tax._settings_retrieve_params import (
         SettingsRetrieveParams,
     )
 

@@ -5,7 +5,7 @@ from typing import ClassVar, Dict, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.billing._meter_event_create_params import (
+    from stripe.params.billing._meter_event_create_params import (
         MeterEventCreateParams,
     )
 

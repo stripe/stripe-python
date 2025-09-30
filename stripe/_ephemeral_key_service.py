@@ -8,10 +8,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param._ephemeral_key_create_params import (
+    from stripe.params._ephemeral_key_create_params import (
         EphemeralKeyCreateParams,
     )
-    from stripe.param._ephemeral_key_delete_params import (
+    from stripe.params._ephemeral_key_delete_params import (
         EphemeralKeyDeleteParams,
     )
 

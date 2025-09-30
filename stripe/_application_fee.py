@@ -15,25 +15,25 @@ if TYPE_CHECKING:
     from stripe._application_fee_refund import ApplicationFeeRefund
     from stripe._balance_transaction import BalanceTransaction
     from stripe._charge import Charge
-    from stripe.param._application_fee_create_refund_params import (
+    from stripe.params._application_fee_create_refund_params import (
         ApplicationFeeCreateRefundParams,
     )
-    from stripe.param._application_fee_list_params import (
+    from stripe.params._application_fee_list_params import (
         ApplicationFeeListParams,
     )
-    from stripe.param._application_fee_list_refunds_params import (
+    from stripe.params._application_fee_list_refunds_params import (
         ApplicationFeeListRefundsParams,
     )
-    from stripe.param._application_fee_modify_refund_params import (
+    from stripe.params._application_fee_modify_refund_params import (
         ApplicationFeeModifyRefundParams,
     )
-    from stripe.param._application_fee_refund_params import (
+    from stripe.params._application_fee_refund_params import (
         ApplicationFeeRefundParams,
     )
-    from stripe.param._application_fee_retrieve_params import (
+    from stripe.params._application_fee_retrieve_params import (
         ApplicationFeeRetrieveParams,
     )
-    from stripe.param._application_fee_retrieve_refund_params import (
+    from stripe.params._application_fee_retrieve_refund_params import (
         ApplicationFeeRetrieveRefundParams,
     )
 

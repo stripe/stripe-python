@@ -14,7 +14,7 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._card import Card
-    from stripe.param._bank_account_delete_params import (
+    from stripe.params._bank_account_delete_params import (
         BankAccountDeleteParams,
     )
 

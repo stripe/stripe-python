@@ -7,10 +7,10 @@ from typing import ClassVar
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.issuing._physical_bundle_list_params import (
+    from stripe.params.issuing._physical_bundle_list_params import (
         PhysicalBundleListParams,
     )
-    from stripe.param.issuing._physical_bundle_retrieve_params import (
+    from stripe.params.issuing._physical_bundle_retrieve_params import (
         PhysicalBundleRetrieveParams,
     )
 

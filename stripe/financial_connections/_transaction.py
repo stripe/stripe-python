@@ -7,10 +7,10 @@ from typing import ClassVar, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.financial_connections._transaction_list_params import (
+    from stripe.params.financial_connections._transaction_list_params import (
         TransactionListParams,
     )
-    from stripe.param.financial_connections._transaction_retrieve_params import (
+    from stripe.params.financial_connections._transaction_retrieve_params import (
         TransactionRetrieveParams,
     )
 
