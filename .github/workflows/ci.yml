@@ -77,7 +77,8 @@ jobs:
       fail-fast: false
       matrix:
         python_version:
-          # https://endoflife.date/python
+          # The last ~5 versions, once we're on schedule
+          # https://docs.stripe.com/sdks/versioning?server=python#stripe-sdk-language-version-support-policy
           - "3.7"
           - "3.8"
           - "3.9"
