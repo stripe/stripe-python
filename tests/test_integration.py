@@ -398,7 +398,7 @@ class TestIntegration(object):
             expected_message = "A ReadTimeout was raised"
         elif isinstance(hc, stripe.AIOHTTPClient):
             hc._timeout = aiohttp.ClientTimeout(sock_read=0.01)
-            expected_message = "A ServerTimeoutError was raised"
+            expected_message = "A SocketTimeoutError was raised"
         else:
             raise ValueError(f"Unknown http client: {hc.name}")
 
