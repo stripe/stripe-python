@@ -2,13 +2,13 @@
 # File generated from our OpenAPI spec
 from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._payment_method import PaymentMethod
+    from stripe.params._mandate_retrieve_params import MandateRetrieveParams
 
 
 class Mandate(APIResource["Mandate"]):
@@ -205,12 +205,6 @@ class Mandate(APIResource["Mandate"]):
         The currency of the payment on a single use mandate.
         """
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     customer_acceptance: CustomerAcceptance
     id: str
     """
@@ -246,7 +240,7 @@ class Mandate(APIResource["Mandate"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Mandate.RetrieveParams"]
+        cls, id: str, **params: Unpack["MandateRetrieveParams"]
     ) -> "Mandate":
         """
         Retrieves a Mandate object.
@@ -257,7 +251,7 @@ class Mandate(APIResource["Mandate"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Mandate.RetrieveParams"]
+        cls, id: str, **params: Unpack["MandateRetrieveParams"]
     ) -> "Mandate":
         """
         Retrieves a Mandate object.

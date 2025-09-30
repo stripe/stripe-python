@@ -4,10 +4,23 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing import ClassVar, Optional, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.radar._value_list_item_create_params import (
+        ValueListItemCreateParams,
+    )
+    from stripe.params.radar._value_list_item_delete_params import (
+        ValueListItemDeleteParams,
+    )
+    from stripe.params.radar._value_list_item_list_params import (
+        ValueListItemListParams,
+    )
+    from stripe.params.radar._value_list_item_retrieve_params import (
+        ValueListItemRetrieveParams,
+    )
 
 
 class ValueListItem(
@@ -24,78 +37,6 @@ class ValueListItem(
     OBJECT_NAME: ClassVar[Literal["radar.value_list_item"]] = (
         "radar.value_list_item"
     )
-
-    class CreateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        value: str
-        """
-        The value of the item (whose type must match the type of the parent value list).
-        """
-        value_list: str
-        """
-        The identifier of the value list which the created item will be added to.
-        """
-
-    class DeleteParams(RequestOptions):
-        pass
-
-    class ListParams(RequestOptions):
-        created: NotRequired["ValueListItem.ListParamsCreated|int"]
-        """
-        Only return items that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        value: NotRequired[str]
-        """
-        Return items belonging to the parent list whose value matches the specified value (using an "is like" match).
-        """
-        value_list: str
-        """
-        Identifier for the parent value list this item belongs to.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -131,7 +72,7 @@ class ValueListItem(
 
     @classmethod
     def create(
-        cls, **params: Unpack["ValueListItem.CreateParams"]
+        cls, **params: Unpack["ValueListItemCreateParams"]
     ) -> "ValueListItem":
         """
         Creates a new ValueListItem object, which is added to the specified parent value list.
@@ -147,7 +88,7 @@ class ValueListItem(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["ValueListItem.CreateParams"]
+        cls, **params: Unpack["ValueListItemCreateParams"]
     ) -> "ValueListItem":
         """
         Creates a new ValueListItem object, which is added to the specified parent value list.
@@ -163,7 +104,7 @@ class ValueListItem(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["ValueListItem.DeleteParams"]
+        cls, sid: str, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -181,7 +122,7 @@ class ValueListItem(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["ValueListItem.DeleteParams"]
+        sid: str, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -190,7 +131,7 @@ class ValueListItem(
 
     @overload
     def delete(
-        self, **params: Unpack["ValueListItem.DeleteParams"]
+        self, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -199,7 +140,7 @@ class ValueListItem(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ValueListItem.DeleteParams"]
+        self, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -212,7 +153,7 @@ class ValueListItem(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["ValueListItem.DeleteParams"]
+        cls, sid: str, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -230,7 +171,7 @@ class ValueListItem(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["ValueListItem.DeleteParams"]
+        sid: str, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -239,7 +180,7 @@ class ValueListItem(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["ValueListItem.DeleteParams"]
+        self, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -248,7 +189,7 @@ class ValueListItem(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ValueListItem.DeleteParams"]
+        self, **params: Unpack["ValueListItemDeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -261,7 +202,7 @@ class ValueListItem(
 
     @classmethod
     def list(
-        cls, **params: Unpack["ValueListItem.ListParams"]
+        cls, **params: Unpack["ValueListItemListParams"]
     ) -> ListObject["ValueListItem"]:
         """
         Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -281,7 +222,7 @@ class ValueListItem(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["ValueListItem.ListParams"]
+        cls, **params: Unpack["ValueListItemListParams"]
     ) -> ListObject["ValueListItem"]:
         """
         Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -301,7 +242,7 @@ class ValueListItem(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["ValueListItem.RetrieveParams"]
+        cls, id: str, **params: Unpack["ValueListItemRetrieveParams"]
     ) -> "ValueListItem":
         """
         Retrieves a ValueListItem object.
@@ -312,7 +253,7 @@ class ValueListItem(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ValueListItem.RetrieveParams"]
+        cls, id: str, **params: Unpack["ValueListItemRetrieveParams"]
     ) -> "ValueListItem":
         """
         Retrieves a ValueListItem object.

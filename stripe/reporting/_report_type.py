@@ -2,9 +2,16 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.reporting._report_type_list_params import (
+        ReportTypeListParams,
+    )
+    from stripe.params.reporting._report_type_retrieve_params import (
+        ReportTypeRetrieveParams,
+    )
 
 
 class ReportType(ListableAPIResource["ReportType"]):
@@ -22,19 +29,6 @@ class ReportType(ListableAPIResource["ReportType"]):
     OBJECT_NAME: ClassVar[Literal["reporting.report_type"]] = (
         "reporting.report_type"
     )
-
-    class ListParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     data_available_end: int
     """
     Most recent time for which this Report Type is available. Measured in seconds since the Unix epoch.
@@ -74,7 +68,7 @@ class ReportType(ListableAPIResource["ReportType"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["ReportType.ListParams"]
+        cls, **params: Unpack["ReportTypeListParams"]
     ) -> ListObject["ReportType"]:
         """
         Returns a full list of Report Types.
@@ -94,7 +88,7 @@ class ReportType(ListableAPIResource["ReportType"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["ReportType.ListParams"]
+        cls, **params: Unpack["ReportTypeListParams"]
     ) -> ListObject["ReportType"]:
         """
         Returns a full list of Report Types.
@@ -114,7 +108,7 @@ class ReportType(ListableAPIResource["ReportType"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["ReportType.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReportTypeRetrieveParams"]
     ) -> "ReportType":
         """
         Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
@@ -125,7 +119,7 @@ class ReportType(ListableAPIResource["ReportType"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ReportType.RetrieveParams"]
+        cls, id: str, **params: Unpack["ReportTypeRetrieveParams"]
     ) -> "ReportType":
         """
         Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)

@@ -6,7 +6,6 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
-from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
@@ -24,14 +23,7 @@ from typing import (
     cast,
     overload,
 )
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    Type,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -48,6 +40,78 @@ if TYPE_CHECKING:
     from stripe._source import Source
     from stripe._subscription import Subscription
     from stripe._tax_id import TaxId
+    from stripe.params._customer_create_balance_transaction_params import (
+        CustomerCreateBalanceTransactionParams,
+    )
+    from stripe.params._customer_create_funding_instructions_params import (
+        CustomerCreateFundingInstructionsParams,
+    )
+    from stripe.params._customer_create_params import CustomerCreateParams
+    from stripe.params._customer_create_source_params import (
+        CustomerCreateSourceParams,
+    )
+    from stripe.params._customer_create_tax_id_params import (
+        CustomerCreateTaxIdParams,
+    )
+    from stripe.params._customer_delete_discount_params import (
+        CustomerDeleteDiscountParams,
+    )
+    from stripe.params._customer_delete_params import CustomerDeleteParams
+    from stripe.params._customer_delete_source_params import (
+        CustomerDeleteSourceParams,
+    )
+    from stripe.params._customer_delete_tax_id_params import (
+        CustomerDeleteTaxIdParams,
+    )
+    from stripe.params._customer_fund_cash_balance_params import (
+        CustomerFundCashBalanceParams,
+    )
+    from stripe.params._customer_list_balance_transactions_params import (
+        CustomerListBalanceTransactionsParams,
+    )
+    from stripe.params._customer_list_cash_balance_transactions_params import (
+        CustomerListCashBalanceTransactionsParams,
+    )
+    from stripe.params._customer_list_params import CustomerListParams
+    from stripe.params._customer_list_payment_methods_params import (
+        CustomerListPaymentMethodsParams,
+    )
+    from stripe.params._customer_list_sources_params import (
+        CustomerListSourcesParams,
+    )
+    from stripe.params._customer_list_tax_ids_params import (
+        CustomerListTaxIdsParams,
+    )
+    from stripe.params._customer_modify_balance_transaction_params import (
+        CustomerModifyBalanceTransactionParams,
+    )
+    from stripe.params._customer_modify_cash_balance_params import (
+        CustomerModifyCashBalanceParams,
+    )
+    from stripe.params._customer_modify_params import CustomerModifyParams
+    from stripe.params._customer_modify_source_params import (
+        CustomerModifySourceParams,
+    )
+    from stripe.params._customer_retrieve_balance_transaction_params import (
+        CustomerRetrieveBalanceTransactionParams,
+    )
+    from stripe.params._customer_retrieve_cash_balance_params import (
+        CustomerRetrieveCashBalanceParams,
+    )
+    from stripe.params._customer_retrieve_cash_balance_transaction_params import (
+        CustomerRetrieveCashBalanceTransactionParams,
+    )
+    from stripe.params._customer_retrieve_params import CustomerRetrieveParams
+    from stripe.params._customer_retrieve_payment_method_params import (
+        CustomerRetrievePaymentMethodParams,
+    )
+    from stripe.params._customer_retrieve_source_params import (
+        CustomerRetrieveSourceParams,
+    )
+    from stripe.params._customer_retrieve_tax_id_params import (
+        CustomerRetrieveTaxIdParams,
+    )
+    from stripe.params._customer_search_params import CustomerSearchParams
     from stripe.test_helpers._test_clock import TestClock
 
 
@@ -219,1212 +283,6 @@ class Customer(
         """
         _inner_class_types = {"location": Location}
 
-    class CreateBalanceTransactionParams(RequestOptions):
-        amount: int
-        """
-        The integer amount in **cents (or local equivalent)** to apply to the customer's credit balance.
-        """
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Specifies the [`invoice_credit_balance`](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance) that this transaction will apply to. If the customer's `currency` is not set, it will be updated to this value.
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-
-    class CreateFundingInstructionsParams(RequestOptions):
-        bank_transfer: "Customer.CreateFundingInstructionsParamsBankTransfer"
-        """
-        Additional parameters for `bank_transfer` funding types
-        """
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        funding_type: Literal["bank_transfer"]
-        """
-        The `funding_type` to get the instructions for.
-        """
-
-    class CreateFundingInstructionsParamsBankTransfer(TypedDict):
-        eu_bank_transfer: NotRequired[
-            "Customer.CreateFundingInstructionsParamsBankTransferEuBankTransfer"
-        ]
-        """
-        Configuration for eu_bank_transfer funding type.
-        """
-        requested_address_types: NotRequired[
-            List[Literal["iban", "sort_code", "spei", "zengin"]]
-        ]
-        """
-        List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
-
-        Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
-        """
-        type: Literal[
-            "eu_bank_transfer",
-            "gb_bank_transfer",
-            "jp_bank_transfer",
-            "mx_bank_transfer",
-            "us_bank_transfer",
-        ]
-        """
-        The type of the `bank_transfer`
-        """
-
-    class CreateFundingInstructionsParamsBankTransferEuBankTransfer(TypedDict):
-        country: str
-        """
-        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
-        """
-
-    class CreateParams(RequestOptions):
-        address: NotRequired["Literal['']|Customer.CreateParamsAddress"]
-        """
-        The customer's address.
-        """
-        balance: NotRequired[int]
-        """
-        An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
-        """
-        business_name: NotRequired["Literal['']|str"]
-        """
-        The customer's business name. This may be up to *150 characters*.
-        """
-        cash_balance: NotRequired["Customer.CreateParamsCashBalance"]
-        """
-        Balance information and default balance settings for this customer.
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
-        """
-        email: NotRequired[str]
-        """
-        Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        individual_name: NotRequired["Literal['']|str"]
-        """
-        The customer's full name. This may be up to *150 characters*.
-        """
-        invoice_prefix: NotRequired[str]
-        """
-        The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
-        """
-        invoice_settings: NotRequired["Customer.CreateParamsInvoiceSettings"]
-        """
-        Default invoice settings for this customer.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: NotRequired[str]
-        """
-        The customer's full name or business name.
-        """
-        next_invoice_sequence: NotRequired[int]
-        """
-        The sequence to be used on the customer's next invoice. Defaults to 1.
-        """
-        payment_method: NotRequired[str]
-        phone: NotRequired[str]
-        """
-        The customer's phone number.
-        """
-        preferred_locales: NotRequired[List[str]]
-        """
-        Customer's preferred languages, ordered by preference.
-        """
-        shipping: NotRequired["Literal['']|Customer.CreateParamsShipping"]
-        """
-        The customer's shipping information. Appears on invoices emailed to this customer.
-        """
-        source: NotRequired[str]
-        tax: NotRequired["Customer.CreateParamsTax"]
-        """
-        Tax details about the customer.
-        """
-        tax_exempt: NotRequired[
-            "Literal['']|Literal['exempt', 'none', 'reverse']"
-        ]
-        """
-        The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
-        """
-        tax_id_data: NotRequired[List["Customer.CreateParamsTaxIdDatum"]]
-        """
-        The customer's tax IDs.
-        """
-        test_clock: NotRequired[str]
-        """
-        ID of the test clock to attach to the customer.
-        """
-        validate: NotRequired[bool]
-
-    class CreateParamsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CreateParamsCashBalance(TypedDict):
-        settings: NotRequired["Customer.CreateParamsCashBalanceSettings"]
-        """
-        Settings controlling the behavior of the customer's cash balance,
-        such as reconciliation of funds received.
-        """
-
-    class CreateParamsCashBalanceSettings(TypedDict):
-        reconciliation_mode: NotRequired[
-            Literal["automatic", "manual", "merchant_default"]
-        ]
-        """
-        Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
-        """
-
-    class CreateParamsInvoiceSettings(TypedDict):
-        custom_fields: NotRequired[
-            "Literal['']|List[Customer.CreateParamsInvoiceSettingsCustomField]"
-        ]
-        """
-        The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
-        """
-        default_payment_method: NotRequired[str]
-        """
-        ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
-        """
-        footer: NotRequired[str]
-        """
-        Default footer to be displayed on invoices for this customer.
-        """
-        rendering_options: NotRequired[
-            "Literal['']|Customer.CreateParamsInvoiceSettingsRenderingOptions"
-        ]
-        """
-        Default options for invoice PDF rendering for this customer.
-        """
-
-    class CreateParamsInvoiceSettingsCustomField(TypedDict):
-        name: str
-        """
-        The name of the custom field. This may be up to 40 characters.
-        """
-        value: str
-        """
-        The value of the custom field. This may be up to 140 characters.
-        """
-
-    class CreateParamsInvoiceSettingsRenderingOptions(TypedDict):
-        amount_tax_display: NotRequired[
-            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
-        ]
-        """
-        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-        """
-        template: NotRequired[str]
-        """
-        ID of the invoice rendering template to use for future invoices.
-        """
-
-    class CreateParamsShipping(TypedDict):
-        address: "Customer.CreateParamsShippingAddress"
-        """
-        Customer shipping address.
-        """
-        name: str
-        """
-        Customer name.
-        """
-        phone: NotRequired[str]
-        """
-        Customer phone (including extension).
-        """
-
-    class CreateParamsShippingAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class CreateParamsTax(TypedDict):
-        ip_address: NotRequired["Literal['']|str"]
-        """
-        A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
-        """
-        validate_location: NotRequired[Literal["deferred", "immediately"]]
-        """
-        A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
-        """
-
-    class CreateParamsTaxIdDatum(TypedDict):
-        type: Literal[
-            "ad_nrt",
-            "ae_trn",
-            "al_tin",
-            "am_tin",
-            "ao_tin",
-            "ar_cuit",
-            "au_abn",
-            "au_arn",
-            "aw_tin",
-            "az_tin",
-            "ba_tin",
-            "bb_tin",
-            "bd_bin",
-            "bf_ifu",
-            "bg_uic",
-            "bh_vat",
-            "bj_ifu",
-            "bo_tin",
-            "br_cnpj",
-            "br_cpf",
-            "bs_tin",
-            "by_tin",
-            "ca_bn",
-            "ca_gst_hst",
-            "ca_pst_bc",
-            "ca_pst_mb",
-            "ca_pst_sk",
-            "ca_qst",
-            "cd_nif",
-            "ch_uid",
-            "ch_vat",
-            "cl_tin",
-            "cm_niu",
-            "cn_tin",
-            "co_nit",
-            "cr_tin",
-            "cv_nif",
-            "de_stn",
-            "do_rcn",
-            "ec_ruc",
-            "eg_tin",
-            "es_cif",
-            "et_tin",
-            "eu_oss_vat",
-            "eu_vat",
-            "gb_vat",
-            "ge_vat",
-            "gn_nif",
-            "hk_br",
-            "hr_oib",
-            "hu_tin",
-            "id_npwp",
-            "il_vat",
-            "in_gst",
-            "is_vat",
-            "jp_cn",
-            "jp_rn",
-            "jp_trn",
-            "ke_pin",
-            "kg_tin",
-            "kh_tin",
-            "kr_brn",
-            "kz_bin",
-            "la_tin",
-            "li_uid",
-            "li_vat",
-            "ma_vat",
-            "md_vat",
-            "me_pib",
-            "mk_vat",
-            "mr_nif",
-            "mx_rfc",
-            "my_frp",
-            "my_itn",
-            "my_sst",
-            "ng_tin",
-            "no_vat",
-            "no_voec",
-            "np_pan",
-            "nz_gst",
-            "om_vat",
-            "pe_ruc",
-            "ph_tin",
-            "ro_tin",
-            "rs_pib",
-            "ru_inn",
-            "ru_kpp",
-            "sa_vat",
-            "sg_gst",
-            "sg_uen",
-            "si_tin",
-            "sn_ninea",
-            "sr_fin",
-            "sv_nit",
-            "th_vat",
-            "tj_tin",
-            "tr_tin",
-            "tw_vat",
-            "tz_vat",
-            "ua_vat",
-            "ug_tin",
-            "us_ein",
-            "uy_ruc",
-            "uz_tin",
-            "uz_vat",
-            "ve_rif",
-            "vn_tin",
-            "za_vat",
-            "zm_tin",
-            "zw_tin",
-        ]
-        """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
-        """
-        value: str
-        """
-        Value of the tax ID.
-        """
-
-    class CreateSourceParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        source: str
-        """
-        Please refer to full [documentation](https://stripe.com/docs/api) instead.
-        """
-        validate: NotRequired[bool]
-
-    class CreateTaxIdParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        type: Literal[
-            "ad_nrt",
-            "ae_trn",
-            "al_tin",
-            "am_tin",
-            "ao_tin",
-            "ar_cuit",
-            "au_abn",
-            "au_arn",
-            "aw_tin",
-            "az_tin",
-            "ba_tin",
-            "bb_tin",
-            "bd_bin",
-            "bf_ifu",
-            "bg_uic",
-            "bh_vat",
-            "bj_ifu",
-            "bo_tin",
-            "br_cnpj",
-            "br_cpf",
-            "bs_tin",
-            "by_tin",
-            "ca_bn",
-            "ca_gst_hst",
-            "ca_pst_bc",
-            "ca_pst_mb",
-            "ca_pst_sk",
-            "ca_qst",
-            "cd_nif",
-            "ch_uid",
-            "ch_vat",
-            "cl_tin",
-            "cm_niu",
-            "cn_tin",
-            "co_nit",
-            "cr_tin",
-            "cv_nif",
-            "de_stn",
-            "do_rcn",
-            "ec_ruc",
-            "eg_tin",
-            "es_cif",
-            "et_tin",
-            "eu_oss_vat",
-            "eu_vat",
-            "gb_vat",
-            "ge_vat",
-            "gn_nif",
-            "hk_br",
-            "hr_oib",
-            "hu_tin",
-            "id_npwp",
-            "il_vat",
-            "in_gst",
-            "is_vat",
-            "jp_cn",
-            "jp_rn",
-            "jp_trn",
-            "ke_pin",
-            "kg_tin",
-            "kh_tin",
-            "kr_brn",
-            "kz_bin",
-            "la_tin",
-            "li_uid",
-            "li_vat",
-            "ma_vat",
-            "md_vat",
-            "me_pib",
-            "mk_vat",
-            "mr_nif",
-            "mx_rfc",
-            "my_frp",
-            "my_itn",
-            "my_sst",
-            "ng_tin",
-            "no_vat",
-            "no_voec",
-            "np_pan",
-            "nz_gst",
-            "om_vat",
-            "pe_ruc",
-            "ph_tin",
-            "ro_tin",
-            "rs_pib",
-            "ru_inn",
-            "ru_kpp",
-            "sa_vat",
-            "sg_gst",
-            "sg_uen",
-            "si_tin",
-            "sn_ninea",
-            "sr_fin",
-            "sv_nit",
-            "th_vat",
-            "tj_tin",
-            "tr_tin",
-            "tw_vat",
-            "tz_vat",
-            "ua_vat",
-            "ug_tin",
-            "us_ein",
-            "uy_ruc",
-            "uz_tin",
-            "uz_vat",
-            "ve_rif",
-            "vn_tin",
-            "za_vat",
-            "zm_tin",
-            "zw_tin",
-        ]
-        """
-        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
-        """
-        value: str
-        """
-        Value of the tax ID.
-        """
-
-    class DeleteDiscountParams(RequestOptions):
-        pass
-
-    class DeleteParams(RequestOptions):
-        pass
-
-    class DeleteSourceParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class DeleteTaxIdParams(RequestOptions):
-        pass
-
-    class FundCashBalanceParams(RequestOptions):
-        amount: int
-        """
-        Amount to be used for this test cash balance transaction. A positive integer representing how much to fund in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to fund $1.00 or 100 to fund ¥100, a zero-decimal currency).
-        """
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        reference: NotRequired[str]
-        """
-        A description of the test funding. This simulates free-text references supplied by customers when making bank transfers to their cash balance. You can use this to test how Stripe's [reconciliation algorithm](https://stripe.com/docs/payments/customer-balance/reconciliation) applies to different user inputs.
-        """
-
-    class ListBalanceTransactionsParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListCashBalanceTransactionsParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListParams(RequestOptions):
-        created: NotRequired["Customer.ListParamsCreated|int"]
-        """
-        Only return customers that were created during the given date interval.
-        """
-        email: NotRequired[str]
-        """
-        A case-sensitive filter on the list based on the customer's `email` field. The value must be a string.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        test_clock: NotRequired[str]
-        """
-        Provides a list of customers that are associated with the specified test clock. The response will not include customers with test clocks if this parameter is not set.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ListPaymentMethodsParams(RequestOptions):
-        allow_redisplay: NotRequired[
-            Literal["always", "limited", "unspecified"]
-        ]
-        """
-        This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        type: NotRequired[
-            Literal[
-                "acss_debit",
-                "affirm",
-                "afterpay_clearpay",
-                "alipay",
-                "alma",
-                "amazon_pay",
-                "au_becs_debit",
-                "bacs_debit",
-                "bancontact",
-                "billie",
-                "blik",
-                "boleto",
-                "card",
-                "cashapp",
-                "crypto",
-                "customer_balance",
-                "eps",
-                "fpx",
-                "giropay",
-                "grabpay",
-                "ideal",
-                "kakao_pay",
-                "klarna",
-                "konbini",
-                "kr_card",
-                "link",
-                "mb_way",
-                "mobilepay",
-                "multibanco",
-                "naver_pay",
-                "nz_bank_account",
-                "oxxo",
-                "p24",
-                "pay_by_bank",
-                "payco",
-                "paynow",
-                "paypal",
-                "pix",
-                "promptpay",
-                "revolut_pay",
-                "samsung_pay",
-                "satispay",
-                "sepa_debit",
-                "sofort",
-                "swish",
-                "twint",
-                "us_bank_account",
-                "wechat_pay",
-                "zip",
-            ]
-        ]
-        """
-        An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
-        """
-
-    class ListSourcesParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        object: NotRequired[str]
-        """
-        Filter sources according to a particular object type.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListTaxIdsParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ModifyBalanceTransactionParams(RequestOptions):
-        description: NotRequired[str]
-        """
-        An arbitrary string attached to the object. Often useful for displaying to users.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-
-    class ModifyCashBalanceParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        settings: NotRequired["Customer.ModifyCashBalanceParamsSettings"]
-        """
-        A hash of settings for this cash balance.
-        """
-
-    class ModifyCashBalanceParamsSettings(TypedDict):
-        reconciliation_mode: NotRequired[
-            Literal["automatic", "manual", "merchant_default"]
-        ]
-        """
-        Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
-        """
-
-    class ModifyParams(RequestOptions):
-        address: NotRequired["Literal['']|Customer.ModifyParamsAddress"]
-        """
-        The customer's address.
-        """
-        balance: NotRequired[int]
-        """
-        An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
-        """
-        business_name: NotRequired["Literal['']|str"]
-        """
-        The customer's business name. This may be up to *150 characters*.
-        """
-        cash_balance: NotRequired["Customer.ModifyParamsCashBalance"]
-        """
-        Balance information and default balance settings for this customer.
-        """
-        default_source: NotRequired[str]
-        """
-        If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
-
-        Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
-
-        If you want to add a new payment source and make it the default, see the [source](https://stripe.com/docs/api/customers/update#update_customer-source) property.
-        """
-        description: NotRequired[str]
-        """
-        An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
-        """
-        email: NotRequired[str]
-        """
-        Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        individual_name: NotRequired["Literal['']|str"]
-        """
-        The customer's full name. This may be up to *150 characters*.
-        """
-        invoice_prefix: NotRequired[str]
-        """
-        The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
-        """
-        invoice_settings: NotRequired["Customer.ModifyParamsInvoiceSettings"]
-        """
-        Default invoice settings for this customer.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: NotRequired[str]
-        """
-        The customer's full name or business name.
-        """
-        next_invoice_sequence: NotRequired[int]
-        """
-        The sequence to be used on the customer's next invoice. Defaults to 1.
-        """
-        phone: NotRequired[str]
-        """
-        The customer's phone number.
-        """
-        preferred_locales: NotRequired[List[str]]
-        """
-        Customer's preferred languages, ordered by preference.
-        """
-        shipping: NotRequired["Literal['']|Customer.ModifyParamsShipping"]
-        """
-        The customer's shipping information. Appears on invoices emailed to this customer.
-        """
-        source: NotRequired[str]
-        tax: NotRequired["Customer.ModifyParamsTax"]
-        """
-        Tax details about the customer.
-        """
-        tax_exempt: NotRequired[
-            "Literal['']|Literal['exempt', 'none', 'reverse']"
-        ]
-        """
-        The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
-        """
-        validate: NotRequired[bool]
-
-    class ModifyParamsAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class ModifyParamsCashBalance(TypedDict):
-        settings: NotRequired["Customer.ModifyParamsCashBalanceSettings"]
-        """
-        Settings controlling the behavior of the customer's cash balance,
-        such as reconciliation of funds received.
-        """
-
-    class ModifyParamsCashBalanceSettings(TypedDict):
-        reconciliation_mode: NotRequired[
-            Literal["automatic", "manual", "merchant_default"]
-        ]
-        """
-        Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
-        """
-
-    class ModifyParamsInvoiceSettings(TypedDict):
-        custom_fields: NotRequired[
-            "Literal['']|List[Customer.ModifyParamsInvoiceSettingsCustomField]"
-        ]
-        """
-        The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
-        """
-        default_payment_method: NotRequired[str]
-        """
-        ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
-        """
-        footer: NotRequired[str]
-        """
-        Default footer to be displayed on invoices for this customer.
-        """
-        rendering_options: NotRequired[
-            "Literal['']|Customer.ModifyParamsInvoiceSettingsRenderingOptions"
-        ]
-        """
-        Default options for invoice PDF rendering for this customer.
-        """
-
-    class ModifyParamsInvoiceSettingsCustomField(TypedDict):
-        name: str
-        """
-        The name of the custom field. This may be up to 40 characters.
-        """
-        value: str
-        """
-        The value of the custom field. This may be up to 140 characters.
-        """
-
-    class ModifyParamsInvoiceSettingsRenderingOptions(TypedDict):
-        amount_tax_display: NotRequired[
-            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
-        ]
-        """
-        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-        """
-        template: NotRequired[str]
-        """
-        ID of the invoice rendering template to use for future invoices.
-        """
-
-    class ModifyParamsShipping(TypedDict):
-        address: "Customer.ModifyParamsShippingAddress"
-        """
-        Customer shipping address.
-        """
-        name: str
-        """
-        Customer name.
-        """
-        phone: NotRequired[str]
-        """
-        Customer phone (including extension).
-        """
-
-    class ModifyParamsShippingAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        A freeform text field for the country. However, in order to activate some tax features, the format should be a two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class ModifyParamsTax(TypedDict):
-        ip_address: NotRequired["Literal['']|str"]
-        """
-        A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
-        """
-        validate_location: NotRequired[
-            Literal["auto", "deferred", "immediately"]
-        ]
-        """
-        A flag that indicates when Stripe should validate the customer tax location. Defaults to `auto`.
-        """
-
-    class ModifySourceParams(RequestOptions):
-        account_holder_name: NotRequired[str]
-        """
-        The name of the person or business that owns the bank account.
-        """
-        account_holder_type: NotRequired[Literal["company", "individual"]]
-        """
-        The type of entity that holds the account. This can be either `individual` or `company`.
-        """
-        address_city: NotRequired[str]
-        """
-        City/District/Suburb/Town/Village.
-        """
-        address_country: NotRequired[str]
-        """
-        Billing address country, if provided when creating card.
-        """
-        address_line1: NotRequired[str]
-        """
-        Address line 1 (Street address/PO Box/Company name).
-        """
-        address_line2: NotRequired[str]
-        """
-        Address line 2 (Apartment/Suite/Unit/Building).
-        """
-        address_state: NotRequired[str]
-        """
-        State/County/Province/Region.
-        """
-        address_zip: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        exp_month: NotRequired[str]
-        """
-        Two digit number representing the card's expiration month.
-        """
-        exp_year: NotRequired[str]
-        """
-        Four digit number representing the card's expiration year.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: NotRequired[str]
-        """
-        Cardholder name.
-        """
-        owner: NotRequired["Customer.ModifySourceParamsOwner"]
-
-    class ModifySourceParamsOwner(TypedDict):
-        address: NotRequired["Customer.ModifySourceParamsOwnerAddress"]
-        """
-        Owner's address.
-        """
-        email: NotRequired[str]
-        """
-        Owner's email address.
-        """
-        name: NotRequired[str]
-        """
-        Owner's full name.
-        """
-        phone: NotRequired[str]
-        """
-        Owner's phone number.
-        """
-
-    class ModifySourceParamsOwnerAddress(TypedDict):
-        city: NotRequired[str]
-        """
-        City, district, suburb, town, or village.
-        """
-        country: NotRequired[str]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        line1: NotRequired[str]
-        """
-        Address line 1, such as the street, PO Box, or company name.
-        """
-        line2: NotRequired[str]
-        """
-        Address line 2, such as the apartment, suite, unit, or building.
-        """
-        postal_code: NotRequired[str]
-        """
-        ZIP or postal code.
-        """
-        state: NotRequired[str]
-        """
-        State, county, province, or region.
-        """
-
-    class RetrieveBalanceTransactionParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveCashBalanceParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveCashBalanceTransactionParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrievePaymentMethodParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveSourceParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveTaxIdParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class SearchParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        page: NotRequired[str]
-        """
-        A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
-        """
-        query: str
-        """
-        The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for customers](https://stripe.com/docs/search#query-fields-for-customers).
-        """
-
     address: Optional[Address]
     """
     The customer's address.
@@ -1555,7 +413,7 @@ class Customer(
     """
 
     @classmethod
-    def create(cls, **params: Unpack["Customer.CreateParams"]) -> "Customer":
+    def create(cls, **params: Unpack["CustomerCreateParams"]) -> "Customer":
         """
         Creates a new customer object.
         """
@@ -1570,7 +428,7 @@ class Customer(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Customer.CreateParams"]
+        cls, **params: Unpack["CustomerCreateParams"]
     ) -> "Customer":
         """
         Creates a new customer object.
@@ -1588,7 +446,7 @@ class Customer(
     def _cls_create_funding_instructions(
         cls,
         customer: str,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"],
+        **params: Unpack["CustomerCreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1610,7 +468,7 @@ class Customer(
     @staticmethod
     def create_funding_instructions(
         customer: str,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"],
+        **params: Unpack["CustomerCreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1621,7 +479,7 @@ class Customer(
 
     @overload
     def create_funding_instructions(
-        self, **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        self, **params: Unpack["CustomerCreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1632,7 +490,7 @@ class Customer(
 
     @class_method_variant("_cls_create_funding_instructions")
     def create_funding_instructions(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        self, **params: Unpack["CustomerCreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1654,7 +512,7 @@ class Customer(
     async def _cls_create_funding_instructions_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"],
+        **params: Unpack["CustomerCreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1676,7 +534,7 @@ class Customer(
     @staticmethod
     async def create_funding_instructions_async(
         customer: str,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"],
+        **params: Unpack["CustomerCreateFundingInstructionsParams"],
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1687,7 +545,7 @@ class Customer(
 
     @overload
     async def create_funding_instructions_async(
-        self, **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        self, **params: Unpack["CustomerCreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1698,7 +556,7 @@ class Customer(
 
     @class_method_variant("_cls_create_funding_instructions_async")
     async def create_funding_instructions_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        self, **params: Unpack["CustomerCreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1718,7 +576,7 @@ class Customer(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["Customer.DeleteParams"]
+        cls, sid: str, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1736,7 +594,7 @@ class Customer(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["Customer.DeleteParams"]
+        sid: str, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1744,7 +602,7 @@ class Customer(
         ...
 
     @overload
-    def delete(self, **params: Unpack["Customer.DeleteParams"]) -> "Customer":
+    def delete(self, **params: Unpack["CustomerDeleteParams"]) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
         """
@@ -1752,7 +610,7 @@ class Customer(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.DeleteParams"]
+        self, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1765,7 +623,7 @@ class Customer(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["Customer.DeleteParams"]
+        cls, sid: str, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1783,7 +641,7 @@ class Customer(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["Customer.DeleteParams"]
+        sid: str, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1792,7 +650,7 @@ class Customer(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["Customer.DeleteParams"]
+        self, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1801,7 +659,7 @@ class Customer(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.DeleteParams"]
+        self, **params: Unpack["CustomerDeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1814,7 +672,7 @@ class Customer(
 
     @classmethod
     def _cls_delete_discount(
-        cls, customer: str, **params: Unpack["Customer.DeleteDiscountParams"]
+        cls, customer: str, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1833,7 +691,7 @@ class Customer(
     @overload
     @staticmethod
     def delete_discount(
-        customer: str, **params: Unpack["Customer.DeleteDiscountParams"]
+        customer: str, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1842,7 +700,7 @@ class Customer(
 
     @overload
     def delete_discount(
-        self, **params: Unpack["Customer.DeleteDiscountParams"]
+        self, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1851,7 +709,7 @@ class Customer(
 
     @class_method_variant("_cls_delete_discount")
     def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.DeleteDiscountParams"]
+        self, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1869,7 +727,7 @@ class Customer(
 
     @classmethod
     async def _cls_delete_discount_async(
-        cls, customer: str, **params: Unpack["Customer.DeleteDiscountParams"]
+        cls, customer: str, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1888,7 +746,7 @@ class Customer(
     @overload
     @staticmethod
     async def delete_discount_async(
-        customer: str, **params: Unpack["Customer.DeleteDiscountParams"]
+        customer: str, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1897,7 +755,7 @@ class Customer(
 
     @overload
     async def delete_discount_async(
-        self, **params: Unpack["Customer.DeleteDiscountParams"]
+        self, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1906,7 +764,7 @@ class Customer(
 
     @class_method_variant("_cls_delete_discount_async")
     async def delete_discount_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.DeleteDiscountParams"]
+        self, **params: Unpack["CustomerDeleteDiscountParams"]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1924,7 +782,7 @@ class Customer(
 
     @classmethod
     def list(
-        cls, **params: Unpack["Customer.ListParams"]
+        cls, **params: Unpack["CustomerListParams"]
     ) -> ListObject["Customer"]:
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
@@ -1944,7 +802,7 @@ class Customer(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Customer.ListParams"]
+        cls, **params: Unpack["CustomerListParams"]
     ) -> ListObject["Customer"]:
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
@@ -1966,7 +824,7 @@ class Customer(
     def _cls_list_payment_methods(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListPaymentMethodsParams"],
+        **params: Unpack["CustomerListPaymentMethodsParams"],
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -1985,7 +843,7 @@ class Customer(
     @overload
     @staticmethod
     def list_payment_methods(
-        customer: str, **params: Unpack["Customer.ListPaymentMethodsParams"]
+        customer: str, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -1994,7 +852,7 @@ class Customer(
 
     @overload
     def list_payment_methods(
-        self, **params: Unpack["Customer.ListPaymentMethodsParams"]
+        self, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2003,7 +861,7 @@ class Customer(
 
     @class_method_variant("_cls_list_payment_methods")
     def list_payment_methods(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.ListPaymentMethodsParams"]
+        self, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2023,7 +881,7 @@ class Customer(
     async def _cls_list_payment_methods_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListPaymentMethodsParams"],
+        **params: Unpack["CustomerListPaymentMethodsParams"],
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2042,7 +900,7 @@ class Customer(
     @overload
     @staticmethod
     async def list_payment_methods_async(
-        customer: str, **params: Unpack["Customer.ListPaymentMethodsParams"]
+        customer: str, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2051,7 +909,7 @@ class Customer(
 
     @overload
     async def list_payment_methods_async(
-        self, **params: Unpack["Customer.ListPaymentMethodsParams"]
+        self, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2060,7 +918,7 @@ class Customer(
 
     @class_method_variant("_cls_list_payment_methods_async")
     async def list_payment_methods_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Customer.ListPaymentMethodsParams"]
+        self, **params: Unpack["CustomerListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -2078,7 +936,7 @@ class Customer(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["Customer.ModifyParams"]
+        cls, id: str, **params: Unpack["CustomerModifyParams"]
     ) -> "Customer":
         """
         Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
@@ -2097,7 +955,7 @@ class Customer(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["Customer.ModifyParams"]
+        cls, id: str, **params: Unpack["CustomerModifyParams"]
     ) -> "Customer":
         """
         Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
@@ -2116,7 +974,7 @@ class Customer(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Customer.RetrieveParams"]
+        cls, id: str, **params: Unpack["CustomerRetrieveParams"]
     ) -> "Customer":
         """
         Retrieves a Customer object.
@@ -2127,7 +985,7 @@ class Customer(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Customer.RetrieveParams"]
+        cls, id: str, **params: Unpack["CustomerRetrieveParams"]
     ) -> "Customer":
         """
         Retrieves a Customer object.
@@ -2141,7 +999,7 @@ class Customer(
         cls,
         customer: str,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2163,7 +1021,7 @@ class Customer(
     def retrieve_payment_method(
         customer: str,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2174,7 +1032,7 @@ class Customer(
     def retrieve_payment_method(
         self,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2185,7 +1043,7 @@ class Customer(
     def retrieve_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2207,7 +1065,7 @@ class Customer(
         cls,
         customer: str,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2229,7 +1087,7 @@ class Customer(
     async def retrieve_payment_method_async(
         customer: str,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2240,7 +1098,7 @@ class Customer(
     async def retrieve_payment_method_async(
         self,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2251,7 +1109,7 @@ class Customer(
     async def retrieve_payment_method_async(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         payment_method: str,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"],
+        **params: Unpack["CustomerRetrievePaymentMethodParams"],
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -2270,7 +1128,7 @@ class Customer(
 
     @classmethod
     def search(
-        cls, *args, **kwargs: Unpack["Customer.SearchParams"]
+        cls, *args, **kwargs: Unpack["CustomerSearchParams"]
     ) -> SearchResultObject["Customer"]:
         """
         Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -2282,7 +1140,7 @@ class Customer(
 
     @classmethod
     async def search_async(
-        cls, *args, **kwargs: Unpack["Customer.SearchParams"]
+        cls, *args, **kwargs: Unpack["CustomerSearchParams"]
     ) -> SearchResultObject["Customer"]:
         """
         Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -2296,13 +1154,13 @@ class Customer(
 
     @classmethod
     def search_auto_paging_iter(
-        cls, *args, **kwargs: Unpack["Customer.SearchParams"]
+        cls, *args, **kwargs: Unpack["CustomerSearchParams"]
     ) -> Iterator["Customer"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
     async def search_auto_paging_iter_async(
-        cls, *args, **kwargs: Unpack["Customer.SearchParams"]
+        cls, *args, **kwargs: Unpack["CustomerSearchParams"]
     ) -> AsyncIterator["Customer"]:
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
@@ -2310,7 +1168,7 @@ class Customer(
     def list_balance_transactions(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListBalanceTransactionsParams"],
+        **params: Unpack["CustomerListBalanceTransactionsParams"],
     ) -> ListObject["CustomerBalanceTransaction"]:
         """
         Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
@@ -2330,7 +1188,7 @@ class Customer(
     async def list_balance_transactions_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListBalanceTransactionsParams"],
+        **params: Unpack["CustomerListBalanceTransactionsParams"],
     ) -> ListObject["CustomerBalanceTransaction"]:
         """
         Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
@@ -2350,7 +1208,7 @@ class Customer(
     def create_balance_transaction(
         cls,
         customer: str,
-        **params: Unpack["Customer.CreateBalanceTransactionParams"],
+        **params: Unpack["CustomerCreateBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
@@ -2370,7 +1228,7 @@ class Customer(
     async def create_balance_transaction_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.CreateBalanceTransactionParams"],
+        **params: Unpack["CustomerCreateBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
@@ -2391,7 +1249,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.RetrieveBalanceTransactionParams"],
+        **params: Unpack["CustomerRetrieveBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
@@ -2413,7 +1271,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.RetrieveBalanceTransactionParams"],
+        **params: Unpack["CustomerRetrieveBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
@@ -2435,7 +1293,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.ModifyBalanceTransactionParams"],
+        **params: Unpack["CustomerModifyBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
@@ -2457,7 +1315,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.ModifyBalanceTransactionParams"],
+        **params: Unpack["CustomerModifyBalanceTransactionParams"],
     ) -> "CustomerBalanceTransaction":
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
@@ -2478,7 +1336,7 @@ class Customer(
     def list_cash_balance_transactions(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
+        **params: Unpack["CustomerListCashBalanceTransactionsParams"],
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
         Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
@@ -2498,7 +1356,7 @@ class Customer(
     async def list_cash_balance_transactions_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.ListCashBalanceTransactionsParams"],
+        **params: Unpack["CustomerListCashBalanceTransactionsParams"],
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
         Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
@@ -2519,7 +1377,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"],
+        **params: Unpack["CustomerRetrieveCashBalanceTransactionParams"],
     ) -> "CustomerCashBalanceTransaction":
         """
         Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
@@ -2541,7 +1399,7 @@ class Customer(
         cls,
         customer: str,
         transaction: str,
-        **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"],
+        **params: Unpack["CustomerRetrieveCashBalanceTransactionParams"],
     ) -> "CustomerCashBalanceTransaction":
         """
         Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
@@ -2560,7 +1418,7 @@ class Customer(
 
     @classmethod
     def list_sources(
-        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
+        cls, customer: str, **params: Unpack["CustomerListSourcesParams"]
     ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         """
         List sources for a specified customer.
@@ -2578,7 +1436,7 @@ class Customer(
 
     @classmethod
     async def list_sources_async(
-        cls, customer: str, **params: Unpack["Customer.ListSourcesParams"]
+        cls, customer: str, **params: Unpack["CustomerListSourcesParams"]
     ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         """
         List sources for a specified customer.
@@ -2596,7 +1454,7 @@ class Customer(
 
     @classmethod
     def create_source(
-        cls, customer: str, **params: Unpack["Customer.CreateSourceParams"]
+        cls, customer: str, **params: Unpack["CustomerCreateSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         When you create a new credit card, you must specify a customer or recipient on which to create it.
@@ -2618,7 +1476,7 @@ class Customer(
 
     @classmethod
     async def create_source_async(
-        cls, customer: str, **params: Unpack["Customer.CreateSourceParams"]
+        cls, customer: str, **params: Unpack["CustomerCreateSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         When you create a new credit card, you must specify a customer or recipient on which to create it.
@@ -2643,7 +1501,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.RetrieveSourceParams"],
+        **params: Unpack["CustomerRetrieveSourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Retrieve a specified source for a given customer.
@@ -2664,7 +1522,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.RetrieveSourceParams"],
+        **params: Unpack["CustomerRetrieveSourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Retrieve a specified source for a given customer.
@@ -2685,7 +1543,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.ModifySourceParams"],
+        **params: Unpack["CustomerModifySourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Update a specified source for a given customer.
@@ -2706,7 +1564,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.ModifySourceParams"],
+        **params: Unpack["CustomerModifySourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Update a specified source for a given customer.
@@ -2727,7 +1585,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.DeleteSourceParams"],
+        **params: Unpack["CustomerDeleteSourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Delete a specified source for a given customer.
@@ -2748,7 +1606,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.DeleteSourceParams"],
+        **params: Unpack["CustomerDeleteSourceParams"],
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Delete a specified source for a given customer.
@@ -2766,7 +1624,7 @@ class Customer(
 
     @classmethod
     def create_tax_id(
-        cls, customer: str, **params: Unpack["Customer.CreateTaxIdParams"]
+        cls, customer: str, **params: Unpack["CustomerCreateTaxIdParams"]
     ) -> "TaxId":
         """
         Creates a new tax_id object for a customer.
@@ -2784,7 +1642,7 @@ class Customer(
 
     @classmethod
     async def create_tax_id_async(
-        cls, customer: str, **params: Unpack["Customer.CreateTaxIdParams"]
+        cls, customer: str, **params: Unpack["CustomerCreateTaxIdParams"]
     ) -> "TaxId":
         """
         Creates a new tax_id object for a customer.
@@ -2805,7 +1663,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.RetrieveTaxIdParams"],
+        **params: Unpack["CustomerRetrieveTaxIdParams"],
     ) -> "TaxId":
         """
         Retrieves the tax_id object with the given identifier.
@@ -2826,7 +1684,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.RetrieveTaxIdParams"],
+        **params: Unpack["CustomerRetrieveTaxIdParams"],
     ) -> "TaxId":
         """
         Retrieves the tax_id object with the given identifier.
@@ -2847,7 +1705,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.DeleteTaxIdParams"],
+        **params: Unpack["CustomerDeleteTaxIdParams"],
     ) -> "TaxId":
         """
         Deletes an existing tax_id object.
@@ -2868,7 +1726,7 @@ class Customer(
         cls,
         customer: str,
         id: str,
-        **params: Unpack["Customer.DeleteTaxIdParams"],
+        **params: Unpack["CustomerDeleteTaxIdParams"],
     ) -> "TaxId":
         """
         Deletes an existing tax_id object.
@@ -2886,7 +1744,7 @@ class Customer(
 
     @classmethod
     def list_tax_ids(
-        cls, customer: str, **params: Unpack["Customer.ListTaxIdsParams"]
+        cls, customer: str, **params: Unpack["CustomerListTaxIdsParams"]
     ) -> ListObject["TaxId"]:
         """
         Returns a list of tax IDs for a customer.
@@ -2904,7 +1762,7 @@ class Customer(
 
     @classmethod
     async def list_tax_ids_async(
-        cls, customer: str, **params: Unpack["Customer.ListTaxIdsParams"]
+        cls, customer: str, **params: Unpack["CustomerListTaxIdsParams"]
     ) -> ListObject["TaxId"]:
         """
         Returns a list of tax IDs for a customer.
@@ -2924,7 +1782,7 @@ class Customer(
     def retrieve_cash_balance(
         cls,
         customer: str,
-        **params: Unpack["Customer.RetrieveCashBalanceParams"],
+        **params: Unpack["CustomerRetrieveCashBalanceParams"],
     ) -> "CashBalance":
         """
         Retrieves a customer's cash balance.
@@ -2944,7 +1802,7 @@ class Customer(
     async def retrieve_cash_balance_async(
         cls,
         customer: str,
-        **params: Unpack["Customer.RetrieveCashBalanceParams"],
+        **params: Unpack["CustomerRetrieveCashBalanceParams"],
     ) -> "CashBalance":
         """
         Retrieves a customer's cash balance.
@@ -2962,9 +1820,7 @@ class Customer(
 
     @classmethod
     def modify_cash_balance(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.ModifyCashBalanceParams"],
+        cls, customer: str, **params: Unpack["CustomerModifyCashBalanceParams"]
     ) -> "CashBalance":
         """
         Changes the settings on a customer's cash balance.
@@ -2982,9 +1838,7 @@ class Customer(
 
     @classmethod
     async def modify_cash_balance_async(
-        cls,
-        customer: str,
-        **params: Unpack["Customer.ModifyCashBalanceParams"],
+        cls, customer: str, **params: Unpack["CustomerModifyCashBalanceParams"]
     ) -> "CashBalance":
         """
         Changes the settings on a customer's cash balance.
@@ -3007,7 +1861,7 @@ class Customer(
         def _cls_fund_cash_balance(
             cls,
             customer: str,
-            **params: Unpack["Customer.FundCashBalanceParams"],
+            **params: Unpack["CustomerFundCashBalanceParams"],
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3026,7 +1880,7 @@ class Customer(
         @overload
         @staticmethod
         def fund_cash_balance(
-            customer: str, **params: Unpack["Customer.FundCashBalanceParams"]
+            customer: str, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3035,7 +1889,7 @@ class Customer(
 
         @overload
         def fund_cash_balance(
-            self, **params: Unpack["Customer.FundCashBalanceParams"]
+            self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3044,7 +1898,7 @@ class Customer(
 
         @class_method_variant("_cls_fund_cash_balance")
         def fund_cash_balance(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["Customer.FundCashBalanceParams"]
+            self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3064,7 +1918,7 @@ class Customer(
         async def _cls_fund_cash_balance_async(
             cls,
             customer: str,
-            **params: Unpack["Customer.FundCashBalanceParams"],
+            **params: Unpack["CustomerFundCashBalanceParams"],
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3083,7 +1937,7 @@ class Customer(
         @overload
         @staticmethod
         async def fund_cash_balance_async(
-            customer: str, **params: Unpack["Customer.FundCashBalanceParams"]
+            customer: str, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3092,7 +1946,7 @@ class Customer(
 
         @overload
         async def fund_cash_balance_async(
-            self, **params: Unpack["Customer.FundCashBalanceParams"]
+            self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -3101,7 +1955,7 @@ class Customer(
 
         @class_method_variant("_cls_fund_cash_balance_async")
         async def fund_cash_balance_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["Customer.FundCashBalanceParams"]
+            self, **params: Unpack["CustomerFundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer

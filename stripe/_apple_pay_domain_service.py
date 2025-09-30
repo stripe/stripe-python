@@ -5,50 +5,29 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import List, Optional, cast
-from typing_extensions import NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._apple_pay_domain_create_params import (
+        ApplePayDomainCreateParams,
+    )
+    from stripe.params._apple_pay_domain_delete_params import (
+        ApplePayDomainDeleteParams,
+    )
+    from stripe.params._apple_pay_domain_list_params import (
+        ApplePayDomainListParams,
+    )
+    from stripe.params._apple_pay_domain_retrieve_params import (
+        ApplePayDomainRetrieveParams,
+    )
 
 
 class ApplePayDomainService(StripeService):
-    class CreateParams(TypedDict):
-        domain_name: str
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class DeleteParams(TypedDict):
-        pass
-
-    class ListParams(TypedDict):
-        domain_name: NotRequired[str]
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def delete(
         self,
         domain: str,
-        params: Optional["ApplePayDomainService.DeleteParams"] = None,
+        params: Optional["ApplePayDomainDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
@@ -70,7 +49,7 @@ class ApplePayDomainService(StripeService):
     async def delete_async(
         self,
         domain: str,
-        params: Optional["ApplePayDomainService.DeleteParams"] = None,
+        params: Optional["ApplePayDomainDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
@@ -92,7 +71,7 @@ class ApplePayDomainService(StripeService):
     def retrieve(
         self,
         domain: str,
-        params: Optional["ApplePayDomainService.RetrieveParams"] = None,
+        params: Optional["ApplePayDomainRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
@@ -114,7 +93,7 @@ class ApplePayDomainService(StripeService):
     async def retrieve_async(
         self,
         domain: str,
-        params: Optional["ApplePayDomainService.RetrieveParams"] = None,
+        params: Optional["ApplePayDomainRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
@@ -135,7 +114,7 @@ class ApplePayDomainService(StripeService):
 
     def list(
         self,
-        params: Optional["ApplePayDomainService.ListParams"] = None,
+        params: Optional["ApplePayDomainListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplePayDomain]:
         """
@@ -154,7 +133,7 @@ class ApplePayDomainService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["ApplePayDomainService.ListParams"] = None,
+        params: Optional["ApplePayDomainListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[ApplePayDomain]:
         """
@@ -173,7 +152,7 @@ class ApplePayDomainService(StripeService):
 
     def create(
         self,
-        params: "ApplePayDomainService.CreateParams",
+        params: "ApplePayDomainCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """
@@ -192,7 +171,7 @@ class ApplePayDomainService(StripeService):
 
     async def create_async(
         self,
-        params: "ApplePayDomainService.CreateParams",
+        params: "ApplePayDomainCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> ApplePayDomain:
         """

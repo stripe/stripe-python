@@ -3,12 +3,28 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import Literal, NotRequired, Unpack
+from typing import ClassVar, Optional, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._payment_method_domain_create_params import (
+        PaymentMethodDomainCreateParams,
+    )
+    from stripe.params._payment_method_domain_list_params import (
+        PaymentMethodDomainListParams,
+    )
+    from stripe.params._payment_method_domain_modify_params import (
+        PaymentMethodDomainModifyParams,
+    )
+    from stripe.params._payment_method_domain_retrieve_params import (
+        PaymentMethodDomainRetrieveParams,
+    )
+    from stripe.params._payment_method_domain_validate_params import (
+        PaymentMethodDomainValidateParams,
+    )
 
 
 class PaymentMethodDomain(
@@ -129,68 +145,6 @@ class PaymentMethodDomain(
         """
         _inner_class_types = {"status_details": StatusDetails}
 
-    class CreateParams(RequestOptions):
-        domain_name: str
-        """
-        The domain name that this payment method domain object represents.
-        """
-        enabled: NotRequired[bool]
-        """
-        Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements or Embedded Checkout.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListParams(RequestOptions):
-        domain_name: NotRequired[str]
-        """
-        The domain name that this payment method domain object represents.
-        """
-        enabled: NotRequired[bool]
-        """
-        Whether this payment method domain is enabled. If the domain is not enabled, payment methods will not appear in Elements or Embedded Checkout
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ModifyParams(RequestOptions):
-        enabled: NotRequired[bool]
-        """
-        Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements or Embedded Checkout.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ValidateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     amazon_pay: AmazonPay
     """
     Indicates the status of a specific payment method on a payment method domain.
@@ -242,7 +196,7 @@ class PaymentMethodDomain(
 
     @classmethod
     def create(
-        cls, **params: Unpack["PaymentMethodDomain.CreateParams"]
+        cls, **params: Unpack["PaymentMethodDomainCreateParams"]
     ) -> "PaymentMethodDomain":
         """
         Creates a payment method domain.
@@ -258,7 +212,7 @@ class PaymentMethodDomain(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["PaymentMethodDomain.CreateParams"]
+        cls, **params: Unpack["PaymentMethodDomainCreateParams"]
     ) -> "PaymentMethodDomain":
         """
         Creates a payment method domain.
@@ -274,7 +228,7 @@ class PaymentMethodDomain(
 
     @classmethod
     def list(
-        cls, **params: Unpack["PaymentMethodDomain.ListParams"]
+        cls, **params: Unpack["PaymentMethodDomainListParams"]
     ) -> ListObject["PaymentMethodDomain"]:
         """
         Lists the details of existing payment method domains.
@@ -294,7 +248,7 @@ class PaymentMethodDomain(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["PaymentMethodDomain.ListParams"]
+        cls, **params: Unpack["PaymentMethodDomainListParams"]
     ) -> ListObject["PaymentMethodDomain"]:
         """
         Lists the details of existing payment method domains.
@@ -314,7 +268,7 @@ class PaymentMethodDomain(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["PaymentMethodDomain.ModifyParams"]
+        cls, id: str, **params: Unpack["PaymentMethodDomainModifyParams"]
     ) -> "PaymentMethodDomain":
         """
         Updates an existing payment method domain.
@@ -331,7 +285,7 @@ class PaymentMethodDomain(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["PaymentMethodDomain.ModifyParams"]
+        cls, id: str, **params: Unpack["PaymentMethodDomainModifyParams"]
     ) -> "PaymentMethodDomain":
         """
         Updates an existing payment method domain.
@@ -348,7 +302,7 @@ class PaymentMethodDomain(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["PaymentMethodDomain.RetrieveParams"]
+        cls, id: str, **params: Unpack["PaymentMethodDomainRetrieveParams"]
     ) -> "PaymentMethodDomain":
         """
         Retrieves the details of an existing payment method domain.
@@ -359,7 +313,7 @@ class PaymentMethodDomain(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["PaymentMethodDomain.RetrieveParams"]
+        cls, id: str, **params: Unpack["PaymentMethodDomainRetrieveParams"]
     ) -> "PaymentMethodDomain":
         """
         Retrieves the details of an existing payment method domain.
@@ -372,7 +326,7 @@ class PaymentMethodDomain(
     def _cls_validate(
         cls,
         payment_method_domain: str,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"],
+        **params: Unpack["PaymentMethodDomainValidateParams"],
     ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -397,7 +351,7 @@ class PaymentMethodDomain(
     @staticmethod
     def validate(
         payment_method_domain: str,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"],
+        **params: Unpack["PaymentMethodDomainValidateParams"],
     ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -411,7 +365,7 @@ class PaymentMethodDomain(
 
     @overload
     def validate(
-        self, **params: Unpack["PaymentMethodDomain.ValidateParams"]
+        self, **params: Unpack["PaymentMethodDomainValidateParams"]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -425,7 +379,7 @@ class PaymentMethodDomain(
 
     @class_method_variant("_cls_validate")
     def validate(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PaymentMethodDomain.ValidateParams"]
+        self, **params: Unpack["PaymentMethodDomainValidateParams"]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -450,7 +404,7 @@ class PaymentMethodDomain(
     async def _cls_validate_async(
         cls,
         payment_method_domain: str,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"],
+        **params: Unpack["PaymentMethodDomainValidateParams"],
     ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -475,7 +429,7 @@ class PaymentMethodDomain(
     @staticmethod
     async def validate_async(
         payment_method_domain: str,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"],
+        **params: Unpack["PaymentMethodDomainValidateParams"],
     ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -489,7 +443,7 @@ class PaymentMethodDomain(
 
     @overload
     async def validate_async(
-        self, **params: Unpack["PaymentMethodDomain.ValidateParams"]
+        self, **params: Unpack["PaymentMethodDomainValidateParams"]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -503,7 +457,7 @@ class PaymentMethodDomain(
 
     @class_method_variant("_cls_validate_async")
     async def validate_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["PaymentMethodDomain.ValidateParams"]
+        self, **params: Unpack["PaymentMethodDomainValidateParams"]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods might require additional steps to register a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
