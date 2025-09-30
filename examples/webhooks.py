@@ -1,10 +1,11 @@
 import os
 
-import stripe
+from stripe import Webhook, SignatureVerificationError
 from flask import Flask, request
 
+# this is for handling v1-style Snapshot Events.
+# To handle v2-style Events, see `event_notification_webhook_handler.py`
 
-stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 webhook_secret = os.environ.get("WEBHOOK_SECRET")
 
 app = Flask(__name__)
@@ -16,13 +17,11 @@ def webhooks():
     received_sig = request.headers.get("Stripe-Signature", None)
 
     try:
-        event = stripe.Webhook.construct_event(
-            payload, received_sig, webhook_secret
-        )
+        event = Webhook.construct_event(payload, received_sig, webhook_secret)
     except ValueError:
         print("Error while decoding event!")
         return "Bad payload", 400
-    except stripe.error.SignatureVerificationError:
+    except SignatureVerificationError:
         print("Invalid signature!")
         return "Bad signature", 400
 
