@@ -27,24 +27,24 @@ if TYPE_CHECKING:
     from stripe._price import Price
     from stripe._product_feature import ProductFeature
     from stripe._tax_code import TaxCode
-    from stripe.param._product_create_feature_params import (
+    from stripe.params._product_create_feature_params import (
         ProductCreateFeatureParams,
     )
-    from stripe.param._product_create_params import ProductCreateParams
-    from stripe.param._product_delete_feature_params import (
+    from stripe.params._product_create_params import ProductCreateParams
+    from stripe.params._product_delete_feature_params import (
         ProductDeleteFeatureParams,
     )
-    from stripe.param._product_delete_params import ProductDeleteParams
-    from stripe.param._product_list_features_params import (
+    from stripe.params._product_delete_params import ProductDeleteParams
+    from stripe.params._product_list_features_params import (
         ProductListFeaturesParams,
     )
-    from stripe.param._product_list_params import ProductListParams
-    from stripe.param._product_modify_params import ProductModifyParams
-    from stripe.param._product_retrieve_feature_params import (
+    from stripe.params._product_list_params import ProductListParams
+    from stripe.params._product_modify_params import ProductModifyParams
+    from stripe.params._product_retrieve_feature_params import (
         ProductRetrieveFeatureParams,
     )
-    from stripe.param._product_retrieve_params import ProductRetrieveParams
-    from stripe.param._product_search_params import ProductSearchParams
+    from stripe.params._product_retrieve_params import ProductRetrieveParams
+    from stripe.params._product_search_params import ProductSearchParams
 
 
 @nested_resource_class_methods("feature")

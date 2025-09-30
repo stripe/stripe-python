@@ -13,11 +13,13 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.climate._product import Product
     from stripe.climate._supplier import Supplier
-    from stripe.param.climate._order_cancel_params import OrderCancelParams
-    from stripe.param.climate._order_create_params import OrderCreateParams
-    from stripe.param.climate._order_list_params import OrderListParams
-    from stripe.param.climate._order_modify_params import OrderModifyParams
-    from stripe.param.climate._order_retrieve_params import OrderRetrieveParams
+    from stripe.params.climate._order_cancel_params import OrderCancelParams
+    from stripe.params.climate._order_create_params import OrderCreateParams
+    from stripe.params.climate._order_list_params import OrderListParams
+    from stripe.params.climate._order_modify_params import OrderModifyParams
+    from stripe.params.climate._order_retrieve_params import (
+        OrderRetrieveParams,
+    )
 
 
 class Order(

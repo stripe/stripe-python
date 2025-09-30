@@ -13,11 +13,11 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._product import Product
-    from stripe.param._plan_create_params import PlanCreateParams
-    from stripe.param._plan_delete_params import PlanDeleteParams
-    from stripe.param._plan_list_params import PlanListParams
-    from stripe.param._plan_modify_params import PlanModifyParams
-    from stripe.param._plan_retrieve_params import PlanRetrieveParams
+    from stripe.params._plan_create_params import PlanCreateParams
+    from stripe.params._plan_delete_params import PlanDeleteParams
+    from stripe.params._plan_list_params import PlanListParams
+    from stripe.params._plan_modify_params import PlanModifyParams
+    from stripe.params._plan_retrieve_params import PlanRetrieveParams
 
 
 class Plan(

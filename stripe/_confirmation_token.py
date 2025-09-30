@@ -11,10 +11,10 @@ if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._customer import Customer
     from stripe._setup_attempt import SetupAttempt
-    from stripe.param._confirmation_token_create_params import (
+    from stripe.params._confirmation_token_create_params import (
         ConfirmationTokenCreateParams,
     )
-    from stripe.param._confirmation_token_retrieve_params import (
+    from stripe.params._confirmation_token_retrieve_params import (
         ConfirmationTokenRetrieveParams,
     )
 

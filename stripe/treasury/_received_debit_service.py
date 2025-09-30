@@ -9,10 +9,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.treasury._received_debit_list_params import (
+    from stripe.params.treasury._received_debit_list_params import (
         ReceivedDebitListParams,
     )
-    from stripe.param.treasury._received_debit_retrieve_params import (
+    from stripe.params.treasury._received_debit_retrieve_params import (
         ReceivedDebitRetrieveParams,
     )
 

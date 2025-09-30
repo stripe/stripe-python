@@ -7,16 +7,16 @@ from typing import ClassVar, Dict, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param._invoice_rendering_template_archive_params import (
+    from stripe.params._invoice_rendering_template_archive_params import (
         InvoiceRenderingTemplateArchiveParams,
     )
-    from stripe.param._invoice_rendering_template_list_params import (
+    from stripe.params._invoice_rendering_template_list_params import (
         InvoiceRenderingTemplateListParams,
     )
-    from stripe.param._invoice_rendering_template_retrieve_params import (
+    from stripe.params._invoice_rendering_template_retrieve_params import (
         InvoiceRenderingTemplateRetrieveParams,
     )
-    from stripe.param._invoice_rendering_template_unarchive_params import (
+    from stripe.params._invoice_rendering_template_unarchive_params import (
         InvoiceRenderingTemplateUnarchiveParams,
     )
 

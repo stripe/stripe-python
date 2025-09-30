@@ -12,19 +12,19 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.treasury._financial_account_close_params import (
+    from stripe.params.treasury._financial_account_close_params import (
         FinancialAccountCloseParams,
     )
-    from stripe.param.treasury._financial_account_create_params import (
+    from stripe.params.treasury._financial_account_create_params import (
         FinancialAccountCreateParams,
     )
-    from stripe.param.treasury._financial_account_list_params import (
+    from stripe.params.treasury._financial_account_list_params import (
         FinancialAccountListParams,
     )
-    from stripe.param.treasury._financial_account_retrieve_params import (
+    from stripe.params.treasury._financial_account_retrieve_params import (
         FinancialAccountRetrieveParams,
     )
-    from stripe.param.treasury._financial_account_update_params import (
+    from stripe.params.treasury._financial_account_update_params import (
         FinancialAccountUpdateParams,
     )
 

@@ -8,16 +8,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.test_helpers.treasury._outbound_transfer_fail_params import (
+    from stripe.params.test_helpers.treasury._outbound_transfer_fail_params import (
         OutboundTransferFailParams,
     )
-    from stripe.param.test_helpers.treasury._outbound_transfer_post_params import (
+    from stripe.params.test_helpers.treasury._outbound_transfer_post_params import (
         OutboundTransferPostParams,
     )
-    from stripe.param.test_helpers.treasury._outbound_transfer_return_outbound_transfer_params import (
+    from stripe.params.test_helpers.treasury._outbound_transfer_return_outbound_transfer_params import (
         OutboundTransferReturnOutboundTransferParams,
     )
-    from stripe.param.test_helpers.treasury._outbound_transfer_update_params import (
+    from stripe.params.test_helpers.treasury._outbound_transfer_update_params import (
         OutboundTransferUpdateParams,
     )
 

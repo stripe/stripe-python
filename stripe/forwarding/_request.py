@@ -8,11 +8,11 @@ from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.forwarding._request_create_params import (
+    from stripe.params.forwarding._request_create_params import (
         RequestCreateParams,
     )
-    from stripe.param.forwarding._request_list_params import RequestListParams
-    from stripe.param.forwarding._request_retrieve_params import (
+    from stripe.params.forwarding._request_list_params import RequestListParams
+    from stripe.params.forwarding._request_retrieve_params import (
         RequestRetrieveParams,
     )
 

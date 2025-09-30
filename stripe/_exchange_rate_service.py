@@ -9,8 +9,8 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param._exchange_rate_list_params import ExchangeRateListParams
-    from stripe.param._exchange_rate_retrieve_params import (
+    from stripe.params._exchange_rate_list_params import ExchangeRateListParams
+    from stripe.params._exchange_rate_retrieve_params import (
         ExchangeRateRetrieveParams,
     )
 

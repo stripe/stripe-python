@@ -11,9 +11,11 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.issuing._card import Card
-    from stripe.param.issuing._token_list_params import TokenListParams
-    from stripe.param.issuing._token_modify_params import TokenModifyParams
-    from stripe.param.issuing._token_retrieve_params import TokenRetrieveParams
+    from stripe.params.issuing._token_list_params import TokenListParams
+    from stripe.params.issuing._token_modify_params import TokenModifyParams
+    from stripe.params.issuing._token_retrieve_params import (
+        TokenRetrieveParams,
+    )
 
 
 class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):

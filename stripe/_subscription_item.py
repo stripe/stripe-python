@@ -16,19 +16,19 @@ if TYPE_CHECKING:
     from stripe._plan import Plan
     from stripe._price import Price
     from stripe._tax_rate import TaxRate
-    from stripe.param._subscription_item_create_params import (
+    from stripe.params._subscription_item_create_params import (
         SubscriptionItemCreateParams,
     )
-    from stripe.param._subscription_item_delete_params import (
+    from stripe.params._subscription_item_delete_params import (
         SubscriptionItemDeleteParams,
     )
-    from stripe.param._subscription_item_list_params import (
+    from stripe.params._subscription_item_list_params import (
         SubscriptionItemListParams,
     )
-    from stripe.param._subscription_item_modify_params import (
+    from stripe.params._subscription_item_modify_params import (
         SubscriptionItemModifyParams,
     )
-    from stripe.param._subscription_item_retrieve_params import (
+    from stripe.params._subscription_item_retrieve_params import (
         SubscriptionItemRetrieveParams,
     )
 

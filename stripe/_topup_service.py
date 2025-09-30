@@ -9,11 +9,11 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param._topup_cancel_params import TopupCancelParams
-    from stripe.param._topup_create_params import TopupCreateParams
-    from stripe.param._topup_list_params import TopupListParams
-    from stripe.param._topup_retrieve_params import TopupRetrieveParams
-    from stripe.param._topup_update_params import TopupUpdateParams
+    from stripe.params._topup_cancel_params import TopupCancelParams
+    from stripe.params._topup_create_params import TopupCreateParams
+    from stripe.params._topup_list_params import TopupListParams
+    from stripe.params._topup_retrieve_params import TopupRetrieveParams
+    from stripe.params._topup_update_params import TopupUpdateParams
 
 
 class TopupService(StripeService):

@@ -16,40 +16,40 @@ if TYPE_CHECKING:
     from stripe.issuing._cardholder import Cardholder
     from stripe.issuing._token import Token
     from stripe.issuing._transaction import Transaction
-    from stripe.param.issuing._authorization_approve_params import (
+    from stripe.params.issuing._authorization_approve_params import (
         AuthorizationApproveParams,
     )
-    from stripe.param.issuing._authorization_capture_params import (
+    from stripe.params.issuing._authorization_capture_params import (
         AuthorizationCaptureParams,
     )
-    from stripe.param.issuing._authorization_create_params import (
+    from stripe.params.issuing._authorization_create_params import (
         AuthorizationCreateParams,
     )
-    from stripe.param.issuing._authorization_decline_params import (
+    from stripe.params.issuing._authorization_decline_params import (
         AuthorizationDeclineParams,
     )
-    from stripe.param.issuing._authorization_expire_params import (
+    from stripe.params.issuing._authorization_expire_params import (
         AuthorizationExpireParams,
     )
-    from stripe.param.issuing._authorization_finalize_amount_params import (
+    from stripe.params.issuing._authorization_finalize_amount_params import (
         AuthorizationFinalizeAmountParams,
     )
-    from stripe.param.issuing._authorization_increment_params import (
+    from stripe.params.issuing._authorization_increment_params import (
         AuthorizationIncrementParams,
     )
-    from stripe.param.issuing._authorization_list_params import (
+    from stripe.params.issuing._authorization_list_params import (
         AuthorizationListParams,
     )
-    from stripe.param.issuing._authorization_modify_params import (
+    from stripe.params.issuing._authorization_modify_params import (
         AuthorizationModifyParams,
     )
-    from stripe.param.issuing._authorization_respond_params import (
+    from stripe.params.issuing._authorization_respond_params import (
         AuthorizationRespondParams,
     )
-    from stripe.param.issuing._authorization_retrieve_params import (
+    from stripe.params.issuing._authorization_retrieve_params import (
         AuthorizationRetrieveParams,
     )
-    from stripe.param.issuing._authorization_reverse_params import (
+    from stripe.params.issuing._authorization_reverse_params import (
         AuthorizationReverseParams,
     )
 

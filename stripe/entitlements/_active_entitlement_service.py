@@ -9,10 +9,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.entitlements._active_entitlement_list_params import (
+    from stripe.params.entitlements._active_entitlement_list_params import (
         ActiveEntitlementListParams,
     )
-    from stripe.param.entitlements._active_entitlement_retrieve_params import (
+    from stripe.params.entitlements._active_entitlement_retrieve_params import (
         ActiveEntitlementRetrieveParams,
     )
 

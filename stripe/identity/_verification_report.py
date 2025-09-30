@@ -7,10 +7,10 @@ from typing import ClassVar, List, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.identity._verification_report_list_params import (
+    from stripe.params.identity._verification_report_list_params import (
         VerificationReportListParams,
     )
-    from stripe.param.identity._verification_report_retrieve_params import (
+    from stripe.params.identity._verification_report_retrieve_params import (
         VerificationReportRetrieveParams,
     )
 

@@ -8,12 +8,12 @@ from typing import ClassVar, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.apps._secret_create_params import SecretCreateParams
-    from stripe.param.apps._secret_delete_where_params import (
+    from stripe.params.apps._secret_create_params import SecretCreateParams
+    from stripe.params.apps._secret_delete_where_params import (
         SecretDeleteWhereParams,
     )
-    from stripe.param.apps._secret_find_params import SecretFindParams
-    from stripe.param.apps._secret_list_params import SecretListParams
+    from stripe.params.apps._secret_find_params import SecretFindParams
+    from stripe.params.apps._secret_list_params import SecretListParams
 
 
 class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):

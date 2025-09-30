@@ -10,10 +10,10 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._invoice import Invoice
     from stripe.billing._credit_grant import CreditGrant
-    from stripe.param.billing._credit_balance_transaction_list_params import (
+    from stripe.params.billing._credit_balance_transaction_list_params import (
         CreditBalanceTransactionListParams,
     )
-    from stripe.param.billing._credit_balance_transaction_retrieve_params import (
+    from stripe.params.billing._credit_balance_transaction_retrieve_params import (
         CreditBalanceTransactionRetrieveParams,
     )
     from stripe.test_helpers._test_clock import TestClock

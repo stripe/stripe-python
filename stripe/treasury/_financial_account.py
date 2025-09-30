@@ -10,25 +10,25 @@ from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.treasury._financial_account_close_params import (
+    from stripe.params.treasury._financial_account_close_params import (
         FinancialAccountCloseParams,
     )
-    from stripe.param.treasury._financial_account_create_params import (
+    from stripe.params.treasury._financial_account_create_params import (
         FinancialAccountCreateParams,
     )
-    from stripe.param.treasury._financial_account_list_params import (
+    from stripe.params.treasury._financial_account_list_params import (
         FinancialAccountListParams,
     )
-    from stripe.param.treasury._financial_account_modify_params import (
+    from stripe.params.treasury._financial_account_modify_params import (
         FinancialAccountModifyParams,
     )
-    from stripe.param.treasury._financial_account_retrieve_features_params import (
+    from stripe.params.treasury._financial_account_retrieve_features_params import (
         FinancialAccountRetrieveFeaturesParams,
     )
-    from stripe.param.treasury._financial_account_retrieve_params import (
+    from stripe.params.treasury._financial_account_retrieve_params import (
         FinancialAccountRetrieveParams,
     )
-    from stripe.param.treasury._financial_account_update_features_params import (
+    from stripe.params.treasury._financial_account_update_features_params import (
         FinancialAccountUpdateFeaturesParams,
     )
     from stripe.treasury._financial_account_features import (

@@ -8,19 +8,19 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.test_helpers.issuing._card_deliver_card_params import (
+    from stripe.params.test_helpers.issuing._card_deliver_card_params import (
         CardDeliverCardParams,
     )
-    from stripe.param.test_helpers.issuing._card_fail_card_params import (
+    from stripe.params.test_helpers.issuing._card_fail_card_params import (
         CardFailCardParams,
     )
-    from stripe.param.test_helpers.issuing._card_return_card_params import (
+    from stripe.params.test_helpers.issuing._card_return_card_params import (
         CardReturnCardParams,
     )
-    from stripe.param.test_helpers.issuing._card_ship_card_params import (
+    from stripe.params.test_helpers.issuing._card_ship_card_params import (
         CardShipCardParams,
     )
-    from stripe.param.test_helpers.issuing._card_submit_card_params import (
+    from stripe.params.test_helpers.issuing._card_submit_card_params import (
         CardSubmitCardParams,
     )
 

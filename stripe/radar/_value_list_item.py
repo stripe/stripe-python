@@ -9,16 +9,16 @@ from typing import ClassVar, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.radar._value_list_item_create_params import (
+    from stripe.params.radar._value_list_item_create_params import (
         ValueListItemCreateParams,
     )
-    from stripe.param.radar._value_list_item_delete_params import (
+    from stripe.params.radar._value_list_item_delete_params import (
         ValueListItemDeleteParams,
     )
-    from stripe.param.radar._value_list_item_list_params import (
+    from stripe.params.radar._value_list_item_list_params import (
         ValueListItemListParams,
     )
-    from stripe.param.radar._value_list_item_retrieve_params import (
+    from stripe.params.radar._value_list_item_retrieve_params import (
         ValueListItemRetrieveParams,
     )
 

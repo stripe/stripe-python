@@ -16,17 +16,17 @@ if TYPE_CHECKING:
     from stripe._line_item import LineItem
     from stripe._shipping_rate import ShippingRate
     from stripe._tax_id import TaxId
-    from stripe.param._payment_link_create_params import (
+    from stripe.params._payment_link_create_params import (
         PaymentLinkCreateParams,
     )
-    from stripe.param._payment_link_list_line_items_params import (
+    from stripe.params._payment_link_list_line_items_params import (
         PaymentLinkListLineItemsParams,
     )
-    from stripe.param._payment_link_list_params import PaymentLinkListParams
-    from stripe.param._payment_link_modify_params import (
+    from stripe.params._payment_link_list_params import PaymentLinkListParams
+    from stripe.params._payment_link_modify_params import (
         PaymentLinkModifyParams,
     )
-    from stripe.param._payment_link_retrieve_params import (
+    from stripe.params._payment_link_retrieve_params import (
         PaymentLinkRetrieveParams,
     )
 

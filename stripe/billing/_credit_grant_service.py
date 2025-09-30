@@ -9,22 +9,22 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.billing._credit_grant_create_params import (
+    from stripe.params.billing._credit_grant_create_params import (
         CreditGrantCreateParams,
     )
-    from stripe.param.billing._credit_grant_expire_params import (
+    from stripe.params.billing._credit_grant_expire_params import (
         CreditGrantExpireParams,
     )
-    from stripe.param.billing._credit_grant_list_params import (
+    from stripe.params.billing._credit_grant_list_params import (
         CreditGrantListParams,
     )
-    from stripe.param.billing._credit_grant_retrieve_params import (
+    from stripe.params.billing._credit_grant_retrieve_params import (
         CreditGrantRetrieveParams,
     )
-    from stripe.param.billing._credit_grant_update_params import (
+    from stripe.params.billing._credit_grant_update_params import (
         CreditGrantUpdateParams,
     )
-    from stripe.param.billing._credit_grant_void_grant_params import (
+    from stripe.params.billing._credit_grant_void_grant_params import (
         CreditGrantVoidGrantParams,
     )
 

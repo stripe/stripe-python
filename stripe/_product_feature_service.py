@@ -9,16 +9,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param._product_feature_create_params import (
+    from stripe.params._product_feature_create_params import (
         ProductFeatureCreateParams,
     )
-    from stripe.param._product_feature_delete_params import (
+    from stripe.params._product_feature_delete_params import (
         ProductFeatureDeleteParams,
     )
-    from stripe.param._product_feature_list_params import (
+    from stripe.params._product_feature_list_params import (
         ProductFeatureListParams,
     )
-    from stripe.param._product_feature_retrieve_params import (
+    from stripe.params._product_feature_retrieve_params import (
         ProductFeatureRetrieveParams,
     )
 

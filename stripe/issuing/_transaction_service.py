@@ -9,13 +9,13 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.issuing._transaction_list_params import (
+    from stripe.params.issuing._transaction_list_params import (
         TransactionListParams,
     )
-    from stripe.param.issuing._transaction_retrieve_params import (
+    from stripe.params.issuing._transaction_retrieve_params import (
         TransactionRetrieveParams,
     )
-    from stripe.param.issuing._transaction_update_params import (
+    from stripe.params.issuing._transaction_update_params import (
         TransactionUpdateParams,
     )
 

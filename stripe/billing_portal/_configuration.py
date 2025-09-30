@@ -12,16 +12,16 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._application import Application
-    from stripe.param.billing_portal._configuration_create_params import (
+    from stripe.params.billing_portal._configuration_create_params import (
         ConfigurationCreateParams,
     )
-    from stripe.param.billing_portal._configuration_list_params import (
+    from stripe.params.billing_portal._configuration_list_params import (
         ConfigurationListParams,
     )
-    from stripe.param.billing_portal._configuration_modify_params import (
+    from stripe.params.billing_portal._configuration_modify_params import (
         ConfigurationModifyParams,
     )
-    from stripe.param.billing_portal._configuration_retrieve_params import (
+    from stripe.params.billing_portal._configuration_retrieve_params import (
         ConfigurationRetrieveParams,
     )
 

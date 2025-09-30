@@ -9,13 +9,19 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.param.issuing._dispute_create_params import DisputeCreateParams
-    from stripe.param.issuing._dispute_list_params import DisputeListParams
-    from stripe.param.issuing._dispute_retrieve_params import (
+    from stripe.params.issuing._dispute_create_params import (
+        DisputeCreateParams,
+    )
+    from stripe.params.issuing._dispute_list_params import DisputeListParams
+    from stripe.params.issuing._dispute_retrieve_params import (
         DisputeRetrieveParams,
     )
-    from stripe.param.issuing._dispute_submit_params import DisputeSubmitParams
-    from stripe.param.issuing._dispute_update_params import DisputeUpdateParams
+    from stripe.params.issuing._dispute_submit_params import (
+        DisputeSubmitParams,
+    )
+    from stripe.params.issuing._dispute_update_params import (
+        DisputeUpdateParams,
+    )
 
 
 class DisputeService(StripeService):

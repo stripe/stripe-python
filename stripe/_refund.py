@@ -16,12 +16,12 @@ if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._payment_intent import PaymentIntent
     from stripe._reversal import Reversal
-    from stripe.param._refund_cancel_params import RefundCancelParams
-    from stripe.param._refund_create_params import RefundCreateParams
-    from stripe.param._refund_expire_params import RefundExpireParams
-    from stripe.param._refund_list_params import RefundListParams
-    from stripe.param._refund_modify_params import RefundModifyParams
-    from stripe.param._refund_retrieve_params import RefundRetrieveParams
+    from stripe.params._refund_cancel_params import RefundCancelParams
+    from stripe.params._refund_create_params import RefundCreateParams
+    from stripe.params._refund_expire_params import RefundExpireParams
+    from stripe.params._refund_list_params import RefundListParams
+    from stripe.params._refund_modify_params import RefundModifyParams
+    from stripe.params._refund_retrieve_params import RefundRetrieveParams
 
 
 class Refund(

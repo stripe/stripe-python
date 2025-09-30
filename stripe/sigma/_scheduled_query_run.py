@@ -8,10 +8,10 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._file import File
-    from stripe.param.sigma._scheduled_query_run_list_params import (
+    from stripe.params.sigma._scheduled_query_run_list_params import (
         ScheduledQueryRunListParams,
     )
-    from stripe.param.sigma._scheduled_query_run_retrieve_params import (
+    from stripe.params.sigma._scheduled_query_run_retrieve_params import (
         ScheduledQueryRunRetrieveParams,
     )
 
